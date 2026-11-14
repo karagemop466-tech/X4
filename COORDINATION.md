@@ -28,6 +28,7 @@ file scope. Never start work on a task another session has claimed.
 | 3 | Official-source data acquisition, model line engine, strategy validation harness, multi-page site, integration and publication | done | arena/59059060-x4 | `data/**`, `research/**`, `tools/**`, `site/**` (integration), root site mirror, `README.md`, `COORDINATION.md`, `.github/workflows/**` |
 | T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` |
 | T02–T14 | Requirements inventory, additional official-source research, strategy/leaderboard/injury/decision/suggestion pages, repo review, integration and publication | done | 5c48ced7 | root + `site/` mirrors of `executive-summary.html`, `requirements.html`, `data.html`, `signals.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `review.html`, `flagged.html`, `repo-review.html`, `sources.html`, `desk.css`, `nav.js`; new files under `research/data/`, `tools/` (desk tools), `.github/workflows/desk-check.yml` |
+| T20 | **Final integration.** Live re-verification of every published row against the official source; one category-organised landing page and reciprocal navigation across all three published layers; end the dual-publisher race by generating the console mirror in `tools/sync.py`; one publication gate over every published page | in progress | arena/63f321d0-x4 | `tools/sync.py`, `tools/validate.py`, `tools/pages.py`, `tools/check_site.py`, `tools/verify_live.py`, `tools/gen_*.py`, `site/**`, root site mirror (`*.html`, `styles.css`, `app.js`, `nav.js`, `desk.css`), `console/**`, `docs/**`, `.github/workflows/pages.yml`, `.github/workflows/desk-check.yml`, `research/verification/**`, `README.md`, `COORDINATION.md` |
 
 ### Non-overlapping scope map
 
@@ -511,3 +512,21 @@ claims.
 | Local reproducibility gate after merge | `build.py && pages.py && sync.py && git diff --exit-code` = clean; desk generators byte-identical |
 
 PR #13 (https://github.com/karagemop466-tech/X4/pull/13) carries this record to `main`; this section's presence on `main` is itself the proof that PR #13 merged (it can only reach `main` through that merge).
+
+---
+
+## Session log — arena/63f321d0-x4 (final integration session)
+
+- **2026-11-14 — arena/63f321d0-x4**: Claimed T20 (final integration) at
+  `270afea` (main). Scope: `tools/sync.py`, `tools/validate.py`, `tools/pages.py`,
+  `tools/check_site.py`, `tools/verify_live.py`, `tools/gen_*.py`, `site/**`, the
+  root site mirror, `console/**`, `docs/**`, both Pages workflows,
+  `research/verification/**`, `README.md`, `COORDINATION.md`.
+  Four defects found in the inherited state, all confirmed before being changed:
+  (1) the landing page linked none of the eleven decision-desk pages and not the
+  console, so the published site was not navigable; (2) the desk sidebar's
+  "Overview" pointed at the main landing page while the main navigation never
+  pointed back, so the two layers were mutually unreachable; (3) two Pages
+  publishers (the custom `site/` artifact and the legacy repository-root build)
+  could publish different bytes; (4) `tools/sync.py` did not generate the
+  console mirror, so `console/` was only ever refreshed inside CI.
