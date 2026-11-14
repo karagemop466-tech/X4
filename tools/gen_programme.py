@@ -195,12 +195,17 @@ for g in gates:
 # ---------------------------------------------------------------- page assembly
 NAV = [("index.html", "Overview"), ("executive-summary.html", "Executive summary"),
        ("requirements.html", "Requirements"), ("data.html", "Verified data"),
-       ("signals.html", "Line lab &amp; signals"), ("leaderboard.html", "Leaderboard"),
+       ("signals.html", "Line lab &amp; signals"),
+       ("origination.html", "Line origination"), ("price-store.html", "Price store"),
+       ("signal-vs-staking.html", "Signal vs staking"), ("correlations.html", "Correlations"),
+       ("replacements.html", "Availability &amp; depth"), ("method-lab.html", "Method lab"),
+       ("leaderboard.html", "Leaderboard"),
+       ("ops-review.html", "Review gate"), ("verification.html", "Verification"),
+       ("requirements-closure.html", "Requirement closure"),
        ("injuries.html", "Availability"), ("decisions.html", "Decision Q&amp;A"),
        ("review.html", "Suggestions"), ("workbench.html", "Suggestion workbench"),
-       ("programme.html", "Integrity &amp; programme"),
-       ("flagged.html", "Flagged for review"), ("repo-review.html", "Repo review"),
-       ("sources.html", "Sources")]
+       ("programme.html", "Integrity &amp; programme"), ("flagged.html", "Flagged for review"),
+       ("repo-review.html", "Repo review"), ("sources.html", "Sources")]
 side = ['<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span>'
         '<span>FOURTH DOWN<small>RESEARCH DESK</small></span></a>'
         '<div class="side-label">WORKSPACE</div><nav>']

@@ -48,6 +48,8 @@ NAV = [
     ("leaderboard.html", "↗ &nbsp;Leaderboard"),
     ("decisions.html", "? &nbsp;Decision Q&amp;A"),
     ("review.html", "✳ &nbsp;Suggestions"),
+    ("workbench.html", "✳ &nbsp;Suggestion workbench"),
+    ("programme.html", "◫ &nbsp;Integrity &amp; programme"),
     ("verification.html", "✓ &nbsp;Verification"),
     ("requirements-closure.html", "☑ &nbsp;Requirement closure"),
     ("ops-review.html", "✧ &nbsp;Review gate"),
