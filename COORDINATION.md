@@ -29,6 +29,7 @@ file scope. Never start work on a task another session has claimed.
 | T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` |
 | T02–T14 | Requirements inventory, additional official-source research, strategy/leaderboard/injury/decision/suggestion pages, repo review, integration and publication | done | 5c48ced7 | root + `site/` mirrors of `executive-summary.html`, `requirements.html`, `data.html`, `signals.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `review.html`, `flagged.html`, `repo-review.html`, `sources.html`, `desk.css`, `nav.js`; new files under `research/data/`, `tools/` (desk tools), `.github/workflows/desk-check.yml` |
 | T15 | **Final integration session**: re-verify the combined data line by line, unify the navigation and the landing page so every page in all three builds is reachable, merge the two open pull requests, re-run every gate, publish to GitHub Pages, open and merge the PR to `main` | in progress | arena/da12b830-x4 | `tools/pages.py` (nav + landing page), `tools/sync.py`, `site/index.html` + root mirror, `site/nav.js` + root mirror, desk sidebar nav in `site/*.html` + root mirrors, `README.md`, `COORDINATION.md` |
+| T21 | Independent repository / published-site verification audit; record only verified findings and actionable irregularities | in progress | arena/7329d16c-x4 | `COORDINATION.md`, `research/audit-2026-11-14.md` |
 
 ### Non-overlapping scope map
 
