@@ -1,0 +1,7 @@
+rule,name,trigger,threshold
+D1,Skill evidence collapses,one-sided p > 0.20 on the skill score over the last 50 settled bets,
+D2,Calibration breaks,Brier score worse than the market's by > 0.02 over 50 settled bets,0.02
+D3,Drawdown breach,paper drawdown > 15 units at stake 1,15
+D4,Data-integrity break,any market graded without a source URL or a UTC stamp,0
+D5,Stability break,one week contributes > 50% of the skill statistic,0.5
+D6,Signal decay,the fair-market difference changes sign over 50 settled bets,

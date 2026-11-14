@@ -58,7 +58,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 
 | ID | Irregularity |
 |---|---|
-| F-01 | Current market betting lines and odds |
+| F-01 | Official market betting lines |
 | F-02 | Depth-chart string: starter, 2nd, 3rd, 4th |
 | F-03 | Players on injured reserve, PUP and NFI |
 | F-04 | Two official sources give different absence windows for the same player |
@@ -75,7 +75,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-15 | The X4 Console's no-JavaScript fallback counts were stale |
 | F-16 | Two different flagged registers reuse the same identifiers |
 | F-17 | The three published layers define three different validation gates |
-| F-18 | Market betting lines (spread, total, moneyline) |
+| F-34 | Official injury-report drift on two practice-status cells |
+| F-18 | Market betting lines are not an official NFL publication |
 | F-19 | Staking / bankroll figures |
 | F-20 | ROI and expected-value figures |
 | F-21 | Replacement depth: starter, 2nd, 3rd, 4th string |
@@ -91,7 +92,12 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-31 | The opening snapshot records points, not the price on those points |
 | F-32 | The publication gate rejected the surname Fagnano as a placeholder marker |
 | F-33 | The depth register on this site contradicted the official injury report for four of its seven rows |
-| F-34 | Official injury-report drift on two practice-status cells |
+| F-35 | Player-prop and prop-combination prices |
+| F-36 | Prices are from one book and are not official |
+| F-37 | Doubled HTML entity in the depth summary text |
+| F-38 | The two price stores use the word 'close' differently |
+| F-39 | Desk rows without an official source link: the row-source gate was not reading row links |
+| F-40 | Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked) |
 
 ## What is deliberately absent
 

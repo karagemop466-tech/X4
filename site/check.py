@@ -30,7 +30,7 @@ from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repository root
 SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT, "site")
-PAGES = ["index.html", "standings.html", "lines.html", "price-snapshots.html",
+PAGES = ["index.html", "market.html", "standings.html", "lines.html", "price-snapshots.html",
          "results.html", "strategies.html", "availability.html", "depth.html",
          "questions.html", "suggestions.html", "flags.html", "methodology.html",
          "markets.html", "gates.html"]
@@ -205,6 +205,28 @@ def main():
                     problems.append("%s: table %d row %d has no official source link"
                                     % (page, t_i + 1, r_i + 1))
 
+    # ---- every published page resolves its own local links ----
+    # The Pages artifact is `site/`, so a link that works in the repository root
+    # but not in the published tree is a dead link for a reader. The desk pages
+    # are checked here too (they are not in PAGES, and their rows are checked by
+    # tools/check_site.py, which has a looser source rule).
+    link_pages = 0
+    link_pages_checked = 0
+    for name in sorted(os.listdir(SITE)):
+        if not name.endswith(".html"):
+            continue
+        link_pages += 1
+        html = open(os.path.join(SITE, name), encoding="utf-8").read()
+        for href in LINK.findall(html):
+            if href.startswith(("https://", "http://", "mailto:", "#", "data:", "javascript:")):
+                continue
+            target = href.split("#")[0].split("?")[0]
+            if not target:
+                continue
+            if not os.path.exists(os.path.join(SITE, target)):
+                problems.append("%s: broken local link -> %s" % (name, href))
+        link_pages_checked += 1
+
     # ---- numeric consistency on the standings page ----
     checked_rows = 0
     if "standings.html" in pages:
@@ -266,6 +288,7 @@ def main():
     print("pages checked: %d" % checked_pages)
     print("tables checked: %d" % total_tables)
     print("data rows checked: %d (with an official source link: %d)" % (total_rows, sourced_rows))
+    print("every published page's local links resolved: %d pages" % link_pages_checked)
     print("numeric consistency checked: %d team rows" % checked_rows)
     if problems:
         print("PROBLEMS (%d):" % len(problems))

@@ -1,0 +1,10 @@
+model,settled_bets,wins,hit_rate,avg_disagreement_points,avg_no_vig_cover_prob,brier,clv_positive,clv_n,net_units,clv_status,stage
+S0,1,0,0.0,1.5219,0.545,0.297,0,,-1.0,CLV blocked: no stake-time capture,paper
+S1,1,0,0.0,5.9584,0.6708,0.45,0,,-1.0,CLV blocked: no stake-time capture,paper
+S2,1,0,0.0,5.6941,0.6637,0.4405,0,,-1.0,CLV blocked: no stake-time capture,paper
+S3,1,1,1.0,0.2486,0.5074,0.2427,0,,0.9091,CLV blocked: no stake-time capture,paper
+S4,1,1,1.0,1.3464,0.5398,0.2118,0,,0.9091,CLV blocked: no stake-time capture,paper
+S5,1,1,1.0,0.2398,0.5071,0.2429,0,,0.9091,CLV blocked: no stake-time capture,paper
+S6,1,1,1.0,1.0286,0.5304,0.2205,0,,0.9091,CLV blocked: no stake-time capture,paper
+S7,1,1,1.0,0.3632,0.5108,0.2394,0,,0.9091,CLV blocked: no stake-time capture,paper
+S8,1,0,0.0,6.7234,0.6911,0.4776,0,,-1.0,CLV blocked: no stake-time capture,paper

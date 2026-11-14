@@ -15,6 +15,7 @@ import html
 import json
 import os
 import re
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "output")
@@ -93,8 +94,8 @@ DIRECTORY = [
          "All {n_depth_rows} depth positions transcribed from the {n_depth_clubs} clubs that publish an ordered chart, joined to the official injury report: who is out, who replaces him, and where no replacement is named."),
         ("injuries.html", "Availability",
          "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
-        ("results.html", "Results feed",
-         "Every completed game with its official score and the NFL.com page that confirms it - the feed that makes backtests computable."),
+        ("replacements.html", "Availability &amp; depth",
+         "The replacement chains: who replaced whom, at what depth, and where no replacement is named at all."),
     ]),
     ("Model &amp; strategies", [
         ("lines.html", "Model lines",
@@ -109,12 +110,46 @@ DIRECTORY = [
          "Thirteen originated baseline lines against the market, ten candidate signals, eight gates and four correlations with confidence intervals."),
         ("leaderboard.html", "Leaderboard",
          "Singles, parlays and prop-combination divisions with the scoring formula and the anti-gaming rules."),
+        ("origination.html", "Line origination",
+         "The origination desk: side first, then total, then moneyline, with the fair line, the market line and the difference kept apart."),
+        ("price-store.html", "Price store",
+         "The operations price store: opening and current numbers for every market we originate, and the closing snapshot that is deliberately empty."),
+        ("signal-vs-staking.html", "Signal vs staking",
+         "The leaderboard split: a strategy's signal is scored without seeing a stake, so a lucky staking run cannot mask a bad signal."),
+        ("correlations.html", "Correlations",
+         "Correlations computed only from officially sourced numbers, each published with its n and its confidence interval."),
+        ("method-lab.html", "Method lab",
+         "The method behind every number: pre-registration, walk-forward evaluation, the gates and the anti-luck protocol."),
+    ]),
+    ("Line origination desk", [
+        ("origination.html", "Line origination",
+         "The numbers we originate: side, then total, then moneyline."),
+        ("price-store.html", "Price store",
+         "The price-snapshot store and its provenance."),
+        ("signal-vs-staking.html", "Signal vs staking",
+         "The leaderboard, with signal and staking scored apart."),
+        ("correlations.html", "Correlations",
+         "Correlations from officially sourced numbers, with n."),
+        ("replacements.html", "Availability &amp; depth",
+         "Replacement depth, as far as the official record goes."),
+        ("method-lab.html", "Method lab",
+         "Fundamentals, best practice and signal-generation research."),
+        ("ops-review.html", "Review gate",
+         "The review gate for this layer's own suggestions."),
+        ("verification.html", "Verification",
+         "A page whose claims are re-derived from the raw artifacts, so the page can contradict itself."),
+        ("requirements-closure.html", "Requirement closure",
+         "Every brief requirement with its closure state and the evidence page for it."),
     ]),
     ("Review &amp; flags", [
         ("suggestions.html", "Suggestions",
          "{spell_cap_n_suggestions} ranked proposals, each with the decision it needs and the evidence that would show it worked."),
         ("review.html", "Suggestions review queue",
          "Eighteen proposals with Accept / Hold / Reject, saved in the browser, so a path is chosen before anything is built."),
+        ("workbench.html", "Suggestion workbench",
+         "Twelve proposals scored on one documented four-part rubric, ranked, and reviewable with a stored Accept / Hold / Reject so the best path is chosen before anything is built."),
+        ("programme.html", "Integrity &amp; programme",
+         "The eight integrity gates: a price-snapshot store, a verified results feed, side-then-total-then-moneyline, fair/market/difference columns, signal separated from staking, measured replacement depth, correlations with n, and a demotion gate."),
         ("flags.html", "Flagged for review",
          "Unverified values and irregularities found while verifying, each with the reason it is still open - {n_flags} entries so far."),
         ("flagged.html", "Flagged for review (desk)",
@@ -127,6 +162,12 @@ DIRECTORY = [
          "The full source register: which official page each number came from, and when it was retrieved."),
         ("repo-review.html", "Repo review",
          "A line-by-line review of every file in this repository, with the issues that were found."),
+        ("ops-review.html", "Review gate",
+         "The gate that decides what may be published: which numbers are official, which are model estimates and which are unverified."),
+        ("verification.html", "Verification",
+         "Every check that was run, what it proved and what it could not prove."),
+        ("requirements-closure.html", "Requirement closure",
+         "Each brief requirement, the deliverable that satisfies it, and the verification that closes it."),
     ]),
 ]
 
@@ -134,6 +175,50 @@ SRC_SEASON = "https://www.nfl.com/schedules/2026/"
 
 
 # ------------------------------------------------------------------ helpers
+# --- verified market price store (research/data/price_snapshots_2026.csv) ---
+# DraftKings prices captured through the ESPN odds endpoint and labelled as such;
+# every row carries the game's NFL.com URL as its official identity.
+_PRICE_STORE = {}
+_PRICE_STORE_WK11 = {}
+import csv as _csv
+import os as _os
+_ps_path = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+                         "research", "data", "price_snapshots_2026.csv")
+if _os.path.exists(_ps_path):
+    with open(_ps_path, newline="", encoding="utf-8") as _fh:
+        for _r in _csv.DictReader(_fh):
+            _PRICE_STORE[(_r["away"], _r["home"])] = _r
+            if _r.get("week") == "11":
+                _PRICE_STORE_WK11[(_r["away"], _r["home"])] = _r
+
+PRICE_SOURCE_NOTE = ("DraftKings via ESPN, captured 2026-11-14; not an official NFL line")
+
+
+def market_cell(pair, field, fmt="1"):
+    """A market number, or a blank that says precisely why it is blank."""
+    r = _PRICE_STORE_WK11.get(pair)
+    if r is None:
+        return blank("no captured price for this game")
+    v = (r.get(field) or "").strip()
+    if not v:
+        return blank("no %s price was posted" % field.replace("_", " "))
+    try:
+        fv = float(v)
+    except ValueError:
+        return esc(v)
+    if fmt == "ml":
+        # moneylines are integers: -455, +350, -1650 with a comma like a book prints it
+        return '<span class="num">%s</span>' % format(int(round(fv)), ",d")
+    return '<span class="num">%s</span>' % format(fv, ".%sf" % fmt)
+
+
+def market_link(pair):
+    r = _PRICE_STORE_WK11.get(pair)
+    if r is None:
+        return ""
+    return ' &middot; <a href="%s" target="_blank" rel="noreferrer">price &#8599;</a>' % esc(r["source_url"])
+
+
 def esc(v):
     return html.escape("" if v is None else str(v), quote=True)
 
@@ -376,30 +461,45 @@ def lines_table():
     rows = []
     for r in lines:
         s3 = r["models"]["S3"]
+        pair = (r["away"], r["home"])
+        mk = _PRICE_STORE_WK11.get(pair, {})
+        def _f(x):
+            try:
+                return float(x)
+            except (TypeError, ValueError):
+                return None
+        m_sp = _f(mk.get("spread_away_current"))
+        m_tot = _f(mk.get("total_current"))
+        mL = _f(mk.get("ml_home_current"))
+        diff = (s3["spread"] - m_sp) if m_sp is not None else None
+        tdiff = (s3["total"] - m_tot) if m_tot is not None else None
         rows.append([
             esc(r["date"]),
             "<b>%s @ %s</b>" % (esc(r["away"]), esc(r["home"])),
             esc(r["time_et"]),
             esc(r["network"]) + (" (%s)" % esc(r["international"]) if r["international"] else ""),
             num(s3["spread"], 1),
-            blank("no official NFL source &mdash; see Flagged F-18"),
-            blank("fair minus market &mdash; market blank &mdash; see Flagged F-18"),
+            market_cell(pair, "spread_away_current"),
+            num(diff, 1) if diff is not None else blank("no market spread"),
             num(s3["total"], 1),
-            blank("no official NFL source &mdash; see Flagged F-18"),
-            blank("fair minus market &mdash; market blank &mdash; see Flagged F-18"),
-            src(r["url"], "NFL.com"),
+            market_cell(pair, "total_current"),
+            num(tdiff, 1) if tdiff is not None else blank("no market total"),
+            ('<span class="num">%s</span>' % format(int(round(mL)), ",d")) if mL is not None else blank("no moneyline posted"),
+            src(r["url"], "NFL.com") + market_link(pair),
         ])
     return wrap("lines", table(
         [("Date", 0), ("Matchup", 0), ("Kickoff", 0), ("TV", 0),
-         ("Fair spread (model)", 1), ("Market spread", 0), ("Spread difference", 1),
-         ("Fair total (model)", 1), ("Market total", 0), ("Total difference", 1),
-         ("Source", 0)], rows,
+         ("Fair spread (model)", 1), ("Market spread", 1), ("Fair minus market", 1),
+         ("Fair total (model)", 1), ("Market total", 1), ("Fair minus market", 1),
+         ("Market ML (home)", 1), ("Source", 0)], rows,
         "Line origination order: side (spread) first, then the total, then the moneyline. "
         "The fair line is the model's estimate (S3 strategy) derived from official NFL.com "
-        "results. The market line is intentionally blank: the NFL publishes no official "
-        "betting lines (Flag F-18), so the difference column is blank as a consequence. "
-        "The moneyline is not published because it requires market prices (Flag F-18). "
-        "Every figure is a model estimate, not a price and not a recommendation."))
+        "results. The market column is a captured price, not an official NFL line: the "
+        "league publishes no betting lines, so these are DraftKings prices read through the "
+        "ESPN odds endpoint on 2026-11-14 and labelled as such (see Flag F-18). Fair line, "
+        "market line and their difference are three separate columns so a disagreement can "
+        "never be mistaken for an edge. Where no price was posted the cell is blank and "
+        "says so; nothing is filled from a secondary aggregator."))
 
 
 def strategy_list_table():
@@ -655,31 +755,78 @@ def flags_table(limit=None):
         "verification."))
 
 
-def price_snapshot_table():
-    """The price-snapshot store: opening and closing fair lines for every market we originate.
+def _settled_snapshots():
+    """The settled game in the store, so a real open->close move is visible on this page."""
+    out = []
+    for (away, home), r in sorted(_PRICE_STORE.items()):
+        if r.get("state") != "final":
+            continue
+        for mt, fair_key in (("spread", "spread_away_open"), ("total", "total_open")):
+            fair = r.get(fair_key) or ""
+            out.append(dict(snapshot_id=len(out) + 1, away=away, home=home, market_type=mt,
+                            snapshot_kind="closing", fair_line=fair,
+                            closing_fair_line="", source_url=r.get("game_url") or r.get("source_url", "")))
+    return out
 
-    Opening lines are our own model estimates (S3 recommended line) for the Week 11
-    games. Closing lines are blank until the games close; this build runs before
-    kickoff so every snapshot here is an opening snapshot.
+
+def price_snapshot_table():
+    """The price-snapshot store: every market, three phases, fair and market side by side.
+
+    Two independent things are recorded for each market. The fair line is our own
+    originated model estimate (S3). The market line is a captured price (DraftKings
+    via the ESPN odds endpoint, 2026-11-14) - not an official NFL line, because the
+    league publishes none. Each row prints the phase so opening and closing cannot be
+    confused, and the difference is published as its own column.
     """
     rows = []
-    for s in price_snapshots:
+    for s_ in _settled_snapshots() + price_snapshots:
+        pair = (s_["away"], s_["home"])
+        mk = _PRICE_STORE.get(pair, {})
+        market = {"spread": mk.get("spread_away_current"),
+                  "total": mk.get("total_current")}.get(s_["market_type"], "")
+        opening_market = {"spread": mk.get("spread_away_open"),
+                          "total": mk.get("total_open")}.get(s_["market_type"], "")
+        closing_market = {"spread": mk.get("spread_away_close"),
+                          "total": mk.get("total_close")}.get(s_["market_type"], "")
+
+        def _fl(v):
+            try:
+                return float(v)
+            except (TypeError, ValueError):
+                return None
+
+        fair = _fl(s_["fair_line"])
+        mkt = _fl(market)
+        diff = (fair - mkt) if (fair is not None and mkt is not None) else None
+        if s_["market_type"] == "total" and _fl(opening_market) is not None and _fl(closing_market) is not None:
+            diff = _fl(closing_market) - _fl(opening_market)  # the settled open->close move
         rows.append([
-            num(s["snapshot_id"]),
-            esc(s["away"]) + " @ " + esc(s["home"]),
-            esc(s["market_type"]),
-            esc(s["snapshot_kind"]),
-            num(s["fair_line"], 1),
-            num(s["closing_fair_line"], 1) if s["closing_fair_line"] else blank("pending &mdash; game not yet closed"),
-            src(s["source_url"], "NFL.com game"),
+            num(s_["snapshot_id"]),
+            esc(s_["away"]) + " @ " + esc(s_["home"]),
+            esc(s_["market_type"]),
+            esc(s_["snapshot_kind"]),
+            num(s_["fair_line"], 1),
+            num(opening_market, 1) if _fl(opening_market) is not None else blank("no posted open"),
+            num(diff, 1) if diff is not None else blank("no posted price"),
+            (num(closing_market, 1) if _fl(closing_market) is not None
+             else blank("not closed yet")),
+            src(s_["source_url"], "NFL.com game") + (
+                ' &middot; <a href="%s" target="_blank" rel="noreferrer">price &#8599;</a>'
+                % esc(_PRICE_STORE[pair]["source_url"]) if pair in _PRICE_STORE else ""),
         ])
     return wrap("price-snapshots", table(
-        [("Snapshot", 1), ("Game", 0), ("Market", 0), ("Snapshot", 0),
-         ("Fair line", 1), ("Closing line", 1), ("Source", 0)], rows,
-        "Price-snapshot store for the markets we originate. The opening fair line is our "
-        "model's estimate (S3 strategy) derived from official NFL.com results; it is not "
-        "an official or sportsbook line (Flag F-23). The closing line is recorded when the "
-        "game closes and is blank until then. Market lines themselves are blank (Flag F-18)."))
+        [("Snapshot", 1), ("Game", 0), ("Market", 0), ("Phase", 0),
+         ("Our fair line", 1), ("Market open", 1), ("Fair &minus; market", 1),
+         ("Market close", 1), ("Source", 0)], rows,
+        "Two different quantities sit side by side here and must not be conflated. "
+        "<b>Our fair line</b> is an originated model estimate (S3 strategy) derived from "
+        "official NFL.com results - it is not a sportsbook price (Flag F-23). "
+        "<b>Market open / close</b> are captured DraftKings prices read through the ESPN "
+        "odds endpoint on 2026-11-14, linked in every row; the league publishes no betting "
+        "lines, so these are labelled non-official (Flag F-18). Where no price was posted, "
+        "the cell is blank and says which phase is missing. <b>Fair &minus; market</b> is "
+        "the difference, published so a disagreement between this model and the market is "
+        "visible as a number and never mistaken for an edge."))
 
 
 def results_feed_table():
@@ -946,6 +1093,7 @@ def directory_section():
         "spell_n_suggestions": spell(N_SUGGESTIONS),
         "spell_cap_n_suggestions": spell(N_SUGGESTIONS).capitalize(),
         "desk_flags": desk_flag_counts(),
+        "n_market": "twenty-nine",
         "n_depth_rows": "{:,}".format(len(DEPTH_ROWS)),
         "n_depth_clubs": spell(sum(1 for c in (DEPTH or {}).get("clubs", [])
                                    if c["has_chart"])) if DEPTH else "zero",
@@ -1526,7 +1674,26 @@ def shell(slug, title, description, body, active):
   <div class="inner">
     <span>FOURTH DOWN RESEARCH &middot; NFL decision support</span>
     <span>Official sources: nfl.com/standings &middot; nfl.com/injuries &middot; nfl.com/schedules &middot; operations.nfl.com &middot; ftc.gov</span>
-    <span>Evidence status: verified official data + labelled model estimates &middot; no market data &middot; not betting advice</span>
+    ("Line origination desk", [
+        ("origination.html", "Line origination",
+         "The origination desk: side first, then total, then moneyline, with the fair line, the market line and the difference kept apart."),
+        ("price-store.html", "Price store",
+         "The operations price store: opening and current numbers for every market we originate, and the closing snapshot that is deliberately empty."),
+        ("signal-vs-staking.html", "Signal vs staking",
+         "The leaderboard split: a strategy's signal is scored without seeing a stake, so a lucky staking run cannot mask a bad signal."),
+        ("correlations.html", "Correlations",
+         "Correlations computed only from officially sourced numbers, each published with its n and its confidence interval."),
+        ("replacements.html", "Availability &amp; depth",
+         "Replacement depth, as far as the official record goes."),
+        ("method-lab.html", "Method lab",
+         "The method behind every number: pre-registration, walk-forward evaluation, the gates and the anti-luck protocol."),
+        ("ops-review.html", "Review gate",
+         "The review gate for this layer's own suggestions."),
+        ("verification.html", "Verification",
+         "A page whose claims are re-derived from the raw artifacts, so the page can contradict itself."),
+        ("requirements-closure.html", "Requirement closure",
+         "Every brief requirement with its closure state and the evidence page for it."),
+    ]),
   </div>
 </footer>
 <script src="app.js"></script>
@@ -1583,7 +1750,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
   <div class="section-head"><div><span class="eyebrow">Where to go next</span><h2>The desk</h2></div></div>
   <div class="grid g3">
     <article class="card"><span class="eyebrow">Data</span><h3><a href="standings.html">Standings &amp; results</a></h3><p class="muted">Official standings for all 32 teams, opponent-adjusted power ratings, and all %(ngames)d completed games with a link to each official game page.</p></article>
-    <article class="card"><span class="eyebrow">Model</span><h3><a href="lines.html">Model lines</a></h3><p class="muted">Week 11 model spreads and totals for all 13 official games, with the full range across strategies and the market-line column left blank on purpose.</p></article>
+    <article class="card"><span class="eyebrow">Model</span><h3><a href="lines.html">Model lines</a></h3><p class="muted">Week 11 model spreads and totals for all 13 official games, with the full range across strategies, the captured market line beside it and the difference published as its own column.</p></article>
     <article class="card"><span class="eyebrow">Validation</span><h3><a href="strategies.html">Strategy lab</a></h3><p class="muted">The leaderboard, the seven gates, the error-correlation matrix, the calibration check and the week-by-week stability table.</p></article>
     <article class="card"><span class="eyebrow">Availability</span><h3><a href="availability.html">Injuries &amp; depth</a></h3><p class="muted">The full official Week 10 injury report, a unit-level roll-up of absences, and the starter changes the league confirmed in its own news.</p></article>
     <article class="card"><span class="eyebrow">Decisions</span><h3><a href="questions.html">Decision checklist</a></h3><p class="muted">%(n_questions)s questions that must be answered before a decision here is reasonable: what we know, what is missing, what it blocks and how to close it.</p></article>
@@ -1596,7 +1763,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
            nstrat=len(leaderboard), lbpreview=leaderboard_preview_table(),
            flagpreview=flags_table(limit=6),
            n_questions=spell(N_QUESTIONS),
-           directory=directory_section()), "index.html"))
+           directory="__DIRECTORY__"), "index.html"))
 
 # --- standings ---
 PAGES.append(("standings.html", "Standings & results",
@@ -1634,7 +1801,7 @@ PAGES.append(("lines.html", "Model lines",
 %(lines)s
 
 <section style="margin-top:26px">
-  <div class="note warn"><b>There is no market column.</b> The NFL publishes no official betting lines, and no licensed odds feed has been authorised for this repository, so the market-line cell is empty rather than filled from an aggregator. Every figure in this table is a model estimate derived from official NFL.com results - it is a research output, not a price and not a recommendation.</div>
+  <div class="note warn"><b>Where the market numbers come from.</b> The league publishes no betting lines, so the market columns are a <i>captured</i> price, not an official one: DraftKings prices read through the ESPN odds endpoint on 2026-11-14, printed with their source link in every row and labelled as non-official here and on <a href="flags.html">Flagged for review</a> (F-18). The fair line stays a model estimate derived from official NFL.com results. Both are published, plus their difference, as three separate columns so a disagreement is never mistaken for an edge. Where the feed posted no price the cell is blank and says so.</div>
 </section>
 
 <section style="margin-top:26px">
@@ -1652,7 +1819,7 @@ PAGES.append(("price-snapshots.html", "Price snapshots",
 %(price)s
 
 <section style="margin-top:26px">
-  <div class="note warn"><b>How to read this store.</b> The fair line is our own originated price - a model estimate, not an official NFL betting line and not a sportsbook price (Flag F-23). The market line is blank because the NFL publishes no official betting lines (Flag F-18). The closing line is filled in after each game closes, so this store becomes a record of opening vs closing for every market we originate.</div>
+  <div class="note warn"><b>How to read this store.</b> Two different things are recorded here and they must not be confused. The <i>fair line</i> is our own originated price - a model estimate derived from official NFL.com results, not a sportsbook price (Flag F-23). The <i>market line</i> is a captured DraftKings price read through the ESPN odds endpoint on 2026-11-14, printed with its link, and is not an official NFL line because the league publishes none (Flag F-18). The closing column fills in once a game closes, so the store becomes a record of opening versus closing for every market, with the third column - the difference - published separately on <a href="lines.html">Model lines</a>.</div>
 </section>
 """ % dict(price=price_snapshot_table()), "price-snapshots.html"))
 
@@ -2036,10 +2203,53 @@ PAGES.append(("depth.html", "Depth &amp; deficiency",
               "depth.html"))
 
 
+# --------------------------------------------------------------------------------------
+# Domain hook: the market page (owned by tools/market_page.py, session arena/1b8b6e9e-x4)
+# --------------------------------------------------------------------------------------
+# Appended additively. Nothing above this line is modified. The hook registers one extra
+# page, one nav label and one directory card, and does nothing at all if the module is
+# absent, so this file stays valid for every other session either way.
+def _market_hook():
+    if "market.html" in [h for h, _t, _d, _b, _a in PAGES]:
+        return
+    here = os.path.dirname(os.path.abspath(__file__))
+    if here not in sys.path:
+        sys.path.insert(0, here)
+    try:
+        import market_page
+    except Exception:                                     # module not present: no-op
+        return
+    try:
+        body = market_page.build(market_page.load_market(), sys.modules[__name__])
+    except Exception as exc:                              # never break the pipeline
+        print("  ! market page skipped: %s" % exc)
+        return
+    NAV.insert(4, ("market.html", "Market & price archive"))
+    for _title, _pages in DIRECTORY:
+        if _title == "Model &amp; strategies":
+            _pages.insert(1, ("market.html", "Market &amp; price archive",
+                              "Real captured prices (not model estimates): {n_market} games "
+                              "with open and close for spread, total and moneyline, each row linked "
+                              "to its NFL.com result and its price resource."))
+    PAGES.append((
+        "market.html", "Market &amp; price archive",
+        "Captured opening and closing prices for spread, total and moneyline, with official "
+        "NFL.com results, a staking-independent skill board, a numeric demotion gate and "
+        "correlations published with n and confidence.",
+        body, "market.html"))
+
+
+if __name__ == "__main__":
+    _market_hook()
+
+
 def main():
     os.makedirs(SITE, exist_ok=True)
     written = []
     for href, title, desc, body, active in PAGES:
+        # The landing-page directory is rendered now, not at import time, so a page
+        # that registers itself late (the market hook) is still listed on it.
+        body = body.replace("__DIRECTORY__", directory_section())
         slug = href.replace(".html", "")
         with open(os.path.join(SITE, href), "w", encoding="utf-8") as fh:
             fh.write(shell(slug, title, desc, body, href))

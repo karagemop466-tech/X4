@@ -1,0 +1,10 @@
+model,game_id,away,home,week,side,result,disagreement_points,cover_prob_no_vig,pnl_units,clv_status,derivation
+S0,401873052,WAS,NYG,10,home,loss,1.521898,0.544967,-1.0,blocked: no stake-time capture exists,tools/build_integrity.py
+S1,401873052,WAS,NYG,10,home,loss,5.958411,0.670839,-1.0,blocked: no stake-time capture exists,tools/build_integrity.py
+S2,401873052,WAS,NYG,10,home,loss,5.694103,0.663712,-1.0,blocked: no stake-time capture exists,tools/build_integrity.py
+S3,401873052,WAS,NYG,10,away,win,0.248649,0.507362,0.9090909090909092,blocked: no stake-time capture exists,tools/build_integrity.py
+S4,401873052,WAS,NYG,10,away,win,1.346445,0.539801,0.9090909090909092,blocked: no stake-time capture exists,tools/build_integrity.py
+S5,401873052,WAS,NYG,10,away,win,0.239849,0.507101,0.9090909090909092,blocked: no stake-time capture exists,tools/build_integrity.py
+S6,401873052,WAS,NYG,10,away,win,1.028647,0.530428,0.9090909090909092,blocked: no stake-time capture exists,tools/build_integrity.py
+S7,401873052,WAS,NYG,10,away,win,0.363245,0.510754,0.9090909090909092,blocked: no stake-time capture exists,tools/build_integrity.py
+S8,401873052,WAS,NYG,10,home,loss,6.72337,0.691113,-1.0,blocked: no stake-time capture exists,tools/build_integrity.py

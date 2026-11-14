@@ -14,7 +14,7 @@ questions to suggestions.
 | `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
 | `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, depth-chart acquisition, data verification, and the sources register |
 | `tools/` | The pipeline: `verify.py` proves the data, `build.py` produces every published number, `pages.py` and `sync.py` build the site, `validate.py` runs the whole gate |
-| `site/` | The published multi-page site: nine generated pages plus eleven decision-desk pages, all statically rendered |
+| `site/` | The published multi-page site: fifteen generated pages plus twenty-two decision-desk pages, all statically rendered, plus the datasets and notes the pages cite |
 | `docs/` | The X4 Console - a second, independent build of the same project, published at `/console/` |
 | `console/` | A byte-identical mirror of `docs/`, so the repository root that GitHub Pages serves is the same site the workflow publishes |
 | `COORDINATION.md` | The shared board for the parallel agent sessions working on this repository |
@@ -27,9 +27,9 @@ it answers, so nothing has to be guessed at.
 | Category | Pages |
 |---|---|
 | Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) |
-| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) |
-| Model & strategies | `lines.html` (13 Week-11 model lines) · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) |
-| Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `flags.html` (main register) · `flagged.html` (desk register) |
+| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) · `replacements.html` (desk: the replacement chains, side by side) · `markets.html` (the price-snapshot store) · `results.html` (the verified results feed) |
+| Model & strategies | `lines.html` (13 Week-11 model lines, fair / market / difference as three columns) · `market.html` (the captured-price archive: 29 games, 87 price rows, skill and staking boards) · `price-snapshots.html` · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `gates.html` (signal vs staking, the demotion gate) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) · `origination.html` + `price-store.html` + `signal-vs-staking.html` + `correlations.html` + `method-lab.html` (the origination layer) |
+| Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `workbench.html` (12 proposals on one documented rubric, ranked) · `programme.html` (the eight integrity gates) · `flags.html` (main register, 38 entries) · `flagged.html` (desk register, 12 blanks + 14 irregularities) · `ops-review.html` · `verification.html` · `requirements-closure.html` (ten of twelve requirements closed) |
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
 | Second build | The **X4 Console** at `/console/` - 15 pages, built independently, reaching the same two structural conclusions |
 
@@ -133,9 +133,36 @@ well calibrated - but its Bonferroni-adjusted bootstrap interval still contains 
 correlation matrix shows that four of the nine strategies (S3, S4, S6 and S7, minimum
 pairwise prediction correlation 0.94) are effectively one signal, so they cannot be
 counted as four independent pieces of evidence. Model lines for all 13 official
-Week 11 games are published as a range across strategies, with the market-line column
-deliberately empty: the NFL publishes no official betting lines and no licensed odds feed
-has been authorised for this repository.
+Week 11 games are published as a range across strategies.
+
+**Real prices now exist, and they do not flatter the model.** The NFL publishes no betting
+lines, so no price here is official, but one licensed book's prices (DraftKings, published
+by ESPN) were captured and archived verbatim for 29 games - spread, total and moneyline,
+opening and closing, 174 rows, each linked to its NFL.com result and its price resource.
+On the 16 graded games **every strategy's spread error is worse than simply taking the
+closing line's implied margin** (best 9.32 points against the line's 8.47), every
+strategy's fair numbers are **compressed toward zero** relative to the board (10%-72% of
+market width), and the numeric demotion gate therefore keeps all nine on paper. Nine
+independent checks re-derive every published market number from the source CSVs in
+`tools/market_check.py`; it caught four sign and axis errors during development.
+
+## The market column: what it is and what it is not
+
+The league publishes no betting lines, so there is no official market price to quote. The
+market columns are nevertheless published, because a fair line with nothing beside it
+cannot show whether the model disagrees with the market. They are filled from a **captured**
+price - DraftKings, read through the ESPN odds endpoint on 2026-11-14 - and every figure
+carries that provenance in its row and its source link. **252 price rows** cover 14 games
+&times; 3 markets (spread, total, moneyline) &times; 3 phases (open, current, close); 78 cells
+are genuinely absent because no price was posted.
+
+Fair line, market line and **fair &minus; market** are published as three separate columns so
+a disagreement is never mistaken for an edge; the largest gap in Week 11 is 18.6 points
+(Miami at Buffalo), which is a statement about the model, not about value. The one settled
+game in the store shows a real move: the Week 10 total opened 47.5 and closed **40.5**, a
+&minus;7.0 move. Flag F-18 records the provenance; it no longer claims the market column is
+blank.
+
 
 ## Roster depth: which starters are actually missing
 
@@ -174,9 +201,29 @@ This repository is worked on by several agent sessions in parallel. `COORDINATIO
 records who owns which files, what has been claimed, what has been merged, and the
 verification and deployment history.
 
-## The final integration pass
+## The final integration pass (T31, session `arena/f7614083-x4`)
 
-The last session (`arena/da12b830-x4`) closed the site out:
+The two open branches - PR #22 (the eight integrity gates, the decision programme, the
+suggestion workbench) and PR #26 (the captured-price archive, the market page, the
+skill/staking boards) - were merged into one build, reconciled with each other and with
+`main`, re-verified against the live official pages and published.
+
+| What | Detail |
+|---|---|
+| Both branches merged | Neither branch's work was discarded: the flag registers are the union (38 entries, no duplicate id), both page generators are kept, and both gates run in `tools/validate.py` |
+| One navigation | `tools/desk_nav.py` is the single source for the desk sidebar; four copies had already drifted apart twice, and the build now fails if any page disagrees |
+| Every page reachable | The landing-page directory is rendered at write time and lists all 36 published pages; ten of them had been unreachable from it |
+| No dead links in the published site | The artifact is `site/`, but the pages linked to `research/…`, `data/ops/…` and `COORDINATION.md`, which were not in it - 41 dead links. The cited datasets and notes are now published with the site, and every published page's links are checked |
+| Two price stores reconciled | The site carried two independently captured price stores. `tools/reconcile_prices.py` compares them number by number: **112 of 112 comparable values match**. The one genuine difference - the two stores use the word *close* differently - is published as flag **F-38** |
+| Re-verified live | The official standings (32 clubs, 256 field checks), the Week 11 schedule (13 games, 117 checks) and 27 rows of the official injury report were re-read on 2026-11-14 and match the committed data |
+| One publish gate | The Pages workflow now runs `tools/validate.py` - the whole gate - instead of three hand-picked steps |
+
+The full record, with every number and every irregularity found, is
+`research/verification/integration-verification-2026-11-14.md`.
+
+## The earlier integration pass
+
+The session before this one (`arena/da12b830-x4`) closed the site out:
 
 - **One map of the site.** The landing page now carries a directory of every published
   page grouped by category, and the top navigation links to it from every page. This
@@ -196,6 +243,35 @@ The last session (`arena/da12b830-x4`) closed the site out:
   independently from the committed CSVs.
 - **Two stale counts were corrected** in the desk executive summary (the injury sample is
   22 published rows, not 19; the irregularity register holds 12 entries, not 8).
+
+## The T31 integration pass (session `arena/da0b8a31-x4`)
+
+The final integration after the origination layers landed:
+
+- **The two remaining open pull requests were integrated in full** - PR #26 (real captured
+  market prices: 174 DraftKings-via-ESPN rows over 29 games, open and close, the
+  staking-independent skill board, the numeric demotion gate and `market.html`) and PR #22
+  (the integrity programme: `programme.html`, the suggestion `workbench.html`,
+  `research/decision-register.md`, `research/origination-programme.md`,
+  `research/integrity-gates.md` and the `research/data/` datasets behind them). Both
+  reported CONFLICTING; every conflict was resolved keeping **both** sessions' work, and
+  the flag ids they both numbered F-29..F-31 were renumbered F-35..F-37 because the main
+  register already held F-29..F-34 (the map is in `COORDINATION.md`).
+- **Combined data re-verified against the live official pages**: nfl.com/standings read
+  live and matched **32/32 clubs field by field**, the Week 11 schedule matched **13/13
+  games**, and `tools/verify.py` (460 checks), `tools/market_store.py` and
+  `tools/market_check.py` (432/432 re-derivations) all pass.
+- **Every page is reachable from the landing directory**, including the nine
+  origination-desk pages that previously only the desk sidebar linked.
+- **Second pass (same day, after `main` moved to PR #33 and PR #29 opened):** `main` and PR #29's
+  integration were merged in full; PR #34's live-sweep records were imported (its branch was too old
+  to merge whole). The desk row-source check, which had never tested any row, now does, and it
+  reports 191 rows without an official link (flag F-39, open). Ten new injury drift cells are on
+  the flags page (F-40). Details: `COORDINATION.md`, "T31 second integration pass".
+- **One flag register, one nav, one gate**: F-01..F-37 with no duplicate ids, a union
+  sidebar nav enforced by `tools/check_site.py`, and `tools/validate.py` now builds and
+  checks every layer (main site, market layer, integrity programme, desk tables, console)
+  with a determinism gate over 20 outputs. The publish workflow runs the same steps.
 
 ## Sources
 
@@ -226,8 +302,9 @@ Both builds follow the same one rule — every table row links to the official s
 came from, and anything unconfirmable is left blank and flagged — and both reached the
 same two structural conclusions independently:
 
-1. **The NFL publishes no betting lines.** (`site/`: market-line column empty.
-   `docs/`: flagged as **F-02**.)
+1. **The NFL publishes no betting lines.** (`site/`: no price is described as official -
+   the model-line column stays a model estimate and captured prices are labelled
+   "DraftKings via ESPN, non-official". `docs/`: flagged as **F-02**.)
 2. **No official source labels depth-chart strings.** `nfl.com/teams/<club>/depth-chart`
    returns HTTP 404; club sites publish ordered charts without 1st/2nd/3rd/4th labels.
    (`docs/`: flagged as **F-03**.)
@@ -245,6 +322,34 @@ node docs/check.js     # 15 pages, 22 tables, 682 rows, 142 internal links, 27 e
 The reconciliation of the two builds — including the merge conflict on `COORDINATION.md`
 and `README.md`, and the file-scope statement — is logged in the
 *Appendix — session `arena/528008d6-x4`* at the bottom of `COORDINATION.md`.
+
+## The market page (session `arena/1b8b6e9e-x4`, T30)
+
+`market.html` is the only page on the site where a number is a **real bettable price**.
+It exists because an earlier snapshot store described model output as an opening line: its
+`source_url` was an NFL.com game page, which cannot contain a price, and its own note read
+"Model estimate ... not an official betting line". A store built from a model's own output
+cannot measure line movement, closing-line value or ROI, because there is no market in it.
+This page keeps the two apart:
+
+| On the page | What it is | How each row is sourced |
+|---|---|---|
+| Origination table | Desk fair number, market number, difference - three separate columns, side then total then moneyline | NFL.com game page + the ESPN odds resource |
+| Snapshot table | 87 captured rows: open and close for spread, total and moneyline | NFL.com game page + the ESPN odds resource |
+| Results feed | 29 games, 16 final, official scores | that game's NFL.com page |
+| Skill board | out-of-sample error only; no stake is an input, so no staking run can lift a rank | NFL.com results |
+| Staking board | flat 1-unit and 25% Kelly ledger, ranked separately | NFL.com results |
+| Depth | how often the opening number was still the closing number | NFL.com results |
+| Correlations | r with **n** and a 95% CI on every value | NFL.com results |
+| Demotion gate | four numeric rules, default paper | NFL.com results |
+| Anchoring diagnostic | how far the desk's number sits from the board | NFL.com results |
+
+Two honest results are published on it rather than buried: **no strategy beats the closing
+line on spread error** over the graded sample, and every strategy's fair spread is
+**compressed** to 10%-72% of market width, which is why a pick's win rate is never used here
+as evidence of skill. `tools/market_check.py` re-derives all 432 graded bets, the 13
+originated games and all 29 anchors from the source CSVs without importing the module under
+test.
 
 ## Decision-desk pages (session `5c48ced7`, PR #12)
 

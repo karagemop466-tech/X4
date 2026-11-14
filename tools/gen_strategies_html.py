@@ -1,7 +1,33 @@
 #!/usr/bin/env python3
 """Generate strategies.html — line lab and correlation tables derived from research/computed_stats.json."""
-import json, re
+import json, re, sys
 from pathlib import Path
+import csv as _csv, os as _os
+def _signal_staking_rows():
+    path = _os.path.join(str(Path(__file__).resolve().parents[1]), "research", "data", "leaderboard_signal_staking.csv")
+    if not _os.path.exists(path):
+        return "<tr><td colspan=\"10\">signal/staking table not built</td></tr>"
+    out = []
+    for r in _csv.DictReader(open(path, newline="", encoding="utf-8")):
+        stage = (r.get("stage") or "").strip()
+        pill = "ok" if stage == "live" else "mut"
+        out.append(
+            "<tr><td><b>%s</b></td><td class=\"num\">%s</td><td class=\"num\">%s</td>"
+            "<td class=\"num\">%s</td><td class=\"num\">%s</td><td class=\"num\">%s</td>"
+            "<td>%s</td><td class=\"num\">%s</td>"
+            "<td><span class=\"pill %s\">%s</span></td>"
+            "<td><a href=\"research/data/leaderboard_signal_staking.csv\">signal/staking CSV</a>"
+            " &middot; <a href=\"https://www.nfl.com/scores/2026/REG10\">nfl.com score &#8599;</a></td></tr>"
+            % (r.get("model",""), r.get("settled_bets",""), r.get("wins",""), r.get("hit_rate",""),
+               r.get("brier",""), r.get("avg_disagreement_points",""),
+               r.get("clv_status",""), r.get("net_units",""),
+               pill, (stage or "paper").upper()))
+    return "\n".join(out)
+
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import desk_nav
 
 ROOT = Path(__file__).resolve().parents[1]
 S = json.loads((ROOT / "research" / "computed_stats.json").read_text())
@@ -51,7 +77,7 @@ TEMPLATE = """<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Line origination lab, candidate signals, validation gates, computed correlations and skill protocol."><title>Line lab &amp; strategies | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
 <body>
-<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="signals.html">◎ &nbsp;Line lab &amp; signals</a><a href="origination.html">⊞ &nbsp;Line origination</a><a href="price-store.html">◈ &nbsp;Price store</a><a href="signal-vs-staking.html">⚖ &nbsp;Signal vs staking</a><a href="correlations.html">∿ &nbsp;Correlations</a><a href="replacements.html">＋ &nbsp;Availability &amp; depth</a><a href="method-lab.html">⌁ &nbsp;Method lab</a><a href="injuries.html">＋ &nbsp;Injury rows</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="review.html">✳ &nbsp;Suggestions</a><a href="verification.html">✓ &nbsp;Verification</a><a href="requirements-closure.html">☑ &nbsp;Requirement closure</a><a href="ops-review.html">✧ &nbsp;Review gate</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
+{side}
 <main>
 <header class="topbar"><div><span class="eyebrow">04 · SIGNALS</span><h1>Line lab &amp; strategies</h1></div><span class="status-pill"><i></i> Baseline v0 · gates not run</span></header>
 
@@ -89,6 +115,17 @@ TEMPLATE = """<!doctype html>
 <tr><td><b>G8 · Shadow period</b> </td><td>Does it hold up prospectively?</td><td>Pre-registered, timestamped predictions for a full segment (proposed: one season part) with no gate regressions</td><td><span class="pill info">defined</span></td><td><a href="https://www.nfl.com/scores/" target="_blank" rel="noreferrer">nfl.com scores ↗</a> · <a href="leaderboard.html">leaderboard ↗</a></td></tr>
 </tbody></table></div>
 <div class="note"><b>Why this removes luck:</b> luck loves untested multiplicity (try 100 strategies, keep the winner), unguarded samples (fit and evaluate on the same rows) and short streaks (10 lucky bets). G2+G3+G6 attack exactly those. What remains after all 8 gates is <i>selectively skill-based</i> — not guaranteed, just no longer explainable by the usual lucky processes.</div>
+
+<section class="section" id="signal-staking"><div class="section-head"><div><span class="eyebrow">SIGNAL vs STAKING</span><h2>Two questions, never one number</h2><p class="muted">A strategy can be right about the game and still be a bad bet, and it can be a good bet while being right for the wrong reason. So the leaderboard publishes two separate things: <b>signal</b> (is the prediction better than the baseline?) and <b>staking</b> (what a bankroll would have done). They are never collapsed into one score.</p></div></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>Strategy</th><th class="num">Settled</th><th class="num">Wins</th><th class="num">Hit rate</th><th class="num">Brier</th><th class="num">Avg disagreement (pts)</th><th>CLV status</th><th class="num">Net units</th><th>Stage</th><th>Source</th></tr></thead><tbody>
+{signal_rows}
+</tbody></table></div>
+<section style="margin-top:18px">
+  <div class="note warn"><b>Why the staking column cannot be filled yet.</b> Staking needs a price at the moment the bet is taken. This project has never taken a price at stake time &mdash; the store holds open, current and close, not stake &mdash; so every CLV cell is published <i>blank and labelled blocked</i> rather than filled with the model-to-close disagreement, which is a different quantity (Flag F-20). The net-units column is therefore a paper-trading record, not a return.</div>
+  <div class="note"><b>What the numbers here are.</b> Nine graded rows from the settled Week&nbsp;10 game, one bet per model. The hit rates are 0.00 or 1.00 because n&nbsp;=&nbsp;1 per model: they are a wiring check, not a skill estimate. Nothing on this page scores a strategy as profitable. The simulation that shows why the two columns must stay separate &mdash; a 2.4-point true edge turning into <b>+78.18 flat</b> and <b>&minus;83.21 at 5% of bankroll</b> from the same 100-unit start &mdash; is on <a href="programme.html#signal">Integrity &amp; programme</a>.</div>
+</section>
+</section>
+
 </section>
 
 <section class="section" id="correlations"><div class="section-head"><div><span class="eyebrow">CORRELATION VALUES</span><h2>Computed from official data</h2><p class="muted">Pearson r with Fisher-z 95% CIs, computed by <code>tools/compute_stats.py</code> from the linked inputs. Reproduce: <code>python3 tools/compute_stats.py</code>.</p></div><span class="tag green">4 VALUES + HOME EDGE</span></div>
@@ -121,7 +158,9 @@ TEMPLATE = """<!doctype html>
 """
 
 html = (TEMPLATE
+        .replace("{side}", desk_nav.side())
         .replace("{line_rows}", "\n".join(line_rows))
+        .replace("{signal_rows}", _signal_staking_rows())
         .replace("{home_row}", home_row)
         .replace("{crow_away_home}", crow("away_vs_home_scores", "Away score ↔ home score", "No usable dependence between opponent scores in Wks 6–9 — 'both teams over' legs can't bank on correlation", "https://www.nfl.com/schedules/2026/by-week/week-9"))
         .replace("{crow_margin_total}", crow("margin_vs_total", "Margin ↔ game total", "Significant negative dependence — favorite+over parlays carry opposing legs (see callout)", "https://www.nfl.com/schedules/2026/by-week/week-8"))

@@ -31,3 +31,9 @@ jobs:
           python3 tools/gen_data_html.py
           python3 tools/gen_strategies_html.py
           git diff --exit-code -- data.html signals.html site/data.html site/signals.html
+      - name: Integrity datasets and the programme/workbench pages regenerate byte-identically
+        run: |
+          python3 tools/build_integrity.py
+          python3 tools/gen_programme.py
+          python3 tools/gen_workbench.py
+          git diff --exit-code -- site/programme.html programme.html site/workbench.html workbench.html research/data

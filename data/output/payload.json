@@ -12986,12 +12986,12 @@
  "flags": [
   {
    "id": "F-01",
-   "item": "Current market betting lines and odds",
+   "item": "Official market betting lines",
    "type": "Unverified data",
-   "kind": "no",
-   "status": "unverified",
-   "detail": "No spread, total, moneyline or prop price is published anywhere on this site. The NFL publishes no official betting lines.",
-   "why": "No licensed, timestamped odds feed has been authorised for this repository, so any expected value, ROI, bankroll or parlay price would be invented. Every market-line cell is left blank rather than filled from a secondary aggregator.",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "Reconciled. Real prices now exist, but they are NOT official and they are NOT in this register's scope: the NFL publishes no betting lines, so no price on this site is official. One licensed book's prices (DraftKings, published by ESPN) were captured for 29 games - open and close, spread, total and moneyline - and are on the Market & price archive page. Every one of those rows carries two links: the NFL.com game page that proves the result, and the ESPN odds resource the price was archived from. A second, independently taken capture of the same prices (14 games) fills the market columns on the model-lines and price-snapshot pages; the two captures agree on all 112 comparable numbers, which tools/reconcile_prices.py re-derives and the publication gate enforces. What remains unverified is any price for a player prop or a prop combination: no official or licensed source was confirmed for those, so those cells are still blank (F-35).",
+   "why": "The capture is a transcription of one book's published numbers at a timestamped moment, not an official league figure and not a market consensus. It is sufficient to compute a backtest, a ROI and a closing-line value against a real price; it is not sufficient to claim a price is the best available, that a line is official, or that an arbitrage exists between books. Those claims are not made.",
    "official_url": "https://www.nfl.com/",
    "url": "https://www.nfl.com/"
   },
@@ -13001,7 +13001,7 @@
    "type": "Unverified data",
    "kind": "ok",
    "status": "resolved",
-   "detail": "This was open in the first build: no player on the site was assigned a depth position, because nfl.com/teams/<club>/depth-chart returns HTTP 404 for every club. It is now closed from an official source. Each club's own official website publishes its depth chart as an ordered table, and the column order is the depth position - first name in a row = starter, second = backup, third = third string. 31 of the 32 clubs publish a machine-readable ordered chart, and all 1,558 depth rows are on the Depth &amp; deficiency page with a link to the club page each one came from.",
+   "detail": "This was open in the first build: no player on the site was assigned a depth position, because nfl.com/teams/<club>/depth-chart returns HTTP 404 for every club. It is now closed from an official source. Each club's own official website publishes its depth chart as an ordered table, and the column order is the depth position - first name in a row = starter, second = backup, third = third string. 31 of the 32 clubs publish a machine-readable ordered chart, and all 1,558 depth rows are on the Depth & deficiency page with a link to the club page each one came from.",
    "why": "The league publishes no consolidated chart, but the clubs are the authority on their own depth and they publish it themselves. Recording the ordering the club itself prints is a transcription, not an inference: no rank is assigned where the club does not print one, co-starters are kept as co-starters, and a club that publishes its chart only as an image (Houston) is left blank and flagged as F-18 instead of being guessed at.",
    "official_url": "https://www.nfl.com/teams/",
    "url": "https://www.buffalobills.com/team/depth-chart"
@@ -13172,15 +13172,26 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
   },
   {
+   "id": "F-34",
+   "item": "Official injury-report drift on two practice-status cells",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The committed Week-10 injury dataset records Greg Van Roten (G, NE) and Charles Woods (CB, NE) as Limited participation. The live official NFL.com injury report, re-fetched 2026-11-14 by the new live-verification harness (tools/verify_live.py), shows both as Full Participation in Practice. The league updates the report during the week, so the committed cells reflect an earlier snapshot.",
+   "why": "The committed data was deliberately not changed - editing it would fork the published numbers away from the snapshot the rest of the build was verified against. Both values and both source links are recorded here and on the decision-desk register (R-14) so the drift can be reviewed and, if the current snapshot is adopted, regenerated through the normal pipeline rather than hand-patched. This entry records the two cells this session's live harness caught; F-29 records the broader set of practice-status moves found by a parallel live verification, and the two are complementary, not duplicate.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/injuries-wk10-2026.csv"
+  },
+  {
    "id": "F-18",
-   "item": "Market betting lines (spread, total, moneyline)",
+   "item": "Market betting lines are not an official NFL publication",
    "type": "Unverified data",
-   "kind": "no",
-   "status": "unverified",
-   "detail": "No market spread, total or moneyline is published anywhere on this site. The market-line cells are blank, and the difference column (fair line minus market line) is blank as a consequence.",
-   "why": "The NFL publishes no official betting lines, and no licensed odds feed has been authorised for this repository. Filling the market column from a secondary aggregator would violate the blank-unless-official rule, so every market-line cell stays blank and is flagged.",
-   "official_url": "https://www.nfl.com/",
-   "url": "https://www.nfl.com/"
+   "kind": "partial",
+   "status": "resolved",
+   "detail": "The league publishes no betting lines. The market columns on this site are therefore filled from a captured feed - DraftKings prices read through the ESPN odds endpoint on 2026-11-14 - and every such figure is labelled with that provenance. The store on this page holds 14 games (the 13 official Week 11 games and the one final Week 10 game) across 12 phase cells each - 168 cells in total, of which 116 carry a price and 52 are genuinely empty because the closing phase is reserved for a game that has actually been played and 13 of the 14 games have not.",
+   "why": "A market column is required by the brief and no official source exists for one, so the honest options are to publish nothing or to publish a clearly-labelled non-official price next to the official game identity. This site does the second: the price is never presented as an NFL line, the source is printed in the row, and the difference column (fair minus market) is published as its own column so a disagreement is never read as an edge. Where the feed had no price, the cell stays blank and says so.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds"
   },
   {
    "id": "F-19",
@@ -13243,7 +13254,7 @@
    "type": "Unverified data",
    "kind": "no",
    "status": "unverified",
-   "detail": "houstontexans.com/team/depth-chart renders its chart as a single bitmap image with no table markup and no ordered text, so no Houston depth position can be transcribed from it. Houston is the only club of the 32 with no rows on the Depth &amp; deficiency page.",
+   "detail": "houstontexans.com/team/depth-chart renders its chart as a single bitmap image with no table markup and no ordered text, so no Houston depth position can be transcribed from it. Houston is the only club of the 32 with no rows on the Depth & deficiency page.",
    "why": "The five Houston players the official NFL injury report rules Out or Doubtful for Week 10 (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) therefore have no published depth position on this site. Reading a rank off a picture would be an eyeball inference, so those cells are blank and the five names are listed as unmatched instead.",
    "official_url": "https://www.houstontexans.com/team/depth-chart",
    "url": "https://www.houstontexans.com/team/depth-chart"
@@ -13255,7 +13266,7 @@
    "kind": "warn",
    "status": "irregularity",
    "detail": "Of the 76 players the official Week 10 injury report lists as Out or Doubtful, 57 appear somewhere on their club's published depth chart and 19 do not: Lucas Patrick (WAS), Kerby Joseph (DET), Omarr Norman-Lott (KC), Micah Parsons (GB), BJ Green II (JAX), Tommy Townsend (TEN), Luke Rhodes (IND), Jonathon Brooks and Mike Jackson (CAR), Terrance Ferguson (LAR), Zachary Carter (ARI), Jalen Davis, Andrei Iosivas and Brian Parker II (CIN), plus the five Houston players above.",
-   "why": "A club's depth chart is editorial and lags roster moves, so an absent name is not evidence the player is not on the team. The effect on this site is conservative: those 19 absences are counted in the official injury totals but not in the depth-based starter-out score, so the starter-out figures are a floor, not a ceiling. Each is listed by name on the Depth &amp; deficiency page so a reviewer can chase them individually.",
+   "why": "A club's depth chart is editorial and lags roster moves, so an absent name is not evidence the player is not on the team. The effect on this site is conservative: those 19 absences are counted in the official injury totals but not in the depth-based starter-out score, so the starter-out figures are a floor, not a ceiling. Each is listed by name on the Depth & deficiency page so a reviewer can chase them individually.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://www.tennesseetitans.com/team/depth-chart"
   },
@@ -13348,15 +13359,70 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/replacement-depth.csv"
   },
   {
-   "id": "F-34",
-   "item": "Official injury-report drift on two practice-status cells",
+   "id": "F-35",
+   "item": "Player-prop and prop-combination prices",
+   "type": "Unverified data",
+   "kind": "no",
+   "status": "unverified",
+   "detail": "No player-prop price, prop line or prop-combination correlation is published. The 174 captured prices cover only the three game markets - spread, total and moneyline - for 29 games.",
+   "why": "A prop price needs a licensed feed that carries player markets. The one book captured here publishes them, but no timestamped, reversible archive of player props was obtained, and a prop correlation can only be computed from prices that were actually captured. Estimating one would be invention, so the cells are blank. This is the remaining honest gap in the market work, and it is the reason no prop-combination product is priced anywhere on this site.",
+   "official_url": "https://www.nfl.com/",
+   "url": "https://www.espn.com/nfl/"
+  },
+  {
+   "id": "F-36",
+   "item": "Prices are from one book and are not official",
+   "type": "Unverified data",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "The 174 captured prices on the Market & price archive page come from a single licensed sportsbook (DraftKings, as published by ESPN) at the moment of capture. The NFL publishes no betting lines at all, so no price on this site is an official league figure.",
+   "why": "A single book's number is a transcription of what that book showed, not a market consensus and not the best available price. It is enough to compute error against a real closing line, a ROI and a closing-line value; it is not enough to claim an arbitrage between books, to claim a price was the best available, or to call a line official. None of those claims is made, and every price row carries both its NFL.com result link and its ESPN odds resource so a reviewer can re-read the number.",
+   "official_url": "https://www.nfl.com/",
+   "url": "https://www.espn.com/nfl/"
+  },
+  {
+   "id": "F-37",
+   "item": "Doubled HTML entity in the depth summary text",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "Found by session arena/1b8b6e9e-x4: several phrases in this register and on the landing-page flag preview showed a literal escaped ampersand (the word 'amp;' visible to the reader) because the register strings carried a pre-escaped ampersand into a renderer that escapes text again. Fixed at T31 integration by writing bare ampersands in this register's strings; the pages now render a plain '&' in those phrases.",
+   "why": "Recorded because it is a failure mode worth knowing about: a text pipeline that escapes in two places produces output that looks like a data error but is not. The strings in this register are rendered through an escaping helper (tools/pages.py flags_table), so they must contain bare text. The alternative - leaving a visible escape sequence on a published page - misleads readers into thinking the underlying label is wrong.",
+   "official_url": "https://www.nfl.com/",
+   "url": "https://www.nfl.com/"
+  },
+  {
+   "id": "F-38",
+   "item": "The two price stores use the word 'close' differently",
    "type": "Irregularity",
    "kind": "warn",
    "status": "irregularity",
-   "detail": "The committed Week-10 injury dataset records Greg Van Roten (G, NE) and Charles Woods (CB, NE) as Limited participation. The live official NFL.com injury report, re-fetched 2026-11-14 by the new live-verification harness (tools/verify_live.py), shows both as Full Participation in Practice. The league updates the report during the week, so the committed cells reflect an earlier snapshot.",
-   "why": "The committed data was deliberately not changed - editing it would fork the published numbers away from the snapshot the rest of the build was verified against. Both values and both source links are recorded here and on the decision-desk register (R-14) so the drift can be reviewed and, if the current snapshot is adopted, regenerated through the normal pipeline rather than hand-patched. This entry records the two cells this session's live harness caught; F-29 records the broader set of practice-status moves found by a parallel live verification, and the two are complementary, not duplicate.",
+   "detail": "The price archive calls the last line the book was showing at the moment of capture 'close', so it is filled for every game, played or not. The integrity store on the price-snapshot page calls that same number 'current', and reserves 'close' for the closing line of a game that has actually been played, so it is empty for the 13 games still to come. The numbers agree - 112 of 112 comparable values match between the two captures - but the labels do not.",
+   "why": "Recorded rather than silently renamed, because the collision is easy to misread: a reader who compares the two pages and sees an empty 'close' in one of them could think a price is missing when it is the same number under another name. The reconciliation table on the Market & price archive page publishes the comparison number by number, and this flag names the difference. Neither store is edited to hide it.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/data/price_capture_reconciliation.csv"
+  },
+  {
+   "id": "F-39",
+   "item": "Desk rows without an official source link: the row-source gate was not reading row links",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "The per-row source check in tools/check_site.py recorded each link in the page-level list but never attached it to its table row, so every row was tested as empty and the check passed without testing anything. Found by the source-provenance audit (arena/5092bd99-x4) and fixed at T31 integration. With the check reading row links, 191 desk-table rows on 13 pages have no https link. They are listed one by one in research/verification/row-source-gaps-2026-11-14.csv. They are decision and requirement text, rubric weights, simulation output, programme status, or computed statistics whose inputs are not yet linked row by row. None of them is a sourced official value that the page presents as confirmed. A second gap of the same kind is in the price store: 26 spread and total points in the 2026W11-OPEN snapshot of data/market-prices.csv have no source link (their note reads 'points only'). The moneyline rows of that snapshot are all linked. Those 26 points are not given a link here, so they remain unverified.",
+   "why": "The earlier 'every data row has an official source link' PASS on this site was not evidence. It is withdrawn. The gate now reports these rows and does not hide them. Open work: link each computed statistic to the official pages that carry its inputs, mark the rest as internal, and then make the gate fail on any row that presents an official value without a link. Until then, any reader should treat those rows as unverified.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/row-source-gaps-2026-11-14.csv"
+  },
+  {
+   "id": "F-40",
+   "item": "Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "A parallel session's full capture of the Week 10 injury page (345 of 345 rows) found twelve practice-status cells that differ from data/injuries-wk10-2026.csv. Two are already flagged as F-34 (Greg Van Roten, Charles Woods). The other ten are: Savion Williams (WR, GB), Antonio Johnson (S, JAX), Kaytron Allen (RB, MIA), David Montgomery (RB, HOU), Jaylin Smith (CB, HOU), Denzel Ward (CB, CLE), Andrew Wingard (S, ARI), C.J. West (DT, SF), Von Miller (LB, DAL), Rodney Shelley (CB, LAC). Each row, with its committed value, its live value and its official player page, is in research/verification/live-verification-2026-11-14-e6ee28a8.md.",
+   "why": "The official report is updated during the week, so the committed snapshot is older than the live page. The committed data is deliberately not edited, so the published numbers stay tied to the snapshot they were verified against. The live values were captured by the parallel session through the platform's web tools; they were not independently re-checked from this sandbox, which cannot reach nfl.com. Recommended: re-run the capture and then regenerate the injury dataset through the normal pipeline, not by hand.",
    "official_url": "https://www.nfl.com/injuries/",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/injuries-wk10-2026.csv"
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-verification-2026-11-14-e6ee28a8.md"
   }
  ],
  "replacement_depth": [
