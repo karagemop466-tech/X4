@@ -1,0 +1,6 @@
+{
+ "name": "Demotion gate (live -> paper)",
+ "rule": "A live strategy is sent back to paper trading if, over any rolling window of 5 live games, its cumulative point-spread error exceeds the upper bound of its Bonferroni-adjusted bootstrap confidence interval, or its calibration gap exceeds 0.12 on those 5 games.",
+ "action": "Move the strategy from live to paper trading. It resumes live trading only after 10 consecutive paper-trading games within tolerance.",
+ "basis": "design choice by this project; no official source"
+}
