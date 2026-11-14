@@ -63,20 +63,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
    "side": {
-    "fair": 4.054587529287197,
+    "fair": 4.054587529,
     "market": 10.0,
     "market_line_home": -10.0,
     "band": [
-     -0.021897810218973746,
-     9.277258391493355
+     -0.02189781,
+     9.277258391
     ],
-    "spread_sd": 2.861723998209677,
-    "diff": -5.945412470712803
+    "spread_sd": 2.861723998,
+    "diff": -5.945412471
    },
    "total": {
-    "fair": 48.891640899567456,
+    "fair": 48.8916409,
     "market": 44.5,
-    "diff": 4.391640899567456
+    "diff": 4.3916409
    },
    "moneyline": {
     "fair_home": -160,
@@ -93,20 +93,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/dolphins-at-bills-2026-reg-11",
    "side": {
-    "fair": 6.884352189781026,
+    "fair": 6.88435219,
     "market": 16.5,
     "market_line_home": -16.5,
     "band": [
-     -0.021897810218973746,
-     8.09664785689177
+     -0.02189781,
+     8.096647857
     ],
-    "spread_sd": 2.8184218436899924,
-    "diff": -9.615647810218974
+    "spread_sd": 2.818421844,
+    "diff": -9.61564781
    },
    "total": {
-    "fair": 47.34505525141931,
+    "fair": 47.345055251,
     "market": 46.5,
-    "diff": 0.8450552514193106
+    "diff": 0.845055251
    },
    "moneyline": {
     "fair_home": -222,
@@ -123,20 +123,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11",
    "side": {
-    "fair": 1.1116862947192914,
+    "fair": 1.111686295,
     "market": 1.5,
     "market_line_home": -1.5,
     "band": [
-     -0.021897810218973746,
-     5.029220712565639
+     -0.02189781,
+     5.029220713
     ],
-    "spread_sd": 1.3126595518674222,
-    "diff": -0.38831370528070863
+    "spread_sd": 1.312659552,
+    "diff": -0.388313705
    },
    "total": {
-    "fair": 49.52127052919708,
+    "fair": 49.521270529,
     "market": 44.5,
-    "diff": 5.021270529197082
+    "diff": 5.021270529
    },
    "moneyline": {
     "fair_home": -114,
@@ -153,20 +153,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/saints-at-bears-2026-reg-11",
    "side": {
-    "fair": 5.004819010768678,
+    "fair": 5.004819011,
     "market": 9.5,
     "market_line_home": -9.5,
     "band": [
-     -0.021897810218973746,
-     5.004819010768678
+     -0.02189781,
+     5.004819011
     ],
-    "spread_sd": 1.7079424402269665,
-    "diff": -4.495180989231322
+    "spread_sd": 1.70794244,
+    "diff": -4.495180989
    },
    "total": {
-    "fair": 50.51258997364153,
+    "fair": 50.512589974,
     "market": 48.5,
-    "diff": 2.012589973641532
+    "diff": 2.012589974
    },
    "moneyline": {
     "fair_home": -178,
@@ -183,20 +183,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/titans-at-cowboys-2026-reg-11",
    "side": {
-    "fair": 3.774205584842754,
+    "fair": 3.774205585,
     "market": 7.5,
     "market_line_home": -7.5,
     "band": [
-     -0.021897810218973746,
-     3.774205584842754
+     -0.02189781,
+     3.774205585
     ],
-    "spread_sd": 1.341092117400847,
-    "diff": -3.725794415157246
+    "spread_sd": 1.341092117,
+    "diff": -3.725794415
    },
    "total": {
-    "fair": 48.23760926376499,
+    "fair": 48.237609264,
     "market": 51.5,
-    "diff": -3.2623907362350124
+    "diff": -3.262390736
    },
    "moneyline": {
     "fair_home": -154,
@@ -213,20 +213,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11",
    "side": {
-    "fair": -1.0483252793547777,
+    "fair": -1.048325279,
     "market": 3.5,
     "market_line_home": -3.5,
     "band": [
-     -2.8552311435523094,
-     1.6071234385939448
+     -2.855231144,
+     1.607123439
     ],
-    "spread_sd": 1.1978843365512335,
-    "diff": -4.548325279354778
+    "spread_sd": 1.197884337,
+    "diff": -4.548325279
    },
    "total": {
-    "fair": 46.91334228845634,
+    "fair": 46.913342288,
     "market": 47.5,
-    "diff": -0.5866577115436584
+    "diff": -0.586657712
    },
    "moneyline": {
     "fair_home": 113,
@@ -243,20 +243,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
    "side": {
-    "fair": 5.125864535460032,
+    "fair": 5.125864535,
     "market": 14.0,
     "market_line_home": -14.0,
     "band": [
-     -0.9889501815914201,
-     5.310846423580529
+     -0.988950182,
+     5.310846424
     ],
-    "spread_sd": 2.3788767005457947,
-    "diff": -8.874135464539968
+    "spread_sd": 2.378876701,
+    "diff": -8.874135465
    },
    "total": {
-    "fair": 46.4688978440119,
+    "fair": 46.468897844,
     "market": 42.5,
-    "diff": 3.9688978440118987
+    "diff": 3.968897844
    },
    "moneyline": {
     "fair_home": -181,
@@ -273,20 +273,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11",
    "side": {
-    "fair": -5.050640094169594,
+    "fair": -5.050640094,
     "market": -4.5,
     "market_line_home": 4.5,
     "band": [
-     -9.77015830148968,
-     -0.021897810218973746
+     -9.770158301,
+     -0.02189781
     ],
-    "spread_sd": 2.896480766998679,
-    "diff": -0.5506400941695944
+    "spread_sd": 2.896480767,
+    "diff": -0.550640094
    },
    "total": {
-    "fair": 40.54547963413536,
+    "fair": 40.545479634,
     "market": 38.5,
-    "diff": 2.0454796341353614
+    "diff": 2.045479634
    },
    "moneyline": {
     "fair_home": 179,
@@ -303,20 +303,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/jets-at-chargers-2026-reg-11",
    "side": {
-    "fair": -2.761770495404157,
+    "fair": -2.761770495,
     "market": 1.5,
     "market_line_home": -1.5,
     "band": [
-     -2.761770495404157,
-     0.7502727669877487
+     -2.761770495,
+     0.750272767
     ],
-    "spread_sd": 1.0251647206231538,
-    "diff": -4.261770495404157
+    "spread_sd": 1.025164721,
+    "diff": -4.261770495
    },
    "total": {
-    "fair": 42.9832689859872,
+    "fair": 42.983268986,
     "market": 42.5,
-    "diff": 0.4832689859872019
+    "diff": 0.483268986
    },
    "moneyline": {
     "fair_home": 137,
@@ -333,20 +333,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/jaguars-at-giants-2026-reg-11",
    "side": {
-    "fair": -7.079961081823917,
+    "fair": -7.079961082,
     "market": -6.0,
     "market_line_home": 6.0,
     "band": [
-     -9.073936778921905,
-     -0.021897810218973746
+     -9.073936779,
+     -0.02189781
     ],
-    "spread_sd": 2.543504982224513,
-    "diff": -1.0799610818239174
+    "spread_sd": 2.543504982,
+    "diff": -1.079961082
    },
    "total": {
-    "fair": 43.52850432549338,
+    "fair": 43.528504325,
     "market": 44.5,
-    "diff": -0.9714956745066203
+    "diff": -0.971495675
    },
    "moneyline": {
     "fair_home": 228,
@@ -363,20 +363,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/raiders-at-broncos-2026-reg-11",
    "side": {
-    "fair": 3.5822688564476906,
+    "fair": 3.582268856,
     "market": 8.5,
     "market_line_home": -8.5,
     "band": [
-     -0.021897810218973746,
-     8.82992753954494
+     -0.02189781,
+     8.82992754
     ],
-    "spread_sd": 2.2708161376900575,
-    "diff": -4.9177311435523094
+    "spread_sd": 2.270816138,
+    "diff": -4.917731144
    },
    "total": {
-    "fair": 49.68899815265387,
+    "fair": 49.688998153,
     "market": 41.5,
-    "diff": 8.188998152653873
+    "diff": 8.188998153
    },
    "moneyline": {
     "fair_home": -151,
@@ -393,20 +393,20 @@
    "neutral": true,
    "url": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11",
    "side": {
-    "fair": 1.6178591342254762,
+    "fair": 1.617859134,
     "market": 3.5,
     "market_line_home": -3.5,
     "band": [
-     -0.021897810218973746,
-     4.8743420965837245
+     -0.02189781,
+     4.874342097
     ],
-    "spread_sd": 1.532586608616396,
-    "diff": -1.8821408657745238
+    "spread_sd": 1.532586609,
+    "diff": -1.882140866
    },
    "total": {
-    "fair": 40.187937195863746,
+    "fair": 40.187937196,
     "market": 45.5,
-    "diff": -5.312062804136254
+    "diff": -5.312062804
    },
    "moneyline": {
     "fair_home": -120,
@@ -423,20 +423,20 @@
    "neutral": false,
    "url": "https://www.nfl.com/games/bengals-at-commanders-2026-reg-11",
    "side": {
-    "fair": -5.58671262503379,
+    "fair": -5.586712625,
     "market": -3.5,
     "market_line_home": 3.5,
     "band": [
-     -5.740775539910935,
-     -0.021897810218973746
+     -5.74077554,
+     -0.02189781
     ],
-    "spread_sd": 1.807467079681859,
-    "diff": -2.0867126250337904
+    "spread_sd": 1.80746708,
+    "diff": -2.086712625
    },
    "total": {
-    "fair": 50.53544876993782,
+    "fair": 50.53544877,
     "market": 51.5,
-    "diff": -0.9645512300621775
+    "diff": -0.96455123
    },
    "moneyline": {
     "fair_home": 191,
@@ -452,14 +452,14 @@
    "away": "IND",
    "home": "HOU",
    "url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
-   "fair_side": 4.054587529287197,
+   "fair_side": 4.054587529,
    "market_side": 10.0,
    "market_line_home": -10.0,
    "band_side": [
-    -0.021897810218973746,
-    9.277258391493355
+    -0.02189781,
+    9.277258391
    ],
-   "fair_total": 48.891640899567456,
+   "fair_total": 48.8916409,
    "market_total": 44.5,
    "status": "pending",
    "home_pts": null,
@@ -473,14 +473,14 @@
    "away": "MIA",
    "home": "BUF",
    "url": "https://www.nfl.com/games/dolphins-at-bills-2026-reg-11",
-   "fair_side": 6.884352189781026,
+   "fair_side": 6.88435219,
    "market_side": 16.5,
    "market_line_home": -16.5,
    "band_side": [
-    -0.021897810218973746,
-    8.09664785689177
+    -0.02189781,
+    8.096647857
    ],
-   "fair_total": 47.34505525141931,
+   "fair_total": 47.345055251,
    "market_total": 46.5,
    "status": "pending",
    "home_pts": null,
@@ -494,14 +494,14 @@
    "away": "BAL",
    "home": "CAR",
    "url": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11",
-   "fair_side": 1.1116862947192914,
+   "fair_side": 1.111686295,
    "market_side": 1.5,
    "market_line_home": -1.5,
    "band_side": [
-    -0.021897810218973746,
-    5.029220712565639
+    -0.02189781,
+    5.029220713
    ],
-   "fair_total": 49.52127052919708,
+   "fair_total": 49.521270529,
    "market_total": 44.5,
    "status": "pending",
    "home_pts": null,
@@ -515,14 +515,14 @@
    "away": "NO",
    "home": "CHI",
    "url": "https://www.nfl.com/games/saints-at-bears-2026-reg-11",
-   "fair_side": 5.004819010768678,
+   "fair_side": 5.004819011,
    "market_side": 9.5,
    "market_line_home": -9.5,
    "band_side": [
-    -0.021897810218973746,
-    5.004819010768678
+    -0.02189781,
+    5.004819011
    ],
-   "fair_total": 50.51258997364153,
+   "fair_total": 50.512589974,
    "market_total": 48.5,
    "status": "pending",
    "home_pts": null,
@@ -536,14 +536,14 @@
    "away": "TEN",
    "home": "DAL",
    "url": "https://www.nfl.com/games/titans-at-cowboys-2026-reg-11",
-   "fair_side": 3.774205584842754,
+   "fair_side": 3.774205585,
    "market_side": 7.5,
    "market_line_home": -7.5,
    "band_side": [
-    -0.021897810218973746,
-    3.774205584842754
+    -0.02189781,
+    3.774205585
    ],
-   "fair_total": 48.23760926376499,
+   "fair_total": 48.237609264,
    "market_total": 51.5,
    "status": "pending",
    "home_pts": null,
@@ -557,14 +557,14 @@
    "away": "TB",
    "home": "DET",
    "url": "https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11",
-   "fair_side": -1.0483252793547777,
+   "fair_side": -1.048325279,
    "market_side": 3.5,
    "market_line_home": -3.5,
    "band_side": [
-    -2.8552311435523094,
-    1.6071234385939448
+    -2.855231144,
+    1.607123439
    ],
-   "fair_total": 46.91334228845634,
+   "fair_total": 46.913342288,
    "market_total": 47.5,
    "status": "pending",
    "home_pts": null,
@@ -578,14 +578,14 @@
    "away": "ARI",
    "home": "KC",
    "url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
-   "fair_side": 5.125864535460032,
+   "fair_side": 5.125864535,
    "market_side": 14.0,
    "market_line_home": -14.0,
    "band_side": [
-    -0.9889501815914201,
-    5.310846423580529
+    -0.988950182,
+    5.310846424
    ],
-   "fair_total": 46.4688978440119,
+   "fair_total": 46.468897844,
    "market_total": 42.5,
    "status": "pending",
    "home_pts": null,
@@ -599,14 +599,14 @@
    "away": "PIT",
    "home": "PHI",
    "url": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11",
-   "fair_side": -5.050640094169594,
+   "fair_side": -5.050640094,
    "market_side": -4.5,
    "market_line_home": 4.5,
    "band_side": [
-    -9.77015830148968,
-    -0.021897810218973746
+    -9.770158301,
+    -0.02189781
    ],
-   "fair_total": 40.54547963413536,
+   "fair_total": 40.545479634,
    "market_total": 38.5,
    "status": "pending",
    "home_pts": null,
@@ -620,14 +620,14 @@
    "away": "NYJ",
    "home": "LAC",
    "url": "https://www.nfl.com/games/jets-at-chargers-2026-reg-11",
-   "fair_side": -2.761770495404157,
+   "fair_side": -2.761770495,
    "market_side": 1.5,
    "market_line_home": -1.5,
    "band_side": [
-    -2.761770495404157,
-    0.7502727669877487
+    -2.761770495,
+    0.750272767
    ],
-   "fair_total": 42.9832689859872,
+   "fair_total": 42.983268986,
    "market_total": 42.5,
    "status": "pending",
    "home_pts": null,
@@ -641,14 +641,14 @@
    "away": "JAX",
    "home": "NYG",
    "url": "https://www.nfl.com/games/jaguars-at-giants-2026-reg-11",
-   "fair_side": -7.079961081823917,
+   "fair_side": -7.079961082,
    "market_side": -6.0,
    "market_line_home": 6.0,
    "band_side": [
-    -9.073936778921905,
-    -0.021897810218973746
+    -9.073936779,
+    -0.02189781
    ],
-   "fair_total": 43.52850432549338,
+   "fair_total": 43.528504325,
    "market_total": 44.5,
    "status": "pending",
    "home_pts": null,
@@ -662,14 +662,14 @@
    "away": "LV",
    "home": "DEN",
    "url": "https://www.nfl.com/games/raiders-at-broncos-2026-reg-11",
-   "fair_side": 3.5822688564476906,
+   "fair_side": 3.582268856,
    "market_side": 8.5,
    "market_line_home": -8.5,
    "band_side": [
-    -0.021897810218973746,
-    8.82992753954494
+    -0.02189781,
+    8.82992754
    ],
-   "fair_total": 49.68899815265387,
+   "fair_total": 49.688998153,
    "market_total": 41.5,
    "status": "pending",
    "home_pts": null,
@@ -683,14 +683,14 @@
    "away": "MIN",
    "home": "SF",
    "url": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11",
-   "fair_side": 1.6178591342254762,
+   "fair_side": 1.617859134,
    "market_side": 3.5,
    "market_line_home": -3.5,
    "band_side": [
-    -0.021897810218973746,
-    4.8743420965837245
+    -0.02189781,
+    4.874342097
    ],
-   "fair_total": 40.187937195863746,
+   "fair_total": 40.187937196,
    "market_total": 45.5,
    "status": "pending",
    "home_pts": null,
@@ -704,14 +704,14 @@
    "away": "CIN",
    "home": "WAS",
    "url": "https://www.nfl.com/games/bengals-at-commanders-2026-reg-11",
-   "fair_side": -5.58671262503379,
+   "fair_side": -5.586712625,
    "market_side": -3.5,
    "market_line_home": 3.5,
    "band_side": [
-    -5.740775539910935,
-    -0.021897810218973746
+    -5.74077554,
+    -0.02189781
    ],
-   "fair_total": 50.53544876993782,
+   "fair_total": 50.53544877,
    "market_total": 51.5,
    "status": "pending",
    "home_pts": null,
