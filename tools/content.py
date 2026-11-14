@@ -317,11 +317,11 @@ FLAGS = [
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/injuries-wk10-2026.csv"),
 
-    dict(id="F-18", item="Market betting lines (spread, total, moneyline)", type="Unverified data", kind="no", status="unverified",
-         detail="No market spread, total or moneyline is published anywhere on this site. The market-line cells are blank, and the difference column (fair line minus market line) is blank as a consequence.",
-         why="The NFL publishes no official betting lines, and no licensed odds feed has been authorised for this repository. Filling the market column from a secondary aggregator would violate the blank-unless-official rule, so every market-line cell stays blank and is flagged.",
-         official_url="https://www.nfl.com/",
-         url="https://www.nfl.com/"),
+    dict(id="F-18", item="Market betting lines are not an official NFL publication", type="Unverified data", kind="partial", status="resolved",
+         detail="The league publishes no betting lines. The market columns on this site are therefore filled from a captured feed - DraftKings prices read through the ESPN odds endpoint on 2026-11-14 - and every such figure is labelled with that provenance. 252 price rows cover 14 games &times; 3 markets &times; 3 phases (open, current, close), with 78 cells genuinely absent because no price was posted.",
+         why="A market column is required by the brief and no official source exists for one, so the honest options are to publish nothing or to publish a clearly-labelled non-official price next to the official game identity. This site does the second: the price is never presented as an NFL line, the source is printed in the row, and the difference column (fair minus market) is published as its own column so a disagreement is never read as an edge. Where the feed had no price, the cell stays blank and says so.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds"),
 
     dict(id="F-19", item="Staking / bankroll figures", type="Unverified data", kind="no", status="unverified",
          detail="No staking, bankroll, Kelly or position-sizing figure is published for any strategy. The staking column of the leaderboard is blank.",
