@@ -30,7 +30,7 @@ from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repository root
 SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT, "site")
-PAGES = ["index.html", "standings.html", "lines.html", "price-snapshots.html",
+PAGES = ["index.html", "market.html", "standings.html", "lines.html", "price-snapshots.html",
          "results.html", "strategies.html", "availability.html", "depth.html",
          "questions.html", "suggestions.html", "flags.html", "methodology.html",
          "markets.html", "gates.html"]
