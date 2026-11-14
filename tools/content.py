@@ -369,6 +369,32 @@ FLAGS = [
          official_url="https://www.nfl.com/injuries/",
          url="https://www.tennesseetitans.com/team/depth-chart"),
 
+    # --- added by arena/4e108e9a-x4; numbered from F-29 because F-18..F-28
+    # --- were already taken on main when this branch was reconciled.
+    dict(id="F-29", item="Four practice statuses moved between the committed injury snapshot and the 2026-11-14 read", type="Irregularity", kind="warn", status="unverified",
+         detail="tools/build.py reads data/injuries-wk10-2026.csv. Re-reading the official NFL.com injury report on 2026-11-14 for eight clubs (101 players, 404 practice-status fields) found four cells that no longer match: Houston's Montgomery and Jaylin Smith are now Full where the snapshot says Limited, Cleveland's Denzel Ward is now Limited where the snapshot says Full, and Arizona's Andrew Wingard is now DNP where the snapshot says Limited.",
+         why="The snapshot was not overwritten. Both transcriptions are committed (research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv) so a reader can see the drift rather than a silently corrected number. An earlier version of this flag described three drifts and 401 of 404 fields because it was computed from a four-club subset; the eight-club re-read found four, and the smaller number is the wrong one.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv"),
+
+    dict(id="F-30", item="No official closing line can exist, so the closing snapshot is stored empty", type="Limitation", kind="warn", status="unverified",
+         detail="A closing line is the last price before kickoff. Every Week 11 game is still in the future, so no closing line exists for any of the 39 registered closing rows. The rows are stored with every price cell blank rather than omitted or back-filled.",
+         why="Storing the row and leaving it blank is the difference between 'not yet observed' and 'not tracked'. Back-filling it with the current price would produce a column that looks like data and is a guess. It also means closing-line value cannot be computed yet, which is stated on the results page rather than worked around.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/market-snapshots.csv"),
+
+    dict(id="F-31", item="The opening snapshot records points, not the price on those points", type="Limitation", kind="warn", status="unverified",
+         detail="The opening spread and total are recorded as points (-1.0, 43.5). The american price attached to those points at the open (-110, -105, +100) is not part of the same published payload, so the opening rows carry a line without a price on it.",
+         why="Points and prices are different numbers and a strategy can be right about one and wrong about the other. An opening line at -110 and the same line at +100 are not the same bet. Recording the points alone is truthful; attaching an assumed -110 would not be.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/market-prices.csv"),
+
+    dict(id="F-32", item="The publication gate rejected the surname Fagnano as a placeholder marker", type="Irregularity", kind="warn", status="resolved",
+         detail="site/check.py ran a case-insensitive substring search for a three-letter not-a-number placeholder marker over every published page. The row naming the Ravens' third-string quarterback - Joe Fagnano, as stated by nfl.com news - contains those three letters and failed the build. The page was correct and the checker was wrong.",
+         why="Recorded rather than silently fixed because it is a failure mode worth knowing about: a substring placeholder test will eventually collide with a real word, and the collision produces a build failure that looks like a data problem but is not. The fix is a word-boundary match on that one marker, with the other markers left as substrings. The alternative - renaming the player - would have put an inaccurate name on the site to satisfy a checker.",
+         official_url="https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season",
+         url="https://github.com/karagemop466-tech/X4/blob/main/site/check.py"),
+
 ]
 
 

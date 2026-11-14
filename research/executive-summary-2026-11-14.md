@@ -34,7 +34,7 @@ though the mean-error interval still contains zero.
 | 1 | Price-snapshot store, opening and closing | `data/market-snapshots.csv` (3 dated snapshots), `data/market-prices.csv` (117 rows), `markets.html` | 78 populated values, each with a source row; 39 closing rows empty by design |
 | 2 | Verified results feed | `results_feed()` in `tools/market_store.py`, `results.html` | 13 rows joined, 0 graded, 13 explicitly pending; an assertion fails the build if a pending row ever carries an outcome |
 | 3 | Side, then total, then moneyline | `ORIGINATION_ORDER`, published with reasons | Order is a data structure read by the page, not a sentence in a paragraph |
-| 4 | Fair, market and difference as three columns | `origination_card()`, on `markets.html` and `results.html` | `diff == fair - market` asserted for all 13 rows; the sign conversion is one named function and round-trip tested |
+| 4 | Fair, market and difference as three columns | `origination_card()` (S1 fair line), on `markets.html` and `results.html`; PR #21 publishes the S3 line in the same three columns on `lines.html` | `diff == fair - market` asserted for all 13 rows; the sign conversion is one named function and round-trip tested |
 | 5 | Signal separated from staking | `signal_and_staking()`, on `gates.html` | Two independent inputs, two ranks, plus an assertion that no staking result can exceed the maximum a flat -110 book can return |
 | 6 | Depth of the replacement | `replacement_depth_rows()`, all 28 clubs on `gates.html` | Counted from official fields only; no depth-chart string is asserted anywhere |
 | 7 | Correlations with n | `corr_with_n_rows()`, 40 coefficients on `gates.html` | n is a column; the interval is published only where it can honestly be computed |
@@ -131,6 +131,10 @@ line and given no way to know the market had moved eight points.
 | IND at HOU | +4.1 | -10.0 | **-5.9** |
 | TB at DET | -1.1 (DET by 1.1) | -3.5 | -2.4 |
 
+The fair line here is **S1**, the highest-signal strategy. PR #21 publishes the
+**S3** line on `lines.html`, and the two differ by up to 4.8 points on
+MIA/BUF - which is the nine-strategy band doing its job, not a contradiction.
+Both are published so the disagreement between strategies is visible.
 The difference is signed as fair minus market, so a negative number means we rate
 the home team **less** strongly than the market does. The pattern is consistent:
 the market prices things this model does not see — availability, quarterback

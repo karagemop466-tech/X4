@@ -1668,6 +1668,128 @@ PAGES.append(("results.html", "Results feed",
 </section>
 """ % dict(results=results_feed_table()), "results.html"))
 
+# --- markets: the price-snapshot store, fair vs market ---
+PAGES.append(("markets.html", "Price store",
+               "A dated opening/current/closing price-snapshot store for every Week 11 market, "
+               "with the model's fair line, the market line and the difference published as "
+               "separate columns.",
+               """
+<div class="section-head"><div><span class="eyebrow">11 &middot; Price store</span><h2>Every number we originate has a price beside it</h2><p class="muted">The price-snapshots page records the desk's own opening line. This page records the <b>market's</b> number for the same game, market and moment, in a separate keyed store, so the same line can be re-read later without guessing what the market looked like. The closing snapshot is registered and empty on purpose: no Week 11 game has kicked off, so no closing line exists yet.</p></div><span class="tag acc">%(nsnap)d snapshots &middot; %(nrows)d rows</span></div>
+
+<div class="grid g4">
+  <article class="card"><span class="eyebrow">Markets covered</span><h3>Three, every game</h3><p class="muted">Side, total and moneyline, for all %(ngames)d Week 11 games. Every row is keyed to an ESPN event id so a line can be traced back to the exact published page.</p></article>
+  <article class="card"><span class="eyebrow">The one non-NFL source</span><h3>Market, tier T3</h3><p class="muted">The NFL publishes no odds. Market values are DraftKings numbers as published by ESPN, labelled T3 wherever they appear, and never presented as official.</p></article>
+  <article class="card"><span class="eyebrow">Closing line</span><h3>Registered, not fabricated</h3><p class="muted">%(nclose)d closing rows are stored with every price blank. They fill in only when a game has actually kicked off and the closing number can be read.</p></article>
+  <article class="card"><span class="eyebrow">Eligibility</span><h3>No line is stakeable</h3><p class="muted">A fair line is published because it is honest and comparable, not because it is profitable. Nothing on this page has passed the <a href="gates.html">demotion gate</a>.</p></article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">01 &middot; The store</span><h2>What was captured, and when</h2><p class="muted">A snapshot is dated and counted. A snapshot with no rows is not the same as a snapshot that does not exist, so the empty one is listed with zeroes rather than omitted.</p></div><span class="tag warn">closing open</span></div>
+  %(store)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">02 &middot; Origination order</span><h2>Side first, then the total, then the moneyline</h2><p class="muted">The order is not a preference. Each market is priced off a different error process, and the weakest-supported market is originated last so it inherits a spread that has already been checked rather than standing in for one.</p></div></div>
+  %(order)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03 &middot; Fair, market, difference</span><h2>Three columns, never blended</h2><p class="muted">Fair is ours. Market is theirs. Difference is the subtraction and nothing else. Keeping them apart is what makes it possible to tell a model that disagrees with the market from a model that has simply been read off the market.</p></div><span class="tag">%(ngames)d games</span></div>
+  %(fair)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">04 &middot; Market movement</span><h2>What moved, from open to now</h2><p class="muted">Computed, not described: current minus opening, in points, for every game and both sides.</p></div></div>
+  %(move)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">05 &middot; Stored rows</span><h2>Every captured price</h2><p class="muted">One row per game and market for the two captured snapshots. The point spreads and totals are points; the moneyline cells are american prices. A blank cell is a value that was not transcribed, which is not the same as a value that does not exist.</p></div><span class="tag acc">%(ncap)d rows</span></div>
+  %(prices)s
+</section>
+""" % dict(nsnap=len(market_store.snapshots()),
+           nrows=len(market_store.prices()),
+           ngames=len(market_store.origination_card()),
+           nclose=sum(1 for r in market_store.prices() if r["snapshot_id"] == "2026W11-CLOSE"),
+           store=store_rows(), fair=fair_vs_market_rows(),
+           move=market_movement_rows(), prices=price_rows(),
+           order=table(
+               ["#", "Market", ("Order", True), "Why this position", "State",
+                "Official source", "Market source"],
+               [["%d" % n, esc(label), "%d" % n, esc(why),
+                 badge("originated", "ok"),
+                 src(GAME_SRC, "nfl.com schedule"),
+                 src(ESPN_ODDS, "market line")]
+                for key, label, n, why in market_store.ORIGINATION_ORDER],
+               note=("All three markets are originated from the same team-rate model, so the "
+                     "order is about evidence, not machinery. The side carries the only "
+                     "out-of-sample error this desk can measure; the moneyline carries every "
+                     "spread error plus a conversion error on top of it.")),
+           ncap=sum(1 for r in market_store.prices() if r["snapshot_id"] != "2026W11-CLOSE")),
+          "markets.html"))
+
+# --- gates: signal vs staking, demotion, named chains, correlation n ---
+PAGES.append(("gates.html", "Gates & demotion",
+               "Signal scored separately from staking, a demotion gate that sends a live "
+               "strategy back to paper, verified 1st-2nd-3rd string replacement chains, "
+               "replacement depth measured from official reports, and every correlation with n.",
+               """
+<div class="section-head"><div><span class="eyebrow">13 &middot; Gates</span><h2>Separate the signal from the staking, then police the door</h2><p class="muted">Three separate defences against mistaking luck for skill. The signal is scored on line accuracy with no results bought; staking is shown beside it and can never lift it; and a single failed gate returns a live strategy to paper immediately, with no averaging and no grace period.</p></div><span class="tag warn">0 of %(n)d live</span></div>
+
+<div class="grid g3">
+  <article class="card"><span class="eyebrow">Signal</span><h3>Built only from accuracy</h3><p class="muted">Benchmark improvement (35%%), significance (30%%), weekly stability (20%%) and calibration (15%%). No staking result can enter the score.</p></article>
+  <article class="card"><span class="eyebrow">Staking</span><h3>Shown, never scored</h3><p class="muted">Flat 1 unit at %(price)d on every graded call. It is the unit a staker reads, and it is deliberately quarantined from the ranking that decides eligibility.</p></article>
+  <article class="card"><span class="eyebrow">Demotion</span><h3>One failure is enough</h3><p class="muted">Live requires every gate. Anything else is paper, which is where all %(n)d strategies are today - not because the site is unfinished, but because the significance gate has not been passed.</p></article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">01 &middot; Signal vs staking</span><h2>Two ranks, on purpose</h2><p class="muted">Both ranks are published for the same strategy. <b>They agree today, and that is the finding rather than a success:</b> under a flat stake at a fixed price, bankroll growth is a monotone function of the hit rate, which the signal score already uses. The split becomes load-bearing once stakes vary with the bankroll or a strategy stakes only a selected subset of games. Published as S-17.</p></div></div>
+  %(split)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">02 &middot; The demotion gate</span><h2>What sends a live strategy back to paper</h2></div></div>
+  <div class="grid g2">
+    <article class="card"><span class="eyebrow">Promotion</span><h3>Every gate, every time</h3><p class="muted">A strategy is Live only when it passes all %(ngates)d gates in the same evaluation window. Passing six of seven is paper. There is no partial credit and no conditional promotion.</p></article>
+    <article class="card"><span class="eyebrow">Demotion</span><h3>Any single failure, immediately</h3><p class="muted">Once Live, a strategy returns to paper the moment any gate fails in a re-evaluation: the significance interval re-crosses zero, calibration breaks its tolerance, the minimum sample is not met, or a stability share falls below the declared floor. Re-entry requires passing every gate again from scratch.</p></article>
+    <article class="card"><span class="eyebrow">Retirement</span><h3>After two demotions</h3><p class="muted">A strategy that has been demoted twice is retired rather than cycled again. A model that keeps failing and passing in alternation is showing that the gate is noisy, not that the model is good.</p></article>
+    <article class="card"><span class="eyebrow">Why it exists</span><h3>Because promotion is cheap and demotion is not</h3><p class="muted">Anyone can publish a rule that promotes a hot strategy. The demotion rule is what makes the leaderboard falsifiable: it commits, in advance, to the exact evidence that will take a strategy's eligibility away.</p></article>
+  </div>
+  <div style="margin-top:14px">%(demotion)s</div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03 &middot; Replacement depth</span><h2>The depth matters, not the fact of the replacement</h2><p class="muted">A club missing its third receiver is not in the same position as a club missing its starting quarterback, and a club that lists nine healthy bodies is not in the same position as one that lists three. Every column below is an official count from the Week 10 injury report - no depth-chart string is asserted anywhere, because no official source publishes one.</p></div><span class="tag acc">%(nrep)d clubs</span></div>
+  %(repmap)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03b &middot; Named chains</span><h2>Who actually takes the snaps</h2><p class="muted">The injury report says who is out. It does not say who plays. Two official NFL.com sources do say it: the <b>DEPTH CHART NEWS</b> items in the daily league roundup, and the injury news articles, which name the expected starter and often the man behind him. These are the chains those articles state, quoted and linked, deepest first.</p></div><span class="tag acc">%(nchain)d chains</span></div>
+  %(chains)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03c &middot; What could not be confirmed</span><h2>The depth nobody publishes</h2><p class="muted">The same discipline applied backwards. These are claims a depth section would normally make and that this site refuses to make, each with the reason.</p></div><span class="tag warn">%(nunc)d gaps</span></div>
+  %(unconfirmed)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">04 &middot; Correlations</span><h2>Every coefficient with its n</h2><p class="muted">A correlation without a sample size is a rumour. The cross-game coefficients rest on a few dozen games; the model-error correlations rest on 105 evaluated games. Both numbers are published, and the interval is published only where it can honestly be computed.</p></div><span class="tag acc">%(ncorr)d values</span></div>
+  %(corr)s
+</section>
+""" % dict(n=len(market_store.leaderboard_split()),
+           price=int(market_store.STAKING_POLICY["american"]),
+           ngates=len(P["leaderboard"][0]["gates"]),
+           split=signal_staking_rows(), demotion=demotion_rows(),
+           nrep=len(replacement_depth_rows()), repmap=replacement_depth_table(),
+           nchain=len(market_store.replacement_chains()),
+           chains=replacement_chain_table(),
+           nunc=len(market_store.unconfirmed_claims()),
+           unconfirmed=unconfirmed_claims_table(),
+           ncorr=corr_with_n_rows()[1], corr=corr_with_n_rows()[0]),
+          "gates.html"))
+
+
 # --- strategies ---
 PAGES.append(("strategies.html", "Strategy lab",
                "Strategy leaderboard with seven validation gates, error correlation matrix, "
