@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Strategy leaderboard with seven validation gates, error correlation matrix, calibration check and weekly stability.">
+<title>Strategy lab · NFL Decision Desk</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="strategies">
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>NFL DECISION DESK</small></span></a>
+    <nav class="main"><a href="index.html">Overview</a><a href="standings.html">Standings & results</a><a href="lines.html">Model lines</a><a href="strategies.html" class="active">Strategy lab</a><a href="availability.html">Injuries & depth</a><a href="questions.html">Decision checklist</a><a href="suggestions.html">Suggestions</a><a href="flags.html">Flagged for review</a><a href="methodology.html">Methodology</a></nav>
+  </div>
+</header>
+<main>
+
+<div class="section-head"><div><span class="eyebrow">05 · Strategy tournament</span><h2>Leaderboard and rewards</h2><p class="muted">Strategies are scored on out-of-sample accuracy, and a strategy only earns reward points if it clears every gate. The significance gate is what keeps a lucky streak out of the top of the table.</p></div><span class="tag" id="lb-status2">—</span></div>
+<div id="lb"></div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Gate results</span><h2>Why each strategy is or is not eligible</h2><p class="muted">Seven gates, every strategy, with the evidence for each verdict.</p></div></div>
+<div id="gates"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Controlling for luck</span><h2>Which strategies are actually the same bet</h2><p class="muted">Two strategies whose errors move together are not two pieces of evidence - they are one signal counted twice. The matrices below are computed from the same out-of-sample games. A value near 1.00 means the two strategies fail on exactly the same games, so ranking them against each other would overstate how much independent skill exists.</p></div><span class="tag">Correlation</span></div>
+  <div class="grid g2">
+    <div><h3>Error correlation</h3><div id="corr-err"></div><p class="small muted">Correlation between each strategy's point-spread error and every other strategy's error, over the out-of-sample games.</p></div>
+    <div><h3>Prediction correlation</h3><div id="corr-pred"></div><p class="small muted">Correlation between the predicted spreads themselves - how much the strategies agree on the games.</p></div>
+  </div>
+  <div class="legend"><span><i style="background:rgba(57,192,127,.35)"></i>low - largely independent signal</span><span><i style="background:rgba(77,163,255,.25)"></i>moderate</span><span><i style="background:rgba(240,169,56,.35)"></i>high</span><span><i style="background:rgba(239,107,107,.4)"></i>near-identical - treat as one strategy</span></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Calibration</span><h2>Are the probabilities honest?</h2><p class="muted">A forecast that is consistently too confident is worse than no forecast. For each offset the model states the probability that the true total exceeds its own total plus that offset; a well-calibrated model's stated probability matches how often it actually happened.</p></div><span class="tag">Tolerance 0.12</span></div>
+<div id="calib"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Stability</span><h2>Does the edge hold week to week?</h2><p class="muted">An improvement that appears only in a few weeks is not a reliable edge. Gate G5 requires the improvement against the league-constant benchmark to be positive in at least 60% of evaluated weeks.</p></div></div>
+<div id="weekly"></div>
+</section>
+
+<div class="note bad" id="render-error" style="display:none"></div>
+</main>
+<footer>
+  <div class="inner">
+    <span>FOURTH DOWN RESEARCH · NFL decision support</span>
+    <span>Official sources: nfl.com/standings · nfl.com/injuries · nfl.com/schedules · operations.nfl.com · ftc.gov</span>
+    <span>Evidence status: verified official data + labelled model estimates · no market data · not betting advice</span>
+  </div>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

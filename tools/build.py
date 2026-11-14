@@ -31,7 +31,11 @@ import math
 import os
 import random
 import statistics
+import sys
 from collections import OrderedDict
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import content
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -694,6 +698,16 @@ payload = {
     "calibration": calib,
     "weekly": weekly,
     "availability": avail_list,
+    "injury_rows": [
+        {"team": NAME.get(r["team"], r["team"]), "team_abbr": r["team"], "player": r["player"],
+         "pos": r["pos"], "injuries": r["injuries"], "practice": r["practice"],
+         "status": r["game_status"], "url": r["player_url"]}
+        for r in injuries],
+    "flags": content.FLAGS,
+    "questions": content.QUESTIONS,
+    "suggestions": content.SUGGESTIONS,
+    "suggestion_framework": content.SUGGESTION_FRAMEWORK,
+    "verification": content.VERIFICATION,
     "qb_changes": qb_list,
     "news": news_items,
     "metrics": metrics,
@@ -712,7 +726,12 @@ for name, obj in (("standings", payload["standings"]), ("power", power),
                   ("leaderboard", leaderboard), ("correlation_error", corr_err),
                   ("correlation_prediction", corr_pred), ("availability", avail_list),
                   ("metrics", metrics), ("params", PARAMS), ("qb_changes", qb_list),
-                  ("news", news_items), ("calibration", calib)):
+                  ("news", news_items), ("calibration", calib),
+                  ("weekly", weekly),
+                  ("flags", content.FLAGS), ("questions", content.QUESTIONS),
+                  ("suggestions", content.SUGGESTIONS),
+                  ("suggestion_framework", content.SUGGESTION_FRAMEWORK),
+                  ("verification", content.VERIFICATION)):
     with open(os.path.join(OUT, name + ".json"), "w", encoding="utf-8") as fh:
         json.dump(obj, fh, indent=1, default=str)
 

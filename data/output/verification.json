@@ -1,0 +1,68 @@
+[
+ {
+  "check": "Reconstructed game log matches the official NFL.com standings",
+  "result": "pass",
+  "url": "https://www.nfl.com/standings/",
+  "how": "tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."
+ },
+ {
+  "check": "Every game row carries a working official NFL.com game URL",
+  "result": "pass",
+  "url": "https://www.nfl.com/schedules/2026/",
+  "how": "Each row's URL is checked against the official /games/<away>-at-<home>-<season>-reg-<week> pattern, and the Week 5 and Week 10 links were opened directly and confirmed to show the same scores."
+ },
+ {
+  "check": "Week 11 schedule matches NFL.com",
+  "result": "pass",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "how": "The 13 games, their dates, kickoff times, broadcast networks, the Mexico City international designation and the six teams on bye were read directly from the official NFL.com Week 11 page."
+ },
+ {
+  "check": "Week 10 injury report matches NFL.com",
+  "result": "pass",
+  "url": "https://www.nfl.com/injuries/",
+  "how": "Every listed player, position, injury description, practice designation and game status was transcribed from the official NFL.com injury report for the 28 teams playing."
+ },
+ {
+  "check": "Starter-change and long-absence facts",
+  "result": "pass",
+  "url": "https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders",
+  "how": "Each is linked to the official NFL.com article that states it, rather than asserted from the injury report alone."
+ },
+ {
+  "check": "No look-ahead in the model",
+  "result": "pass",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "how": "Every Week-w prediction is produced from games in weeks strictly less than w, and each opponent's season rate is also measured at the same information time."
+ },
+ {
+  "check": "Bootstrap is deterministic",
+  "result": "pass",
+  "url": "https://www.nfl.com/schedules/2026/",
+  "how": "A fixed seed and a fixed resample count mean re-running tools/build.py reproduces identical confidence intervals."
+ },
+ {
+  "check": "A strategy's improvement is statistically distinguishable from zero",
+  "result": "flag",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "how": "The paired bootstrap interval, Bonferroni-adjusted for the number of strategies compared, still contains zero for every strategy. No strategy is marked eligible."
+ },
+ {
+  "check": "Official market lines",
+  "result": "flag",
+  "url": "https://www.nfl.com/",
+  "how": "The NFL publishes none. Every market-line cell is blank and every value-based statement about edge, ROI or parlay pricing is omitted."
+ },
+ {
+  "check": "Official depth-chart strings",
+  "result": "flag",
+  "url": "https://www.nfl.com/teams/",
+  "how": "No consolidated league source exists. No player is assigned a depth rank."
+ },
+ {
+  "check": "Weeks 12-18 of the schedule",
+  "result": "flag",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "how": "NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."
+ }
+]

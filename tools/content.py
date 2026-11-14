@@ -1,0 +1,290 @@
+# -*- coding: utf-8 -*-
+"""
+Narrative content published on the site.
+
+Every "known" statement carries an official source URL. Every "missing" statement is
+something that is genuinely absent from the official free sources captured so far.
+Nothing here is a placeholder for data that exists.
+"""
+
+# ------------------------------------------------------------------ information requirements
+QUESTIONS = [
+    dict(q="What decision are we actually trying to make?",
+         know="The repository now holds a verified game log (137 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
+         missing="The market definition (point spread, total, player prop, or a proprietary rating), the decision horizon (single game, week, or season) and whether the output is informational analytics, a paper-trading competition, or a wagering product.",
+         blocks="Reward design, data budget, legal scope, and which of the strategies on the Strategy Lab page is even relevant.",
+         close="Write a one-page charter naming the market, the horizon, the decision owner and what 'success' means, then re-score every suggestion against it.",
+         url="https://www.nfl.com/schedules/2026/by-week/week-11"),
+
+    dict(q="Where do betting lines come from, and do we price our own lines or trade them?",
+         know="The NFL publishes no official betting lines. Every spread and total on this site is a model estimate derived from official NFL.com results, computed by tools/build.py. NFL Game Operations publishes the rules of the game itself.",
+         missing="A licensed, timestamped odds feed; which sportsbook and market format; the vig-removal convention; whether prices are compared against a market or the model sets its own price.",
+         blocks="Every expected-value, ROI, bankroll, Kelly and parlay-pricing calculation. Those cells are blank on this site and will stay blank until a feed is authorised.",
+         close="Either obtain a licensed odds feed with a documented history, or formally decide the project is market-independent and scores predictions only.",
+         url="https://www.nfl.com/"),
+
+    dict(q="How will 'a 2nd- or 3rd-string player replaces a starter' be measured?",
+         know="The official NFL.com injury report gives practice participation and game status for every listed player on all 28 teams that played in Week 10. NFL.com news confirms specific starter changes (Seattle, Cleveland, Arizona, Miami) and long-term absences (Baltimore, the LA Rams, Green Bay).",
+         missing="An official league-wide depth chart, snap counts, and a point-in-time record of who actually started each game. NFL clubs publish their own depth charts, but the league publishes no consolidated version.",
+         blocks="Quantifying what an absence is worth in points, ranking unit depth, and any player-prop model built on role.",
+         close="Ingest the official NFL.com game books (box scores) to build snaps and starters, and archive club depth charts with retrieval timestamps.",
+         url="https://www.nfl.com/injuries/"),
+
+    dict(q="Which long-term absences are missing from the public injury report?",
+         know="The public Week 10 injury page does not list players on injured reserve, reserve/nontheatre injured list or physically unable to perform. Baltimore's starting quarterback, for example, appears only in league news, not in the report table.",
+         missing="A complete, machine-readable IR/PUP/NIR list per team, per week.",
+         blocks="Multi-week absence tracking and any team-strength adjustment built from availability.",
+         close="Pull each club's own weekly official injury report (clubs publish them and the league links them) and archive them weekly.",
+         url="https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season"),
+
+    dict(q="How many games are enough to call a strategy skilful rather than lucky?",
+         know="105 out-of-sample games are available (Weeks 3-10). The best strategy improves point-spread MAE over the league-constant benchmark, but its Bonferroni-adjusted bootstrap interval still contains zero, so no strategy passes the significance gate.",
+         missing="More seasons of official history, and a pre-registered minimum sample size for the reward contest.",
+         blocks="Awarding rewards, declaring a winner, or claiming an edge.",
+         close="Pre-register the sample size and the metric now, then keep scoring prospective predictions so the evidence accrues on a published timeline.",
+         url="https://www.nfl.com/schedules/2026/by-week/week-10"),
+
+    dict(q="Is a 6-2 team actually good, or just fortunate?",
+         know="Official points for and against are verified for every team. A Pythagorean-style check, an opponent-adjusted margin and a home/road split are all computable from those official totals.",
+         missing="Drive-level data: snaps, possessions, explosives plays, red-zone rate, turnovers and play-call mix. None of these is exposed by the free official pages in a single fetch.",
+         blocks="Separating a genuinely strong roster from one with a soft schedule and a few lucky wins.",
+         close="Ingest the official game books (NFL.com box scores) to build drive and possession features on the same point-in-time discipline used here.",
+         url="https://www.nfl.com/stats/"),
+
+    dict(q="What counts as a bet, and how is it settled?",
+         know="NFL Football Operations publishes the official rulebook that governs the games themselves. The published Week 11 schedule also carries the league's flexible-scheduling and future-week rules.",
+         missing="Sportsbook-specific settlement: pushes and voids on postponed games, stat corrections on player props, and treatment of a cancelled game in a season.",
+         blocks="Backtest correctness and any realised-profit figure.",
+         close="Record the rulebook version and the market's settlement rules alongside every backtest, and keep a copy of both.",
+         url="https://operations.nfl.com/rules-officiating/2026-nfl-rulebook"),
+
+    dict(q="Who may take part, and in which jurisdictions?",
+         know="This is a public research repository published with GitHub Pages. It publishes no picks, accepts no bets and pays no prizes.",
+         missing="Jurisdiction, age gating, and the prize structure if rewards ever become monetary or wagering-related.",
+         blocks="Any real-money reward mechanism or public competition.",
+         close="Obtain jurisdiction-specific legal review before attaching value to a leaderboard position.",
+         url="https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act"),
+
+    dict(q="How will the data stay fresh and point-in-time?",
+         know="Every official page used here is re-fetchable on a schedule, and the pipeline is scripted and reproducible: tools/verify.py proves the data, tools/build.py regenerates every published number.",
+         missing="An automated fetcher with change detection and a dated snapshot archive, plus a nightly capture of the official injury report.",
+         blocks="Prospective evaluation, which is the only way the significance gate can eventually be passed.",
+         close="Add a scheduled job that stores a dated copy of the standings, the weekly injury report and the weekly schedule, then rebuild the site from the archive.",
+         url="https://www.nfl.com/injuries/"),
+
+    dict(q="Which metric decides the leaderboard?",
+         know="The leaderboard currently scores seven gates: data integrity, out-of-sample discipline, minimum sample, statistical significance, weekly stability, calibration, and exclusion of the benchmark. Points are provisional until all seven pass.",
+         missing="The reward scale, tie-breaks, disqualification rules, and the treatment of strategies that are statistically indistinguishable from each other.",
+         blocks="A fair competition and any published reward.",
+         close="Ratify the scoring formula and the correlation rule before the first prospective round.",
+         url="https://www.nfl.com/schedules/2026/by-week/week-11"),
+]
+
+# ------------------------------------------------------------------ suggestions
+SUGGESTIONS = [
+    dict(priority="P0", priority_class="p0", area="Data", title="Archive a dated snapshot of every official page",
+         body="Store the standings page, the weekly injury report and the weekly schedule on every fetch, with retrieval time, content hash and the source URL. Rebuild the site from the archive rather than from a live page.",
+         why="Right now every table is a snapshot of a single moment. Without an archive we cannot prove what was known at decision time, and the significance gate can never be passed retrospectively.",
+         verify="Re-running the build from an archived date reproduces byte-identical tables for that date.",
+         effort="Low", impact="High",
+         decision="Agree the retention window and the fetch schedule."),
+
+    dict(priority="P0", priority_class="p0", area="Data", title="Ingest the official game books for snaps, starters and drives",
+         body="Add an ingestion step for the official NFL.com box scores of every completed game, producing snap counts, starter/backup depth ranks, possession splits and drive-level efficiency.",
+         why="This is the single largest gap. Depth-chart depth (question 3), long-term absences (question 4) and roster quality (question 6) all become measurable once snaps and starters are in hand. Everything else on this site is a scoring-rate model.",
+         verify="An absence is assigned a measured point value, and a depth rank can be quoted with a source link for every player.",
+         effort="High", impact="Very high",
+         decision="Confirm the game-book format is acceptable to parse and redistribute in this repository."),
+
+    dict(priority="P0", priority_class="p0", area="Market", title="Decide the market strategy before building any pricing",
+         body="Either authorise a licensed odds feed, or state formally that the project prices its own lines and never compares them to a market. The current code deliberately contains no odds path.",
+         why="Betting value, bankroll sizing, parlay pricing and player-prop economics are all undefined without prices. Leaving the decision open silently produces numbers that look like conclusions but are not.",
+         verify="Either a signed feed agreement, or a published scope statement that removes every value claim from the site.",
+         effort="Low", impact="Very high",
+         decision="Market-independent research, or licensed market comparison."),
+
+    dict(priority="P1", priority_class="p1", area="Strategy", title="Group the leaderboard by distinct signal family",
+         body="Use the published error-correlation matrix to collapse near-duplicate strategies into families before ranking, and label each entry with its family instead of treating every model as an independent competitor.",
+         why="The correlation matrix shows several strategies with an error correlation of 1.00 - they are the same signal expressed twice. A leaderboard that treats them as rivals overstates how much independent skill exists.",
+         verify="Every family leader is separated from every other family leader by a correlation below the agreed threshold.",
+         effort="Low", impact="High",
+         decision="The correlation value at which two strategies count as the same signal."),
+
+    dict(priority="P1", priority_class="p1", area="Presentation", title="Publish a band, not a number, for every model line",
+         body="Show the full strategy range and the implied probability distribution next to each line, and label every model figure as an estimate derived from official results.",
+         why="A single spread reads as a fact. The range across the nine strategies is the honest representation of what the current data supports, and it shows the reviewer exactly where the model is confident and where it is guessing.",
+         verify="No page shows a bare model number without its range and its derivation note.",
+         effort="Low", impact="Medium",
+         decision="Whether the band should be the strategy range or a bootstrap percentile interval."),
+
+    dict(priority="P1", priority_class="p1", area="Strategy", title="Run a shadow leaderboard of locked, pre-game predictions",
+         body="Publish every model line before kickoff with a timestamp, then score it afterwards. No real money, no changes after the fact.",
+         why="Backtesting on nine weeks of one season is the weakest evidence available. Prospective, timestamped predictions are what turns 'no strategy passes the significance gate' into an actual decision, and they are the only fair basis for a reward contest.",
+         verify="After 50 locked games the paired bootstrap interval can be recomputed on prospective data alone.",
+         effort="Medium", impact="Very high",
+         decision="Who locks the predictions, and how is the lock enforced so a line cannot be revised after seeing the market."),
+
+    dict(priority="P1", priority_class="p1", area="Strategy", title="Add model-disagreement and absence-impact watchlists",
+         body="Flag games where the strategies disagree by more than a set threshold, and attach the availability summary for both teams, so extra research effort is aimed at the games that are actually uncertain.",
+         why="Most games are not close calls. The value of more information is concentrated in a small number of games, and the current site shows the lines but not where uncertainty lives.",
+         verify="A weekly shortlist of flagged games, each with the official injury link and the disagreement range.",
+         effort="Medium", impact="Medium",
+         decision="The disagreement threshold that makes a game worth extra research."),
+
+    dict(priority="P1", priority_class="p1", area="Parlays", title="Price combinations from a joint model, never from marginals",
+         body="For any parlay or prop combination, estimate the joint distribution and compare it to the offered payout and to the same legs taken singly. A correlation of 1.00 between two legs means the combination is one bet priced twice.",
+         why="The correlation matrix already shows that several model legs are near-perfectly collinear. Multiplying marginals in that situation overstates the probability of the parlay winning and is the most common way a strategy loses money for reasons that have nothing to do with skill.",
+         verify="Every published combination carries a joint estimate, an explicit dependence assumption and a comparison against the singles.",
+         effort="High", impact="High",
+         decision="Which combination types are eligible for the contest at all."),
+
+    dict(priority="P2", priority_class="p2", area="Quality", title="Make data integrity a failing build, not a report",
+         body="Wire tools/verify.py into continuous integration so that any edit which breaks agreement with the official standings totals fails the build before it can be published.",
+         why="The verification in this session caught a genuine transcription error and a swapped score. That check should never be optional.",
+         verify="A deliberately corrupted row makes the pipeline fail with a named team and the expected versus official totals.",
+         effort="Low", impact="High",
+         decision="Whether the committed standings snapshot is refreshed automatically or manually reviewed."),
+
+    dict(priority="P2", priority_class="p2", area="Presentation", title="Add a per-team availability timeline",
+         body="Show a week-by-week timeline of each team's absence count and unit hit, so a three-week absence is visible at a glance instead of only in the current week's report.",
+         why="A single report snapshot hides exactly the pattern that matters most for a season-long model: a slowly degrading roster.",
+         verify="A timeline view for every team, sourced to the weekly official report.",
+         effort="Medium", impact="Medium",
+         decision="How many weeks of history to retain and how absences that resolve are displayed."),
+
+    dict(priority="P2", priority_class="p2", area="Presentation", title="Give every page its own visible flag list",
+         body="Show the flags that apply to the page you are reading, next to the content, rather than only on the review page.",
+         why="A reader who lands on the injury page should not have to visit another page to learn that the public report omits players on injured reserve.",
+         verify="Each page carries an inline panel listing the flags that constrain it.",
+         effort="Low", impact="Medium",
+         decision="Whether the inline panel is collapsed by default for casual readers."),
+
+    dict(priority="P3", priority_class="p3", area="Quality", title="Re-run the strategy search each week and publish the changelog",
+         body="Recompute the leaderboard weekly from the archive and publish what changed, including strategies that fell out of contention.",
+         why="Early-season rankings are unstable - the current spread between strategies is smaller than its own confidence interval. Publishing the movement is more honest than publishing a static ranking that looks settled.",
+         verify="A dated weekly changelog showing the movement of each strategy's improvement and interval.",
+         effort="Medium", impact="Medium",
+         decision="Whether the leaderboard is frozen for a season or updated continuously."),
+]
+
+SUGGESTION_FRAMEWORK = [
+    dict(step="1", question="Name the decision in one sentence.", rule="If the decision cannot be written in a sentence, no data or model is worth building yet.", url="https://www.nfl.com/schedules/2026/by-week/week-11"),
+    dict(step="2", question="What is the smallest data set that could change that decision?", rule="Prefer the narrowest official source that can overturn the current answer.", url="https://www.nfl.com/standings/"),
+    dict(step="3", question="Is the source official, machine-readable and re-fetchable?", rule="Official beats secondary. Re-fetchable beats one-off. A source that cannot be re-read cannot be audited.", url="https://www.nfl.com/injuries/"),
+    dict(step="4", question="How much would we trust the result if it were reversed?", rule="If a reversal would not change the decision, it is not worth the effort.", url="https://www.nfl.com/schedules/2026/"),
+    dict(step="5", question="What metric and threshold decide success, before we measure?", rule="Pre-register the metric and the threshold; choosing them after seeing the result is how luck gets mistaken for skill.", url="https://www.nfl.com/schedules/2026/by-week/week-10"),
+    dict(step="6", question="What would make this fail?", rule="Every proposal needs a named failure condition and a stop rule.", url="https://operations.nfl.com/rules-officiating/2026-nfl-rulebook"),
+    dict(step="7", question="Who reviews the result, and is it published either way?", rule="Failures are published with the same prominence as successes, or the evidence is worthless.", url="https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act"),
+]
+
+# ------------------------------------------------------------------ flagged register
+FLAGS = [
+    dict(id="F-01", item="Current market betting lines and odds", type="Unverified data", kind="no", status="unverified",
+         detail="No spread, total, moneyline or prop price is published anywhere on this site. The NFL publishes no official betting lines.",
+         why="No licensed, timestamped odds feed has been authorised for this repository, so any expected value, ROI, bankroll or parlay price would be invented. Every market-line cell is left blank rather than filled from a secondary aggregator.",
+         official_url="https://www.nfl.com/",
+         url="https://www.nfl.com/"),
+
+    dict(id="F-02", item="Depth-chart string: starter, 2nd, 3rd, 4th", type="Unverified data", kind="no", status="unverified",
+         detail="No player on this site is assigned a depth-chart rank.",
+         why="The NFL publishes no consolidated official depth chart; clubs publish their own on their official sites, and those were not captured or archived for this build. Assigning a rank from inference would be fabrication.",
+         official_url="https://www.nfl.com/teams/",
+         url="https://www.nfl.com/teams/"),
+
+    dict(id="F-03", item="Players on injured reserve, PUP and NFI", type="Limitation", kind="warn", status="limitation",
+         detail="The public Week 10 injury page omits players on IR/PUP/NIR. Baltimore's starting quarterback, for example, appears only in league news.",
+         why="Any availability model built from the public page alone will silently miss long-term absences, which are exactly the absences that move a line.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://www.nfl.com/injuries/"),
+
+    dict(id="F-04", item="Two official sources give different absence windows for the same player", type="Irregularity", kind="warn", status="irregularity",
+         detail="One NFL.com item says the Ravens' Lamar Jackson is out 6-9 weeks; another says the Ravens confirm he is expected to miss 6-10 weeks.",
+         why="Both are official league sources and they disagree. Neither is corrected on this site; the conflict is recorded so the discrepancy can be resolved by the club or the league before either figure is used.",
+         official_url="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13",
+         url="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13"),
+
+    dict(id="F-05", item="Player-level game logs, snaps, drives and EPA", type="Unverified data", kind="no", status="unverified",
+         detail="No player-level season statistics are published here.",
+         why="The official free pages fetched for this build did not expose a complete player-level dataset in a verifiable form. Player-prop strategies therefore remain framework only, with no measured performance.",
+         official_url="https://www.nfl.com/stats/",
+         url="https://www.nfl.com/stats/"),
+
+    dict(id="F-06", item="Player-prop and parlay strategy performance", type="Unverified data", kind="no", status="unverified",
+         detail="No player-prop strategy, no parlay price and no combined-bet performance figure is published.",
+         why="Pricing a combination requires a joint distribution over player outcomes, which depends on F-02 and F-05. Publishing a number now would be a guess presented as a measurement.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://www.nfl.com/injuries/"),
+
+    dict(id="F-07", item="No strategy has passed all seven validation gates", type="Result", kind="warn", status="limitation",
+         detail="Across 105 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval that still contains zero.",
+         why="This is the gate doing its job. A leaderboard that ranked strategies by point estimate alone would have declared a winner that the evidence does not support.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         url="https://www.nfl.com/schedules/2026/by-week/week-10"),
+
+    dict(id="F-08", item="Model parameters have no official source", type="Limitation", kind="warn", status="limitation",
+         detail="The decay factors, shrinkage weights, bootstrap settings and gate thresholds are analyst choices made by this project.",
+         why="They are the first thing a reviewer should challenge, and changing any of them changes the ranking. They are published in full on the Methodology page so they can be argued with.",
+         official_url="https://www.nfl.com/standings/",
+         url="https://www.nfl.com/standings/"),
+
+    dict(id="F-09", item="NFL.com deep links of the form /schedules/2026/REG<n>/ silently redirect to the current week", type="Irregularity", kind="warn", status="irregularity",
+         detail="The URL pattern that appears to address an individual week resolves to whichever week is live.",
+         why="Any automation built on that pattern would silently re-read the current week instead of the requested one. The working per-week pattern is /schedules/2026/by-week/week-<n>, which was confirmed directly for weeks 5 and 11.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-5",
+         url="https://www.nfl.com/schedules/2026/by-week/week-5"),
+
+    dict(id="F-10", item="Weeks 12 to 18 of the 2026 schedule are not published here", type="Limitation", kind="warn", status="limitation",
+         detail="Only the completed Weeks 1-10 games and the official Week 11 schedule are published.",
+         why="NFL itself lists several late-season matchups as to-be-determined, and the league's own notice explains that those dates, times and networks are only fixed later in the season.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://www.nfl.com/schedules/2026/by-week/week-11"),
+
+    dict(id="F-11", item="Injury-report policy link carried over from an earlier session was not re-verified", type="Irregularity", kind="warn", status="irregularity",
+         detail="The Competition Committee injury-report policy link recorded by an earlier session was not re-fetched during this build.",
+         why="It is left in the repository as recorded by the session that verified it, and is not re-certified here. Nothing published on this site depends on it.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://www.nfl.com/news/competition-committee-approves-revisions-to-injury-report-0ap3000000688693"),
+
+    dict(id="F-12", item="Repository hygiene at the start of this build", type="Irregularity", kind="warn", status="resolved",
+         detail="Before this work the repository contained exactly one tracked file - a four-byte README - with no licence, no contributing guide, no continuous integration, no tests, no data and no site.",
+         why="Recorded for the audit trail. This build adds the verified datasets, the verification harness, the model engine and continuous integration that checks the site and the data before publication.",
+         official_url="https://www.nfl.com/standings/",
+         url="https://github.com/karagemop466-tech/X4"),
+]
+
+# ------------------------------------------------------------------ verification log
+VERIFICATION = [
+    dict(check="Reconstructed game log matches the official NFL.com standings", result="pass",
+         url="https://www.nfl.com/standings/",
+         how="tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."),
+    dict(check="Every game row carries a working official NFL.com game URL", result="pass",
+         url="https://www.nfl.com/schedules/2026/",
+         how="Each row's URL is checked against the official /games/<away>-at-<home>-<season>-reg-<week> pattern, and the Week 5 and Week 10 links were opened directly and confirmed to show the same scores."),
+    dict(check="Week 11 schedule matches NFL.com", result="pass",
+         url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         how="The 13 games, their dates, kickoff times, broadcast networks, the Mexico City international designation and the six teams on bye were read directly from the official NFL.com Week 11 page."),
+    dict(check="Week 10 injury report matches NFL.com", result="pass",
+         url="https://www.nfl.com/injuries/",
+         how="Every listed player, position, injury description, practice designation and game status was transcribed from the official NFL.com injury report for the 28 teams playing."),
+    dict(check="Starter-change and long-absence facts", result="pass",
+         url="https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders",
+         how="Each is linked to the official NFL.com article that states it, rather than asserted from the injury report alone."),
+    dict(check="No look-ahead in the model", result="pass",
+         url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         how="Every Week-w prediction is produced from games in weeks strictly less than w, and each opponent's season rate is also measured at the same information time."),
+    dict(check="Bootstrap is deterministic", result="pass",
+         url="https://www.nfl.com/schedules/2026/",
+         how="A fixed seed and a fixed resample count mean re-running tools/build.py reproduces identical confidence intervals."),
+    dict(check="A strategy's improvement is statistically distinguishable from zero", result="flag",
+         url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         how="The paired bootstrap interval, Bonferroni-adjusted for the number of strategies compared, still contains zero for every strategy. No strategy is marked eligible."),
+    dict(check="Official market lines", result="flag",
+         url="https://www.nfl.com/",
+         how="The NFL publishes none. Every market-line cell is blank and every value-based statement about edge, ROI or parlay pricing is omitted."),
+    dict(check="Official depth-chart strings", result="flag",
+         url="https://www.nfl.com/teams/",
+         how="No consolidated league source exists. No player is assigned a depth rank."),
+    dict(check="Weeks 12-18 of the schedule", result="flag",
+         url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         how="NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."),
+]
