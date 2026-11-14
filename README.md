@@ -14,7 +14,7 @@ questions to suggestions.
 | `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
 | `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, depth-chart acquisition, data verification, and the sources register |
 | `tools/` | The pipeline: `verify.py` proves the data, `build.py` produces every published number, `pages.py` and `sync.py` build the site, `validate.py` runs the whole gate |
-| `site/` | The published multi-page site: nine generated pages plus eleven decision-desk pages, all statically rendered |
+| `site/` | The published multi-page site: fifteen generated pages plus twenty-two decision-desk pages, all statically rendered, plus the datasets and notes the pages cite |
 | `docs/` | The X4 Console - a second, independent build of the same project, published at `/console/` |
 | `console/` | A byte-identical mirror of `docs/`, so the repository root that GitHub Pages serves is the same site the workflow publishes |
 | `COORDINATION.md` | The shared board for the parallel agent sessions working on this repository |
@@ -27,9 +27,9 @@ it answers, so nothing has to be guessed at.
 | Category | Pages |
 |---|---|
 | Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) |
-| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) |
-| Model & strategies | `lines.html` (13 Week-11 model lines) · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) |
-| Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `flags.html` (main register) · `flagged.html` (desk register) |
+| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) · `replacements.html` (desk: the replacement chains, side by side) · `markets.html` (the price-snapshot store) · `results.html` (the verified results feed) |
+| Model & strategies | `lines.html` (13 Week-11 model lines, fair / market / difference as three columns) · `market.html` (the captured-price archive: 29 games, 87 price rows, skill and staking boards) · `price-snapshots.html` · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `gates.html` (signal vs staking, the demotion gate) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) · `origination.html` + `price-store.html` + `signal-vs-staking.html` + `correlations.html` + `method-lab.html` (the origination layer) |
+| Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `workbench.html` (12 proposals on one documented rubric, ranked) · `programme.html` (the eight integrity gates) · `flags.html` (main register, 38 entries) · `flagged.html` (desk register, 12 blanks + 14 irregularities) · `ops-review.html` · `verification.html` · `requirements-closure.html` (ten of twelve requirements closed) |
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
 | Second build | The **X4 Console** at `/console/` - 15 pages, built independently, reaching the same two structural conclusions |
 
@@ -183,9 +183,29 @@ This repository is worked on by several agent sessions in parallel. `COORDINATIO
 records who owns which files, what has been claimed, what has been merged, and the
 verification and deployment history.
 
-## The final integration pass
+## The final integration pass (T31, session `arena/f7614083-x4`)
 
-The last session (`arena/da12b830-x4`) closed the site out:
+The two open branches - PR #22 (the eight integrity gates, the decision programme, the
+suggestion workbench) and PR #26 (the captured-price archive, the market page, the
+skill/staking boards) - were merged into one build, reconciled with each other and with
+`main`, re-verified against the live official pages and published.
+
+| What | Detail |
+|---|---|
+| Both branches merged | Neither branch's work was discarded: the flag registers are the union (38 entries, no duplicate id), both page generators are kept, and both gates run in `tools/validate.py` |
+| One navigation | `tools/desk_nav.py` is the single source for the desk sidebar; four copies had already drifted apart twice, and the build now fails if any page disagrees |
+| Every page reachable | The landing-page directory is rendered at write time and lists all 36 published pages; ten of them had been unreachable from it |
+| No dead links in the published site | The artifact is `site/`, but the pages linked to `research/…`, `data/ops/…` and `COORDINATION.md`, which were not in it - 41 dead links. The cited datasets and notes are now published with the site, and every published page's links are checked |
+| Two price stores reconciled | The site carried two independently captured price stores. `tools/reconcile_prices.py` compares them number by number: **112 of 112 comparable values match**. The one genuine difference - the two stores use the word *close* differently - is published as flag **F-38** |
+| Re-verified live | The official standings (32 clubs, 256 field checks), the Week 11 schedule (13 games, 117 checks) and 27 rows of the official injury report were re-read on 2026-11-14 and match the committed data |
+| One publish gate | The Pages workflow now runs `tools/validate.py` - the whole gate - instead of three hand-picked steps |
+
+The full record, with every number and every irregularity found, is
+`research/verification/integration-verification-2026-11-14.md`.
+
+## The earlier integration pass
+
+The session before this one (`arena/da12b830-x4`) closed the site out:
 
 - **One map of the site.** The landing page now carries a directory of every published
   page grouped by category, and the top navigation links to it from every page. This

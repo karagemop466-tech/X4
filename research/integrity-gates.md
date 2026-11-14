@@ -1,5 +1,27 @@
 # Integrity gates: what was built, what it proves, and what it still cannot answer
 
+> **Status after the T31 integration (2026-11-14, session `arena/f7614083-x4`).**
+> The findings below are unchanged and still correct: they were true when they were
+> written and nothing here has been rewritten to look newer than it is. What changed is
+> the surrounding state, and a reader needs to know it:
+>
+> * A **second, wider price capture** now exists - 29 games, opening and closing, spread,
+>   total and moneyline - published on `market.html`, and it is graded against the official
+>   NFL.com results: **432 graded bets over 16 settled games, nine strategies**, with a
+>   skill board that cannot see a stake and a staking board beside it. Every one of the
+>   nine strategies breaches at least one demotion rule and sits on paper.
+> * The two captures were taken independently and are **reconciled number by number**:
+>   112 of 112 comparable values match (`tools/reconcile_prices.py`, part of the
+>   publication gate; the row-by-row record is
+>   `research/data/price_capture_reconciliation.csv`).
+> * The word **"close" means different things in the two stores** - that is flag F-38.
+> * The prices are **not official**. The league publishes no betting lines; the numbers
+>   are one book's, published by ESPN, and are labelled non-official everywhere they
+>   appear (F-01, F-18, F-36).
+>
+> Nothing above changes the conclusion of this note: the sample is still far short of the
+> gate thresholds, and no strategy is eligible for reward.
+
 Generated context and hand-written findings for `site/programme.html`. Every figure in
 this note is reproduced by `python3 tools/build_integrity.py`, whose formulas are
 printed in the source. No number here was typed in from memory.

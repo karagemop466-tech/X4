@@ -25,7 +25,9 @@ SITE = os.path.join(ROOT, "site")
 DOCS = os.path.join(ROOT, "docs")
 CONSOLE = os.path.join(ROOT, "console")
 
-SKIP = {"check.py"}
+SKIP = {"check.py", "README.md", "COORDINATION.md"}
+# README.md and COORDINATION.md are repository files, not site assets: they are
+# published INTO site/ (step 4) and must never be mirrored back over the root copy.
 
 # Pages published by the decision-desk layer. They also live in site/, but they
 # are not owned by this mirror step, so it must never delete them from the root.

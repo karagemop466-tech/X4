@@ -95,6 +95,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-35 | Player-prop and prop-combination prices |
 | F-36 | Prices are from one book and are not official |
 | F-37 | Doubled HTML entity in the depth summary text |
+| F-38 | The two price stores use the word 'close' differently |
 
 ## What is deliberately absent
 
