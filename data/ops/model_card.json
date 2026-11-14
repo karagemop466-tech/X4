@@ -1,0 +1,367 @@
+{
+ "gates": [
+  {
+   "id": "G1",
+   "name": "Data integrity",
+   "rule": ">=1 reading per market, all with a source URL and a UTC stamp",
+   "threshold": null
+  },
+  {
+   "id": "G2",
+   "name": "Sample sufficiency",
+   "rule": "n >= 100 settled bets per market type",
+   "threshold": 100
+  },
+  {
+   "id": "G3",
+   "name": "Out-of-sample",
+   "rule": "graded on events never used to fit the model",
+   "threshold": null
+  },
+  {
+   "id": "G4",
+   "name": "Probability quality",
+   "rule": "Brier score better than the market's Brier score",
+   "threshold": 0.0
+  },
+  {
+   "id": "G5",
+   "name": "Significance",
+   "rule": "one-sided p < 0.05 on the skill score",
+   "threshold": 0.05
+  },
+  {
+   "id": "G6",
+   "name": "Multiplicity",
+   "rule": "Bonferroni-adjusted p < 0.05 across all trials",
+   "threshold": 0.05
+  },
+  {
+   "id": "G7",
+   "name": "Stability",
+   "rule": "no single week contributes more than 50% of the skill",
+   "threshold": 0.5
+  },
+  {
+   "id": "G8",
+   "name": "Shadow period",
+   "rule": "a further pre-registered segment with no gate regression",
+   "threshold": null
+  }
+ ],
+ "generated_utc": "",
+ "home_edge": {
+  "ci95": [
+   -3.915,
+   3.143
+  ],
+  "home_win_pct": 45.61,
+  "mean": -0.386,
+  "n": 57,
+  "sd": 13.593,
+  "window": "weeks 6-9 2026"
+ },
+ "n_events_resolved": 10,
+ "n_events_seen": 42,
+ "n_events_unresolved": 32,
+ "n_markets": 30,
+ "n_priced_events": 10,
+ "order": [
+  "side",
+  "total",
+  "moneyline"
+ ],
+ "prior_games": 4.0,
+ "ratings": {
+  "ARI": {
+   "def": 28.333,
+   "diff": -5.923,
+   "diff_raw": -8.556,
+   "gp": 9.0,
+   "off": 19.778,
+   "total": 23.718,
+   "total_raw": 24.056
+  },
+  "ATL": {
+   "def": 24.778,
+   "diff": -2.692,
+   "diff_raw": -3.889,
+   "gp": 9.0,
+   "off": 20.889,
+   "total": 22.872,
+   "total_raw": 22.833
+  },
+  "BAL": {
+   "def": 26.222,
+   "diff": -3.615,
+   "diff_raw": -5.222,
+   "gp": 9.0,
+   "off": 21.0,
+   "total": 23.411,
+   "total_raw": 23.611
+  },
+  "BUF": {
+   "def": 23.375,
+   "diff": 5.75,
+   "diff_raw": 8.625,
+   "gp": 8.0,
+   "off": 32.0,
+   "total": 26.112,
+   "total_raw": 27.688
+  },
+  "CAR": {
+   "def": 27.375,
+   "diff": -1.667,
+   "diff_raw": -2.5,
+   "gp": 8.0,
+   "off": 24.875,
+   "total": 25.07,
+   "total_raw": 26.125
+  },
+  "CHI": {
+   "def": 20.444,
+   "diff": 4.385,
+   "diff_raw": 6.333,
+   "gp": 9.0,
+   "off": 26.778,
+   "total": 23.411,
+   "total_raw": 23.611
+  },
+  "CIN": {
+   "def": 21.875,
+   "diff": 5.417,
+   "diff_raw": 8.125,
+   "gp": 8.0,
+   "off": 30.0,
+   "total": 24.945,
+   "total_raw": 25.938
+  },
+  "CLE": {
+   "def": 21.778,
+   "diff": -2.692,
+   "diff_raw": -3.889,
+   "gp": 9.0,
+   "off": 17.889,
+   "total": 20.795,
+   "total_raw": 19.833
+  },
+  "DAL": {
+   "def": 26.222,
+   "diff": 0.769,
+   "diff_raw": 1.111,
+   "gp": 9.0,
+   "off": 27.333,
+   "total": 25.603,
+   "total_raw": 26.778
+  },
+  "DEN": {
+   "def": 20.667,
+   "diff": 0.923,
+   "diff_raw": 1.333,
+   "gp": 9.0,
+   "off": 22.0,
+   "total": 21.834,
+   "total_raw": 21.333
+  },
+  "DET": {
+   "def": 23.625,
+   "diff": 2.75,
+   "diff_raw": 4.125,
+   "gp": 8.0,
+   "off": 27.75,
+   "total": 24.778,
+   "total_raw": 25.688
+  },
+  "GB": {
+   "def": 21.222,
+   "diff": 1.923,
+   "diff_raw": 2.778,
+   "gp": 9.0,
+   "off": 24.0,
+   "total": 22.718,
+   "total_raw": 22.611
+  },
+  "HOU": {
+   "def": 24.0,
+   "diff": 1.417,
+   "diff_raw": 2.125,
+   "gp": 8.0,
+   "off": 26.125,
+   "total": 24.362,
+   "total_raw": 25.062
+  },
+  "IND": {
+   "def": 27.667,
+   "diff": -5.0,
+   "diff_raw": -7.222,
+   "gp": 9.0,
+   "off": 20.444,
+   "total": 23.718,
+   "total_raw": 24.056
+  },
+  "JAX": {
+   "def": 15.125,
+   "diff": 9.0,
+   "diff_raw": 13.5,
+   "gp": 8.0,
+   "off": 28.625,
+   "total": 22.237,
+   "total_raw": 21.875
+  },
+  "KC": {
+   "def": 17.875,
+   "diff": 4.917,
+   "diff_raw": 7.375,
+   "gp": 8.0,
+   "off": 25.25,
+   "total": 22.028,
+   "total_raw": 21.562
+  },
+  "LAC": {
+   "def": 27.375,
+   "diff": -8.167,
+   "diff_raw": -12.25,
+   "gp": 8.0,
+   "off": 15.125,
+   "total": 21.82,
+   "total_raw": 21.25
+  },
+  "LAR": {
+   "def": 20.111,
+   "diff": 2.538,
+   "diff_raw": 3.667,
+   "gp": 9.0,
+   "off": 23.778,
+   "total": 22.257,
+   "total_raw": 21.944
+  },
+  "LV": {
+   "def": 29.778,
+   "diff": -2.308,
+   "diff_raw": -3.333,
+   "gp": 9.0,
+   "off": 26.444,
+   "total": 26.526,
+   "total_raw": 28.111
+  },
+  "MIA": {
+   "def": 25.0,
+   "diff": -6.167,
+   "diff_raw": -9.25,
+   "gp": 8.0,
+   "off": 15.75,
+   "total": 21.237,
+   "total_raw": 20.375
+  },
+  "MIN": {
+   "def": 14.5,
+   "diff": 2.5,
+   "diff_raw": 3.75,
+   "gp": 8.0,
+   "off": 18.25,
+   "total": 18.57,
+   "total_raw": 16.375
+  },
+  "NE": {
+   "def": 23.0,
+   "diff": 0.308,
+   "diff_raw": 0.444,
+   "gp": 9.0,
+   "off": 23.444,
+   "total": 23.141,
+   "total_raw": 23.222
+  },
+  "NO": {
+   "def": 27.0,
+   "diff": -2.583,
+   "diff_raw": -3.875,
+   "gp": 8.0,
+   "off": 23.125,
+   "total": 24.362,
+   "total_raw": 25.062
+  },
+  "NYG": {
+   "def": 21.778,
+   "diff": 0.538,
+   "diff_raw": 0.778,
+   "gp": 9.0,
+   "off": 22.556,
+   "total": 22.411,
+   "total_raw": 22.167
+  },
+  "NYJ": {
+   "def": 24.778,
+   "diff": -3.154,
+   "diff_raw": -4.556,
+   "gp": 9.0,
+   "off": 20.222,
+   "total": 22.641,
+   "total_raw": 22.5
+  },
+  "PHI": {
+   "def": 24.556,
+   "diff": -5.615,
+   "diff_raw": -8.111,
+   "gp": 9.0,
+   "off": 16.444,
+   "total": 21.257,
+   "total_raw": 20.5
+  },
+  "PIT": {
+   "def": 18.0,
+   "diff": 3.0,
+   "diff_raw": 4.5,
+   "gp": 8.0,
+   "off": 22.5,
+   "total": 21.153,
+   "total_raw": 20.25
+  },
+  "SEA": {
+   "def": 18.0,
+   "diff": 3.077,
+   "diff_raw": 4.444,
+   "gp": 9.0,
+   "off": 22.444,
+   "total": 21.065,
+   "total_raw": 20.222
+  },
+  "SF": {
+   "def": 19.5,
+   "diff": 6.583,
+   "diff_raw": 9.875,
+   "gp": 8.0,
+   "off": 29.375,
+   "total": 23.945,
+   "total_raw": 24.438
+  },
+  "TB": {
+   "def": 19.778,
+   "diff": 1.846,
+   "diff_raw": 2.667,
+   "gp": 9.0,
+   "off": 22.444,
+   "total": 21.68,
+   "total_raw": 21.111
+  },
+  "TEN": {
+   "def": 24.875,
+   "diff": -4.583,
+   "diff_raw": -6.875,
+   "gp": 8.0,
+   "off": 18.0,
+   "total": 21.945,
+   "total_raw": 21.438
+  },
+  "WAS": {
+   "def": 24.778,
+   "diff": -2.077,
+   "diff_raw": -3.0,
+   "gp": 9.0,
+   "off": 21.778,
+   "total": 23.18,
+   "total_raw": 23.278
+  }
+ },
+ "sigma_margin": 13.59,
+ "use_home_edge": true
+}

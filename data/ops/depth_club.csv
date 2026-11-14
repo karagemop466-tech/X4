@@ -1,0 +1,20 @@
+team,losses_recorded,additions_recorded,thin_moves,unresolved,mean_gap_days,churn_index,read
+arizona-cardinals,2,3,2,0,1.0,5,THIN
+miami-dolphins,2,1,2,0,1.0,3,THIN
+los-angeles-rams,3,1,1,0,3.3,4,MIXED
+san-francisco-49ers,2,1,1,0,2.5,3,MIXED
+baltimore-ravens,0,3,0,0,,3,NO LOSSES RECORDED
+atlanta-falcons,1,1,0,0,4.0,2,NO URGENT MOVE
+carolina-panthers,0,2,0,0,,2,NO LOSSES RECORDED
+denver-broncos,1,1,0,0,6.0,2,NO URGENT MOVE
+detroit-lions,1,1,0,0,4.0,2,NO URGENT MOVE
+kansas-city-chiefs,0,2,0,0,,2,NO LOSSES RECORDED
+las-vegas-raiders,0,2,0,0,,2,NO LOSSES RECORDED
+minnesota-vikings,1,1,0,0,3.0,2,NO URGENT MOVE
+seattle-seahawks,0,2,0,0,,2,NO LOSSES RECORDED
+tennessee-titans,1,1,0,0,2.0,2,NO URGENT MOVE
+washington-commanders,1,1,0,0,5.0,2,NO URGENT MOVE
+buffalo-bills,1,0,0,1,,1,NO URGENT MOVE
+dallas-cowboys,1,0,0,1,,1,NO URGENT MOVE
+jacksonville-jaguars,0,1,0,0,,1,NO LOSSES RECORDED
+new-england-patriots,0,1,0,0,,1,NO LOSSES RECORDED
