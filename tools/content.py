@@ -165,6 +165,27 @@ SUGGESTIONS = [
          verify="A dated weekly changelog showing the movement of each strategy's improvement and interval.",
          effort="Medium", impact="Medium",
          decision="Whether the leaderboard is frozen for a season or updated continuously."),
+
+    dict(priority="P0", priority_class="p0", area="Validation", title="S-15 - Decide whether the significance gate measures mean error or paired win rate",
+         body="The same 105 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.21, +1.82] points and contains zero, so every strategy fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 68 of 105 games (64.8%), exact binomial p = 0.0016, which would clear the Bonferroni threshold of 0.00625. Both statistics are computed from the same predictions and both are correct.",
+         why="The gate currently asks 'is the average improvement distinguishable from zero'. The blowouts dominate that average, and no team-rate model can price a blowout. The sign test asks 'how often is this model better head-to-head', which is the question a staker and a reviewer both actually care about. Choosing one over the other changes whether the leaderboard can ever promote anything - and choosing it now, after seeing that one answer passes, is exactly what a pre-registered gate is supposed to prevent unless the choice is made in the open and recorded before the next evaluation window.",
+         verify="Both statistics are published together on gates.html; the gate definition is committed before the next evaluation window; after 50 prospective locked games the two agree or the divergence is explained.",
+         effort="Low", impact="Very high",
+         decision="Define G4 on the mean error difference (current), on the paired win rate (proposed), or on both with a stated primary."),
+
+    dict(priority="P0", priority_class="p0", area="Data", title="S-16 - Capture the closing line at kickoff, automatically, or lose CLV permanently",
+         body="Take a dated snapshot of every market at or after each kickoff, store it under the same snapshot key as the opening and current rows, and recompute closing-line value from it. The store built this session already has the closing slot registered for all 13 games; it is empty only because no game has kicked off yet.",
+         why="Closing-line value is the only economic measure a staking strategy cannot fake with a lucky run, and it is the only gate input that does not depend on the result at all. A closing line that was not captured at kickoff cannot be reconstructed afterwards from an official source, because there is no official source - so every missed kickoff is a permanently lost observation, not a delay.",
+         verify="Every final game has a closing row with a value and a retrieval timestamp at or after kickoff, and CLV recomputes for that game.",
+         effort="Medium", impact="Very high",
+         decision="Who or what captures the snapshot, and at what clock offset from kickoff."),
+
+    dict(priority="P1", priority_class="p1", area="Presentation", title="S-17 - Make the signal/staking split load-bearing, or label it decorative",
+         body="Either introduce a staking rule that is not a monotone function of the hit rate (variable stake sizing, or staking only a selected subset of games), or state on the leaderboard that the two columns are expected to agree under the current flat-stake policy and are published as a cross-check rather than as independent evidence.",
+         why="Under a flat 1-unit stake at -110, bankroll growth is a pure function of the hit rate, so the staking rank cannot diverge from the signal rank in any informative way. A split that is presented as independent protection while being mathematically collinear with the score it is meant to check gives a false sense of two-factor validation. Publishing the condition under which the split becomes informative is more honest and costs nothing.",
+         verify="The leaderboard states the condition under which the ranks can diverge, and either the staking policy produces divergence or the collinearity is stated on the page.",
+         effort="Low", impact="Medium",
+         decision="Whether variable staking is in scope, and if so under what published rule."),
 ]
 
 SUGGESTION_FRAMEWORK = [
@@ -280,7 +301,25 @@ FLAGS = [
          why="The main site's seven are the gates that can actually be scored from the official data that exists; the other two are written as designs for gates that cannot yet be evaluated. A reader comparing the layers would reasonably ask which inventory is authoritative, so each layer states its own count on its own page and the difference is recorded here rather than left to be discovered.",
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"),
+    dict(id="F-18", item="Three practice statuses moved between the commit and this re-verification", type="Irregularity", kind="warn", status="irregularity",
+         detail="Re-read against nfl.com/injuries on 2026-11-14 for 8 clubs (101 players, 404 fields), three practice statuses now differ from data/injuries-wk10-2026.csv: Houston RB David Montgomery and Houston CB Jaylin Smith are listed as FULL participants where the committed file has LIMITED, and Cleveland CB Denzel Ward is listed as LIMITED where the committed file has FULL. All other 401 fields match exactly, including every injury, position and game status.",
+         why="The NFL updates its injury report as practice progresses, so the page is a moving target and the committed CSV is a snapshot of an earlier read. Nothing is corrected here: overwriting the file would change every published availability count and the unit-level roll-up without a new build, and the honest record is that the two reads disagree. The appendix page research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv holds this session's transcription with a player link for every row, so the three differences can be checked one at a time.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv"),
+
+    dict(id="F-19", item="The NFL publishes no closing line, so the closing snapshot cannot be taken from it", type="Limitation", kind="warn", status="unverified",
+         detail="The price store registers a closing snapshot for all 13 Week 11 games and stores 39 rows for it with every price blank. No Week 11 game has kicked off, so no closing line exists yet - and because the NFL publishes no lines at all, the closing number can only ever come from a commercial publisher.",
+         why="A closing line is the only defensible benchmark for closing-line value, so CLV cannot be computed from official data. The snapshot is registered and left empty rather than back-filled with the current line, which would silently turn a pre-game number into a post-game one and make every CLV figure wrong in the flattering direction.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://www.espn.com/nfl/odds/_/week/11"),
+
+    dict(id="F-20", item="The opening snapshot covers points only, not the price on those points", type="Limitation", kind="mute", status="unverified",
+         detail="The opening rows in the price store hold the opening spread and total as points, and the opening moneyline as american prices, but no spread price and no total price. The current snapshot holds the points only as well, for the same reason.",
+         why="The published feed exposes a single spread price per side (-110 at the time of capture) and it is the same number for nearly every game, so transcribing it would add 26 identical cells and no information. It is left blank and flagged rather than filled with a value that was not read game by game. A closing-line-value calculation needs the price as well as the points, which is one more reason CLV is not published yet.",
+         official_url="https://www.nfl.com/odds/",
+         url="https://www.espn.com/nfl/odds/_/week/11"),
 ]
+
 
 # ------------------------------------------------------------------ verification log
 VERIFICATION = [

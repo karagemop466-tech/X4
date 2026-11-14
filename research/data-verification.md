@@ -75,6 +75,9 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-15 | The X4 Console's no-JavaScript fallback counts were stale |
 | F-16 | Two different flagged registers reuse the same identifiers |
 | F-17 | The three published layers define three different validation gates |
+| F-18 | Three practice statuses moved between the commit and this re-verification |
+| F-19 | The NFL publishes no closing line, so the closing snapshot cannot be taken from it |
+| F-20 | The opening snapshot covers points only, not the price on those points |
 
 ## What is deliberately absent
 

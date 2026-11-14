@@ -185,5 +185,38 @@
   "why": "The main site's seven are the gates that can actually be scored from the official data that exists; the other two are written as designs for gates that cannot yet be evaluated. A reader comparing the layers would reasonably ask which inventory is authoritative, so each layer states its own count on its own page and the difference is recorded here rather than left to be discovered.",
   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
+ },
+ {
+  "id": "F-18",
+  "item": "Three practice statuses moved between the commit and this re-verification",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "Re-read against nfl.com/injuries on 2026-11-14 for 8 clubs (101 players, 404 fields), three practice statuses now differ from data/injuries-wk10-2026.csv: Houston RB David Montgomery and Houston CB Jaylin Smith are listed as FULL participants where the committed file has LIMITED, and Cleveland CB Denzel Ward is listed as LIMITED where the committed file has FULL. All other 401 fields match exactly, including every injury, position and game status.",
+  "why": "The NFL updates its injury report as practice progresses, so the page is a moving target and the committed CSV is a snapshot of an earlier read. Nothing is corrected here: overwriting the file would change every published availability count and the unit-level roll-up without a new build, and the honest record is that the two reads disagree. The appendix page research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv holds this session's transcription with a player link for every row, so the three differences can be checked one at a time.",
+  "official_url": "https://www.nfl.com/injuries/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv"
+ },
+ {
+  "id": "F-19",
+  "item": "The NFL publishes no closing line, so the closing snapshot cannot be taken from it",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "unverified",
+  "detail": "The price store registers a closing snapshot for all 13 Week 11 games and stores 39 rows for it with every price blank. No Week 11 game has kicked off, so no closing line exists yet - and because the NFL publishes no lines at all, the closing number can only ever come from a commercial publisher.",
+  "why": "A closing line is the only defensible benchmark for closing-line value, so CLV cannot be computed from official data. The snapshot is registered and left empty rather than back-filled with the current line, which would silently turn a pre-game number into a post-game one and make every CLV figure wrong in the flattering direction.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "url": "https://www.espn.com/nfl/odds/_/week/11"
+ },
+ {
+  "id": "F-20",
+  "item": "The opening snapshot covers points only, not the price on those points",
+  "type": "Limitation",
+  "kind": "mute",
+  "status": "unverified",
+  "detail": "The opening rows in the price store hold the opening spread and total as points, and the opening moneyline as american prices, but no spread price and no total price. The current snapshot holds the points only as well, for the same reason.",
+  "why": "The published feed exposes a single spread price per side (-110 at the time of capture) and it is the same number for nearly every game, so transcribing it would add 26 identical cells and no information. It is left blank and flagged rather than filled with a value that was not read game by game. A closing-line-value calculation needs the price as well as the points, which is one more reason CLV is not published yet.",
+  "official_url": "https://www.nfl.com/odds/",
+  "url": "https://www.espn.com/nfl/odds/_/week/11"
  }
 ]
