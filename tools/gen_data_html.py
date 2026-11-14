@@ -103,9 +103,9 @@ it = stats["integrity"]
 
 TEMPLATE = """<!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Verified NFL data tables: standings, schedules, odds and results with official source links."><title>Verified data | Fourth Down Research</title><link rel="stylesheet" href="styles.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Verified NFL data tables: standings, schedules, odds and results with official source links."><title>Verified data | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
 <body>
-<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="strategies.html">◎ &nbsp;Line lab &amp; signals</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="injuries.html">＋ &nbsp;Availability</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="suggestions.html">✳ &nbsp;Suggestions</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="signals.html">◎ &nbsp;Line lab &amp; signals</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="injuries.html">＋ &nbsp;Availability</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="review.html">✳ &nbsp;Suggestions</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
 <main>
 <header class="topbar"><div><span class="eyebrow">03 · DATA</span><h1>Verified data tables</h1></div><span class="status-pill"><i></i> All rows source-linked · fetched 2026-11-14</span></header>
 
@@ -141,7 +141,7 @@ TEMPLATE = """<!doctype html>
 <div class="note"><b>Machine-readable copies:</b> <a href="research/data/games_weeks6-9_2026.csv">games CSV</a> · <a href="research/data/standings_2026_through_week10_tnf.csv">standings CSV</a> · <a href="research/data/week11_odds_2026.csv">odds CSV</a> · <a href="research/computed_stats.json">computed stats JSON</a>.</div>
 </section>
 
-<footer><span>FOURTH DOWN RESEARCH · Verified data</span><span><a href="index.html">← Overview</a> · <a href="strategies.html">Line lab →</a></span></footer>
+<footer><span>FOURTH DOWN RESEARCH · Verified data</span><span><a href="index.html">← Overview</a> · <a href="signals.html">Line lab →</a></span></footer>
 </main>
 <script src="nav.js"></script>
 </body>
@@ -156,5 +156,7 @@ html = TEMPLATE.format(
     week11_rows="\n".join(week11_rows),
     results_rows="\n".join(results_rows),
 )
-(ROOT / "data.html").write_text(html)
+out = ROOT / "data.html"
+out.write_text(html)
+(ROOT / "site" / "data.html").write_text(html)
 print(f"data.html written: {len(standings_rows)} standings, {len(week10_rows)} week10, {len(week11_rows)} week11, {len(results_rows)} results")

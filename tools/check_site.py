@@ -14,11 +14,14 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-NAV_HREFS = {
-    "index.html", "executive-summary.html", "requirements.html", "data.html",
-    "strategies.html", "leaderboard.html", "injuries.html", "decisions.html",
-    "suggestions.html", "flagged.html", "repo-review.html", "sources.html",
-}
+# Desk pages owned by session 5c48ced7 (the main site has its own gate: site/check.py).
+DESK_PAGES = [
+    "executive-summary.html", "requirements.html", "data.html", "signals.html",
+    "leaderboard.html", "injuries.html", "decisions.html", "review.html",
+    "flagged.html", "repo-review.html", "sources.html",
+]
+NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
+MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/
 
 
 class Page(HTMLParser):
@@ -76,7 +79,7 @@ def page_ids(path: Path) -> set:
 
 
 def main() -> int:
-    pages = sorted(p for p in ROOT.glob("*.html"))
+    pages = [ROOT / n for n in DESK_PAGES]
     errors = []
     parsed = {}
     for pg in pages:
@@ -122,8 +125,17 @@ def main() -> int:
         if nav != NAV_HREFS:
             errors.append(f"{name}: nav mismatch — missing {sorted(NAV_HREFS - nav)} extra {sorted(nav - NAV_HREFS)}")
 
+    # mirror check: desk files must be byte-identical inside site/ (publish path)
+    mirror_errors = []
+    for name in MIRRORED:
+        root_f, site_f = ROOT / name, ROOT / "site" / name
+        if not site_f.is_file():
+            mirror_errors.append(f"missing site/{name}")
+        elif root_f.read_bytes() != site_f.read_bytes():
+            mirror_errors.append(f"site/{name} differs from root {name}")
+    errors.extend(mirror_errors)
     total_rows = sum(len(p._rows) for p in parsed.values())
-    print(f"Checked {len(pages)} pages, {total_rows} table rows, "
+    print(f"Checked {len(pages)} desk pages, {total_rows} table rows, {len(MIRRORED)} mirrored files, "
           f"{sum(len(p.hrefs) for p in parsed.values())} links.")
     if errors:
         print(f"FAIL: {len(errors)} problem(s)")

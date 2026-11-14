@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Leaderboard competition design: divisions, scoring, validation gates and rewards for top strategies."><title>Leaderboard &amp; rewards | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
+<body>
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="signals.html">◎ &nbsp;Line lab &amp; signals</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="injuries.html">＋ &nbsp;Availability</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="review.html">✳ &nbsp;Suggestions</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
+<main>
+<header class="topbar"><div><span class="eyebrow">05 · COMPETITION</span><h1>Leaderboard &amp; rewards</h1></div><span class="status-pill"><i></i> Design proposal · 0 entrants</span></header>
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">THE TOURNAMENT</span><h2>Compete on evidence, not streaks</h2><p class="muted">A season-long competition where strategies earn rank only by clearing gates and posting risk-adjusted, uncertainty-disclosed performance. Rewards follow rank — never luck.</p></div><span class="tag">DESIGN · NOT YET RUNNING</span></div>
+<div class="callout"><b>Design principle</b><p>Short-horizon leaderboards are lottery tickets. This one requires pre-registration, minimum samples, multiplicity-aware scoring and a shadow period, so a hot week cannot outrun a validated edge. Amounts for rewards are intentionally blank pending owner/legal decisions (<a href="flagged.html">F-05</a>).</p></div>
+</section>
+
+<section class="section" id="divisions"><div class="section-head"><div><span class="eyebrow">DIVISIONS</span><h2>Three competitive tracks</h2></div><span class="tag">SINGLES · PARLAYS · PROPS</span></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>Division</th><th>What competes</th><th>Required evidence</th><th>Division-specific gate</th><th>Source</th></tr></thead><tbody>
+<tr><td><b>D1 · Singles</b></td><td>Single bets: spread, moneyline, total</td><td>≥100 settled, timestamped, per market type; calibration + CLV + net yield after vig</td><td>G1–G6, G8</td><td><a href="https://www.nfl.com/stats/" target="_blank" rel="noreferrer">nfl.com stats ↗</a></td></tr>
+<tr><td><b>D2 · Parlays</b></td><td>2+ leg parlays (cross-game and same-game)</td><td>Joint-probability model with published correlation method; EV vs constituent singles</td><td>G1–G8 (G7 mandatory)</td><td><a href="https://www.nfl.com/stats/" target="_blank" rel="noreferrer">nfl.com stats ↗</a></td></tr>
+<tr><td><b>D3 · Player props</b></td><td>Single props and prop combos (e.g. QB pass yds + WR rec yds)</td><td>Player-level logs with usage/availability context; combo dependence estimated, not assumed</td><td>G1–G8 + player-data provenance</td><td><a href="https://www.nfl.com/injuries/" target="_blank" rel="noreferrer">nfl.com injuries ↗</a> · <a href="flagged.html">F-01 ↗</a></td></tr>
+</tbody></table></div></section>
+
+<section class="section" id="scoring"><div class="section-head"><div><span class="eyebrow">SCORING</span><h2>How rank is computed</h2><p class="muted">Composite score per division, all inputs standardized within the division so divisions stay comparable.</p></div><span class="tag">FORMULA v1 (PROPOSED)</span></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>Component</th><th>Weight</th><th>Metric</th><th>Why it resists luck</th><th>Source</th></tr></thead><tbody>
+<tr><td><b>Evidence quality</b></td><td class="num">0.40</td><td>z(CLV) — average closing-line value, when feed available</td><td>CLV can be positive before any result lands; streaks can't fake it</td><td><a href="https://www.espn.com/nfl/schedule/_/week/11/year/2026/seasontype/2" target="_blank" rel="noreferrer">odds source ↗</a> · <a href="flagged.html">F-03 ↗</a></td></tr>
+<tr><td><b>Probability skill</b></td><td class="num">0.30</td><td>z(Brier improvement vs pre-registered baseline)</td><td>Rewards calibrated honesty across all picks, not just winners</td><td><a href="https://www.nfl.com/stats/" target="_blank" rel="noreferrer">nfl.com stats ↗</a> · <a href="flagged.html">F-10 ↗</a></td></tr>
+<tr><td><b>Economic result</b></td><td class="num">0.30</td><td>z(t-stat of net yield after costs)</td><td>Scales by sample: 10 lucky bets score near zero</td><td><a href="https://operations.nfl.com/rules-officiating/2026-nfl-rulebook" target="_blank" rel="noreferrer">rules context ↗</a> · <a href="flagged.html">F-11 ↗</a></td></tr>
+<tr><td><b>Floors (knockouts)</b></td><td class="num">—</td><td>Fails any of G1–G8 → ineligible that period</td><td>Luck has no path around a failed gate</td><td><a href="signals.html#gates">gates ↗</a></td></tr>
+<tr><td><b>Multiplicity tiebreak</b></td><td class="num">—</td><td>Fewer total trials for equal score wins; full ledger published</td><td>Punishes shotgun exploration disguised as skill</td><td><a href="signals.html#gates">G6 ↗</a></td></tr>
+</tbody></table></div>
+<div class="note"><b>Weights are a proposal</b>, not a validated optimum — review and amend before launch (see <a href="review.html">S-14</a>). Score = 0.40·z(CLV) + 0.30·z(calibration) + 0.30·z(yield-t), floored by gates.</div>
+</section>
+
+<section class="section" id="rewards"><div class="section-head"><div><span class="eyebrow">REWARDS</span><h2>What top strategies earn</h2></div><span class="tag amber">AMOUNTS BLANK · F-05</span></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>Place</th><th>Reward (proposed)</th><th>Conditions</th><th>Status</th><th>Source</th></tr></thead><tbody>
+<tr><td><b>Champion</b> (per division)</td><td class="blank">blank — owner sets pool</td><td>All gates passed in-period; ledger public; shadow period completed</td><td><span class="pill warn">blocked on F-05</span></td><td><a href="decisions.html">Q19–Q23 ↗</a></td></tr>
+<tr><td><b>Podium</b> (2nd–3rd)</td><td class="blank">blank — owner sets pool</td><td>Same as champion</td><td><span class="pill warn">blocked on F-05</span></td><td><a href="decisions.html">Q19–Q23 ↗</a></td></tr>
+<tr><td><b>Gate-breaker bonus</b></td><td>Non-monetary: badge + priority review of strategy for inclusion in the production line lab</td><td>First strategy to pass all 8 gates on untouched data</td><td><span class="pill ok">specifiable now</span></td><td><a href="signals.html#gates">gates ↗</a></td></tr>
+<tr><td><b>Most-improved</b></td><td>Non-monetary: recognition</td><td>Largest calibration gain across two consecutive periods</td><td><span class="pill ok">specifiable now</span></td><td><a href="https://www.nfl.com/stats/" target="_blank" rel="noreferrer">nfl.com stats ↗</a></td></tr>
+<tr><td><b>Entry stake</b></td><td class="blank">blank — free entry proposed; stake model undecided</td><td>Legal/tax review required before any stake or prize</td><td><span class="pill bad">blocked · F-09</span></td><td><a href="flagged.html">F-09 ↗</a></td></tr>
+</tbody></table></div>
+<div class="note"><b>Publication rule:</b> no reward figure ships to the live site until decisions Q19–Q23 are answered. Until then the leaderboard runs as a <b>shadow competition</b> (rank + recognition only), which is also the recommended first season mode.</div>
+</section>
+
+<section class="section" id="season"><div class="section-head"><div><span class="eyebrow">SEASON STRUCTURE</span><h2>Roll-out timeline</h2></div><span class="tag">PROPOSED</span></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>Phase</th><th>Window</th><th>What runs</th><th>Exit criterion</th><th>Source</th></tr></thead><tbody>
+<tr><td><b>P0 · Infrastructure</b></td><td>Now</td><td>Snapshot pipeline, ledger, gate harness, this site</td><td>Data feeds connected (Q6–Q12 answered)</td><td><a href="decisions.html">Q6–Q12 ↗</a></td></tr>
+<tr><td><b>P1 · Paper qualification</b></td><td>Next segment of 2026 season</td><td>Pre-registered strategies evaluated on G1–G7 only</td><td>≥1 qualifying strategy per division or documented negatives</td><td><a href="signals.html#gates">gates ↗</a></td></tr>
+<tr><td><b>P2 · Shadow season</b></td><td>Full later window (proposed)</td><td>Live-timestamped predictions, no stakes; G8 enforced</td><td>Stable scores across two review periods</td><td><a href="https://www.nfl.com/scores/" target="_blank" rel="noreferrer">nfl.com scores ↗</a></td></tr>
+<tr><td><b>P3 · Reward launch</b></td><td>Only after Q19–Q23 + F-05/F-09 cleared</td><td>Ranked rewards per this page</td><td>Legal sign-off recorded in COORDINATION.md</td><td><a href="flagged.html">F-05, F-09 ↗</a></td></tr>
+</tbody></table></div></section>
+
+<section class="section" id="antiluck"><div class="section-head"><div><span class="eyebrow">ANTI-GAMING</span><h2>Rules that keep luck out</h2></div><span class="tag">ENFORCED BY DESIGN</span></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>Rule</th><th>Enforcement</th><th>Luck vector it closes</th><th>Source</th></tr></thead><tbody>
+<tr><td>Pre-registration of strategy + thresholds</td><td>Ledger entry timestamped before evaluation window</td><td>Hindsight fitting</td><td><a href="https://www.nfl.com/" target="_blank" rel="noreferrer">reference ↗</a> · <a href="signals.html#skill">protocol ↗</a></td></tr>
+<tr><td>Immutable prediction snapshots</td><td>Every pick stored with source URLs and time before kickoff</td><td>Post-hoc edits, cherry-picked windows</td><td><a href="https://www.nfl.com/scores/" target="_blank" rel="noreferrer">nfl.com scores ↗</a></td></tr>
+<tr><td>Full-trial ledger (pass and fail)</td><td>FDR computed across all attempts (G6)</td><td>Multiple-testing luck</td><td><a href="https://www.nfl.com/stats/" target="_blank" rel="noreferrer">nfl.com stats ↗</a></td></tr>
+<tr><td>Minimum sample floors</td><td>G2: ≥100 settled bets per market type (proposed)</td><td>Small-sample streaks</td><td><a href="signals.html#gates">G2 ↗</a></td></tr>
+<tr><td>Uncertainty displayed with rank</td><td>Score CIs shown; overlapping CIs flagged as ties</td><td>Precision theater</td><td><a href="https://www.nfl.com/stats/" target="_blank" rel="noreferrer">nfl.com stats ↗</a></td></tr>
+<tr><td>No rewards before legal review</td><td>Phase gate P3</td><td>Regulatory luck (the bad kind)</td><td><a href="https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act" target="_blank" rel="noreferrer">FTC UIGEA overview ↗</a></td></tr>
+</tbody></table></div>
+<div class="note"><b>Status:</b> no entrants, no scores, no prizes exist today. This page is the rulebook draft for review — amendments welcome on <a href="review.html">Suggestions</a> (see S-14, S-15).</div>
+</section>
+
+<footer><span>FOURTH DOWN RESEARCH · Leaderboard</span><span><a href="signals.html">← Line lab</a> · <a href="injuries.html">Availability →</a></span></footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>
