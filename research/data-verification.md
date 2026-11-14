@@ -92,9 +92,9 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-31 | The opening snapshot records points, not the price on those points |
 | F-32 | The publication gate rejected the surname Fagnano as a placeholder marker |
 | F-33 | The depth register on this site contradicted the official injury report for four of its seven rows |
-| F-29 | Player-prop and prop-combination prices |
-| F-30 | Prices are from one book and are not official |
-| F-31 | Doubled HTML entity in the depth summary text |
+| F-35 | Player-prop and prop-combination prices |
+| F-36 | Prices are from one book and are not official |
+| F-37 | Doubled HTML entity in the depth summary text |
 
 ## What is deliberately absent
 

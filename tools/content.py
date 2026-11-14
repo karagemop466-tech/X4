@@ -415,8 +415,6 @@ FLAGS = [
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/replacement-depth.csv"),
 
-]
-
     dict(id="F-35", item="Player-prop and prop-combination prices", type="Unverified data", kind="no", status="unverified",
          detail=("No player-prop price, prop line or prop-combination correlation is published. The 174 captured prices cover "
                  "only the three game markets - spread, total and moneyline - for 29 games."),
