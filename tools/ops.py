@@ -224,6 +224,7 @@ def load():
         "schedule": read_csv(os.path.join(DATA, "schedule-wk11-2026.csv")),
         "schedule_wk10": read_csv(os.path.join(DATA, "schedule-wk10-2026.csv")),
         "international": read_csv(os.path.join(DATA, "international-2026.csv")),
+        "charts": read_csv(os.path.join(DATA, "depth-wk11-2026.csv")),
     }
     return d
 
@@ -784,6 +785,22 @@ def build_replacements(d):
                   if d["depth"] else
                   '<div class="note">No loss and addition pair is recorded in the cached '
                   'window, so no depth reading can be made.</div>')
+        + section("charts", "OFFICIAL CHART RANK", "The better answer, where a club publishes one",
+                  "The ledger above measures urgency because it cannot quote a rank. This "
+                  "table can. Each club's own site publishes an ordered chart, and its "
+                  "column position is the depth position, so a rank here is a transcription "
+                  "of a published fact rather than an inference. Where a chart exists, it "
+                  "outranks the proxy.",
+                  "%d POSITIONS" % len(d["charts"]),
+                  table(["Club", "Unit", "Position", "Depth", "Player", "Wk 10 status", "Source"],
+                        [[esc(c["team"]), esc(c["unit"]), esc(c["position_row"]),
+                          "<b>%s</b>" % esc(c["depth"]), esc(c["player"]),
+                          pill(c["game_status"], "bad")
+                          if c["game_status"] in ("Out", "Doubtful")
+                          else '<span class="muted">—</span>',
+                          ext(c["source"], "club chart")]
+                         for c in d["charts"]
+                         if c["depth"] == "1" and c["game_status"] in ("Out", "Doubtful")]))
         + section("clubread", "BY CLUB", "Which clubs are thinnest, by this proxy",
                   "The churn index counts official losses plus official additions. A high "
                   "churn index with thin moves is the signal a depth model would want.",

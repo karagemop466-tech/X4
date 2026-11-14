@@ -20,6 +20,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Desk page gate (links, anchors, nav, data-row sources, site/ mirror)
         run: python3 tools/check_site.py
+      - name: Depth dataset regenerates byte-identically from the club charts
+        run: |
+          python3 tools/depth.py
+          git diff --exit-code -- data/depth-wk11-2026.csv data/output/depth.json
       - name: Statistics reproduce with integrity assertions
         run: python3 tools/compute_stats.py > /dev/null
       - name: Desk tables regenerate byte-identically from the committed CSVs

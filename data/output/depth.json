@@ -1,0 +1,773 @@
+{
+ "retrieved": "2026-11-14",
+ "source_injuries": "https://www.nfl.com/injuries/",
+ "clubs_with_chart": 31,
+ "clubs_without_chart": [
+  "HOU"
+ ],
+ "depth_rows": 1558,
+ "out_rows": 58,
+ "starter_out_rows": 40,
+ "clubs": [
+  {
+   "team": "ARI",
+   "has_chart": true,
+   "chart_url": "https://www.azcardinals.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 24,
+   "def_depth_rows": 25,
+   "off_out": 2,
+   "def_out": 0,
+   "off_starter_out": 1,
+   "def_starter_out": 0,
+   "out_names": [
+    "C Hjalte Froholdt (depth 1, Out)",
+    "RG Jon Gaines II (depth 2, Out)"
+   ],
+   "starter_out_names": [
+    "C Hjalte Froholdt (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "ATL",
+   "has_chart": true,
+   "chart_url": "https://www.atlantafalcons.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 25,
+   "off_out": 1,
+   "def_out": 1,
+   "off_starter_out": 0,
+   "def_starter_out": 1,
+   "out_names": [
+    "WR2 Zachariah Branch (depth 2, Out)",
+    "ILB Divine Deablo (depth 1, Doubtful)"
+   ],
+   "starter_out_names": [
+    "ILB Divine Deablo (depth 1, Doubtful)"
+   ]
+  },
+  {
+   "team": "BAL",
+   "has_chart": true,
+   "chart_url": "https://www.baltimoreravens.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 26,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "BUF",
+   "has_chart": true,
+   "chart_url": "https://www.buffalobills.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 24,
+   "def_depth_rows": 26,
+   "off_out": 1,
+   "def_out": 0,
+   "off_starter_out": 1,
+   "def_starter_out": 0,
+   "out_names": [
+    "RT Spencer Brown (depth 1, Doubtful)"
+   ],
+   "starter_out_names": [
+    "RT Spencer Brown (depth 1, Doubtful)"
+   ]
+  },
+  {
+   "team": "CAR",
+   "has_chart": true,
+   "chart_url": "https://www.panthers.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 26,
+   "def_depth_rows": 24,
+   "off_out": 0,
+   "def_out": 1,
+   "off_starter_out": 0,
+   "def_starter_out": 1,
+   "out_names": [
+    "LB2 Bobby Okereke (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "LB2 Bobby Okereke (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "CHI",
+   "has_chart": true,
+   "chart_url": "https://www.chicagobears.com/team/depth-chart",
+   "chart_date": "2026-10-31",
+   "off_depth_rows": 23,
+   "def_depth_rows": 27,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "CIN",
+   "has_chart": true,
+   "chart_url": "https://www.bengals.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 24,
+   "def_depth_rows": 27,
+   "off_out": 0,
+   "def_out": 1,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [
+    "S2 Kyle Dugger (depth 2, Out)"
+   ],
+   "starter_out_names": []
+  },
+  {
+   "team": "CLE",
+   "has_chart": true,
+   "chart_url": "https://www.clevelandbrowns.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 25,
+   "off_out": 1,
+   "def_out": 1,
+   "off_starter_out": 0,
+   "def_starter_out": 1,
+   "out_names": [
+    "RB Michael Burton (depth 3, Out)",
+    "FS Ronnie Hickman (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "FS Ronnie Hickman (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "DAL",
+   "has_chart": true,
+   "chart_url": "https://www.dallascowboys.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 24,
+   "def_depth_rows": 27,
+   "off_out": 3,
+   "def_out": 3,
+   "off_starter_out": 1,
+   "def_starter_out": 2,
+   "out_names": [
+    "TE Jake Ferguson (depth 1, Out)",
+    "WR3 Jonathan Mingo (depth 2, Out)",
+    "RB Tyler Goodson (depth 2, Out)",
+    "OLB Donovan Ezeiruaku (depth 1, Out)",
+    "S P.J. Locke (depth 1, Out)",
+    "S Juanyeh Thomas (depth 3, Doubtful)"
+   ],
+   "starter_out_names": [
+    "TE Jake Ferguson (depth 1, Out)",
+    "OLB Donovan Ezeiruaku (depth 1, Out)",
+    "S P.J. Locke (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "DEN",
+   "has_chart": true,
+   "chart_url": "https://www.denverbroncos.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 27,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "DET",
+   "has_chart": true,
+   "chart_url": "https://www.detroitlions.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 23,
+   "def_depth_rows": 27,
+   "off_out": 1,
+   "def_out": 1,
+   "off_starter_out": 1,
+   "def_starter_out": 1,
+   "out_names": [
+    "C Cade Mays (depth 1, Out)",
+    "CB D.J. Reed (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "C Cade Mays (depth 1, Out)",
+    "CB D.J. Reed (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "GB",
+   "has_chart": true,
+   "chart_url": "https://www.packers.com/team/depth-chart",
+   "chart_date": "2026-11-10",
+   "off_depth_rows": 27,
+   "def_depth_rows": 24,
+   "off_out": 3,
+   "def_out": 1,
+   "off_starter_out": 2,
+   "def_starter_out": 1,
+   "out_names": [
+    "C Sean Rhyan (depth 1, Out)",
+    "TE Josh Whyle (depth 4, Out)",
+    "RB Josh Jacobs (depth 1, Out)",
+    "LB Zaire Franklin (depth 1, Doubtful)"
+   ],
+   "starter_out_names": [
+    "C Sean Rhyan (depth 1, Out)",
+    "RB Josh Jacobs (depth 1, Out)",
+    "LB Zaire Franklin (depth 1, Doubtful)"
+   ]
+  },
+  {
+   "team": "HOU",
+   "has_chart": false,
+   "chart_url": "",
+   "chart_date": "",
+   "off_depth_rows": 0,
+   "def_depth_rows": 0,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "IND",
+   "has_chart": true,
+   "chart_url": "https://www.colts.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 24,
+   "off_out": 2,
+   "def_out": 3,
+   "off_starter_out": 1,
+   "def_starter_out": 2,
+   "out_names": [
+    "RT Jalen Travis (depth 1, Out)",
+    "TE Mo Alie-Cox (depth 2, Out)",
+    "NT Jerry Tillery (depth 2, Out)",
+    "WLB Jaylon Carlies (depth 1, Out)",
+    "MLB Akeem Davis-Gaither (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "RT Jalen Travis (depth 1, Out)",
+    "WLB Jaylon Carlies (depth 1, Out)",
+    "MLB Akeem Davis-Gaither (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "JAX",
+   "has_chart": true,
+   "chart_url": "https://www.jaguars.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 24,
+   "def_depth_rows": 27,
+   "off_out": 0,
+   "def_out": 2,
+   "off_starter_out": 0,
+   "def_starter_out": 2,
+   "out_names": [
+    "NT Jordan Davis (depth 1, Out)",
+    "S Jessie Bates III (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "NT Jordan Davis (depth 1, Out)",
+    "S Jessie Bates III (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "KC",
+   "has_chart": true,
+   "chart_url": "https://www.chiefs.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 27,
+   "def_depth_rows": 25,
+   "off_out": 1,
+   "def_out": 1,
+   "off_starter_out": 1,
+   "def_starter_out": 0,
+   "out_names": [
+    "RT Jaylon Moore (depth 1, Out)",
+    "DT Peter Woods (depth 2, Out)"
+   ],
+   "starter_out_names": [
+    "RT Jaylon Moore (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "LAC",
+   "has_chart": true,
+   "chart_url": "https://www.chargers.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 25,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "LAR",
+   "has_chart": true,
+   "chart_url": "https://www.therams.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 23,
+   "off_out": 1,
+   "def_out": 0,
+   "off_starter_out": 1,
+   "def_starter_out": 0,
+   "out_names": [
+    "LG Steve Avila (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "LG Steve Avila (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "LV",
+   "has_chart": true,
+   "chart_url": "https://www.raiders.com/team/depth-chart",
+   "chart_date": "2026-11-10",
+   "off_depth_rows": 25,
+   "def_depth_rows": 25,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "MIA",
+   "has_chart": true,
+   "chart_url": "https://www.miamidolphins.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 26,
+   "def_depth_rows": 23,
+   "off_out": 3,
+   "def_out": 0,
+   "off_starter_out": 2,
+   "def_starter_out": 0,
+   "out_names": [
+    "WR Jared Wayne (depth 2, Out)",
+    "C Aaron Brewer (depth 1, Out)",
+    "WR3 Chris Bell (depth 1, Doubtful)"
+   ],
+   "starter_out_names": [
+    "C Aaron Brewer (depth 1, Out)",
+    "WR3 Chris Bell (depth 1, Doubtful)"
+   ]
+  },
+  {
+   "team": "MIN",
+   "has_chart": true,
+   "chart_url": "https://www.vikings.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 26,
+   "off_out": 3,
+   "def_out": 2,
+   "off_starter_out": 3,
+   "def_starter_out": 2,
+   "out_names": [
+    "QB Kyler Murray (depth 1, Out)",
+    "WR3 Jauan Jennings (depth 1, Out)",
+    "TE T.J. Hockenson (depth 1, Out)",
+    "DL3 Tyrion Ingram-Dawkins (depth 1, Out)",
+    "LB Blake Cashman (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "QB Kyler Murray (depth 1, Out)",
+    "WR3 Jauan Jennings (depth 1, Out)",
+    "TE T.J. Hockenson (depth 1, Out)",
+    "DL3 Tyrion Ingram-Dawkins (depth 1, Out)",
+    "LB Blake Cashman (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "NE",
+   "has_chart": true,
+   "chart_url": "https://www.patriots.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 27,
+   "def_depth_rows": 26,
+   "off_out": 3,
+   "def_out": 1,
+   "off_starter_out": 1,
+   "def_starter_out": 1,
+   "out_names": [
+    "LG Ben Brown (depth 1, Out)",
+    "C Ben Brown (depth 2, Out)",
+    "RB TreVeyon Henderson (depth 2, Out)",
+    "CB Carlton Davis III (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "LG Ben Brown (depth 1, Out)",
+    "CB Carlton Davis III (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "NO",
+   "has_chart": true,
+   "chart_url": "https://www.neworleanssaints.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 27,
+   "off_out": 3,
+   "def_out": 1,
+   "off_starter_out": 2,
+   "def_starter_out": 0,
+   "out_names": [
+    "C Erik McCoy (depth 1, Out)",
+    "RT Taliese Fuaga (depth 1, Out)",
+    "RB CJ Donaldson (depth 3, Out)",
+    "DL2 Christen Miller (depth 2, Out)"
+   ],
+   "starter_out_names": [
+    "C Erik McCoy (depth 1, Out)",
+    "RT Taliese Fuaga (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "NYG",
+   "has_chart": true,
+   "chart_url": "https://www.giants.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 26,
+   "def_depth_rows": 26,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "NYJ",
+   "has_chart": true,
+   "chart_url": "https://www.newyorkjets.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 26,
+   "def_depth_rows": 23,
+   "off_out": 0,
+   "def_out": 1,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [
+    "LB Trevin Wallace (depth 2, Out)"
+   ],
+   "starter_out_names": []
+  },
+  {
+   "team": "PHI",
+   "has_chart": true,
+   "chart_url": "https://www.philadelphiaeagles.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 21,
+   "def_depth_rows": 24,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "PIT",
+   "has_chart": true,
+   "chart_url": "https://www.steelers.com/team/depth-chart/",
+   "chart_date": "",
+   "off_depth_rows": 26,
+   "def_depth_rows": 24,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "SEA",
+   "has_chart": true,
+   "chart_url": "https://www.seahawks.com/team/depth-chart/",
+   "chart_date": "",
+   "off_depth_rows": 27,
+   "def_depth_rows": 25,
+   "off_out": 3,
+   "def_out": 1,
+   "off_starter_out": 3,
+   "def_starter_out": 1,
+   "out_names": [
+    "LT Charles Cross (depth 1, Out)",
+    "LG Quenton Nelson (depth 1, Out)",
+    "QB Sam Darnold (depth 1, Out)",
+    "DT Leonard Williams (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "LT Charles Cross (depth 1, Out)",
+    "LG Quenton Nelson (depth 1, Out)",
+    "QB Sam Darnold (depth 1, Out)",
+    "DT Leonard Williams (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "SF",
+   "has_chart": true,
+   "chart_url": "https://www.49ers.com/team/depth-chart",
+   "chart_date": "2026-11-10",
+   "off_depth_rows": 25,
+   "def_depth_rows": 25,
+   "off_out": 1,
+   "def_out": 0,
+   "off_starter_out": 1,
+   "def_starter_out": 0,
+   "out_names": [
+    "WR Mike Evans (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "WR Mike Evans (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "TB",
+   "has_chart": true,
+   "chart_url": "https://www.buccaneers.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 25,
+   "def_depth_rows": 25,
+   "off_out": 0,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [],
+   "starter_out_names": []
+  },
+  {
+   "team": "TEN",
+   "has_chart": true,
+   "chart_url": "https://www.tennesseetitans.com/team/depth-chart",
+   "chart_date": "2026-11-10",
+   "off_depth_rows": 25,
+   "def_depth_rows": 25,
+   "off_out": 2,
+   "def_out": 2,
+   "off_starter_out": 2,
+   "def_starter_out": 2,
+   "out_names": [
+    "LG Peter Skoronski (depth 1, Out)",
+    "WR3 Carnell Tate (depth 1, Out)",
+    "LB Cody Barton (depth 1, Out)",
+    "LB3 Anthony Hill Jr. (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "LG Peter Skoronski (depth 1, Out)",
+    "WR3 Carnell Tate (depth 1, Out)",
+    "LB Cody Barton (depth 1, Out)",
+    "LB3 Anthony Hill Jr. (depth 1, Out)"
+   ]
+  },
+  {
+   "team": "WAS",
+   "has_chart": true,
+   "chart_url": "https://www.commanders.com/team/depth-chart",
+   "chart_date": "",
+   "off_depth_rows": 27,
+   "def_depth_rows": 23,
+   "off_out": 1,
+   "def_out": 0,
+   "off_starter_out": 0,
+   "def_starter_out": 0,
+   "out_names": [
+    "TE2 Colson Yankoff (depth 2, Out)"
+   ],
+   "starter_out_names": []
+  }
+ ],
+ "holes": [
+  {
+   "team": "TEN",
+   "unit": "Defense",
+   "position": "LB",
+   "player": "Cody Barton",
+   "status": "Out",
+   "source": "https://www.tennesseetitans.com/team/depth-chart"
+  },
+  {
+   "team": "TEN",
+   "unit": "Offense",
+   "position": "LG",
+   "player": "Peter Skoronski",
+   "status": "Out",
+   "source": "https://www.tennesseetitans.com/team/depth-chart"
+  }
+ ],
+ "cascades": [],
+ "unmatched": [
+  {
+   "team": "WAS",
+   "player": "Lucas Patrick",
+   "pos": "C",
+   "status": "Out",
+   "injury": "Concussion",
+   "url": "https://www.nfl.com/players/lucas-patrick/"
+  },
+  {
+   "team": "DET",
+   "player": "Kerby Joseph",
+   "pos": "S",
+   "status": "Out",
+   "injury": "Knee",
+   "url": "https://www.nfl.com/players/kerby-joseph/"
+  },
+  {
+   "team": "KC",
+   "player": "Omarr Norman-Lott",
+   "pos": "DT",
+   "status": "Out",
+   "injury": "Knee",
+   "url": "https://www.nfl.com/players/omarr-norman-lott/"
+  },
+  {
+   "team": "GB",
+   "player": "Micah Parsons",
+   "pos": "LB",
+   "status": "Out",
+   "injury": "Knee, Illness",
+   "url": "https://www.nfl.com/players/micah-parsons/"
+  },
+  {
+   "team": "JAX",
+   "player": "BJ Green II",
+   "pos": "DE",
+   "status": "Out",
+   "injury": "Forearm",
+   "url": "https://www.nfl.com/players/bj-green-ii/"
+  },
+  {
+   "team": "TEN",
+   "player": "Tommy Townsend",
+   "pos": "P",
+   "status": "Out",
+   "injury": "Knee, Achilles",
+   "url": "https://www.nfl.com/players/tommy-townsend/"
+  },
+  {
+   "team": "IND",
+   "player": "Luke Rhodes",
+   "pos": "LS",
+   "status": "Out",
+   "injury": "Hamstring",
+   "url": "https://www.nfl.com/players/luke-rhodes/"
+  },
+  {
+   "team": "CAR",
+   "player": "Jonathon Brooks",
+   "pos": "RB",
+   "status": "Doubtful",
+   "injury": "Groin",
+   "url": "https://www.nfl.com/players/jonathon-brooks/"
+  },
+  {
+   "team": "CAR",
+   "player": "Mike Jackson",
+   "pos": "CB",
+   "status": "Doubtful",
+   "injury": "Groin",
+   "url": "https://www.nfl.com/players/mike-jackson/"
+  },
+  {
+   "team": "HOU",
+   "player": "Azeez Al-Shaair",
+   "pos": "LB",
+   "status": "Out",
+   "injury": "Groin, Not injury related - personal matter",
+   "url": "https://www.nfl.com/players/azeez-al-shaair/"
+  },
+  {
+   "team": "HOU",
+   "player": "Marvin Harrison Jr.",
+   "pos": "WR",
+   "status": "Out",
+   "injury": "Hamstring",
+   "url": "https://www.nfl.com/players/marvin-harrison-jr/"
+  },
+  {
+   "team": "HOU",
+   "player": "Danielle Hunter",
+   "pos": "DE",
+   "status": "Out",
+   "injury": "Hamstring",
+   "url": "https://www.nfl.com/players/danielle-hunter/"
+  },
+  {
+   "team": "HOU",
+   "player": "Brevin Jordan",
+   "pos": "TE",
+   "status": "Out",
+   "injury": "Finger, Foot",
+   "url": "https://www.nfl.com/players/brevin-jordan/"
+  },
+  {
+   "team": "HOU",
+   "player": "Keylan Rutledge",
+   "pos": "G",
+   "status": "Out",
+   "injury": "Neck, Shoulder",
+   "url": "https://www.nfl.com/players/keylan-rutledge/"
+  },
+  {
+   "team": "LAR",
+   "player": "Terrance Ferguson",
+   "pos": "TE",
+   "status": "Out",
+   "injury": "Ankle, Hamstring",
+   "url": "https://www.nfl.com/players/terrance-ferguson-2/"
+  },
+  {
+   "team": "ARI",
+   "player": "Zachary Carter",
+   "pos": "DT",
+   "status": "Out",
+   "injury": "Knee",
+   "url": "https://www.nfl.com/players/zachary-carter-x9168/"
+  },
+  {
+   "team": "CIN",
+   "player": "Jalen Davis",
+   "pos": "CB",
+   "status": "Doubtful",
+   "injury": "Hamstring",
+   "url": "https://www.nfl.com/players/jalen-davis/"
+  },
+  {
+   "team": "CIN",
+   "player": "Andrei Iosivas",
+   "pos": "WR",
+   "status": "Doubtful",
+   "injury": "Thumb",
+   "url": "https://www.nfl.com/players/andrei-iosivas/"
+  },
+  {
+   "team": "CIN",
+   "player": "Brian Parker II",
+   "pos": "G",
+   "status": "Doubtful",
+   "injury": "Knee",
+   "url": "https://www.nfl.com/players/brian-parker-ii/"
+  }
+ ]
+}

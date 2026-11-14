@@ -75,6 +75,17 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-15 | The X4 Console's no-JavaScript fallback counts were stale |
 | F-16 | Two different flagged registers reuse the same identifiers |
 | F-17 | The three published layers define three different validation gates |
+| F-18 | Market betting lines (spread, total, moneyline) |
+| F-19 | Staking / bankroll figures |
+| F-20 | ROI and expected-value figures |
+| F-21 | Replacement depth: starter, 2nd, 3rd, 4th string |
+| F-22 | Demotion gate basis |
+| F-23 | Price-snapshot store values are model estimates, not official lines |
+| F-24 | The Houston Texans publish their depth chart only as an image |
+| F-25 | 19 officially ruled-out players do not appear on their own club's published depth chart |
+| F-26 | Clubs disagree on what a depth chart is, and some say so in writing |
+| F-27 | A published depth chart is not proof of who started |
+| F-28 | Only two position rows have no published replacement, and no row has both starter and backup out |
 
 ## What is deliberately absent
 
