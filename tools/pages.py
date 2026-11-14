@@ -14,6 +14,7 @@ Run:  python3 tools/pages.py
 import html
 import json
 import os
+import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "output")
@@ -49,7 +50,7 @@ DIRECTORY = [
         ("executive-summary.html", "Executive summary",
          "The verified state, the decisions that are open, the findings, and every blank still open."),
         ("questions.html", "Decision checklist",
-         "The nine questions that have to be answered before a decision here is reasonable."),
+         "The {n_questions} questions that have to be answered before a decision here is reasonable."),
         ("decisions.html", "Decision Q&amp;A",
          "Thirty questions with the known answer, the missing information, and what it blocks."),
         ("requirements.html", "Requirements inventory",
@@ -57,7 +58,7 @@ DIRECTORY = [
     ]),
     ("Verified data", [
         ("standings.html", "Standings &amp; results",
-         "Official standings for all 32 teams, power ratings, and every completed game with its official link."),
+         "Official standings for all {n_teams} teams, power ratings, and every completed game with its official link."),
         ("data.html", "Verified data",
          "Standings, the Week 10 slate, the Week 11 schedule with a dated market snapshot, and 57 results."),
         ("availability.html", "Injuries &amp; depth",
@@ -67,9 +68,9 @@ DIRECTORY = [
     ]),
     ("Model &amp; strategies", [
         ("lines.html", "Model lines",
-         "Week 11 model spreads and totals for all 13 official games, with the market column left blank."),
+         "Week 11 model spreads and totals for all {n_schedule} official games, with the market column left blank."),
         ("strategies.html", "Strategy lab",
-         "The leaderboard, the seven validation gates, the error-correlation matrix, calibration and stability."),
+         "The leaderboard, the {spell_n_gates} validation gates, the error-correlation matrix, calibration and stability."),
         ("signals.html", "Line lab &amp; signals",
          "Thirteen originated baseline lines against the market, ten candidate signals, eight gates and four correlations with confidence intervals."),
         ("leaderboard.html", "Leaderboard",
@@ -77,13 +78,13 @@ DIRECTORY = [
     ]),
     ("Review &amp; flags", [
         ("suggestions.html", "Suggestions",
-         "Twelve ranked proposals, each with the decision it needs and the evidence that would show it worked."),
+         "{spell_cap_n_suggestions} ranked proposals, each with the decision it needs and the evidence that would show it worked."),
         ("review.html", "Suggestions review queue",
          "Eighteen proposals with Accept / Hold / Reject, saved in the browser, so a path is chosen before anything is built."),
         ("flags.html", "Flagged for review",
-         "Unverified values and irregularities found while verifying, each with the reason it is still open."),
+         "Unverified values and irregularities found while verifying, each with the reason it is still open - {n_flags} entries so far."),
         ("flagged.html", "Flagged for review (desk)",
-         "Desk flags F-01 to F-12 and irregularities R-01 to R-08 with their evidence links."),
+         "The decision-desk layer's own register: {desk_flags} with their evidence links."),
     ]),
     ("Method &amp; sources", [
         ("methodology.html", "Methodology",
@@ -190,6 +191,35 @@ qb_changes = P["qb_changes"]
 news = P["news"]
 meta = P["meta"]
 ids = [s["id"] for s in strategies]
+
+# Counts that appear in prose are computed from the data, never typed by hand,
+# so a page can never claim a number the tables underneath it do not support.
+_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+          "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+          "sixteen", "seventeen", "eighteen", "nineteen", "twenty"]
+
+
+def spell(n):
+    """Spell a small number the way the prose reads it (nine, twelve, ...)."""
+    n = int(n)
+    if n < 20:
+        return _WORDS[n]
+    if n < 40:
+        tens = "twenty thirty".split()
+        return tens[n // 10 - 2] + ("-" + _WORDS[n % 10] if n % 10 else "")
+    return str(n)
+
+
+N_GAMES = len(games)
+N_TEAMS = len(standings)
+N_SCHEDULE = len(lines)
+N_LINES = len(lines)
+N_INJURY_ROWS = len(injury_rows)
+N_QUESTIONS = len(questions)
+N_SUGGESTIONS = len(suggestions)
+N_STRATEGIES = len(strategies)
+N_FLAGS = len(flags)
+N_GATES = len(set(k for s in leaderboard for k in s["gates"]))
 
 avail_rows = sum(a["listed_players"] for a in availability)
 avail_out = sum(a["out_count"] for a in availability)
@@ -622,18 +652,46 @@ def verification_table():
 
 
 # ------------------------------------------------------------------ shell
+def desk_flag_counts():
+    """Count the entries in the decision-desk flagged register.
+
+    The desk register is a hand-written page, so its counts are read back out
+    of the committed file rather than typed into the copy.
+    """
+    path = os.path.join(SITE, "flagged.html")
+    if not os.path.exists(path):
+        return "the unverified items and repository irregularities it holds"
+    text = open(path, encoding="utf-8").read()
+    f_ids = sorted(set(re.findall(r"<b>(F-\d+)</b>", text)))
+    r_ids = sorted(set(re.findall(r"<b>(R-\d+)</b>", text)))
+    if not f_ids or not r_ids:
+        return "the unverified items and repository irregularities it holds"
+    return "%s to %s and %s to %s" % (f_ids[0], f_ids[-1], r_ids[0], r_ids[-1])
+
+
 def directory_section():
     """The landing-page directory: every page in the repository, by category.
 
     Cards, not a table: a table row would need an official source link under
     the publication gate, and a link to a page of this site is not a source.
     """
+    subs = {
+        "n_questions": spell(N_QUESTIONS),
+        "n_teams": spell(N_TEAMS),
+        "n_schedule": spell(N_SCHEDULE),
+        "n_flags": spell(N_FLAGS),
+        "spell_n_gates": spell(N_GATES),
+        "spell_n_suggestions": spell(N_SUGGESTIONS),
+        "spell_cap_n_suggestions": spell(N_SUGGESTIONS).capitalize(),
+        "desk_flags": desk_flag_counts(),
+    }
     cats = []
     for title, pages in DIRECTORY:
         items = []
         for href, label, desc in pages:
             items.append(
-                '<li><a href="%s"><b>%s</b></a><span>%s</span></li>' % (href, label, desc))
+                '<li><a href="%s"><b>%s</b></a><span>%s</span></li>'
+                % (href, label, desc.format(**subs)))
         cats.append(
             '<article class="card dir-card"><span class="eyebrow">%s</span>'
             '<ul class="dir-list">%s</ul></article>' % (title, "".join(items)))
@@ -743,7 +801,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
     <article class="card"><span class="eyebrow">Model</span><h3><a href="lines.html">Model lines</a></h3><p class="muted">Week 11 model spreads and totals for all 13 official games, with the full range across strategies and the market-line column left blank on purpose.</p></article>
     <article class="card"><span class="eyebrow">Validation</span><h3><a href="strategies.html">Strategy lab</a></h3><p class="muted">The leaderboard, the seven gates, the error-correlation matrix, the calibration check and the week-by-week stability table.</p></article>
     <article class="card"><span class="eyebrow">Availability</span><h3><a href="availability.html">Injuries &amp; depth</a></h3><p class="muted">The full official Week 10 injury report, a unit-level roll-up of absences, and the starter changes the league confirmed in its own news.</p></article>
-    <article class="card"><span class="eyebrow">Decisions</span><h3><a href="questions.html">Decision checklist</a></h3><p class="muted">Nine questions that must be answered before a decision here is reasonable: what we know, what is missing, what it blocks and how to close it.</p></article>
+    <article class="card"><span class="eyebrow">Decisions</span><h3><a href="questions.html">Decision checklist</a></h3><p class="muted">%(n_questions)s questions that must be answered before a decision here is reasonable: what we know, what is missing, what it blocks and how to close it.</p></article>
     <article class="card"><span class="eyebrow">Review</span><h3><a href="suggestions.html">Suggestions</a></h3><p class="muted">Twelve proposals, ranked, with the decision each one needs and the evidence that would show it worked. Review before building.</p></article>
   </div>
 </section>
@@ -752,6 +810,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
 """ % dict(ngames=len(games), kpis=kpi_cards(), facts=wk_facts(), eligible=eligible,
            nstrat=len(leaderboard), lbpreview=leaderboard_preview_table(),
            flagpreview=flags_table(limit=6),
+           n_questions=spell(N_QUESTIONS),
            directory=directory_section()), "index.html"))
 
 # --- standings ---
@@ -872,8 +931,8 @@ PAGES.append(("availability.html", "Injuries & depth",
 
 # --- questions ---
 PAGES.append(("questions.html", "Decision checklist",
-               "Nine questions that must be answered before a decision in this project is "
-               "reasonable: what we know, what is missing, what it blocks.",
+               spell(N_QUESTIONS).capitalize() + " questions that must be answered before a decision in this "
+               "project is reasonable: what we know, what is missing, what it blocks.",
                """
 <div class="section-head"><div><span class="eyebrow">07 &middot; Before any decision</span><h2>Questions, answers and gaps</h2><p class="muted">A decision here is only reasonable once the 'what is still missing' column is either answered or explicitly accepted as a risk. Everything in the 'what we already know' column traces to the official source on the right.</p></div><span class="tag">%(nq)d questions</span></div>
 %(qa)s

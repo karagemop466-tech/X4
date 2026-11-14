@@ -67,8 +67,9 @@ out-of-sample games under a walk-forward protocol with no look-ahead. The best s
 beats a league-constant benchmark by about eight percent on point-spread error, and it is
 well calibrated - but its Bonferroni-adjusted bootstrap interval still contains zero, so
 **no strategy passes every validation gate and none is eligible for reward**. The
-correlation matrix shows four of the nine strategies are effectively one signal, so they
-cannot be counted as four independent pieces of evidence. Model lines for all 13 official
+correlation matrix shows that four of the nine strategies (S3, S4, S6 and S7, minimum
+pairwise prediction correlation 0.94) are effectively one signal, so they cannot be
+counted as four independent pieces of evidence. Model lines for all 13 official
 Week 11 games are published as a range across strategies, with the market-line column
 deliberately empty: the NFL publishes no official betting lines and no licensed odds feed
 has been authorised for this repository.
