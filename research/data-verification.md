@@ -74,6 +74,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-14 | The same two clubs are labelled differently in the two layers |
 | F-15 | The X4 Console's no-JavaScript fallback counts were stale |
 | F-16 | Two different flagged registers reuse the same identifiers |
+| F-17 | The three published layers define three different validation gates |
 
 ## What is deliberately absent
 
