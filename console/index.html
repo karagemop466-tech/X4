@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Dashboard</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Dashboard</h1>
+    <p class="lede">
+      X4 is an NFL signal and strategy research console. It exists to originate independent
+      NFL prices, turn them into strategies, and admit a strategy to the leaderboard only
+      after it passes validation gates designed to strip out luck. Every number on this site
+      is either traced to an official primary source or left blank and flagged.
+    </p>
+
+    <div class="callout info">
+      <strong>Two sites in one repository.</strong> This is the <strong>X4 Console</strong>,
+      built by a parallel session, and it is published alongside the main
+      <a href="../index.html">NFL Decision Desk</a>. The two builds were produced
+      independently from the same empty repository on the same day and disagree about
+      presentation, not about facts: both independently concluded that the NFL publishes no
+      betting lines and that no official source labels depth-chart strings. The reconciliation
+      is logged in <code>COORDINATION.md</code>.
+    </div>
+
+    <div class="callout warn">
+      <strong>Read this first.</strong> No strategy on this site has been backtested. No
+      correlation value has been estimated. No bet has been placed. There is no odds data,
+      no play-by-play data and no historical dataset in this repository. Everything in the
+      Strategy Catalog is a <em>hypothesis with an entry rule</em>, not a result.
+      See <a href="flagged.html">Flagged for Review</a> for the full list of gaps.
+    </div>
+
+    <h2>Where things stand</h2>
+    <div class="cards">
+      <div class="card ok">
+        <div class="k">Standings rows verified</div>
+        <div class="v">32 / 32</div>
+        <div class="d">All clubs, 2026 regular season — nfl.com/standings</div>
+      </div>
+      <div class="card ok">
+        <div class="k">Injury rows verified</div>
+        <div class="v" data-stat="X4_INJURY_ROWS.n">345</div>
+        <div class="d">Week 10, 2026 — nfl.com/injuries</div>
+      </div>
+      <div class="card ok">
+        <div class="k">Week 10 games verified</div>
+        <div class="v">14 + 4 byes</div>
+        <div class="d">nfl.com/schedules, incl. official bye list</div>
+      </div>
+      <div class="card info">
+        <div class="k">Strategies defined</div>
+        <div class="v" data-stat="X4_STRATEGY_SUMMARY.total">12</div>
+        <div class="d">5 single · 3 parlay · 4 prop combos — all PROPOSED</div>
+      </div>
+      <div class="card bad">
+        <div class="k">Strategies validated</div>
+        <div class="v" data-stat="X4_STRATEGY_SUMMARY.validated">0</div>
+        <div class="d">No historical data — no backtest has been run</div>
+      </div>
+      <div class="card bad">
+        <div class="k">Correlations estimated</div>
+        <div class="v"><span data-stat="X4_CORR_ESTIMATED">0</span> / <span data-stat="X4_CORR_COUNT">16</span></div>
+        <div class="d">Deliberately blank. Parlay pricing blocked.</div>
+      </div>
+      <div class="card warn">
+        <div class="k">Open questions</div>
+        <div class="v" data-stat="X4_QUESTION_STATS.total">32</div>
+        <div class="d"><span data-stat="X4_QUESTION_STATS.p0">16</span> are P0 — the project cannot proceed safely without them</div>
+      </div>
+      <div class="card warn">
+        <div class="k">Suggestions awaiting review</div>
+        <div class="v" data-stat="X4_SUGGESTION_STATS.total">18</div>
+        <div class="d">None implemented — review comes first, by design</div>
+      </div>
+      <div class="card info">
+        <div class="k">Validation gates</div>
+        <div class="v">9</div>
+        <div class="d">G0–G8, data integrity through net-of-cost</div>
+      </div>
+    </div>
+
+    <h2>Two gaps block most of the brief</h2>
+    <p>
+      The brief asks for depth-based signals (2nd/3rd/4th string) and for originated lines.
+      Both run into the same wall: there is no official primary source for either.
+    </p>
+    <div class="cards">
+      <div class="card bad">
+        <div class="k">Gap 1 · Depth / "string"</div>
+        <div class="v">No official source</div>
+        <div class="d">
+          NFL.com returns 404 for team depth-chart pages. Club sites publish ordered charts
+          but never label 1st/2nd/3rd/4th string.
+          <a href="flagged.html">F-03</a>
+        </div>
+      </div>
+      <div class="card bad">
+        <div class="k">Gap 2 · Betting prices</div>
+        <div class="v">No official source</div>
+        <div class="d">
+          The league does not publish odds. Every odds-derived number — CLV, correlation,
+          edge — is unverifiable against a primary source.
+          <a href="flagged.html">F-02</a>
+        </div>
+      </div>
+    </div>
+    <p class="small">
+      Both gaps are recorded with sources on the
+      <a href="flagged.html">Flagged for Review</a> page. Neither blocks this site; both
+      block the strategy work.
+    </p>
+
+    <h2>Pages by category</h2>
+    <div class="toc">
+      <a href="executive-summary.html">
+        <div class="t">Executive Summary</div>
+        <div class="s">The <span data-stat="X4_EXEC_STATS.total">26</span> facts that matter, each with its source.</div>
+      </a>
+      <a href="requirements.html">
+        <div class="t">Requirements</div>
+        <div class="s">The brief decomposed into 35 atomic requirements with status.</div>
+      </a>
+      <a href="questions.html">
+        <div class="t">Open Questions</div>
+        <div class="s">32 questions: what we know, what we lack, how to find it.</div>
+      </a>
+      <a href="suggestions.html">
+        <div class="t">Suggestions</div>
+        <div class="s">18 proposals in a review queue. Approve before implementing.</div>
+      </a>
+      <a href="lines-market.html">
+        <div class="t">Line Origination &amp; Market</div>
+        <div class="s">How to originate a price, and what a price even is.</div>
+      </a>
+      <a href="strategies.html">
+        <div class="t">Strategy Catalog</div>
+        <div class="s">12 candidate strategies. None validated.</div>
+      </a>
+      <a href="validation.html">
+        <div class="t">Validation Gates</div>
+        <div class="s">G0–G8, plus the statistics that separate skill from luck.</div>
+      </a>
+      <a href="correlation.html">
+        <div class="t">Correlation Reference</div>
+        <div class="s">16 pairs, every value cell deliberately blank.</div>
+      </a>
+      <a href="leaderboard.html">
+        <div class="t">Leaderboard &amp; Rewards</div>
+        <div class="s">A competition that scores evidence, not profit.</div>
+      </a>
+      <a href="nfl-data.html">
+        <div class="t">NFL Data</div>
+        <div class="s">Verified standings and the Week 10 schedule.</div>
+      </a>
+      <a href="injuries.html">
+        <div class="t">Injuries &amp; Depth</div>
+        <div class="s">Full Week 10 official report, plus the depth-source problem.</div>
+      </a>
+      <a href="sources.html">
+        <div class="t">Source Register</div>
+        <div class="s">Every source used, tiered primary / academic / secondary.</div>
+      </a>
+      <a href="flagged.html">
+        <div class="t">Flagged for Review</div>
+        <div class="s"><span data-stat="X4_FLAG_STATS.total">15</span> items that a human needs to adjudicate.</div>
+      </a>
+    </div>
+
+    <h2>How to read any table on this site</h2>
+    <ol class="tight">
+      <li><strong>Status column.</strong> <span class="b ok">verified</span> means the value was read off an official primary source during this session and the URL is recorded. <span class="b info">design</span> means it is this project's own engineering proposal. <span class="b grey">secondary</span> means it rests on a media or aggregator source. <span class="b bad">unverified</span> means we do not know.</li>
+      <li><strong>Blank cells.</strong> A blank cell renders as <em>— unverified —</em>. It is never filled in with an estimate, an interpolation or a plausible guess.</li>
+      <li><strong>Source column.</strong> Every row links out. If a row's source is weak, the status column says so.</li>
+      <li><strong>Sorting and filtering.</strong> Click any column header to sort. Use the search box and dropdowns to filter.</li>
+    </ol>
+
+    <footer class="pgfoot">
+      X4 · static dashboard · no build step · data captured 2026-11-14 from
+      <a href="https://www.nfl.com/" target="_blank" rel="noreferrer">nfl.com</a> and
+      <a href="https://operations.nfl.com/" target="_blank" rel="noreferrer">operations.nfl.com</a>.
+      Nothing here is wagering advice.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/exec-summary.js"></script>
+<script src="data/strategies.js"></script>
+<script src="data/correlation.js"></script>
+<script src="data/questions.js"></script>
+<script src="data/suggestions.js"></script>
+<script src="data/flagged.js"></script>
+<script src="data/nfl-injuries.js"></script>
+</body>
+</html>

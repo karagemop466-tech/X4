@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Injuries &amp; Depth</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Injuries &amp; Depth</h1>
+    <p class="lede">
+      Full official Week 10 (2026) injury report, plus an honest account of the depth problem:
+      the brief asks when a 2nd, 3rd or 4th string player is replacing a starter, and no
+      official source states that.
+    </p>
+
+    <div class="callout bad">
+      <strong>Requirements R-16 and R-17 are blocked.</strong> NFL.com does not publish depth
+      charts — <code>/teams/&lt;club&gt;/depth-chart</code> returns HTTP 404. Club sites do
+      publish depth charts (verified for detroitlions.com), but they list players
+      <em>in order</em> and do <strong>not</strong> label 1st/2nd/3rd/4th string. There is
+      therefore no official source for a player's "string", and the Depth string column on the
+      table below is blank for every row by design. Flagged as
+      <a href="flagged.html">F-03</a>.
+    </div>
+
+    <h2>Official injury report — Week 10, 2026</h2>
+    <p>
+      Source:
+      <a href="https://www.nfl.com/injuries/" target="_blank" rel="noreferrer">nfl.com/injuries</a>
+      (page title: "Official Latest NFL Injury Report for Players - Week 10 of the 2026
+      Season"). 345 player entries, transcribed exactly.
+    </p>
+    <div data-table="injuries"></div>
+
+    <h2>What the official designations actually mean</h2>
+    <p>
+      From the NFL Competition Committee's revisions, published on NFL.com:
+    </p>
+    <ul class="tight">
+      <li><strong>Practice report:</strong> Did Not Participate; Limited Participation
+        (less than 100% of a player's normal repetitions); Full Participation (100% of normal
+        repetitions). The "Out" category was removed from the practice report to avoid
+        confusion with the game-status report.</li>
+      <li><strong>Game status report:</strong> Out = the player will not play; Doubtful =
+        unlikely to participate; Questionable = uncertain whether the player will play. The
+        "Probable" category was eliminated because roughly 95% of players listed as Probable
+        did in fact play.</li>
+      <li><strong>Not disclosed:</strong> precise diagnosis, severity, treatment or recovery
+        timetable. The report gives a body part or condition only.</li>
+    </ul>
+    <p class="small">
+      Source:
+      <a href="https://www.nfl.com/news/competition-committee-approves-revisions-to-injury-report-0ap3000000688693" target="_blank" rel="noreferrer">NFL.com — Competition Committee approves revisions to injury report</a>.
+      Empty game-status cells on the official page are rendered here as unverified, not read
+      as "will play" (<a href="flagged.html">F-07</a>).
+    </p>
+
+    <h2>Depth-chart coverage by club</h2>
+    <p>
+      Only the one club depth chart verified this session has its URL published here. The
+      other 31 are blank rather than guessed, because a guessed URL is a broken link.
+    </p>
+    <div data-table="depthCoverage"></div>
+
+    <h2>Gap analysis — why R-16 and R-17 are not met</h2>
+    <div data-table="depthGaps"></div>
+
+    <h2>Data-quality traps found in the official report</h2>
+    <ul class="tight">
+      <li><strong>Non-injury entries inside the injury column.</strong> The official report
+        carries entries such as "Not injury related - resting player" (Jaguars S Jessie Bates,
+        Jaguars DT Jordan Davis) and a combined "Knee, Not injury related - resting player"
+        (Rams LB Myles Garrett). A naive parser would count these as injuries and inflate an
+        injury signal. Flagged as <a href="flagged.html">F-08</a>.</li>
+      <li><strong>Empty game-status cells.</strong> A large number of listed players have no
+        game status at all on the official page. The meaning is not stated on the page, so it
+        is left uninterpreted. Flagged as <a href="flagged.html">F-07</a>.</li>
+      <li><strong>Possible page staleness.</strong> An NFL.com roundup (Nov 10) reports the
+        Broncos traded for Chargers LB Daiyan Henley, yet Henley still appears on the
+        Chargers' Week 10 injury report. Flagged as
+        <a href="flagged.html">F-10</a>.</li>
+      <li><strong>Do not flag rosters from memory.</strong> The 2026 league year differs
+        materially from prior seasons — verified example: Aaron Donald retired in 2024 and
+        then unretired to play for the Rams in 2026. Only internal inconsistencies and
+        same-session source conflicts may be flagged. Flagged as
+        <a href="flagged.html">F-09</a>.</li>
+    </ul>
+
+    <h2>Relevant official roster rules</h2>
+    <p>
+      From
+      <a href="https://operations.nfl.com/calendar-events/nfl-free-agency/contract-language" target="_blank" rel="noreferrer">operations.nfl.com</a>:
+    </p>
+    <ul class="tight">
+      <li>The active/inactive ("53-man") list remains at 53 players for the regular season
+        and playoffs. A club may expand to 54 or 55 only through the standard elevation
+        addendum, using practice-squad players.</li>
+      <li>The gameday ("Active") list is <strong>48</strong> players if the club has at least
+        eight offensive linemen (primary position C, G or OT) on it, and <strong>47</strong>
+        if it has fewer than eight.</li>
+      <li>Under the standard elevation addendum an elevated player reverts to the practice
+        squad on the first business day after the game.</li>
+      <li><strong>Caution:</strong> the same official page states both that the addendum "can
+        be used by a team for a maximum of two regular-season or postseason games per player
+        per season" and that "each practice squad player can be elevated for a maximum of
+        three regular season games in the same League Year". Those two sentences disagree.
+        Flagged as <a href="flagged.html">F-16</a>; no value is recorded here.</li>
+    </ul>
+
+    <footer class="pgfoot">
+      345 injury rows, 32 coverage rows, 6 gap rows. Source links on every row.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/nfl-injuries.js"></script>
+<script src="data/injuries-depth.js"></script>
+</body>
+</html>

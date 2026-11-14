@@ -1,0 +1,134 @@
+[
+ {
+  "id": "F-01",
+  "item": "Current market betting lines and odds",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No spread, total, moneyline or prop price is published anywhere on this site. The NFL publishes no official betting lines.",
+  "why": "No licensed, timestamped odds feed has been authorised for this repository, so any expected value, ROI, bankroll or parlay price would be invented. Every market-line cell is left blank rather than filled from a secondary aggregator.",
+  "official_url": "https://www.nfl.com/",
+  "url": "https://www.nfl.com/"
+ },
+ {
+  "id": "F-02",
+  "item": "Depth-chart string: starter, 2nd, 3rd, 4th",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No player on this site is assigned a depth-chart rank.",
+  "why": "The NFL publishes no consolidated official depth chart; clubs publish their own on their official sites, and those were not captured or archived for this build. Assigning a rank from inference would be fabrication.",
+  "official_url": "https://www.nfl.com/teams/",
+  "url": "https://www.nfl.com/teams/"
+ },
+ {
+  "id": "F-03",
+  "item": "Players on injured reserve, PUP and NFI",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "The public Week 10 injury page omits players on IR/PUP/NIR. Baltimore's starting quarterback, for example, appears only in league news.",
+  "why": "Any availability model built from the public page alone will silently miss long-term absences, which are exactly the absences that move a line.",
+  "official_url": "https://www.nfl.com/injuries/",
+  "url": "https://www.nfl.com/injuries/"
+ },
+ {
+  "id": "F-04",
+  "item": "Two official sources give different absence windows for the same player",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "One NFL.com item says the Ravens' Lamar Jackson is out 6-9 weeks; another says the Ravens confirm he is expected to miss 6-10 weeks.",
+  "why": "Both are official league sources and they disagree. Neither is corrected on this site; the conflict is recorded so the discrepancy can be resolved by the club or the league before either figure is used.",
+  "official_url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13",
+  "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13"
+ },
+ {
+  "id": "F-05",
+  "item": "Player-level game logs, snaps, drives and EPA",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No player-level season statistics are published here.",
+  "why": "The official free pages fetched for this build did not expose a complete player-level dataset in a verifiable form. Player-prop strategies therefore remain framework only, with no measured performance.",
+  "official_url": "https://www.nfl.com/stats/",
+  "url": "https://www.nfl.com/stats/"
+ },
+ {
+  "id": "F-06",
+  "item": "Player-prop and parlay strategy performance",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No player-prop strategy, no parlay price and no combined-bet performance figure is published.",
+  "why": "Pricing a combination requires a joint distribution over player outcomes, which depends on F-02 and F-05. Publishing a number now would be a guess presented as a measurement.",
+  "official_url": "https://www.nfl.com/injuries/",
+  "url": "https://www.nfl.com/injuries/"
+ },
+ {
+  "id": "F-07",
+  "item": "No strategy has passed all seven validation gates",
+  "type": "Result",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "Across 105 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval that still contains zero.",
+  "why": "This is the gate doing its job. A leaderboard that ranked strategies by point estimate alone would have declared a winner that the evidence does not support.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+ },
+ {
+  "id": "F-08",
+  "item": "Model parameters have no official source",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "The decay factors, shrinkage weights, bootstrap settings and gate thresholds are analyst choices made by this project.",
+  "why": "They are the first thing a reviewer should challenge, and changing any of them changes the ranking. They are published in full on the Methodology page so they can be argued with.",
+  "official_url": "https://www.nfl.com/standings/",
+  "url": "https://www.nfl.com/standings/"
+ },
+ {
+  "id": "F-09",
+  "item": "NFL.com deep links of the form /schedules/2026/REG<n>/ silently redirect to the current week",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "The URL pattern that appears to address an individual week resolves to whichever week is live.",
+  "why": "Any automation built on that pattern would silently re-read the current week instead of the requested one. The working per-week pattern is /schedules/2026/by-week/week-<n>, which was confirmed directly for weeks 5 and 11.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-5",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+ },
+ {
+  "id": "F-10",
+  "item": "Weeks 12 to 18 of the 2026 schedule are not published here",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "Only the completed Weeks 1-10 games and the official Week 11 schedule are published.",
+  "why": "NFL itself lists several late-season matchups as to-be-determined, and the league's own notice explains that those dates, times and networks are only fixed later in the season.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+ },
+ {
+  "id": "F-11",
+  "item": "Injury-report policy link carried over from an earlier session was not re-verified",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "The Competition Committee injury-report policy link recorded by an earlier session was not re-fetched during this build.",
+  "why": "It is left in the repository as recorded by the session that verified it, and is not re-certified here. Nothing published on this site depends on it.",
+  "official_url": "https://www.nfl.com/injuries/",
+  "url": "https://www.nfl.com/news/competition-committee-approves-revisions-to-injury-report-0ap3000000688693"
+ },
+ {
+  "id": "F-12",
+  "item": "Repository hygiene at the start of this build",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "resolved",
+  "detail": "Before this work the repository contained exactly one tracked file - a four-byte README - with no licence, no contributing guide, no continuous integration, no tests, no data and no site.",
+  "why": "Recorded for the audit trail. This build adds the verified datasets, the verification harness, the model engine and continuous integration that checks the site and the data before publication.",
+  "official_url": "https://www.nfl.com/standings/",
+  "url": "https://github.com/karagemop466-tech/X4"
+ }
+]

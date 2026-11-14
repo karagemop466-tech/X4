@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Strategy Catalog</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Strategy Catalog</h1>
+    <p class="lede">
+      Candidate strategies for generating useful signals, across single bets, parlays and
+      player-prop combinations. Every entry is a hypothesis with an entry rule — none is a
+      result.
+    </p>
+
+    <div class="callout bad">
+      <strong>Nothing here has been backtested.</strong> The repository contains no historical
+      odds, no play-by-play and no participation data, so no strategy has been run against
+      anything. The <em>Expected edge</em> and <em>Realised CLV</em> columns are blank for
+      every row, and they will stay blank until the data exists (Q-09, Q-10, Q-11). Do not
+      read any row as evidence that a strategy works.
+    </div>
+
+    <div class="cards">
+      <div class="card info"><div class="k">Total strategies</div><div class="v" data-stat="X4_STRATEGY_SUMMARY.total">12</div><div class="d">5 single · 3 parlay · 4 prop combos</div></div>
+      <div class="card warn"><div class="k">Proposed</div><div class="v" data-stat="X4_STRATEGY_SUMMARY.proposed">12</div><div class="d">Hypothesis + entry rule only</div></div>
+      <div class="card bad"><div class="k">Backtested</div><div class="v" data-stat="X4_STRATEGY_SUMMARY.backtested">0</div><div class="d">No data</div></div>
+      <div class="card bad"><div class="k">Validated</div><div class="v" data-stat="X4_STRATEGY_SUMMARY.validated">0</div><div class="d">No gates passed</div></div>
+      <div class="card bad"><div class="k">Live</div><div class="v" data-stat="X4_STRATEGY_SUMMARY.live">0</div><div class="d">No stakes</div></div>
+    </div>
+
+    <h2>The catalog</h2>
+    <div data-table="strategies"></div>
+
+    <h2>Why the parlay and prop rows are weaker than they look</h2>
+    <p>
+      Single-bet strategies need a price and an outcome. Parlays and prop combinations need
+      something else as well: <strong>the correlation between their legs</strong>. Without it
+      a parlay cannot be priced correctly, and a mispriced parlay looks profitable in a
+      backtest for entirely the wrong reason. Gate G6 exists to fail these strategies closed
+      until a correlation is estimated with a published window and standard error.
+    </p>
+    <p>
+      The prop rows have a second weakness: three of the four depend on knowing whether the
+      replacement player is a starter or a backup, and no official source labels depth
+      strings (<a href="flagged.html">F-03</a>). Their entry rules are written so the trigger
+      is the official game status, which <em>is</em> available — but the "and the depth behind
+      him is thin" clause cannot yet be evaluated.
+    </p>
+
+    <h2>What would move a row from Proposed to Backtested</h2>
+    <ol class="tight">
+      <li>A licensed play-by-play and price-history dataset (Q-09, Q-10, Q-11).</li>
+      <li>A bet-log schema that captures the price at strike and the closing price
+        (S-11).</li>
+      <li>An implemented, frozen model version, so the result is reproducible (S-21 / Q-26).</li>
+      <li>All gates G0–G8 run and recorded against that model version.</li>
+    </ol>
+    <p class="small">
+      Until item 1 exists, item 4 is impossible. That is why the count above is honest about
+      being zero rather than showing a flattering partial number.
+    </p>
+
+    <footer class="pgfoot">
+      Strategies S-01 to S-12. Gate definitions on the
+      <a href="validation.html">Validation Gates</a> page; correlation inputs on the
+      <a href="correlation.html">Correlation Reference</a> page.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/strategies.js"></script>
+</body>
+</html>

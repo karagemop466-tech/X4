@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Line Origination &amp; Market</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Line Origination &amp; Market</h1>
+    <p class="lede">
+      How to originate our own NFL price rather than copy the market's — and, first, an
+      honest account of what a price even is and where it can come from.
+    </p>
+
+    <div class="callout bad">
+      <strong>The blocking finding.</strong> There is no official league source for betting
+      prices. The NFL publishes standings, schedules, injury reports and roster rules; it does
+      not publish odds. Prices are commercial products of licensed operators. This means the
+      project's "official source only" rule cannot be satisfied for any odds-derived number —
+      which gates closing-line value, every correlation estimate that needs prices, and the
+      entire edge calculation. Recorded as <a href="flagged.html">F-02</a>.
+    </div>
+
+    <h2>Market facts that shape the whole approach</h2>
+    <div data-table="marketFacts"></div>
+
+    <h2>The origination pipeline</h2>
+    <p>
+      Nine steps, from official inputs to scoring against the closing line. The
+      <em>Do we have it?</em> column is the honest part: three steps are available now, the
+      rest are blocked.
+    </p>
+    <div data-table="pipeline"></div>
+
+    <h2>Model inputs and whether an official source exists</h2>
+    <div data-table="lineInputs"></div>
+
+    <h2>The two pieces of arithmetic that matter most</h2>
+    <div class="panel">
+      <h3>1. De-vig before comparing</h3>
+      <p>
+        A published price contains the book's margin. Comparing a fair model price against a
+        raw market price manufactures an edge out of nothing. Both sides must be de-vigged
+        with the same convention before they are compared. The convention has not been
+        ratified yet (Q-24) — and until it is, no comparison is trustworthy, because
+        different de-vig methods give different answers.
+      </p>
+      <h3>2. Closing-line value per bet</h3>
+      <p>
+        For each bet, CLV is the price at the moment of the bet divided by the fair closing
+        price, both de-vigged. Test the <em>mean</em> of that ratio across the sample against
+        1.00. Two practical cautions from the cited research:
+      </p>
+      <ul class="tight">
+        <li>The dispersion of the ratio grows with the odds — reported standard deviation of
+          about 0.043 at odds of 1.25 versus about 0.14 at odds of 5.0 — so the threshold must
+          be odds-dependent, not a single fixed number.</li>
+        <li>Practitioner guidance suggests a bettor must beat the fair closing price roughly
+          70% of the time to have any positive expected value at all. That is a high bar, and
+          it is the right one.</li>
+      </ul>
+    </div>
+
+    <h2>What originating a line is <em>not</em></h2>
+    <ul class="tight">
+      <li><strong>Not averaging other books.</strong> That is a consensus price, not an
+        originated one. It contains no independent information.</li>
+      <li><strong>Not a "model" that is fitted until it matches the market.</strong> A model
+        fitted to the market can only reproduce the market; by construction it will never beat
+        the closing line, which is the only thing we measure skill by.</li>
+      <li><strong>Not a prediction of the winner.</strong> The output is a fair
+        <em>probability</em> with an uncertainty, which is only useful once compared to a
+        de-vigged market price.</li>
+    </ul>
+
+    <h2>What is actually available to build with, right now</h2>
+    <p>
+      Official, verified and already loaded: standings for all 32 clubs, the full Week 10
+      schedule with the official bye list, 345 official injury-report rows, the official
+      injury-report designation definitions, and the league's roster and elevation rules. That
+      is enough to build the situational and personnel layers of the model. It is not enough
+      to produce a price that can be scored, because scoring needs the closing line.
+    </p>
+
+    <footer class="pgfoot">
+      Sources linked per row. Data captured 2026-11-14. Nothing here is wagering advice.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/lines-market.js"></script>
+</body>
+</html>

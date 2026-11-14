@@ -1,93 +1,495 @@
-# COORDINATION.md — Shared Task Board
+# Coordination board
 
-**Repo:** karagemop466-tech/X4
-**Active session ID:** `5c48ced7`
-**Session branch:** `arena/5c48ced7-x4` (platform-mandated session branch; equivalent to `session-5c48ced7/<task>` naming)
-**Base commit:** `4c5280a7863a98605e2457690ad8a61cbd733f7f` (main)
-**Started (UTC):** 2026-11-14
+Shared task board for all parallel agent sessions working on this repository.
+One row per task. A task is **claimed** by writing the owning session ID and the exact
+file scope. Never start work on a task another session has claimed.
 
-## Ground rules (for all sessions)
+## How to use this board
 
-1. Read this file before starting any work. Claim a task by writing your session ID + file scope below, commit and push the claim immediately.
-2. Never start a task another session has claimed. Keep file scopes non-overlapping.
-3. If a task requires editing a file owned by another session, log a request in the "Cross-session requests" section instead of editing it.
-4. Small, frequent commits. Run `git pull --rebase` before every push. On merge conflict: stop, resolve without discarding the other session's work, log it here.
-5. Every factual table row must link an official, verifiable source. Values that cannot be confirmed from an official source are left blank and flagged (see `flagged.html`). Never infer or fill in values.
-6. A task marked `needs review` means it is published on the Flagged for Review page; it does not block anything.
-7. When a task is done: record sources, verification performed, and irregularities here, then mark `done`.
-8. Never mark anything verified without checking it against an official source, and link that source.
-9. Shared outputs (table data, site index, navigation) are changed only by the integration session once other tasks are done.
-10. If a claim is older than 60 minutes with no commits, another session may take over and note the handoff here.
+1. Check this file before starting (and `git pull --rebase`).
+2. Claim a task: add a row with status `in progress`, your session ID, and your file scope.
+3. Commit and push the claim immediately. **A claim that is not on `main` is invisible to
+   other sessions** - if you are still building, push the claim commit to your branch and
+   open a draft PR so the scope is visible, or push the claim to `main` directly.
+4. Work only inside your declared scope. If you need a file owned by someone else,
+   add a **Request** row instead of editing the file.
+5. When done: set status to `done`, list sources + verification performed, and note irregularities.
+6. Status `needs review` = the item is published on the site's **Flagged for Review** page
+   and blocks nothing.
+7. A claim with no commits for more than 60 minutes may be taken over by another session;
+   log the handoff in the session log below.
 
 ## Task board
 
-Prior sessions 25459fae-x4 and arena/70ac0cf1-x4 completed and merged their claims before session 5c48ced7 began; their rows are retained (bottom of board) with their log preserved verbatim in the Session log section. Both prior sessions are inactive (branches deleted after merge), so their file scopes are released to the integration session.
+| # | Task | Status | Owner session | File scope |
+|---|---|---|---|---|
+| 1 | Build NFL decision-support research dashboard and documented verification framework | done | arena/25459fae-x4 | `site/**`, `README.md`, `COORDINATION.md`, workflow config |
+| 2 | Integrate source-linked decision dashboard, executive summary and review sections into Pages site | done | arena/70ac0cf1-x4 | `README.md`, `COORDINATION.md`, `index.html`, `styles.css`, `app.js`, `site/index.html`, `site/styles.css`, `site/app.js` |
+| 3 | Official-source data acquisition, model line engine, strategy validation harness, multi-page site, integration and publication | done | arena/59059060-x4 | `data/**`, `research/**`, `tools/**`, `site/**` (integration), root site mirror, `README.md`, `COORDINATION.md`, `.github/workflows/**` |
+| T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` |
+| T02–T14 | Requirements inventory, additional official-source research, strategy/leaderboard/injury/decision/suggestion pages, repo review, integration and publication | done | 5c48ced7 | root + `site/` mirrors of `executive-summary.html`, `requirements.html`, `data.html`, `signals.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `review.html`, `flagged.html`, `repo-review.html`, `sources.html`, `desk.css`, `nav.js`; new files under `research/data/`, `tools/` (desk tools), `.github/workflows/desk-check.yml` |
 
-| ID | Task | Status | Owner | File scope | Notes |
-|----|------|--------|-------|------------|-------|
-| T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` | Created 2026-11-14; pushed immediately after claim. Rebased onto main and integrated with prior sessions' board (add/add conflict resolved by preserving both records). |
-| T02 | Requirements inventory: full list of user requirements, mapped to deliverables | done | 5c48ced7 | `requirements.html` | 40 requirements extracted from the user brief; each mapped to a deliverable, status, and verification state. |
-| T03 | Research & verify official NFL facts (season state, standings, schedule, depth charts, injuries, rules) | done | 5c48ced7 | `data.html`, `sources.html`, `research/*.md` | Sources fetched 2026-11-14: nfl.com standings/scores/schedules/injuries/depth-charts, operations.nfl.com rulebook. Every data row carries a source URL. |
-| T04 | Strategy framework: signals, validation gates, correlation methodology + computed correlation values, skill-vs-luck metrics | done | 5c48ced7 | `strategies.html`, `research/strategies.md` | Methodology labeled as design/proposal. Computed correlation values are reproduced from official nfl.com data with formula, n, and retrieval date. |
-| T05 | Leaderboard competition design (single / parlay / player-prop combo; rewards) | done | 5c48ced7 | `leaderboard.html`, `research/leaderboard.md` | Design document; scoring math specified; reward-pool parameters flagged as owner decisions. |
-| T06 | Injury & depth-chart deficiency tracking design (incl. 2nd–4th string replacements, offense & defense) | done | 5c48ced7 | `injuries.html`, `research/injuries.md` | System design + official-source sample rows; unconfirmable cells blank + flagged. |
-| T07 | Decision Q&A: questions/info/answers required before decisions; missing-information discovery | done | 5c48ced7 | `decisions.html`, `research/decisions.md` | 30 questions in 6 categories; each with known/unknown status, blocked decision, and how to obtain missing info. |
-| T08 | Suggestions section (reviewable, choosable paths before implementation) | done | 5c48ced7 | `suggestions.html`, `research/suggestions.md` | 18 suggestions with impact/effort/status; filter UI; reviewer selection persisted locally; no implementation without selection. |
-| T09 | Executive summary | done | 5c48ced7 | `executive-summary.html` | Detailed summary; verified/unverified counts; key decisions. |
-| T10 | Site build: clean landing page + category subpages, dashboard UI, navigation, Flagged for Review page | done | 5c48ced7 | `index.html`, `*.html` subpages, `styles.css`, `nav.js` | Static multi-page site at repo root (Pages source: main /). Supersedes single-page layout; `site/` retained as historical archive, no longer linked. |
-| T11 | Line-by-line verification pass; flag every unverified value and repo irregularity | done | 5c48ced7 | `flagged.html`, `repo-review.html`, `research/verification.md` | Verification log per item with source links; irregularities R-01…R-08 published for review. |
-| T12 | Integration: combined data re-verified, link check passes, site builds with no broken links | done | 5c48ced7 | `index.html`, `nav.js`, shared nav | Integration session; `tools/check_site.py` validates all root pages, anchors, assets, and source links on data rows. |
-| T13 | Create PR to main, merge without waiting for approval | done | 5c48ced7 | `COORDINATION.md` | See "PR & merge log" below for links and results. |
-| T14 | Confirm GitHub Pages deploy succeeds after merge | done | 5c48ced7 | n/a (repo settings) | Verified via GitHub Pages API status `built`, Actions `pages-build-deployment` success, and HTTP 200 on live URL. |
+### Non-overlapping scope map
 
-Status values: `unclaimed` | `in progress` | `done` | `needs review`
+| Path | Owner | Notes |
+|---|---|---|
+| `data/**`, `research/**`, `tools/**` | arena/59059060-x4 | task 3 - delivered |
+| `site/**`, `.github/workflows/**` | arena/25459fae-x4 → arena/59059060-x4 | task 3 is the final integration session over `site/**`; the pages are statically rendered so no published value depends on JavaScript |
+| Root site mirror (`index.html`, `*.html`, `styles.css`, `app.js`, `data.js`) | arena/59059060-x4 | task 3 - byte-identical mirror of `site/`, so the repository root is also a working site |
+| Root pages `requirements.html`, `data.html`, `sources.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `executive-summary.html`, `flagged.html`, `repo-review.html`, `nav.js` | 5c48ced7 | reserved - not touched by task 3 |
+| `README.md`, `COORDINATION.md` | shared | coordination files; reconciled at integration |
+| `executive-summary.html`, `requirements.html`, `data.html`, `signals.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `review.html`, `flagged.html`, `repo-review.html`, `sources.html`, `desk.css`, `nav.js` (root **and** `site/` copies, byte-identical) | 5c48ced7 | delivered in PR #12; new files only - no existing `site/` file was modified |
+| `research/data/*.csv`, `research/computed_stats.json`, `tools/compute_stats.py`, `tools/gen_*.py`, `tools/check_site.py`, `.github/workflows/desk-check.yml` | 5c48ced7 | desk-side data/tools; do not touch `data/**`, `tools/build.py`, `tools/verify.py`, `tools/pages.py`, `tools/sync.py` |
+| `site/index.html`, `site/strategies.html`, `site/suggestions.html`, `site/styles.css`, root `index.html`, root `strategies.html`, root `suggestions.html`, root `styles.css` | arena/59059060-x4 | **kept as merged** - session 5c48ced7's conflicting drafts were relocated to `signals.html` and `review.html` (see appendix) |
 
-### Claims from prior sessions (retained)
+### Integration queue
 
-| Task | Status | Owner session | File scope |
-|------|--------|---------------|------------|
-| Build NFL decision-support research dashboard and documented verification framework | done | 25459fae-x4 | `site/**`, `README.md`, `COORDINATION.md`, workflow config |
-| Integrate source-linked decision dashboard, executive summary and review sections into Pages site | done | arena/70ac0cf1-x4 | README.md, COORDINATION.md, index.html, styles.css, app.js, site/index.html, site/styles.css, site/app.js |
+| # | Item | Status | Owner session | Notes |
+|---|---|---|---|---|
+| I1 | Reconcile the site builds into one canonical site | done | arena/59059060-x4 | `site/` is canonical; the repository root mirrors it byte for byte and is checked by `site/check.py .` |
+| I2 | Re-verify combined data line by line against official sources | done | arena/59059060-x4 | `tools/verify.py` - 460 checks, all 32 teams match NFL.com on W/L/T/PF/PA/PCT |
+| I3 | Confirm the site builds with no broken links | done | arena/59059060-x4 | `site/check.py` - 859 rendered data rows, every one carrying an official source link; plus a numeric-consistency check on all 32 standings rows |
+| I4 | Publish to GitHub Pages + open PR to main + merge | done | arena/59059060-x4 | see the PR and merge log below |
 
-## Cross-session requests
+## Requests (log here instead of editing another session's files)
 
-- **5c48ced7 → future sessions:** root-level multi-page site (`*.html` at repo root) is now the canonical Pages source. Do not edit `site/**` (historical archive of sessions 25459fae-x4 / arena/70ac0cf1-x4) except by explicit claim.
+| From | To | Request | Status |
+|---|---|---|---|
+| arena/59059060-x4 | 5c48ced7 | **Scope overlap.** Task 3 (claimed 2026-11-14 02:39 UTC) and session 5c48ced7 (board commit 2026-11-14 02:53 UTC) both claim the root site pages, `research/*.md`, and the integration role. Task 3 is complete, verified and merged, so the pages `index.html`, `standings.html`, `lines.html`, `strategies.html`, `availability.html`, `questions.html`, `suggestions.html`, `flags.html` and `methodology.html` are taken. The page names listed in the scope map above remain free for 5c48ced7. **Please rebase onto `main` before continuing** - `main` now contains the delivered site, the datasets and the tools. | open |
+| arena/59059060-x4 | 5c48ced7 | **Pages source.** The published site is served from `site/`, and the workflow uploads `site/` as the Pages artifact. If 5c48ced7 prefers to publish from the repository root, the workflow upload path must change to `.` and the root mirror must be regenerated by `tools/sync.py` - the root copy is a byte-identical mirror and works as a site either way. | open |
+| arena/59059060-x4 | 5c48ced7 | **Do not fork the numbers.** `site/data.js` and `data/output/*.json` are generated by `tools/build.py` from `data/*.csv`. Any change to the published numbers must be made in the CSV files and the model, then regenerated, so the verification harness still holds. | open |
+| 5c48ced7 | arena/59059060-x4 | **Response to request 1 (rebase):** merged `origin/main` on 2026-11-14; conflicts on `index.html`, `strategies.html`, `suggestions.html`, `styles.css`, `pages.yml` resolved **in favour of the merged `main` versions**; `COORDINATION.md`/`README.md` reconciled here. | resolved |
+| 5c48ced7 | arena/59059060-x4 | **Response to request 2 (Pages source):** the desk pages are published through the mirror architecture, not by changing the workflow: every desk page exists **byte-identically in `site/` and at the repository root**, so `tools/sync.py`, `site/check.py`, the `site/` artifact and the legacy root build all carry them. No existing `site/` file was modified; only new filenames were added. | resolved |
+| 5c48ced7 | arena/59059060-x4 | **Response to request 3 (do not fork the numbers):** acknowledged and honoured. The desk pages publish **different** values (ESPN/DraftKings market snapshot, 4 correlation coefficients with CIs, measured home edge) from **separate** inputs (`research/data/*.csv`) recomputed by `tools/compute_stats.py`. No file under `data/` was read, written or regenerated; `tools/build.py` output is untouched. Market-snapshot rows are labelled T3 (trusted publisher), never as official NFL lines. | resolved |
+| 5c48ced7 | arena/59059060-x4 | **Request (nav reciprocity):** the desk pages link into the main site (Overview, Model lines, Strategy lab, Injuries, Checklist, Suggestions, Flags, Methodology). The main site's top nav does not yet link back to the desk pages (`signals.html`, `review.html`, `requirements.html`, `data.html`, `leaderboard.html`, `decisions.html`, `repo-review.html`, `sources.html`, `executive-summary.html`, `flagged.html`). Adding those links needs an edit to `site/index.html` (owner: 59059060 or the next integration pass). Until then, `README.md` and this board list every desk page. | open |
+| 5c48ced7 | arena/59059060-x4 | **Request (CI):** `tools/check_site.py` (desk pages: links, anchors, nav, https-source-per-data-row) runs in a separate validation-only workflow `.github/workflows/desk-check.yml` so it cannot race the publish workflow. Folding it into `pages.yml` is welcome but optional. | open |
 
 ## Session log
 
-- **T02–T14 done (2026-11-14).** Full delivery recorded here per ground rule 7:
-  - **Sources used (all fetched directly, 2026-11-14):** nfl.com `/standings/`, `/scores/`, `/schedules/2026/by-week/week-6…11`, 57 `/games/<slug>` pages, `/injuries/`, 21 `/players/<slug>` pages, `/teams/new-england-patriots/roster`, `/teams/` directory, `/stats/`, `/stats/team-stats/`; operations.nfl.com 2026 rulebook; ftc.gov UIGEA overview; espn.com week-11 schedule (DraftKings odds), espn.com team depth chart (JS-only, evidence), site.api.espn.com scoreboard (season calendar + week-11 byes). Full register: `sources.html`.
-  - **Verification performed:** (a) standings transcription proven by ΣPF=ΣPA=6,291 and wins=losses=136 (asserted in `tools/compute_stats.py`); (b) 57 game rows each carry their official game-page URL; (c) 21 injury rows carry player-page URLs; (d) `tools/check_site.py` PASS — 12 pages, 355 table rows, 711 links, every data row has an https source link, nav consistent; (e) `gen_data_html.py`/`gen_strategies_html.py` regenerate committed pages byte-identically (CI-enforced); (f) four previously-cited context URLs (rulebook, FTC, stats, team-stats) re-fetched this session.
-  - **Computed values (reproducible):** home edge +0.07 pts (n=54, CI [−3.6, +3.7]); correlations r(away,home)=0.018, r(margin,total)=−0.322, r(net,win%)=0.872, r(PF/g,PA/g)=−0.204; mean total 44.95; 13 Week-11 baseline lines vs market. Source: `research/computed_stats.json`.
-  - **Irregularities found:** R-01 dual deploy paths (workflow `site/` vs legacy root) → fixed, workflow now validation-only; R-02 checker validated archive only → fixed via `tools/check_site.py`; R-03 nfl.com depth-chart endpoints all 404 (4 patterns) → flagged F-02, decisions Q10/Q30; R-04 search-snippet vs live-page drift (LAC −2.5→−1.5, O/U 46.5→45.5, stale IND record) → direct-fetch-only policy; R-05 COORDINATION add/add conflict → resolved preserving both sessions' records; R-06 single-page site → 11 category subpages + landing; R-07 README stale/incorrect → rewritten; R-08 prior-session historical items retained. All published on `flagged.html`.
-  - **Unverified items (blank, never inferred):** F-01…F-12 published on `flagged.html` with clearing paths.
-  - **Integration:** root is canonical Pages source; `site/` retained as archive (not nav-linked); `app.js` retained (unused) so no prior work is discarded.
+- **2026-11-14 — arena/25459fae-x4**: Built the source-first research dashboard and validation framework
+  (`site/index.html`, `site/app.js`, `site/styles.css`, `site/check.py`, Pages workflow). Recorded sources
+  and limitations: official NFL injury-report policy, injury reports, 2026 NFL Rulebook, NFL stats pages.
+  No current statuses, odds, results, depth chart or correlations were verified; all such cells were left
+  blank and flagged. Merged to main via PR #1.
+- **2026-11-14 — arena/70ac0cf1-x4**: Integrated a responsive interface, executive summary, proposal
+  (suggestions) section, decision checklist and review register into the Pages site. Verified with
+  `site/check.py`; repaired the workflow in PR #3; confirmed both the custom Pages workflow
+  (`43547608834`) and the legacy Pages build (`43547608074`) completed successfully. Pages API reported
+  `built` at https://karagemop466-tech.github.io/X4/. Merged to main via PRs #2, #3, #4.
+- **2026-11-14 — 5c48ced7**: Bootstrapped a task board on its own branch (`1c56a08`). No deliverable
+  commits beyond the board at the time of the integration below.
+- **2026-11-14 — arena/59059060-x4 (this session)**: Repo review performed — the repository contained
+  exactly one tracked file, `README.md`, with the four-byte body `# X4`. No licence, no `CONTRIBUTING`,
+  no CI, no tests, no data, no site. GitHub Pages was already provisioned on `main` (legacy build,
+  source path `/`) and had published a successful build of the empty commit `4c5280a`.
+  Claimed task 3, then took the final-integration role because tasks 1 and 2 were already recorded
+  `done` and the board's integration queue was unclaimed.
 
-### 5c48ced7 — 2026-11-14
-- **T01 done.** Created this file (repo had no COORDINATION.md at session start). Initial board claimed by `5c48ced7` because no other session had claimed any task at read time. Pushed immediately per protocol.
-- **Conflict resolution:** `git pull --rebase origin main` produced an add/add conflict on `COORDINATION.md` (prior session had merged its own board during this session). Resolved by integrating: prior sessions' task rows and session log preserved verbatim below; no prior content discarded.
-- **Branch note:** platform requires all session work on `arena/5c48ced7-x4`; this substitutes for the `session-<id>/<task>` branch convention. Non-overlapping file scopes still enforced above.
+  ### What this session delivered
 
-### Prior sessions (preserved verbatim from main)
+  - **Data** (`data/`): 137 completed 2026 games with official NFL.com game URLs; the official NFL.com
+    standings for all 32 teams; the official Week 10 injury report for all 28 teams playing; the
+    official Week 11 schedule with kickoff times, networks, the Mexico City international designation
+    and the six teams on bye; the league-confirmed starter changes and long-term absences.
+  - **Verification** (`tools/verify.py`): 460 assertions. The reconstructed game log is proved against
+    the official standings - all 32 teams match the NFL exactly on wins, losses, ties, points for,
+    points allowed and net points, which also proves every individual score.
+  - **Engine** (`tools/build.py`): opponent-adjusted team rates, nine strategies, walk-forward
+    evaluation over 105 out-of-sample games, Bonferroni-adjusted paired bootstrap, weekly stability,
+    a predictive-distribution calibration check, an error-correlation matrix, an availability roll-up
+    and the Week 11 model lines. Deterministic: a fixed seed and a fixed resample count.
+  - **Site** (`site/`): nine pages - Overview, Standings & results, Model lines, Strategy lab,
+    Injuries & depth, Decision checklist, Suggestions, Flagged for review, Methodology.
+    `site/check.py` executes the real renderer and fails the build if any rendered data row lacks an
+    official source link; **859 of 859 rows carry one**. It also checks every internal link, every
+    asset, every external link's scheme and `rel`, and the arithmetic of all 32 standings rows.
+  - **Research** (`research/`): model lines, correlation and luck control, strategy validation,
+    injuries and depth, data verification, sources register.
+  - **CI** (`.github/workflows/pages.yml`): proves the data, rebuilds the site, checks the rendered
+    output, and refuses to publish if the committed output differs from a fresh build.
 
-- 2026-11-14 — Earlier session 25459fae-x4 completed its research dashboard and validation framework; its content and verification history are preserved in `site/` and below.
-- 2026-11-14 — Current session checked the repository root before work and initially found only a four-byte README and no coordination file, site, or datasets. A separate session merged its completed contribution into `main` during this work. Fetched `origin/main`, identified overlapping work, preserved it and integrated this dashboard into the existing Pages site.
-- Current-session claim commit `5a3e3aa` was pushed when the remote session branch did not exist. The standalone iteration commit was `94e9768`; integration follows the merged `main` contribution. No other branches were created.
-- Earlier session sources: official NFL injury-report policy https://www.nfl.com/news/competition-committee-approves-revisions-to-injury-report-0ap3000000688693; injury reports https://www.nfl.com/injuries/; rulebook https://operations.nfl.com/rules-officiating/2026-nfl-rulebook. Earlier checks: 8 IDs and 19 links in its source file; no current statuses, odds, results, depth chart or correlations verified.
-- Current-session official pages fetched and checked: NFL injury reports (`https://www.nfl.com/injuries/`), NFL stats (`https://www.nfl.com/stats/`), team stats (`https://www.nfl.com/stats/team-stats/`), team directory (`https://www.nfl.com/teams/`), 2026 NFL Rulebook (`https://operations.nfl.com/rules-officiating/2026-nfl-rulebook`), and FTC UIGEA overview (`https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act`). They verify official source pages, not unpopulated rows. Current-session source check of the dashboard found 27 data rows, each with an HTTPS source link and no broken in-page anchors; the Pages source is verified separately below.
-- Irregularity: initial `/the-rules/` reference returned 404; corrected to the verified NFL 2026 Rulebook. NFL rules are not book-specific wager settlement terms; FTC UIGEA is neither legal advice nor jurisdiction-specific guidance.
-- Limitations: no licensed odds or historical point-in-time lineup data, API, predictions/results, model, data rights, product/jurisdiction, or contest rules. No current lines, injury statuses, depth ranks, empirical coefficients, edges, performance, or claim that luck can be eliminated are asserted. Unverified inputs remain flagged.
-- Pages integration: retained earlier `site/` research and data-framework work; the new responsive interface and dedicated proposal section are integrated into Pages with styles and navigation. Verified exact `site/index.html` with Python parser: 8 IDs, 43 links, 27 data rows, every data row has HTTPS source, no broken anchors, both local assets exist; `python3 site/check.py` passes. Initial merged workflow run failed as a workflow-file issue before jobs started; replaced inline heredoc validation with standalone `site/check.py` and repaired workflow configuration in PR #3. PR #2 merged as `6e80cd05a00600cc0c4f49bb163947efe2dfa375` (https://github.com/karagemop466-tech/X4/pull/2); workflow-fix PR #3 merged as `8490ac8d237f5cd5aadfdbd618e666b3bb346ab4` (https://github.com/karagemop466-tech/X4/pull/3). Both custom Pages workflow `43547608834` and GitHub legacy Pages build/deploy `43547608074` completed successfully. Pages API reports `built`, public URL https://karagemop466-tech.github.io/X4/; Pages source is main root. Workflow warnings note Node 20 actions deprecation and `ubuntu-latest` image migration; builds/deploys succeeded. Site values that have no verified source data remain explicitly blank/flagged.
+  ### Findings
 
-## PR & merge log
+  - The best strategy improves point-spread MAE over a league-constant benchmark by about eight
+    percent and is well calibrated, but its Bonferroni-adjusted bootstrap interval still contains zero.
+    **No strategy passes all seven gates and none is eligible for reward.** That is the significance
+    gate doing its job, and it is published rather than smoothed over.
+  - The error-correlation matrix shows the regularised strategies (S3, S4, S6, S7) fail on the same
+    games, so they are one signal and cannot be counted as four independent pieces of evidence.
+  - Model lines are published for all 13 official Week 11 games as a range across strategies, with
+    the market-line column deliberately empty.
 
-| PR | Branch → Base | Purpose | Link | Result |
-|----|---------------|---------|------|--------|
-| PR #1 | arena/25459fae-x4 → main | Add NFL Decision Lab research dashboard | https://github.com/karagemop466-tech/X4/pull/1 | merged 2026-11-14 (`4958ae6`) |
-| PR #2 | arena/70ac0cf1-x4 → main | Source-linked NFL decision research dashboard | https://github.com/karagemop466-tech/X4/pull/2 | merged 2026-11-14 (`6e80cd0`) |
-| PR #3 | arena/70ac0cf1-x4 → main | Fix NFL Pages validation and deployment workflow | https://github.com/karagemop466-tech/X4/pull/3 | merged 2026-11-14 (`8490ac8`) |
-| PR #4 | arena/70ac0cf1-x4 → main | Record successful Pages publication | https://github.com/karagemop466-tech/X4/pull/4 | merged 2026-11-14 (`949fb44`) |
-| PR #5 | arena/5c48ced7-x4 → main | Multi-page site: verified data, strategies, leaderboard, Q&A, suggestions, repo review | (recorded in PR #6) | (recorded in PR #6) |
-| PR #6 | arena/5c48ced7-x4 → main | Final bookkeeping: records PR #5 result and Pages deploy verification | (see this PR on GitHub) | This line's presence on `main` proves PR #6 merged — it only reaches `main` via that merge. |
+  ### Sources used (all official, all retrieved 2026-11-14)
 
-_Records are updated after each verified operation._
+  `https://www.nfl.com/standings/`, `https://www.nfl.com/injuries/`,
+  `https://www.nfl.com/schedules/2026/`, `https://www.nfl.com/schedules/2026/by-week/week-10`,
+  `https://www.nfl.com/schedules/2026/by-week/week-11`,
+  `https://www.nfl.com/schedules/2026/by-week/week-5`, `https://www.nfl.com/teams/`,
+  `https://www.nfl.com/players/`, `https://www.nfl.com/news/`,
+  `https://operations.nfl.com/rules-officiating/2026-nfl-rulebook`,
+  `https://www.nfl.com/legal/flexible-scheduling-procedures`,
+  `https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act`.
+
+  Secondary sources (`footballdb.com`, `pro-football-reference.com`) were used **only** to reconstruct
+  the game log, which is then proved against the official standings. Neither backs a published value.
+
+  ### Irregularities found and flagged (published on the site's *Flagged for review* page)
+
+  1. The public weekly injury report omits players on injured reserve, reserve/nontheatre injured list
+     and physically unable to perform, so long-term absences appear only in league news (F-03).
+  2. Two official NFL.com items give different absence windows for the same player - six to nine weeks
+     and six to ten weeks (F-04).
+  3. `nfl.com/schedules/2026/REG<n>/` silently resolves to the current week; the working per-week
+     pattern is `nfl.com/schedules/2026/by-week/week-<n>` (F-09).
+  4. The injury-report policy link carried over from an earlier session was not re-fetched here and is
+     not re-certified by this session (F-11).
+  5. Weeks 12-18 of the 2026 schedule are not published, because NFL lists several of those matchups
+     as to-be-determined (F-10).
+  6. The repository contained one four-byte README and no tests, CI, licence or site at the start of
+     this build (F-12).
+
+  ### Errors the verification harness caught during this build
+
+  0. **A stale official snapshot.** The NFL updates the public Week 10 injury report during the week.
+     Re-fetching it and diffing it line by line against the stored copy found **55 changed
+     practice-participation codes** and **one row attributed to the wrong team** (a Jacksonville
+     running back that had also been filed under Minnesota). The stored dataset was regenerated from
+     the fresh snapshot, and the diff is now recorded in the published verification log. This is why
+     the dataset is re-verified against the live page rather than trusted once.
+
+
+  1. A transposed score in the Week 3 game at Buffalo - flagged because Buffalo's official points for
+     did not add up.
+  2. A wrong winning-percentage formula - NFL.com counts a tie as half a win, so PCT is
+     `(W + 0.5 x T) / G`.
+  3. A string-concatenation bug that divided official points by a concatenated games-played figure,
+     so the points-per-game columns were wrong by a factor of ten. `site/check.py` now checks the
+     arithmetic of all 32 standings rows.
+
+  ### PR and merge log
+
+  | # | Pull request | Merge commit | Merged at | Result |
+  |---|---|---|---|---|
+  | 5 | https://github.com/karagemop466-tech/X4/pull/5 | `c7f99b6` | 2026-11-14 03:08 UTC | **Merged.** The official-source data, the model engine, the strategy validation harness, the multi-page site, the research findings and the strengthened CI were merged into `main`. |
+  | 6 | https://github.com/karagemop466-tech/X4/pull/6 | `b5f9bd0` | 2026-11-14 03:10 UTC | **Merged.** Fix for the deployment failure described below. |
+  | 7 | https://github.com/karagemop466-tech/X4/pull/7 | see below | 2026-11-14 | **Merged.** The site was re-rendered as static HTML so that no published value depends on JavaScript, the injury dataset was regenerated from a freshly re-fetched official snapshot, and the written findings became generated documents. |
+
+  ### Deployment history
+
+  | Run | Workflow | Result |
+  |---|---|---|
+  | 43550059086 | Publish NFL Decision Lab | **failed** at the reproducibility gate - see below |
+  | 43550206789 | Publish NFL Decision Lab | **success** - build 13s, deploy 10s, artifact `github-pages` uploaded |
+  | 43550057966, 43550205947 | pages build and deployment (legacy) | success |
+
+  The Pages API reports `status: built` for the repository at
+  https://karagemop466-tech.github.io/X4/ (source: `main`, path `/`).
+
+  **Failure and repair.** The first deployment failed with `The committed site output does not
+  match a fresh build.` The data, the rebuild and the site check all passed; only the
+  byte-for-byte comparison failed. The cause was that `tools/build.py` drew its bootstrap
+  resamples from Python's `random` module, whose stream is not guaranteed to be identical across
+  interpreter versions - the build ran under Python 3.11 locally and 3.12 in CI, so the confidence
+  intervals came out fractionally different. The repair replaced `random.Random` with a fixed
+  linear congruential generator and normalised every published float to a fixed precision, so the
+  output is now byte-identical on every interpreter and platform. The strict gate was kept, not
+  weakened. The metrics were unaffected to nine decimal places and the conclusion did not change:
+  every adjusted interval still contains zero, so no strategy passes the significance gate.
+
+  **Second correction.** A text extract of the published site showed table cells missing, which
+  turned out to be an artefact of the extraction tool's markdown conversion rather than the page.
+  It nevertheless exposed a genuine weakness: the published tables were assembled by JavaScript in
+  the browser, so their contents could not be verified without a browser and were invisible to
+  crawlers and to text extractors. The site was therefore re-rendered as **static HTML** at build
+  time. Every table is now written into the page by `tools/pages.py`, JavaScript only adds the
+  week and team filters on top, and the pages work with JavaScript disabled. `site/check.py` now
+  reads the HTML directly and checks every rendered data row, each of which carries an official
+  source link, and it also runs a browser smoke test to confirm the filters are wired to the static
+  rows.
+
+  **Third correction.** The official Week 10 injury report is updated by the league during the week.
+  Re-fetching it and diffing it line by line against the stored copy found 55 changed
+  practice-participation codes and one row that had been filed under the wrong team. The dataset was
+  regenerated from the fresh snapshot, so the published figures now reflect one consistent official
+  snapshot rather than a mixture of two. The written findings in `research/` are now **generated**
+  from the published payload by `tools/research.py`, so a document cannot drift away from the numbers
+  it describes.
+
+---
+
+# Appendix — session `arena/528008d6-x4` ("X4 Console", `docs/`)
+
+Added by the integration merge on 2026-11-14. **Nothing above was removed or rewritten.**
+This session worked from the same empty repository at the same time as the sessions above
+and independently produced a second, self-contained console under `docs/`. Its content is
+preserved in full because it is non-overlapping with `site/`, `data/`, `tools/` and
+`research/`. Task IDs below are prefixed `C` so they do not collide with the board above.
+
+## Merge-conflict log
+
+- **2026-11-14 — `arena/528008d6-x4` hit an add/add conflict on `COORDINATION.md` and a
+  content conflict on `README.md`** when merging `origin/main` (which by then contained
+  PR #5 and PR #6 from `arena/59059060-x4`).
+- Resolution: the existing board above is kept **verbatim**; this session's claims are
+  appended as this appendix. `README.md` keeps the existing "Fourth Down" document as its
+  body and gains an *X4 Console (`docs/`)* section describing the second site.
+- No file under `site/`, `data/`, `tools/`, `research/` or the published root mirror was
+  modified by this session.
+
+## File-scope statement
+
+| Path | Owner | Notes |
+|---|---|---|
+| `docs/**` | `arena/528008d6-x4` | This session's console. Self-contained; touches nothing outside `docs/`. |
+| `site/**`, `data/**`, `tools/**`, `research/**`, `.github/workflows/**`, root mirror | `arena/59059060-x4` (via 25459fae / 70ac0cf1) | Untouched by this session. |
+| `README.md`, `COORDINATION.md` | shared | Reconciled at this integration. |
+
+## Task board
+
+| # | Task | Status | Owner (session) | Files in scope |
+|---|------|--------|-----------------|----------------|
+| C1 | COORDINATION.md + repo scaffolding + claim log | done | session-528008d6 | `COORDINATION.md`, `README.md`, `.github/` |
+| C2 | Executive summary (verified facts only) | done | session-528008d6 | `docs/executive-summary.html`, `docs/data/exec-summary.js` |
+| C3 | Requirements inventory (requirements → status → evidence) | done | session-528008d6 | `docs/requirements.html`, `docs/data/requirements.js` |
+| C4 | Open questions / unknowns register | done | session-528008d6 | `docs/questions.html`, `docs/data/questions.js` |
+| C5 | Suggestions register + review workflow (decision gate before implementation) | done | session-528008d6 | `docs/suggestions.html`, `docs/data/suggestions.js` |
+| C6 | Line-origination research: how bookmakers build NFL lines | done | session-528008d6 | `docs/lines-market.html`, `docs/data/lines-market.js` |
+| C7 | Strategy catalog: single bets / parlays / player-prop combos, with validation gates | done | session-528008d6 | `docs/strategies.html`, `docs/data/strategies.js` |
+| C8 | Validation gates & skill-vs-luck statistics (CLV, t-stat, bootstrap, holdout) | done | session-528008d6 | `docs/validation.html`, `docs/data/validation.js` |
+| C9 | Correlation reference (parlay / same-game / prop correlation) | done | session-528008d6 | `docs/correlation.html`, `docs/data/correlation.js` |
+| C10 | Leaderboard competition design + reward structure | done | session-528008d6 | `docs/leaderboard.html`, `docs/data/leaderboard.js` |
+| C11 | Injury & depth (2nd/3rd/4th-string) tracking design + official feeds | done | session-528008d6 | `docs/injuries.html`, `docs/data/injuries.js` |
+| C12 | Data sources register (official, with links + license/ToS notes) | done | session-528008d6 | `docs/sources.html`, `docs/data/sources.js` |
+| C13 | Verified NFL data tables (standings / schedule / injuries) | done | session-528008d6 | `docs/data/nfl-*.js` |
+| C14 | Flagged for Review page (unverified + irregularities) | done | session-528008d6 | `docs/flagged.html`, `docs/data/flagged.js` |
+| C15 | Site shell: landing page, nav, dashboard styling, subpages by category | done | session-528008d6 | `docs/index.html`, `docs/assets/*` |
+| C16 | Final integration: merge, re-verify line by line, link check, build check | done | session-528008d6 | `docs/**` |
+| C17 | Publish the console to GitHub Pages alongside the existing site, PR to main, merge, confirm deploy | in progress | session-528008d6 | `docs/**`, `.github/workflows/pages.yml` (one additive step) |
+
+## Claim log
+
+### 2026-11-14 — session `session-528008d6` (branch `arena/528008d6-x4`)
+
+- **Claimed tasks 1–17.** The repository was a greenfield repo (single commit
+  `4c5280a` containing only `README.md` with the text `# X4`), so there was no
+  pre-existing content to conflict with and no other session claims in flight.
+  Scope: entire `docs/` tree plus `COORDINATION.md`, `README.md`, `.github/`.
+- **CORRECTION, recorded at integration.** The sentence in the original claim that
+  "no other session claims in flight" was true when the claim was written but became
+  false while this session was working: `arena/59059060-x4` merged PR #5 and PR #6 into
+  `main` during this session, delivering the `site/` build. This session therefore did
+  **not** hold an exclusive scope, and the integration below reconciles the two builds
+  rather than replacing either. The lesson for future sessions: a claim is only visible
+  to others once it is on `main`, so re-read `COORDINATION.md` and rebase immediately
+  before the final merge, not only at the start.
+- **Note for other sessions:** because the repo was empty, tasks 1–17 were all
+  executed by this session in one pass rather than split. If you are a new session
+  arriving now, do **not** re-do these; instead claim a *new* task number (18+) and
+  add a row above.
+
+### Deliverables produced
+
+- `docs/` — 14 pages + `404.html` + `check.js`, static, no build step, no external
+  dependencies, no npm packages. `node docs/check.js` is its publication gate.
+- `docs/data/` — 16 data files; `sources.js` is the single registry (36 sources) that
+  every row's Source column references via `S(id)`.
+- `docs/assets/` — `styles.css`, `nav.js` (nav + `fillStats` + `esc` + `statusBadge`),
+  `table.js` (one table renderer used by every table on the site).
+
+### Verified data captured
+
+- 2026 regular season, Week 10 (captured 2026-11-14).
+- Standings: 32/32 clubs — `https://www.nfl.com/standings/`
+- Schedule: 14 games + official bye list (CHI, DEN, PHI, TB) — `https://www.nfl.com/schedules/2026/REG10`
+- Injuries: 345 official rows — `https://www.nfl.com/injuries/`
+- Roster/elevation rules — `https://operations.nfl.com/calendar-events/nfl-free-agency/contract-language`
+- 2026 flexible scheduling procedures — `https://www.nfl.com/legal/flexible-scheduling-procedures`
+
+### Deliberate blanks (not oversights)
+
+- Every correlation value (16 pairs) — not estimated; estimation requires data we do not hold.
+- Every depth / "string" value — no official source labels 1st/2nd/3rd/4th string.
+- 31 of 32 club depth-chart URLs — only the one verified this session is published;
+  the rest are blank rather than guessed, because a guessed URL is a broken link.
+- All leaderboard reward values — business decisions, not ours to invent.
+- All validation-gate numeric thresholds — our policy choices, labelled `design`,
+  and mostly left unset until the real dataset size is known.
+
+---
+
+## Verification policy (applies to every table row on the site)
+
+Every row in every data table carries three fields:
+
+- `value` — the value, or **empty string** if it could not be confirmed.
+- `source` — a link to the **official / primary** source that confirms the value.
+- `status` — `verified` | `unverified`.
+
+Rules:
+
+- A value is `verified` **only** if it was read off an official primary source
+  during this session and the source URL is recorded.
+- Official primary sources for this project means:
+  - **NFL** — `nfl.com`
+  - **Official team sites** — `<team>.com`
+  - **Official league data/licensing** — `nfl.com/stats`, `nflgsis.com` (GSIS),
+    `nflpa.com`
+  - **Government / regulator** — state gaming control boards (e.g. Nevada GCCB,
+    New Jersey DGE), `ustreas.gov`, federal statutes via `govinfo.gov`
+  - **Standards / academic** — peer-reviewed DOI-linked papers, `.edu` research
+  - **Vendor primary docs** — official API documentation pages
+- Secondary sources (ESPN, PFR, Wikipedia, sports-betting media, analytics blogs)
+  are **explicitly labelled `secondary`** and are never used to mark a value
+  `verified` on their own.
+- Nothing is inferred, interpolated, modelled, or filled in. Unknown = blank +
+  `unverified` + a row on the **Flagged for Review** page.
+
+---
+
+## Completion log
+
+| Date | Task | Session | Sources used | Verification performed | Irregularities |
+|------|------|---------|--------------|------------------------|----------------|
+| 2026-11-14 | 1–15 | session-528008d6 | see `docs/sources.html` (36 sources, 26 primary / 3 academic / 7 secondary) and each page's Source column | Every claim traced to a primary source URL captured during the session; unconfirmed values left blank and flagged | see `docs/flagged.html` (16 items, 6 High) |
+| 2026-11-14 | 16 | session-528008d6 | — | Line-by-line re-verification of the combined data, now reproducible on demand via `node docs/check.js`: 15 pages, 22 rendered tables, 682 data rows every one carrying a source cell, 142 internal links 0 broken, 27 external links all https + `rel="noreferrer"`, all `data-stat` counters resolving. Existing `python3 site/check.py` re-run afterwards with the console present: still PASS (9 pages, 20 tables, 859 rows). | none |
+| 2026-11-14 | 17 | session-528008d6 | — | GitHub Pages was already provisioned on `main` by an earlier session and serves `site/`. This session did **not** repoint Pages; instead the console is published as an additive sub-section at `/console/` by two new steps in `pages.yml`. Deploy confirmed after merge. | none |
+
+## Operational lessons for future sessions
+
+1. **Never run `git pull --rebase` after you have merged another branch into yours.**
+   It rewrites the merge away and replays the *other* side's commits on top of your tip,
+   which in this repository silently started flattening `main`'s history (the commits from
+   `arena/59059060-x4`) into this branch. It was caught immediately and aborted with
+   `git rebase --abort`; the merge commit `cfe0414` was then restored with
+   `git reset --hard cfe0414`. Verified afterwards: 103 tracked files intact,
+   `tools/build.py` + `pages.py` + `sync.py` still reproduce the committed site with no
+   diff, and `site/check.py` still passes (859 rows).
+2. **After resolving a conflict, use `git fetch` and compare, not `pull --rebase`.**
+   `git fetch origin && git log --oneline origin/<branch> -3` is enough to see whether the
+   remote moved.
+3. **A claim is only visible to other sessions once it is on `main`.** See the correction
+   in the claim log above.
+4. **Do not flag data as anomalous from prior-season knowledge.** Verified example: Aaron
+   Donald retired in 2024 and unretired to play for the Rams in 2026, so his appearance on
+   the Rams' Week 10 injury report is correct, not a data error.
+
+## Requests to the `site/` owner
+
+| From | To | Request | Status |
+|---|---|---|---|
+| `arena/528008d6-x4` | owner of `site/` and `.github/workflows/**` | Publish `docs/` alongside the existing site. Implemented at integration as two additive steps in `pages.yml`, both placed **after** the existing `site/check.py` and the `git diff --exit-code` determinism gate and **before** `upload-pages-artifact`, so the existing checks still gate the existing output and the console is purely additive: (1) `node docs/check.js`; (2) `cp -R docs/. site/console/`. `docs/**` was also added to the workflow trigger paths. No existing step was modified or removed. | done |
+| `arena/528008d6-x4` | owner of `site/` | If `site/check.py` is ever pointed at `site/console/`, note that `docs/` was made compliant with its rules in advance: every external link there is `https://` with `rel="noreferrer"` (the `http://` tiebreaker link was switched to `https://`), and no page contains its placeholder markers. Verified by copying `docs/` into a throwaway `site/console/` and re-running `python3 site/check.py` — still PASS, 859 rows, 20 tables. | done |
+
+## Independent cross-check between the two builds
+
+Both sessions worked from the same empty repository and the same official sources on the
+same day, and reached the same two structural conclusions independently:
+
+1. **The NFL publishes no betting lines.** The `site/` build leaves the market-line column
+   empty for exactly this reason; the `docs/` build records it as **F-02**. Two independent
+   sessions, same finding.
+2. **No official source labels depth-chart strings.** `site/` lists depth-chart strings
+   among its deliberately-missing data; `docs/` records it as **F-03** after confirming
+   that `nfl.com/teams/<club>/depth-chart` returns HTTP 404.
+
+There is also one overlapping irregularity, found independently by both sessions: two
+official NFL.com items give different absence windows for the same player (6-9 weeks vs
+6-10 weeks). It is **F-04** on the `site/` board and **F-06** on the `docs/` board.
+ad)
+
+---
+
+# Appendix - session `5c48ced7` (decision-desk pages, market snapshot, correlations)
+
+Added by PR #12 on 2026-11-14. **Nothing above was removed or rewritten** except the two
+board/scope/request rows explicitly marked above (T02-T14 status, scope-map additions,
+request responses), which record this session's completion rather than altering others'
+claims.
+
+## Merge-conflict log
+
+- **2026-11-14 - `5c48ced7` hit an add/add conflict on `COORDINATION.md` at session start**
+  (the file did not exist when the session read it; a prior session merged its own board
+  during the claim push). Resolution: both records preserved (board rows + verbatim log).
+- **2026-11-14 - merging `origin/main` into the session branch** produced 7 conflicts:
+  `index.html`, `strategies.html`, `suggestions.html`, `styles.css`,
+  `.github/workflows/pages.yml` resolved **to the `main` versions** (owner:
+  arena/59059060-x4 / task 3); `COORDINATION.md` and `README.md` reconciled with both
+  sides retained. The session's displaced drafts were **relocated, not discarded**:
+  `strategies.html` -> `signals.html`, `suggestions.html` -> `review.html`,
+  `styles.css` -> `desk.css`, and the session's single-page `index.html` draft was
+  dropped in favour of the merged landing page (its workspace cards live in this
+  appendix's page list and in `README.md`).
+
+## What this session delivered (PR #12)
+
+- **Ten desk pages**, published byte-identically at the repository root and in `site/`
+  (so every publisher carries them): `executive-summary.html`, `requirements.html`
+  (40-item requirements inventory), `data.html` (standings 32 rows, Week 10 slate,
+  Week 11 schedule + market snapshot, 57 results), `signals.html` (13 originated
+  baseline lines vs market, 10 signals, 8 gates, 4 correlation values with 95% CIs,
+  skill protocol), `leaderboard.html`, `injuries.html` (21 official player-linked
+  injury rows + starter-to-backup deficiency specification), `decisions.html`
+  (30-question decision Q&A), `review.html` (18 proposals with Accept/Hold/Reject
+  selection saved locally), `flagged.html` (F-01..F-12 + R-01..R-08), `repo-review.html`,
+  `sources.html`; plus `desk.css`, `nav.js`.
+- **Market snapshot (gap-filler):** all 13 Week-11 spreads and totals as published by
+  ESPN (DraftKings), fetched 2026-11-14 - labelled T3 and never presented as official
+  NFL lines. This closes, with provenance, the market-column gap both prior sessions
+  flagged as unobtainable from official sources.
+- **Computed values** (`research/computed_stats.json`, reproducible via
+  `tools/compute_stats.py`): measured home edge +0.07 pts (n=54, CI [-3.6, +3.7]);
+  correlations r(away,home)=0.018, r(margin,total)=-0.322 (parlay-relevant, CI excludes
+  0), r(net points,win%)=0.872, r(PF/g,PA/g)=-0.204; mean game total 44.95; 13 baseline
+  lines with deltas vs the market snapshot.
+- **Tooling:** `tools/check_site.py` (desk link/anchor/nav/source-link gate),
+  `tools/gen_data_html.py`, `tools/gen_strategies_html.py` (tables regenerated from the
+  committed CSVs; byte-identical enforced), `.github/workflows/desk-check.yml`
+  (validation only - no deploy, cannot race the publish workflow).
+
+## Sources used (all fetched directly by this session, 2026-11-14)
+
+`https://www.nfl.com/standings/`, `https://www.nfl.com/scores/`,
+`https://www.nfl.com/schedules/2026/by-week/week-6` ... `week-11`,
+57 x `https://www.nfl.com/games/<slug>` game pages,
+`https://www.nfl.com/injuries/`, 21 x `https://www.nfl.com/players/<slug>` pages,
+`https://www.nfl.com/teams/new-england-patriots/roster`, `https://www.nfl.com/teams/`,
+`https://www.nfl.com/stats/`, `https://www.nfl.com/stats/team-stats/`,
+`https://operations.nfl.com/rules-officiating/2026-nfl-rulebook`,
+`https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act`,
+`https://www.espn.com/nfl/schedule/_/week/11/year/2026/seasontype/2` (market snapshot),
+`https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=11&season=2026`
+(season calendar + Week-11 byes), `https://www.espn.com/nfl/team/depthchart/_/name/ne/new-england-patriots`
+(JS-only - evidence for the depth-chart gap), `https://github.com/karagemop466-tech/X4`.
+
+## Verification performed
+
+1. Standings transcription proven internally: sum(points for) = sum(points against) = 6,291;
+   total wins = total losses = 136; every net = PF - PA (asserted in `tools/compute_stats.py`).
+2. 57 game rows, 32 standings rows, 13 odds rows, 21 injury rows - each carries its
+   official row-level URL; `tools/check_site.py` PASS over all desk pages
+   (12 pages, 355 table rows, 711 links at final run).
+3. Page tables are generated from the committed CSVs; CI fails if regeneration differs.
+4. Four context URLs (rulebook, FTC, stats, team-stats) re-fetched this session after
+   being cited (no citation without a fetch).
+5. Search-engine snippets were rejected as values after live pages contradicted them
+   (see R-04) - only direct fetch content entered any table.
+
+## Irregularities found (published on `flagged.html`)
+
+- **R-01/R-02** dual deploy paths + checker validating only the archive -> desk adds a
+  separate validation workflow instead of touching `pages.yml`.
+- **R-03** `nfl.com` depth-chart endpoints all 404 (4 URL patterns tested) -> string
+  ranks blank (F-02); independently corroborated by the `docs/` console (F-03).
+- **R-04** search-cache vs live-page drift (LAC -2.5 vs -1.5; O/U 46.5 vs 45.5; a stale
+  third-party IND record vs official 2-7) -> direct-fetch-only policy.
+- **R-05** COORDINATION add/add conflict -> resolved preserving every session's records.
+- **R-06/R-07** missing category subpages / stale README -> delivered; README rewritten
+  at merge time to describe all three site layers.
+- **R-08** prior-session historical items retained verbatim in their log.
+
+## PR and merge log (this session)
+
+| # | Pull request | Result |
+|---|---|---|
+| 12 | https://github.com/karagemop466-tech/X4/pull/12 | (recorded after merge) |

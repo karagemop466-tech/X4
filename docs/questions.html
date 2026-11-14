@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Open Questions</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Open Questions</h1>
+    <p class="lede">
+      The questions that need answering before any decision can reasonably be made — split
+      into what we already have (verified) and what we do not (unverified), plus a concrete
+      method for discovering each missing piece.
+    </p>
+
+    <div class="callout warn">
+      <strong><span data-stat="X4_QUESTION_STATS.p0">16</span> of the
+      <span data-stat="X4_QUESTION_STATS.total">32</span> questions are P0.</strong>
+      Filter by Priority = P0 to see them. The project can be documented and designed without
+      them, but it cannot safely be <em>operated</em> without them. Chief among them: whether
+      real money is involved at all (Q-01, Q-02), and where the data will come from
+      (Q-09, Q-10, Q-11). Several P0 items only bite if the mode is set to real money —
+      bankroll, stop limits, operator selection and the promotion owner are P1 precisely
+      because the recommended default is paper trading.
+    </div>
+
+    <h2>The register</h2>
+    <div data-table="questions"></div>
+
+    <h2>What "we do not have" looks like</h2>
+    <p>
+      The <em>What we do NOT have</em> column is the honest half of this page. It is not a
+      to-do list of small tasks; most of the gaps are structural:
+    </p>
+    <ul class="tight">
+      <li><strong>No odds data of any kind.</strong> Not opening prices, not closing prices,
+        not prop prices. Without closing prices, closing-line value — the core anti-luck
+        measurement — cannot be computed at all. Blocked on Q-11.</li>
+      <li><strong>No play-by-play or participation data.</strong> Every offensive and
+        defensive model needs it. Blocked on Q-09.</li>
+      <li><strong>No depth/string labels.</strong> No official source publishes them. Blocked
+        on Q-17.</li>
+      <li><strong>No bankroll, no limits, no staking rule.</strong> These are user decisions,
+        not derivable from data. Blocked on Q-05 through Q-07.</li>
+      <li><strong>No jurisdiction.</strong> Which determines legality, tax and whether any of
+        the above is even permitted. Blocked on Q-01.</li>
+    </ul>
+    <p class="small">
+      Note what is <em>not</em> in that list: standings, schedule, byes, injuries and roster
+      rules. Those are settled, verified and published elsewhere on this site.
+    </p>
+
+    <h2>Suggestions for discovering the missing information</h2>
+    <p>
+      The <em>How to discover it</em> column on each row is the short answer. The long
+      answers are suggestions
+      <a href="suggestions.html">S-08 through S-18</a>, which cover data licensing, the bet-log
+      schema, the correlation estimation protocol, the depth pipeline, operator capacity and
+      the leaderboard's multiplicity correction.
+    </p>
+
+    <footer class="pgfoot">
+      Every "What we already know" cell links to a primary source in the
+      <a href="sources.html">Source Register</a>. Every "What we do NOT have" cell is blank or
+      explicitly marked unverified.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/questions.js"></script>
+</body>
+</html>

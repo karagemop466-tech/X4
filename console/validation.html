@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Validation Gates</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Validation Gates</h1>
+    <p class="lede">
+      Every strategy must pass all nine gates before it is trusted. The gates exist to
+      separate skill from luck — the brief's "remove luck from the equation".
+    </p>
+
+    <div class="callout warn">
+      <strong>Read the distinction carefully.</strong> The <em>statistical techniques</em>
+      below are established and cited. The <em>thresholds</em> are this project's policy
+      choices — they are labelled <span class="b info">design</span>, not
+      <span class="b ok">verified</span>, because a threshold is a decision, not a fact.
+      Most thresholds are deliberately still blank: they must be set from the real dataset
+      size (Q-10, Q-16) rather than picked to look good.
+    </div>
+
+    <h2>Gates G0 – G8</h2>
+    <div data-table="gates"></div>
+
+    <h2>The statistics that remove luck</h2>
+    <p>
+      Profit is the slowest possible way to tell skill from luck. Closing-line value is far
+      faster, and the distribution test is what actually answers the question "could chance
+      have done this?".
+    </p>
+    <div data-table="luckTests"></div>
+
+    <h2>Why closing-line value carries the most weight</h2>
+    <div class="panel">
+      <p>
+        The argument, from the cited practitioner analysis: if you possess information the
+        market does not, the odds should shorten after you bet. The closing line is the
+        market's best estimate, so systematically beating it means you knew something — or
+        the book shortened against you because it recognised you as better informed.
+      </p>
+      <ul class="tight">
+        <li>In a worked example of <strong>1,214 bets</strong> with an average edge of
+          <strong>2.19%</strong>, the result sat roughly <strong>18.5 standard deviations</strong>
+          from chance on CLV. The same record's raw profit, tested alone, could not rule out
+          luck.</li>
+        <li>Practitioner guidance is that a bettor must beat the fair closing price about
+          <strong>70%</strong> of the time to have any positive expected value at all.</li>
+        <li>Even after 1,000 bets there was roughly a <strong>1-in-10</strong> chance that
+          luck alone produced a 2% profit where the expectation was a 2% loss.</li>
+        <li>Dispersion scales with the odds: the reported standard deviation of the
+          opening-to-closing price ratio was about <strong>0.043 at odds of 1.25</strong> and
+          about <strong>0.14 at odds of 5.0</strong> — so a single fixed CLV threshold would
+          be wrong for longshots.</li>
+      </ul>
+      <p class="small">
+        These figures come from soccer odds populations, not NFL, and from a practitioner
+        source rather than a peer-reviewed one. They are used here to indicate the
+        <em>order of magnitude</em> of evidence required, not as NFL parameters.
+      </p>
+    </div>
+
+    <h2>Gate failure policy</h2>
+    <ul class="tight">
+      <li><strong>G0 fails</strong> → the run is void. Do not report the number, do not debug
+        around it.</li>
+      <li><strong>G6 fails</strong> → the parlay is unpriceable. Fail closed. Never
+        substitute a guessed correlation.</li>
+      <li><strong>G4 fails</strong> → reject. Do not fall back to the in-sample result.</li>
+      <li><strong>G5 fails</strong> → demote to probation rather than reject; it may be one
+        bad season.</li>
+      <li><strong>G7 fails</strong> → cap the strategy at realised capacity, not modelled
+        capacity.</li>
+      <li><strong>G8 fails</strong> → reject. An edge smaller than the cost of crossing the
+        spread is not an edge.</li>
+    </ul>
+
+    <footer class="pgfoot">
+      Gate specification is this project's own; the statistical techniques rest on the cited
+      sources in the Source column. No strategy has been run through any gate.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/validation.js"></script>
+</body>
+</html>

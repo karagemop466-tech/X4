@@ -1,0 +1,2596 @@
+[
+ {
+  "team": "Indianapolis Colts",
+  "abbr": "IND",
+  "url": "https://www.nfl.com/teams/indianapolis-colts/",
+  "rows": 14,
+  "out": [
+   {
+    "player": "Mo Alie-Cox",
+    "pos": "TE",
+    "injuries": "Groin",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/mo-alie-cox/",
+    "unit": "Tight end",
+    "side": "Offense"
+   },
+   {
+    "player": "Jaylon Carlies",
+    "pos": "LB",
+    "injuries": "Neck",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jaylon-carlies/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Akeem Davis-Gaither",
+    "pos": "LB",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/akeem-davis-gaither/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Luke Rhodes",
+    "pos": "LS",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/luke-rhodes/",
+    "unit": "Special teams",
+    "side": "Special teams"
+   },
+   {
+    "player": "Jerry Tillery",
+    "pos": "DT",
+    "injuries": "Calf",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jerry-tillery/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Jalen Travis",
+    "pos": "T",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jalen-travis/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Arden Key",
+    "pos": "DE",
+    "injuries": "Hamstring",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/arden-key/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Will Mallory",
+    "pos": "TE",
+    "injuries": "Hamstring",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/will-mallory/",
+    "unit": "Tight end",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive line",
+    "count": 1,
+    "players": [
+     "Jerry Tillery"
+    ]
+   },
+   {
+    "side": "Defense",
+    "unit": "Linebacker",
+    "count": 2,
+    "players": [
+     "Jaylon Carlies",
+     "Akeem Davis-Gaither"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Jalen Travis"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Tight end",
+    "count": 1,
+    "players": [
+     "Mo Alie-Cox"
+    ]
+   },
+   {
+    "side": "Special teams",
+    "unit": "Special teams",
+    "count": 1,
+    "players": [
+     "Luke Rhodes"
+    ]
+   }
+  ],
+  "out_count": 6,
+  "doubtful_count": 0,
+  "questionable_count": 2,
+  "active_status_count": 8,
+  "listed_players": 14
+ },
+ {
+  "team": "Dallas Cowboys",
+  "abbr": "DAL",
+  "url": "https://www.nfl.com/teams/dallas-cowboys/",
+  "rows": 19,
+  "out": [
+   {
+    "player": "Donovan Ezeiruaku",
+    "pos": "LB",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/donovan-ezeiruaku/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Jake Ferguson",
+    "pos": "TE",
+    "injuries": "Knee, Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jake-ferguson/",
+    "unit": "Tight end",
+    "side": "Offense"
+   },
+   {
+    "player": "Tyler Goodson",
+    "pos": "RB",
+    "injuries": "Ankle, Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/tyler-goodson/",
+    "unit": "Running back",
+    "side": "Offense"
+   },
+   {
+    "player": "P.J. Locke",
+    "pos": "S",
+    "injuries": "Concussion",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/p-j-locke/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Jonathan Mingo",
+    "pos": "WR",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jonathan-mingo/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [
+   {
+    "player": "Juanyeh Thomas",
+    "pos": "S",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/juanyeh-thomas/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "questionable": [
+   {
+    "player": "DaRon Bland",
+    "pos": "CB",
+    "injuries": "Ankle",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/daron-bland/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Jonathan Bullard",
+    "pos": "DT",
+    "injuries": "Calf",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jonathan-bullard/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Alijah Clark",
+    "pos": "S",
+    "injuries": "Illness",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/alijah-clark/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Devin Moore",
+    "pos": "CB",
+    "injuries": "Hip",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/devin-moore-2/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Joey Porter Jr.",
+    "pos": "CB",
+    "injuries": "Ankle, Foot",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/joey-porter-jr/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive back",
+    "count": 1,
+    "players": [
+     "P.J. Locke"
+    ]
+   },
+   {
+    "side": "Defense",
+    "unit": "Linebacker",
+    "count": 1,
+    "players": [
+     "Donovan Ezeiruaku"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Running back",
+    "count": 1,
+    "players": [
+     "Tyler Goodson"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Tight end",
+    "count": 1,
+    "players": [
+     "Jake Ferguson"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Wide receiver",
+    "count": 1,
+    "players": [
+     "Jonathan Mingo"
+    ]
+   }
+  ],
+  "out_count": 5,
+  "doubtful_count": 1,
+  "questionable_count": 5,
+  "active_status_count": 11,
+  "listed_players": 19
+ },
+ {
+  "team": "Houston Texans",
+  "abbr": "HOU",
+  "url": "https://www.nfl.com/teams/houston-texans/",
+  "rows": 16,
+  "out": [
+   {
+    "player": "Azeez Al-Shaair",
+    "pos": "LB",
+    "injuries": "Groin, Not injury related - personal matter",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/azeez-al-shaair/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Marvin Harrison Jr.",
+    "pos": "WR",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/marvin-harrison-jr/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Danielle Hunter",
+    "pos": "DE",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/danielle-hunter/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Brevin Jordan",
+    "pos": "TE",
+    "injuries": "Finger, Foot",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/brevin-jordan/",
+    "unit": "Tight end",
+    "side": "Offense"
+   },
+   {
+    "player": "Keylan Rutledge",
+    "pos": "G",
+    "injuries": "Neck, Shoulder",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/keylan-rutledge/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Will Anderson Jr.",
+    "pos": "DE",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/will-anderson-jr/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Trent Brown",
+    "pos": "T",
+    "injuries": "Wrist, Illness",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/trent-brown/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Jacob Hummel",
+    "pos": "LB",
+    "injuries": "Groin",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jake-hummel/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "David Montgomery",
+    "pos": "RB",
+    "injuries": "Groin",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/david-montgomery/",
+    "unit": "Running back",
+    "side": "Offense"
+   },
+   {
+    "player": "Jaylin Smith",
+    "pos": "CB",
+    "injuries": "Hamstring",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jaylin-smith/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Wyatt Teller",
+    "pos": "G",
+    "injuries": "Illness, Back",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/wyatt-teller/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive line",
+    "count": 1,
+    "players": [
+     "Danielle Hunter"
+    ]
+   },
+   {
+    "side": "Defense",
+    "unit": "Linebacker",
+    "count": 1,
+    "players": [
+     "Azeez Al-Shaair"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Keylan Rutledge"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Tight end",
+    "count": 1,
+    "players": [
+     "Brevin Jordan"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Wide receiver",
+    "count": 1,
+    "players": [
+     "Marvin Harrison Jr."
+    ]
+   }
+  ],
+  "out_count": 5,
+  "doubtful_count": 0,
+  "questionable_count": 6,
+  "active_status_count": 11,
+  "listed_players": 16
+ },
+ {
+  "team": "Minnesota Vikings",
+  "abbr": "MIN",
+  "url": "https://www.nfl.com/teams/minnesota-vikings/",
+  "rows": 13,
+  "out": [
+   {
+    "player": "Blake Cashman",
+    "pos": "LB",
+    "injuries": "Concussion",
+    "practice": "Limited",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/blake-cashman/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "T.J. Hockenson",
+    "pos": "TE",
+    "injuries": "Wrist, Chest",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/t-j-hockenson/",
+    "unit": "Tight end",
+    "side": "Offense"
+   },
+   {
+    "player": "Tyrion Ingram-Dawkins",
+    "pos": "DT",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/tyrion-ingram-dawkins/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Jauan Jennings",
+    "pos": "WR",
+    "injuries": "Calf",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jauan-jennings/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Kyler Murray",
+    "pos": "QB",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/kyler-murray/",
+    "unit": "Quarterback",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Jordan Addison",
+    "pos": "WR",
+    "injuries": "Thumb",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jordan-addison/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Josh Metellus",
+    "pos": "S",
+    "injuries": "Shoulder",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/josh-metellus/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Kyle Van Noy",
+    "pos": "LB",
+    "injuries": "Calf",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/kyle-van-noy/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive line",
+    "count": 1,
+    "players": [
+     "Tyrion Ingram-Dawkins"
+    ]
+   },
+   {
+    "side": "Defense",
+    "unit": "Linebacker",
+    "count": 1,
+    "players": [
+     "Blake Cashman"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Quarterback",
+    "count": 1,
+    "players": [
+     "Kyler Murray"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Tight end",
+    "count": 1,
+    "players": [
+     "T.J. Hockenson"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Wide receiver",
+    "count": 1,
+    "players": [
+     "Jauan Jennings"
+    ]
+   }
+  ],
+  "out_count": 5,
+  "doubtful_count": 0,
+  "questionable_count": 3,
+  "active_status_count": 8,
+  "listed_players": 13
+ },
+ {
+  "team": "Tennessee Titans",
+  "abbr": "TEN",
+  "url": "https://www.nfl.com/teams/tennessee-titans/",
+  "rows": 12,
+  "out": [
+   {
+    "player": "Cody Barton",
+    "pos": "LB",
+    "injuries": "Concussion",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/cody-barton/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Anthony Hill Jr.",
+    "pos": "LB",
+    "injuries": "Neck",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/anthony-hill-jr/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Peter Skoronski",
+    "pos": "G",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/peter-skoronski/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Carnell Tate",
+    "pos": "WR",
+    "injuries": "Shoulder",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/carnell-tate/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Tommy Townsend",
+    "pos": "P",
+    "injuries": "Knee, Achilles",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/tommy-townsend/",
+    "unit": "Special teams",
+    "side": "Special teams"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Tyjae Spears",
+    "pos": "RB",
+    "injuries": "Knee",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/tyjae-spears/",
+    "unit": "Running back",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Linebacker",
+    "count": 2,
+    "players": [
+     "Cody Barton",
+     "Anthony Hill Jr."
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Peter Skoronski"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Wide receiver",
+    "count": 1,
+    "players": [
+     "Carnell Tate"
+    ]
+   },
+   {
+    "side": "Special teams",
+    "unit": "Special teams",
+    "count": 1,
+    "players": [
+     "Tommy Townsend"
+    ]
+   }
+  ],
+  "out_count": 5,
+  "doubtful_count": 0,
+  "questionable_count": 1,
+  "active_status_count": 6,
+  "listed_players": 12
+ },
+ {
+  "team": "Green Bay Packers",
+  "abbr": "GB",
+  "url": "https://www.nfl.com/teams/green-bay-packers/",
+  "rows": 17,
+  "out": [
+   {
+    "player": "Josh Jacobs",
+    "pos": "RB",
+    "injuries": "Finger",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/josh-jacobs-x3315/",
+    "unit": "Running back",
+    "side": "Offense"
+   },
+   {
+    "player": "Micah Parsons",
+    "pos": "LB",
+    "injuries": "Knee, Illness",
+    "practice": "Limited",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/micah-parsons/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Sean Rhyan",
+    "pos": "C",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/sean-rhyan/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Josh Whyle",
+    "pos": "TE",
+    "injuries": "Concussion",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/josh-whyle/",
+    "unit": "Tight end",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [
+   {
+    "player": "Zaire Franklin",
+    "pos": "LB",
+    "injuries": "Shin",
+    "practice": "DNP",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/zaire-franklin/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   }
+  ],
+  "questionable": [
+   {
+    "player": "Chris Brooks",
+    "pos": "RB",
+    "injuries": "Ankle",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/christopher-brooks/",
+    "unit": "Running back",
+    "side": "Offense"
+   },
+   {
+    "player": "Javon Bullard",
+    "pos": "S",
+    "injuries": "Ankle, Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/javon-bullard/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Travis Glover",
+    "pos": "G",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/travis-glover/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Xavier McKinney",
+    "pos": "S",
+    "injuries": "Foot",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/xavier-mckinney/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Skyy Moore",
+    "pos": "WR",
+    "injuries": "Ankle",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/skyy-moore/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Lukas Van Ness",
+    "pos": "LB",
+    "injuries": "Back",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/lukas-van-ness/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Kevin Zeitler",
+    "pos": "G",
+    "injuries": "Ankle, Triceps",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/kevin-zeitler/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Linebacker",
+    "count": 1,
+    "players": [
+     "Micah Parsons"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Sean Rhyan"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Running back",
+    "count": 1,
+    "players": [
+     "Josh Jacobs"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Tight end",
+    "count": 1,
+    "players": [
+     "Josh Whyle"
+    ]
+   }
+  ],
+  "out_count": 4,
+  "doubtful_count": 1,
+  "questionable_count": 7,
+  "active_status_count": 12,
+  "listed_players": 17
+ },
+ {
+  "team": "New Orleans Saints",
+  "abbr": "NO",
+  "url": "https://www.nfl.com/teams/new-orleans-saints/",
+  "rows": 12,
+  "out": [
+   {
+    "player": "CJ Donaldson",
+    "pos": "RB",
+    "injuries": "Shoulder",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/cj-donaldson/",
+    "unit": "Running back",
+    "side": "Offense"
+   },
+   {
+    "player": "Taliese Fuaga",
+    "pos": "T",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/taliese-fuaga/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Erik McCoy",
+    "pos": "C",
+    "injuries": "Biceps",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/erik-mccoy/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Christen Miller",
+    "pos": "DT",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/christen-miller/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Martin Emerson",
+    "pos": "CB",
+    "injuries": "Shin",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/martin-emerson/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Travis Etienne",
+    "pos": "RB",
+    "injuries": "Hamstring",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/travis-etienne/",
+    "unit": "Running back",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive line",
+    "count": 1,
+    "players": [
+     "Christen Miller"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 2,
+    "players": [
+     "Taliese Fuaga",
+     "Erik McCoy"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Running back",
+    "count": 1,
+    "players": [
+     "CJ Donaldson"
+    ]
+   }
+  ],
+  "out_count": 4,
+  "doubtful_count": 0,
+  "questionable_count": 2,
+  "active_status_count": 6,
+  "listed_players": 12
+ },
+ {
+  "team": "Seattle Seahawks",
+  "abbr": "SEA",
+  "url": "https://www.nfl.com/teams/seattle-seahawks/",
+  "rows": 15,
+  "out": [
+   {
+    "player": "Charles Cross",
+    "pos": "T",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/charles-cross-2/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Sam Darnold",
+    "pos": "QB",
+    "injuries": "Ribs, Quadricep",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/sam-darnold/",
+    "unit": "Quarterback",
+    "side": "Offense"
+   },
+   {
+    "player": "Quenton Nelson",
+    "pos": "G",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/quenton-nelson/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Leonard Williams",
+    "pos": "DT",
+    "injuries": "Stinger",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/leonard-williams/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive line",
+    "count": 1,
+    "players": [
+     "Leonard Williams"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 2,
+    "players": [
+     "Charles Cross",
+     "Quenton Nelson"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Quarterback",
+    "count": 1,
+    "players": [
+     "Sam Darnold"
+    ]
+   }
+  ],
+  "out_count": 4,
+  "doubtful_count": 0,
+  "questionable_count": 0,
+  "active_status_count": 4,
+  "listed_players": 15
+ },
+ {
+  "team": "Arizona Cardinals",
+  "abbr": "ARI",
+  "url": "https://www.nfl.com/teams/arizona-cardinals/",
+  "rows": 15,
+  "out": [
+   {
+    "player": "Zachary Carter",
+    "pos": "DT",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/zachary-carter-x9168/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Hjalte Froholdt",
+    "pos": "C",
+    "injuries": "Concussion",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/hjalte-froholdt/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Jon Gaines II",
+    "pos": "G",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jon-gaines-ii/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Hunter Long",
+    "pos": "TE",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/hunter-long/",
+    "unit": "Tight end",
+    "side": "Offense"
+   },
+   {
+    "player": "Roy Lopez",
+    "pos": "DT",
+    "injuries": "Toe, Ankle",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/roy-lopez/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Max Melton",
+    "pos": "CB",
+    "injuries": "Knee, Hand",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/max-melton/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Darius Robinson",
+    "pos": "DT",
+    "injuries": "Wrist",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/darius-robinson-2/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Jayden Williams",
+    "pos": "T",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jayden-williams/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Andrew Wingard",
+    "pos": "S",
+    "injuries": "Groin",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/andrew-wingard/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive line",
+    "count": 1,
+    "players": [
+     "Zachary Carter"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 2,
+    "players": [
+     "Hjalte Froholdt",
+     "Jon Gaines II"
+    ]
+   }
+  ],
+  "out_count": 3,
+  "doubtful_count": 0,
+  "questionable_count": 6,
+  "active_status_count": 9,
+  "listed_players": 15
+ },
+ {
+  "team": "Detroit Lions",
+  "abbr": "DET",
+  "url": "https://www.nfl.com/teams/detroit-lions/",
+  "rows": 9,
+  "out": [
+   {
+    "player": "Kerby Joseph",
+    "pos": "S",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/kerby-joseph/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Cade Mays",
+    "pos": "C",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/cade-mays/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "D.J. Reed",
+    "pos": "CB",
+    "injuries": "Hip",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/d-j-reed/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Amon-Ra St. Brown",
+    "pos": "WR",
+    "injuries": "Rib",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/amon-ra-st-brown/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Sione Vaki",
+    "pos": "RB",
+    "injuries": "Ankle",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/sione-vaki/",
+    "unit": "Running back",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive back",
+    "count": 2,
+    "players": [
+     "Kerby Joseph",
+     "D.J. Reed"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Cade Mays"
+    ]
+   }
+  ],
+  "out_count": 3,
+  "doubtful_count": 0,
+  "questionable_count": 2,
+  "active_status_count": 5,
+  "listed_players": 9
+ },
+ {
+  "team": "Jacksonville Jaguars",
+  "abbr": "JAX",
+  "url": "https://www.nfl.com/teams/jacksonville-jaguars/",
+  "rows": 11,
+  "out": [
+   {
+    "player": "Jessie Bates",
+    "pos": "S",
+    "injuries": "Not injury related - resting player",
+    "practice": "Limited",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jessie-bates/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Jordan Davis",
+    "pos": "DT",
+    "injuries": "Not injury related - resting player",
+    "practice": "Limited",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jordan-davis/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "BJ Green II",
+    "pos": "DE",
+    "injuries": "Forearm",
+    "practice": "Full",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/bj-green-ii/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Robert Hainsey",
+    "pos": "C",
+    "injuries": "Concussion",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/robert-hainsey/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive back",
+    "count": 1,
+    "players": [
+     "Jessie Bates"
+    ]
+   },
+   {
+    "side": "Defense",
+    "unit": "Defensive line",
+    "count": 2,
+    "players": [
+     "Jordan Davis",
+     "BJ Green II"
+    ]
+   }
+  ],
+  "out_count": 3,
+  "doubtful_count": 0,
+  "questionable_count": 1,
+  "active_status_count": 4,
+  "listed_players": 11
+ },
+ {
+  "team": "Kansas City Chiefs",
+  "abbr": "KC",
+  "url": "https://www.nfl.com/teams/kansas-city-chiefs/",
+  "rows": 13,
+  "out": [
+   {
+    "player": "Jaylon Moore",
+    "pos": "T",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jaylon-moore-2/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Omarr Norman-Lott",
+    "pos": "DT",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/omarr-norman-lott/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Peter Woods",
+    "pos": "DT",
+    "injuries": "Neck",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/peter-woods/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Mansoor Delane",
+    "pos": "CB",
+    "injuries": "Shoulder",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/mansoor-delane/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Jaydn Ott",
+    "pos": "RB",
+    "injuries": "Hamstring",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jaydn-ott/",
+    "unit": "Running back",
+    "side": "Offense"
+   },
+   {
+    "player": "Kenneth Walker III",
+    "pos": "RB",
+    "injuries": "Groin",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/kenneth-walker-iii/",
+    "unit": "Running back",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive line",
+    "count": 2,
+    "players": [
+     "Omarr Norman-Lott",
+     "Peter Woods"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Jaylon Moore"
+    ]
+   }
+  ],
+  "out_count": 3,
+  "doubtful_count": 0,
+  "questionable_count": 3,
+  "active_status_count": 6,
+  "listed_players": 13
+ },
+ {
+  "team": "New England Patriots",
+  "abbr": "NE",
+  "url": "https://www.nfl.com/teams/new-england-patriots/",
+  "rows": 15,
+  "out": [
+   {
+    "player": "Ben Brown",
+    "pos": "C",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/ben-brown-2/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Carlton Davis III",
+    "pos": "CB",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/carlton-davis/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "TreVeyon Henderson",
+    "pos": "RB",
+    "injuries": "Illness",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/treveyon-henderson/",
+    "unit": "Running back",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "A.J. Brown",
+    "pos": "WR",
+    "injuries": "Ankle, Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/a-j-brown/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Kevin Byard",
+    "pos": "S",
+    "injuries": "Chest",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/kevin-byard/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Reggie Gilliam",
+    "pos": "FB",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/reggie-gilliam/",
+    "unit": "Unclassified",
+    "side": "Unclassified"
+   },
+   {
+    "player": "Cameron Latu",
+    "pos": "TE",
+    "injuries": "Back",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/cameron-latu/",
+    "unit": "Tight end",
+    "side": "Offense"
+   },
+   {
+    "player": "Walter Rouse",
+    "pos": "T",
+    "injuries": "Concussion",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/walter-rouse/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Brenden Schooler",
+    "pos": "S",
+    "injuries": "Hamstring",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/brenden-schooler/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Rhamondre Stevenson",
+    "pos": "RB",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/rhamondre-stevenson/",
+    "unit": "Running back",
+    "side": "Offense"
+   },
+   {
+    "player": "Greg Van Roten",
+    "pos": "G",
+    "injuries": "Hamstring",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/greg-van-roten/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Charles Woods",
+    "pos": "CB",
+    "injuries": "Hamstring",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/charles-woods/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive back",
+    "count": 1,
+    "players": [
+     "Carlton Davis III"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Ben Brown"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Running back",
+    "count": 1,
+    "players": [
+     "TreVeyon Henderson"
+    ]
+   }
+  ],
+  "out_count": 3,
+  "doubtful_count": 0,
+  "questionable_count": 9,
+  "active_status_count": 12,
+  "listed_players": 15
+ },
+ {
+  "team": "Cleveland Browns",
+  "abbr": "CLE",
+  "url": "https://www.nfl.com/teams/cleveland-browns/",
+  "rows": 12,
+  "out": [
+   {
+    "player": "Michael Burton",
+    "pos": "FB",
+    "injuries": "Calf",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/michael-burton/",
+    "unit": "Unclassified",
+    "side": "Unclassified"
+   },
+   {
+    "player": "Ronnie Hickman Jr.",
+    "pos": "S",
+    "injuries": "Concussion",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/ronnie-hickman-jr/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Denzel Boston",
+    "pos": "WR",
+    "injuries": "Toe",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/denzel-boston/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive back",
+    "count": 1,
+    "players": [
+     "Ronnie Hickman Jr."
+    ]
+   },
+   {
+    "side": "Unclassified",
+    "unit": "Unclassified",
+    "count": 1,
+    "players": [
+     "Michael Burton"
+    ]
+   }
+  ],
+  "out_count": 2,
+  "doubtful_count": 0,
+  "questionable_count": 1,
+  "active_status_count": 3,
+  "listed_players": 12
+ },
+ {
+  "team": "Los Angeles Rams",
+  "abbr": "LAR",
+  "url": "https://www.nfl.com/teams/los-angeles-rams/",
+  "rows": 14,
+  "out": [
+   {
+    "player": "Steve Avila",
+    "pos": "G",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/steve-avila/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Terrance Ferguson",
+    "pos": "TE",
+    "injuries": "Ankle, Hamstring",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/terrance-ferguson-2/",
+    "unit": "Tight end",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Davis Allen",
+    "pos": "TE",
+    "injuries": "Oblique",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/davis-allen/",
+    "unit": "Tight end",
+    "side": "Offense"
+   },
+   {
+    "player": "Joe Cardona",
+    "pos": "LS",
+    "injuries": "Ankle",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/joe-cardona/",
+    "unit": "Special teams",
+    "side": "Special teams"
+   },
+   {
+    "player": "Kam Curl",
+    "pos": "S",
+    "injuries": "Toe",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/kamren-curl/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Myles Garrett",
+    "pos": "LB",
+    "injuries": "Knee, Not injury related - resting player",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/myles-garrett/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Trent McDuffie",
+    "pos": "CB",
+    "injuries": "Back",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/trent-mcduffie/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Steve Avila"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Tight end",
+    "count": 1,
+    "players": [
+     "Terrance Ferguson"
+    ]
+   }
+  ],
+  "out_count": 2,
+  "doubtful_count": 0,
+  "questionable_count": 5,
+  "active_status_count": 7,
+  "listed_players": 14
+ },
+ {
+  "team": "Miami Dolphins",
+  "abbr": "MIA",
+  "url": "https://www.nfl.com/teams/miami-dolphins/",
+  "rows": 11,
+  "out": [
+   {
+    "player": "Aaron Brewer",
+    "pos": "C",
+    "injuries": "Concussion",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/aaron-brewer-2/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Jared Wayne",
+    "pos": "WR",
+    "injuries": "Quadricep",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jared-wayne/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [
+   {
+    "player": "Chris Bell",
+    "pos": "WR",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/chris-bell-2/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "questionable": [
+   {
+    "player": "Darrell Baker Jr.",
+    "pos": "CB",
+    "injuries": "Knee",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/darrell-baker-jr/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Aaron Brewer"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Wide receiver",
+    "count": 1,
+    "players": [
+     "Jared Wayne"
+    ]
+   }
+  ],
+  "out_count": 2,
+  "doubtful_count": 1,
+  "questionable_count": 1,
+  "active_status_count": 4,
+  "listed_players": 11
+ },
+ {
+  "team": "Washington Commanders",
+  "abbr": "WAS",
+  "url": "https://www.nfl.com/teams/washington-commanders/",
+  "rows": 9,
+  "out": [
+   {
+    "player": "Lucas Patrick",
+    "pos": "C",
+    "injuries": "Concussion",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/lucas-patrick/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Colson Yankoff",
+    "pos": "TE",
+    "injuries": "Knee",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/colson-yankoff/",
+    "unit": "Tight end",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Lucas Patrick"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Tight end",
+    "count": 1,
+    "players": [
+     "Colson Yankoff"
+    ]
+   }
+  ],
+  "out_count": 2,
+  "doubtful_count": 0,
+  "questionable_count": 0,
+  "active_status_count": 2,
+  "listed_players": 9
+ },
+ {
+  "team": "Atlanta Falcons",
+  "abbr": "ATL",
+  "url": "https://www.nfl.com/teams/atlanta-falcons/",
+  "rows": 11,
+  "out": [
+   {
+    "player": "Zachariah Branch",
+    "pos": "WR",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/zachariah-branch/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [
+   {
+    "player": "Divine Deablo",
+    "pos": "LB",
+    "injuries": "Forearm",
+    "practice": "DNP",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/divine-deablo/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   }
+  ],
+  "questionable": [
+   {
+    "player": "Gervon Dexter Sr.",
+    "pos": "DT",
+    "injuries": "Illness",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/gervon-dexter/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "James Pearce Jr.",
+    "pos": "DE",
+    "injuries": "Back",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/james-pearce-jr/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Josh Woods",
+    "pos": "LB",
+    "injuries": "Ankle",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/josh-woods/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Offense",
+    "unit": "Wide receiver",
+    "count": 1,
+    "players": [
+     "Zachariah Branch"
+    ]
+   }
+  ],
+  "out_count": 1,
+  "doubtful_count": 1,
+  "questionable_count": 3,
+  "active_status_count": 5,
+  "listed_players": 11
+ },
+ {
+  "team": "Carolina Panthers",
+  "abbr": "CAR",
+  "url": "https://www.nfl.com/teams/carolina-panthers/",
+  "rows": 12,
+  "out": [
+   {
+    "player": "Bobby Okereke",
+    "pos": "LB",
+    "injuries": "Foot",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/bobby-okereke/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [
+   {
+    "player": "Jonathon Brooks",
+    "pos": "RB",
+    "injuries": "Groin",
+    "practice": "Limited",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/jonathon-brooks/",
+    "unit": "Running back",
+    "side": "Offense"
+   },
+   {
+    "player": "Mike Jackson",
+    "pos": "CB",
+    "injuries": "Groin",
+    "practice": "Limited",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/mike-jackson/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "questionable": [
+   {
+    "player": "Brady Christensen",
+    "pos": "G",
+    "injuries": "Hamstring",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/brady-christensen/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Will Lee III",
+    "pos": "CB",
+    "injuries": "Hamstring",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/will-lee-iii/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Xavier Legette",
+    "pos": "WR",
+    "injuries": "Knee",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/xavier-legette/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Jaelan Phillips",
+    "pos": "LB",
+    "injuries": "Hamstring",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jaelan-phillips/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Linebacker",
+    "count": 1,
+    "players": [
+     "Bobby Okereke"
+    ]
+   }
+  ],
+  "out_count": 1,
+  "doubtful_count": 2,
+  "questionable_count": 4,
+  "active_status_count": 7,
+  "listed_players": 12
+ },
+ {
+  "team": "Cincinnati Bengals",
+  "abbr": "CIN",
+  "url": "https://www.nfl.com/teams/cincinnati-bengals/",
+  "rows": 9,
+  "out": [
+   {
+    "player": "Kyle Dugger",
+    "pos": "S",
+    "injuries": "Quadricep",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/kyle-dugger/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [
+   {
+    "player": "Jalen Davis",
+    "pos": "CB",
+    "injuries": "Hamstring",
+    "practice": "Full",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/jalen-davis/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Andrei Iosivas",
+    "pos": "WR",
+    "injuries": "Thumb",
+    "practice": "Full",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/andrei-iosivas/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Brian Parker II",
+    "pos": "G",
+    "injuries": "Knee",
+    "practice": "Full",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/brian-parker-ii/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "questionable": [],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive back",
+    "count": 1,
+    "players": [
+     "Kyle Dugger"
+    ]
+   }
+  ],
+  "out_count": 1,
+  "doubtful_count": 3,
+  "questionable_count": 0,
+  "active_status_count": 4,
+  "listed_players": 9
+ },
+ {
+  "team": "New York Jets",
+  "abbr": "NYJ",
+  "url": "https://www.nfl.com/teams/new-york-jets/",
+  "rows": 9,
+  "out": [
+   {
+    "player": "Trevin Wallace",
+    "pos": "LB",
+    "injuries": "Groin",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/trevin-wallace/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Jarvis Brownlee Jr.",
+    "pos": "CB",
+    "injuries": "Illness",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jarvis-brownlee-jr/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Omar Cooper Jr.",
+    "pos": "WR",
+    "injuries": "Ankle",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/omar-cooper-jr/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Adonai Mitchell",
+    "pos": "WR",
+    "injuries": "Knee",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/adonai-mitchell/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Joseph Ossai",
+    "pos": "DE",
+    "injuries": "Ankle",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/joseph-ossai/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "VJ Payne",
+    "pos": "S",
+    "injuries": "Knee",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/vj-payne/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Harrison Phillips",
+    "pos": "DT",
+    "injuries": "Ankle",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/harrison-phillips/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Garrett Wilson",
+    "pos": "WR",
+    "injuries": "Concussion",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/garrett-wilson/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "Nahshon Wright",
+    "pos": "CB",
+    "injuries": "Back",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/nahshon-wright/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Linebacker",
+    "count": 1,
+    "players": [
+     "Trevin Wallace"
+    ]
+   }
+  ],
+  "out_count": 1,
+  "doubtful_count": 0,
+  "questionable_count": 8,
+  "active_status_count": 9,
+  "listed_players": 9
+ },
+ {
+  "team": "San Francisco 49ers",
+  "abbr": "SF",
+  "url": "https://www.nfl.com/teams/san-francisco-49ers/",
+  "rows": 12,
+  "out": [
+   {
+    "player": "Mike Evans",
+    "pos": "WR",
+    "injuries": "Achilles",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/mike-evans/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Renardo Green",
+    "pos": "CB",
+    "injuries": "Back",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/renardo-green/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Dre Greenlaw",
+    "pos": "LB",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/dre-greenlaw-x9042/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Nate Hobbs",
+    "pos": "CB",
+    "injuries": "Groin",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/nate-hobbs/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Deommodore Lenoir",
+    "pos": "CB",
+    "injuries": "Foot",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/deommodore-lenoir/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Upton Stout",
+    "pos": "CB",
+    "injuries": "Shoulder, Neck",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/upton-stout/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "C.J. West",
+    "pos": "DT",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/cj-west/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Trent Williams",
+    "pos": "T",
+    "injuries": "Shoulder",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/trent-williams/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Offense",
+    "unit": "Wide receiver",
+    "count": 1,
+    "players": [
+     "Mike Evans"
+    ]
+   }
+  ],
+  "out_count": 1,
+  "doubtful_count": 0,
+  "questionable_count": 7,
+  "active_status_count": 8,
+  "listed_players": 12
+ },
+ {
+  "team": "Baltimore Ravens",
+  "abbr": "BAL",
+  "url": "https://www.nfl.com/teams/baltimore-ravens/",
+  "rows": 8,
+  "out": [],
+  "doubtful": [],
+  "questionable": [],
+  "counts": {},
+  "out_by_unit": [],
+  "out_count": 0,
+  "doubtful_count": 0,
+  "questionable_count": 0,
+  "active_status_count": 0,
+  "listed_players": 8
+ },
+ {
+  "team": "Buffalo Bills",
+  "abbr": "BUF",
+  "url": "https://www.nfl.com/teams/buffalo-bills/",
+  "rows": 14,
+  "out": [],
+  "doubtful": [
+   {
+    "player": "Spencer Brown",
+    "pos": "T",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/spencer-brown/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "questionable": [
+   {
+    "player": "Christian Benford",
+    "pos": "CB",
+    "injuries": "Wrist",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/christian-benford/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Sam Franklin Jr.",
+    "pos": "S",
+    "injuries": "Shoulder",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/sam-franklin/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Jordan Hancock",
+    "pos": "CB",
+    "injuries": "Hamstring",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/jordan-hancock/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Tyrell Shavers",
+    "pos": "WR",
+    "injuries": "Knee",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/tyrell-shavers/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [],
+  "out_count": 0,
+  "doubtful_count": 1,
+  "questionable_count": 4,
+  "active_status_count": 5,
+  "listed_players": 14
+ },
+ {
+  "team": "Los Angeles Chargers",
+  "abbr": "LAC",
+  "url": "https://www.nfl.com/teams/los-angeles-chargers/",
+  "rows": 19,
+  "out": [],
+  "doubtful": [],
+  "questionable": [],
+  "counts": {},
+  "out_by_unit": [],
+  "out_count": 0,
+  "doubtful_count": 0,
+  "questionable_count": 0,
+  "active_status_count": 0,
+  "listed_players": 19
+ },
+ {
+  "team": "Las Vegas Raiders",
+  "abbr": "LV",
+  "url": "https://www.nfl.com/teams/las-vegas-raiders/",
+  "rows": 5,
+  "out": [],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Thomas Booker",
+    "pos": "DT",
+    "injuries": "Ankle",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/thomas-booker/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Dont'e Thornton Jr.",
+    "pos": "WR",
+    "injuries": "Back",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/dont-e-thornton-jr/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [],
+  "out_count": 0,
+  "doubtful_count": 0,
+  "questionable_count": 2,
+  "active_status_count": 2,
+  "listed_players": 5
+ },
+ {
+  "team": "New York Giants",
+  "abbr": "NYG",
+  "url": "https://www.nfl.com/teams/new-york-giants/",
+  "rows": 11,
+  "out": [],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Malik Harrison",
+    "pos": "LB",
+    "injuries": "Groin",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/malik-harrison/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [],
+  "out_count": 0,
+  "doubtful_count": 0,
+  "questionable_count": 1,
+  "active_status_count": 1,
+  "listed_players": 11
+ },
+ {
+  "team": "Pittsburgh Steelers",
+  "abbr": "PIT",
+  "url": "https://www.nfl.com/teams/pittsburgh-steelers/",
+  "rows": 8,
+  "out": [],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Derrick Harmon",
+    "pos": "DT",
+    "injuries": "Foot",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/derrick-harmon-2/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [],
+  "out_count": 0,
+  "doubtful_count": 0,
+  "questionable_count": 1,
+  "active_status_count": 1,
+  "listed_players": 8
+ }
+]

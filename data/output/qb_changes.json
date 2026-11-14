@@ -1,0 +1,74 @@
+[
+ {
+  "team": "SEA",
+  "unit": "QB",
+  "player": "Drew Lock",
+  "change": "No injury designation; will start for Seahawks vs Raiders (Sam Darnold ruled out)",
+  "official_source": "NFL.com news",
+  "url": "https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders"
+ },
+ {
+  "team": "CLE",
+  "unit": "QB",
+  "player": "Deshaun Watson",
+  "change": "Browns to start QB Deshaun Watson vs Texans",
+  "official_source": "NFL.com news roundup",
+  "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-wednesday-nov-11"
+ },
+ {
+  "team": "ARI",
+  "unit": "QB",
+  "player": "Carson Beck",
+  "change": "Cardinals' Carson Beck to start vs Rams",
+  "official_source": "NFL.com news roundup",
+  "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-wednesday-nov-11"
+ },
+ {
+  "team": "MIA",
+  "unit": "QB",
+  "player": "Kyle McCord",
+  "change": "Malik Willis placed on injured reserve (groin); Kyle McCord in line for first start",
+  "official_source": "NFL.com news",
+  "url": "https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start"
+ },
+ {
+  "team": "BAL",
+  "unit": "QB",
+  "player": "Lamar Jackson",
+  "change": "Ravens confirm Lamar Jackson expected to miss 6-10 weeks",
+  "official_source": "NFL.com news roundup",
+  "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13"
+ },
+ {
+  "team": "BAL",
+  "unit": "QB",
+  "player": "Lamar Jackson",
+  "change": "Lamar Jackson (right thumb) out 6-9 weeks, expects to return this season",
+  "official_source": "NFL.com news",
+  "url": "https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season"
+ },
+ {
+  "team": "LAR",
+  "unit": "WR",
+  "player": "Puka Nacua",
+  "change": "Likely to be placed on injured reserve with turf toe, sprained MCL and PCL",
+  "official_source": "NFL.com news",
+  "url": "https://www.nfl.com/news/rams-wr-puka-nacua-likely-to-be-placed-on-injured-reserve-with-turf-toe-sprained-mcl-and-pcl"
+ },
+ {
+  "team": "GB",
+  "unit": "RB",
+  "player": "Josh Jacobs",
+  "change": "To undergo surgery on finger this week; timeline to return TBD",
+  "official_source": "NFL.com news",
+  "url": "https://www.nfl.com/news/packers-rb-josh-jacobs-to-undergo-surgery-on-finger-this-week"
+ },
+ {
+  "team": "SEA",
+  "unit": "QB",
+  "player": "Sam Darnold",
+  "change": "Ruled out for Seahawks' Week 10 game vs Raiders; Drew Lock expected to start again",
+  "official_source": "NFL.com news",
+  "url": "https://www.nfl.com/news/sam-darnold-ruled-out-for-seahawks-week-10-game-vs-raiders-drew-lock-expected-to-start-again"
+ }
+]

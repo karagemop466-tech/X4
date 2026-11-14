@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="How every published number is produced: the model, the parameters, the validation gates and the verification log.">
+<title>Methodology &middot; NFL Decision Desk</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="methodology">
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>NFL DECISION DESK</small></span></a>
+    <nav class="main"><a href="index.html">Overview</a><a href="standings.html">Standings &amp; results</a><a href="lines.html">Model lines</a><a href="strategies.html">Strategy lab</a><a href="availability.html">Injuries &amp; depth</a><a href="questions.html">Decision checklist</a><a href="suggestions.html">Suggestions</a><a href="flags.html">Flagged for review</a><a href="methodology.html" class="active">Methodology</a></nav>
+  </div>
+</header>
+<main>
+
+<div class="section-head"><div><span class="eyebrow">10 &middot; How it works</span><h2>Methodology</h2><p class="muted">Everything on this site is produced by scripts from the CSV files in <span class="mono">data/</span>. Nothing is hand-typed into a page at publish time, and every table is written into the HTML at build time, so the pages work with JavaScript disabled.</p></div><span class="tag acc">Reproducible</span></div>
+
+<div class="grid g2">
+  <article class="card">
+    <span class="eyebrow">Step 1 &middot; Acquire</span>
+    <h3>Official pages only</h3>
+    <p class="muted">The official NFL.com standings, the official weekly injury report and the official weekly schedule are the source of record. Secondary aggregators were used to reconstruct the game log, and every reconstructed score is then proved against the official standings totals - a single wrong score changes a team's points for or points allowed, so matching all 32 teams on all six measures proves every score.</p>
+  </article>
+  <article class="card">
+    <span class="eyebrow">Step 2 &middot; Verify</span>
+    <h3><span class="mono">tools/verify.py</span></h3>
+    <p class="muted">460 assertions covering: every game row's official URL pattern, every team's wins, losses, ties, points for, points allowed, net points and winning percentage, games played per team, the Week 11 schedule's pairing and URL structure, and duplicate rows. It exits non-zero on any failure and runs as part of the build.</p>
+  </article>
+  <article class="card">
+    <span class="eyebrow">Step 3 &middot; Model</span>
+    <h3>Opponent-adjusted rates</h3>
+    <p class="muted">For a team, the opponent-adjusted points-for rate is the team's own scoring rate minus the average points allowed by the opponents it has faced, plus the league average. The same construction gives the opponent-adjusted points-allowed rate. A team's expected score is the mean of its adjusted offence and its opponent's adjusted defence, with the league home-field margin added. Every quantity used for a Week-w forecast is measured strictly from games before Week w, including the opponents' season rates, so there is no look-ahead.</p>
+  </article>
+  <article class="card">
+    <span class="eyebrow">Step 4 &middot; Validate</span>
+    <h3>Walk-forward, seven gates</h3>
+    <p class="muted">Strategies are evaluated only on games that had not been played at forecast time - no random row splits. Each strategy must clear data integrity, out-of-sample discipline, minimum sample size, statistical significance, weekly stability, calibration, and exclusion of the league-constant benchmark, before it can earn reward points.</p>
+  </article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Model parameters</span><h2>Every knob, published</h2><p class="muted">These are analyst choices by this project, not official values, and they are the first thing a reviewer should challenge. Changing any of them changes the ranking. The bootstrap uses a fixed, interpreter-independent generator so the published intervals are identical on every machine.</p></div><span class="tag warn">Not official</span></div>
+<div id="params"><div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Value</th><th>Role</th><th>Official data it operates on</th></tr></thead><tbody><tr><td><span class="mono">ew_lambda_slow</span></td><td><b>0.65</b></td><td>Decay factor, slow form model (S3)</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">ew_lambda_fast</span></td><td><b>0.8</b></td><td>Decay factor, fast form model (S4)</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">shrink_k_moderate</span></td><td><b>4.0</b></td><td>Shrinkage weight k, S3</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">shrink_k_heavy</span></td><td><b>6.0</b></td><td>Shrinkage weight k, S4</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">median_shrink_k</span></td><td><b>4.0</b></td><td>Shrinkage weight k, S5</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">ew_lambda_slowest</span></td><td><b>0.45</b></td><td>Decay factor, slowest form model (S6)</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">shrink_k_heaviest</span></td><td><b>8.0</b></td><td>Shrinkage weight k, S6</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">blend_weight_s3</span></td><td><b>0.5</b></td><td>Blend weight, S7</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">bootstrap_resamples</span></td><td><b>10000</b></td><td>Bootstrap resamples</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">bootstrap_seed</span></td><td><b>20261114</b></td><td>Bootstrap seed (deterministic)</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">min_eval_games</span></td><td><b>40</b></td><td>Minimum evaluated games for gate G3</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">min_weekly_improvement_share</span></td><td><b>0.6</b></td><td>Minimum share of improved weeks for gate G5</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">calibration_bands</span></td><td><b>5</b></td><td>Calibration offsets used</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">calibration_max_gap</span></td><td><b>0.12</b></td><td>Maximum calibration gap for gate G6</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">alpha</span></td><td><b>0.05</b></td><td>Family-wise error rate</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr><tr><td><span class="mono">eval_first_week</span></td><td><b>3</b></td><td>First week used for out-of-sample evaluation</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com results &nearr;</a></td></tr></tbody></table><div class="tbl-note">These are modelling choices made by this project. They have no official source and are the first thing a reviewer should challenge.</div></div></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Verification log</span><h2>What was checked, and what failed</h2><p class="muted">The complete record, including the checks that did not pass. A verification log that only lists successes is not a verification log.</p></div></div>
+<div id="verify"><div class="table-wrap"><table><thead><tr><th>Check</th><th>Result</th><th>How</th><th>Official reference</th></tr></thead><tbody><tr><td>Reconstructed game log matches the official NFL.com standings</td><td><span class="b ok">pass</span></td><td>tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score.</td><td><a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>Every game row carries a working official NFL.com game URL</td><td><span class="b ok">pass</span></td><td>Each row&#x27;s URL is checked against the official /games/&lt;away&gt;-at-&lt;home&gt;-&lt;season&gt;-reg-&lt;week&gt; pattern, and the Week 5 and Week 10 links were opened directly and confirmed to show the same scores.</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>Week 11 schedule matches NFL.com</td><td><span class="b ok">pass</span></td><td>The 13 games, their dates, kickoff times, broadcast networks, the Mexico City international designation and the six teams on bye were read directly from the official NFL.com Week 11 page.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>Week 10 injury report matches NFL.com</td><td><span class="b ok">pass</span></td><td>Every listed player, position, injury description, practice designation and game status was transcribed from the official NFL.com injury report for the 28 teams playing.</td><td><a href="https://www.nfl.com/injuries/" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>Starter-change and long-absence facts</td><td><span class="b ok">pass</span></td><td>Each is linked to the official NFL.com article that states it, rather than asserted from the injury report alone.</td><td><a href="https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>No look-ahead in the model</td><td><span class="b ok">pass</span></td><td>Every Week-w prediction is produced from games in weeks strictly less than w, and each opponent&#x27;s season rate is also measured at the same information time.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>Bootstrap is deterministic</td><td><span class="b ok">pass</span></td><td>A fixed seed and a fixed resample count mean re-running tools/build.py reproduces identical confidence intervals.</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>A strategy&#x27;s improvement is statistically distinguishable from zero</td><td><span class="b warn">flag</span></td><td>The paired bootstrap interval, Bonferroni-adjusted for the number of strategies compared, still contains zero for every strategy. No strategy is marked eligible.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>Official market lines</td><td><span class="b warn">flag</span></td><td>The NFL publishes none. Every market-line cell is blank and every value-based statement about edge, ROI or parlay pricing is omitted.</td><td><a href="https://www.nfl.com/" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>Official depth-chart strings</td><td><span class="b warn">flag</span></td><td>No consolidated league source exists. No player is assigned a depth rank.</td><td><a href="https://www.nfl.com/teams/" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr><tr><td>Weeks 12-18 of the schedule</td><td><span class="b warn">flag</span></td><td>NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noreferrer noopener">Reference &nearr;</a></td></tr></tbody></table><div class="tbl-note">Verification log. Every claim on this site is either covered by one of these checks or is flagged.</div></div></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Reproduce it</span><h2>Running the pipeline</h2></div></div>
+  <div class="note"><b>From a clean checkout:</b><br>
+  <span class="mono">python3 tools/verify.py</span> &nbsp;- proves the data against the official standings<br>
+  <span class="mono">python3 tools/build.py</span> &nbsp;- rebuilds every published number into <span class="mono">data/output/</span><br>
+  <span class="mono">python3 tools/pages.py</span> &nbsp;- regenerates the site pages as static HTML<br>
+  <span class="mono">python3 tools/sync.py</span> &nbsp;- mirrors the site to the repository root<br>
+  <span class="mono">python3 site/check.py</span> &nbsp;- checks the site for broken links and unsourced rows<br>
+  <span class="mono">python3 tools/validate.py</span> &nbsp;- runs the full publication gate</span>
+  <p style="margin-top:9px">The build is deterministic: the same inputs produce the same tables and the same confidence intervals on every run, and every table is written into the HTML so no published value depends on JavaScript.</p></div>
+</section>
+
+</main>
+<footer>
+  <div class="inner">
+    <span>FOURTH DOWN RESEARCH &middot; NFL decision support</span>
+    <span>Official sources: nfl.com/standings &middot; nfl.com/injuries &middot; nfl.com/schedules &middot; operations.nfl.com &middot; ftc.gov</span>
+    <span>Evidence status: verified official data + labelled model estimates &middot; no market data &middot; not betting advice</span>
+  </div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
