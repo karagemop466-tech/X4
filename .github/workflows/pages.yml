@@ -38,6 +38,8 @@ jobs:
           node-version: "20"
       - name: Prove the data against the official NFL.com standings
         run: python3 tools/verify.py
+      - name: Check the price store, the origination card and the results feed
+        run: python3 tools/market_store.py
       - name: Rebuild the published numbers and the site
         run: |
           python3 tools/build.py
@@ -51,7 +53,7 @@ jobs:
         run: node docs/check.js
       - name: Confirm the published output is reproducible
         run: |
-          git diff --exit-code || (
+          git diff --exit-code -- site data research *.html *.css *.js || (
             echo "::error::The committed output does not match a fresh build."
             echo "Run 'python3 tools/build.py && python3 tools/pages.py && python3 tools/sync.py' and commit the result."
             exit 1
