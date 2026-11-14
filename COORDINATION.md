@@ -507,4 +507,4 @@ claims.
 | Live fetch `https://karagemop466-tech.github.io/X4/` (main landing) | **HTTP 200 content verified** - task-3 dashboard intact after merge |
 | Local reproducibility gate after merge | `build.py && pages.py && sync.py && git diff --exit-code` = clean; desk generators byte-identical |
 
-PR #13 carries this record to `main`; this section's presence on `main` is itself the proof that PR #13 merged (it can only reach `main` through that merge).
+PR #13 (https://github.com/karagemop466-tech/X4/pull/13) carries this record to `main`; this section's presence on `main` is itself the proof that PR #13 merged (it can only reach `main` through that merge).
