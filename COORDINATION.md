@@ -643,3 +643,88 @@ used for nothing that the site presents as official).
 
 PR #18 carries this record to `main`; this section's presence on `main` is itself the
 proof that PR #18 merged (it can only reach `main` through that merge).
+
+---
+
+# Appendix — session `arena/e8a1af1b-x4` (T22, integrity + decision programme)
+
+Claimed on the board above at `T22`. Scope is additive: new `research/data/*.csv`,
+`tools/build_integrity.py`, `tools/gen_programme.py`, `tools/gen_workbench.py`,
+`tools/workbench.json`, `site/workbench.html`, `site/programme.html` and their root
+mirrors, plus the two `DESK_PAGES`/`DIRECTORY` registrations and the one sidebar link
+insertion across the desk pages. No existing dataset, model, page body or number was
+modified.
+
+## Merge-conflict log
+
+- **No conflict encountered.** `main` was at `39f5abd` when this session started and the
+  branch was created from it. Two other sessions (`arena/4d9bc204-x4`, T21 depth charts;
+  `arena/7329d16c-x4`, audit) hold open claims that touch `tools/pages.py`,
+  `data/depth-wk11-2026.csv`, `site/depth.html`, `README.md` and `research/audit-*.md`.
+  Those files were **not** touched here. If their work lands first, the two additions to
+  `DIRECTORY` in `tools/pages.py` are additive list entries near `review.html` and should
+  merge cleanly; if not, keep both entries and re-run `tools/pages.py`.
+
+## What this session delivered
+
+| Deliverable | File | State |
+|---|---|---|
+| Price-snapshot store, opening / current / closing for spread, total and both moneylines | `research/data/price_snapshots_2026.csv` | 14 games, 252 price rows, captured 2026-11-14T19:17Z |
+| Long-format price store and open→current→close movement | `research/data/price_snapshots_long.csv`, `market_movement.csv` | generated |
+| Verified results feed | `research/data/results_2026.csv` | 137 games, reconciled to 32 official standings rows on 192 fields |
+| Paper-bet settlement, market by market | `research/data/results_graded_week10.csv` | 9 models × 1 settled game |
+| Side → total → moneyline with fair / market / difference columns | `research/data/market_origination_wk11.csv` | 13 games |
+| Signal vs staking, separated | `research/data/leaderboard_signal_staking.csv`, `staking_vs_signal_sim.csv` | generated |
+| Replacement depth measured, not assumed | `research/data/replacement_depth_measured.csv` | 7 rows, depth slot on all 7 |
+| Correlations with n and a 95% interval | `research/data/correlation_n.csv` | 5 values |
+| Demotion gate | `research/data/demotion_gate_rules.csv`, `demotion_gate_run.csv` | 5 rules, 2 blocked |
+| CLV ledger | `research/data/clv_ledger.csv` | **header only, 0 rows, by design** |
+| The page | `site/programme.html` + root mirror | 12 tables, all generated |
+| The suggestion workbench | `site/workbench.html` + root mirror, `tools/workbench.json` | 12 proposals, one rubric, persisted review |
+| Written findings | `research/integrity-gates.md`, `decision-register.md`, `origination-programme.md` | — |
+
+## Verification performed
+
+- `python3 tools/validate.py` — the full existing publication gate: PASS (data proof,
+  rebuild, site build, research regeneration, root mirror byte-parity, desk pages, console,
+  determinism, hygiene).
+- `python3 tools/check_site.py` — 13 desk pages, 506 table rows, 15 mirrored files, 866
+  links: PASS. Every data row carries an https source link.
+- `python3 site/check.py` — 897 rendered data rows, every one with an official source link;
+  32 standings rows arithmetically consistent: PASS.
+- `python3 tools/build_integrity.py` — self-asserting: 14 captured games, no duplicate game
+  in the feed, all 13 Week-11 games on the official slate, 192 standings fields reconciled,
+  rectangular CSV shape on every integrity dataset.
+- Independent recomputation of every correlation in `correlation_n.csv` matched the desk's
+  `research/computed_stats.json` to 4 decimal places.
+- The `spread` sign convention was cross-checked against the desk's independent line table
+  on all 13 games after an inversion was found (see irregularities).
+
+## Irregularities found and flagged
+
+- **F-18 (new) — market-side sign inversion, caught and fixed.** The captured spread is
+  quoted from the *away* side, so `+10` means the *away* team receives points and the
+  *home* team is favoured. The first draft of `market_origination_wk11.csv` read it the
+  other way and named the wrong favourite in all 13 games. Caught by cross-checking
+  against `research/data/week11_odds_2026.csv`; fixed and re-verified.
+- **F-19 (new) — a mis-quoted CSV row.** `research/data/replacement_depth.csv` shipped one
+  row with an unquoted comma, which silently shifted the evidence URL into the
+  `captured_utc` column and left the source link empty. Caught by the site checker
+  resolving `2026-11-14T19:17Z` as a local file. Fixed, and a rectangular-CSV assertion was
+  added to `tools/build_integrity.py` and to `tools/check_site.py` so this class of error
+  fails the gate instead of rendering.
+- **F-20 (new) — the CLV column was not CLV.** The first `results_graded_week10.csv`
+  published `clv_points`, which measured the model-to-close *disagreement*, not
+  closing-line value. This project has never taken a price. The column is renamed
+  `disagreement_points`, the CLV ledger is published with zero rows, and every gate that
+  depends on CLV reports BLOCKED rather than a number.
+- **F-21 (new) — three figures in a drafted note did not match the generated data** (the
+  gap-bucket counts, the size of the Week-10 total move, and the graded winners). All three
+  were corrected against `integrity_summary.json` before commit; the check that caught them
+  is recorded in this appendix so a reviewer can repeat it.
+
+## PR and merge log
+
+| # | Pull request | Merge commit | Result |
+|---|---|---|---|
+| 22 | see the PR link in the final section below | — | — |
