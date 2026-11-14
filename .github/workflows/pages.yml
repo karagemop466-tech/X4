@@ -16,8 +16,11 @@ on:
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
+# T32 diagnostic: `contents: write` is needed only so the diagnostic step can
+# commit the captured drift file. Restore to `contents: read` when the
+# diagnostic step is removed.
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -51,6 +54,32 @@ jobs:
           python3 site/check.py .
       - name: Check the X4 Console (docs/) for broken links and unsourced rows
         run: node docs/check.js
+      - name: "T32 diagnostic: record the reproducibility drift into the branch"
+        if: always()
+        run: |
+          set +e +o pipefail
+          OUT=research/verification/ci-drift-2026-11-14.txt
+          {
+            echo "== environment =="
+            python3 -c "import sys, platform; print('python:', sys.version.replace(chr(10),' ')); print('platform:', platform.platform())"
+            ldd --version | head -1
+            node --version
+            echo "LANG=$LANG LC_ALL=$LC_ALL TZ=$TZ"
+            git log -1 --format='commit %H %s'
+            echo
+            echo "== numstat (tracked drift) =="
+            git diff --numstat -- site data research '*.html' '*.css' '*.js'
+            echo
+            echo "== name-status =="
+            git diff --name-status -- site data research '*.html' '*.css' '*.js'
+            echo
+            echo "== full diff, first 5000 lines =="
+            git diff -- site data research '*.html' '*.css' '*.js' | head -n 5000
+          } > "$OUT" 2>&1
+          wc -l "$OUT"
+          git add "$OUT"
+          git -c user.name="t32-diag" -c user.email="t32-diag@users.noreply.github.com" commit -m "diag(T32): capture the CI reproducibility drift [skip ci]"
+          git push origin "HEAD:$GITHUB_REF_NAME"
       - name: Confirm the published output is reproducible
         run: |
           git diff --exit-code -- site data research *.html *.css *.js || (
