@@ -74,6 +74,18 @@ gates = read(os.path.join(RD, "demotion_gate_rules.csv"))
 movement = read(os.path.join(RD, "market_movement.csv"))
 sched = read(os.path.join(ROOT, "data", "schedule-wk11-2026.csv"))
 sched_by = {(s["away"], s["home"]): s for s in sched if s["week"] == "11"}
+snap_price_url = {g["game_id"]: g["source_url"] for g in snap}
+
+
+SEP = " \u00b7 "
+F04_LINKS = src("https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season",
+                "source 1 (6-9 weeks)") + SEP + src(
+    "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13",
+    "source 2 (6-10 weeks)")
+
+
+def data_url(game_id):
+    return snap_price_url.get(game_id, "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/odds")
 
 PS = summary["price_store"]
 RS = summary["results_feed"]
@@ -164,7 +176,7 @@ for r in lead:
         num(r["avg_no_vig_cover_prob"], 3), num(r["brier"], 3),
         '<span class="muted">blank</span>', esc(r["clv_status"]),
         num(r["net_units"], 3), pill(r["stage"].upper()),
-        src("https://www.nfl.com/standings/", "official input"),
+        src("https://www.nfl.com/standings/", "nfl.com standings"),
     ])
 sim_rows = []
 for s in sim:
@@ -177,7 +189,8 @@ for s in sim:
 gate_rows = []
 for g in gates:
     gate_rows.append([("<b>%s</b>" % esc(g["gate"])), esc(g["rule"]), pill(g["state"]),
-                      esc(g["why"]), esc(g["consequence"])])
+                      esc(g["why"]), esc(g["consequence"]),
+                      '<a href="research/data/demotion_gate_run.csv">graded rows CSV</a>'])
 
 # ---------------------------------------------------------------- page assembly
 NAV = [("index.html", "Overview"), ("executive-summary.html", "Executive summary"),
@@ -204,31 +217,39 @@ body = f"""<!doctype html>
 <header class="topbar"><div><span class="eyebrow">14 &middot; INTEGRITY &amp; PROGRAMME</span><h1>Integrity gates and the decision programme</h1></div><span class="status-pill"><i></i> {PS['games']} priced games &middot; {GR['clv_rows']} CLV rows</span></header>
 
 <section class="section" id="verdict"><div class="section-head"><div><span class="eyebrow">THE ANSWER FIRST</span><h2>What these eight gates changed</h2><p class="muted">Each requirement below is either built and measured, or blocked on a named missing input. Nothing is claimed that the datasets do not carry.</p></div><span class="tag amber">5 BLOCKED &middot; 3 BUILT</span></div>
-{table(["Requirement", "State", "What now exists", "What is still missing"],
+{table(["Requirement", "State", "What now exists", "What is still missing", "Source"],
  [["<b>Price-snapshot store: opening and closing for every market</b>", pill("MEASURED"),
    f"{PS['rows']} price rows &middot; {PS['games']} games &times; 3 markets &times; 3 phases ({PS['filled']} filled, {PS['blank']} genuinely absent)",
-   "A pre-game close only exists once the game starts; the 13 Week 11 games carry open and current, not close."],
+   "A pre-game close only exists once the game starts; the 13 Week 11 games carry open and current, not close.",
+   '<a href="research/data/price_snapshots_2026.csv">price store CSV</a> &middot; <a href="programme.html#store">programme</a>'],
   ["<b>Verified results feed so backtests and ROI can be computed</b>", pill("MEASURED"),
    f"{RS['games']} games, {RS['standings_teams']} clubs, {RS['reconciled_fields']} standings fields reconciled exactly",
-   "Week 10 is a one-game sample; there is no full-season feed yet."],
+   "Week 10 is a one-game sample; there is no full-season feed yet.",
+   '<a href="research/data/results_2026.csv">results CSV</a> &middot; <a href="programme.html#results">programme</a>'],
   ["<b>Originate the side, then the total, then the moneyline</b>", pill("MEASURED"),
    f"{OR['games']} Week-11 games with the order recorded in the data, fair line and market line in separate columns",
-   "The moneyline is derived from the side by the same distribution; it is not an independent model."],
+   "The moneyline is derived from the side by the same distribution; it is not an independent model.",
+   '<a href="research/data/market_origination_wk11.csv">origination CSV</a> &middot; <a href="programme.html#origination">programme</a>'],
   ["<b>Fair line, market line and difference as separate columns</b>", pill("MEASURED"),
    f"Published for all {OR['games']} games; {OR['within_2_5']} within 2.5 points, {OR['over_5']} more than 5 points apart",
-   "A 5-point gap is a disagreement, not an edge: the model still ignores availability and rest."],
+   "A 5-point gap is a disagreement, not an edge: the model still ignores availability and rest.",
+   '<a href="research/data/market_origination_wk11.csv">origination CSV</a> &middot; <a href="programme.html#origination">programme</a>'],
   ["<b>Separate signal from staking on the leaderboard</b>", pill("MEASURED"),
    "Two separate blocks, never combined: signal (hit rate, no-vig cover probability, Brier, CLV) and staking (units, drawdown)",
-   "CLV needs a stake-time price; none exists, so the CLV column is published blank and labelled blocked."],
+   "CLV needs a stake-time price; none exists, so the CLV column is published blank and labelled blocked.",
+   '<a href="research/data/leaderboard_signal_staking.csv">signal/staking CSV</a> &middot; <a href="programme.html#signal">programme</a>'],
   ["<b>Track the depth of the replacement, not the fact</b>", pill("PARTIAL"),
    f"{len(dep)} measured rows: depth slot recorded for every one",
-   f"Replacement starts, snap share and deficiency points are measured for {summary['replacement_measured']} of {len(dep)} - the official injury report carries the designation, not the snap counts."],
+   f"Snap share and deficiency points are measured for {summary['replacement_measured']} of {len(dep)} - the official injury report carries the designation, not the snap counts.",
+   '<a href="research/data/replacement_depth_measured.csv">depth CSV</a> &middot; <a href="programme.html#depth">programme</a>'],
   ["<b>Correlations only from officially sourced numbers, with n</b>", pill("MEASURED"),
    f"{len(corr)} values, each with n and a 95% Fisher-z interval, each traceable to an official input file",
-   "Player-prop correlations need paired player game logs, which this repository does not hold."],
+   "Player-prop correlations need paired player game logs, which this repository does not hold.",
+   '<a href="research/data/correlation_n.csv">correlation CSV</a> &middot; <a href="programme.html#correlations">programme</a>'],
   ["<b>A demotion gate that sends a live strategy back to paper</b>", pill("BLOCKED"),
    f"{len(gates)} written rules, each with a state and a reason, evaluated on the {GR['spread_rows']} real graded rows",
-   "No strategy is live, so there is nothing to demote yet; D1 and D5 can never fire until the capture starts at stake time."]])}
+   "No strategy is live, so there is nothing to demote yet; D1 and D5 can never fire until the capture starts at stake time.",
+   '<a href="research/data/demotion_gate_rules.csv">gate CSV</a> &middot; <a href="programme.html#demotion">programme</a>']])}
 <div class="note"><b>Read this before the tables.</b> Every value below is loaded from a committed dataset (Path column) or derived from one by <code>tools/build_integrity.py</code>, whose formulas are printed in the file. Where a number does not exist, the cell says <b>blank</span></b> and the reason is stated. No cell is estimated, averaged from memory, or carried over from another page.</div></section>
 
 <section class="section" id="store"><div class="section-head"><div><span class="eyebrow">GATE 1 &middot; PRICE SNAPSHOTS</span><h2>Opening, current and closing numbers for every market</h2><p class="muted">Provider: <b>DraftKings</b> as syndicated by ESPN's public odds endpoint, captured <b>2026-11-14T19:17Z</b>. Spreads are quoted from the <b>away</b> side: a positive number means the away team receives points. Totals are the over/under. Moneylines are American odds. The store keeps all three phases in one file, so a missing close is visible as a blank rather than silently substituted.</p></div><span class="tag green">{PS['rows']} ROWS</span></div>
@@ -249,11 +270,12 @@ body = f"""<!doctype html>
 <div class="note"><b>The feed is what makes ROI computable at all.</b> Without it a backtest can only report error metrics, which is what the existing strategy lab does. With it, every paper bet can be settled against a real score, and the settling is auditable because the same numbers reproduce the league's own table. The feed currently covers Weeks 1&ndash;{RS['weeks']}; {RS['games']} games, no gaps.</div></section>
 
 <section class="section" id="grade"><div class="section-head"><div><span class="eyebrow">GATE 2b &middot; SETTLING A PAPER BET</span><h2>One settled game, every model, graded end to end</h2><p class="muted">Week 10: <b>WAS 24, NYG 21</b>, a 3-point home win and a 45-point total. Each of the nine strategies had a pre-game line; each is settled against the closing number below. This is the whole pipeline in nine rows: model line &rarr; closing price &rarr; result &rarr; units.</p></div><span class="tag">{GR['spread_rows']} GRADED BETS</span></div>
-{table(["Model", "Our line (away)", "Close (away)", "Side taken", "Actual", "Result", "Disagreement (pts)", "No-vig cover prob", "Units"],
+{table(["Model", "Our line (away)", "Close (away)", "Side taken", "Actual", "Result", "Disagreement (pts)", "No-vig cover prob", "Units", "Source"],
  [[("<b>%s</b>" % esc(r["model"])), num(r["pred_spread_away"], 2), num(r["close_spread_away"], 1),
    esc(r["spread_side"]), num(r["spread_actual"], 0),
    pill("MET" if r["spread_result"] == "win" else "NOT MET") + " " + esc(r["spread_result"]),
-   num(r["disagreement_points"], 2), num(r["cover_prob_no_vig"], 3), num(r["spread_pnl_units"], 3)]
+   num(r["disagreement_points"], 2), num(r["cover_prob_no_vig"], 3), num(r["spread_pnl_units"], 3),
+   src(snap_price_url[r["game_id"]], "price") + SEP + "graded by <code>tools/build_integrity.py</code>"]
   for r in graded])}
 <div class="callout"><b>The correction this page had to make.</b><p>The first draft of this dataset published a column called <code>clv_points</code>. It was <b>wrong</b>: it measured how far the model's line sat from the closing number, which is a disagreement, not closing-line value. CLV is the difference between the price <i>taken</i> and the price at the close, and this project has never taken a price. The column is now <code>disagreement_points</code>, the CLV ledger is published with <b>zero rows</b>, and every gate that depends on CLV reports <b>BLOCKED</b> instead of a comfortable-looking number. Closing-line value becomes measurable the first time the capture writes a row before the ball is kicked.</p></div></section>
 
@@ -279,18 +301,18 @@ body = f"""<!doctype html>
 <div class="callout"><b>Read the middle rows.</b><p>Two identical edges, two staking rules, opposite outcomes: at 5,000 bets the fair coin that survives flat staking is <b>busted</b> under proportional staking, and the genuine edge that turns 100 into 178 flat falls to <b>16.79</b> proportionally because a drawdown cut the position size at the worst moment. The signal never changed. Only the staking did. A leaderboard that ranks on bankroll is ranking the column on the right and calling it the column on the left.</p></div></section>
 
 <section class="section" id="demotion"><div class="section-head"><div><span class="eyebrow">GATE 8 &middot; DEMOTION</span><h2>A gate that sends a live strategy back to paper</h2><p class="muted">Demotion is the rule that keeps a leaderboard honest after the first lucky month. Each row is a policy <b>this project chooses</b>, written as a testable condition with a stated state. Two of the five cannot be evaluated at all yet, and that is the point: the gate is specified before it is needed, not fitted after a bad run.</p></div><span class="tag red">{sum(1 for g in gates if g['state'] == 'BLOCKED')} BLOCKED</span></div>
-{table(["Gate", "Rule", "State", "Why", "Consequence"], gate_rows)}
+{table(["Gate", "Rule", "State", "Why", "Consequence", "Source"], gate_rows)}
 <div class="callout"><b>What "paper" means here.</b><p>A demoted strategy keeps publishing its line and its pre-registered bets into the price store and the results feed, but its staking board is frozen and its signal board keeps accumulating. Promotion back requires re-clearing D1 and D2 over a fresh sample. The gate is therefore a loop, not a punishment: the only way out is more out-of-sample evidence, which is the one thing a lucky run cannot manufacture.</p></div></section>
 
 <section class="section" id="programme"><div class="section-head"><div><span class="eyebrow">THE PROGRAMME</span><h2>What to do next, in order, and what each step needs</h2></div><span class="tag">SEQUENCED</span></div>
-{table(["#", "Step", "Why it is next", "What it needs", "State"],
+{table(["#", "Step", "Why it is next", "What it needs", "State", "Source"],
  [["1", "<b>Start the capture before the kick-off</b>", "Every blocked gate above unblocks the moment a pre-game row exists", "One scheduled run per week that writes the store at T&minus;60 min", pill("OPEN")],
-  ["2", "<b>Grow the results feed to a full season</b>", "n = 9 cannot separate skill from luck, and no gate accepts fewer than 100", "Weeks 1&ndash;9 scores, already reconstructable from the standings reconciliation", pill("OPEN")],
-  ["3", "<b>Price availability into the side</b>", "The 9 of 13 games more than 5 points off the market are the model ignoring who is playing", "The depth slot and a measured value for it", pill("OPEN")],
-  ["4", "<b>Resolve the two-source conflict on absence windows</b>", "A depth table is only as good as the availability assumption under it", "A human ruling on F-04", pill("BLOCKED")],
-  ["5", "<b>Collect paired player logs before any prop work</b>", "Prop correlation is uncomputable without them, and a prop parlay priced without it is a guess", "An official per-player game log source", pill("BLOCKED")],
-  ["6", "<b>Hold the reward schedule until a strategy clears D1 and D2</b>", "Paying on a bankroll curve pays for luck", "Nothing - this is a decision, not a dataset", pill("OPEN")],
-  ["7", "<b>Re-run the demotion gate on every new settled row</b>", "The gate is only real if it runs", "This script in the weekly job", pill("OPEN")]])}
+  ["2", "<b>Grow the results feed to a full season</b>", "n = 9 cannot separate skill from luck, and no gate accepts fewer than 100", "Weeks 1&ndash;9 scores, already reconstructable from the standings reconciliation", pill("OPEN"), '<a href="research/data/results_2026.csv">results CSV</a>'],
+  ["3", "<b>Price availability into the side</b>", "The 9 of 13 games more than 5 points off the market are the model ignoring who is playing", "The depth slot and a measured value for it", pill("OPEN"), '<a href="research/data/replacement_depth_measured.csv">depth CSV</a>'],
+  ["4", "<b>Resolve the two-source conflict on absence windows</b>", "A depth table is only as good as the availability assumption under it", "A human ruling on F-04", pill("BLOCKED"), F04_LINKS],
+  ["5", "<b>Collect paired player logs before any prop work</b>", "Prop correlation is uncomputable without them, and a prop parlay priced without it is a guess", "An official per-player game log source", pill("BLOCKED"), '<a href="research/data/correlation_n.csv">correlations CSV</a>'],
+  ["6", "<b>Hold the reward schedule until a strategy clears D1 and D2</b>", "Paying on a bankroll curve pays for luck", "Nothing - this is a decision, not a dataset", pill("OPEN"), '<a href="research/data/demotion_gate_rules.csv">demotion CSV</a>'],
+  ["7", "<b>Re-run the demotion gate on every new settled row</b>", "The gate is only real if it runs", "This script in the weekly job", pill("OPEN"), '<a href="research/data/demotion_gate_rules.csv">demotion CSV</a>']])}
 <div class="note"><b>Reproduce every number on this page.</b> <code>python3 tools/build_integrity.py</code> rewrites all eight datasets from the committed captures and prints the reconciliation counts; <code>python3 tools/gen_programme.py</code> rewrites this page from those datasets. Neither script fetches anything, so the page is reproducible offline and a reviewer can diff a rebuild against what is published.</div></section>
 
 <footer><span>FOURTH DOWN RESEARCH &middot; Integrity &amp; programme</span><span><a href="review.html">&larr; Suggestions</a> &middot; <a href="injuries.html">Availability &rarr;</a></span></footer>
