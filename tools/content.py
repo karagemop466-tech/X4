@@ -401,6 +401,12 @@ FLAGS = [
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/replacement-depth.csv"),
 
+    dict(id="F-34", item="The price-store card published a spread in a total column", type="Irregularity", kind="bad", status="resolved",
+         detail="The fair/market/difference table carried eleven headers and twelve cells per row: a duplicate of the side's fair line had been left in front of the total columns. Every total value in the published table was therefore shifted one column to the right, so a 48.9-point total fair line was printed under 'Market (home)' and the true difference of +4.4 was printed as +44.5. The underlying numbers were correct; the rendering was not. The same rows also printed a band lower bound of '-0.0'.",
+         why="Caught by reading the live page after deployment rather than by any gate. site/check.py verifies that every data row carries a source link, not that its cells line up, so a skew of this kind passes every automated check on the site. The fix is two-fold: the duplicated cell is gone, and pages.table() now refuses to render a row whose cell count differs from the header count, so the same class of error fails the build instead of the reader. Negative zero is normalised for the same reason - a sign on an absence reads as a direction.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/tools/pages.py")
+
 ]
 
 
@@ -439,4 +445,5 @@ VERIFICATION = [
     dict(check="Weeks 12-18 of the schedule", result="flag",
          url="https://www.nfl.com/schedules/2026/by-week/week-11",
          how="NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."),
+
 ]

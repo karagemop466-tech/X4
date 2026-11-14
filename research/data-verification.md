@@ -91,6 +91,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-31 | The opening snapshot records points, not the price on those points |
 | F-32 | The publication gate rejected the surname Fagnano as a placeholder marker |
 | F-33 | The depth register on this site contradicted the official injury report for four of its seven rows |
+| F-34 | The price-store card published a spread in a total column |
 
 ## What is deliberately absent
 

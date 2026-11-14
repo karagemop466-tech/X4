@@ -30,7 +30,6 @@ import csv
 import json
 import math
 import os
-import statistics
 import sys
 from collections import OrderedDict
 
@@ -201,6 +200,36 @@ def mean(xs):
     return sum(xs) / len(xs) if xs else 0.0
 
 
+# statistics.median and statistics.pstdev changed implementation in Python 3.12
+# (pure Python -> C). Their results differ in the last bit for a large share of
+# real inputs, which is enough to move a rounded published number and to make a
+# byte-exact reproducibility check fail on a runner with a different interpreter
+# than the one the output was generated on. These are local, explicit
+# equivalents whose summation order is fixed by this file rather than by the
+# interpreter, so the published numbers are a function of the data alone.
+def median(xs):
+    if not xs:
+        return 0.0
+    ys = sorted(xs)
+    n = len(ys)
+    mid = n // 2
+    if n % 2:
+        return ys[mid]
+    return (ys[mid - 1] + ys[mid]) / 2.0
+
+
+def pstdev(xs):
+    if not xs:
+        return 0.0
+    n = len(xs)
+    mu = mean(xs)
+    acc = 0.0
+    for x in xs:
+        d = x - mu
+        acc += d * d
+    return math.sqrt(acc / n)
+
+
 def ew_avg(xs, lam):
     """Exponentially weighted average; xs[0] is the most recent observation."""
     w = [lam ** i for i in range(len(xs))]
@@ -322,7 +351,7 @@ def rate_bundle(hist, team, lam, k, use_median=False, window=None):
 
     if use_median:
         n_eff = float(len(sc))
-        pf, pa = statistics.median(sc), statistics.median(al)
+        pf, pa = median(sc), median(al)
     elif lam is None:
         n_eff = float(len(sc))
         pf, pa = mean(sc), mean(al)
@@ -514,7 +543,7 @@ for key in STRATEGIES:
             hist_errs = [x2["total_err"] for x2 in preds[key] if x2["week"] < x["week"]]
             if len(hist_errs) < 8:
                 continue
-            sig = statistics.pstdev(hist_errs)
+            sig = pstdev(hist_errs)
             if sig <= 0:
                 continue
             bias = mean(hist_errs)

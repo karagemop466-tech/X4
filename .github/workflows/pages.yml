@@ -53,11 +53,18 @@ jobs:
         run: node docs/check.js
       - name: Confirm the published output is reproducible
         run: |
-          git diff --exit-code -- site data research *.html *.css *.js || (
+          # Print WHAT moved before failing. A bare --exit-code tells the next
+          # session that something drifted but not which file or by how much,
+          # which is how a byte-level difference gets misdiagnosed as content.
+          if ! git diff --quiet -- site data research *.html *.css *.js; then
             echo "::error::The committed output does not match a fresh build."
+            echo "----- changed files -----"
+            git diff --stat -- site data research *.html *.css *.js
+            echo "----- the diff itself -----"
+            git diff -- site data research *.html *.css *.js | head -200
             echo "Run 'python3 tools/build.py && python3 tools/pages.py && python3 tools/sync.py' and commit the result."
             exit 1
-          )
+          fi
       - name: Add the X4 Console (docs/) to the published artifact
         run: |
           rm -rf site/console

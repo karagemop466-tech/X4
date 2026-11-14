@@ -361,5 +361,16 @@
   "why": "Flagged rather than quietly overwritten, because the register is on a published page and the contradiction is with official data already in this repository. The corrected chains are on the gates page, where each link is quoted and the starter is named, so the accurate version is already live and the reader can compare. The discrepancy is: this register says Jacobs is the replacement for a blank starter; the article it links says Jacobs is the injured starter.",
   "official_url": "https://www.nfl.com/injuries/",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/replacement-depth.csv"
+ },
+ {
+  "id": "F-34",
+  "item": "The price-store card published a spread in a total column",
+  "type": "Irregularity",
+  "kind": "bad",
+  "status": "resolved",
+  "detail": "The fair/market/difference table carried eleven headers and twelve cells per row: a duplicate of the side's fair line had been left in front of the total columns. Every total value in the published table was therefore shifted one column to the right, so a 48.9-point total fair line was printed under 'Market (home)' and the true difference of +4.4 was printed as +44.5. The underlying numbers were correct; the rendering was not. The same rows also printed a band lower bound of '-0.0'.",
+  "why": "Caught by reading the live page after deployment rather than by any gate. site/check.py verifies that every data row carries a source link, not that its cells line up, so a skew of this kind passes every automated check on the site. The fix is two-fold: the duplicated cell is gone, and pages.table() now refuses to render a row whose cell count differs from the header count, so the same class of error fails the build instead of the reader. Negative zero is normalised for the same reason - a sign on an absence reads as a direction.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/pages.py"
  }
 ]

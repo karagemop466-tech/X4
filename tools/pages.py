@@ -181,6 +181,14 @@ def wrap(element_id, markup):
 
 def table(headers, rows, note=None, cls="", row_attrs=None):
     """Render a table. headers: list of (label, is_num) tuples."""
+    # A row carrying a different number of cells than there are headers silently
+    # shifts every column after it. That is how the price-store card printed a
+    # spread in a total column: the numbers were right and the row was one cell
+    # too long. Fail loudly instead of publishing a table with a hidden skew.
+    for _i, _r in enumerate(rows):
+        if len(_r) != len(headers):
+            raise SystemExit("table %r: row %d has %d cells, expected %d"
+                             % (headers[0], _i, len(_r), len(headers)))
     out = ['<div class="table-wrap"><table%s>' % (' class="%s"' % cls if cls else "")]
     out.append("<thead><tr>")
     for h in headers:
@@ -1115,6 +1123,12 @@ def market_movement_rows():
               "Movement is a fact about the market; it is not evidence about the game."))
 
 
+def clean(x):
+    """Drop negative zero. -0.0 and 0.0 are the same number, and printing the sign
+    of an absence reads as a real direction of movement."""
+    return 0.0 if -0.05 < x < 0 else x
+
+
 def fair_vs_market_rows():
     """The originated card: fair line, market line and difference as three columns."""
     rows = []
@@ -1143,11 +1157,11 @@ def fair_vs_market_rows():
             cell(side["fair"]),
             market_as_published,
             diff_cell,
-            "%+.1f to %+.1f" % (side["band"][0], side["band"][1]),
-            "%+.1f" % side["fair"],
+            "%+.1f to %+.1f" % (clean(side["band"][0]), clean(side["band"][1])),
             "%+.1f" % total["fair"],
             cell(total["market"]),
-            "%+.1f" % total["diff"] if total["diff"] is not None else '<span class="blank">unverified</span>',
+            ("%+.1f" % clean(total["diff"])) if total["diff"] is not None
+            else '<span class="blank">unverified</span>',
             market_store.american(ml["market_home"]) if ml["market_home"] is not None
             else '<span class="blank">unverified</span>',
             flag,
