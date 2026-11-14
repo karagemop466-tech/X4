@@ -250,6 +250,30 @@ FLAGS = [
          why="Recorded for the audit trail. This build adds the verified datasets, the verification harness, the model engine and continuous integration that checks the site and the data before publication.",
          official_url="https://www.nfl.com/standings/",
          url="https://github.com/karagemop466-tech/X4"),
+
+    dict(id="F-13", item="The published site exists in two copies that could drift apart", type="Irregularity", kind="warn", status="resolved",
+         detail="GitHub Pages is configured to serve the repository root, while the publish workflow uploads the site/ directory as its artifact. If the two copies differ, a reader sees different numbers depending on which build served the page.",
+         why="The root is now a byte-identical mirror of site/ and of the X4 Console in docs/, the publish workflow checks the mirror before it uploads, and the check step was re-run locally against the committed tree with exit code 0. The first version of that check failed on a clean checkout because it compared the build tools check.py and check.js as if they were site assets; both are now excluded.",
+         official_url="https://www.nfl.com/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/.github/workflows/pages.yml"),
+
+    dict(id="F-14", item="The same two clubs are labelled differently in the two layers", type="Irregularity", kind="warn", status="resolved",
+         detail="NFL.com's own standings page labels the Los Angeles Rams LA and the Arizona Cardinals AZ. The main dataset keys them LAR and ARI - the abbreviations NFL.com itself uses in its game-page URLs - while the decision-desk layer keys them LA and AZ.",
+         why="No value is wrong, but a reviewer comparing the two layers would otherwise read the same club as two teams. The mapping is written out explicitly in the desk generator rather than inferred, and the two independent transcriptions were compared club by club: all 32 agree on wins, losses, ties, points for, points allowed and net points.",
+         official_url="https://www.nfl.com/standings/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/tools/gen_data_html.py"),
+
+    dict(id="F-15", item="The X4 Console's no-JavaScript fallback counts were stale", type="Irregularity", kind="warn", status="resolved",
+         detail="The console landing page printed 26 facts and 15 flagged items in the text that renders when JavaScript is unavailable, while the data files those counters are generated from hold 27 executive-summary facts and 16 flagged items.",
+         why="A reader without JavaScript would have been told the register was one item shorter than it is. The fallback text now matches the data; both numbers were counted from the data files rather than read off the page.",
+         official_url="https://www.nfl.com/standings/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/docs/data/exec-summary.js"),
+
+    dict(id="F-16", item="Two different flagged registers reuse the same identifiers", type="Irregularity", kind="warn", status="resolved",
+         detail="This site and the decision-desk layer each publish a flagged register, and both number their entries F-01, F-02, F-03 ... for different items. F-02 on the main site is the depth-chart gap; F-02 on the desk layer is the missing calibration metrics.",
+         why="The two registers were built by parallel sessions working from the same brief, and neither knew the other's numbering. They have been left as they are and cross-referenced from the landing-page directory rather than renumbered, because renumbering one register would invalidate the cross-references the other already publishes.",
+         official_url="https://www.nfl.com/standings/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"),
 ]
 
 # ------------------------------------------------------------------ verification log

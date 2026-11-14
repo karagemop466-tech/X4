@@ -14,8 +14,24 @@ questions to suggestions.
 | `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
 | `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, data verification, and the sources register |
 | `tools/` | The pipeline: `verify.py` proves the data, `build.py` produces every published number, `pages.py` and `sync.py` build the site, `validate.py` runs the whole gate |
-| `site/` | The published multi-page site (nine statically rendered pages) |
+| `site/` | The published multi-page site: nine generated pages plus eleven decision-desk pages, all statically rendered |
+| `docs/` | The X4 Console - a second, independent build of the same project, published at `/console/` |
+| `console/` | A byte-identical mirror of `docs/`, so the repository root that GitHub Pages serves is the same site the workflow publishes |
 | `COORDINATION.md` | The shared board for the parallel agent sessions working on this repository |
+
+## The site, by category
+
+The landing page carries a **directory** of every published page, grouped by the question
+it answers, so nothing has to be guessed at.
+
+| Category | Pages |
+|---|---|
+| Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) |
+| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) |
+| Model & strategies | `lines.html` (13 Week-11 model lines) · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) |
+| Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `flags.html` (main register) · `flagged.html` (desk register) |
+| Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
+| Second build | The **X4 Console** at `/console/` - 15 pages, built independently, reaching the same two structural conclusions |
 
 ## The one rule everything follows
 
@@ -31,8 +47,10 @@ source link.
 python3 tools/verify.py     # prove the data against the official NFL.com standings
 python3 tools/build.py      # regenerate every published number into data/output/
 python3 tools/pages.py      # regenerate the site pages
-python3 tools/sync.py       # keep the root copies in step with site/
+python3 tools/sync.py       # keep the root copies in step with site/ and docs/
 python3 site/check.py       # check the rendered site for broken links and unsourced rows
+python3 tools/check_site.py # check the decision-desk pages the same way
+node docs/check.js          # check the X4 Console
 python3 tools/validate.py   # all of the above, plus determinism and repository hygiene
 ```
 
@@ -68,6 +86,29 @@ This repository is worked on by several agent sessions in parallel. `COORDINATIO
 records who owns which files, what has been claimed, what has been merged, and the
 verification and deployment history.
 
+## The final integration pass
+
+The last session (`arena/da12b830-x4`) closed the site out:
+
+- **One map of the site.** The landing page now carries a directory of every published
+  page grouped by category, and the top navigation links to it from every page. This
+  closes the nav-reciprocity request left open by an earlier session.
+- **The two open pull requests were integrated** (#10, the publish race; #11, the console's
+  stale fallback counts). Neither branch could be merged — both had diverged from `main`
+  and Git refused to merge them as unrelated histories — so their content was taken
+  forward and re-verified instead, and the defects found in them were corrected and
+  published on the *Flagged for review* page (F-13 to F-16, R-09 to R-12).
+- **The publish path was made deterministic.** `tools/sync.py` now mirrors `docs/` into
+  `console/` as well as `site/` into the root, so the legacy Pages build (which serves
+  the repository root) and the custom workflow (which uploads `site/`) publish the same
+  bytes. The publish workflow checks the mirror before it uploads.
+- **The combined data was re-verified line by line** against NFL.com: the standings for
+  all 32 clubs, the Week 10 injury report, the Week 11 schedule, the game log, and every
+  correlation and confidence interval on the decision-desk layer, recomputed
+  independently from the committed CSVs.
+- **Two stale counts were corrected** in the desk executive summary (the injury sample is
+  22 published rows, not 19; the irregularity register holds 12 entries, not 8).
+
 ## Sources
 
 Official NFL.com pages only for published values: the league standings, the weekly injury
@@ -88,10 +129,10 @@ at **`/console/`** on the same Pages site.
 
 | | Main site (`site/`) | X4 Console (`docs/`) |
 |---|---|---|
-| Built by | `arena/25459fae-x4`, `arena/70ac0cf1-x4`, `arena/59059060-x4` | `arena/528008d6-x4` |
-| Pages | 9 | 15 (incl. 404) |
+| Built by | `arena/25459fae-x4`, `arena/70ac0cf1-x4`, `arena/59059060-x4`, `5c48ced7`, `arena/da12b830-x4` | `arena/528008d6-x4` |
+| Pages | 20 (9 generated + 11 decision-desk pages) | 15 (incl. 404) |
 | Pipeline | Python generator (`tools/`) → static output | No generator; hand-written static files |
-| Publication gate | `python3 site/check.py` | `node docs/check.js` |
+| Publication gate | `python3 site/check.py` + `python3 tools/check_site.py` | `node docs/check.js` |
 
 Both builds follow the same one rule — every table row links to the official source it
 came from, and anything unconfirmable is left blank and flagged — and both reached the

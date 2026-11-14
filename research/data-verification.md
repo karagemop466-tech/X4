@@ -70,6 +70,10 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-10 | Weeks 12 to 18 of the 2026 schedule are not published here |
 | F-11 | Injury-report policy link carried over from an earlier session was not re-verified |
 | F-12 | Repository hygiene at the start of this build |
+| F-13 | The published site exists in two copies that could drift apart |
+| F-14 | The same two clubs are labelled differently in the two layers |
+| F-15 | The X4 Console's no-JavaScript fallback counts were stale |
+| F-16 | Two different flagged registers reuse the same identifiers |
 
 ## What is deliberately absent
 

@@ -32,6 +32,67 @@ NAV = [
     ("suggestions.html", "Suggestions"),
     ("flags.html", "Flagged for review"),
     ("methodology.html", "Methodology"),
+    ("index.html#directory", "Directory"),
+]
+
+# The X4 Console is a second, independent build of this project. It lives in
+# `docs/` and is published at /console/ by the Pages workflow. It is linked by
+# its absolute published address because the console is not part of the
+# `site/` tree that the publication gate resolves local links against.
+CONSOLE_URL = "https://karagemop466-tech.github.io/X4/console/"
+
+# Every page in the repository, grouped by the question it answers. Used to
+# build the landing-page directory, so a reader can find any page from one
+# screen instead of guessing which build it belongs to.
+DIRECTORY = [
+    ("Overview &amp; decisions", [
+        ("executive-summary.html", "Executive summary",
+         "The verified state, the decisions that are open, the findings, and every blank still open."),
+        ("questions.html", "Decision checklist",
+         "The nine questions that have to be answered before a decision here is reasonable."),
+        ("decisions.html", "Decision Q&amp;A",
+         "Thirty questions with the known answer, the missing information, and what it blocks."),
+        ("requirements.html", "Requirements inventory",
+         "All 40 brief requirements, each mapped to a deliverable, a status and a verification."),
+    ]),
+    ("Verified data", [
+        ("standings.html", "Standings &amp; results",
+         "Official standings for all 32 teams, power ratings, and every completed game with its official link."),
+        ("data.html", "Verified data",
+         "Standings, the Week 10 slate, the Week 11 schedule with a dated market snapshot, and 57 results."),
+        ("availability.html", "Injuries &amp; depth",
+         "The full official Week 10 injury report, a unit-level roll-up, and the starter changes the league confirmed."),
+        ("injuries.html", "Availability",
+         "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
+    ]),
+    ("Model &amp; strategies", [
+        ("lines.html", "Model lines",
+         "Week 11 model spreads and totals for all 13 official games, with the market column left blank."),
+        ("strategies.html", "Strategy lab",
+         "The leaderboard, the seven validation gates, the error-correlation matrix, calibration and stability."),
+        ("signals.html", "Line lab &amp; signals",
+         "Thirteen originated baseline lines against the market, ten candidate signals, eight gates and four correlations with confidence intervals."),
+        ("leaderboard.html", "Leaderboard",
+         "Singles, parlays and prop-combination divisions with the scoring formula and the anti-gaming rules."),
+    ]),
+    ("Review &amp; flags", [
+        ("suggestions.html", "Suggestions",
+         "Twelve ranked proposals, each with the decision it needs and the evidence that would show it worked."),
+        ("review.html", "Suggestions review queue",
+         "Eighteen proposals with Accept / Hold / Reject, saved in the browser, so a path is chosen before anything is built."),
+        ("flags.html", "Flagged for review",
+         "Unverified values and irregularities found while verifying, each with the reason it is still open."),
+        ("flagged.html", "Flagged for review (desk)",
+         "Desk flags F-01 to F-12 and irregularities R-01 to R-08 with their evidence links."),
+    ]),
+    ("Method &amp; sources", [
+        ("methodology.html", "Methodology",
+         "Every model parameter, every gate, and the protocol that keeps luck out of the leaderboard."),
+        ("sources.html", "Sources",
+         "The full source register: which official page each number came from, and when it was retrieved."),
+        ("repo-review.html", "Repo review",
+         "A line-by-line review of every file in this repository, with the issues that were found."),
+    ]),
 ]
 
 SRC_SEASON = "https://www.nfl.com/schedules/2026/"
@@ -561,6 +622,40 @@ def verification_table():
 
 
 # ------------------------------------------------------------------ shell
+def directory_section():
+    """The landing-page directory: every page in the repository, by category.
+
+    Cards, not a table: a table row would need an official source link under
+    the publication gate, and a link to a page of this site is not a source.
+    """
+    cats = []
+    for title, pages in DIRECTORY:
+        items = []
+        for href, label, desc in pages:
+            items.append(
+                '<li><a href="%s"><b>%s</b></a><span>%s</span></li>' % (href, label, desc))
+        cats.append(
+            '<article class="card dir-card"><span class="eyebrow">%s</span>'
+            '<ul class="dir-list">%s</ul></article>' % (title, "".join(items)))
+    console = (
+        '<article class="card dir-card dir-wide"><span class="eyebrow">Second build</span>'
+        '<h3><a href="%s" target="_blank" rel="noreferrer noopener">X4 Console &rarr;</a></h3>'
+        '<p class="muted">A second, independently built console: 15 pages covering the '
+        'validation gates, the correlation reference, the strategy catalogue, the leaderboard '
+        'and rewards, and its own flagged register. It reaches the same two structural '
+        'conclusions this site reaches - the NFL publishes no betting lines, and no official '
+        'source labels depth-chart strings - which is why both builds agree on the facts and '
+        'differ only on presentation.</p></article>' % CONSOLE_URL)
+    return """
+<section id="directory">
+  <div class="section-head"><div><span class="eyebrow">Site directory</span><h2>Every page, by category</h2><p class="muted">One screen, every page this repository publishes: the main desk, the decision-desk layer beside it, and the X4 Console at the bottom - a second, independent build of the same project. This landing page is page 1 of %(npages)d.</p></div><span class="tag acc">%(npages)d pages &middot; 15 in the console</span></div>
+  <div class="grid g3">%(cats)s</div>
+  <div class="grid g1">%(console)s</div>
+</section>
+""" % dict(cats="".join(cats), console=console,
+           npages=sum(len(p) for _, p in DIRECTORY) + 1)
+
+
 def shell(slug, title, description, body, active):
     nav = "".join('<a href="%s"%s>%s</a>'
                   % (href, ' class="active"' if href == active else "", esc(label))
@@ -652,9 +747,12 @@ PAGES.append(("index.html", "NFL Decision Desk",
     <article class="card"><span class="eyebrow">Review</span><h3><a href="suggestions.html">Suggestions</a></h3><p class="muted">Twelve proposals, ranked, with the decision each one needs and the evidence that would show it worked. Review before building.</p></article>
   </div>
 </section>
+
+%(directory)s
 """ % dict(ngames=len(games), kpis=kpi_cards(), facts=wk_facts(), eligible=eligible,
            nstrat=len(leaderboard), lbpreview=leaderboard_preview_table(),
-           flagpreview=flags_table(limit=6)), "index.html"))
+           flagpreview=flags_table(limit=6),
+           directory=directory_section()), "index.html"))
 
 # --- standings ---
 PAGES.append(("standings.html", "Standings & results",
