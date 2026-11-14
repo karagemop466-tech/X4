@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DESK_PAGES = [
     "executive-summary.html", "requirements.html", "data.html", "signals.html",
     "leaderboard.html", "injuries.html", "decisions.html", "review.html",
-    "programme.html", "flagged.html", "repo-review.html", "sources.html",
+    "workbench.html", "programme.html", "flagged.html", "repo-review.html", "sources.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/

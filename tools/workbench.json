@@ -1,0 +1,145 @@
+{
+  "version": "2026-11-14",
+  "note": "The suggestion workbench. Each item is scored on four 1-5 dimensions by ONE documented rubric, so any reviewer can re-score it and see whether they disagree. The score is a demo prioritisation model, not a verdict: the reviewer's choice is recorded separately and is the only thing that decides. Fields that would require a fact nobody has are left null and rendered as blank.",
+  "rubric": [
+    {"criterion": "decision_value", "question": "Does it change a decision someone has to make this season?", "scale": "1 = no decision depends on it, 5 = several blocked decisions depend on it"},
+    {"criterion": "confidence", "question": "Is the underlying evidence verifiable in this repository today?", "scale": "1 = would need data we have never seen, 5 = the evidence is already committed"},
+    {"criterion": "effort", "question": "How much work is it, in reverse (5 = cheapest)?", "scale": "1 = multi-week build, 5 = a copy change"},
+    {"criterion": "risk", "question": "How little regulatory or reputational exposure does it add, in reverse (5 = safest)?", "scale": "1 = touches money or legal scope, 5 = internal only"}
+  ],
+  "weights": {"decision_value": 0.4, "confidence": 0.3, "effort": 0.2, "risk": 0.1},
+  "items": [
+    {
+      "id": "W01",
+      "title": "Write the price store at T-60 minutes, every week, automatically",
+      "category": "Data integrity",
+      "summary": "A scheduled job that snapshots every market for every game an hour before kick-off. This is the only change that unblocks closing-line value, the close-beating gate and two of the five demotion rules.",
+      "evidence": "research/data/price_snapshots_2026.csv has 13 Week-11 games with no close, because no close exists yet; research/data/clv_ledger.csv has zero rows for the same reason.",
+      "scores": {"decision_value": 5, "confidence": 5, "effort": 3, "risk": 5},
+      "cost": "One scheduled workflow run per week",
+      "blocks_if_skipped": "CLV, gate G7, demotion D1 and D5, any reward paid on signal",
+      "status": "proposed"
+    },
+    {
+      "id": "W02",
+      "title": "Settle Weeks 1-9 from the feed that already reconciles",
+      "category": "Data integrity",
+      "summary": "The results feed proves itself against the official standings and covers 136 games in Weeks 1-9. Settling the existing models against those games moves the sample from 9 bets to 1,224 and is a script, not a season of waiting.",
+      "evidence": "research/data/results_2026.csv: 137 games, 192 standings fields reconciled with zero mismatches; research/data/results_graded_week10.csv holds the grading logic already.",
+      "scores": {"decision_value": 5, "confidence": 5, "effort": 4, "risk": 5},
+      "cost": "One script run",
+      "blocks_if_skipped": "Every gate with a sample-size floor, including the reward schedule",
+      "status": "proposed"
+    },
+    {
+      "id": "W03",
+      "title": "Replace the bankroll leaderboard with the signal board",
+      "category": "Leaderboard",
+      "summary": "Rank on close-beating share and calibration; publish staking beside it and never combine the two. The simulation in this repository shows identical edges producing a 178-unit gain and a 16.79-unit loss under two staking rules.",
+      "evidence": "research/data/staking_vs_signal_sim.csv; research/data/leaderboard_signal_staking.csv already carries the two blocks separately.",
+      "scores": {"decision_value": 5, "confidence": 4, "effort": 5, "risk": 4},
+      "cost": "A copy rule and a table change",
+      "blocks_if_skipped": "Nothing technically, but the current board teaches the reader to rank luck",
+      "status": "proposed"
+    },
+    {
+      "id": "W04",
+      "title": "Count independent signals, not bets, when computing sample size",
+      "category": "Statistics",
+      "summary": "Nine models whose prediction errors correlate 0.92-0.999 are closer to one signal than nine. Raw row counts flatter every result on the site, so the gates should see an effective n.",
+      "evidence": "data/output/correlation_error.json: minimum pairwise error correlation 0.92, maximum 0.999.",
+      "scores": {"decision_value": 5, "confidence": 5, "effort": 3, "risk": 5},
+      "cost": "A correlation-weighted effective-sample calculation in the gate",
+      "blocks_if_skipped": "Every claim of independent evidence in the strategy lab",
+      "status": "proposed"
+    },
+    {
+      "id": "W05",
+      "title": "Price availability by depth slot into the side",
+      "category": "Model",
+      "summary": "Nine of thirteen Week-11 lines sit more than five points from the market. The most likely cause is that the model ignores who is actually playing. Adding the depth slot as a term is the direct test.",
+      "evidence": "research/data/market_origination_wk11.csv (9 of 13 games beyond 5 points); research/data/replacement_depth_measured.csv (depth slot on 7 of 7 rows, snap share on 0).",
+      "scores": {"decision_value": 5, "confidence": 2, "effort": 2, "risk": 5},
+      "cost": "Needs a snap-count or playing-time source that has not been verified",
+      "blocks_if_skipped": "The answer to why the model disagrees with the market, register C2",
+      "status": "proposed"
+    },
+    {
+      "id": "W06",
+      "title": "Resolve the two-source absence-window conflict (F-04)",
+      "category": "Data integrity",
+      "summary": "Two official NFL.com items give different absence windows for the same player. A depth table and any availability-priced line rest on that assumption, so someone has to rule on it and record the ruling.",
+      "evidence": "flagged.html F-04; data/qb-starter-changes.csv carries both URLs side by side.",
+      "scores": {"decision_value": 4, "confidence": 5, "effort": 5, "risk": 4},
+      "cost": "A written ruling; no build",
+      "blocks_if_skipped": "The availability term and the depth table's priceability",
+      "status": "proposed"
+    },
+    {
+      "id": "W07",
+      "title": "Publish the decision register and the suggestion workbench as the entry point",
+      "category": "Interface",
+      "summary": "One page that answers 'what do we know, what is missing, and what would settle it' before a reader reaches any table. This repository now has the register; the landing page should lead with it.",
+      "evidence": "research/decision-register.md (31 questions, each with a status and an owner); review.html and suggestions.html hold the existing registers.",
+      "scores": {"decision_value": 4, "confidence": 5, "effort": 4, "risk": 5},
+      "cost": "A link and a paragraph on the landing page",
+      "blocks_if_skipped": "Nothing, but the site's best content stays undiscovered",
+      "status": "proposed"
+    },
+    {
+      "id": "W08",
+      "title": "Extend the capture to parlay and prop prices",
+      "category": "Markets",
+      "summary": "The same odds feed that carries game lines also carries per-player targets with open and current numbers. Capturing those turns the prop and parlay questions from unanswerable into measurable.",
+      "evidence": "The prop endpoint returned 730 targets for a single settled game, each with a current and an open value.",
+      "scores": {"decision_value": 4, "confidence": 3, "effort": 3, "risk": 3},
+      "cost": "An extension of the same capture job; no new provider",
+      "blocks_if_skipped": "H5, H6 and every prop-combination question",
+      "status": "proposed"
+    },
+    {
+      "id": "W09",
+      "title": "Fix the staking rule in writing before any live run",
+      "category": "Governance",
+      "summary": "Flat units and proportional staking reach opposite verdicts on the same edge. Until the rule is fixed in advance, any ROI comparison can be tuned after the fact, which is the definition of hindsight in staking.",
+      "evidence": "research/data/staking_vs_signal_sim.csv, both staking blocks.",
+      "scores": {"decision_value": 4, "confidence": 5, "effort": 5, "risk": 5},
+      "cost": "A paragraph of policy",
+      "blocks_if_skipped": "Demotion D2, gate G8, every ROI comparison",
+      "status": "proposed"
+    },
+    {
+      "id": "W10",
+      "title": "Hold every reward figure at blank until a strategy clears D1 and D2",
+      "category": "Governance",
+      "summary": "No reward amount is published anywhere in this repository, deliberately. Paying on a bankroll curve pays for luck, and paying on CLV is impossible until W01 ships.",
+      "evidence": "research/data/demotion_gate_rules.csv: all five rules currently BLOCKED or NOT MET; leaderboard.html's reward amounts are blank.",
+      "scores": {"decision_value": 3, "confidence": 5, "effort": 5, "risk": 5},
+      "cost": "A decision to wait, which is free",
+      "blocks_if_skipped": "The credibility of the whole competition",
+      "status": "proposed"
+    },
+    {
+      "id": "W11",
+      "title": "Run the demotion gate as a scheduled check, not a meeting",
+      "category": "Governance",
+      "summary": "The gate is a script over the graded dataset. Running it weekly is what makes demotion real; running it after a bad month is what makes it theatre.",
+      "evidence": "research/data/demotion_gate_run.csv and demotion_gate_rules.csv are generated by tools/build_integrity.py.",
+      "scores": {"decision_value": 3, "confidence": 5, "effort": 4, "risk": 5},
+      "cost": "One line in the weekly workflow",
+      "blocks_if_skipped": "The gate only exists on paper",
+      "status": "proposed"
+    },
+    {
+      "id": "W12",
+      "title": "Add a per-page provenance line that names the exact generator",
+      "category": "Interface",
+      "summary": "Every page already names its sources; the missing link is which script produced which number, so a reviewer can go straight to the formula.",
+      "evidence": "programme.html carries the pattern in its footer; the other desk pages do not.",
+      "scores": {"decision_value": 2, "confidence": 5, "effort": 4, "risk": 5},
+      "cost": "A footer line per page",
+      "blocks_if_skipped": "Nothing; it is a reviewer convenience",
+      "status": "proposed"
+    }
+  ]
+}
