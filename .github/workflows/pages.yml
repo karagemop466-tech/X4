@@ -9,6 +9,7 @@ on:
       - "tools/**"
       - "research/**"
       - "docs/**"
+      - "console/**"
       - "*.html"
       - "*.css"
       - "*.js"
@@ -41,24 +42,19 @@ jobs:
         run: |
           python3 tools/build.py
           python3 tools/pages.py
+          python3 tools/research.py
           python3 tools/sync.py
       - name: Check the published site and the repository-root copy
         run: |
           python3 site/check.py
           python3 site/check.py .
-      - name: Check and publish the X4 Console (docs/) into site/ and the repository root
-        run: |
-          node docs/check.js
-          rm -rf site/console console
-          mkdir -p site/console console
-          cp -R docs/. site/console/
-          cp -R docs/. console/
-          rm -f site/console/check.js console/check.js
+      - name: Check the X4 Console
+        run: node docs/check.js
       - name: Confirm the published output is reproducible
         run: |
           git diff --exit-code || (
             echo "::error::The committed output does not match a fresh build."
-            echo "Run 'python3 tools/build.py && python3 tools/pages.py && python3 tools/sync.py' and commit the result."
+            echo "Run 'python3 tools/build.py && python3 tools/pages.py && python3 tools/research.py && python3 tools/sync.py' and commit the result."
             exit 1
           )
       - uses: actions/configure-pages@v5

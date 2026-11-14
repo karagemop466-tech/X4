@@ -44,6 +44,41 @@ def main():
         if not run(label, cmd):
             return 1
 
+    # ---- the published mirrors must hold identical bytes ----
+    print("\n=== published mirrors ===", flush=True)
+    problems = []
+    site = os.path.join(ROOT, "site")
+    for fn in sorted(os.listdir(site)):
+        path = os.path.join(site, fn)
+        if not os.path.isfile(path) or fn == "check.py":
+            continue
+        root_copy = os.path.join(ROOT, fn)
+        if not os.path.exists(root_copy):
+            problems.append("the repository root is missing %s" % fn)
+        elif open(path, "rb").read() != open(root_copy, "rb").read():
+            problems.append("the repository-root copy of %s differs from site/%s" % (fn, fn))
+    console = os.path.join(ROOT, "console")
+    docs = os.path.join(ROOT, "docs")
+    if os.path.isdir(docs):
+        for dst, label in ((console, "console/"), (os.path.join(site, "console"), "site/console/")):
+            for dirpath, _dirs, files in os.walk(docs):
+                for fn in files:
+                    if fn == "check.js":
+                        continue
+                    src = os.path.join(dirpath, fn)
+                    rel = os.path.relpath(src, docs)
+                    target = os.path.join(dst, rel)
+                    if not os.path.exists(target):
+                        problems.append("%s is missing %s" % (label, rel))
+                    elif open(src, "rb").read() != open(target, "rb").read():
+                        problems.append("%s differs from docs/%s" % (target, rel))
+    if problems:
+        for p in problems:
+            print("  - %s" % p)
+        print("\nVALIDATION FAILED at step: published mirrors")
+        return 1
+    print("  - the repository root, site/ and the console mirrors hold identical bytes")
+
     # ---- determinism: rebuild and require byte-identical output ----
     print("\n=== determinism ===", flush=True)
     before = {}

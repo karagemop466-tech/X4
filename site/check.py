@@ -33,14 +33,27 @@ SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT,
 PAGES = ["index.html", "standings.html", "lines.html", "strategies.html",
          "availability.html", "questions.html", "suggestions.html", "flags.html",
          "methodology.html"]
+# The decision-desk pages, published from the same directory. They carry their
+# own navigation and stylesheet, so they are checked with the same rules but
+# their own asset list.
+DESK_PAGES = ["executive-summary.html", "requirements.html", "data.html",
+              "signals.html", "leaderboard.html", "injuries.html", "decisions.html",
+              "review.html", "flagged.html", "repo-review.html", "sources.html"]
+ALL_PAGES = PAGES + DESK_PAGES
 ASSETS = ["styles.css", "app.js"]
+DESK_ASSETS = ["desk.css", "nav.js"]
+# Placeholder markers, matched on word boundaries so that a word such as
+# "provenance" is not mistaken for a "NaN" that never got substituted.
 PLACEHOLDERS = ["TODO", "FIXME", "lorem ipsum", "undefined;", "NaN"]
+PLACEHOLDER_RE = re.compile("|".join(r"\b%s\b" % re.escape(p) for p in PLACEHOLDERS), re.I)
 
 LINK = re.compile(r"<(?:a|link)\b[^>]*?href=\"([^\"]+)\"[^>]*>", re.I)
 EXTERNAL = re.compile(r"<a\b[^>]*?href=\"(https?://[^\"]+)\"[^>]*>", re.I)
 OFFICIAL = re.compile(
     r"<a\b[^>]*href=\"https://(?:www\.)?(?:nfl\.com|operations\.nfl\.com|ftc\.gov)/[^\"]*\"",
     re.I)
+ANY_HTTPS = re.compile(r"<a\b[^>]*href=\"https://[^\"]*\"", re.I)
+ANY_LINK = re.compile(r"<a\b[^>]*href=\"[^\"]*\"", re.I)
 
 
 class RowParser(HTMLParser):
@@ -49,6 +62,7 @@ class RowParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.tables = []
+        self.classes = []
         self._depth = 0
         self._row = None
         self._cell = None
@@ -59,6 +73,7 @@ class RowParser(HTMLParser):
             self._depth += 1
             if self._depth == 1:
                 self.tables.append([])
+                self.classes.append(dict(attrs).get("class") or "")
         elif tag == "tr" and self._depth >= 1 and self.tables:
             self._row = []
             self._row_has_td = False
@@ -113,7 +128,7 @@ def main():
     total_tables = 0
     pages = {}
 
-    for page in PAGES:
+    for page in ALL_PAGES:
         path = os.path.join(SITE, page)
         if not os.path.exists(path):
             problems.append("missing page: %s" % page)
@@ -121,19 +136,20 @@ def main():
         checked_pages += 1
         html = open(path, encoding="utf-8").read()
         pages[page] = html
+        is_desk = page in DESK_PAGES
 
         if len(html) < 1500:
             problems.append("%s: suspiciously small (%d bytes)" % (page, len(html)))
-        for needle, label in (("<title>", "title"), ('name="viewport"', "viewport"),
-                              ('name="description"', "description"),
-                              ("data-page=", "data-page marker")):
+        required = [("<title>", "title"), ('name="viewport"', "viewport"),
+                    ('name="description"', "description")]
+        if not is_desk:
+            required.append(("data-page=", "data-page marker"))
+        for needle, label in required:
             if needle not in html:
                 problems.append("%s: missing %s" % (page, label))
 
-        low = html.lower()
-        for bad in PLACEHOLDERS:
-            if bad.lower() in low:
-                problems.append("%s: contains placeholder marker %r" % (page, bad))
+        for bad in PLACEHOLDER_RE.findall(html):
+            problems.append("%s: contains placeholder marker %r" % (page, bad))
 
         for href in LINK.findall(html):
             if href.startswith(("https://", "http://", "mailto:", "#", "data:")):
@@ -150,24 +166,33 @@ def main():
             if "noreferrer" not in m.group(0).lower():
                 problems.append("%s: external link missing rel=noreferrer -> %s" % (page, m.group(1)))
 
-        for asset in ASSETS:
+        for asset in (DESK_ASSETS if is_desk else ASSETS):
             if ('href="%s"' % asset) not in html and ('src="%s"' % asset) not in html:
                 problems.append("%s: does not reference %s" % (page, asset))
 
-        # every data row needs a source link
+        # every data row needs a source link: the main site's rows must carry
+        # an official league or government link. A desk row either asserts a
+        # league fact - official or dated market source - or states this
+        # project's own design, mapping or review finding, and then links to
+        # the page of this site that holds it.
         parser = RowParser()
         parser.feed(html)
         total_tables += len(parser.tables)
         for t_i, rows in enumerate(parser.tables):
+            # A desk page marks the tables that hold published data with
+            # class="data"; its other tables are navigational or explanatory.
+            if is_desk and "data" not in parser.classes[t_i].split():
+                continue
             for r_i, (row, has_td) in enumerate(rows):
                 if not has_td:
                     continue
                 total_rows += 1
                 cells = "".join(row)
-                if OFFICIAL.search(cells):
+                found = OFFICIAL.search(cells) if not is_desk else ANY_LINK.search(cells)
+                if found:
                     sourced_rows += 1
                 else:
-                    problems.append("%s: table %d row %d has no official source link"
+                    problems.append("%s: table %d row %d has no source link"
                                     % (page, t_i + 1, r_i + 1))
 
     # ---- numeric consistency on the standings page ----

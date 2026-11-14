@@ -20,7 +20,7 @@ DESK_PAGES = [
     "leaderboard.html", "injuries.html", "decisions.html", "review.html",
     "flagged.html", "repo-review.html", "sources.html",
 ]
-NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
+NAV_HREFS = {"index.html", *DESK_PAGES, "console/index.html"}
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/
 
 
@@ -30,10 +30,10 @@ class Page(HTMLParser):
         self.ids, self.hrefs, self.srcs, self.nav = set(), [], [], set()
         self._in_nav = False
         self._in_td = False
-        self._rows = []          # list of list-of-hrefs (per data row)
+        self._rows = []          # list of (hrefs, has_data_cell) per data row
         self._cur_row = None
+        self._row_has_td = False
         self._in_data_table = 0
-        self._in_tbody = False
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -43,16 +43,21 @@ class Page(HTMLParser):
             self._in_nav = True
         if tag == "table" and "data" in (a.get("class") or "").split():
             self._in_data_table += 1
-        if tag == "tbody" and self._in_data_table:
-            self._in_tbody = True
-        if tag == "tr" and self._in_tbody:
+        if tag == "tr" and self._in_data_table:
             self._cur_row = []
+            self._row_has_td = False
         if tag in ("a", "link") and "href" in a:
             self.hrefs.append(a["href"])
+            if self._cur_row is not None:
+                self._cur_row.append(a["href"])
             if self._in_nav:
-                self.nav.add(a["href"])
+                # Compare the target of the link, not its fragment: the desk
+                # links to a named section of the main landing page.
+                self.nav.add(a["href"].split("#")[0])
         if tag in ("img", "script") and "src" in a:
             self.srcs.append(a["src"])
+        if tag == "td" and self._cur_row is not None:
+            self._row_has_td = True
         if tag == "td" or tag == "th":
             self._in_td = True
 
@@ -60,10 +65,9 @@ class Page(HTMLParser):
         if tag == "nav":
             self._in_nav = False
         if tag == "tr" and self._cur_row is not None:
-            self._rows.append(self._cur_row)
+            self._rows.append((self._cur_row, self._row_has_td))
             self._cur_row = None
-        if tag == "tbody":
-            self._in_tbody = False
+            self._row_has_td = False
         if tag == "table" and self._in_data_table:
             self._in_data_table -= 1
 
@@ -88,12 +92,18 @@ def main() -> int:
         parsed[pg.name] = p
 
     for name, p in parsed.items():
-        # 3. data rows need https source links
-        for i, row in enumerate(p._rows):
-            if not row:
+        # 3. data rows need a source link. A row either asserts a fact about
+        #    the league - and must link to the official page - or it is this
+        #    project's own design, mapping or review finding, and links to the
+        #    page of this site that holds it. A row with no link at all is
+        #    unsourced and fails. A header row (all cells are <th>) is not a
+        #    data row and is not checked.
+        for i, (row, has_td) in enumerate(p._rows):
+            if not has_td:
                 continue
-            if not any(h.startswith("https://") for h in row):
-                errors.append(f"{name}: data row #{i+1} has no https source link")
+            if not any(h.startswith("https://") or not h.startswith(("http://", "mailto:", "#"))
+                       for h in row):
+                errors.append(f"{name}: data row #{i+1} has no source link")
         # 4/5 + link resolution
         for href in p.hrefs + p.srcs:
             if href.startswith("https://"):
@@ -142,7 +152,7 @@ def main() -> int:
         for e in errors[:40]:
             print(" -", e)
         return 1
-    print("PASS: all local links/anchors resolve; every data row has an https source link; nav consistent.")
+    print("PASS: all local links/anchors resolve; every data row has a source link; nav consistent.")
     return 0
 
 

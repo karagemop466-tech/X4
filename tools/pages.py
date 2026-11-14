@@ -34,6 +34,107 @@ NAV = [
     ("methodology.html", "Methodology"),
 ]
 
+# The decision-desk pages. They are published from the same site/ directory and
+# carry their own navigation, so every main page needs a way to reach them.
+DESK_NAV = [
+    ("executive-summary.html", "Executive summary"),
+    ("requirements.html", "Requirements"),
+    ("data.html", "Verified data"),
+    ("signals.html", "Line lab & signals"),
+    ("leaderboard.html", "Leaderboard"),
+    ("injuries.html", "Availability"),
+    ("decisions.html", "Decision Q&A"),
+    ("review.html", "Suggestions review"),
+    ("flagged.html", "Flags & irregularities"),
+    ("repo-review.html", "Repo review"),
+    ("sources.html", "Sources"),
+]
+
+# Every page the site publishes, grouped into the categories a reader would
+# look for. The landing page renders this as the site directory, so nothing on
+# the site is more than one click away.
+DIRECTORY = [
+    ("Decide first", "What has to be read before anything is built or changed.", [
+        ("executive-summary.html", "Executive summary",
+         "One page for a decision-maker: what is verified, what is missing, what to do next."),
+        ("questions.html", "Decision checklist",
+         "Nine questions: what we already know, what is still missing, what it blocks, how to close it."),
+        ("decisions.html", "Decision Q&A",
+         "Thirty questions in six categories, each with the next action that would answer it."),
+        ("requirements.html", "Requirements",
+         "Every requirement in the brief, mapped to the deliverable that satisfies it and its verification state."),
+    ]),
+    ("Signals, lines and strategies", "Where the numbers come from and what is allowed to earn a reward.", [
+        ("lines.html", "Model lines",
+         "Week 11 spreads and totals from all nine strategies, with the market column deliberately empty."),
+        ("signals.html", "Line lab & signals",
+         "Originated baseline lines against the market snapshot, ten candidate signals, eight validation gates, four correlations with intervals."),
+        ("strategies.html", "Strategy lab",
+         "The leaderboard, the seven gates, the error-correlation matrices, the calibration check and weekly stability."),
+        ("leaderboard.html", "Leaderboard & rewards",
+         "Singles, parlays and player-prop divisions, the scoring formula, anti-gaming rules and the reward phases."),
+    ]),
+    ("Data", "The verified record every other page is built on.", [
+        ("standings.html", "Standings & results",
+         "Official standings for all 32 clubs, opponent-adjusted power ratings and every completed 2026 game."),
+        ("data.html", "Verified data tables",
+         "Standings, the Week 10 slate, the Week 11 schedule with the dated market snapshot, and 57 results."),
+        ("availability.html", "Injuries & depth",
+         "The complete official Week 10 injury report, the unit-level roll-up and the starter changes the league confirmed."),
+        ("injuries.html", "Availability & depth",
+         "Player-linked injury rows and the starter-to-2nd/3rd/4th-string deficiency specification for offence and defence."),
+    ]),
+    ("Review before building", "Choose the path first; nothing here is already built.", [
+        ("suggestions.html", "Suggestions",
+         "Twelve ranked proposals, each with what it would do, how you would know it worked and the decision it needs."),
+        ("review.html", "Suggestions for review",
+         "Eighteen proposals with Accept, Hold and Reject. Your selection is kept in this browser so you can come back to it."),
+        ("flags.html", "Flagged for review",
+         "Every unverified value, limitation and irregularity in the main site, with the reason for each blank."),
+        ("flagged.html", "Flags & irregularities",
+         "The desk register: F-01 to F-12 and R-01 to R-08, with the evidence behind each one."),
+        ("repo-review.html", "Repo review",
+         "Every file in this repository reviewed line by line, with the finding and the action it produced."),
+        ("sources.html", "Sources",
+         "The full source register: tier, URL, what was taken from it and the date it was fetched."),
+        ("methodology.html", "Methodology",
+         "How every published number is produced, the model parameters, the validation gates and the verification log."),
+    ]),
+]
+
+# The X4 Console is published alongside this site from the same repository.
+CONSOLE_PAGES = [
+    ("console/index.html", "Console dashboard",
+     "The second, independently built view of the same verified data."),
+    ("console/executive-summary.html", "Console executive summary",
+     "The console's own summary of the verified state."),
+    ("console/requirements.html", "Console requirements",
+     "The brief decomposed into the console's own requirement list."),
+    ("console/questions.html", "Console open questions",
+     "What the console knows, what it lacks and how to find it."),
+    ("console/suggestions.html", "Console suggestions",
+     "The console's proposals in a review queue."),
+    ("console/lines-market.html", "Console line origination & market",
+     "How a price is originated, and how it is compared with the market."),
+    ("console/strategies.html", "Console strategy catalog",
+     "The console's strategy candidates and what each one is."),
+    ("console/validation.html", "Console validation gates",
+     "The gate definitions and the anti-luck statistics behind them."),
+    ("console/correlation.html", "Console correlation reference",
+     "The console's correlation table, with blanks where nothing could be confirmed."),
+    ("console/leaderboard.html", "Console leaderboard & rewards",
+     "How the console scores evidence rather than profit."),
+    ("console/nfl-data.html", "Console NFL data",
+     "Verified standings and schedule in the console's own tables."),
+    ("console/injuries.html", "Console injuries & depth",
+     "The full Week 10 report and the depth problem, in the console."),
+    ("console/sources.html", "Console source register",
+     "Every source the console used, tiered."),
+    ("console/flagged.html", "Console flagged for review",
+     "The console's own items for a human to adjudicate."),
+]
+
+
 SRC_SEASON = "https://www.nfl.com/schedules/2026/"
 
 
@@ -561,10 +662,34 @@ def verification_table():
 
 
 # ------------------------------------------------------------------ shell
+def directory_html(classes=""):
+    """Render the site directory: every published page, grouped by category."""
+    out = []
+    for title, blurb, pages in DIRECTORY:
+        links = "".join(
+            '<li><a href="%s"><b>%s</b><span>%s</span></a></li>'
+            % (esc(href), esc(label), esc(desc)) for href, label, desc in pages)
+        out.append('<section class="dir-cat %s"><h3>%s</h3><p class="muted small">%s</p>'
+                   '<ul class="dir-list">%s</ul></section>'
+                   % (esc(classes), esc(title), esc(blurb), links))
+    console = "".join(
+        '<li><a href="%s"><b>%s</b><span>%s</span></a></li>'
+        % (esc(href), esc(label), esc(desc)) for href, label, desc in CONSOLE_PAGES)
+    out.append('<section class="dir-cat %s"><h3>The X4 Console</h3>'
+               '<p class="muted small">A second, independently built view of the same '
+               'verified data, published from the same repository.</p>'
+               '<ul class="dir-list">%s</ul></section>' % (esc(classes), console))
+    return "".join(out)
+
+
 def shell(slug, title, description, body, active):
     nav = "".join('<a href="%s"%s>%s</a>'
                   % (href, ' class="active"' if href == active else "", esc(label))
                   for href, label in NAV)
+    desk = "".join('<a href="%s"%s>%s</a>'
+                   % (href, ' class="active"' if href == active else "", esc(label))
+                   for href, label in DESK_NAV)
+    footer_dir = directory_html("dir-foot")
     return """<!doctype html>
 <html lang="en">
 <head>
@@ -580,6 +705,11 @@ def shell(slug, title, description, body, active):
     <a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>NFL DECISION DESK</small></span></a>
     <nav class="main">%(nav)s</nav>
   </div>
+  <div class="deskbar">
+    <span class="deskbar-label">Research desk</span>
+    <nav class="desk">%(desk)s</nav>
+    <a class="deskbar-console" href="console/index.html">X4 Console &rarr;</a>
+  </div>
 </header>
 <main>
 %(body)s
@@ -590,11 +720,16 @@ def shell(slug, title, description, body, active):
     <span>Official sources: nfl.com/standings &middot; nfl.com/injuries &middot; nfl.com/schedules &middot; operations.nfl.com &middot; ftc.gov</span>
     <span>Evidence status: verified official data + labelled model estimates &middot; no market data &middot; not betting advice</span>
   </div>
+  <div class="foot-dir">
+    <h2>Everything on this site</h2>
+    %(footdir)s
+  </div>
 </footer>
 <script src="app.js"></script>
 </body>
 </html>
-""" % dict(title=title, desc=description, nav=nav, body=body, slug=slug)
+""" % dict(title=title, desc=description, nav=nav, desk=desk, body=body, slug=slug,
+           footdir=footer_dir)
 
 
 PAGES = []
@@ -641,6 +776,11 @@ PAGES.append(("index.html", "NFL Decision Desk",
   <p style="margin-top:12px"><a class="btn" href="flags.html">See every flag &rarr;</a></p>
 </section>
 
+<section id="directory">
+  <div class="section-head"><div><span class="eyebrow">Site directory</span><h2>Every page on this site, by category</h2><p class="muted">The site publishes three layers: the main desk, the research desk, and the X4 Console. Nothing published is more than one click from here, and every table on every page carries a link to the official source it came from.</p></div><span class="tag acc">%(ndir)d pages</span></div>
+  %(directory)s
+</section>
+
 <section>
   <div class="section-head"><div><span class="eyebrow">Where to go next</span><h2>The desk</h2></div></div>
   <div class="grid g3">
@@ -654,7 +794,10 @@ PAGES.append(("index.html", "NFL Decision Desk",
 </section>
 """ % dict(ngames=len(games), kpis=kpi_cards(), facts=wk_facts(), eligible=eligible,
            nstrat=len(leaderboard), lbpreview=leaderboard_preview_table(),
-           flagpreview=flags_table(limit=6)), "index.html"))
+           flagpreview=flags_table(limit=6),
+           directory=directory_html("dir-main"),
+           ndir=sum(len(p) for _, _, p in DIRECTORY) + len(CONSOLE_PAGES)),
+           "index.html"))
 
 # --- standings ---
 PAGES.append(("standings.html", "Standings & results",
