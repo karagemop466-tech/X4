@@ -67,10 +67,19 @@ jobs:
       - name: Confirm the repository-root mirror is in step
         run: |
           diff -rq --exclude=check.js docs console
+          # T32-b (2026-11-14, arena/e6ee28a8-x4): the two session-artifact
+          # directories committed with the PR #24/#25 capture work are
+          # repository content, not site content, and sit only at the root -
+          # exactly like data/, tools/ and research/, which are excluded for
+          # the same reason. Without these excludes the step fails with
+          # "Only in .: .retrieval / .scratch" (run 43635100704), a latent
+          # failure that was masked until the float-drift repair above made
+          # the reproducibility step pass.
           diff -rq --exclude=check.py --exclude=site --exclude=console --exclude=docs \
             --exclude=data --exclude=tools --exclude=research --exclude=.git \
             --exclude=.github --exclude=README.md --exclude=COORDINATION.md \
-            --exclude=.gitignore site .
+            --exclude=.gitignore --exclude=.retrieval --exclude=.scratch \
+            site .
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
