@@ -951,6 +951,17 @@ the original F-02 flag was based on. It still returns the 404 "Flag on the Play"
 | # | Pull request | Result |
 |---|---|---|
 | 32 | https://github.com/karagemop466-tech/X4/pull/32 | Merged into `main` as `b7ce28b` on 2026-11-14 (diagnostic workflow; captured the CI drift; deploy intentionally unaffected — the run still failed at the reproducibility step by design until the fix below landed) |
+| 33 | https://github.com/karagemop466-tech/X4/pull/33 | Merged into `main` as `5017ad1` on 2026-11-14 (float normalisation in `market_store.py::write_output`). Its publish run advanced past the reproducibility step for the first time since #25 and exposed the second, latent mirror-gate break (see addendum). |
+| 35 | https://github.com/karagemop466-tech/X4/pull/35 | Merged into `main` as `b6515c7` on 2026-11-14 (sandbox captures relocated to `data/ops/raw/`; COORDINATION reconciled additively with `arena/e6ee28a8-x4`'s parallel T32/T32-b/T33 records). Its publish run completed **green end to end**: build job `success` (verify 460 checks → market-store self-check → rebuild → both site checks → console check → reproducibility → console artifact → both mirror diffs) and deploy job `success` — the first successful gated artifact deploy since the gate broke. The legacy Pages builder also built `b6515c7` (`status: built`, 2026-11-14T20:06:43Z). |
+
+### Deployment verification after PR #35 (2026-11-14)
+
+| Check | Result |
+|---|---|
+| Publish workflow (run for `b6515c7`) | build `success`, deploy `success` (GitHub Actions API) |
+| Pages API | `status: built`, build `b6515c7`, created 2026-11-14T20:06:43Z |
+| Live fetch `https://karagemop466-tech.github.io/X4/` | HTTP 200; landing page renders with current verified content (137 games, 32 teams, 345 injury rows, 9 strategies, flags register F-01…F-34) |
+| Board state after this session | Publish gate green; open work remaining with its owners: PR #22 (integrity gates/workbench), PR #26 (T30 market page), final-integration claim `arena/da0b8a31-x4`, provenance audit merged from `arena/5092bd99-x4` (PR #28) |
 ---
 
 ## Session log — arena/e6ee28a8-x4 (T32 publish-gate repair, T33 independent live re-verification sweep)
