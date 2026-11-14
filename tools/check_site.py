@@ -12,7 +12,7 @@ Checks (every root *.html, excluding the historical site/ archive):
   5. Every page carries the same sidebar navigation (link set equality).
 Exits non-zero on any violation.
 """
-import re, sys
+import os, re, sys
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -26,6 +26,8 @@ DESK_PAGES = [
     "origination.html", "price-store.html", "signal-vs-staking.html",
     "correlations.html", "replacements.html", "method-lab.html", "ops-review.html",
     "verification.html", "requirements-closure.html",
+    # T30 integrity gates + programme + suggestion workbench (session arena/e8a1af1b-x4)
+    "workbench.html", "programme.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/
@@ -131,6 +133,23 @@ def main() -> int:
         nav = {h for h in p.nav}
         if nav != NAV_HREFS:
             errors.append(f"{name}: nav mismatch — missing {sorted(NAV_HREFS - nav)} extra {sorted(nav - NAV_HREFS)}")
+
+    # integrity datasets: every CSV must have a rectangular shape. A row with one field
+    # too many shifts a trailing blank into a later column, which is how a source link
+    # once ended up empty while the row still "looked" sourced.
+    import csv as _csv
+    for fn in sorted(os.listdir(ROOT / "research" / "data")):
+        if not fn.endswith(".csv"):
+            continue
+        with open(ROOT / "research" / "data" / fn, newline="", encoding="utf-8") as fh:
+            # comment lines are part of the format for this repository's captures
+            raw = list(_csv.reader(ln for ln in fh if not ln.startswith("#")))
+        if not raw:
+            continue
+        width = len(raw[0])
+        bad = [(i + 1, len(r)) for i, r in enumerate(raw) if len(r) != width]
+        if bad:
+            errors.append(f"research/data/{fn}: rows with the wrong field count (header {width}): {bad[:5]}")
 
     # mirror check: desk files must be byte-identical inside site/ (publish path)
     mirror_errors = []

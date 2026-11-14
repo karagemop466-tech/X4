@@ -39,6 +39,7 @@ file scope. Never start work on a task another session has claimed.
 | 3 | Official-source data acquisition, model line engine, strategy validation harness, multi-page site, integration and publication | done | arena/59059060-x4 | `data/**`, `research/**`, `tools/**`, `site/**` (integration), root site mirror, `README.md`, `COORDINATION.md`, `.github/workflows/**` |
 | T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` |
 | T02–T14 | Requirements inventory, additional official-source research, strategy/leaderboard/injury/decision/suggestion pages, repo review, integration and publication | done | 5c48ced7 | root + `site/` mirrors of `executive-summary.html`, `requirements.html`, `data.html`, `signals.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `review.html`, `flagged.html`, `repo-review.html`, `sources.html`, `desk.css`, `nav.js`; new files under `research/data/`, `tools/` (desk tools), `.github/workflows/desk-check.yml` |
+| T30 | **Integrity + decision programme** (originally claimed as T22; renumbered to T30 when a parallel session took T21&ndash;T29) — six integrity-gate deliverables (price-snapshot store, verified results feed, market-origination order side→total→moneyline, published fair/market/difference columns, leaderboard signal-vs-staking split, replacement-depth measurement, n-reporting on correlations, demotion gate), a research question register, a decisions-needed register, a reviewable Suggestions **workbench** page with a demo prioritisation model, the line-origination hypothesis programme with validation gates, and a full source verification pass over every existing page | in progress | arena/e8a1af1b-x4 | `research/data/price_snapshots.csv`, `research/data/results_2026.csv`, `research/data/correlation_n.csv`, `research/data/market_origination_wk11.csv`, `research/data/line_origination_wk11.csv`, `research/data/signal_staking.csv`, `research/data/replacement_depth.csv`, `research/data/demotion_gate.csv`, `research/integrity-gates.md`, `research/decision-register.md`, `research/origination-programme.md`, `research/data-verification-pass-2026-11-14.md`, `tools/verify_origination.py`, `tools/gen_programme.py`, `site/programme.html` + root mirror, `tools/check_site.py` (add page to DESK_PAGES), `tools/workbench.json`, `README.md`, `COORDINATION.md` |
 | T21 | **Depth-chart acquisition from official club sites + deficiency pipeline** — capture each club's official depth chart (column order = depth position, source-linked), join to the official Week 10 injury report, publish a `depth.html` page (roster depth, starter-out deficiency by position group, offense and defense), a machine-readable dataset and a written method note; integrate into nav/landing directory and re-run every gate | done (PR #20) | arena/4d9bc204-x4 | `tools/depth.py`, `data/depth-wk11-2026.csv`, `research/depth-and-deficiency.md`, `site/depth.html` + root mirror, `tools/pages.py` (nav + landing directory + depth page render only), `tools/sync.py` additions if needed, `README.md`, `COORDINATION.md` |
 | T15 | **Final integration session**: re-verify the combined data line by line, unify the navigation and the landing page so every page in all three builds is reachable, merge the two open pull requests, re-run every gate, publish to GitHub Pages, open and merge the PR to `main` | done | arena/da12b830-x4 | `tools/pages.py` (nav + landing page), `tools/sync.py`, `site/index.html` + root mirror, `site/nav.js` + root mirror, desk sidebar nav in `site/*.html` + root mirrors, `README.md`, `COORDINATION.md` — completed and merged via PR #17 (`83e0cff`), #18 (`967112d`) and #19 (`39f5abd`); navigation unified, data re-verified, Pages published |
 | T20 | **Live official-source verification harness**: `tools/verify_live.py` plus `research/verification/` — re-fetch the official NFL.com pages (standings, Week 11 schedule, Week 10 injuries), diff the captured official snapshot against the committed CSVs, and publish the verification record. **Taken over** from `arena/63f321d0-x4`: that session's branch no longer exists on the remote and the claim had no commits (>60 min, stale), so the task was handed off per the takeover rule. | done | arena/970ba0eb-x4 | `tools/verify_live.py` (new), `research/verification/**` (new), `README.md`, `COORDINATION.md` — additive only; touches no other session's files. Delivered and merged via PR #23 |
@@ -758,6 +759,91 @@ pages are gated rather than unGated.
   `site/_template/ops-flags.html`, with a source link per item.
 
 **Next entry will record the completed status, the sources actually used, and the PR/merge.**
+
+# Appendix — session `arena/e8a1af1b-x4` (task T30, originally claimed as T22)
+
+Claimed on the board above at `T22`. Scope is additive: new `research/data/*.csv`,
+`tools/build_integrity.py`, `tools/gen_programme.py`, `tools/gen_workbench.py`,
+`tools/workbench.json`, `site/workbench.html`, `site/programme.html` and their root
+mirrors, plus the two `DESK_PAGES`/`DIRECTORY` registrations and the one sidebar link
+insertion across the desk pages. No existing dataset, model, page body or number was
+modified.
+
+## Merge-conflict log
+
+- **No conflict encountered.** `main` was at `39f5abd` when this session started and the
+  branch was created from it. Two other sessions (`arena/4d9bc204-x4`, T21 depth charts;
+  `arena/7329d16c-x4`, audit) hold open claims that touch `tools/pages.py`,
+  `data/depth-wk11-2026.csv`, `site/depth.html`, `README.md` and `research/audit-*.md`.
+  Those files were **not** touched here. If their work lands first, the two additions to
+  `DIRECTORY` in `tools/pages.py` are additive list entries near `review.html` and should
+  merge cleanly; if not, keep both entries and re-run `tools/pages.py`.
+
+## What this session delivered
+
+| Deliverable | File | State |
+|---|---|---|
+| Price-snapshot store, opening / current / closing for spread, total and both moneylines | `research/data/price_snapshots_2026.csv` | 14 games, 252 price rows, captured 2026-11-14T19:17Z |
+| Long-format price store and open→current→close movement | `research/data/price_snapshots_long.csv`, `market_movement.csv` | generated |
+| Verified results feed | `research/data/results_2026.csv` | 137 games, reconciled to 32 official standings rows on 192 fields |
+| Paper-bet settlement, market by market | `research/data/results_graded_week10.csv` | 9 models × 1 settled game |
+| Side → total → moneyline with fair / market / difference columns | `research/data/market_origination_wk11.csv` | 13 games |
+| Signal vs staking, separated | `research/data/leaderboard_signal_staking.csv`, `staking_vs_signal_sim.csv` | generated |
+| Replacement depth measured, not assumed | `research/data/replacement_depth_measured.csv` | 7 rows, depth slot on all 7 |
+| Correlations with n and a 95% interval | `research/data/correlation_n.csv` | 5 values |
+| Demotion gate | `research/data/demotion_gate_rules.csv`, `demotion_gate_run.csv` | 5 rules, 2 blocked |
+| CLV ledger | `research/data/clv_ledger.csv` | **header only, 0 rows, by design** |
+| The page | `site/programme.html` + root mirror | 12 tables, all generated |
+| The suggestion workbench | `site/workbench.html` + root mirror, `tools/workbench.json` | 12 proposals, one rubric, persisted review |
+| Written findings | `research/integrity-gates.md`, `decision-register.md`, `origination-programme.md` | — |
+
+## Verification performed
+
+- `python3 tools/validate.py` — the full existing publication gate: PASS (data proof,
+  rebuild, site build, research regeneration, root mirror byte-parity, desk pages, console,
+  determinism, hygiene).
+- `python3 tools/check_site.py` — 13 desk pages, 506 table rows, 15 mirrored files, 866
+  links: PASS. Every data row carries an https source link.
+- `python3 site/check.py` — 897 rendered data rows, every one with an official source link;
+  32 standings rows arithmetically consistent: PASS.
+- `python3 tools/build_integrity.py` — self-asserting: 14 captured games, no duplicate game
+  in the feed, all 13 Week-11 games on the official slate, 192 standings fields reconciled,
+  rectangular CSV shape on every integrity dataset.
+- Independent recomputation of every correlation in `correlation_n.csv` matched the desk's
+  `research/computed_stats.json` to 4 decimal places.
+- The `spread` sign convention was cross-checked against the desk's independent line table
+  on all 13 games after an inversion was found (see irregularities).
+
+## Irregularities found and flagged
+
+- **F-18 (new) — market-side sign inversion, caught and fixed.** The captured spread is
+  quoted from the *away* side, so `+10` means the *away* team receives points and the
+  *home* team is favoured. The first draft of `market_origination_wk11.csv` read it the
+  other way and named the wrong favourite in all 13 games. Caught by cross-checking
+  against `research/data/week11_odds_2026.csv`; fixed and re-verified.
+- **F-19 (new) — a mis-quoted CSV row.** `research/data/replacement_depth.csv` shipped one
+  row with an unquoted comma, which silently shifted the evidence URL into the
+  `captured_utc` column and left the source link empty. Caught by the site checker
+  resolving `2026-11-14T19:17Z` as a local file. Fixed, and a rectangular-CSV assertion was
+  added to `tools/build_integrity.py` and to `tools/check_site.py` so this class of error
+  fails the gate instead of rendering.
+- **F-20 (new) — the CLV column was not CLV.** The first `results_graded_week10.csv`
+  published `clv_points`, which measured the model-to-close *disagreement*, not
+  closing-line value. This project has never taken a price. The column is renamed
+  `disagreement_points`, the CLV ledger is published with zero rows, and every gate that
+  depends on CLV reports BLOCKED rather than a number.
+- **F-21 (new) — three figures in a drafted note did not match the generated data** (the
+  gap-bucket counts, the size of the Week-10 total move, and the graded winners). All three
+  were corrected against `integrity_summary.json` before commit; the check that caught them
+  is recorded in this appendix so a reviewer can repeat it.
+
+## PR and merge log
+
+| # | Pull request | Merge commit | Result |
+|---|---|---|---|
+| 22 | see the PR link in the final section below | — | — |
+
+---
 
 ## Session log — arena/1c6a213c-x4 (price snapshots, results feed, signal/staking, replacement depth, demotion gate, deploy)
 

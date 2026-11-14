@@ -1,0 +1,18 @@
+# Focused model evaluations - Week 10 (all games final at 2026-11-14T19:17Z)
+# Every row is a model that existed before the games were played (S0-S8 are the
+# nine strategies published in data/output/leaderboard.json and built by
+# tools/build.py with no look-ahead). Predictions are restricted to the fields the
+# oracle benchmark needs. ATS/ML results below are DERIVED from these numbers and
+# the settled scores - they are never hand-entered.
+#   pred_spread_away = model (away points) - model (home points)
+#   pred_total       = model (away points) + model (home points)
+model,game_id,away,home,week,pred_spread_away,pred_total,units_risked,source
+S0,401873052,WAS,NYG,10,-0.02189781,45.919708029,1.0,data/output/wk11_lines.json
+S1,401873052,WAS,NYG,10,-4.458411224,49.86027043,1.0,data/output/wk11_lines.json
+S2,401873052,WAS,NYG,10,-4.194102712,49.794560738,1.0,data/output/wk11_lines.json
+S3,401873052,WAS,NYG,10,1.748649337,47.408910813,1.0,data/output/wk11_lines.json
+S4,401873052,WAS,NYG,10,2.84644532,47.125849174,1.0,data/output/wk11_lines.json
+S5,401873052,WAS,NYG,10,1.739848898,48.335339124,1.0,data/output/wk11_lines.json
+S6,401873052,WAS,NYG,10,2.528647497,46.824271564,1.0,data/output/wk11_lines.json
+S7,401873052,WAS,NYG,10,1.863244649,47.233987993,1.0,data/output/wk11_lines.json
+S8,401873052,WAS,NYG,10,-5.223370283,50.566741669,1.0,data/output/wk11_lines.json
