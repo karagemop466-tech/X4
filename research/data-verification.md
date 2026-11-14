@@ -76,7 +76,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-16 | Two different flagged registers reuse the same identifiers |
 | F-17 | The three published layers define three different validation gates |
 | F-34 | Official injury-report drift on two practice-status cells |
-| F-18 | Market betting lines (spread, total, moneyline) |
+| F-18 | Market betting lines are not an official NFL publication |
 | F-19 | Staking / bankroll figures |
 | F-20 | ROI and expected-value figures |
 | F-21 | Replacement depth: starter, 2nd, 3rd, 4th string |
@@ -95,6 +95,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-35 | Player-prop and prop-combination prices |
 | F-36 | Prices are from one book and are not official |
 | F-37 | Doubled HTML entity in the depth summary text |
+| F-38 | The two price stores use the word 'close' differently |
 
 ## What is deliberately absent
 

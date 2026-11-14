@@ -11,6 +11,9 @@ Run:  python3 tools/gen_programme.py
 import csv
 import json
 import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import desk_nav
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RD = os.path.join(ROOT, "research", "data")
@@ -193,33 +196,13 @@ for g in gates:
                       '<a href="research/data/demotion_gate_run.csv">graded rows CSV</a>'])
 
 # ---------------------------------------------------------------- page assembly
-NAV = [("index.html", "Overview"), ("executive-summary.html", "Executive summary"),
-       ("requirements.html", "Requirements"), ("data.html", "Verified data"),
-       ("signals.html", "Line lab &amp; signals"),
-       ("origination.html", "Line origination"), ("price-store.html", "Price store"),
-       ("signal-vs-staking.html", "Signal vs staking"), ("correlations.html", "Correlations"),
-       ("replacements.html", "Availability &amp; depth"), ("method-lab.html", "Method lab"),
-       ("injuries.html", "Availability"),
-       ("leaderboard.html", "Leaderboard"),
-       ("decisions.html", "Decision Q&amp;A"),
-       ("review.html", "Suggestions"), ("workbench.html", "Suggestion workbench"),
-       ("programme.html", "Integrity &amp; programme"),
-       ("verification.html", "Verification"), ("requirements-closure.html", "Requirement closure"),
-       ("ops-review.html", "Review gate"),
-       ("flagged.html", "Flagged for review"), ("repo-review.html", "Repo review"),
-       ("sources.html", "Sources")]
-side = ['<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span>'
-        '<span>FOURTH DOWN<small>RESEARCH DESK</small></span></a>'
-        '<div class="side-label">WORKSPACE</div><nav>']
-side.append("".join('<a href="%s">%s</a>' % (h, l) for h, l in NAV))
-side.append('</nav><div class="side-bottom"><span class="pulse"></span> Research mode '
-            '<small>Snapshot 2026-11-14 \u00b7 no live feed</small></div></aside>')
+side = desk_nav.side()
 
 body = f"""<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Integrity gates and the decision programme: a price-snapshot store, a verified results feed, origination order side-then-total-then-moneyline, signal separated from staking, depth measured, correlations with n, and a demotion gate."><title>Integrity &amp; programme | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
 <body>
-{''.join(side)}
+{side}
 <main>
 <header class="topbar"><div><span class="eyebrow">14 &middot; INTEGRITY &amp; PROGRAMME</span><h1>Integrity gates and the decision programme</h1></div><span class="status-pill"><i></i> {PS['games']} priced games &middot; {GR['clv_rows']} CLV rows</span></header>
 

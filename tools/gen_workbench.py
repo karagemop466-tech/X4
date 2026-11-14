@@ -15,6 +15,9 @@ Run:  python3 tools/gen_workbench.py
 """
 import json
 import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import desk_nav
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WB = json.load(open(os.path.join(ROOT, "tools", "workbench.json"), encoding="utf-8"))
@@ -103,27 +106,7 @@ for cat in CAT_ORDER:
 rubric_rows = [[("<b>%s</b>" % esc(c["criterion"])), "%s" % W[c["criterion"]],
                 esc(c["question"]), esc(c["scale"])] for c in WB["rubric"]]
 
-NAV = [("index.html", "Overview"), ("executive-summary.html", "Executive summary"),
-       ("requirements.html", "Requirements"), ("data.html", "Verified data"),
-       ("signals.html", "Line lab &amp; signals"),
-       ("origination.html", "Line origination"), ("price-store.html", "Price store"),
-       ("signal-vs-staking.html", "Signal vs staking"), ("correlations.html", "Correlations"),
-       ("replacements.html", "Availability &amp; depth"), ("method-lab.html", "Method lab"),
-       ("injuries.html", "Availability"),
-       ("leaderboard.html", "Leaderboard"),
-       ("decisions.html", "Decision Q&amp;A"),
-       ("review.html", "Suggestions"), ("workbench.html", "Suggestion workbench"),
-       ("programme.html", "Integrity &amp; programme"),
-       ("verification.html", "Verification"), ("requirements-closure.html", "Requirement closure"),
-       ("ops-review.html", "Review gate"),
-       ("flagged.html", "Flagged for review"), ("repo-review.html", "Repo review"),
-       ("sources.html", "Sources")]
-side = ('<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span>'
-        '<span>FOURTH DOWN<small>RESEARCH DESK</small></span></a>'
-        '<div class="side-label">WORKSPACE</div><nav>' +
-        "".join('<a href="%s">%s</a>' % (h, l) for h, l in NAV) +
-        '</nav><div class="side-bottom"><span class="pulse"></span> Research mode '
-        '<small>Snapshot 2026-11-14 \u00b7 no live feed</small></div></aside>')
+side = desk_nav.side()
 
 top = ranked[0]
 body = f"""<!doctype html>

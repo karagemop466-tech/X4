@@ -27,6 +27,9 @@ import math
 import os
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import desk_nav
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OPS = os.path.join(ROOT, "data", "ops")
 SITE = os.path.join(ROOT, "site")
@@ -156,12 +159,12 @@ def pill(text, kind="info"):
 
 
 def page(slug, title, eyebrow, heading, status, body):
-    nav = "".join('<a href="%s">%s</a>' % (h, t) for h, t in NAV)
+    side = desk_nav.side()
     return """<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="%(desc)s"><title>%(title)s | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
 <body>
-<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav>%(nav)s</nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
+%(side)s
 <main>
 <header class="topbar"><div><span class="eyebrow">%(eyebrow)s</span><h1>%(heading)s</h1></div><span class="status-pill"><i></i>%(status)s</span></header>
 %(body)s
@@ -170,7 +173,7 @@ def page(slug, title, eyebrow, heading, status, body):
 <script src="nav.js"></script>
 </body>
 </html>
-""" % dict(desc=esc(heading + " - " + title), title=esc(title), nav=nav,
+""" % dict(desc=esc(heading + " - " + title), title=esc(title), side=side,
            eyebrow=esc(eyebrow), heading=heading, status=esc(status),
            body=body, foot=esc(title))
 

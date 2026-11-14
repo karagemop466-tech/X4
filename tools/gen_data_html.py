@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Generate data.html table bodies from the committed CSVs (single source of truth)."""
 import csv, json, re
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import desk_nav
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -105,8 +108,7 @@ TEMPLATE = """<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Verified NFL data tables: standings, schedules, odds and results with official source links."><title>Verified data | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
 <body>
-<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="signals.html">◎ &nbsp;Line lab &amp; signals</a><a href="origination.html">⊞ &nbsp;Line origination</a><a href="price-store.html">◈ &nbsp;Price store</a><a href="signal-vs-staking.html">⚖ &nbsp;Signal vs staking</a><a href="correlations.html">∿ &nbsp;Correlations</a><a href="replacements.html">＋ &nbsp;Availability &amp; depth</a><a href="method-lab.html">⌁ &nbsp;Method lab</a><a href="injuries.html">＋ &nbsp;Injury rows</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="review.html">✳ &nbsp;Suggestions</a><a href="workbench.html">✳ &nbsp;Suggestion workbench</a><a href="programme.html">◫ &nbsp;Integrity &amp; programme</a><a href="verification.html">✓ &nbsp;Verification</a><a href="requirements-closure.html">☑ &nbsp;Requirement closure</a><a href="ops-review.html">✧ &nbsp;Review gate</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
-
+{side}
 <main>
 <header class="topbar"><div><span class="eyebrow">03 · DATA</span><h1>Verified data tables</h1></div><span class="status-pill"><i></i> All rows source-linked · fetched 2026-11-14</span></header>
 
@@ -150,6 +152,7 @@ TEMPLATE = """<!doctype html>
 """
 
 html = TEMPLATE.format(
+    side=desk_nav.side(),
     sum_pf=it["sum_points_for"], sum_pa=it["sum_points_against"],
     wins=it["total_wins"], losses=it["total_losses"], ties=it["total_ties"],
     standings_rows="\n".join(standings_rows),

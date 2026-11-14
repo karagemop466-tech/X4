@@ -26,7 +26,7 @@ DESK_PAGES = [
     "origination.html", "price-store.html", "signal-vs-staking.html",
     "correlations.html", "replacements.html", "method-lab.html", "ops-review.html",
     "verification.html", "requirements-closure.html",
-    # T30 decision programme (session arena/e8a1af1b-x4)
+    # T30 integrity gates + programme + suggestion workbench (session arena/e8a1af1b-x4)
     "workbench.html", "programme.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page

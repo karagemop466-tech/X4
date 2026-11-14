@@ -1,0 +1,12 @@
+{
+  "archive_games": 29,
+  "archive_rows": 174,
+  "both_empty": 0,
+  "comparisons": 112,
+  "games_played_in_integrity_store": 1,
+  "integrity_games": 14,
+  "matches": 112,
+  "mismatches": 0,
+  "note": "The integrity store calls the last posted line 'current' and reserves 'close' for a played game; the archive store calls that same number 'close'. Flag F-38.",
+  "one_empty": 0
+}

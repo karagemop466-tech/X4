@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate strategies.html — line lab and correlation tables derived from research/computed_stats.json."""
-import json, re
+import json, re, sys
 from pathlib import Path
 import csv as _csv, os as _os
 def _signal_staking_rows():
@@ -25,6 +25,9 @@ def _signal_staking_rows():
     return "\n".join(out)
 
 
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import desk_nav
 
 ROOT = Path(__file__).resolve().parents[1]
 S = json.loads((ROOT / "research" / "computed_stats.json").read_text())
@@ -74,8 +77,7 @@ TEMPLATE = """<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Line origination lab, candidate signals, validation gates, computed correlations and skill protocol."><title>Line lab &amp; strategies | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
 <body>
-<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="signals.html">◎ &nbsp;Line lab &amp; signals</a><a href="origination.html">⊞ &nbsp;Line origination</a><a href="price-store.html">◈ &nbsp;Price store</a><a href="signal-vs-staking.html">⚖ &nbsp;Signal vs staking</a><a href="correlations.html">∿ &nbsp;Correlations</a><a href="replacements.html">＋ &nbsp;Availability &amp; depth</a><a href="method-lab.html">⌁ &nbsp;Method lab</a><a href="injuries.html">＋ &nbsp;Injury rows</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="review.html">✳ &nbsp;Suggestions</a><a href="workbench.html">✳ &nbsp;Suggestion workbench</a><a href="programme.html">◫ &nbsp;Integrity &amp; programme</a><a href="verification.html">✓ &nbsp;Verification</a><a href="requirements-closure.html">☑ &nbsp;Requirement closure</a><a href="ops-review.html">✧ &nbsp;Review gate</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
-
+{side}
 <main>
 <header class="topbar"><div><span class="eyebrow">04 · SIGNALS</span><h1>Line lab &amp; strategies</h1></div><span class="status-pill"><i></i> Baseline v0 · gates not run</span></header>
 
@@ -156,6 +158,7 @@ TEMPLATE = """<!doctype html>
 """
 
 html = (TEMPLATE
+        .replace("{side}", desk_nav.side())
         .replace("{line_rows}", "\n".join(line_rows))
         .replace("{signal_rows}", _signal_staking_rows())
         .replace("{home_row}", home_row)

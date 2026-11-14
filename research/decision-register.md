@@ -1,5 +1,27 @@
 # Decision register: what is known, what is missing, and what would settle it
 
+> **Status after the T31 integration (2026-11-14, session `arena/f7614083-x4`).**
+> The findings below are unchanged and still correct: they were true when they were
+> written and nothing here has been rewritten to look newer than it is. What changed is
+> the surrounding state, and a reader needs to know it:
+>
+> * A **second, wider price capture** now exists - 29 games, opening and closing, spread,
+>   total and moneyline - published on `market.html`, and it is graded against the official
+>   NFL.com results: **432 graded bets over 16 settled games, nine strategies**, with a
+>   skill board that cannot see a stake and a staking board beside it. Every one of the
+>   nine strategies breaches at least one demotion rule and sits on paper.
+> * The two captures were taken independently and are **reconciled number by number**:
+>   112 of 112 comparable values match (`tools/reconcile_prices.py`, part of the
+>   publication gate; the row-by-row record is
+>   `research/data/price_capture_reconciliation.csv`).
+> * The word **"close" means different things in the two stores** - that is flag F-38.
+> * The prices are **not official**. The league publishes no betting lines; the numbers
+>   are one book's, published by ESPN, and are labelled non-official everywhere they
+>   appear (F-01, F-18, F-36).
+>
+> Nothing above changes the conclusion of this note: the sample is still far short of the
+> gate thresholds, and no strategy is eligible for reward.
+
 Every row states one question that blocks a decision, the answer the repository can
 currently support, the information that answer is missing, and the concrete step that
 would obtain it. **The answer column never guesses.** Where the data cannot support an
@@ -23,7 +45,7 @@ Companion data: `research/data/integrity_summary.json`,
 | A1 | What price was available to us at the moment a stake would have been placed? | **Nothing.** No stake-time capture exists. The store starts 2026-11-14T19:17Z and every strategy is paper-only | A timestamped price row written before kick-off | One scheduled run per week that writes `price_snapshots_2026.csv` at T−60 minutes | BLOCKED |
 | A2 | Did the market move after we would have bet? | **Yes, sometimes a lot.** The one settled game moved 7 points on the total (47.5 → 40.5) and 0 on the spread | Which of our 13 Week-11 games will move, and in which direction | The same scheduled capture, then a diff of open/current/close | PARTIAL |
 | A3 | Is the DraftKings-via-ESPN price the price we could actually get? | **Unknown.** The feed is a public syndication, not an executable quote | Whether the account that would take the bet sees the same number, and any limit on stake size | Read the actual book's price at the moment of the stake and store it beside the syndicated one | BLOCKED |
-| A4 | Does an official NFL line exist? | **No.** The league publishes no betting lines; recorded as F-02 | — | — | ANSWERED |
+| A4 | Does an official NFL line exist? | **No.** The league publishes no betting lines; recorded as F-01, F-18 and F-36 | — | — | ANSWERED |
 | A5 | How many games can we price? | **13 of 13** on the Week-11 slate, plus 1 settled Week-10 game | Weeks 12–18, which NFL lists as to-be-determined (F-10) | Wait for the league to publish them; do not guess kickoff times | PARTIAL |
 
 ## B. The results feed and the sample
@@ -31,7 +53,7 @@ Companion data: `research/data/integrity_summary.json`,
 | # | Question | Answer today | Missing information | How to obtain it | Status |
 |---|---|---|---|---|---|
 | B1 | Can every published score be trusted? | **Yes.** 137 games reproduce all 32 official standings rows on 192 fields | — | — | ANSWERED |
-| B2 | How many settled bets exist? | **Nine** — one game × nine models | The rest of the season | Settle weeks 1–9 from the feed; the scores already reconcile | PARTIAL |
+| B2 | How many settled bets exist? | **Nine** in the integrity store (one game × nine models) and **432** in the price archive (16 settled games × nine strategies × three markets) | The rest of the season | Settle weeks 1–9 from the feed; the scores already reconcile | PARTIAL |
 | B3 | Are those nine bets independent? | **No.** The models' prediction errors correlate 0.92–0.999 | An effective sample size, not a raw count of rows | Report the *number of independent signals*, not the number of bets, and shrink n accordingly | BLOCKED |
 | B4 | Is a 55% hit rate distinguishable from luck at the sample we have? | **No.** No gate accepts fewer than 100 settled bets | More settled bets | See B2 | BLOCKED |
 | B5 | Is there a full official per-play or per-drive source for player stats? | **Not confirmed.** No official per-player game log has been verified in this repository | An official, machine-readable player-log source | Verify `nfl.com/stats/player-stats` and NFL's Next Gen Stats documentation before using either | BLOCKED |

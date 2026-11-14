@@ -94,8 +94,8 @@ DIRECTORY = [
          "All {n_depth_rows} depth positions transcribed from the {n_depth_clubs} clubs that publish an ordered chart, joined to the official injury report: who is out, who replaces him, and where no replacement is named."),
         ("injuries.html", "Availability",
          "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
-        ("results.html", "Results feed",
-         "Every completed game with its official score and the NFL.com page that confirms it - the feed that makes backtests computable."),
+        ("replacements.html", "Availability &amp; depth",
+         "The replacement chains: who replaced whom, at what depth, and where no replacement is named at all."),
     ]),
     ("Model &amp; strategies", [
         ("lines.html", "Model lines",
@@ -110,6 +110,16 @@ DIRECTORY = [
          "Thirteen originated baseline lines against the market, ten candidate signals, eight gates and four correlations with confidence intervals."),
         ("leaderboard.html", "Leaderboard",
          "Singles, parlays and prop-combination divisions with the scoring formula and the anti-gaming rules."),
+        ("origination.html", "Line origination",
+         "The origination desk: side first, then total, then moneyline, with the fair line, the market line and the difference kept apart."),
+        ("price-store.html", "Price store",
+         "The operations price store: opening and current numbers for every market we originate, and the closing snapshot that is deliberately empty."),
+        ("signal-vs-staking.html", "Signal vs staking",
+         "The leaderboard split: a strategy's signal is scored without seeing a stake, so a lucky staking run cannot mask a bad signal."),
+        ("correlations.html", "Correlations",
+         "Correlations computed only from officially sourced numbers, each published with its n and its confidence interval."),
+        ("method-lab.html", "Method lab",
+         "The method behind every number: pre-registration, walk-forward evaluation, the gates and the anti-luck protocol."),
     ]),
     ("Line origination desk", [
         ("origination.html", "Line origination",
@@ -152,6 +162,12 @@ DIRECTORY = [
          "The full source register: which official page each number came from, and when it was retrieved."),
         ("repo-review.html", "Repo review",
          "A line-by-line review of every file in this repository, with the issues that were found."),
+        ("ops-review.html", "Review gate",
+         "The gate that decides what may be published: which numbers are official, which are model estimates and which are unverified."),
+        ("verification.html", "Verification",
+         "Every check that was run, what it proved and what it could not prove."),
+        ("requirements-closure.html", "Requirement closure",
+         "Each brief requirement, the deliverable that satisfies it, and the verification that closes it."),
     ]),
 ]
 
@@ -1658,7 +1674,26 @@ def shell(slug, title, description, body, active):
   <div class="inner">
     <span>FOURTH DOWN RESEARCH &middot; NFL decision support</span>
     <span>Official sources: nfl.com/standings &middot; nfl.com/injuries &middot; nfl.com/schedules &middot; operations.nfl.com &middot; ftc.gov</span>
-    <span>Evidence status: verified official data + labelled model estimates + captured non-official prices (DraftKings via ESPN) &middot; not betting advice</span>
+    ("Line origination desk", [
+        ("origination.html", "Line origination",
+         "The origination desk: side first, then total, then moneyline, with the fair line, the market line and the difference kept apart."),
+        ("price-store.html", "Price store",
+         "The operations price store: opening and current numbers for every market we originate, and the closing snapshot that is deliberately empty."),
+        ("signal-vs-staking.html", "Signal vs staking",
+         "The leaderboard split: a strategy's signal is scored without seeing a stake, so a lucky staking run cannot mask a bad signal."),
+        ("correlations.html", "Correlations",
+         "Correlations computed only from officially sourced numbers, each published with its n and its confidence interval."),
+        ("replacements.html", "Availability &amp; depth",
+         "Replacement depth, as far as the official record goes."),
+        ("method-lab.html", "Method lab",
+         "The method behind every number: pre-registration, walk-forward evaluation, the gates and the anti-luck protocol."),
+        ("ops-review.html", "Review gate",
+         "The review gate for this layer's own suggestions."),
+        ("verification.html", "Verification",
+         "A page whose claims are re-derived from the raw artifacts, so the page can contradict itself."),
+        ("requirements-closure.html", "Requirement closure",
+         "Every brief requirement with its closure state and the evidence page for it."),
+    ]),
   </div>
 </footer>
 <script src="app.js"></script>
@@ -1715,7 +1750,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
   <div class="section-head"><div><span class="eyebrow">Where to go next</span><h2>The desk</h2></div></div>
   <div class="grid g3">
     <article class="card"><span class="eyebrow">Data</span><h3><a href="standings.html">Standings &amp; results</a></h3><p class="muted">Official standings for all 32 teams, opponent-adjusted power ratings, and all %(ngames)d completed games with a link to each official game page.</p></article>
-    <article class="card"><span class="eyebrow">Model</span><h3><a href="lines.html">Model lines</a></h3><p class="muted">Week 11 model spreads and totals for all 13 official games, with the full range across strategies and the market-line column left blank on purpose.</p></article>
+    <article class="card"><span class="eyebrow">Model</span><h3><a href="lines.html">Model lines</a></h3><p class="muted">Week 11 model spreads and totals for all 13 official games, with the full range across strategies, the captured market line beside it and the difference published as its own column.</p></article>
     <article class="card"><span class="eyebrow">Validation</span><h3><a href="strategies.html">Strategy lab</a></h3><p class="muted">The leaderboard, the seven gates, the error-correlation matrix, the calibration check and the week-by-week stability table.</p></article>
     <article class="card"><span class="eyebrow">Availability</span><h3><a href="availability.html">Injuries &amp; depth</a></h3><p class="muted">The full official Week 10 injury report, a unit-level roll-up of absences, and the starter changes the league confirmed in its own news.</p></article>
     <article class="card"><span class="eyebrow">Decisions</span><h3><a href="questions.html">Decision checklist</a></h3><p class="muted">%(n_questions)s questions that must be answered before a decision here is reasonable: what we know, what is missing, what it blocks and how to close it.</p></article>
@@ -1728,7 +1763,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
            nstrat=len(leaderboard), lbpreview=leaderboard_preview_table(),
            flagpreview=flags_table(limit=6),
            n_questions=spell(N_QUESTIONS),
-           directory=directory_section()), "index.html"))
+           directory="__DIRECTORY__"), "index.html"))
 
 # --- standings ---
 PAGES.append(("standings.html", "Standings & results",
@@ -2212,6 +2247,9 @@ def main():
     os.makedirs(SITE, exist_ok=True)
     written = []
     for href, title, desc, body, active in PAGES:
+        # The landing-page directory is rendered now, not at import time, so a page
+        # that registers itself late (the market hook) is still listed on it.
+        body = body.replace("__DIRECTORY__", directory_section())
         slug = href.replace(".html", "")
         with open(os.path.join(SITE, href), "w", encoding="utf-8") as fh:
             fh.write(shell(slug, title, desc, body, href))

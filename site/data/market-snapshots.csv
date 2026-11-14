@@ -1,0 +1,4 @@
+snapshot_id,season,week,provider,kind,retrieved_utc,event_count,source_note
+2026W11-OPEN,2026,11,DraftKings (as published by ESPN),opening,2026-11-14T00:00:00Z,13,"Opening lines as ESPN publishes them for the Week 11 card; retrieved Saturday 14 Nov 2026, before the first kickoff (Thu 19 Nov 2026)."
+2026W11-PRE,2026,11,DraftKings (as published by ESPN),current,2026-11-14T00:00:00Z,13,"Current lines at the same retrieval. Because no Week 11 game has kicked off, the current line IS the latest tradable line; it is not yet a closing line."
+2026W11-CLOSE,2026,11,DraftKings (as published by ESPN),closing,PENDING,0,Not captured: no Week 11 game had kicked off at retrieval. A closing snapshot must be taken at/after kickoff of each game; until then every closing column is blank by design.

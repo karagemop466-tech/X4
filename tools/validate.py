@@ -28,6 +28,8 @@ STEPS = [
      [PY, os.path.join(ROOT, "tools", "market.py")]),
     ("re-derive every market number independently",
      [PY, os.path.join(ROOT, "tools", "market_check.py")]),
+    ("reconcile the two independent price captures",
+     [PY, os.path.join(ROOT, "tools", "reconcile_prices.py")]),
     ("build site pages", [PY, os.path.join(ROOT, "tools", "pages.py")]),
     ("build the integrity datasets", [PY, os.path.join(ROOT, "tools", "build_integrity.py")]),
     ("build the programme page", [PY, os.path.join(ROOT, "tools", "gen_programme.py")]),

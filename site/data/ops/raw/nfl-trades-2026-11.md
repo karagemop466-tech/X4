@@ -1,0 +1,14 @@
+| From | To | Date | Name | Position | Transaction |
+| --- | --- | --- | --- | --- | --- |
+| [ATL](https://www.nfl.com/teams/atlanta-falcons/) | [JAX](https://www.nfl.com/teams/jacksonville-jaguars/) | 11/10 | [Jessie Bates](https://www.nfl.com/players/jessie-bates/) |  | Traded |
+| [PHI](https://www.nfl.com/teams/philadelphia-eagles/) | [JAX](https://www.nfl.com/teams/jacksonville-jaguars/) | 11/10 | [Jordan Davis](https://www.nfl.com/players/jordan-davis/) |  | Traded |
+| [TEN](https://www.nfl.com/teams/tennessee-titans/) | [BUF](https://www.nfl.com/teams/buffalo-bills/) | 11/10 | [Amani Hooker](https://www.nfl.com/players/amani-hooker/) |  | Traded |
+| [IND](https://www.nfl.com/teams/indianapolis-colts/) | [SF](https://www.nfl.com/teams/san-francisco-49ers/) | 11/10 | [Keenan Allen](https://www.nfl.com/players/keenan-allen/) |  | Traded |
+| [LV](https://www.nfl.com/teams/las-vegas-raiders/) | [MIN](https://www.nfl.com/teams/minnesota-vikings/) | 11/10 | [Kirk Cousins](https://www.nfl.com/players/kirk-cousins/) |  | Traded |
+| [LAC](https://www.nfl.com/teams/los-angeles-chargers/) | [DEN](https://www.nfl.com/teams/denver-broncos/) | 11/10 | [Daiyan Henley](https://www.nfl.com/players/daiyan-henley/) |  | Traded |
+| [IND](https://www.nfl.com/teams/indianapolis-colts/) | [KC](https://www.nfl.com/teams/kansas-city-chiefs/) | 11/10 | [Josh Downs](https://www.nfl.com/players/josh-downs/) |  | Traded |
+| [ATL](https://www.nfl.com/teams/atlanta-falcons/) | [BAL](https://www.nfl.com/teams/baltimore-ravens/) | 11/10 | [Ryan Neuzil](https://www.nfl.com/players/ryan-neuzil/) |  | Traded |
+| [BAL](https://www.nfl.com/teams/baltimore-ravens/) | [ATL](https://www.nfl.com/teams/atlanta-falcons/) | 11/10 | [Andrew Vorhees](https://www.nfl.com/players/andrew-vorhees/) |  | Traded |
+| [NYJ](https://www.nfl.com/teams/new-york-jets/) | [DET](https://www.nfl.com/teams/detroit-lions/) | 11/09 | [Andre Cisco](https://www.nfl.com/players/andre-cisco/) |  | Traded |
+| [NO](https://www.nfl.com/teams/new-orleans-saints/) | [JAX](https://www.nfl.com/teams/jacksonville-jaguars/) | 11/09 | [Davon Godchaux](https://www.nfl.com/players/davon-godchaux/) |  | Traded |
+| [ARI](https://www.nfl.com/teams/arizona-cardinals/) | [BAL](https://www.nfl.com/teams/baltimore-ravens/) | 11/06 | [Jacoby Brissett](https://www.nfl.com/players/jacoby-brissett/) |  | Traded |

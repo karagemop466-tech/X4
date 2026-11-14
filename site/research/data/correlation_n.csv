@@ -1,0 +1,6 @@
+quantity,pearson_r,n,ci_low,ci_high,input_file,source_url
+"Away score vs home score (weeks 6-9, all games)",0.0182,57,-0.2435,0.2775,research/data/games_weeks6-9_2026.csv,https://www.nfl.com/schedules/2026/by-week/week-9
+"Margin vs game total (weeks 6-9, all games)",-0.3099,57,-0.5279,-0.0537,research/data/games_weeks6-9_2026.csv,https://www.nfl.com/schedules/2026/by-week/week-9
+"Margin vs game total (neutral-site removed, n=54)",-0.3224,54,-0.5432,-0.0598,research/data/games_weeks6-9_2026.csv,https://www.nfl.com/schedules/2026/by-week/week-9
+"Net points vs win percentage (32 clubs, through Week 10 TNF)",0.8717,32,0.7513,0.9359,research/data/standings_2026_through_week10_tnf.csv,https://www.nfl.com/standings/
+Points for per game vs points against per game (32 clubs),-0.2041,32,-0.516,0.1557,research/data/standings_2026_through_week10_tnf.csv,https://www.nfl.com/standings/
