@@ -1067,7 +1067,7 @@ PAGES.append(("availability.html", "Injuries & depth",
 </section>
 
 <section style="margin-top:26px">
-  <div class="note"><b>What is deliberately not here.</b> No player is assigned a depth-chart string - starter, 2nd, 3rd or 4th. The NFL publishes no consolidated league depth chart, so any such ranking would be an invention. That gap is flag F-02, and the fix is on the <a href="suggestions.html">Suggestions</a> page as the highest-impact proposal on the list.</div>
+  <div class="note ok"><b>The depth question is now answered on its own page.</b> This page stops at who the official report says cannot play. Which of those players is a <i>starter</i>, who the club lists behind him, and where the club lists nobody at all, is on <a href="depth.html">Depth &amp; deficiency</a>: 1,558 depth positions transcribed from the clubs' own official charts and joined to this report. Flag <b>F-02</b> (no depth rank could be verified) is closed; what the charts still cannot say - who actually took the first snap - is <b>F-21</b>.</div>
 </section>
 """ % dict(avail=avail_table(), qb=qb_table(), news=news_table(), injfull=inj_full_table(),
            teamopts="".join('<option value="%s">%s</option>' % (esc(k), esc(v))
@@ -1168,12 +1168,14 @@ if DEPTH:
     _n_depth_rows_n = DEPTH["depth_rows"]
     _n_out = DEPTH["out_rows"]
     _n_starter = DEPTH["starter_out_rows"]
+    _n_out_doubt = sum(c["off_out"] + c["def_out"] for c in DEPTH["clubs"])
     _n_holes = len(DEPTH["holes"])
     _n_casc = len(DEPTH["cascades"])
     _n_unmatched = len(DEPTH["unmatched"])
     _n_club_out = sum(1 for c in DEPTH["clubs"] if c["off_starter_out"] or c["def_starter_out"])
 else:
     _n_depth_clubs = _n_depth_rows_n = _n_out = _n_starter = 0
+    _n_out_doubt = 0
     _n_holes = _n_casc = _n_unmatched = _n_club_out = 0
 
 PAGES.append(("depth.html", "Depth &amp; deficiency",
@@ -1191,7 +1193,7 @@ PAGES.append(("depth.html", "Depth &amp; deficiency",
 </div>
 
 <section style="margin-top:26px">
-  <div class="section-head"><div><span class="eyebrow">01 &middot; The unit roll-up</span><h2>Deficiency by club and by unit</h2><p class="muted">Offense and defense are scored separately, because losing three offensive starters is not the same event as losing three defensive ones. &quot;Starter&quot; means the first name the club prints at that position; a club that prints two co-starters has two, and both are counted. A club whose chart carries no date is marked rather than given an assumed one.</p></div><span class="tag acc">%d of 76 ruled-out players sit at depth 1</span></div>
+  <div class="section-head"><div><span class="eyebrow">01 &middot; The unit roll-up</span><h2>Deficiency by club and by unit</h2><p class="muted">Offense and defense are scored separately, because losing three offensive starters is not the same event as losing three defensive ones. &quot;Starter&quot; means the first name the club prints at that position; a club that prints two co-starters has two, and both are counted. A club whose chart carries no date is marked rather than given an assumed one.</p></div><span class="tag acc">%d of the %d players ruled Out or Doubtful are listed as starters</span></div>
   %s
 </section>
 
@@ -1223,7 +1225,7 @@ PAGES.append(("depth.html", "Depth &amp; deficiency",
   <div class="note ok"><b>How to check this yourself.</b> Pick any row, click its club-chart link, and look for the player's name in that position row: the column he sits in is the depth number printed here. Then open the official injury report and confirm his game status. Both links are on the row. The pipeline is <span class="mono">tools/depth.py</span>, which refuses to write the dataset if any transcription is internally inconsistent, and the join to the injury report is by name, so a mis-typed name shows up as an unmatched player rather than as a silent match.</div>
 </section>
 """ % (_n_depth_clubs, "{:,}".format(_n_depth_rows_n), _n_starter, _n_club_out,
-       _n_starter, _depth_rollup_table(),
+       _n_starter, _n_out_doubt, _depth_rollup_table(),
        _n_casc, "" if _n_casc == 1 else "s", _depth_cascade_table(),
        _n_holes, "" if _n_holes == 1 else "s", _depth_holes_table(),
        _n_unmatched, "" if _n_unmatched == 1 else "s", _depth_unmatched_table(),

@@ -11236,13 +11236,13 @@ window.X4 = {
    "priority": "P0",
    "priority_class": "p0",
    "area": "Data",
-   "title": "Ingest the official game books for snaps, starters and drives",
-   "body": "Add an ingestion step for the official NFL.com box scores of every completed game, producing snap counts, starter/backup depth ranks, possession splits and drive-level efficiency.",
-   "why": "This is the single largest gap. Depth-chart depth (question 3), long-term absences (question 4) and roster quality (question 6) all become measurable once snaps and starters are in hand. Everything else on this site is a scoring-rate model.",
-   "verify": "An absence is assigned a measured point value, and a depth rank can be quoted with a source link for every player.",
-   "effort": "High",
+   "title": "Repeat the depth capture every week and archive it, then add the official game books for snaps",
+   "body": "The depth half of this suggestion is now delivered for one week: tools/depth.py transcribes all 31 clubs that publish an ordered chart (1,558 positions) and joins them to the official injury report, on the Depth &amp; deficiency page. The remaining work is (a) run that same capture every week and keep every snapshot with its retrieval date, and (b) ingest the official game books so that snap counts and the players who actually took the first snap are recorded.",
+   "why": "A single-week snapshot is the right shape for originating next week's line and the wrong shape for backtesting: a Week-w forecast may only see what was known before Week w, so an availability term cannot enter the walk-forward model until the capture has been running for a stretch of weeks and been archived. The game books close the second half - a published chart is not proof of who started (F-21) - and they are what turns an absence into a measured point value.",
+   "verify": "An availability term can be added to a Week-w forecast using only snapshots dated before Week w, and a starter can be confirmed from the game book rather than from the pre-game chart.",
+   "effort": "Medium",
    "impact": "Very high",
-   "decision": "Confirm the game-book format is acceptable to parse and redistribute in this repository."
+   "decision": "Confirm the game-book format is acceptable to parse and redistribute, and commit to the weekly capture schedule plus the retention window."
   },
   {
    "priority": "P0",
