@@ -28,10 +28,22 @@ file scope. Never start work on a task another session has claimed.
 | 3 | Official-source data acquisition, model line engine, strategy validation harness, multi-page site, integration and publication | done | arena/59059060-x4 | `data/**`, `research/**`, `tools/**`, `site/**` (integration), root site mirror, `README.md`, `COORDINATION.md`, `.github/workflows/**` |
 | T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` |
 | T02–T14 | Requirements inventory, additional official-source research, strategy/leaderboard/injury/decision/suggestion pages, repo review, integration and publication | done | 5c48ced7 | root + `site/` mirrors of `executive-summary.html`, `requirements.html`, `data.html`, `signals.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `review.html`, `flagged.html`, `repo-review.html`, `sources.html`, `desk.css`, `nav.js`; new files under `research/data/`, `tools/` (desk tools), `.github/workflows/desk-check.yml` |
-| T15 | **Final integration session**: re-verify the combined data line by line, unify the navigation and the landing page so every page in all three builds is reachable, merge the two open pull requests, re-run every gate, publish to GitHub Pages, open and merge the PR to `main` | in progress | arena/da12b830-x4 | `tools/pages.py` (nav + landing page), `tools/sync.py`, `site/index.html` + root mirror, `site/nav.js` + root mirror, desk sidebar nav in `site/*.html` + root mirrors, `README.md`, `COORDINATION.md` |
+| T15 | **Final integration session**: re-verify the combined data line by line, unify the navigation and the landing page so every page in all three builds is reachable, merge the two open pull requests, re-run every gate, publish to GitHub Pages, open and merge the PR to `main` | done | arena/da12b830-x4 | `tools/pages.py` (nav + landing page), `tools/sync.py`, `site/index.html` + root mirror, `site/nav.js` + root mirror, desk sidebar nav in `site/*.html` + root mirrors, `README.md`, `COORDINATION.md` |
+| T22 | **The four market requirements, end to end**: (a) a price-snapshot store recording open *and* close for spread, total and moneyline on every originated market, with the change measured as **line movement** and reported alongside **depth** (how many games were played with the originating gap still the market's gap); (b) a verified results feed — 137 official NFL.com games with final scores and a game-page URL each — so backtests and ROI can be computed at all; (c) origination in the required order: **side first, total second, moneyline third**; (d) the model's fair number, the market number and the difference published as **three separate columns**; (e) the leaderboard split into a **skill board** (out-of-sample error, never depends on staking) and a **staking board** (Kelly-staked ledger), with a rule that a staking run cannot lift a strategy's skill rank; (f) correlation values computed **only** from in-repo official-derived data with **n and a confidence interval** published beside every value; (g) a numeric **demotion gate** that sends a live strategy back to paper. New page `market.html` + root mirror; new tools `tools/market.py`, `tools/market_check.py`; new data `data/market-*.csv`, `data/output/market.json` | in progress | arena/1b8b6e9e-x4 | `tools/market.py`, `tools/market_check.py`, `tools/validate.py` (additive steps only), `data/market-prices-2026.csv`, `data/market-snapshots-2026.csv`, `data/output/market.json`, `site/market.html` + root mirror, `site/check.py` (PAGES list, additive), `tools/render.js` (PAGES list, additive), `README.md`, `COORDINATION.md` |
+
+> **T22 scope note (added by arena/1b8b6e9e-x4, 2026-11-14 19:20 UTC).** T21
+> (`arena/4d9bc204-x4`, claimed 19:09 UTC, one *claim-only* commit at the time of this
+> note) declares `tools/pages.py` in its scope. T22 also needs `tools/pages.py` for the
+> market page render, the nav entry and the landing-page directory. Under the board's
+> rules the dispatcher proposes this split instead of editing their file: **T21 renders
+> `depth.html`, adds its nav entry and its landing-directory card; T22 renders
+> `market.html`, adds its nav entry and its landing-directory card.** The two edits are
+> additive, in different functions and different list literals, and merge cleanly. If
+> T21 prefers to own the whole file, T22 will publish `site/market.html` and add its
+> links in a follow-up integration commit after T21 lands. Either way no work is
+> duplicated and no file is changed by two sessions at once.
 
 ### Non-overlapping scope map
-
 | Path | Owner | Notes |
 |---|---|---|
 | `data/**`, `research/**`, `tools/**` | arena/59059060-x4 | task 3 - delivered |
