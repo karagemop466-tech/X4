@@ -75,7 +75,6 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-15 | The X4 Console's no-JavaScript fallback counts were stale |
 | F-16 | Two different flagged registers reuse the same identifiers |
 | F-17 | The three published layers define three different validation gates |
-| F-34 | Official injury-report drift on two practice-status cells |
 | F-18 | Market betting lines (spread, total, moneyline) |
 | F-19 | Staking / bankroll figures |
 | F-20 | ROI and expected-value figures |
@@ -92,6 +91,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-31 | The opening snapshot records points, not the price on those points |
 | F-32 | The publication gate rejected the surname Fagnano as a placeholder marker |
 | F-33 | The depth register on this site contradicted the official injury report for four of its seven rows |
+| F-34 | Official injury-report drift on two practice-status cells |
 
 ## What is deliberately absent
 
