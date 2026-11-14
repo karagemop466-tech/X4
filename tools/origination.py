@@ -41,6 +41,7 @@ Outputs  data/ops/markets.csv, fair_lines.csv, graded.csv,
          results.csv
 """
 import csv
+import glob
 import json
 import math
 import os
@@ -211,8 +212,23 @@ def home_edge(games, weeks):
 # event identity
 # ---------------------------------------------------------------------------
 MARKET_ORDER = {"side": 0, "total": 1, "moneyline": 2}
-# The three 2026 games at a neutral site, so a home-edge term is not applied twice.
-NEUTRAL = {("CIN", "ATL"), ("HOU", "JAX"), ("PIT", "NO")}
+
+
+def neutral_games():
+    """The 2026 international games, read from the official schedule labels.
+
+    A game played abroad is a neutral-site game, so the home-field term must not
+    be applied on top of it. This used to be a hand-typed set of three pairs and
+    it was wrong: week 10's Munich game (Patriots at Lions) was missing, and a
+    home edge was being applied to a game played in Germany. The set is now read
+    from data/international-2026.csv, where every row carries the official weekly
+    schedule page that labels the game as an International Game.
+    """
+    path = os.path.join(DATA, "international-2026.csv")
+    return {(r["away"], r["home"]) for r in read_csv(path)}
+
+
+NEUTRAL = neutral_games()
 
 
 def resolve_events(events, games):
@@ -293,10 +309,15 @@ def official_fixtures():
         fixtures.append({"week": int(g["week"]), "away": g["away"], "home": g["home"],
                          "played": "1", "url": g["url"],
                          "away_pts": g["away_pts"], "home_pts": g["home_pts"]})
-    for g in read_csv(os.path.join(DATA, "schedule-wk11-2026.csv")):
-        fixtures.append({"week": int(g["week"]), "away": g["away"], "home": g["home"],
-                         "played": "0", "url": g["nfl_url"],
-                         "away_pts": "", "home_pts": ""})
+    played = {(f["week"], f["away"], f["home"]) for f in fixtures}
+    for path in sorted(glob.glob(os.path.join(DATA, "schedule-wk*.csv"))):
+        for g in read_csv(path):
+            key = (int(g["week"]), g["away"], g["home"])
+            if key in played:
+                continue          # a final already in the game log wins over the schedule
+            fixtures.append({"week": int(g["week"]), "away": g["away"], "home": g["home"],
+                             "played": "0", "url": g["nfl_url"],
+                             "away_pts": "", "home_pts": ""})
     return fixtures
 
 
@@ -314,7 +335,7 @@ def originate():
         results.append({
             "week": g["week"], "away": g["away"], "home": g["home"],
             "away_pts": g["away_pts"], "home_pts": g["home_pts"], "ot": g.get("ot", ""),
-            "neutral": "1" if (g["away"], g["home"]) in {("CIN", "ATL"), ("HOU", "JAX"), ("PIT", "NO")} else "0",
+            "neutral": "1" if (g["away"], g["home"]) in NEUTRAL else "0",
             "status": "final", "official_url": g["url"],
         })
     write_csv(os.path.join(OPS, "results.csv"),

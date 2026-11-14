@@ -25,6 +25,7 @@ DESK_PAGES = [
     # T21 origination layer (session arena/f39958e6-x4)
     "origination.html", "price-store.html", "signal-vs-staking.html",
     "correlations.html", "replacements.html", "method-lab.html", "ops-review.html",
+    "verification.html", "requirements-closure.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/

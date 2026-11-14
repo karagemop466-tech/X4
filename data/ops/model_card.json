@@ -61,11 +61,11 @@
   "sd": 13.593,
   "window": "weeks 6-9 2026"
  },
- "n_events_resolved": 6,
+ "n_events_resolved": 10,
  "n_events_seen": 42,
- "n_events_unresolved": 36,
- "n_markets": 18,
- "n_priced_events": 6,
+ "n_events_unresolved": 32,
+ "n_markets": 30,
+ "n_priced_events": 10,
  "order": [
   "side",
   "total",

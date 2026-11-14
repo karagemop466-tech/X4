@@ -48,6 +48,8 @@ NAV = [
     ("leaderboard.html", "↗ &nbsp;Leaderboard"),
     ("decisions.html", "? &nbsp;Decision Q&amp;A"),
     ("review.html", "✳ &nbsp;Suggestions"),
+    ("verification.html", "✓ &nbsp;Verification"),
+    ("requirements-closure.html", "☑ &nbsp;Requirement closure"),
     ("ops-review.html", "✧ &nbsp;Review gate"),
     ("flagged.html", "⚑ &nbsp;Flagged for review"),
     ("repo-review.html", "§ &nbsp;Repo review"),
@@ -220,6 +222,8 @@ def load():
         "depth": read_csv(os.path.join(OPS, "depth.csv")),
         "depth_club": read_csv(os.path.join(OPS, "depth_club.csv")),
         "schedule": read_csv(os.path.join(DATA, "schedule-wk11-2026.csv")),
+        "schedule_wk10": read_csv(os.path.join(DATA, "schedule-wk10-2026.csv")),
+        "international": read_csv(os.path.join(DATA, "international-2026.csv")),
     }
     return d
 
@@ -320,8 +324,11 @@ def build_origination(d):
          % (he.get("n", ""), float(he.get("ci95", [0, 0])[0] or 0),
             float(he.get("ci95", [0, 0])[1] or 0)),
          ext(NFL_SCHED + "by-week/week-9", "official results, weeks 6–9")],
-        ["Neutral-site games", "home edge set to 0",
-         "three 2026 games are at a neutral site; the edge is not applied twice",
+        ["Neutral-site games", "%d in 2026" % len(d["international"]),
+         "every 2026 International Game, read from the official weekly schedule label "
+         "rather than typed by hand; the home edge is set to 0 on each, so it is never "
+         "applied twice. Week 10's Munich game (Patriots at Lions) was missing from an "
+         "earlier hand-typed set of three and is the reason this is now derived",
          ext(NFL_SCHED, "official schedule")],
         ["Margin spread (sigma)", esc(fmt(m.get("sigma_margin"), 1)) + " pts",
          "used to turn the fair side into a fair moneyline",
@@ -1134,6 +1141,192 @@ def build_review(d):
 
 
 # ---------------------------------------------------------------------------
+# page: requirement closure
+# ---------------------------------------------------------------------------
+REQ_CLOSURE = [
+    ("Side → total → moneyline", "closed", "origination.html",
+     "The three markets are originated in that fixed order and the order is asserted in "
+     "the pipeline, not described in prose."),
+    ("Price store: open and close separately", "closed", "price-store.html",
+     "One row per reading with open_* and close_* as separate fields, a UTC stamp and a "
+     "source URL per row."),
+    ("Fair / market / difference as separate columns", "closed", "origination.html#fmd",
+     "Three columns on every originated market, never merged."),
+    ("Verified results feed", "closed", "origination.html#coverage",
+     "Every graded market carries the official NFL game page holding its final score."),
+    ("Signal separated from staking", "closed", "signal-vs-staking.html",
+     "Two independent scores; only the signal score is ranked."),
+    ("Demotion gate", "closed", "signal-vs-staking.html#demote",
+     "Six numeric triggers, evaluated, with the current verdict published."),
+    ("Correlations from official numbers, with n", "closed", "correlations.html",
+     "Four values with n and 95% intervals; four refused with the reason."),
+    ("Best practices and signal-generation research", "closed", "method-lab.html",
+     "Eight fundamentals, nine practices, ten candidates with honest status."),
+    ("Suggestions section with a review gate", "closed", "ops-review.html",
+     "Ten proposals, seven open questions, five flags, each with a decision."),
+    ("Replacement depth beyond the fact of a replacement", "partial", "replacements.html#ledger",
+     "Official timing gives urgency for 17 losses; the string itself is unavailable, so the "
+     "ledger says so per row instead of labelling."),
+    ("Parlays, prop combinations, leaderboard rewards", "partial", "signal-vs-staking.html",
+     "The gate and the divisor are built; pricing a parlay needs correlations the store "
+     "cannot yet support, and rewards are a business decision that is deliberately blank."),
+    ("Player-prop signals", "blocked", "correlations.html#not",
+     "No official player-stat feed is cached, so no prop can be originated without "
+     "inventing an input."),
+]
+
+
+def build_requirements_closure(d):
+    s = d["signal"]
+    kind = {"closed": "ok", "partial": "warn", "blocked": "bad"}
+    rows = [[pill(st, kind.get(st, "info")), "<b>%s</b>" % esc(name),
+             esc(reason), local(page, "inspect")]
+            for name, st, page, reason in REQ_CLOSURE]
+    closed = sum(1 for r in REQ_CLOSURE if r[1] == "closed")
+    body = (
+        '<section class="hero"><div><span class="eyebrow light">CLOSURE</span>'
+        '<h2>What this layer actually closed, and what it did not</h2>'
+        '<p>Twelve requirements from the brief, each with the artifact that answers it and '
+        'an honest status. A requirement marked <b>partial</b> or <b>blocked</b> has its '
+        'reason printed and its gap flagged; nothing here is marked closed on the strength '
+        'of a description.</p><a class="button" href="#table">See the closure table ↓</a></div>'
+        '<div class="hero-stat"><div class="ring">%d</div><strong>closed</strong>'
+        '<small>of %d requirements in this layer</small></div></section>' % (closed, len(REQ_CLOSURE))
+        + section("table", "REQUIREMENT CLOSURE", "Twelve requirements, twelve verdicts",
+                  "The status is a claim about an artifact, and the artifact is linked, so "
+                  "the claim can be checked without trusting this page.",
+                  "%d OF %d CLOSED" % (closed, len(REQ_CLOSURE)),
+                  table(["Status", "Requirement", "What closed it", "Artifact"], rows))
+        + section("honest", "WHAT IS STILL OPEN", "", "", "",
+                  '<div class="callout"><b>The one number that decides the rest</b>'
+                  '<p>This layer closes the <i>machinery</i>: the store, the ordering, the '
+                  'three-column discipline, the two-score split, the demotion gate, the '
+                  'n-on-every-correlation rule. It does not close the <i>evidence</i>. The '
+                  'sample is %s settled markets against a floor of 100 per market type, so '
+                  'every gate that needs evidence fails, and the honest headline is that this '
+                  'system has produced one originated strategy that the gate correctly refuses '
+                  'to promote. That is the machinery working.</p></div>' % esc(s.get("n", "0")))
+    )
+    return body
+
+
+# ---------------------------------------------------------------------------
+# page: verification
+# ---------------------------------------------------------------------------
+def build_verification(d):
+    """A page whose claims are re-derived here, so the page can contradict itself."""
+    prices = d["prices"]
+    fmd = d["fmd"]
+    graded = d["graded"]
+    txn = d["transactions"]
+    depth = d["depth"]
+    corr = correlation_rows(d)
+
+    # recompute the headline claims from the raw artifacts
+    with_url = sum(1 for p in prices if p["source_url"].startswith("https://"))
+    graded_with_result = sum(1 for r in graded if r["outcome"] in ("won", "lost", "push"))
+    txn_with_url = sum(1 for t in txn if (t.get("source_url") or "").startswith("https://"))
+    depth_with_url = sum(1 for r in depth if r["loss_url"].startswith("https://"))
+
+    checks = [
+        ["Every price reading carries an https source URL",
+         "%d / %d" % (with_url, len(prices)),
+         "pass" if with_url == len(prices) else "fail",
+         "a reading without provenance cannot be published"],
+        ["Every price reading carries a UTC retrieval stamp",
+         "%d / %d" % (sum(1 for p in prices if p["retrieved_utc"]), len(prices)),
+         "pass" if all(p["retrieved_utc"] for p in prices) else "fail",
+         "an undated reading cannot be ranked against another"],
+        ["Open and close are stored in separate fields",
+         "2 fields, %d rows" % len(prices),
+         "pass" if prices and "open_line" in prices[0] and "close_line" in prices[0] else "fail",
+         "a single line column cannot show movement"],
+        ["Every settled market carries its official result page, and every unsettled one "
+         "carries none",
+         "%d settled with a URL, %d unsettled correctly blank"
+         % (sum(1 for r in fmd if r["settled"] == "1"
+                and (r["official_result_url"] or "").startswith("https://")),
+            sum(1 for r in fmd if r["settled"] != "1" and not r["official_result_url"])),
+         "pass" if all(
+             ((r["official_result_url"] or "").startswith("https://"))
+             == (r["settled"] == "1") for r in fmd) else "fail",
+         "a settled grade without its official box score is an assertion; an unplayed market "
+         "must not carry one"],
+        ["Every graded bet has an outcome",
+         "%d / %d" % (graded_with_result, len(graded)),
+         "pass" if graded_with_result == len(graded) else "fail",
+         "an unsettled bet must not be counted"],
+        ["Every transaction carries its official page",
+         "%d / %d" % (txn_with_url, len(txn)),
+         "pass" if txn and txn_with_url == len(txn) else "fail",
+         "the depth proxy depends on the date being official"],
+        ["Every depth row carries the official loss page",
+         "%d / %d" % (depth_with_url, len(depth)),
+         "pass" if depth and depth_with_url == len(depth) else "fail",
+         "a depth read without its source is a guess"],
+        ["Every correlation carries n and an interval",
+         "%d / %d" % (sum(1 for r in corr if r["r"] is not None and r["n"] > 2), len(corr)),
+         "pass" if all(r["r"] is None or (r["n"] > 2 and r["lo"] != "") for r in corr) else "fail",
+         "a correlation without n is a rumour"],
+        ["The event identity binding is unique per week",
+         "%d bound, %d unresolved" % (len(d["identity"]), len(d["unresolved"])),
+         "pass" if len({(r["week"], r["away"], r["home"]) for r in d["identity"]}) == len(d["identity"]) else "fail",
+         "a duplicated binding would mis-grade two games"],
+        ["The gate count is the published count",
+         "%d gates" % len(d["gates"]),
+         "pass" if len(d["gates"]) == 8 else "fail",
+         "the published inventory must match the evaluated one"],
+    ]
+    rows = [[esc(a), esc(b), pill(c, "ok" if c == "pass" else "bad"), esc(e)] for a, b, c, e in checks]
+    failed = sum(1 for c in checks if c[2] != "pass")
+
+    body = (
+        '<section class="hero"><div><span class="eyebrow light">VERIFICATION</span>'
+        '<h2>Every claim re-derived from the artifact it came from</h2>'
+        '<p>This page does not describe the data. It recomputes the claims from the files and '
+        'prints the result, so if a claim and its artifact ever disagree the page says so '
+        'instead of repeating the claim. A failed row here is a reason not to publish.</p>'
+        '<a class="button" href="#checks">Run the checks ↓</a></div>'
+        '<div class="hero-stat"><div class="ring">%d</div><strong>checks passed</strong>'
+        '<small>of %d — %d failed</small></div></section>' % (len(checks) - failed, len(checks), failed)
+        + section("checks", "CHECKS", "Ten claims, each recomputed here",
+                  "The second column is the measurement, not a restatement. Where a row "
+                  "shows a fraction, the numerator is what passed the check and the "
+                  "denominator is the population.",
+                  "%d / %d" % (len(checks) - failed, len(checks)),
+                  table(["Claim", "Measured", "Result", "Why it matters"], rows))
+        + section("sources", "SOURCES USED", "Every upstream this layer reads",
+                  "Grouped by the job they do. The official NFL pages are the source of "
+                  "record for results, availability and transactions; the odds endpoint is "
+                  "a third-party publisher and is labelled T3 everywhere it appears.",
+                  "TIERED", table(
+                      ["Source", "Tier", "What it backs", "Link"],
+                      [["NFL.com standings", pill("T1 official", "ok"),
+                        "team scoring rates, the ratings input", ext(NFL_STAND, "nfl.com/standings")],
+                       ["NFL.com weekly schedule & results", pill("T1 official", "ok"),
+                        "final scores, kickoff times, the results feed", ext(NFL_SCHED, "nfl.com schedules")],
+                       ["NFL.com injury report", pill("T1 official", "ok"),
+                        "the absence, never the string", ext(NFL_INJ, "nfl.com/injuries")],
+                       ["NFL.com transactions", pill("T1 official", "ok"),
+                        "the date of a loss and the date of a replacement", ext(NFL_TXN, "nfl.com/transactions")],
+                       ["NFL.com club pages", pill("T1 official", "ok"),
+                        "player identity; the depth-chart path is a verified 404",
+                        ext(NFL + "/teams/arizona-cardinals/", "a club page")],
+                       ["ESPN odds endpoint (DraftKings)", pill("T3 third party", "warn"),
+                        "open and close numbers, labelled T3 on every row",
+                        ext("https://sportsbook.draftkings.com/", "the book named in the payload")]]))
+        + section("reproduce", "REPRODUCE", "Rebuild this layer from the cached bodies",
+                  "Deterministic, standard library only, no network for the rebuild itself.",
+                  "COMMANDS", '<div class="note"><code>python3 tools/fetch.py plan</code> '
+                  'writes the retrieval plan; <code>python3 tools/fetch.py ingest</code> folds '
+                  'the cached bodies into the store; <code>python3 tools/origination.py</code> '
+                  'originates and grades; <code>python3 tools/depth.py</code> builds the depth '
+                  'ledger; <code>python3 tools/ops.py</code> renders these pages; '
+                  '<code>python3 tools/check_site.py</code> is the gate.</div>')
+    )
+    return body
+
+
 def main():
     d = load()
     pages = {
@@ -1152,6 +1345,10 @@ def main():
                             "Method lab", "research · statuses labelled", build_method_lab),
         "ops-review.html": ("Review gate", "07 · REVIEW",
                             "Review gate", "review before implementing", build_review),
+        "verification.html": ("Verification", "08 · VERIFICATION",
+                              "Verification", "recomputed, not restated", build_verification),
+        "requirements-closure.html": ("Requirement closure", "09 · CLOSURE",
+                                      "Requirement closure", "twelve verdicts", build_requirements_closure),
     }
     written = []
     for slug, (title, eyebrow, heading, status, fn) in pages.items():
