@@ -26,6 +26,18 @@ DOCS = os.path.join(ROOT, "docs")
 CONSOLE = os.path.join(ROOT, "console")
 
 SKIP = {"check.py"}
+
+# Pages published by the decision-desk layer. They also live in site/, but they
+# are not owned by this mirror step, so it must never delete them from the root.
+DESK_OWNED = {
+    "executive-summary.html", "requirements.html", "data.html", "signals.html",
+    "leaderboard.html", "injuries.html", "decisions.html", "review.html",
+    "flagged.html", "repo-review.html", "sources.html",
+}
+
+
+def is_desk_mirror(fn):
+    return fn in DESK_OWNED
 KEEP_ROOT = {"README.md", "COORDINATION.md", ".gitignore"}
 # Build tools that live next to a site but are not part of it.
 NOT_SITE = {"check.js"}
@@ -82,8 +94,13 @@ def main():
             continue
         path = os.path.join(ROOT, fn)
         if os.path.isfile(path) and fn.endswith((".html", ".css", ".js")):
-            os.remove(path)
-            changed.append("(removed) " + fn)
+            # Only remove root copies that this file used to mirror. A page owned
+            # by another session (the decision-desk layer in site/ that is not in
+            # the main PAGES list) must survive - deleting it would silently take
+            # another session's published page off the site.
+            if not is_desk_mirror(fn):
+                os.remove(path)
+                changed.append("(removed) " + fn)
 
     # 2. the parallel console, so the legacy Pages build publishes the same site
     if os.path.isdir(DOCS):

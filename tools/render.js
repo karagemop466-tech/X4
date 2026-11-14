@@ -20,8 +20,10 @@ const PAGES = [
   ["price-snapshots.html", "price-snapshots"], ["results.html", "results"],
   ["strategies.html", "strategies"], ["availability.html", "availability"],
   ["depth.html", "depth"],
+  ["markets.html", "markets"], ["gates.html", "gates"],
   ["questions.html", "questions"], ["suggestions.html", "suggestions"],
   ["flags.html", "flags"], ["methodology.html", "methodology"],
+  ["markets.html", "markets"], ["results.html", "results"], ["gates.html", "gates"],
 ];
 
 function makeElement(id) {
