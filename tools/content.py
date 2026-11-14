@@ -206,8 +206,11 @@ FLAGS = [
                  "(DraftKings, published by ESPN) were captured for 29 games - open and close, spread, total and "
                  "moneyline - and are on the Market &amp; price archive page. Every one of those rows carries two "
                  "links: the NFL.com game page that proves the result, and the ESPN odds resource the price was "
-                 "archived from. What remains unverified is any price for a player prop or a prop combination: no "
-                 "official or licensed source was confirmed for those, so those cells are still blank (F-31)."),
+                 "archived from. A second, independently taken capture of the same prices (14 games) fills the market "
+                 "columns on the model-lines and price-snapshot pages; the two captures agree on all 112 comparable "
+                 "numbers, which tools/reconcile_prices.py re-derives and the publication gate enforces. "
+                 "What remains unverified is any price for a player prop or a prop combination: no "
+                 "official or licensed source was confirmed for those, so those cells are still blank (F-35)."),
          why=("The capture is a transcription of one book's published numbers at a timestamped moment, not an "
               "official league figure and not a market consensus. It is sufficient to compute a backtest, a ROI and a "
               "closing-line value against a real price; it is not sufficient to claim a price is the best available, "
@@ -318,7 +321,12 @@ FLAGS = [
          url="https://github.com/karagemop466-tech/X4/blob/main/data/injuries-wk10-2026.csv"),
 
     dict(id="F-18", item="Market betting lines are not an official NFL publication", type="Unverified data", kind="partial", status="resolved",
-         detail="The league publishes no betting lines. The market columns on this site are therefore filled from a captured feed - DraftKings prices read through the ESPN odds endpoint on 2026-11-14 - and every such figure is labelled with that provenance. 252 price rows cover 14 games &times; 3 markets &times; 3 phases (open, current, close), with 78 cells genuinely absent because no price was posted.",
+         detail=("The league publishes no betting lines. The market columns on this site are therefore filled from a "
+                 "captured feed - DraftKings prices read through the ESPN odds endpoint on 2026-11-14 - and every such "
+                 "figure is labelled with that provenance. The store on this page holds 14 games (the 13 official Week 11 "
+                 "games and the one final Week 10 game) across 12 phase cells each - 168 cells in total, of which 116 "
+                 "carry a price and 52 are genuinely empty because the closing phase is reserved for a game that has "
+                 "actually been played and 13 of the 14 games have not."),
          why="A market column is required by the brief and no official source exists for one, so the honest options are to publish nothing or to publish a clearly-labelled non-official price next to the official game identity. This site does the second: the price is never presented as an NFL line, the source is printed in the row, and the difference column (fair minus market) is published as its own column so a disagreement is never read as an edge. Where the feed had no price, the cell stays blank and says so.",
          official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
          url="https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds"),
@@ -446,6 +454,20 @@ FLAGS = [
               "misstate any number. Recorded here so it is not lost."),
          official_url="https://www.nfl.com/",
          url="https://www.nfl.com/"),
+
+    dict(id="F-38", item="The two price stores use the word 'close' differently", type="Irregularity", kind="warn", status="irregularity",
+         detail=("The price archive calls the last line the book was showing at the moment of capture 'close', so it is "
+                 "filled for every game, played or not. The integrity store on the price-snapshot page calls that same "
+                 "number 'current', and reserves 'close' for the closing line of a game that has actually been played, so "
+                 "it is empty for the 13 games still to come. The numbers agree - 112 of 112 comparable values match "
+                 "between the two captures - but the labels do not."),
+         why=("Recorded rather than silently renamed, because the collision is easy to misread: a reader who compares "
+              "the two pages and sees an empty 'close' in one of them could think a price is missing when it is the "
+              "same number under another name. The reconciliation table on the Market &amp; price archive page "
+              "publishes the comparison number by number, and this flag names the difference. Neither store is edited "
+              "to hide it."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/data/price_capture_reconciliation.csv"),
 
 ]
 # ------------------------------------------------------------------ verification log
