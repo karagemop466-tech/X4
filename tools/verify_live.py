@@ -104,11 +104,187 @@ def check_standings():
     return 0
 
 
+# The club heading printed on the official injury page, mapped to the
+# abbreviation this repository uses in data/injuries-wk10-2026.csv.
+PRACTICE = {
+    "Full Participation in Practice": "Full",
+    "Limited Participation in Practice": "Limited",
+    "Did Not Participate In Practice": "DNP",
+}
+PLAYER_ROW = re.compile(
+    r"^\|\s*\[([^\]]+)\]\((https://www\.nfl\.com/players/[^)]+)\)\s*"
+    r"\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|\s*$")
+
+# The club nickname printed on the official schedule and injury pages, mapped
+# to the abbreviation this repository uses.
+NICKNAME = {
+    "Commanders": "WAS", "Giants": "NYG", "Patriots": "NE", "Lions": "DET",
+    "Chiefs": "KC", "Falcons": "ATL", "Vikings": "MIN", "Packers": "GB",
+    "Jaguars": "JAX", "Titans": "TEN", "Bills": "BUF", "Jets": "NYJ",
+    "Dolphins": "MIA", "Colts": "IND", "Panthers": "CAR", "Saints": "NO",
+    "Texans": "HOU", "Browns": "CLE", "Rams": "LAR", "Cardinals": "ARI",
+    "Seahawks": "SEA", "Raiders": "LV", "49ers": "SF", "Cowboys": "DAL",
+    "Steelers": "PIT", "Bengals": "CIN", "Chargers": "LAC", "Ravens": "BAL",
+    "Bears": "CHI", "Buccaneers": "TB", "Eagles": "PHI", "Broncos": "DEN",
+}
+
+
+def read_injury_capture():
+    """Return the live injury rows as {team: [row, ...]}, in page order."""
+    text = ""
+    for i in range(8):
+        with open(os.path.join(VERIF, "injuries-chunk%d.md" % i), encoding="utf-8") as fh:
+            part = fh.read()
+        # The capture files were written by hand, so each one carries extra
+        # trailing newlines; drop them. The fetch tool then splits the page at
+        # arbitrary character offsets, so the chunks are rejoined exactly: a
+        # chunk that ends on a table row's final "|" was followed by a newline
+        # in the original page, and a chunk that ends mid-row was not.
+        part = part.rstrip("\n")
+        if text and text.endswith("|"):
+            text += "\n"
+        text += part
+    # The tool splits mid-token; repair the URL joins it produced so the row
+    # parser sees a whole URL.
+    text = re.sub(r"https:(//?)www\.nfl\.com", r"https://www.nfl.com", text)
+
+    live, team = [], None
+    for line in text.splitlines():
+        head = re.match(r"^###\s+(\S+)\s*$", line)
+        if head:
+            name = head.group(1)
+            if name not in NICKNAME:
+                raise SystemExit("unknown club heading in the capture: %r" % name)
+            team = NICKNAME[name]
+            continue
+        m = PLAYER_ROW.match(line)
+        if not m:
+            continue
+        player, url, pos, injuries, practice, status = m.groups()
+        if team is None:
+            raise SystemExit("player row before any club heading: %s" % player)
+        live.append({
+            "team": team, "player": player, "pos": pos,
+            "injuries": injuries, "practice": PRACTICE.get(practice, practice),
+            "game_status": status, "player_url": url,
+        })
+    return live
+
+
+def check_injuries():
+    live = read_injury_capture()
+    rows = list(csv.DictReader(open(os.path.join(ROOT, "data", "injuries-wk10-2026.csv"))))
+    key = lambda r: (r["team"], r["player"])
+    live_by_key = {key(r): r for r in live}
+    csv_by_key = {key(r): r for r in rows}
+
+    problems = []
+    if len(live) != len(rows):
+        problems.append("live report has %d player rows, the committed CSV has %d"
+                        % (len(live), len(rows)))
+    for k in sorted(csv_by_key):
+        c = csv_by_key[k]
+        l = live_by_key.get(k)
+        if l is None:
+            problems.append("%s %s: in the committed CSV but not on the official page"
+                            % (k[0], k[1]))
+            continue
+        for field in ("pos", "injuries", "practice", "game_status", "player_url"):
+            if c[field] != l[field]:
+                problems.append("%s %s: %s committed %r but the official page says %r"
+                                % (k[0], k[1], field, c[field], l[field]))
+    for k in sorted(live_by_key):
+        if k not in csv_by_key:
+            problems.append("%s %s: on the official page but missing from the committed CSV"
+                            % k)
+
+    print("injury rows checked against the live NFL.com capture: %d" % len(live))
+    if problems:
+        print("PROBLEMS (%d):" % len(problems))
+        for p in problems[:60]:
+            print("  - %s" % p)
+        if len(problems) > 60:
+            print("  ... and %d more" % (len(problems) - 60))
+        return 1
+    print("RESULT: PASS - all %d players on the official Week 10 injury report match "
+          "the committed CSV on team, position, injury, practice status, game status "
+          "and player URL." % len(live))
+    return 0
+
+
+def check_schedule():
+    path = os.path.join(VERIF, "schedule-wk11-live-2026-11-14.md")
+    text = open(path, encoding="utf-8").read()
+    games = re.findall(
+        r"^- \[(.+?) at (.+?), (?:Thursday|Sunday|Monday), November (\d+)(?:st|nd|rd|th), "
+        r"(\d+:\d+ [AP]M), ([A-Z0-9 ,]+)\]\((https://www\.nfl\.com/games/[^)]+)\)",
+        text, re.M)
+    byes = re.findall(r"^([A-Z]{2,3})[A-Z][A-Za-z ]+$", text, re.M)
+    rows = list(csv.DictReader(open(os.path.join(ROOT, "data", "schedule-wk11-2026.csv"))))
+
+    problems = []
+    if len(games) != len(rows):
+        problems.append("live page lists %d games, the committed CSV has %d"
+                        % (len(games), len(rows)))
+    live_by_url = {g[5]: g for g in games}
+    for r in rows:
+        g = live_by_url.get(r["nfl_url"])
+        if g is None:
+            problems.append("%s at %s: not on the live official Week 11 page"
+                            % (r["away"], r["home"]))
+            continue
+        nickname_away, nickname_home, day, kick, network, _ = g
+        if NICKNAME.get(nickname_away) != r["away"]:
+            problems.append("%s at %s: the live page lists %s as the away club"
+                            % (r["away"], r["home"], nickname_away))
+        if NICKNAME.get(nickname_home) != r["home"]:
+            problems.append("%s at %s: the live page lists %s as the home club"
+                            % (r["away"], r["home"], nickname_home))
+        if kick != r["time_et"]:
+            problems.append("%s at %s: committed kickoff %s but the live page says %s"
+                            % (r["away"], r["home"], r["time_et"], kick))
+        live_net = network.split(",")[0].strip()
+        if live_net != r["network"]:
+            problems.append("%s at %s: committed network %s but the live page says %s"
+                            % (r["away"], r["home"], r["network"], live_net))
+        if "November %s" % day != "November %s" % r["date"].split("-")[2].lstrip("0"):
+            problems.append("%s at %s: committed date %s but the live page says November %s"
+                            % (r["away"], r["home"], r["date"], day))
+    # The six clubs on bye are printed by the official page; the committed
+    # dataset does not restate them, so check the published list against it.
+    expected_byes = {"ATL", "CLE", "GB", "LAR", "NE", "SEA"}
+    if set(byes) != expected_byes:
+        problems.append("live page lists these clubs on bye: %s (expected %s)"
+                        % (sorted(set(byes)), sorted(expected_byes)))
+
+    print("Week 11 games checked against the live NFL.com schedule: %d" % len(games))
+    if problems:
+        print("PROBLEMS (%d):" % len(problems))
+        for p in problems:
+            print("  - %s" % p)
+        return 1
+    print("RESULT: PASS - all %d Week 11 games match the official NFL.com schedule on "
+          "matchup, date, kickoff and network, and the six clubs on bye match."
+          % len(games))
+    return 0
+
+
 def main():
-    what = sys.argv[1] if len(sys.argv) > 1 else "standings"
-    if what == "standings":
-        return check_standings()
-    raise SystemExit("unknown check %r" % what)
+    what = sys.argv[1] if len(sys.argv) > 1 else "all"
+    checks = {"standings": check_standings, "injuries": check_injuries,
+              "schedule": check_schedule}
+    if what == "all":
+        rc = 0
+        for name in ("standings", "schedule", "injuries"):
+            print("\n=== %s ===" % name)
+            rc = checks[name]() or rc
+        print("\n%s" % ("RESULT: PASS - every live capture matches the committed data."
+                        if rc == 0 else "RESULT: FAIL - see the problems above."))
+        return rc
+    if what not in checks:
+        raise SystemExit("unknown check %r (expected one of %s)"
+                         % (what, ", ".join(sorted(checks))))
+    return checks[what]()
 
 
 if __name__ == "__main__":

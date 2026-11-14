@@ -1,0 +1,10 @@
+ws-roundup-latest-league-updates-from-friday-nov-6 "NFL news roundup: Jets' Garrett Wilson ruled out; Falcons RB Brian Robinson out for Madrid game")
+**Pats' TreVeyon Henderson says he was hospitalized after 'unusual' emergency; RB focused on recovery**](https://www.nfl.com/news/pats-treveyon-henderson-says-he-was-hospitalized-after-unusual-emergency-focused-on-recovery)
+**NFL news roundup: Ravens officially place Lamar Jackson on injured reserve**](https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-thursday-nov-5)
+**NFL Week 9 injury report: Player statuses for all 15 games**](https://www.nfl.com/news/nfl-week-9-injury-report-2026-season)
+**Deshaun Watson enters concussion protocol ahead of Browns' Week 9 game vs. Saints**](https://www.nfl.com/news/deshaun-watson-concussion-protocol-browns-week-9-shedeur-sanders)
+**Report: Ravens QB Tyler Huntley out for season with turf toe injury**](https://www.nfl.com/news/ravens-qb-tyler-huntley-out-for-season-turf-toe-injury)
+**Notable injuries, news from Sunday's Week 8 games: Cardinals bench QB Jacoby Brissett vs. Cowboys**](https://www.nfl.com/news/notable-injuries-news-sunday-week-8-games-2026)
+**NFL Week 8 inactives: Players ruled out for Sunday's 12 games**](https://www.nfl.com/news/nfl-week-8-inactives-players-ruled-out-sunday-2026-season)
+**NFL Week 8 injuries to monitor for Sunday's games**](https://www.nfl.com/news/week-8-injuries-sunday-pregame-2026-nfl-season)
+
