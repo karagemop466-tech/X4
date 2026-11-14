@@ -1192,6 +1192,60 @@ def corr_with_n_rows():
               % (n_cross, stats["integrity"]["games_n"], 32, len(pairs), n_eval))), len(rows)
 
 
+
+def replacement_chain_table():
+    """Named starter -> replacement chains, each quoting and linking its official article."""
+    rows = []
+    for ch in market_store.replacement_chains():
+        chain = []
+        for i, name in enumerate(ch["chain"], 1):
+            label = {1: "2nd", 2: "3rd", 3: "4th"}[i]
+            chain.append("%s <b>%s</b>" % (label, esc(name)))
+        depth = ("%d level%s named" % (ch["depth_confirmed"],
+                                      "" if ch["depth_confirmed"] == 1 else "s"))
+        rows.append([
+            '<span class="mono">%s</span>' % esc(ch["team"]),
+            esc(ch["team_position"]),
+            badge(ch["unit"].lower(), "mute"),
+            esc(ch["starter"]),
+            esc(ch["starter_status"]),
+            " &rarr; ".join(chain),
+            esc(depth),
+            badge("the rest is unknown", "warn") if ch["depth_confirmed"] < 3
+            else badge("stated to 3 deep", "ok"),
+            esc(ch["what"]),
+            src(ch["url"], "nfl.com news"),
+        ])
+    return table(
+        ["Team", "Pos", "Unit", "Confirmed starter", "Status", "Depth chain (as published)",
+         "Depth confirmed", "Below that", "What the official article says", "Official source"],
+        rows,
+        note=("This is the only place on the site where a 2nd, 3rd or 4th string label "
+              "appears - and it appears only because an official NFL.com article states the "
+              "order in words. &#39;1 level named&#39; means the article names a replacement and "
+              "says nothing about who is behind him: unknown, not zero. Defensive chains and "
+              "the remaining clubs are unmeasured and listed on the flag register rather than "
+              "implied by the depth-of-replacement proxy in the section above."))
+
+
+def unconfirmed_claims_table():
+    rows = []
+    for r in market_store.unconfirmed_claims():
+        rows.append([
+            "<b>%s</b>" % esc(r["claim"]),
+            esc(r["team"]),
+            esc(r["week"]),
+            esc(r["claim_as_published"]),
+            esc(r["why_it_is_not_confirmed"]),
+            src(r["official_url"], "nfl.com"),
+        ])
+    return table(
+        ["Claim", "Team", "Wk", "What is published", "Why it stays unconfirmed", "Official source"],
+        rows,
+        note=("The complement of the table above. A depth section that only listed what was "
+              "found would read as though the remainder were empty; these are the gaps, "
+              "stated as gaps."))
+
 def shell(slug, title, description, body, active):
     nav = "".join('<a href="%s"%s>%s</a>'
                   % (href, ' class="active"' if href == active else "", esc(label))
@@ -1621,6 +1675,16 @@ PAGES.append(("gates.html", "Gates & demotion",
 </section>
 
 <section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03b &middot; Named chains</span><h2>Who actually takes the snaps</h2><p class="muted">The injury report says who is out. It does not say who plays. Two official NFL.com sources do say it: the <b>DEPTH CHART NEWS</b> items in the daily league roundup, and the injury news articles, which name the expected starter and often the man behind him. These are the chains those articles state, quoted and linked, deepest first.</p></div><span class="tag acc">%(nchain)d chains</span></div>
+  %(chains)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03c &middot; What could not be confirmed</span><h2>The depth nobody publishes</h2><p class="muted">The same discipline applied backwards. These are claims a depth section would normally make and that this site refuses to make, each with the reason.</p></div><span class="tag warn">%(nunc)d gaps</span></div>
+  %(unconfirmed)s
+</section>
+
+<section style="margin-top:26px">
   <div class="section-head"><div><span class="eyebrow">04 &middot; Correlations</span><h2>Every coefficient with its n</h2><p class="muted">A correlation without a sample size is a rumour. The cross-game coefficients rest on a few dozen games; the model-error correlations rest on 105 evaluated games. Both numbers are published, and the interval is published only where it can honestly be computed.</p></div><span class="tag acc">%(ncorr)d values</span></div>
   %(corr)s
 </section>
@@ -1629,6 +1693,10 @@ PAGES.append(("gates.html", "Gates & demotion",
            ngates=len(P["leaderboard"][0]["gates"]),
            split=signal_staking_rows(), demotion=demotion_rows(),
            nrep=len(replacement_depth_rows()), repmap=replacement_depth_table(),
+           nchain=len(market_store.replacement_chains()),
+           chains=replacement_chain_table(),
+           nunc=len(market_store.unconfirmed_claims()),
+           unconfirmed=unconfirmed_claims_table(),
            ncorr=corr_with_n_rows()[1], corr=corr_with_n_rows()[0]),
           "gates.html"))
 

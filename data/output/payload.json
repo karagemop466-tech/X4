@@ -11112,6 +11112,17 @@
    "why": "The published feed exposes a single spread price per side (-110 at the time of capture) and it is the same number for nearly every game, so transcribing it would add 26 identical cells and no information. It is left blank and flagged rather than filled with a value that was not read game by game. A closing-line-value calculation needs the price as well as the points, which is one more reason CLV is not published yet.",
    "official_url": "https://www.nfl.com/odds/",
    "url": "https://www.espn.com/nfl/odds/_/week/11"
+  },
+  {
+   "id": "F-21",
+   "item": "The publication gate rejected a real surname as a placeholder",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "site/check.py ran a case-insensitive substring search for a three-letter not-a-number placeholder marker over every published page. The row naming the Ravens' third-string quarterback - Joe Fagnano, as stated by nfl.com news - contains the letters nan and failed the build. The page was correct and the checker was wrong.",
+   "why": "Recorded rather than silently fixed because it is a failure mode worth knowing about: a substring placeholder test will eventually collide with a real word, and the collision produces a build failure that looks like a data problem but is not. The fix is a word-boundary match on that one marker, with the other markers left as substrings. The marker itself is not reproduced here, because reproducing it is what makes any page that documents the collision fail the same check. The alternative - removing the word-boundary fix and renaming the player - would have put an inaccurate name on the site to satisfy a checker.",
+   "official_url": "https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/site/check.py"
   }
  ],
  "questions": [

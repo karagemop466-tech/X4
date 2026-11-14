@@ -78,6 +78,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-18 | Three practice statuses moved between the commit and this re-verification |
 | F-19 | The NFL publishes no closing line, so the closing snapshot cannot be taken from it |
 | F-20 | The opening snapshot covers points only, not the price on those points |
+| F-21 | The publication gate rejected a real surname as a placeholder |
 
 ## What is deliberately absent
 

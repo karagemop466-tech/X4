@@ -51,6 +51,8 @@ OUT = os.path.join(DATA, "output")
 SNAPSHOTS = os.path.join(DATA, "market-snapshots.csv")
 PRICES = os.path.join(DATA, "market-prices.csv")
 RESULTS = os.path.join(DATA, "results-2026.csv")
+CHAINS = os.path.join(DATA, "replacement-chains.csv")
+UNCONFIRMED = os.path.join(DATA, "replacement-claims-unconfirmed.csv")
 
 # The order the desk originates markets in, and the reason for it.
 ORIGINATION_ORDER = [
@@ -317,6 +319,52 @@ def results_feed():
     return out
 
 
+# ------------------------------------------- 5. replacement chains (named depth)
+def replacement_chains():
+    """Named starter -> replacement chains, each with the official article behind it.
+
+    This is the part of "depth of the replacement" that the injury report alone
+    cannot supply. The report says who is out; it does not say who takes the
+    snaps. NFL.com publishes two things that do: its **DEPTH CHART NEWS** items
+    in the daily league roundup, and its injury news articles, which name the
+    expected starter and often the man behind him.
+
+    Every row therefore carries the exact article URL, a quoted summary of what
+    that article actually says, and the number of levels the article itself
+    confirms. A chain of length 1 means the article names a replacement but no
+    one behind him - the depth below that is *unknown*, not zero, and the
+    published table says so.
+    """
+    rows = []
+    for r in read_csv(CHAINS):
+        names = [r["replacement_1"], r["replacement_2"], r["replacement_3"]]
+        filled = [n for n in names if n.strip()]
+        confirmed = int(r["depth_confirmed"])
+        rows.append({
+            "team_position": r["team_position"], "team": r["team"], "unit": r["unit"],
+            "week": r["week_of_source"],
+            "starter": r["starter"], "starter_status": r["starter_status"],
+            "chain": filled,
+            "depth_confirmed": confirmed,
+            # depth_confirmed is what the article states; it must agree with how
+            # many names were actually transcribed, or one of the two is wrong.
+            "depth_matches_names": confirmed == len(filled),
+            "what": r["what_the_source_says"],
+            "url": r["official_url"],
+            "verified": r["verified"] == "yes",
+        })
+    return rows
+
+
+def unconfirmed_claims():
+    """The complement of the chains table: what could not be confirmed, and why.
+
+    A depth table that only lists what was found would read as though the
+    remainder were empty. These are the gaps, stated as gaps.
+    """
+    return read_csv(UNCONFIRMED)
+
+
 def _grade(fair, market, actual, tol=1e-9):
     """Did our number land closer to the truth than the market's?
 
@@ -344,6 +392,8 @@ def write_output():
                               for k, l, n, w in ORIGINATION_ORDER],
         "card": origination_card(),
         "results": results_feed(),
+        "chains": replacement_chains(),
+        "unconfirmed": unconfirmed_claims(),
     }
     with open(os.path.join(OUT, "market_store.json"), "w", encoding="utf-8") as fh:
         json.dump(payload, fh, indent=1, sort_keys=False)
@@ -561,6 +611,21 @@ def self_check():
     ranks_sig = sorted(r["rank_signal"] for r in lb)
     if ranks_sig != list(range(1, len(lb) + 1)):
         problems.append("signal ranks are not a clean 1..n sequence")
+
+    # every chain row must carry a real official article and an honest depth count
+    chains = replacement_chains()
+    if not chains:
+        problems.append("the replacement chains table is empty")
+    for ch in chains:
+        if not ch["url"].startswith("https://www.nfl.com/news/"):
+            problems.append("chain %s/%s has no nfl.com news source" % (ch["team"], ch["starter"]))
+        if not ch["verified"]:
+            problems.append("chain %s/%s is not marked verified" % (ch["team"], ch["starter"]))
+        if not ch["depth_matches_names"]:
+            problems.append("chain %s/%s claims depth %d but carries %d names"
+                            % (ch["team"], ch["starter"], ch["depth_confirmed"], len(ch["chain"])))
+        if not ch["what"]:
+            problems.append("chain %s/%s quotes nothing from its source" % (ch["team"], ch["starter"]))
 
     # the market layer must not have written into the official data directory
     for name in ("standings-wk10-2026.csv", "games-2026.csv",

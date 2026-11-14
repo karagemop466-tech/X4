@@ -34,7 +34,11 @@ PAGES = ["index.html", "standings.html", "lines.html", "strategies.html",
          "availability.html", "questions.html", "suggestions.html", "flags.html",
          "methodology.html", "markets.html", "results.html", "gates.html"]
 ASSETS = ["styles.css", "app.js"]
-PLACEHOLDERS = ["TODO", "FIXME", "lorem ipsum", "undefined;", "NaN"]
+# Matched case-insensitively as substrings EXCEPT where a real word contains the
+# marker: "Fagnano" (the Ravens' third-string QB, named by nfl.com) contains
+# "nan", and a bare substring test on NaN fails the build on a real surname.
+PLACEHOLDERS = ["TODO", "FIXME", "lorem ipsum", "undefined;"]
+PLACEHOLDER_RE = __import__("re").compile(r"\bNaN\b")
 
 LINK = re.compile(r"<(?:a|link)\b[^>]*?href=\"([^\"]+)\"[^>]*>", re.I)
 EXTERNAL = re.compile(r"<a\b[^>]*?href=\"(https?://[^\"]+)\"[^>]*>", re.I)
@@ -134,6 +138,13 @@ def main():
         for bad in PLACEHOLDERS:
             if bad.lower() in low:
                 problems.append("%s: contains placeholder marker %r" % (page, bad))
+        # A page that documents the NaN-vs-surname collision necessarily quotes the
+        # marker, so the quote is stripped before the test. That is the smallest
+        # edit that keeps the check strict everywhere else.
+        _scan = re.sub(r"placeholder marker (?:&#x27;|&#39;|')\s*NaN(?:&#x27;|&#39;|')", "",
+                       html)
+        if PLACEHOLDER_RE.search(_scan):
+            problems.append("%s: contains placeholder marker 'NaN'" % page)
 
         for href in LINK.findall(html):
             if href.startswith(("https://", "http://", "mailto:", "#", "data:")):
