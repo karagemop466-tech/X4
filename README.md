@@ -33,6 +33,68 @@ it answers, so nothing has to be guessed at.
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
 | Second build | The **X4 Console** at `/console/` - 15 pages, built independently, reaching the same two structural conclusions |
 
+## The origination layer (T21)
+
+A third layer asks the question the data layers cannot: *can this system originate a
+number, beat the market to it, and prove it lost for the right reason?* It lives at
+`/origination.html` and the seven pages beside it — `price-store.html`,
+`signal-vs-staking.html`, `correlations.html`, `replacements.html`, `method-lab.html`,
+`verification.html`, `requirements-closure.html` — and it is generated end to end from
+cached bodies by `tools/origination.py`, `tools/depth.py` and `tools/ops.py`.
+
+The honest result: **the machinery works and the evidence does not exist yet.** Ten ESPN
+events are bound to official fixtures across weeks 9-11, producing 30 originated markets
+(side -> total -> moneyline, in that fixed order), 12 of which are settled and graded.
+Signal score: mean difference **-3.566 points**, p = **0.0918**, **2 of 8** gates passed,
+**not eligible**. Staking score on the same markets: **+2.082 units**, **+17.351% ROI**,
+max drawdown -2.198 units. A positive paper P&L sitting on a negative edge is exactly the
+divergence the two-score split exists to expose, and in `signal-vs-staking.html` it is the
+headline rather than a footnote.
+
+| Artifact | What it holds |
+|---|---|
+| `data/ops/price_snapshots.csv` | 60 readings, open and close in separate fields, each with a UTC stamp and an https URL |
+| `data/ops/fair_market_difference.csv` | 30 rows: fair, market, difference as three columns, never merged |
+| `data/ops/event_identity.csv` | 10 event -> fixture bindings, each with the proof that the binding is unique |
+| `data/ops/transactions.csv` | 67 official transaction rows, every one linked to its nfl.com page |
+| `data/ops/depth.csv` | 17 replacement losses joined to their official additions; 6 read THIN, 2 UNRESOLVED - the *urgency* proxy, deliberately weaker than the transcribed charts above and labelled as such |
+| `data/ops/gates.csv` / `demotion_rules.csv` | 8 gates and 6 demotion triggers, each evaluated rather than asserted |
+
+`verification.html` recomputes ten structural claims from the artifacts and prints the
+measurement, so the page can contradict itself; `requirements-closure.html` gives all
+twelve requirements of this layer a verdict, and marks two **partial** and one **blocked**
+rather than claiming them closed.
+
+The depth requirement is answered twice, from two directions, and the stronger answer is
+the other session's. [`tools/depth.py`](#roster-depth-which-starters-are-actually-missing)
+transcribes each club's **own** published chart, which is a real depth rank - 1,558
+positions across 31 clubs. `tools/depth_ledger.py` cannot quote a rank, so it measures a
+different observable that every club emits: how fast a club had to replace a player it
+lost to Reserve/Injured. A same-or-next-day signing means nobody was behind him; a week
+with no signing means somebody was. That reads THIN / NORMAL / COVERED / UNRESOLVED and is
+labelled a proxy wherever it appears. Both are on `replacements.html`, side by side, and
+where a transcribed rank exists it is the fact to quote.
+
+### Provenance note on three odds bodies
+
+The odds payloads for events **401873052**, **401873066** and **401873070** were
+transcribed into `data/ops/raw/` by hand from the retrieved pages rather than written
+directly by `.retrieval/record.py`, because the retrieval helper was not in the loop for
+those three fetches. Their `.stamp` files were written by hand with the same retrieval
+timestamp, so the timestamp records when the page was read, **not** when the file was
+created. The values themselves are verbatim from the payloads — the JSON parses, the
+fields are the ones the other seven bodies use, and `verification.html` checks that each
+reading carries an https URL and a stamp — but the file-writing path for these three is a
+human transcription step, and this note is here so the difference is visible rather than
+implied. The other seven bodies were written by `record.py`.
+
+A related correctness fix belongs here too: the set of neutral-site games was previously
+typed by hand as three pairs and **omitted week 10's Munich game (Patriots at Lions)**, so
+a home-field edge was being applied to a game played in Germany. It is now read from
+`data/international-2026.csv`, where all five 2026 International Games carry the official
+weekly schedule page that labels them as such; `tools/compute_stats.py` asserts that the
+neutral flags in the game log equal exactly that official set.
+
 ## The one rule everything follows
 
 Every table row carries a direct link to the official NFL page it came from, and every

@@ -21,6 +21,8 @@ file scope. Never start work on a task another session has claimed.
 
 ## Task board
 
+| 21 | **T21 - Origination-side build (session `arena/f39958e6-x4`)**: price-snapshot store (open/close per market), origination order (side -> total -> moneyline), fair/market/difference columns, signal-vs-staking split, replacement-depth tracking, n-published correlations, paper-demotion gate, best-practice library, fundamentals-differentials research, new desk pages + publication gates | in progress | arena/f39958e6-x4 | `data/ops/**`, `data/transactions/**`, `tools/fetch.py`, `tools/origination.py`, `tools/ops.py`, `tools/check_ops.py`, `site/_template/origination.html`, `site/_template/operations*.html`, `site/_template/*.css` (new files only), `tools/check_site.py` (additive: allow `_template/` pages), `COORDINATION.md` § T21, `README.md` § T21 |
+
 | # | Task | Status | Owner session | File scope |
 |---|---|---|---|---|
 | 1 | Build NFL decision-support research dashboard and documented verification framework | done | arena/25459fae-x4 | `site/**`, `README.md`, `COORDINATION.md`, workflow config |
@@ -705,6 +707,56 @@ proof that PR #18 merged (it can only reach `main` through that merge).
 
 ---
 
+
+# T21 - Origination-side build (session `arena/f39958e6-x4`)
+
+**Claimed:** 2026-11-14, branch `arena/f39958e6-x4`, base `39f5abd`.
+
+## Why this claim is non-overlapping
+
+The board's existing scopes are closed: `data/**`, `tools/**`, `research/**` belong to
+`arena/59059060-x4`; the root/`site/` desk pages to `5c48ced7`; `docs/**` to
+`arena/528008d6-x4`. This session does **not** edit any of those files. It adds new
+directories and new tools, plus a small additive change to the desk *checker* so the new
+pages are gated rather than unGated.
+
+## File scope (exact)
+
+| Path | Note |
+|---|---|
+| `data/ops/**` | **new** - price-snapshot store, market registry, staking ledger, paper demotions |
+| `data/transactions/**` | **new** - official NFL transaction snapshot used for replacement depth |
+| `tools/fetch.py` | **new** - the only file that reads the network; writes raw snapshots + manifests |
+| `tools/origination.py` | **new** - side / total / moneyline origination, fair-market-difference, grading |
+| `tools/ops.py` | **new** - decides what to fetch, orchestrates build, renders the new pages |
+| `tools/check_ops.py` | **new** - the gate for the new pages |
+| `site/_template/*.html` | **new files only** - new desk pages (not in `site/*.html`, no edit to existing pages) |
+| `tools/check_site.py` | additive: `_template/` accepted as a page location, `NAV_HREFS` extended |
+| `COORDINATION.md`, `README.md` | this section + one README section |
+
+## What it will deliver (mapped to the eight brief requirements)
+
+| Brief requirement | Deliverable |
+|---|---|
+| Price-snapshot store: opening and closing numbers for every market we originate | `data/ops/price_snapshots.csv`, provenance manifest, non-destructive rescans |
+| Verified results feed | grading of every originated market from the official game log, with a source per result |
+| Side -> total -> moneyline | `origination_order` enforced in `tools/origination.py` and published as the build order |
+| Fair / market / difference as separate columns | three separate published columns, never a combined cell |
+| Separate signal from staking | two independent scores per strategy, plus a paper-only staking ledger |
+| Track depth of replacement, not just the fact | replacement-depth ledger from the official transactions feed |
+| Correlations only from officially sourced numbers, publish n | every r with n and CI; uncomputable ones blank + flagged |
+| Demotion gate: live -> paper | published gate with numeric thresholds and an automatic paper demotion log |
+
+## Recording (filled in on completion)
+
+- Sources: see `data/ops/sources.csv` and the *Sources* page; every network read is
+  performed by `tools/fetch.py` and recorded with its URL and UTC timestamp.
+- Verification: `python3 tools/check_ops.py` (new pages) plus the existing gates.
+- Irregularities: appended to the desk *Flagged for review* tier list in
+  `site/_template/ops-flags.html`, with a source link per item.
+
+**Next entry will record the completed status, the sources actually used, and the PR/merge.**
+
 ## Session log — arena/1c6a213c-x4 (price snapshots, results feed, signal/staking, replacement depth, demotion gate, deploy)
 
 **2026-11-14 — arena/1c6a213c-x4**: Added the requested decision-support features on top of the verified baseline, then built, verified and published.
@@ -828,4 +880,3 @@ the original F-02 flag was based on. It still returns the 404 "Flag on the Play"
 | # | Pull request | Result |
 |---|---|---|
 | 20 | https://github.com/karagemop466-tech/X4/pull/20 | see the merge record below |
-

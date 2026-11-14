@@ -12,7 +12,7 @@ Integrity checks (fail loudly on transcription errors):
   1. sum(points for) == sum(points against) across all 32 teams
   2. total wins == total losses (ties counted once on each side)
   3. every team's net == pf - pa
-  4. every game's scores >= 0; neutral flags only on the 3 known neutral games
+  4. every game's scores >= 0; neutral flags exactly the official International Games
 """
 import csv, json, math, statistics as st
 from pathlib import Path
@@ -61,7 +61,11 @@ def main():
     for o in odds:
         o["away"], o["home"], o["favorite"] = norm(o["away"]), norm(o["home"]), norm(o["favorite"])
     neutral = {(g["away"], g["home"]) for g in games if g["neutral_site"] == "1"}
-    assert neutral == {("HOU", "JAX"), ("PIT", "NO"), ("CIN", "ATL")}, neutral
+    # the neutral set must be exactly the International Games falling in weeks 6-9
+    intl = {(int(r["week"]), r["away"], r["home"])
+            for r in csv.DictReader((ROOT / "data" / "international-2026.csv").open())}
+    expect = {(a, h) for (w, a, h) in intl if 6 <= w <= 9}
+    assert neutral == expect, (neutral, expect)
     assert len(teams) == 32 and len(odds) == 13
 
     # ---- home-field edge (weeks 6-9, neutral excluded) -------------------

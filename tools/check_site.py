@@ -4,7 +4,10 @@
 Checks (every root *.html, excluding the historical site/ archive):
   1. Every local href/src resolves to an existing file (or an in-page/target-page anchor).
   2. Every in-page #anchor exists on that page.
-  3. Every table.data body row contains at least one https:// source link.
+  3. Every table.data body row contains at least one https:// source link, and any
+     link in a Source column is https. A row whose only link is a relative path to
+     one of this project's own files is reporting a value that no outside source
+     backs, so it fails the same as a missing link.
   4. Every external link is https and well-formed.
   5. Every page carries the same sidebar navigation (link set equality).
 Exits non-zero on any violation.
@@ -19,6 +22,10 @@ DESK_PAGES = [
     "executive-summary.html", "requirements.html", "data.html", "signals.html",
     "leaderboard.html", "injuries.html", "decisions.html", "review.html",
     "flagged.html", "repo-review.html", "sources.html",
+    # T21 origination layer (session arena/f39958e6-x4)
+    "origination.html", "price-store.html", "signal-vs-staking.html",
+    "correlations.html", "replacements.html", "method-lab.html", "ops-review.html",
+    "verification.html", "requirements-closure.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/
