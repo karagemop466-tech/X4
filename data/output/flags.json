@@ -188,6 +188,72 @@
  },
  {
   "id": "F-18",
+  "item": "Market betting lines (spread, total, moneyline)",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No market spread, total or moneyline is published anywhere on this site. The market-line cells are blank, and the difference column (fair line minus market line) is blank as a consequence.",
+  "why": "The NFL publishes no official betting lines, and no licensed odds feed has been authorised for this repository. Filling the market column from a secondary aggregator would violate the blank-unless-official rule, so every market-line cell stays blank and is flagged.",
+  "official_url": "https://www.nfl.com/",
+  "url": "https://www.nfl.com/"
+ },
+ {
+  "id": "F-19",
+  "item": "Staking / bankroll figures",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No staking, bankroll, Kelly or position-sizing figure is published for any strategy. The staking column of the leaderboard is blank.",
+  "why": "Staking requires market prices and bankroll rules. With no licensed odds feed, no staking figure can be computed, which is exactly what keeps a lucky staking run from masquerading as signal.",
+  "official_url": "https://www.nfl.com/",
+  "url": "https://www.nfl.com/"
+ },
+ {
+  "id": "F-20",
+  "item": "ROI and expected-value figures",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No ROI, expected value or parlay price is published for any bet, combination or player prop.",
+  "why": "ROI needs a settled result (available in the verified results feed) AND a price at which the bet was taken (not available, see F-18). Until a price feed is authorised, ROI cells stay blank rather than be invented.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+ },
+ {
+  "id": "F-21",
+  "item": "Replacement depth: starter, 2nd, 3rd, 4th string",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No player on this site is assigned a replacement depth. The replacement-depth table records who replaced whom and why, but the depth column is blank for every row.",
+  "why": "The NFL publishes no consolidated league depth chart that labels 1st/2nd/3rd/4th string, so any depth rank would be an invention. The fact of a replacement is tracked from league reporting; the depth of that replacement is not.",
+  "official_url": "https://www.nfl.com/teams/",
+  "url": "https://www.nfl.com/teams/"
+ },
+ {
+  "id": "F-22",
+  "item": "Demotion gate basis",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "The demotion gate (live strategy -> paper trading) is a project design choice, not an official NFL rule.",
+  "why": "No league or regulator publishes a demotion gate for betting strategies. The gate's thresholds (5-game rolling window, 0.12 calibration gap, 10-game paper return) are analyst choices and should be challenged before any live use.",
+  "official_url": "https://operations.nfl.com/rules-officiating/2026-nfl-rulebook",
+  "url": "https://operations.nfl.com/rules-officiating/2026-nfl-rulebook"
+ },
+ {
+  "id": "F-23",
+  "item": "Price-snapshot store values are model estimates, not official lines",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "The price-snapshot store records the opening and closing fair lines we originate for each market. The opening values are model estimates (S3 recommended line) derived from official NFL.com results; the closing values are blank until the games close.",
+  "why": "Because we originate our own lines, the snapshot store is our own record. It is not a market observation and must not be read as an official or sportsbook line.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+ },
+ {
+  "id": "F-24",
   "item": "The Houston Texans publish their depth chart only as an image",
   "type": "Unverified data",
   "kind": "no",
@@ -198,7 +264,7 @@
   "url": "https://www.houstontexans.com/team/depth-chart"
  },
  {
-  "id": "F-19",
+  "id": "F-25",
   "item": "19 officially ruled-out players do not appear on their own club's published depth chart",
   "type": "Irregularity",
   "kind": "warn",
@@ -209,7 +275,7 @@
   "url": "https://www.tennesseetitans.com/team/depth-chart"
  },
  {
-  "id": "F-20",
+  "id": "F-26",
   "item": "Clubs disagree on what a depth chart is, and some say so in writing",
   "type": "Irregularity",
   "kind": "warn",
@@ -220,7 +286,7 @@
   "url": "https://www.patriots.com/team/depth-chart"
  },
  {
-  "id": "F-21",
+  "id": "F-27",
   "item": "A published depth chart is not proof of who started",
   "type": "Limitation",
   "kind": "warn",
@@ -231,7 +297,7 @@
   "url": "https://www.nfl.com/schedules/2026/"
  },
  {
-  "id": "F-22",
+  "id": "F-28",
   "item": "Only two position rows have no published replacement, and no row has both starter and backup out",
   "type": "Result",
   "kind": "ok",
