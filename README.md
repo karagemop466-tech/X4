@@ -224,6 +224,30 @@ The last session (`arena/da12b830-x4`) closed the site out:
 - **Two stale counts were corrected** in the desk executive summary (the injury sample is
   22 published rows, not 19; the irregularity register holds 12 entries, not 8).
 
+## The T31 integration pass (session `arena/da0b8a31-x4`)
+
+The final integration after the origination layers landed:
+
+- **The two remaining open pull requests were integrated in full** - PR #26 (real captured
+  market prices: 174 DraftKings-via-ESPN rows over 29 games, open and close, the
+  staking-independent skill board, the numeric demotion gate and `market.html`) and PR #22
+  (the integrity programme: `programme.html`, the suggestion `workbench.html`,
+  `research/decision-register.md`, `research/origination-programme.md`,
+  `research/integrity-gates.md` and the `research/data/` datasets behind them). Both
+  reported CONFLICTING; every conflict was resolved keeping **both** sessions' work, and
+  the flag ids they both numbered F-29..F-31 were renumbered F-35..F-37 because the main
+  register already held F-29..F-34 (the map is in `COORDINATION.md`).
+- **Combined data re-verified against the live official pages**: nfl.com/standings read
+  live and matched **32/32 clubs field by field**, the Week 11 schedule matched **13/13
+  games**, and `tools/verify.py` (460 checks), `tools/market_store.py` and
+  `tools/market_check.py` (432/432 re-derivations) all pass.
+- **Every page is reachable from the landing directory**, including the nine
+  origination-desk pages that previously only the desk sidebar linked.
+- **One flag register, one nav, one gate**: F-01..F-37 with no duplicate ids, a union
+  sidebar nav enforced by `tools/check_site.py`, and `tools/validate.py` now builds and
+  checks every layer (main site, market layer, integrity programme, desk tables, console)
+  with a determinism gate over 20 outputs. The publish workflow runs the same steps.
+
 ## Sources
 
 Official NFL.com pages only for published values: the league standings, the weekly injury
