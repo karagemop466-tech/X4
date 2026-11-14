@@ -736,4 +736,20 @@ the original F-02 flag was based on. It still returns the 404 "Flag on the Play"
 
 | # | Pull request | Result |
 |---|---|---|
-| 20 | https://github.com/karagemop466-tech/X4/pull/20 | see the merge record below |
+| 20 | https://github.com/karagemop466-tech/X4/pull/20 | **Merged** into `main` as `9a23546` on 2026-11-14, 36 files. CI green before merge: `Desk validation` run 43631334730 passed, including the new depth-determinism gate. |
+
+## Deployment verification after PR #20 (2026-11-14)
+
+| Check | Result |
+|---|---|
+| Actions `Publish NFL Decision Lab` on `main` (run for `9a23546`) | **success** |
+| Actions `Desk validation` on `main` (`9a23546`) | **success** |
+| Actions legacy `pages build and deployment` (`9a23546`) | **success** |
+| GitHub Pages API | `status: built` |
+| Live fetch `https://karagemop466-tech.github.io/X4/depth.html` | **HTTP 200, content verified** - all five sections render: the 31-club unit roll-up (MIN 3/2, SEA 3/1, TEN 2/2 ...), the zero-cascade statement, the two Tennessee no-replacement rows, the 19 unmatched players, and the 31 clubs' full transcription. Header reads "31 / 32 clubs publishing an ordered chart", "1,558 depth positions transcribed", "40 listed starters ruled Out or Doubtful", "19 clubs with a starter out". |
+| Post-merge local reproducibility | `tools/depth.py && tools/build.py && tools/pages.py && tools/sync.py && git diff --exit-code` = clean |
+
+**Note on a process slip.** This session briefly created a local branch `record-merge` to write
+this record, which the board's rule forbids (each session works on its own branch only). It was
+deleted without being pushed and no commit was made on it; the record below was written on
+`arena/4d9bc204-x4` instead. Nothing reached `main` by that route.
