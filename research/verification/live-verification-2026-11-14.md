@@ -85,7 +85,7 @@ transcription error.
 **Action taken: flagged, not edited.** The committed data was deliberately left
 unchanged — editing it would fork the published numbers away from the snapshot
 the rest of the build was verified against. The drift is published on both
-flagged registers as **F-18** (main site) and **R-14** (decision-desk layer),
+flagged registers as **F-29** (main site) and **R-14** (decision-desk layer),
 with both values and both source links, so it can be reviewed and, if the
 current snapshot is adopted, regenerated through the normal pipeline.
 
@@ -109,7 +109,7 @@ positives.
 - Standings: **PASS** (32/32).
 - Week 11 schedule: **PASS** (13/13 + byes).
 - Week 10 injuries (44-row sample): **2 mismatches**, both a documented
-  official-report drift; flagged as F-18 / R-14 and left for review.
+  official-report drift; flagged as F-29 / R-14 and left for review.
 
 The full publication gate (`python3 tools/validate.py`) **PASSES** with these
 changes; the harness's injuries FAIL is a finding recorded on the flagged

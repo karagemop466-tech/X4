@@ -11082,7 +11082,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
   },
   {
-   "id": "F-18",
+   "id": "F-29",
    "item": "Official injury-report drift on two practice-status cells",
    "type": "Irregularity",
    "kind": "warn",
