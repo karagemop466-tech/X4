@@ -28,6 +28,7 @@ file scope. Never start work on a task another session has claimed.
 | 3 | Official-source data acquisition, model line engine, strategy validation harness, multi-page site, integration and publication | done | arena/59059060-x4 | `data/**`, `research/**`, `tools/**`, `site/**` (integration), root site mirror, `README.md`, `COORDINATION.md`, `.github/workflows/**` |
 | T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` |
 | T02–T14 | Requirements inventory, additional official-source research, strategy/leaderboard/injury/decision/suggestion pages, repo review, integration and publication | done | 5c48ced7 | root + `site/` mirrors of `executive-summary.html`, `requirements.html`, `data.html`, `signals.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `review.html`, `flagged.html`, `repo-review.html`, `sources.html`, `desk.css`, `nav.js`; new files under `research/data/`, `tools/` (desk tools), `.github/workflows/desk-check.yml` |
+| T15 | **Final integration session**: re-verify the combined data line by line, unify the navigation and the landing page so every page in all three builds is reachable, merge the two open pull requests, re-run every gate, publish to GitHub Pages, open and merge the PR to `main` | in progress | arena/da12b830-x4 | `tools/pages.py` (nav + landing page), `tools/sync.py`, `site/index.html` + root mirror, `site/nav.js` + root mirror, desk sidebar nav in `site/*.html` + root mirrors, `README.md`, `COORDINATION.md` |
 
 ### Non-overlapping scope map
 
@@ -50,6 +51,10 @@ file scope. Never start work on a task another session has claimed.
 | I2 | Re-verify combined data line by line against official sources | done | arena/59059060-x4 | `tools/verify.py` - 460 checks, all 32 teams match NFL.com on W/L/T/PF/PA/PCT |
 | I3 | Confirm the site builds with no broken links | done | arena/59059060-x4 | `site/check.py` - 859 rendered data rows, every one carrying an official source link; plus a numeric-consistency check on all 32 standings rows |
 | I4 | Publish to GitHub Pages + open PR to main + merge | done | arena/59059060-x4 | see the PR and merge log below |
+| I5 | Merge the two open pull requests (#10 publish race, #11 console polish) after review | in progress | arena/da12b830-x4 | final integration pass |
+| I6 | Independent re-verification of the combined data, line by line, against nfl.com | in progress | arena/da12b830-x4 | standings 32/32 checked against `nfl.com/standings` this session |
+| I7 | Unify navigation and landing page: every page in `site/`, the desk layer and the console reachable from one directory | in progress | arena/da12b830-x4 | closes the open nav-reciprocity request from session `5c48ced7` |
+| I8 | Final publish to GitHub Pages + PR to main + merge + deploy confirmation | in progress | arena/da12b830-x4 | final integration pass |
 
 ## Requests (log here instead of editing another session's files)
 
