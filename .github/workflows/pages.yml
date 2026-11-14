@@ -16,9 +16,9 @@ on:
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
-# T32 diagnostic dispatch: contents:write is needed only to push the captured
-# drift file back to the diagnostic branch. Restore to `contents: read` when
-# the diagnostic step is removed.
+# T32 diagnostic: `contents: write` is needed only so the diagnostic step can
+# commit the captured drift file. Restore to `contents: read` when the
+# diagnostic step is removed.
 permissions:
   contents: write
   pages: write
@@ -88,14 +88,12 @@ jobs:
             exit 1
           )
       - name: Add the X4 Console (docs/) to the published artifact
-        if: false
         run: |
           rm -rf site/console
           mkdir -p site/console
           cp -R docs/. site/console/
           rm -f site/console/check.js
       - name: Confirm the repository-root mirror is in step
-        if: false
         run: |
           diff -rq --exclude=check.js docs console
           diff -rq --exclude=check.py --exclude=site --exclude=console --exclude=docs \
@@ -103,14 +101,11 @@ jobs:
             --exclude=.github --exclude=README.md --exclude=COORDINATION.md \
             --exclude=.gitignore site .
       - uses: actions/configure-pages@v5
-        if: false
       - uses: actions/upload-pages-artifact@v3
-        if: false
         with:
           path: site
 
   deploy:
-    if: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
