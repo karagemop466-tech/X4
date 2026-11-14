@@ -8,6 +8,7 @@ on:
       - "data/**"
       - "tools/**"
       - "research/**"
+      - "docs/**"
       - "*.html"
       - "*.css"
       - "*.js"
@@ -52,6 +53,13 @@ jobs:
             echo "Run 'python3 tools/build.py && python3 tools/pages.py && python3 tools/sync.py' and commit the result."
             exit 1
           )
+      - name: Check the X4 Console (docs/) for broken links and unsourced rows
+        run: node docs/check.js
+      - name: Add the X4 Console (docs/) to the published artifact
+        run: |
+          rm -rf site/console
+          mkdir -p site/console
+          cp -R docs/. site/console/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

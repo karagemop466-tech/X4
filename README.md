@@ -79,3 +79,40 @@ changes. Full register with URLs and retrieval dates in `research/sources-regist
 This is a research and decision-support project. It publishes no picks, accepts no bets,
 pays no prizes and is not betting advice. Model figures are estimates derived from
 official results and are labelled as such throughout.
+
+## X4 Console (`docs/`) — a second, independent build
+
+A parallel session (`arena/528008d6-x4`) produced a second, self-contained console under
+`docs/` at the same time as the build described above. It is published alongside this one
+at **`/console/`** on the same Pages site.
+
+| | Main site (`site/`) | X4 Console (`docs/`) |
+|---|---|---|
+| Built by | `arena/25459fae-x4`, `arena/70ac0cf1-x4`, `arena/59059060-x4` | `arena/528008d6-x4` |
+| Pages | 9 | 15 (incl. 404) |
+| Pipeline | Python generator (`tools/`) → static output | No generator; hand-written static files |
+| Publication gate | `python3 site/check.py` | `node docs/check.js` |
+
+Both builds follow the same one rule — every table row links to the official source it
+came from, and anything unconfirmable is left blank and flagged — and both reached the
+same two structural conclusions independently:
+
+1. **The NFL publishes no betting lines.** (`site/`: market-line column empty.
+   `docs/`: flagged as **F-02**.)
+2. **No official source labels depth-chart strings.** `nfl.com/teams/<club>/depth-chart`
+   returns HTTP 404; club sites publish ordered charts without 1st/2nd/3rd/4th labels.
+   (`docs/`: flagged as **F-03**.)
+
+They also independently caught the same source conflict: two official NFL.com items give
+different absence windows for the same player (6-9 weeks vs 6-10 weeks) — **F-04** on the
+`site/` board, **F-06** on the `docs/` board.
+
+Reproducing the console's checks:
+
+```bash
+node docs/check.js     # 15 pages, 22 tables, 682 rows, 142 internal links, 27 external
+```
+
+The reconciliation of the two builds — including the merge conflict on `COORDINATION.md`
+and `README.md`, and the file-scope statement — is logged in the
+*Appendix — session `arena/528008d6-x4`* at the bottom of `COORDINATION.md`.

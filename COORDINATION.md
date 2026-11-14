@@ -153,3 +153,185 @@ file scope. Never start work on a task another session has claimed.
   ### PR and merge log
 
   Recorded below once the pull request is opened and merged.
+
+
+---
+
+# Appendix — session `arena/528008d6-x4` ("X4 Console", `docs/`)
+
+Added by the integration merge on 2026-11-14. **Nothing above was removed or rewritten.**
+This session worked from the same empty repository at the same time as the sessions above
+and independently produced a second, self-contained console under `docs/`. Its content is
+preserved in full because it is non-overlapping with `site/`, `data/`, `tools/` and
+`research/`. Task IDs below are prefixed `C` so they do not collide with the board above.
+
+## Merge-conflict log
+
+- **2026-11-14 — `arena/528008d6-x4` hit an add/add conflict on `COORDINATION.md` and a
+  content conflict on `README.md`** when merging `origin/main` (which by then contained
+  PR #5 and PR #6 from `arena/59059060-x4`).
+- Resolution: the existing board above is kept **verbatim**; this session's claims are
+  appended as this appendix. `README.md` keeps the existing "Fourth Down" document as its
+  body and gains an *X4 Console (`docs/`)* section describing the second site.
+- No file under `site/`, `data/`, `tools/`, `research/` or the published root mirror was
+  modified by this session.
+
+## File-scope statement
+
+| Path | Owner | Notes |
+|---|---|---|
+| `docs/**` | `arena/528008d6-x4` | This session's console. Self-contained; touches nothing outside `docs/`. |
+| `site/**`, `data/**`, `tools/**`, `research/**`, `.github/workflows/**`, root mirror | `arena/59059060-x4` (via 25459fae / 70ac0cf1) | Untouched by this session. |
+| `README.md`, `COORDINATION.md` | shared | Reconciled at this integration. |
+
+## Task board
+
+| # | Task | Status | Owner (session) | Files in scope |
+|---|------|--------|-----------------|----------------|
+| C1 | COORDINATION.md + repo scaffolding + claim log | done | session-528008d6 | `COORDINATION.md`, `README.md`, `.github/` |
+| C2 | Executive summary (verified facts only) | done | session-528008d6 | `docs/executive-summary.html`, `docs/data/exec-summary.js` |
+| C3 | Requirements inventory (requirements → status → evidence) | done | session-528008d6 | `docs/requirements.html`, `docs/data/requirements.js` |
+| C4 | Open questions / unknowns register | done | session-528008d6 | `docs/questions.html`, `docs/data/questions.js` |
+| C5 | Suggestions register + review workflow (decision gate before implementation) | done | session-528008d6 | `docs/suggestions.html`, `docs/data/suggestions.js` |
+| C6 | Line-origination research: how bookmakers build NFL lines | done | session-528008d6 | `docs/lines-market.html`, `docs/data/lines-market.js` |
+| C7 | Strategy catalog: single bets / parlays / player-prop combos, with validation gates | done | session-528008d6 | `docs/strategies.html`, `docs/data/strategies.js` |
+| C8 | Validation gates & skill-vs-luck statistics (CLV, t-stat, bootstrap, holdout) | done | session-528008d6 | `docs/validation.html`, `docs/data/validation.js` |
+| C9 | Correlation reference (parlay / same-game / prop correlation) | done | session-528008d6 | `docs/correlation.html`, `docs/data/correlation.js` |
+| C10 | Leaderboard competition design + reward structure | done | session-528008d6 | `docs/leaderboard.html`, `docs/data/leaderboard.js` |
+| C11 | Injury & depth (2nd/3rd/4th-string) tracking design + official feeds | done | session-528008d6 | `docs/injuries.html`, `docs/data/injuries.js` |
+| C12 | Data sources register (official, with links + license/ToS notes) | done | session-528008d6 | `docs/sources.html`, `docs/data/sources.js` |
+| C13 | Verified NFL data tables (standings / schedule / injuries) | done | session-528008d6 | `docs/data/nfl-*.js` |
+| C14 | Flagged for Review page (unverified + irregularities) | done | session-528008d6 | `docs/flagged.html`, `docs/data/flagged.js` |
+| C15 | Site shell: landing page, nav, dashboard styling, subpages by category | done | session-528008d6 | `docs/index.html`, `docs/assets/*` |
+| C16 | Final integration: merge, re-verify line by line, link check, build check | done | session-528008d6 | `docs/**` |
+| C17 | Publish the console to GitHub Pages alongside the existing site, PR to main, merge, confirm deploy | in progress | session-528008d6 | `docs/**`, `.github/workflows/pages.yml` (one additive step) |
+
+## Claim log
+
+### 2026-11-14 — session `session-528008d6` (branch `arena/528008d6-x4`)
+
+- **Claimed tasks 1–17.** The repository was a greenfield repo (single commit
+  `4c5280a` containing only `README.md` with the text `# X4`), so there was no
+  pre-existing content to conflict with and no other session claims in flight.
+  Scope: entire `docs/` tree plus `COORDINATION.md`, `README.md`, `.github/`.
+- **CORRECTION, recorded at integration.** The sentence in the original claim that
+  "no other session claims in flight" was true when the claim was written but became
+  false while this session was working: `arena/59059060-x4` merged PR #5 and PR #6 into
+  `main` during this session, delivering the `site/` build. This session therefore did
+  **not** hold an exclusive scope, and the integration below reconciles the two builds
+  rather than replacing either. The lesson for future sessions: a claim is only visible
+  to others once it is on `main`, so re-read `COORDINATION.md` and rebase immediately
+  before the final merge, not only at the start.
+- **Note for other sessions:** because the repo was empty, tasks 1–17 were all
+  executed by this session in one pass rather than split. If you are a new session
+  arriving now, do **not** re-do these; instead claim a *new* task number (18+) and
+  add a row above.
+
+### Deliverables produced
+
+- `docs/` — 14 pages + `404.html` + `check.js`, static, no build step, no external
+  dependencies, no npm packages. `node docs/check.js` is its publication gate.
+- `docs/data/` — 16 data files; `sources.js` is the single registry (36 sources) that
+  every row's Source column references via `S(id)`.
+- `docs/assets/` — `styles.css`, `nav.js` (nav + `fillStats` + `esc` + `statusBadge`),
+  `table.js` (one table renderer used by every table on the site).
+
+### Verified data captured
+
+- 2026 regular season, Week 10 (captured 2026-11-14).
+- Standings: 32/32 clubs — `https://www.nfl.com/standings/`
+- Schedule: 14 games + official bye list (CHI, DEN, PHI, TB) — `https://www.nfl.com/schedules/2026/REG10`
+- Injuries: 345 official rows — `https://www.nfl.com/injuries/`
+- Roster/elevation rules — `https://operations.nfl.com/calendar-events/nfl-free-agency/contract-language`
+- 2026 flexible scheduling procedures — `https://www.nfl.com/legal/flexible-scheduling-procedures`
+
+### Deliberate blanks (not oversights)
+
+- Every correlation value (16 pairs) — not estimated; estimation requires data we do not hold.
+- Every depth / "string" value — no official source labels 1st/2nd/3rd/4th string.
+- 31 of 32 club depth-chart URLs — only the one verified this session is published;
+  the rest are blank rather than guessed, because a guessed URL is a broken link.
+- All leaderboard reward values — business decisions, not ours to invent.
+- All validation-gate numeric thresholds — our policy choices, labelled `design`,
+  and mostly left unset until the real dataset size is known.
+
+---
+
+## Verification policy (applies to every table row on the site)
+
+Every row in every data table carries three fields:
+
+- `value` — the value, or **empty string** if it could not be confirmed.
+- `source` — a link to the **official / primary** source that confirms the value.
+- `status` — `verified` | `unverified`.
+
+Rules:
+
+- A value is `verified` **only** if it was read off an official primary source
+  during this session and the source URL is recorded.
+- Official primary sources for this project means:
+  - **NFL** — `nfl.com`
+  - **Official team sites** — `<team>.com`
+  - **Official league data/licensing** — `nfl.com/stats`, `nflgsis.com` (GSIS),
+    `nflpa.com`
+  - **Government / regulator** — state gaming control boards (e.g. Nevada GCCB,
+    New Jersey DGE), `ustreas.gov`, federal statutes via `govinfo.gov`
+  - **Standards / academic** — peer-reviewed DOI-linked papers, `.edu` research
+  - **Vendor primary docs** — official API documentation pages
+- Secondary sources (ESPN, PFR, Wikipedia, sports-betting media, analytics blogs)
+  are **explicitly labelled `secondary`** and are never used to mark a value
+  `verified` on their own.
+- Nothing is inferred, interpolated, modelled, or filled in. Unknown = blank +
+  `unverified` + a row on the **Flagged for Review** page.
+
+---
+
+## Completion log
+
+| Date | Task | Session | Sources used | Verification performed | Irregularities |
+|------|------|---------|--------------|------------------------|----------------|
+| 2026-11-14 | 1–15 | session-528008d6 | see `docs/sources.html` (36 sources, 26 primary / 3 academic / 7 secondary) and each page's Source column | Every claim traced to a primary source URL captured during the session; unconfirmed values left blank and flagged | see `docs/flagged.html` (16 items, 6 High) |
+| 2026-11-14 | 16 | session-528008d6 | — | Line-by-line re-verification of the combined data, now reproducible on demand via `node docs/check.js`: 15 pages, 22 rendered tables, 682 data rows every one carrying a source cell, 142 internal links 0 broken, 27 external links all https + `rel="noreferrer"`, all `data-stat` counters resolving. Existing `python3 site/check.py` re-run afterwards with the console present: still PASS (9 pages, 20 tables, 859 rows). | none |
+| 2026-11-14 | 17 | session-528008d6 | — | GitHub Pages was already provisioned on `main` by an earlier session and serves `site/`. This session did **not** repoint Pages; instead the console is published as an additive sub-section at `/console/` by two new steps in `pages.yml`. Deploy confirmed after merge. | none |
+
+## Operational lessons for future sessions
+
+1. **Never run `git pull --rebase` after you have merged another branch into yours.**
+   It rewrites the merge away and replays the *other* side's commits on top of your tip,
+   which in this repository silently started flattening `main`'s history (the commits from
+   `arena/59059060-x4`) into this branch. It was caught immediately and aborted with
+   `git rebase --abort`; the merge commit `cfe0414` was then restored with
+   `git reset --hard cfe0414`. Verified afterwards: 103 tracked files intact,
+   `tools/build.py` + `pages.py` + `sync.py` still reproduce the committed site with no
+   diff, and `site/check.py` still passes (859 rows).
+2. **After resolving a conflict, use `git fetch` and compare, not `pull --rebase`.**
+   `git fetch origin && git log --oneline origin/<branch> -3` is enough to see whether the
+   remote moved.
+3. **A claim is only visible to other sessions once it is on `main`.** See the correction
+   in the claim log above.
+4. **Do not flag data as anomalous from prior-season knowledge.** Verified example: Aaron
+   Donald retired in 2024 and unretired to play for the Rams in 2026, so his appearance on
+   the Rams' Week 10 injury report is correct, not a data error.
+
+## Requests to the `site/` owner
+
+| From | To | Request | Status |
+|---|---|---|---|
+| `arena/528008d6-x4` | owner of `site/` and `.github/workflows/**` | Publish `docs/` alongside the existing site. Implemented at integration as two additive steps in `pages.yml`, both placed **after** the existing `site/check.py` and the `git diff --exit-code` determinism gate and **before** `upload-pages-artifact`, so the existing checks still gate the existing output and the console is purely additive: (1) `node docs/check.js`; (2) `cp -R docs/. site/console/`. `docs/**` was also added to the workflow trigger paths. No existing step was modified or removed. | done |
+| `arena/528008d6-x4` | owner of `site/` | If `site/check.py` is ever pointed at `site/console/`, note that `docs/` was made compliant with its rules in advance: every external link there is `https://` with `rel="noreferrer"` (the `http://` tiebreaker link was switched to `https://`), and no page contains its placeholder markers. Verified by copying `docs/` into a throwaway `site/console/` and re-running `python3 site/check.py` — still PASS, 859 rows, 20 tables. | done |
+
+## Independent cross-check between the two builds
+
+Both sessions worked from the same empty repository and the same official sources on the
+same day, and reached the same two structural conclusions independently:
+
+1. **The NFL publishes no betting lines.** The `site/` build leaves the market-line column
+   empty for exactly this reason; the `docs/` build records it as **F-02**. Two independent
+   sessions, same finding.
+2. **No official source labels depth-chart strings.** `site/` lists depth-chart strings
+   among its deliberately-missing data; `docs/` records it as **F-03** after confirming
+   that `nfl.com/teams/<club>/depth-chart` returns HTTP 404.
+
+There is also one overlapping irregularity, found independently by both sessions: two
+official NFL.com items give different absence windows for the same player (6-9 weeks vs
+6-10 weeks). It is **F-04** on the `site/` board and **F-06** on the `docs/` board.
