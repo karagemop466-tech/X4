@@ -10,7 +10,7 @@ questions to suggestions.
 
 | Path | What it holds |
 |---|---|
-| `data/` | The verified source data: 137 official games, the official standings for all 32 teams, the official Week 10 injury report, the official Week 11 schedule, and league-confirmed starter changes |
+| `data/` | Source data: 137 reconstructed game records proved against official standings; official standings for all 32 teams, the official Week 10 injury report, the official Week 11 schedule, and league-confirmed starter changes |
 | `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
 | `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, data verification, and the sources register |
 | `tools/` | The pipeline: `verify.py` proves the data, `build.py` produces every published number, `pages.py` and `sync.py` build the site, `validate.py` runs the whole gate |
@@ -33,13 +33,26 @@ it answers, so nothing has to be guessed at.
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
 | Second build | The **X4 Console** at `/console/` - 15 pages, built independently, reaching the same two structural conclusions |
 
-## The one rule everything follows
+## Source policy and important exception
 
-Every table row carries a direct link to the official NFL page it came from, and every
-value that cannot be confirmed from an official source is left blank and flagged rather
-than filled in. `site/check.py` enforces this: it executes the real renderer, inspects
-the resulting markup, and fails the build if any rendered data row lacks an official
-source link.
+The primary `site/` dashboard uses official NFL, NFL Football Operations, or US government
+sources for its published data rows; `site/check.py` checks that those rows contain an
+allowed official-domain link. Model outputs are labelled estimates, not official league
+figures.
+
+The separate decision-desk layer is **not wholly official-source-only**: its Week 11
+market snapshot and market-comparison tables include a dated DraftKings snapshot published
+by ESPN (source tier T3). NFL.com does not publish betting odds. Those T3 values are
+third-party context, not NFL-verified facts, and must not be used as verified official
+values. They are explicitly identified in `sources.html` and `flagged.html`; a strict
+official-source-only decision should treat the T3 market values as unverified. The desk
+checker (`tools/check_site.py`) currently checks for an HTTPS source link, not that its
+host is an official source. This limitation is recorded in
+[`research/audit-2026-11-14.md`](research/audit-2026-11-14.md).
+
+Where an official source cannot confirm a value, the primary dashboard leaves it blank
+and flags the missing input. A source link proves provenance only to the linked publisher;
+it does not make a publisher's claim an official NFL record.
 
 ## Reproducing everything
 
@@ -49,7 +62,7 @@ python3 tools/build.py      # regenerate every published number into data/output
 python3 tools/pages.py      # regenerate the site pages
 python3 tools/sync.py       # keep the root copies in step with site/ and docs/
 python3 site/check.py       # check the rendered site for broken links and unsourced rows
-python3 tools/check_site.py # check the decision-desk pages the same way
+python3 tools/check_site.py # check decision-desk links, anchors, nav, HTTPS source presence (not official-domain status)
 node docs/check.js          # check the X4 Console
 python3 tools/validate.py   # all of the above, plus determinism and repository hygiene
 ```
@@ -135,9 +148,12 @@ at **`/console/`** on the same Pages site.
 | Pipeline | Python generator (`tools/`) → static output | No generator; hand-written static files |
 | Publication gate | `python3 site/check.py` + `python3 tools/check_site.py` | `node docs/check.js` |
 
-Both builds follow the same one rule — every table row links to the official source it
-came from, and anything unconfirmable is left blank and flagged — and both reached the
-same two structural conclusions independently:
+The primary dashboard and X4 Console cite official sources for published factual data.
+The separate decision-desk layer is not fully official-only: it publishes 13 third-party
+T3 DraftKings odds values as context, so those values are unverified under the brief's
+strict official-source rule (see the audit report and the source-tier register). This
+exception is disclosed rather than described as an official NFL value. Both independent
+builds reached the following structural conclusions:
 
 1. **The NFL publishes no betting lines.** (`site/`: market-line column empty.
    `docs/`: flagged as **F-02**.)
