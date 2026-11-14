@@ -1,0 +1,511 @@
+[
+ {
+  "id": "S1",
+  "name": "Simple mean, opponent-adjusted",
+  "description": "Unweighted mean points for/allowed per team, adjusted for the average quality of opponents already faced.",
+  "family": "Team form",
+  "params": {
+   "shrinkage_k": 0,
+   "decay": "none"
+  },
+  "metrics": {
+   "n": 105,
+   "spread_mae": 9.259948771318005,
+   "spread_rmse": 12.497922050339724,
+   "total_mae": 11.447769698022432,
+   "total_rmse": 13.908931891179769,
+   "direction_accuracy": 0.6571428571428571
+  },
+  "improvement_abs": 0.8396007918408461,
+  "improvement_pct": 0.08313249879019782,
+  "ci_low": -0.22618865026579146,
+  "ci_high": 1.882304013288905,
+  "weekly_positive_share": 0.625,
+  "calibration_max_gap": 0.07596066166092275,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.226, 1.882]."
+   },
+   "G5 stability": {
+    "pass_": true,
+    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.076 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": true,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 6,
+  "eligible": false,
+  "reward": 51.5
+ },
+ {
+  "id": "S8",
+  "name": "Last 5 games window",
+  "description": "Unweighted mean over the five most recent games only, opponent-adjusted.",
+  "family": "Team form",
+  "params": {
+   "window": 5,
+   "shrinkage_k": 0
+  },
+  "metrics": {
+   "n": 105,
+   "spread_mae": 9.294807776824971,
+   "spread_rmse": 12.506205769946112,
+   "total_mae": 11.568361796455898,
+   "total_rmse": 14.034701768940955,
+   "direction_accuracy": 0.6476190476190476
+  },
+  "improvement_abs": 0.8047417863338797,
+  "improvement_pct": 0.07968095817554258,
+  "ci_low": -0.2495692306783855,
+  "ci_high": 1.8520982998174103,
+  "weekly_positive_share": 0.625,
+  "calibration_max_gap": 0.06526975184606965,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.250, 1.852]."
+   },
+   "G5 stability": {
+    "pass_": true,
+    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.065 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": true,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 6,
+  "eligible": false,
+  "reward": 50.7
+ },
+ {
+  "id": "S2",
+  "name": "Exponentially weighted",
+  "description": "Decay-weighted team scoring and allowing (lambda=0.65), opponent-adjusted, no shrinkage.",
+  "family": "Team form",
+  "params": {
+   "shrinkage_k": 0,
+   "decay": 0.65
+  },
+  "metrics": {
+   "n": 105,
+   "spread_mae": 9.389789343686067,
+   "spread_rmse": 12.5955667678706,
+   "total_mae": 11.215598522860985,
+   "total_rmse": 13.669622224820557,
+   "direction_accuracy": 0.6285714285714286
+  },
+  "improvement_abs": 0.7097602194727841,
+  "improvement_pct": 0.07027642322404638,
+  "ci_low": -0.5342644992562805,
+  "ci_high": 1.8814441016457342,
+  "weekly_positive_share": 0.625,
+  "calibration_max_gap": 0.07352549765240513,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.534, 1.881]."
+   },
+   "G5 stability": {
+    "pass_": true,
+    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.074 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": true,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 6,
+  "eligible": false,
+  "reward": 45.3
+ },
+ {
+  "id": "S5",
+  "name": "Median + shrinkage",
+  "description": "Median scoring/allowing shrunk toward the league mean with k=4: robust to a single blowout loss.",
+  "family": "Robust",
+  "params": {
+   "shrinkage_k": 4.0,
+   "decay": "none (median)"
+  },
+  "metrics": {
+   "n": 105,
+   "spread_mae": 9.494123257419707,
+   "spread_rmse": 12.68789100169177,
+   "total_mae": 11.170168337272658,
+   "total_rmse": 13.597730094538496,
+   "direction_accuracy": 0.6095238095238096
+  },
+  "improvement_abs": 0.6054263057391438,
+  "improvement_pct": 0.05994587203647365,
+  "ci_low": -0.20239216558591944,
+  "ci_high": 1.4263712510700974,
+  "weekly_positive_share": 0.625,
+  "calibration_max_gap": 0.05857366685170973,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.202, 1.426]."
+   },
+   "G5 stability": {
+    "pass_": true,
+    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.059 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": true,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 6,
+  "eligible": false,
+  "reward": 41.3
+ },
+ {
+  "id": "S3",
+  "name": "EW + shrinkage",
+  "description": "Decay-weighted scoring/allowing (lambda=0.65) shrunk toward the league mean with k=4, opponent-adjusted.",
+  "family": "Regularised",
+  "params": {
+   "shrinkage_k": 4.0,
+   "decay": 0.65
+  },
+  "metrics": {
+   "n": 105,
+   "spread_mae": 9.765430806409382,
+   "spread_rmse": 12.81953898557684,
+   "total_mae": 11.033104867588682,
+   "total_rmse": 13.523094767089205,
+   "direction_accuracy": 0.5714285714285714
+  },
+  "improvement_abs": 0.33411875674946856,
+  "improvement_pct": 0.033082540430146246,
+  "ci_low": -0.44360266656990865,
+  "ci_high": 1.0554717511487635,
+  "weekly_positive_share": 0.625,
+  "calibration_max_gap": 0.06483429097016791,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.444, 1.055]."
+   },
+   "G5 stability": {
+    "pass_": true,
+    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.065 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": true,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 6,
+  "eligible": false,
+  "reward": 27.4
+ },
+ {
+  "id": "S4",
+  "name": "Fast EW + heavy shrinkage",
+  "description": "Faster decay (lambda=0.80) with heavier shrinkage (k=6): trades responsiveness for stability.",
+  "family": "Regularised",
+  "params": {
+   "shrinkage_k": 6.0,
+   "decay": 0.8
+  },
+  "metrics": {
+   "n": 105,
+   "spread_mae": 9.83347647803065,
+   "spread_rmse": 12.859686383295541,
+   "total_mae": 11.063830057961015,
+   "total_rmse": 13.597454362339393,
+   "direction_accuracy": 0.5714285714285714
+  },
+  "improvement_abs": 0.26607308512820005,
+  "improvement_pct": 0.026345044743260805,
+  "ci_low": -0.49220349925584983,
+  "ci_high": 0.9461698214410778,
+  "weekly_positive_share": 0.625,
+  "calibration_max_gap": 0.0726622287739227,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.492, 0.946]."
+   },
+   "G5 stability": {
+    "pass_": true,
+    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.073 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": true,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 6,
+  "eligible": false,
+  "reward": 23.4
+ },
+ {
+  "id": "S7",
+  "name": "Blend S3 and S6",
+  "description": "Equal blend of the S3 (fast, moderate) and S6 (slow, heavy) regularised models.",
+  "family": "Ensemble",
+  "params": {
+   "blend": "S3/S6 50-50"
+  },
+  "metrics": {
+   "n": 105,
+   "spread_mae": 9.91381681575806,
+   "spread_rmse": 12.95252804513172,
+   "total_mae": 11.02937046662053,
+   "total_rmse": 13.548594343527753,
+   "direction_accuracy": 0.5523809523809524
+  },
+  "improvement_abs": 0.18573274740078993,
+  "improvement_pct": 0.01839020109157205,
+  "ci_low": -0.5905574359131629,
+  "ci_high": 0.910087745538208,
+  "weekly_positive_share": 0.625,
+  "calibration_max_gap": 0.07584224691962382,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.591, 0.910]."
+   },
+   "G5 stability": {
+    "pass_": true,
+    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.076 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": true,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 6,
+  "eligible": false,
+  "reward": 19.1
+ },
+ {
+  "id": "S6",
+  "name": "Slow EW + heavy shrinkage",
+  "description": "Long memory (lambda=0.45) with heavy shrinkage (k=8): the most conservative team-form model.",
+  "family": "Regularised",
+  "params": {
+   "shrinkage_k": 8.0,
+   "decay": 0.45
+  },
+  "metrics": {
+   "n": 105,
+   "spread_mae": 10.075512223720992,
+   "spread_rmse": 13.101649877788644,
+   "total_mae": 11.036476310667982,
+   "total_rmse": 13.5884358170848,
+   "direction_accuracy": 0.49523809523809526
+  },
+  "improvement_abs": 0.024037339437859018,
+  "improvement_pct": 0.002380040742167597,
+  "ci_low": -0.7568362378680461,
+  "ci_high": 0.7338929345184051,
+  "weekly_positive_share": 0.625,
+  "calibration_max_gap": 0.06941481978337866,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.757, 0.734]."
+   },
+   "G5 stability": {
+    "pass_": true,
+    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.069 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": true,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 6,
+  "eligible": false,
+  "reward": 11.7
+ },
+ {
+  "id": "S0",
+  "name": "League constant",
+  "description": "League average home/away scoring measured before the game. Uses no team information; this is the benchmark every other strategy must beat.",
+  "family": "Benchmark",
+  "params": {},
+  "metrics": {
+   "n": 105,
+   "spread_mae": 10.09954956315885,
+   "spread_rmse": 12.779069477099993,
+   "total_mae": 11.121755668935869,
+   "total_rmse": 13.429794343662232,
+   "direction_accuracy": 0.42857142857142855
+  },
+  "improvement_abs": 0.0,
+  "improvement_pct": 0.0,
+  "ci_low": 0.0,
+  "ci_high": 0.0,
+  "weekly_positive_share": 0.0,
+  "calibration_max_gap": 0.052665238109477375,
+  "gates": {
+   "G1 data integrity": {
+    "pass_": true,
+    "note": "Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."
+   },
+   "G2 out-of-sample": {
+    "pass_": true,
+    "note": "Walk-forward evaluation over weeks 3-10; no random row splits."
+   },
+   "G3 minimum sample": {
+    "pass_": true,
+    "note": "105 evaluated games (minimum 40)."
+   },
+   "G4 significance": {
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [0.000, 0.000]."
+   },
+   "G5 stability": {
+    "pass_": false,
+    "note": "Improvement positive in 0% of evaluated weeks (minimum 60%)."
+   },
+   "G6 calibration": {
+    "pass_": true,
+    "note": "Largest gap between predicted and observed cover rate: 0.053 (tolerance 0.12)."
+   },
+   "G7 not the benchmark": {
+    "pass_": false,
+    "note": "The league-constant benchmark is excluded from rewards by definition."
+   }
+  },
+  "gates_passed": 4,
+  "eligible": false,
+  "reward": 5.6
+ }
+]
