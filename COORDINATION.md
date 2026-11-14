@@ -493,6 +493,9 @@ claims.
 | # | Pull request | Result |
 |---|---|---|
 | 12 | https://github.com/karagemop466-tech/X4/pull/12 | **Merged** into `main` as `9f03406` on 2026-11-14 (merge commit `9f03406dbbf36c37b3b023a1dea4aea142eab150`). 37 files, all additions except the shared `COORDINATION.md`/`README.md`; zero changes to task-3 owned core files (`site/` mirror pages, `data/**`, their `tools/*`, `pages.yml`). |
+| 13 | https://github.com/karagemop466-tech/X4/pull/13 | **Merged** into `main` as `9bf241b` - records PR #12 result and post-merge Pages/CI verification (self-proving section below). |
+| 14 | https://github.com/karagemop466-tech/X4/pull/14 | **Merged** into `main` as `3ef318e` - spacing polish; the byte-identity gate then correctly failed on main (hand-edits vs generator bytes), fixed by PR #15. |
+| 15 | https://github.com/karagemop466-tech/X4/pull/15 | **Merged** into `main` as `614063a` - generators emit the normalized bytes; afterwards on `main`: Desk validation **success**, Publish NFL Decision Lab **success**, legacy pages build **success**, Pages API `built`. |
 
 ## Deployment verification after PR #12 (2026-11-14)
 
