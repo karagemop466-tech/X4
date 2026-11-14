@@ -1,23 +1,19 @@
 # Coordination board
 
-No other session claims were present when this session began; an already-completed session task from the merged main branch is preserved below.
+This branch integrates its work with the completed session already merged into main. The earlier session's record is retained here.
 
 | Task | Status | Owner session | File scope |
 |---|---|---|---|
 | Build NFL decision-support research dashboard and documented verification framework | done | 25459fae-x4 | `site/**`, `README.md`, `COORDINATION.md`, workflow config |
-| Integrate and verify source-linked NFL dashboard, research framework, executive summary and review flags | in progress | arena/70ac0cf1-x4 | README.md, COORDINATION.md, index.html, styles.css, app.js, site/index.html, site/styles.css, site/app.js |
+| Integrate source-linked decision dashboard, executive summary and review sections into Pages site | done | arena/70ac0cf1-x4 | README.md, COORDINATION.md, index.html, styles.css, app.js, site/index.html, site/styles.css, site/app.js |
 
 ## Session log
 
-- 2026-11-14 — Earlier session 25459fae-x4 completed its research dashboard and validation framework; preserve its source/verification history in the session log below.
-- 2026-11-14 — Current session checked the repository root before any work and initially found only a four-byte README and no coordination file; no task/data files existed at that time. A separate session merged its completed contribution into `main` while this session was underway. Fetched `origin/main`, detected the conflict, and switched to integration without discarding the already-merged work.
-- Current session claim commit `5a3e3aa` was pushed to the session branch when no remote branch existed. Follow-up commit `94e9768` created a standalone polished dashboard and corrected a broken NFL rule reference. In integration, preserve previous session outputs and adapt the new interface into the Pages source rather than losing either session's work.
-- Previous session sources and verification: official injury-report policy at https://www.nfl.com/news/competition-committee-approves-revisions-to-injury-report-0ap3000000688693; injury reports https://www.nfl.com/injuries/; rulebook https://operations.nfl.com/rules-officiating/2026-nfl-rulebook. Prior check logged 8 IDs and 19 links in `site/index.html`; no current statuses, odds, performance, depth chart or correlations were verified.
-
-## Current session verification
-
-- Official pages fetched and checked: NFL injury reports (`https://www.nfl.com/injuries/`), NFL stats (`https://www.nfl.com/stats/`), NFL team stats (`https://www.nfl.com/stats/team-stats/`), NFL team directory (`https://www.nfl.com/teams/`), official 2026 NFL Rulebook (`https://operations.nfl.com/rules-officiating/2026-nfl-rulebook`), and FTC UIGEA overview (`https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act`). No live values copied into the new table.
-- New dashboard document was parsed with Python's standard library: 27 data rows, each with at least one HTTPS source link; no broken internal anchors. Integration must rerun checks on the Pages source after adapting it.
-- Irregularity: initial `/the-rules/` link returned 404; corrected to the verified 2026 NFL rulebook. NFL rules do not equal book-specific settlement terms. FTC UIGEA overview is not legal advice or jurisdiction-specific guidance.
-- Limitations: no licensed odds/history, point-in-time roster dataset, API, results, model, contest rules, jurisdiction, or data-use authorization. No current lines/statuses/depth, empirical correlations, strategy edges/results, or claim that luck can be eliminated. These remain flagged for review.
-- Deployment / PR: integration and deployment verification pending.
+- 2026-11-14 — Earlier session 25459fae-x4 completed its research dashboard and validation framework; its content and verification history are preserved in `site/` and below.
+- 2026-11-14 — Current session checked the repository root before work and initially found only a four-byte README and no coordination file, site, or datasets. A separate session merged its completed contribution into `main` during this work. Fetched `origin/main`, identified overlapping work, preserved it and integrated this dashboard into the existing Pages site.
+- Current-session claim commit `5a3e3aa` was pushed when the remote session branch did not exist. The standalone iteration commit was `94e9768`; integration follows the merged `main` contribution. No other branches were created.
+- Earlier session sources: official NFL injury-report policy https://www.nfl.com/news/competition-committee-approves-revisions-to-injury-report-0ap3000000688693; injury reports https://www.nfl.com/injuries/; rulebook https://operations.nfl.com/rules-officiating/2026-nfl-rulebook. Earlier checks: 8 IDs and 19 links in its source file; no current statuses, odds, results, depth chart or correlations verified.
+- Current-session official pages fetched and checked: NFL injury reports (`https://www.nfl.com/injuries/`), NFL stats (`https://www.nfl.com/stats/`), team stats (`https://www.nfl.com/stats/team-stats/`), team directory (`https://www.nfl.com/teams/`), 2026 NFL Rulebook (`https://operations.nfl.com/rules-officiating/2026-nfl-rulebook`), and FTC UIGEA overview (`https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act`). They verify official source pages, not unpopulated rows. Current-session source check of the dashboard found 27 data rows, each with an HTTPS source link and no broken in-page anchors; the Pages source is verified separately below.
+- Irregularity: initial `/the-rules/` reference returned 404; corrected to the verified NFL 2026 Rulebook. NFL rules are not book-specific wager settlement terms; FTC UIGEA is neither legal advice nor jurisdiction-specific guidance.
+- Limitations: no licensed odds or historical point-in-time lineup data, API, predictions/results, model, data rights, product/jurisdiction, or contest rules. No current lines, injury statuses, depth ranks, empirical coefficients, edges, performance, or claim that luck can be eliminated are asserted. Unverified inputs remain flagged.
+- Pages integration: retained existing `site/` deployment workflow and data/framework work; the new responsive interface and dedicated proposal section are integrated into the Pages root with styles and navigation. Deployment/PR results will be appended after verification.

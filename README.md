@@ -16,3 +16,7 @@ Open [`site/index.html`](site/index.html) locally, or use the GitHub Pages URL a
 ## Current scope
 
 The NFL official injury page and NFL rulebook are linked in the dashboard as primary references. This repository does not fetch or assert current injuries or odds. Official source availability and any data-use/licensing permissions must be checked before building ingestion. See [Flagged for Review](site/index.html#flags) for unresolved prerequisites.
+
+## Integrated dashboard
+
+The GitHub Pages source remains `site/`, using the existing Pages workflow. It now presents the research workspace as a responsive dashboard with executive summary, line lab, injury/availability, leaderboard, decision checklist, suggestions, flagged-for-review register and sources. No model/live feed or unverified performance is represented as complete. Review [COORDINATION.md](COORDINATION.md) for per-session evidence and known gaps.
