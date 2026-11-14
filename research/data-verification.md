@@ -58,7 +58,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 
 | ID | Irregularity |
 |---|---|
-| F-01 | Current market betting lines and odds |
+| F-01 | Official market betting lines |
 | F-02 | Depth-chart string: starter, 2nd, 3rd, 4th |
 | F-03 | Players on injured reserve, PUP and NFI |
 | F-04 | Two official sources give different absence windows for the same player |
@@ -86,6 +86,9 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-26 | Clubs disagree on what a depth chart is, and some say so in writing |
 | F-27 | A published depth chart is not proof of who started |
 | F-28 | Only two position rows have no published replacement, and no row has both starter and backup out |
+| F-29 | Player-prop and prop-combination prices |
+| F-30 | Prices are from one book and are not official |
+| F-31 | Doubled HTML entity in the depth summary text |
 
 ## What is deliberately absent
 

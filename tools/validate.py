@@ -22,6 +22,10 @@ PY = sys.executable
 STEPS = [
     ("verify data against official standings", [PY, os.path.join(ROOT, "tools", "verify.py")]),
     ("build published numbers", [PY, os.path.join(ROOT, "tools", "build.py")]),
+    ("build the market layer (captured prices, skill/staking boards)",
+     [PY, os.path.join(ROOT, "tools", "market.py")]),
+    ("re-derive every market number independently",
+     [PY, os.path.join(ROOT, "tools", "market_check.py")]),
     ("build site pages", [PY, os.path.join(ROOT, "tools", "pages.py")]),
     ("write the research findings", [PY, os.path.join(ROOT, "tools", "research.py")]),
     ("sync root copies", [PY, os.path.join(ROOT, "tools", "sync.py")]),
@@ -49,11 +53,15 @@ def main():
     before = {}
     for rel in ("site/index.html", "site/styles.css", "site/app.js",
                 "index.html", "styles.css", "app.js",
-                "research/strategy-validation.md", "research/injuries-and-depth.md"):
+                "research/strategy-validation.md", "research/injuries-and-depth.md",
+                "site/market.html", "market.html", "data/output/market.json",
+                "data/market-snapshots-2026.csv"):
         path = os.path.join(ROOT, rel)
         if os.path.exists(path):
             before[rel] = open(path, "rb").read()
     subprocess.run([PY, os.path.join(ROOT, "tools", "build.py")], cwd=ROOT,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([PY, os.path.join(ROOT, "tools", "market.py")], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run([PY, os.path.join(ROOT, "tools", "pages.py")], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
