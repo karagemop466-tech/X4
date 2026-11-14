@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Requirements</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Requirements</h1>
+    <p class="lede">
+      The brief decomposed into 35 atomic requirements. Each row says what was asked, whether
+      it is done, where to inspect the work, and — where it is not done — exactly what is
+      blocking it.
+    </p>
+
+    <div class="callout info">
+      <strong>How status is used here.</strong>
+      <span class="b ok">met</span> there is an inspectable artifact on this site.
+      <span class="b warn">partial</span> the design exists but the data to complete it does not.
+      <span class="b bad">blocked</span> waiting on a decision or a data source the project cannot create itself.
+      <span class="b info">in progress</span> / <span class="b warn">pending</span> work that can only finish at merge time.
+    </div>
+
+    <div data-table="requirements"></div>
+
+    <h2>Note on the repo review (R-21)</h2>
+    <div class="callout warn">
+      The brief asked for a line-by-line review of the repository. At the start of this
+      session the repository contained exactly one commit
+      (<code>4c5280a</code>) on <code>main</code>, and that commit contained a single file,
+      <code>README.md</code>, whose entire content was <code># X4</code>. There was no site,
+      no code, no data and no configuration to review. Flagged as
+      <a href="flagged.html">F-01</a>. If a fuller version of this project exists elsewhere,
+      it should be reconciled with this build.
+    </div>
+
+    <footer class="pgfoot">
+      Requirement decomposition recorded in
+      <a href="https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md" target="_blank" rel="noreferrer">COORDINATION.md</a>.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/requirements.js"></script>
+</body>
+</html>

@@ -9,6 +9,7 @@ on:
       - "tools/**"
       - "research/**"
       - "docs/**"
+      - "console/**"
       - "*.html"
       - "*.css"
       - "*.js"
@@ -60,6 +61,12 @@ jobs:
           rm -rf site/console
           mkdir -p site/console
           cp -R docs/. site/console/
+      - name: Confirm the repository-root mirror is in step
+        run: |
+          diff -rq docs console
+          diff -rq site . --exclude=console --exclude=docs --exclude=data --exclude=tools \
+            --exclude=research --exclude=.git --exclude=.github --exclude=README.md \
+            --exclude=COORDINATION.md --exclude=.gitignore
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

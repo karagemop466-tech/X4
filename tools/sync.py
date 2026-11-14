@@ -1,27 +1,67 @@
 #!/usr/bin/env python3
 """Keep the repository-root copies of the site in step with site/.
 
-An earlier session kept index.html, styles.css and app.js at the repository root
-as well as inside site/. The Pages workflow publishes site/, but a reader who
-opens the repository root should still find a working site, so the whole
-published site is mirrored to the root.
+Two things are mirrored to the repository root:
+
+1. The published site (`site/`) - so a reader who opens the repository root
+   finds a working site.
+2. The parallel session's X4 console (`docs/`) - to `console/` - so that the
+   repository root, which is what the legacy GitHub Pages build publishes, is
+   byte-identical to what the custom workflow publishes from `site/`.
+
+Without the second mirror the two Pages builds would race and the published
+site would differ depending on which deployment finished last.
 
 Files mirrored: every page and asset in site/ except check.py, which is a build
 tool rather than a site asset. Root copies that are no longer part of the site
 are removed.
 """
+import filecmp
 import os
 import shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
+DOCS = os.path.join(ROOT, "docs")
+CONSOLE = os.path.join(ROOT, "console")
 
 SKIP = {"check.py"}
-KEEP_ROOT = {"README.md", "COORDINATION.md"}
+KEEP_ROOT = {"README.md", "COORDINATION.md", ".gitignore"}
+
+
+def mirror_tree(src, dst, skip=()):
+    """Copy every file under src into dst, and report what changed."""
+    changed = []
+    src_files = {}
+    for dirpath, dirnames, filenames in os.walk(src):
+        dirnames[:] = [d for d in dirnames if d not in (".git", "node_modules", "__pycache__")]
+        for fn in filenames:
+            if fn in skip:
+                continue
+            full = os.path.join(dirpath, fn)
+            rel = os.path.relpath(full, src)
+            src_files[rel] = full
+    for rel, full in src_files.items():
+        target = os.path.join(dst, rel)
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        if os.path.exists(target) and filecmp.cmp(full, target, shallow=False):
+            continue
+        shutil.copyfile(full, target)
+        changed.append(rel)
+    # remove files in dst that are no longer in src
+    for dirpath, dirnames, filenames in os.walk(dst, topdown=False):
+        for fn in filenames:
+            full = os.path.join(dirpath, fn)
+            rel = os.path.relpath(full, dst)
+            if rel not in src_files:
+                os.remove(full)
+                changed.append("(removed) " + rel)
+    return changed
 
 
 def main():
     changed = []
+    # 1. the published site
     names = []
     for fn in sorted(os.listdir(SITE)):
         path = os.path.join(SITE, fn)
@@ -29,29 +69,28 @@ def main():
             continue
         names.append(fn)
         dst = os.path.join(ROOT, fn)
-        if os.path.exists(dst) and open(path, "rb").read() == open(dst, "rb").read():
+        if os.path.exists(dst) and filecmp.cmp(path, dst, shallow=False):
             continue
-        shutil.copyfile(src=path, dst=dst)
+        shutil.copyfile(path, dst)
         changed.append(fn)
 
     # remove root files that used to be part of the site but are not any more
-    removed = []
     for fn in sorted(os.listdir(ROOT)):
         if fn in names or fn in SKIP or fn in KEEP_ROOT:
             continue
         path = os.path.join(ROOT, fn)
-        if not os.path.isfile(path):
-            continue
-        if fn.endswith((".html", ".css", ".js")):
+        if os.path.isfile(path) and fn.endswith((".html", ".css", ".js")):
             os.remove(path)
-            removed.append(fn)
+            changed.append("(removed) " + fn)
+
+    # 2. the parallel console, so the legacy Pages build publishes the same site
+    if os.path.isdir(DOCS):
+        changed += ["console/" + c for c in mirror_tree(DOCS, CONSOLE)]
 
     if changed:
-        print("mirrored to the repository root: %s" % ", ".join(changed))
-    if removed:
-        print("removed stale root files: %s" % ", ".join(removed))
-    if not changed and not removed:
-        print("repository-root copies already match site/")
+        print("synchronised: %s" % ", ".join(changed))
+    else:
+        print("repository-root copies already match site/ and docs/")
     return 0
 
 

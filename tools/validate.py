@@ -78,6 +78,31 @@ def main():
             print("\nVALIDATION FAILED at step: console check")
             return 1
 
+    # ---- the repository-root mirror must match site/ and docs/ ----
+    print("\n=== repository-root mirror ===", flush=True)
+    mirror_problems = []
+    for src, dst in (("site", "."), ("docs", "console")):
+        src_dir = os.path.join(ROOT, src)
+        dst_dir = os.path.join(ROOT, dst)
+        for dirpath, dirnames, filenames in os.walk(src_dir):
+            dirnames[:] = [d for d in dirnames if d not in (".git", "node_modules", "__pycache__")]
+            for fn in filenames:
+                if fn == "check.py":
+                    continue
+                full = os.path.join(dirpath, fn)
+                rel = os.path.relpath(full, src_dir)
+                target = os.path.join(dst_dir, rel)
+                if not os.path.exists(target):
+                    mirror_problems.append("%s/%s is missing from %s/" % (src, rel, dst))
+                elif open(full, "rb").read() != open(target, "rb").read():
+                    mirror_problems.append("%s/%s differs from %s/%s" % (src, rel, dst, rel))
+    if mirror_problems:
+        for mp in mirror_problems[:20]:
+            print("  - %s" % mp)
+        print("\nVALIDATION FAILED at step: repository-root mirror")
+        return 1
+    print("  - the repository root is a byte-identical mirror of site/ and docs/")
+
     # ---- data hygiene ----
     print("\n=== data hygiene ===", flush=True)
     problems = []
@@ -98,7 +123,7 @@ def main():
     for rel in ("data/output", "research", "site"):
         if not os.path.isdir(os.path.join(ROOT, rel)):
             problems.append("expected directory is missing: %s" % rel)
-    for rel in ("README.md", "COORDINATION.md", "data/games-2026.csv",
+    for rel in ("README.md", "COORDINATION.md", "console/index.html", "data/games-2026.csv",
                 "data/standings-wk10-2026.csv", "data/schedule-wk11-2026.csv",
                 "data/injuries-wk10-2026.csv", "site/index.html",
                 "site/app.js", "site/styles.css", "site/check.py",
