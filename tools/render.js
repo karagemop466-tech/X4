@@ -19,6 +19,7 @@ const PAGES = [
   ["index.html", "overview"], ["standings.html", "standings"], ["lines.html", "lines"],
   ["price-snapshots.html", "price-snapshots"], ["results.html", "results"],
   ["strategies.html", "strategies"], ["availability.html", "availability"],
+  ["depth.html", "depth"],
   ["questions.html", "questions"], ["suggestions.html", "suggestions"],
   ["flags.html", "flags"], ["methodology.html", "methodology"],
 ];
