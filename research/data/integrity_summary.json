@@ -1,0 +1,65 @@
+{
+ "price_store": {
+  "rows": 252,
+  "filled": 174,
+  "blank": 78,
+  "games": 14,
+  "markets": 3,
+  "phases": 3
+ },
+ "market_movement_rows": 56,
+ "results_feed": {
+  "games": 137,
+  "weeks": 10,
+  "reconciled_fields": 192,
+  "standings_teams": 32
+ },
+ "graded": {
+  "rows": 9,
+  "spread_rows": 9,
+  "clv_rows": 0,
+  "clv_status": "blocked"
+ },
+ "sigma": 13.473501,
+ "origination": {
+  "games": 13,
+  "order": [
+   "side",
+   "total",
+   "moneyline"
+  ],
+  "within_2_5": 2,
+  "over_5": 9
+ },
+ "correlations": 5,
+ "replacement_rows": 7,
+ "replacement_measured": 0,
+ "sim_rows": 12,
+ "gates": [
+  {
+   "gate": "D1 signal: beat the close",
+   "rule": "clv_positive_share >= 0.55 on n >= 100 settled bets",
+   "state": "BLOCKED"
+  },
+  {
+   "gate": "D2 staking: net ROI 95% CI lower bound > 0",
+   "rule": "n >= 100 and CI low > 0",
+   "state": "NOT MET"
+  },
+  {
+   "gate": "D3 probability quality: Brier < 0.25 baseline",
+   "rule": "n >= 100 and Brier < 0.25",
+   "state": "NOT MET"
+  },
+  {
+   "gate": "D4 drawdown <= 20% of peak bankroll",
+   "rule": "measured over the run",
+   "state": "NOT MET"
+  },
+  {
+   "gate": "D5 market availability: >= 1 priced market at stake time",
+   "rule": "price store row exists",
+   "state": "BLOCKED"
+  }
+ ]
+}

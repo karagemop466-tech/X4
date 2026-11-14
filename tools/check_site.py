@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DESK_PAGES = [
     "executive-summary.html", "requirements.html", "data.html", "signals.html",
     "leaderboard.html", "injuries.html", "decisions.html", "review.html",
-    "flagged.html", "repo-review.html", "sources.html",
+    "programme.html", "flagged.html", "repo-review.html", "sources.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/
@@ -124,6 +124,22 @@ def main() -> int:
         nav = {h for h in p.nav}
         if nav != NAV_HREFS:
             errors.append(f"{name}: nav mismatch — missing {sorted(NAV_HREFS - nav)} extra {sorted(nav - NAV_HREFS)}")
+
+    # integrity datasets: every CSV must have a rectangular shape. A row with one field
+    # too many shifts a trailing blank into a later column, which is how a source link
+    # once ended up empty while the row still "looked" sourced.
+    import csv as _csv
+    for fn in sorted(os.listdir(ROOT / "research" / "data")):
+        if not fn.endswith(".csv"):
+            continue
+        with open(ROOT / "research" / "data" / fn, newline="", encoding="utf-8") as fh:
+            raw = list(_csv.reader(fh))
+        if not raw:
+            continue
+        width = len(raw[0])
+        bad = [(i + 1, len(r)) for i, r in enumerate(raw) if len(r) != width]
+        if bad:
+            errors.append(f"research/data/{fn}: rows with the wrong field count (header {width}): {bad[:5]}")
 
     # mirror check: desk files must be byte-identical inside site/ (publish path)
     mirror_errors = []
