@@ -32,7 +32,7 @@ file scope. Never start work on a task another session has claimed.
 | T26 | Track replacement depth (2nd/3rd/4th string), not just the fact of replacement | done | arena/1c6a213c-x4 | `data/replacement-depth.csv`, `tools/build.py`, `tools/pages.py`, `content.py` (flag) |
 | T27 | Compute correlations only from officially sourced numbers and publish n with each value | done | arena/1c6a213c-x4 | `tools/build.py` (corr with n), `tools/pages.py` (corr table), `content.py` |
 | T28 | Define a demotion gate that sends a live strategy back to paper | done | arena/1c6a213c-x4 | `tools/build.py`, `tools/pages.py`, `content.py`, methodology |
-| T29 | Final build, verification, GitHub Pages deploy, PR to main and merge | in progress | arena/1c6a213c-x4 | `tools/validate.py`, pages workflow, PR/merge, COORDINATION.md record |
+| T29 | Final build, verification, GitHub Pages deploy, PR to main and merge | done | arena/1c6a213c-x4 | `tools/validate.py`, pages workflow, PR/merge, COORDINATION.md record |
 | 2 | Integrate source-linked decision dashboard, executive summary and review sections into Pages site | done | arena/70ac0cf1-x4 | `README.md`, `COORDINATION.md`, `index.html`, `styles.css`, `app.js`, `site/index.html`, `site/styles.css`, `site/app.js` |
 | 3 | Official-source data acquisition, model line engine, strategy validation harness, multi-page site, integration and publication | done | arena/59059060-x4 | `data/**`, `research/**`, `tools/**`, `site/**` (integration), root site mirror, `README.md`, `COORDINATION.md`, `.github/workflows/**` |
 | T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` |
@@ -687,7 +687,7 @@ proof that PR #18 merged (it can only reach `main` through that merge).
 
 F-18 market betting lines (blank — NFL publishes none), F-19 staking figures (blank — needs odds feed), F-20 ROI (blank — needs a price), F-21 replacement depth (blank — no official depth labels), F-22 demotion gate basis (design choice), F-23 price-snapshot values are model estimates.
 
-T29 remains in progress until the GitHub Pages deploy, PR to main and merge are confirmed.
+T29 complete: PR #21 (https://github.com/karagemop466-tech/X4/pull/21) merged into main as 2046d6e on 2026-11-14. Pages workflow run 43632180903 concluded success; Pages API status built at https://karagemop466-tech.github.io/X4/ (source: main /). All 2673 data rows carry an official source link.
 
 # Appendix - session `arena/4d9bc204-x4` (T21: official depth charts + deficiency pipeline)
 
