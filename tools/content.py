@@ -204,7 +204,7 @@ FLAGS = [
          detail=("Reconciled. Real prices now exist, but they are NOT official and they are NOT in this register's scope: "
                  "the NFL publishes no betting lines, so no price on this site is official. One licensed book's prices "
                  "(DraftKings, published by ESPN) were captured for 29 games - open and close, spread, total and "
-                 "moneyline - and are on the Market &amp; price archive page. Every one of those rows carries two "
+                 "moneyline - and are on the Market & price archive page. Every one of those rows carries two "
                  "links: the NFL.com game page that proves the result, and the ESPN odds resource the price was "
                  "archived from. What remains unverified is any price for a player prop or a prop combination: no "
                  "official or licensed source was confirmed for those, so those cells are still blank (F-35)."),
@@ -216,7 +216,7 @@ FLAGS = [
          url="https://www.nfl.com/"),
 
     dict(id="F-02", item="Depth-chart string: starter, 2nd, 3rd, 4th", type="Unverified data", kind="ok", status="resolved",
-         detail="This was open in the first build: no player on the site was assigned a depth position, because nfl.com/teams/<club>/depth-chart returns HTTP 404 for every club. It is now closed from an official source. Each club's own official website publishes its depth chart as an ordered table, and the column order is the depth position - first name in a row = starter, second = backup, third = third string. 31 of the 32 clubs publish a machine-readable ordered chart, and all 1,558 depth rows are on the Depth &amp; deficiency page with a link to the club page each one came from.",
+         detail="This was open in the first build: no player on the site was assigned a depth position, because nfl.com/teams/<club>/depth-chart returns HTTP 404 for every club. It is now closed from an official source. Each club's own official website publishes its depth chart as an ordered table, and the column order is the depth position - first name in a row = starter, second = backup, third = third string. 31 of the 32 clubs publish a machine-readable ordered chart, and all 1,558 depth rows are on the Depth & deficiency page with a link to the club page each one came from.",
          why="The league publishes no consolidated chart, but the clubs are the authority on their own depth and they publish it themselves. Recording the ordering the club itself prints is a transcription, not an inference: no rank is assigned where the club does not print one, co-starters are kept as co-starters, and a club that publishes its chart only as an image (Houston) is left blank and flagged as F-18 instead of being guessed at.",
          official_url="https://www.nfl.com/teams/",
          url="https://www.buffalobills.com/team/depth-chart"),
@@ -354,14 +354,14 @@ FLAGS = [
          url="https://www.nfl.com/schedules/2026/by-week/week-11"),
 
     dict(id="F-24", item="The Houston Texans publish their depth chart only as an image", type="Unverified data", kind="no", status="unverified",
-         detail="houstontexans.com/team/depth-chart renders its chart as a single bitmap image with no table markup and no ordered text, so no Houston depth position can be transcribed from it. Houston is the only club of the 32 with no rows on the Depth &amp; deficiency page.",
+         detail="houstontexans.com/team/depth-chart renders its chart as a single bitmap image with no table markup and no ordered text, so no Houston depth position can be transcribed from it. Houston is the only club of the 32 with no rows on the Depth & deficiency page.",
          why="The five Houston players the official NFL injury report rules Out or Doubtful for Week 10 (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) therefore have no published depth position on this site. Reading a rank off a picture would be an eyeball inference, so those cells are blank and the five names are listed as unmatched instead.",
          official_url="https://www.houstontexans.com/team/depth-chart",
          url="https://www.houstontexans.com/team/depth-chart"),
 
     dict(id="F-25", item="19 officially ruled-out players do not appear on their own club's published depth chart", type="Irregularity", kind="warn", status="irregularity",
          detail="Of the 76 players the official Week 10 injury report lists as Out or Doubtful, 57 appear somewhere on their club's published depth chart and 19 do not: Lucas Patrick (WAS), Kerby Joseph (DET), Omarr Norman-Lott (KC), Micah Parsons (GB), BJ Green II (JAX), Tommy Townsend (TEN), Luke Rhodes (IND), Jonathon Brooks and Mike Jackson (CAR), Terrance Ferguson (LAR), Zachary Carter (ARI), Jalen Davis, Andrei Iosivas and Brian Parker II (CIN), plus the five Houston players above.",
-         why="A club's depth chart is editorial and lags roster moves, so an absent name is not evidence the player is not on the team. The effect on this site is conservative: those 19 absences are counted in the official injury totals but not in the depth-based starter-out score, so the starter-out figures are a floor, not a ceiling. Each is listed by name on the Depth &amp; deficiency page so a reviewer can chase them individually.",
+         why="A club's depth chart is editorial and lags roster moves, so an absent name is not evidence the player is not on the team. The effect on this site is conservative: those 19 absences are counted in the official injury totals but not in the depth-based starter-out score, so the starter-out figures are a floor, not a ceiling. Each is listed by name on the Depth & deficiency page so a reviewer can chase them individually.",
          official_url="https://www.nfl.com/injuries/",
          url="https://www.tennesseetitans.com/team/depth-chart"),
 
@@ -429,7 +429,7 @@ FLAGS = [
          url="https://www.espn.com/nfl/"),
 
     dict(id="F-36", item="Prices are from one book and are not official", type="Unverified data", kind="warn", status="limitation",
-         detail=("The 174 captured prices on the Market &amp; price archive page come from a single licensed sportsbook "
+         detail=("The 174 captured prices on the Market & price archive page come from a single licensed sportsbook "
                  "(DraftKings, as published by ESPN) at the moment of capture. The NFL publishes no betting lines at all, so "
                  "no price on this site is an official league figure."),
          why=("A single book's number is a transcription of what that book showed, not a market consensus and not the best "
@@ -440,12 +440,15 @@ FLAGS = [
          official_url="https://www.nfl.com/",
          url="https://www.espn.com/nfl/"),
 
-    dict(id="F-37", item="Doubled HTML entity in the depth summary text", type="Irregularity", kind="warn", status="irregularity",
-         detail=("The landing page sentence about depth reads 'Depth &amp;amp; deficiency' - the ampersand is escaped twice, so a "
-                 "reader sees the literal text '&amp;' in that one phrase."),
-         why=("Found while adding a landing-page directory card in a different session's file and left unfixed deliberately: the "
-              "owning session's page text is not edited from another session. It is cosmetic, affects one phrase, and does not "
-              "misstate any number. Recorded here so it is not lost."),
+    dict(id="F-37", item="Doubled HTML entity in the depth summary text", type="Irregularity", kind="warn", status="resolved",
+         detail=("Found by session arena/1b8b6e9e-x4: several phrases in this register and on the landing-page flag preview "
+                 "showed a literal escaped ampersand (the word 'amp;' visible to the reader) because the register strings "
+                 "carried a pre-escaped ampersand into a renderer that escapes text again. Fixed at T31 integration by writing "
+                 "bare ampersands in this register's strings; the pages now render a plain '&' in those phrases."),
+         why=("Recorded because it is a failure mode worth knowing about: a text pipeline that escapes in two places produces "
+              "output that looks like a data error but is not. The strings in this register are rendered through an escaping "
+              "helper (tools/pages.py flags_table), so they must contain bare text. The alternative - leaving a visible escape "
+              "sequence on a published page - misleads readers into thinking the underlying label is wrong."),
          official_url="https://www.nfl.com/",
          url="https://www.nfl.com/"),
 
