@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="How every published number is produced: the model, the parameters, the validation gates and the verification log.">
+<title>Methodology · NFL Decision Desk</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="methodology">
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>NFL DECISION DESK</small></span></a>
+    <nav class="main"><a href="index.html">Overview</a><a href="standings.html">Standings & results</a><a href="lines.html">Model lines</a><a href="strategies.html">Strategy lab</a><a href="availability.html">Injuries & depth</a><a href="questions.html">Decision checklist</a><a href="suggestions.html">Suggestions</a><a href="flags.html">Flagged for review</a><a href="methodology.html" class="active">Methodology</a></nav>
+  </div>
+</header>
+<main>
+
+<div class="section-head"><div><span class="eyebrow">10 · How it works</span><h2>Methodology</h2><p class="muted">Everything on this site is produced by two scripts from the CSV files in <span class="mono">data/</span>. Nothing is hand-typed into a page at publish time.</p></div><span class="tag acc">Reproducible</span></div>
+
+<div class="grid g2">
+  <article class="card">
+    <span class="eyebrow">Step 1 · Acquire</span>
+    <h3>Official pages only</h3>
+    <p class="muted">The official NFL.com standings, the official weekly injury report and the official weekly schedule are the source of record. Secondary aggregators were used to reconstruct the game log, and every reconstructed score is then proved against the official standings totals - a single wrong score changes a team's points for or points allowed, so matching all 32 teams on all six measures proves every score.</p>
+  </article>
+  <article class="card">
+    <span class="eyebrow">Step 2 · Verify</span>
+    <h3><span class="mono">tools/verify.py</span></h3>
+    <p class="muted">460 checks covering: every game row's official URL pattern, every team's wins, losses, ties, points for, points allowed, net points and winning percentage, games played per team, the Week 11 schedule's pairing and URL structure, and duplicate rows. It exits non-zero on any failure and runs as part of the build.</p>
+  </article>
+  <article class="card">
+    <span class="eyebrow">Step 3 · Model</span>
+    <h3>Opponent-adjusted rates</h3>
+    <p class="muted">For a team, the opponent-adjusted points-for rate is the team's own scoring rate minus the average points allowed by the opponents it has faced, plus the league average. The same construction gives the opponent-adjusted points-allowed rate. A team's expected score is the mean of its adjusted offence and its opponent's adjusted defence, with the league home-field margin added. Every quantity used for a Week-w forecast is measured strictly from games before Week w, including the opponents' season rates, so there is no look-ahead.</p>
+  </article>
+  <article class="card">
+    <span class="eyebrow">Step 4 · Validate</span>
+    <h3>Walk-forward, seven gates</h3>
+    <p class="muted">Strategies are evaluated only on games that had not been played at forecast time - no random row splits. Each strategy must clear data integrity, out-of-sample discipline, minimum sample size, statistical significance, weekly stability, calibration, and exclusion of the league-constant benchmark, before it can earn reward points.</p>
+  </article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Model parameters</span><h2>Every knob, published</h2><p class="muted">These are analyst choices by this project, not official values, and they are the first thing a reviewer should challenge. Changing any of them changes the ranking. A fixed bootstrap seed makes the reported intervals exactly reproducible.</p></div><span class="tag warn">Not official</span></div>
+<div id="params"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Verification log</span><h2>What was checked, and what failed</h2><p class="muted">The complete record, including the checks that did not pass. A verification log that only lists successes is not a verification log.</p></div></div>
+<div id="verify"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Reproduce it</span><h2>Running the pipeline</h2></div></div>
+  <div class="note"><b>From a clean checkout:</b><br>
+  <span class="mono">python3 tools/verify.py</span> &nbsp;- proves the data against the official standings<br>
+  <span class="mono">python3 tools/build.py</span> &nbsp;- rebuilds every published number into <span class="mono">site/data.js</span><br>
+  <span class="mono">python3 tools/pages.py</span> &nbsp;- regenerates the site pages<br>
+  <span class="mono">python3 site/check.py</span> &nbsp;- checks the site for broken links and unsourced rows<br>
+  <span class="mono">python3 tools/validate.py</span> &nbsp;- runs the full publication gate</span>
+  <p style="margin-top:9px">The build is deterministic: the same inputs produce the same tables and the same confidence intervals on every run.</p></div>
+</section>
+
+<div class="note bad" id="render-error" style="display:none"></div>
+</main>
+<footer>
+  <div class="inner">
+    <span>FOURTH DOWN RESEARCH · NFL decision support</span>
+    <span>Official sources: nfl.com/standings · nfl.com/injuries · nfl.com/schedules · operations.nfl.com · ftc.gov</span>
+    <span>Evidence status: verified official data + labelled model estimates · no market data · not betting advice</span>
+  </div>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

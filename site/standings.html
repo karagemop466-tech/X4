@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Official NFL.com standings for all 32 teams, opponent-adjusted power ratings and every completed 2026 game with an official link.">
+<title>Standings & results · NFL Decision Desk</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="standings">
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>NFL DECISION DESK</small></span></a>
+    <nav class="main"><a href="index.html">Overview</a><a href="standings.html" class="active">Standings & results</a><a href="lines.html">Model lines</a><a href="strategies.html">Strategy lab</a><a href="availability.html">Injuries & depth</a><a href="questions.html">Decision checklist</a><a href="suggestions.html">Suggestions</a><a href="flags.html">Flagged for review</a><a href="methodology.html">Methodology</a></nav>
+  </div>
+</header>
+<main>
+
+<div class="section-head"><div><span class="eyebrow">01 · Official standings</span><h2>League standings, verified</h2><p class="muted">Wins, losses, ties, winning percentage, points for, points allowed and net points are the official NFL.com values, retrieved 14 November 2026. These same totals are what the game log is proved against.</p></div><span class="tag acc">Source: nfl.com/standings</span></div>
+<div id="standings"></div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">02 · Opponent-adjusted power</span><h2>Who is actually good</h2><p class="muted">A team's raw points-per-game flatters a soft schedule. These figures subtract the average rate of the opponents each team has faced and add the league average back, so beating good teams and beating bad teams are not worth the same. <b>These are model estimates, not official values</b> - the raw official columns beside them are.</p></div><span class="tag warn">Estimate, not official</span></div>
+<div id="power"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03 · Game log</span><h2>Every completed game</h2><p class="muted">All 137 completed regular-season games through the 12 November Thursday night game. Each row links to that game's official NFL.com page.</p></div><span class="tag acc">137 games</span></div>
+<div class="toolbar" id="games-toolbar"></div>
+<div id="games"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="note ok"><b>How this was verified.</b> The game log was reconstructed and then checked, automatically, against the official standings: <span class="mono">tools/verify.py</span> rebuilds every team's record and point totals from the 137 games and compares them to the NFL's own figures. All 32 teams matched exactly on all six measures, which also proves every individual score. The check runs in 460 checks and is part of the build.</div>
+</section>
+
+<div class="note bad" id="render-error" style="display:none"></div>
+</main>
+<footer>
+  <div class="inner">
+    <span>FOURTH DOWN RESEARCH · NFL decision support</span>
+    <span>Official sources: nfl.com/standings · nfl.com/injuries · nfl.com/schedules · operations.nfl.com · ftc.gov</span>
+    <span>Evidence status: verified official data + labelled model estimates · no market data · not betting advice</span>
+  </div>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
