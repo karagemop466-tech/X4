@@ -20,6 +20,7 @@ const PAGES = [
   ["price-snapshots.html", "price-snapshots"], ["results.html", "results"],
   ["strategies.html", "strategies"], ["availability.html", "availability"],
   ["depth.html", "depth"],
+  ["market.html", "market"],
   ["markets.html", "markets"], ["gates.html", "gates"],
   ["questions.html", "questions"], ["suggestions.html", "suggestions"],
   ["flags.html", "flags"], ["methodology.html", "methodology"],

@@ -22,8 +22,11 @@ PY = sys.executable
 STEPS = [
     ("verify data against official standings", [PY, os.path.join(ROOT, "tools", "verify.py")]),
     ("build published numbers", [PY, os.path.join(ROOT, "tools", "build.py")]),
+    ("build the captured market prices", [PY, os.path.join(ROOT, "tools", "market.py")]),
     ("check the price store, origination card and results feed",
      [PY, os.path.join(ROOT, "tools", "market_store.py")]),
+    ("check the market numbers re-derive from the source CSVs",
+     [PY, os.path.join(ROOT, "tools", "market_check.py")]),
     ("build site pages", [PY, os.path.join(ROOT, "tools", "pages.py")]),
     ("originate the markets and the price store", [PY, os.path.join(ROOT, "tools", "fetch.py"), "plan"]),
     ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),
