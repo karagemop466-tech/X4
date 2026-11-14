@@ -29,6 +29,11 @@ STEPS = [
     ("re-derive every market number independently",
      [PY, os.path.join(ROOT, "tools", "market_check.py")]),
     ("build site pages", [PY, os.path.join(ROOT, "tools", "pages.py")]),
+    ("build the integrity datasets", [PY, os.path.join(ROOT, "tools", "build_integrity.py")]),
+    ("build the programme page", [PY, os.path.join(ROOT, "tools", "gen_programme.py")]),
+    ("build the suggestion workbench page", [PY, os.path.join(ROOT, "tools", "gen_workbench.py")]),
+    ("build the desk data tables", [PY, os.path.join(ROOT, "tools", "gen_data_html.py")]),
+    ("build the desk signals tables", [PY, os.path.join(ROOT, "tools", "gen_strategies_html.py")]),
     ("originate the markets and the price store", [PY, os.path.join(ROOT, "tools", "fetch.py"), "plan"]),
     ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),
     ("build the official depth charts", [PY, os.path.join(ROOT, "tools", "depth.py")]),
@@ -64,7 +69,10 @@ def main():
                 "index.html", "styles.css", "app.js",
                 "research/strategy-validation.md", "research/injuries-and-depth.md",
                 "site/market.html", "market.html", "data/output/market.json",
-                "data/market-snapshots-2026.csv"):
+                "data/market-snapshots-2026.csv",
+                "site/programme.html", "programme.html", "site/workbench.html", "workbench.html",
+                "research/data/integrity_summary.json",
+                "site/data.html", "data.html", "site/signals.html", "signals.html"):
         path = os.path.join(ROOT, rel)
         if os.path.exists(path):
             before[rel] = open(path, "rb").read()
@@ -73,6 +81,16 @@ def main():
     subprocess.run([PY, os.path.join(ROOT, "tools", "market.py")], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run([PY, os.path.join(ROOT, "tools", "pages.py")], cwd=ROOT,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([PY, os.path.join(ROOT, "tools", "build_integrity.py")], cwd=ROOT,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([PY, os.path.join(ROOT, "tools", "gen_programme.py")], cwd=ROOT,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([PY, os.path.join(ROOT, "tools", "gen_workbench.py")], cwd=ROOT,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([PY, os.path.join(ROOT, "tools", "gen_data_html.py")], cwd=ROOT,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([PY, os.path.join(ROOT, "tools", "gen_strategies_html.py")], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run([PY, os.path.join(ROOT, "tools", "research.py")], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

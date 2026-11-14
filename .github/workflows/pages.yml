@@ -43,7 +43,21 @@ jobs:
       - name: Rebuild the published numbers and the site
         run: |
           python3 tools/build.py
+          python3 tools/market.py
+          python3 tools/market_check.py
           python3 tools/pages.py
+          python3 tools/build_integrity.py
+          python3 tools/gen_programme.py
+          python3 tools/gen_workbench.py
+          python3 tools/gen_data_html.py
+          python3 tools/gen_strategies_html.py
+          python3 tools/fetch.py plan
+          python3 tools/fetch.py ingest
+          python3 tools/depth.py
+          python3 tools/origination.py
+          python3 tools/depth_ledger.py
+          python3 tools/ops.py
+          python3 tools/research.py
           python3 tools/sync.py
       - name: Check the published site and the repository-root copy
         run: |
@@ -55,7 +69,7 @@ jobs:
         run: |
           git diff --exit-code -- site data research *.html *.css *.js || (
             echo "::error::The committed output does not match a fresh build."
-            echo "Run 'python3 tools/build.py && python3 tools/pages.py && python3 tools/sync.py' and commit the result."
+            echo "Run 'python3 tools/validate.py' and commit the result."
             exit 1
           )
       - name: Add the X4 Console (docs/) to the published artifact
