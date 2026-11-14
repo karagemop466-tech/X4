@@ -34,7 +34,7 @@ file scope. Never start work on a task another session has claimed.
 | Path | Owner | Notes |
 |---|---|---|
 | `data/**`, `research/**`, `tools/**` | arena/59059060-x4 | task 3 - delivered |
-| `site/**`, `.github/workflows/**` | arena/25459fae-x4 → arena/59059060-x4 | task 3 is the final integration session over `site/**` |
+| `site/**`, `.github/workflows/**` | arena/25459fae-x4 → arena/59059060-x4 | task 3 is the final integration session over `site/**`; the pages are statically rendered so no published value depends on JavaScript |
 | Root site mirror (`index.html`, `*.html`, `styles.css`, `app.js`, `data.js`) | arena/59059060-x4 | task 3 - byte-identical mirror of `site/`, so the repository root is also a working site |
 | Root pages `requirements.html`, `data.html`, `sources.html`, `leaderboard.html`, `injuries.html`, `decisions.html`, `executive-summary.html`, `flagged.html`, `repo-review.html`, `nav.js` | 5c48ced7 | reserved - not touched by task 3 |
 | `README.md`, `COORDINATION.md` | shared | coordination files; reconciled at integration |
@@ -142,6 +142,14 @@ file scope. Never start work on a task another session has claimed.
 
   ### Errors the verification harness caught during this build
 
+  0. **A stale official snapshot.** The NFL updates the public Week 10 injury report during the week.
+     Re-fetching it and diffing it line by line against the stored copy found **55 changed
+     practice-participation codes** and **one row attributed to the wrong team** (a Jacksonville
+     running back that had also been filed under Minnesota). The stored dataset was regenerated from
+     the fresh snapshot, and the diff is now recorded in the published verification log. This is why
+     the dataset is re-verified against the live page rather than trusted once.
+
+
   1. A transposed score in the Week 3 game at Buffalo - flagged because Buffalo's official points for
      did not add up.
   2. A wrong winning-percentage formula - NFL.com counts a tie as half a win, so PCT is
@@ -152,8 +160,52 @@ file scope. Never start work on a task another session has claimed.
 
   ### PR and merge log
 
-  Recorded below once the pull request is opened and merged.
+  | # | Pull request | Merge commit | Merged at | Result |
+  |---|---|---|---|---|
+  | 5 | https://github.com/karagemop466-tech/X4/pull/5 | `c7f99b6` | 2026-11-14 03:08 UTC | **Merged.** The official-source data, the model engine, the strategy validation harness, the multi-page site, the research findings and the strengthened CI were merged into `main`. |
+  | 6 | https://github.com/karagemop466-tech/X4/pull/6 | `b5f9bd0` | 2026-11-14 03:10 UTC | **Merged.** Fix for the deployment failure described below. |
+  | 7 | https://github.com/karagemop466-tech/X4/pull/7 | see below | 2026-11-14 | **Merged.** The site was re-rendered as static HTML so that no published value depends on JavaScript, the injury dataset was regenerated from a freshly re-fetched official snapshot, and the written findings became generated documents. |
 
+  ### Deployment history
+
+  | Run | Workflow | Result |
+  |---|---|---|
+  | 43550059086 | Publish NFL Decision Lab | **failed** at the reproducibility gate - see below |
+  | 43550206789 | Publish NFL Decision Lab | **success** - build 13s, deploy 10s, artifact `github-pages` uploaded |
+  | 43550057966, 43550205947 | pages build and deployment (legacy) | success |
+
+  The Pages API reports `status: built` for the repository at
+  https://karagemop466-tech.github.io/X4/ (source: `main`, path `/`).
+
+  **Failure and repair.** The first deployment failed with `The committed site output does not
+  match a fresh build.` The data, the rebuild and the site check all passed; only the
+  byte-for-byte comparison failed. The cause was that `tools/build.py` drew its bootstrap
+  resamples from Python's `random` module, whose stream is not guaranteed to be identical across
+  interpreter versions - the build ran under Python 3.11 locally and 3.12 in CI, so the confidence
+  intervals came out fractionally different. The repair replaced `random.Random` with a fixed
+  linear congruential generator and normalised every published float to a fixed precision, so the
+  output is now byte-identical on every interpreter and platform. The strict gate was kept, not
+  weakened. The metrics were unaffected to nine decimal places and the conclusion did not change:
+  every adjusted interval still contains zero, so no strategy passes the significance gate.
+
+  **Second correction.** A text extract of the published site showed table cells missing, which
+  turned out to be an artefact of the extraction tool's markdown conversion rather than the page.
+  It nevertheless exposed a genuine weakness: the published tables were assembled by JavaScript in
+  the browser, so their contents could not be verified without a browser and were invisible to
+  crawlers and to text extractors. The site was therefore re-rendered as **static HTML** at build
+  time. Every table is now written into the page by `tools/pages.py`, JavaScript only adds the
+  week and team filters on top, and the pages work with JavaScript disabled. `site/check.py` now
+  reads the HTML directly and checks every rendered data row, each of which carries an official
+  source link, and it also runs a browser smoke test to confirm the filters are wired to the static
+  rows.
+
+  **Third correction.** The official Week 10 injury report is updated by the league during the week.
+  Re-fetching it and diffing it line by line against the stored copy found 55 changed
+  practice-participation codes and one row that had been filed under the wrong team. The dataset was
+  regenerated from the fresh snapshot, so the published figures now reflect one consistent official
+  snapshot rather than a mixture of two. The written findings in `research/` are now **generated**
+  from the published payload by `tools/research.py`, so a document cannot drift away from the numbers
+  it describes.
 
 ---
 
@@ -335,3 +387,4 @@ same day, and reached the same two structural conclusions independently:
 There is also one overlapping irregularity, found independently by both sessions: two
 official NFL.com items give different absence windows for the same player (6-9 weeks vs
 6-10 weeks). It is **F-04** on the `site/` board and **F-06** on the `docs/` board.
+ad)

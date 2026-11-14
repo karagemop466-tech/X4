@@ -51,13 +51,9 @@ Opponent-adjusted rates: a team's points-for rate minus the average points allow
 | 31 | NYJ | 21.79 | 26.47 | -4.68 | 182 | 223 | [NFL.com](https://www.nfl.com/teams/new-york-jets/) |
 | 32 | BAL | 18.37 | 24.75 | -6.38 | 189 | 236 | [NFL.com](https://www.nfl.com/teams/baltimore-ravens/) |
 
-The eight strongest opponent-adjusted margins and the eight weakest are separated by more than thirty points per game, which is the gap the model is reading when it puts San Francisco and Jacksonville above Los Angeles and Baltimore in Week 11.
-
 ## Why no line is presented as a recommendation
 
 Three reasons, in order of importance. First, there is no market price, so there is nothing to compare an estimate against - a model line without a price is not a bet. Second, the improvement over the league-constant benchmark has a confidence interval that still contains zero (flag F-07), so the model has not demonstrated skill over noise. Third, the public Week 10 injury report omits players on injured reserve, so a material part of the availability picture is missing from the inputs (flag F-03).
-
-Note the one place where the two ends of the table meet: San Francisco has the league's best adjusted margin and faces Minnesota, while Jacksonville has the second-best and faces a New York Giants team whose own numbers are mid-pack. Neither the injury picture nor a price is available to refine either matchup further.
 
 ## Source links
 

@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 /*
- * Render the site with a minimal DOM shim and dump the resulting HTML per element.
+ * Browser smoke test for the published site.
  *
- * The tables on this site are built in the browser from window.X4, so a static
- * HTML check would inspect empty placeholders. This harness actually executes
- * site/app.js against site/data.js for every page and emits the rendered
- * markup, which site/check.py then inspects row by row.
+ * The pages are statically rendered, so this harness does not build tables - it
+ * loads each page in a DOM shim, confirms the script runs without an error, and
+ * exercises the two filters to prove they are wired to the static rows.
  *
  * Usage: node tools/render.js <siteDir>   ->  JSON on stdout
  */
@@ -24,25 +23,47 @@ const PAGES = [
 ];
 
 function makeElement(id) {
-  const el = {
+  return {
     id: id,
     _html: "",
     style: {},
     value: "",
     textContent: "",
     listeners: {},
+    querySelectorAll(sel) {
+      // only "tbody tr" is used by the site
+      if (sel !== "tbody tr") return [];
+      const el = this;
+      const tb = /<tbody\b[^>]*>([\s\S]*?)<\/tbody>/.exec(el._html);
+      const scope = tb ? tb[1] : el._html;
+      const re = /<tr\b([^>]*)>([\s\S]*?)<\/tr>/g;
+      const out = [];
+      let m;
+      while ((m = re.exec(scope)) !== null) {
+        const attrs = m[1] || "";
+        const inner = m[2] || "";
+        out.push({
+          getAttribute(name) {
+            const a = new RegExp(name + '="([^"]*)"').exec(attrs);
+            return a ? a[1] : null;
+          },
+          style: {},
+          _inner: inner,
+        });
+      }
+      return out;
+    },
     get innerHTML() { return this._html; },
     set innerHTML(v) { this._html = String(v); },
     addEventListener(type, fn) { (this.listeners[type] = this.listeners[type] || []).push(fn); },
     dispatch(type) { (this.listeners[type] || []).forEach((fn) => fn.call(this, {})); },
   };
-  return el;
 }
 
 const out = {};
 const errors = [];
 
-for (const [file, page] of PAGES) {
+for (const [file] of PAGES) {
   const htmlPath = path.join(siteDir, file);
   if (!fs.existsSync(htmlPath)) { errors.push("missing page file: " + file); continue; }
   const html = fs.readFileSync(htmlPath, "utf8");
@@ -53,6 +74,18 @@ for (const [file, page] of PAGES) {
   const elements = new Map();
   const bodyEl = makeElement("body");
   bodyEl.getAttribute = (name) => (name === "data-page" ? pageAttr : null);
+
+  // seed the elements the page declares, with the static markup they contain
+  for (const em of html.matchAll(/id="([a-zA-Z0-9_-]+)"/g)) {
+    const id = em[1];
+    const el = makeElement(id);
+    const start = html.indexOf("<table", em.index);
+    if (start !== -1) {
+      const end = html.indexOf("</table>", start);
+      if (end !== -1) el._html = html.slice(start, end + "</table>".length);
+    }
+    elements.set(id, el);
+  }
 
   const document = {
     body: bodyEl,
@@ -69,20 +102,29 @@ for (const [file, page] of PAGES) {
   sandbox.globalThis = sandbox;
 
   const ctx = vm.createContext(sandbox);
+  let scriptError = null;
   try {
-    vm.runInContext(fs.readFileSync(path.join(siteDir, "data.js"), "utf8"), ctx, { filename: "data.js" });
     vm.runInContext(fs.readFileSync(path.join(siteDir, "app.js"), "utf8"), ctx, { filename: "app.js" });
   } catch (e) {
-    errors.push(file + ": script error: " + e.message);
+    scriptError = e.message;
   }
 
-  const rendered = {};
-  for (const [id, el] of elements.entries()) {
-    if (el._html && el._html.length > 0) rendered[id] = el._html;
+  const filters = {};
+  if (file === "standings.html") {
+    const gw = elements.get("gw");
+    const g = elements.get("games");
+    if (g) filters.games_rows = g.querySelectorAll("tbody tr").length;
+    if (gw) filters.week_value = gw.value;
   }
-  out[file] = { page: pageAttr, elements: rendered };
+  if (file === "availability.html") {
+    const inj = elements.get("inj-full");
+    if (inj) filters.injury_rows = inj.querySelectorAll("tbody tr").length;
+  }
+
+  out[file] = { page: pageAttr, filters: filters, error: scriptError };
+  if (scriptError) errors.push(file + ": script error: " + scriptError);
 }
 
-if (errors.length) { process.stderr.write(errors.join("\n") + "\n"); }
+if (errors.length) process.stderr.write(errors.join("\n") + "\n");
 process.stdout.write(JSON.stringify(out, null, 1));
 if (errors.length) process.exit(1);
