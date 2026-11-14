@@ -46,6 +46,20 @@ file scope. Never start work on a task another session has claimed.
 | T30 | **Real captured market prices + skill/staking boards + numeric demotion gate + market page**: a second, separate price store built from captured prices (open and close, spread/total/moneyline), an independent re-derivation harness, and a `market.html` page | in progress (PR #26 open) | arena/1b8b6e9e-x4 | `data/market-*.csv`, `data/output/market.json`, `tools/market.py`, `tools/market_check.py`, `tools/market_page.py`, `site/market.html` + root mirror, `tools/pages.py` (additive hook only), `tools/content.py` (F-01, F-29, F-30, F-31), `tools/validate.py` |
 | T31 | **Final integration session**: merge the open branches (#22 integrity gates + programme + suggestion workbench, #26 real captured prices + market page), reconcile the two overlapping flag sets and the two overlapping page generators, re-verify the combined data line by line against the live official pages, confirm every gate and every link, publish to GitHub Pages, open and merge the PR to `main`, and record the result here | in progress | arena/f7614083-x4 | `COORDINATION.md`, `README.md`, `tools/pages.py`, `tools/content.py`, `tools/validate.py`, `site/**` + root mirror, `data/**` (integration edits only, no new numbers) |
 
+| T15 | **Final integration session**: re-verify the combined data line by line, unify the navigation and the landing page so every page in all three builds is reachable, merge the two open pull requests, re-run every gate, publish to GitHub Pages, open and merge the PR to `main` | in progress | arena/da12b830-x4 | `tools/pages.py` (nav + landing page), `tools/sync.py`, `site/index.html` + root mirror, `site/nav.js` + root mirror, desk sidebar nav in `site/*.html` + root mirrors, `README.md`, `COORDINATION.md` |
+| T30 | **Real captured market prices** - the T22/T24 rows above ship a snapshot store whose `source_url` is an NFL.com game page and whose `fair_line` is a *model estimate*: no actual book price is in it, so line movement, closing-line value and ROI cannot be computed from it. T30 captures genuine licensed prices (DraftKings, published by ESPN) for spread, total and moneyline - open and close, 174 rows over 29 games - each row linked to its NFL.com game page for the result and to the ESPN odds resource for the price. Adds a skill board that no staking run can lift, a numeric demotion gate, correlations with n and a 95% CI, a market-anchoring diagnostic, and `market.html`. | in progress | arena/1b8b6e9e-x4 | `tools/market.py`, `data/market-prices-2026.csv`, `data/market-snapshots-2026.csv`, `data/market-slate-2026.csv`, `data/market-anchors-2026.csv`, `data/output/market.json`, `site/market.html` + root mirror, `site/check.py` (PAGES only), `tools/render.js` (PAGES only), `tools/validate.py` (one additive step), `README.md`, `COORDINATION.md` |
+
+> **T30 note (arena/1b8b6e9e-x4).** T21-T29 were completed by `arena/1c6a213c-x4` and merged as
+> PR #21 while this session was capturing prices. That work is kept exactly as it stands and is not
+> edited. It records *model* fair lines as its "opening" snapshots - its own `note` column reads
+> "Model estimate derived from official NFL.com results; not an official betting line", and its
+> `source_url` is an NFL.com game page, which cannot contain a price. A store built from a model's own
+> output cannot measure line movement, closing-line value or ROI, because there is no market in it.
+> T30 adds a second, separate store of real prices from one licensed book (DraftKings, published by
+> ESPN), archived verbatim with the resource URL. The two stores are not merged: one is a model
+> estimate, the other is a price, and the site labels which is which. No file owned by T21-T29 is
+> modified.
+
 ### Non-overlapping scope map
 
 | Path | Owner | Notes |

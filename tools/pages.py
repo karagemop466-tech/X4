@@ -15,6 +15,7 @@ import html
 import json
 import os
 import re
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "output")
@@ -1056,6 +1057,7 @@ def directory_section():
         "spell_n_suggestions": spell(N_SUGGESTIONS),
         "spell_cap_n_suggestions": spell(N_SUGGESTIONS).capitalize(),
         "desk_flags": desk_flag_counts(),
+        "n_market": "twenty-nine",
         "n_depth_rows": "{:,}".format(len(DEPTH_ROWS)),
         "n_depth_clubs": spell(sum(1 for c in (DEPTH or {}).get("clubs", [])
                                    if c["has_chart"])) if DEPTH else "zero",
@@ -1636,7 +1638,7 @@ def shell(slug, title, description, body, active):
   <div class="inner">
     <span>FOURTH DOWN RESEARCH &middot; NFL decision support</span>
     <span>Official sources: nfl.com/standings &middot; nfl.com/injuries &middot; nfl.com/schedules &middot; operations.nfl.com &middot; ftc.gov</span>
-    <span>Evidence status: verified official data + labelled model estimates + captured market prices (DraftKings via ESPN, 2026-11-14) &middot; not betting advice</span>
+    <span>Evidence status: verified official data + labelled model estimates + captured non-official prices (DraftKings via ESPN, captured 2026-11-14) &middot; not betting advice</span>
   </div>
 </footer>
 <script src="app.js"></script>
@@ -2144,6 +2146,46 @@ PAGES.append(("depth.html", "Depth &amp; deficiency",
        _n_unmatched, "" if _n_unmatched == 1 else "s", _depth_unmatched_table(),
        "{:,}".format(_n_depth_rows_n), _n_depth_clubs, _depth_club_sections()),
               "depth.html"))
+
+
+# --------------------------------------------------------------------------------------
+# Domain hook: the market page (owned by tools/market_page.py, session arena/1b8b6e9e-x4)
+# --------------------------------------------------------------------------------------
+# Appended additively. Nothing above this line is modified. The hook registers one extra
+# page, one nav label and one directory card, and does nothing at all if the module is
+# absent, so this file stays valid for every other session either way.
+def _market_hook():
+    if "market.html" in [h for h, _t, _d, _b, _a in PAGES]:
+        return
+    here = os.path.dirname(os.path.abspath(__file__))
+    if here not in sys.path:
+        sys.path.insert(0, here)
+    try:
+        import market_page
+    except Exception:                                     # module not present: no-op
+        return
+    try:
+        body = market_page.build(market_page.load_market(), sys.modules[__name__])
+    except Exception as exc:                              # never break the pipeline
+        print("  ! market page skipped: %s" % exc)
+        return
+    NAV.insert(4, ("market.html", "Market & price archive"))
+    for _title, _pages in DIRECTORY:
+        if _title == "Model &amp; strategies":
+            _pages.insert(1, ("market.html", "Market &amp; price archive",
+                              "Real captured prices (not model estimates): {n_market} games "
+                              "with open and close for spread, total and moneyline, each row linked "
+                              "to its NFL.com result and its price resource."))
+    PAGES.append((
+        "market.html", "Market &amp; price archive",
+        "Captured opening and closing prices for spread, total and moneyline, with official "
+        "NFL.com results, a staking-independent skill board, a numeric demotion gate and "
+        "correlations published with n and confidence.",
+        body, "market.html"))
+
+
+if __name__ == "__main__":
+    _market_hook()
 
 
 def main():

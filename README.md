@@ -133,9 +133,18 @@ well calibrated - but its Bonferroni-adjusted bootstrap interval still contains 
 correlation matrix shows that four of the nine strategies (S3, S4, S6 and S7, minimum
 pairwise prediction correlation 0.94) are effectively one signal, so they cannot be
 counted as four independent pieces of evidence. Model lines for all 13 official
-Week 11 games are published as a range across strategies, with the market-line column
-deliberately empty: the NFL publishes no official betting lines and no licensed odds feed
-has been authorised for this repository.
+Week 11 games are published as a range across strategies.
+
+**Real prices now exist, and they do not flatter the model.** The NFL publishes no betting
+lines, so no price here is official, but one licensed book's prices (DraftKings, published
+by ESPN) were captured and archived verbatim for 29 games - spread, total and moneyline,
+opening and closing, 174 rows, each linked to its NFL.com result and its price resource.
+On the 16 graded games **every strategy's spread error is worse than simply taking the
+closing line's implied margin** (best 9.32 points against the line's 8.47), every
+strategy's fair numbers are **compressed toward zero** relative to the board (10%-72% of
+market width), and the numeric demotion gate therefore keeps all nine on paper. Nine
+independent checks re-derive every published market number from the source CSVs in
+`tools/market_check.py`; it caught four sign and axis errors during development.
 
 ## Roster depth: which starters are actually missing
 
@@ -226,8 +235,9 @@ Both builds follow the same one rule — every table row links to the official s
 came from, and anything unconfirmable is left blank and flagged — and both reached the
 same two structural conclusions independently:
 
-1. **The NFL publishes no betting lines.** (`site/`: market-line column empty.
-   `docs/`: flagged as **F-02**.)
+1. **The NFL publishes no betting lines.** (`site/`: no price is described as official -
+   the model-line column stays a model estimate and captured prices are labelled
+   "DraftKings via ESPN, non-official". `docs/`: flagged as **F-02**.)
 2. **No official source labels depth-chart strings.** `nfl.com/teams/<club>/depth-chart`
    returns HTTP 404; club sites publish ordered charts without 1st/2nd/3rd/4th labels.
    (`docs/`: flagged as **F-03**.)
@@ -245,6 +255,34 @@ node docs/check.js     # 15 pages, 22 tables, 682 rows, 142 internal links, 27 e
 The reconciliation of the two builds — including the merge conflict on `COORDINATION.md`
 and `README.md`, and the file-scope statement — is logged in the
 *Appendix — session `arena/528008d6-x4`* at the bottom of `COORDINATION.md`.
+
+## The market page (session `arena/1b8b6e9e-x4`, T30)
+
+`market.html` is the only page on the site where a number is a **real bettable price**.
+It exists because an earlier snapshot store described model output as an opening line: its
+`source_url` was an NFL.com game page, which cannot contain a price, and its own note read
+"Model estimate ... not an official betting line". A store built from a model's own output
+cannot measure line movement, closing-line value or ROI, because there is no market in it.
+This page keeps the two apart:
+
+| On the page | What it is | How each row is sourced |
+|---|---|---|
+| Origination table | Desk fair number, market number, difference - three separate columns, side then total then moneyline | NFL.com game page + the ESPN odds resource |
+| Snapshot table | 87 captured rows: open and close for spread, total and moneyline | NFL.com game page + the ESPN odds resource |
+| Results feed | 29 games, 16 final, official scores | that game's NFL.com page |
+| Skill board | out-of-sample error only; no stake is an input, so no staking run can lift a rank | NFL.com results |
+| Staking board | flat 1-unit and 25% Kelly ledger, ranked separately | NFL.com results |
+| Depth | how often the opening number was still the closing number | NFL.com results |
+| Correlations | r with **n** and a 95% CI on every value | NFL.com results |
+| Demotion gate | four numeric rules, default paper | NFL.com results |
+| Anchoring diagnostic | how far the desk's number sits from the board | NFL.com results |
+
+Two honest results are published on it rather than buried: **no strategy beats the closing
+line on spread error** over the graded sample, and every strategy's fair spread is
+**compressed** to 10%-72% of market width, which is why a pick's win rate is never used here
+as evidence of skill. `tools/market_check.py` re-derives all 432 graded bets, the 13
+originated games and all 29 anchors from the source CSVs without importing the module under
+test.
 
 ## Decision-desk pages (session `5c48ced7`, PR #12)
 
