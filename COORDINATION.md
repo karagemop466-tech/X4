@@ -618,6 +618,7 @@ used for nothing that the site presents as official).
 | F-14 | R-11 | The Rams and Cardinals are labelled `LAR`/`ARI` in the main dataset and `LA`/`AZ` on NFL.com and in the desk layer - documented, no value differs |
 | F-15 | R-10 | The console's no-JavaScript fallback counts (26, 15) did not match its own data (27, 16) - fixed |
 | F-16 | R-12 | The two flagged registers both number their entries F-01, F-02 ... for different items - documented rather than renumbered |
+| F-17 | R-13 | The three published layers define three different validation-gate inventories - 8 in the desk layer, 7 scored on the main site, 9 specified in the console - documented; each layer states its own count |
 
 
 ## Pull request and merge log (session `arena/da12b830-x4`)

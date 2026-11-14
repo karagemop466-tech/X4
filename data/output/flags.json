@@ -174,5 +174,16 @@
   "why": "The two registers were built by parallel sessions working from the same brief, and neither knew the other's numbering. They have been left as they are and cross-referenced from the landing-page directory rather than renumbered, because renumbering one register would invalidate the cross-references the other already publishes.",
   "official_url": "https://www.nfl.com/standings/",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
+ },
+ {
+  "id": "F-17",
+  "item": "The three published layers define three different validation gates",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "resolved",
+  "detail": "The Strategy Lab on this site scores seven gates (G1 data integrity, G2 out-of-sample, G3 minimum sample, G4 significance, G5 stability, G6 calibration, G7 not the benchmark). The decision-desk layer specifies eight (adding probability quality, economic performance, multiplicity control, parlay and prop integrity, and a shadow period). The X4 Console specifies nine (G0 to G8). No two layers use the same inventory.",
+  "why": "The main site's seven are the gates that can actually be scored from the official data that exists; the other two are written as designs for gates that cannot yet be evaluated. A reader comparing the layers would reasonably ask which inventory is authoritative, so each layer states its own count on its own page and the difference is recorded here rather than left to be discovered.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
  }
 ]
