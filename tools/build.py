@@ -240,6 +240,7 @@ standings = {r["abbr"]: r for r in read_csv("standings-wk10-2026.csv")}
 schedule = read_csv("schedule-wk11-2026.csv")
 injuries = read_csv("injuries-wk10-2026.csv")
 qb_changes = read_csv("qb-starter-changes.csv")
+replacement_depth = read_csv("replacement-depth.csv")
 
 for g in games:
     g["week"] = int(g["week"])
@@ -556,6 +557,23 @@ for key, s in STRATEGIES.items():
     reward += 50.0 * min(1.0, max(0.0, imp_pct) / 0.10) if key != baseline else 0.0
     reward += 10.0 * weekly[key]["positive_share"]
     reward += 10.0 * max(0.0, 1 - calib[key]["max_gap"] / PARAMS["calibration_max_gap"])
+    # ---- signal vs staking -------------------------------------------------------
+    # Signal = prediction skill, measured by the gates (out-of-sample accuracy,
+    # significance, stability, calibration). Staking = bankroll / position sizing,
+    # which requires a market price feed and does not exist here. They are reported
+    # separately so a lucky staking run cannot mask a bad signal, and vice versa.
+    signal = dict(
+        score=round(imp_pct, 4),
+        basis="out-of-sample spread-MAE improvement vs the league-constant benchmark, "
+              "gates-based; computed from official NFL.com game results only.",
+    )
+    staking = dict(
+        score="",
+        basis="blank - staking requires a licensed odds feed (spread / total / "
+              "moneyline prices) and bankroll rules. The NFL publishes no official "
+              "odds, so no staking figure is published and no lucky staking run can "
+              "masquerade as signal.",
+    )
     leaderboard.append({
         "id": key, "name": s["name"], "description": s["desc"], "family": s["family"],
         "params": s["params"], "metrics": m,
@@ -565,6 +583,8 @@ for key, s in STRATEGIES.items():
         "calibration_max_gap": calib[key]["max_gap"],
         "gates": gates, "gates_passed": passed, "eligible": eligible,
         "reward": round(reward, 1),
+        "signal": signal,
+        "staking": staking,
     })
 leaderboard.sort(key=lambda r: (-r["eligible"], -r["reward"]))
 
@@ -598,6 +618,98 @@ for s in schedule:
         hp, ap = st["fn"](hist11, s["home"], s["away"], s)
         row["models"][key] = {"home": hp, "away": ap, "spread": hp - ap, "total": hp + ap}
     wk11_lines.append(row)
+
+# --------------------------------------------------------------------------------------
+# Price-snapshot store: opening and closing fair lines for every market we originate
+# --------------------------------------------------------------------------------------
+# We originate our own markets. Each market = (game, market_type). The opening fair
+# line is the first published model line; the closing fair line is the last published
+# model line before kickoff. Because this build runs before the Week 11 games, every
+# line here is an opening line and the closing line is left blank until the game
+# closes. No market/odds data is used anywhere - the NFL publishes no official odds,
+# so these are model estimates derived from official NFL.com results, not prices.
+PRICE_SNAPSHOT_PATH = os.path.join(DATA, "price-snapshots.csv")
+price_snapshots = []
+snap_id = 0
+for r in wk11_lines:
+    s3 = r["models"]["S3"]
+    for market_type, line in (("spread", s3["spread"]), ("total", s3["total"])):
+        snap_id += 1
+        price_snapshots.append({
+            "snapshot_id": snap_id,
+            "game_url": r["url"],
+            "week": 11,
+            "away": r["away"],
+            "home": r["home"],
+            "market_type": market_type,
+            "snapshot_kind": "opening",
+            "fair_line": round(line, 1),
+            "closing_fair_line": "",          # filled when the game closes
+            "captured_at": "2026-11-14 (build)",  # build timestamp placeholder
+            "source_url": r["url"],
+            "note": "Model estimate derived from official NFL.com results; not an official betting line.",
+        })
+
+with open(PRICE_SNAPSHOT_PATH, "w", newline="", encoding="utf-8") as fh:
+    writer = csv.DictWriter(fh, fieldnames=[
+        "snapshot_id", "game_url", "week", "away", "home", "market_type",
+        "snapshot_kind", "fair_line", "closing_fair_line", "captured_at",
+        "source_url", "note"])
+    writer.writeheader()
+    for row in price_snapshots:
+        writer.writerow(row)
+
+# --------------------------------------------------------------------------------------
+# Verified results feed: every completed game tied to its official NFL.com result
+# --------------------------------------------------------------------------------------
+# This feed is what makes backtests and ROI computable: each completed game carries
+# its official result and the official NFL.com page that confirms it. ROI itself is
+# left blank because it requires a market price (point spread / total / moneyline),
+# and the NFL publishes no official odds; every ROI cell stays blank rather than
+# filled from a secondary aggregator.
+RESULTS_FEED_PATH = os.path.join(DATA, "results-feed.csv")
+results_feed = []
+for g in games:
+    results_feed.append({
+        "game_url": g["url"],
+        "week": int(g["week"]),
+        "away": g["away"],
+        "home": g["home"],
+        "away_pts": int(g["away_pts"]),
+        "home_pts": int(g["home_pts"]),
+        "ot": g["ot"],
+        "result_source": "NFL.com game page",
+        "official_url": g["url"],
+        "verified": "yes",
+    })
+
+with open(RESULTS_FEED_PATH, "w", newline="", encoding="utf-8") as fh:
+    writer = csv.DictWriter(fh, fieldnames=[
+        "game_url", "week", "away", "home", "away_pts", "home_pts", "ot",
+        "result_source", "official_url", "verified"])
+    writer.writeheader()
+    for row in results_feed:
+        writer.writerow(row)
+
+# --------------------------------------------------------------------------------------
+# Demotion gate: sends a live strategy back to paper trading
+# --------------------------------------------------------------------------------------
+# A strategy promoted to live trading is demoted back to paper if, over any rolling
+# window of 5 live games, its cumulative spread error exceeds the upper bound of its
+# Bonferroni-adjusted bootstrap CI, or its calibration gap exceeds 0.12 on those 5
+# games. It returns to live only after 10 consecutive paper games within tolerance.
+# This is a project design choice (no official source), published so it can be argued
+# with and applied consistently.
+DEMOTION_GATE = dict(
+    name="Demotion gate (live -> paper)",
+    rule=("A live strategy is sent back to paper trading if, over any rolling window "
+          "of 5 live games, its cumulative point-spread error exceeds the upper bound "
+          "of its Bonferroni-adjusted bootstrap confidence interval, or its calibration "
+          "gap exceeds 0.12 on those 5 games."),
+    action=("Move the strategy from live to paper trading. It resumes live trading only "
+            "after 10 consecutive paper-trading games within tolerance."),
+    basis="design choice by this project; no official source",
+)
 
 # team power table (through the last completed game)
 power = []
@@ -740,8 +852,12 @@ payload = {
     "leaderboard": leaderboard,
     "correlation_error": corr_err,
     "correlation_prediction": corr_pred,
+    "correlation_n": len(eval_games),
     "calibration": calib,
     "weekly": weekly,
+    "price_snapshots": price_snapshots,
+    "results_feed": results_feed,
+    "demotion_gate": DEMOTION_GATE,
     "availability": avail_list,
     "injury_rows": [
         {"team": NAME.get(r["team"], r["team"]), "team_abbr": r["team"], "player": r["player"],
@@ -749,6 +865,7 @@ payload = {
          "status": r["game_status"], "url": r["player_url"]}
         for r in injuries],
     "flags": content.FLAGS,
+    "replacement_depth": replacement_depth,
     "questions": content.QUESTIONS,
     "suggestions": content.SUGGESTIONS,
     "suggestion_framework": content.SUGGESTION_FRAMEWORK,
@@ -773,15 +890,18 @@ with open(os.path.join(OUT, "payload.json"), "w", encoding="utf-8") as fh:
 
 for name, obj in (("standings", payload["standings"]), ("power", power),
                   ("games", games), ("schedule", schedule), ("wk11_lines", wk11_lines),
-                  ("leaderboard", leaderboard), ("correlation_error", corr_err),
-                  ("correlation_prediction", corr_pred), ("availability", avail_list),
-                  ("metrics", metrics), ("params", PARAMS), ("qb_changes", qb_list),
-                  ("news", news_items), ("calibration", calib),
-                  ("weekly", weekly),
-                  ("flags", content.FLAGS), ("questions", content.QUESTIONS),
-                  ("suggestions", content.SUGGESTIONS),
-                  ("suggestion_framework", content.SUGGESTION_FRAMEWORK),
-                  ("verification", content.VERIFICATION)):
+                 ("leaderboard", leaderboard), ("correlation_error", corr_err),
+                 ("correlation_prediction", corr_pred), ("availability", avail_list),
+                 ("metrics", metrics), ("params", PARAMS), ("qb_changes", qb_list),
+                 ("news", news_items), ("calibration", calib),
+                 ("weekly", weekly),
+                 ("flags", content.FLAGS), ("questions", content.QUESTIONS),
+                 ("suggestions", content.SUGGESTIONS),
+                 ("suggestion_framework", content.SUGGESTION_FRAMEWORK),
+                 ("verification", content.VERIFICATION),
+                 ("price_snapshots", price_snapshots),
+                 ("results_feed", results_feed),
+                 ("demotion_gate", DEMOTION_GATE)):
     with open(os.path.join(OUT, name + ".json"), "w", encoding="utf-8") as fh:
         json.dump(round_floats(obj), fh, indent=1, default=str)
 
