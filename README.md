@@ -107,6 +107,7 @@ source link.
 
 ```bash
 python3 tools/verify.py     # prove the data against the official NFL.com standings
+python3 tools/verify_live.py # re-check the committed data against a captured (or live) official NFL.com page
 python3 tools/build.py      # regenerate every published number into data/output/
 python3 tools/pages.py      # regenerate the site pages
 python3 tools/sync.py       # keep the root copies in step with site/ and docs/
