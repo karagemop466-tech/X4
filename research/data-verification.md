@@ -75,6 +75,11 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-15 | The X4 Console's no-JavaScript fallback counts were stale |
 | F-16 | Two different flagged registers reuse the same identifiers |
 | F-17 | The three published layers define three different validation gates |
+| F-18 | The Houston Texans publish their depth chart only as an image |
+| F-19 | 19 officially ruled-out players do not appear on their own club's published depth chart |
+| F-20 | Clubs disagree on what a depth chart is, and some say so in writing |
+| F-21 | A published depth chart is not proof of who started |
+| F-22 | Only two position rows have no published replacement, and no row has both starter and backup out |
 
 ## What is deliberately absent
 

@@ -10908,12 +10908,12 @@
    "id": "F-02",
    "item": "Depth-chart string: starter, 2nd, 3rd, 4th",
    "type": "Unverified data",
-   "kind": "no",
-   "status": "unverified",
-   "detail": "No player on this site is assigned a depth-chart rank.",
-   "why": "The NFL publishes no consolidated official depth chart; clubs publish their own on their official sites, and those were not captured or archived for this build. Assigning a rank from inference would be fabrication.",
+   "kind": "ok",
+   "status": "resolved",
+   "detail": "This was open in the first build: no player on the site was assigned a depth position, because nfl.com/teams/<club>/depth-chart returns HTTP 404 for every club. It is now closed from an official source. Each club's own official website publishes its depth chart as an ordered table, and the column order is the depth position - first name in a row = starter, second = backup, third = third string. 31 of the 32 clubs publish a machine-readable ordered chart, and all 1,558 depth rows are on the Depth &amp; deficiency page with a link to the club page each one came from.",
+   "why": "The league publishes no consolidated chart, but the clubs are the authority on their own depth and they publish it themselves. Recording the ordering the club itself prints is a transcription, not an inference: no rank is assigned where the club does not print one, co-starters are kept as co-starters, and a club that publishes its chart only as an image (Houston) is left blank and flagged as F-18 instead of being guessed at.",
    "official_url": "https://www.nfl.com/teams/",
-   "url": "https://www.nfl.com/teams/"
+   "url": "https://www.buffalobills.com/team/depth-chart"
   },
   {
    "id": "F-03",
@@ -11079,6 +11079,61 @@
    "why": "The main site's seven are the gates that can actually be scored from the official data that exists; the other two are written as designs for gates that cannot yet be evaluated. A reader comparing the layers would reasonably ask which inventory is authoritative, so each layer states its own count on its own page and the difference is recorded here rather than left to be discovered.",
    "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
+  },
+  {
+   "id": "F-18",
+   "item": "The Houston Texans publish their depth chart only as an image",
+   "type": "Unverified data",
+   "kind": "no",
+   "status": "unverified",
+   "detail": "houstontexans.com/team/depth-chart renders its chart as a single bitmap image with no table markup and no ordered text, so no Houston depth position can be transcribed from it. Houston is the only club of the 32 with no rows on the Depth &amp; deficiency page.",
+   "why": "The five Houston players the official NFL injury report rules Out or Doubtful for Week 10 (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) therefore have no published depth position on this site. Reading a rank off a picture would be an eyeball inference, so those cells are blank and the five names are listed as unmatched instead.",
+   "official_url": "https://www.houstontexans.com/team/depth-chart",
+   "url": "https://www.houstontexans.com/team/depth-chart"
+  },
+  {
+   "id": "F-19",
+   "item": "19 officially ruled-out players do not appear on their own club's published depth chart",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "Of the 76 players the official Week 10 injury report lists as Out or Doubtful, 57 appear somewhere on their club's published depth chart and 19 do not: Lucas Patrick (WAS), Kerby Joseph (DET), Omarr Norman-Lott (KC), Micah Parsons (GB), BJ Green II (JAX), Tommy Townsend (TEN), Luke Rhodes (IND), Jonathon Brooks and Mike Jackson (CAR), Terrance Ferguson (LAR), Zachary Carter (ARI), Jalen Davis, Andrei Iosivas and Brian Parker II (CIN), plus the five Houston players above.",
+   "why": "A club's depth chart is editorial and lags roster moves, so an absent name is not evidence the player is not on the team. The effect on this site is conservative: those 19 absences are counted in the official injury totals but not in the depth-based starter-out score, so the starter-out figures are a floor, not a ceiling. Each is listed by name on the Depth &amp; deficiency page so a reviewer can chase them individually.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://www.tennesseetitans.com/team/depth-chart"
+  },
+  {
+   "id": "F-20",
+   "item": "Clubs disagree on what a depth chart is, and some say so in writing",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The Patriots state that their chart 'is unofficial and is published by the writers of Patriots.com' and does not necessarily reflect the organization's view. The Jets and Eagles say theirs is compiled by their communications departments. The Chiefs, Vikings, Rams, Titans, Bears, Bengals and Cardinals stamp a date on theirs (10-31 to 11-10); the others do not. Section and position labels differ club to club - DL / DT / NT / EDGE / RUSH / LOLB / WILL / MIKE / SAM / NCB / NICKEL / DB.",
+   "why": "The ordering is official in the sense that the club publishes it, but it is editorial rather than a league record, and its vintage varies by up to a fortnight. No attempt is made here to reconcile the label vocabularies into a single taxonomy; each row keeps the club's own position label, so a reviewer sees exactly what the club printed. The date each club stamps is shown where one exists and left blank where the club stamps none.",
+   "official_url": "https://www.patriots.com/team/depth-chart",
+   "url": "https://www.patriots.com/team/depth-chart"
+  },
+  {
+   "id": "F-21",
+   "item": "A published depth chart is not proof of who started",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "Nothing in this dataset records who actually took the first snap. A club can list a player first and start someone else; snap counts and official game books would settle it, and neither is captured here.",
+   "why": "The starter-out score therefore measures listed depth, not realised participation. It is a pre-game availability signal, which is what a line is set from, but it cannot be used as a post-game explanation of a result without the game books. The suggestion queue ranks game-book ingestion as the fix.",
+   "official_url": "https://www.nfl.com/schedules/2026/",
+   "url": "https://www.nfl.com/schedules/2026/"
+  },
+  {
+   "id": "F-22",
+   "item": "Only two position rows have no published replacement, and no row has both starter and backup out",
+   "type": "Result",
+   "kind": "ok",
+   "status": "verified",
+   "detail": "Tennessee is the only club where a listed starter is ruled out at a position where the club names nobody behind him: left guard Peter Skoronski and linebacker Cody Barton. No club has both its listed starter and its listed backup ruled out at the same position for Week 10.",
+   "why": "This is a negative result and it is published because it constrains the strategy work: the '2nd and 3rd string replace the starter' cascade that the brief asks to detect cannot be found in the official Week 10 data at all, so any model that assumes a cascade is happening would be inventing it. The detection is in place for the weeks where it does occur.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://www.tennesseetitans.com/team/depth-chart"
   }
  ],
  "questions": [
