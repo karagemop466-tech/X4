@@ -1,0 +1,352 @@
+== environment ==
+python: 3.12.16 (main, Oct 26 2026, 02:48:44) [GCC 15.2.0]
+platform: Linux-7.0.0-1019-azure-x86_64-with-glibc2.43
+ldd (Ubuntu GLIBC 2.43-2ubuntu2.4) 2.43
+v20.20.2
+LANG=C.UTF-8 LC_ALL= TZ=
+commit b7ce28b2aa08949acf1c2d1ff88d2d4d11270ded Merge pull request #32 from karagemop466-tech/arena/279eb9b4-x4
+
+== numstat (tracked drift) ==
+62	62	data/output/market_store.json
+
+== name-status ==
+M	data/output/market_store.json
+
+== full diff, first 5000 lines ==
+diff --git a/data/output/market_store.json b/data/output/market_store.json
+index c68e4f9..c084a8d 100644
+--- a/data/output/market_store.json
++++ b/data/output/market_store.json
+@@ -63,20 +63,20 @@
+    "neutral": false,
+    "url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+    "side": {
+-    "fair": 4.054587529287197,
++    "fair": 4.054587529287204,
+     "market": 10.0,
+     "market_line_home": -10.0,
+     "band": [
+      -0.021897810218973746,
+-     9.277258391493355
++     9.277258391493348
+     ],
+-    "spread_sd": 2.861723998209677,
+-    "diff": -5.945412470712803
++    "spread_sd": 2.861723998209676,
++    "diff": -5.945412470712796
+    },
+    "total": {
+-    "fair": 48.891640899567456,
++    "fair": 48.89164089956745,
+     "market": 44.5,
+-    "diff": 4.391640899567456
++    "diff": 4.391640899567449
+    },
+    "moneyline": {
+     "fair_home": -160,
+@@ -93,20 +93,20 @@
+    "neutral": false,
+    "url": "https://www.nfl.com/games/dolphins-at-bills-2026-reg-11",
+    "side": {
+-    "fair": 6.884352189781026,
++    "fair": 6.884352189781019,
+     "market": 16.5,
+     "market_line_home": -16.5,
+     "band": [
+      -0.021897810218973746,
+-     8.09664785689177
++     8.096647856891757
+     ],
+-    "spread_sd": 2.8184218436899924,
+-    "diff": -9.615647810218974
++    "spread_sd": 2.8184218436899906,
++    "diff": -9.61564781021898
+    },
+    "total": {
+-    "fair": 47.34505525141931,
++    "fair": 47.3450552514193,
+     "market": 46.5,
+-    "diff": 0.8450552514193106
++    "diff": 0.8450552514193035
+    },
+    "moneyline": {
+     "fair_home": -222,
+@@ -123,20 +123,20 @@
+    "neutral": false,
+    "url": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11",
+    "side": {
+-    "fair": 1.1116862947192914,
++    "fair": 1.1116862947192985,
+     "market": 1.5,
+     "market_line_home": -1.5,
+     "band": [
+      -0.021897810218973746,
+      5.029220712565639
+     ],
+-    "spread_sd": 1.3126595518674222,
+-    "diff": -0.38831370528070863
++    "spread_sd": 1.3126595518674211,
++    "diff": -0.3883137052807015
+    },
+    "total": {
+-    "fair": 49.52127052919708,
++    "fair": 49.521270529197075,
+     "market": 44.5,
+-    "diff": 5.021270529197082
++    "diff": 5.021270529197075
+    },
+    "moneyline": {
+     "fair_home": -114,
+@@ -153,20 +153,20 @@
+    "neutral": false,
+    "url": "https://www.nfl.com/games/saints-at-bears-2026-reg-11",
+    "side": {
+-    "fair": 5.004819010768678,
++    "fair": 5.004819010768685,
+     "market": 9.5,
+     "market_line_home": -9.5,
+     "band": [
+      -0.021897810218973746,
+-     5.004819010768678
++     5.004819010768685
+     ],
+-    "spread_sd": 1.7079424402269665,
+-    "diff": -4.495180989231322
++    "spread_sd": 1.7079424402269685,
++    "diff": -4.495180989231315
+    },
+    "total": {
+-    "fair": 50.51258997364153,
++    "fair": 50.512589973641525,
+     "market": 48.5,
+-    "diff": 2.012589973641532
++    "diff": 2.012589973641525
+    },
+    "moneyline": {
+     "fair_home": -178,
+@@ -190,7 +190,7 @@
+      -0.021897810218973746,
+      3.774205584842754
+     ],
+-    "spread_sd": 1.341092117400847,
++    "spread_sd": 1.3410921174008483,
+     "diff": -3.725794415157246
+    },
+    "total": {
+@@ -247,10 +247,10 @@
+     "market": 14.0,
+     "market_line_home": -14.0,
+     "band": [
+-     -0.9889501815914201,
+-     5.310846423580529
++     -0.9889501815914272,
++     5.3108464235805215
+     ],
+-    "spread_sd": 2.3788767005457947,
++    "spread_sd": 2.378876700545796,
+     "diff": -8.874135464539968
+    },
+    "total": {
+@@ -273,20 +273,20 @@
+    "neutral": false,
+    "url": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11",
+    "side": {
+-    "fair": -5.050640094169594,
++    "fair": -5.0506400941696015,
+     "market": -4.5,
+     "market_line_home": 4.5,
+     "band": [
+-     -9.77015830148968,
++     -9.770158301489682,
+      -0.021897810218973746
+     ],
+-    "spread_sd": 2.896480766998679,
+-    "diff": -0.5506400941695944
++    "spread_sd": 2.89648076699868,
++    "diff": -0.5506400941696015
+    },
+    "total": {
+-    "fair": 40.54547963413536,
++    "fair": 40.545479634135354,
+     "market": 38.5,
+-    "diff": 2.0454796341353614
++    "diff": 2.0454796341353543
+    },
+    "moneyline": {
+     "fair_home": 179,
+@@ -310,7 +310,7 @@
+      -2.761770495404157,
+      0.7502727669877487
+     ],
+-    "spread_sd": 1.0251647206231538,
++    "spread_sd": 1.025164720623153,
+     "diff": -4.261770495404157
+    },
+    "total": {
+@@ -393,20 +393,20 @@
+    "neutral": true,
+    "url": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11",
+    "side": {
+-    "fair": 1.6178591342254762,
++    "fair": 1.6178591342254691,
+     "market": 3.5,
+     "market_line_home": -3.5,
+     "band": [
+      -0.021897810218973746,
+-     4.8743420965837245
++     4.874342096583717
+     ],
+-    "spread_sd": 1.532586608616396,
+-    "diff": -1.8821408657745238
++    "spread_sd": 1.5325866086163937,
++    "diff": -1.8821408657745309
+    },
+    "total": {
+-    "fair": 40.187937195863746,
++    "fair": 40.18793719586375,
+     "market": 45.5,
+-    "diff": -5.312062804136254
++    "diff": -5.3120628041362465
+    },
+    "moneyline": {
+     "fair_home": -120,
+@@ -427,10 +427,10 @@
+     "market": -3.5,
+     "market_line_home": 3.5,
+     "band": [
+-     -5.740775539910935,
++     -5.740775539910928,
+      -0.021897810218973746
+     ],
+-    "spread_sd": 1.807467079681859,
++    "spread_sd": 1.8074670796818577,
+     "diff": -2.0867126250337904
+    },
+    "total": {
+@@ -452,14 +452,14 @@
+    "away": "IND",
+    "home": "HOU",
+    "url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+-   "fair_side": 4.054587529287197,
++   "fair_side": 4.054587529287204,
+    "market_side": 10.0,
+    "market_line_home": -10.0,
+    "band_side": [
+     -0.021897810218973746,
+-    9.277258391493355
++    9.277258391493348
+    ],
+-   "fair_total": 48.891640899567456,
++   "fair_total": 48.89164089956745,
+    "market_total": 44.5,
+    "status": "pending",
+    "home_pts": null,
+@@ -473,14 +473,14 @@
+    "away": "MIA",
+    "home": "BUF",
+    "url": "https://www.nfl.com/games/dolphins-at-bills-2026-reg-11",
+-   "fair_side": 6.884352189781026,
++   "fair_side": 6.884352189781019,
+    "market_side": 16.5,
+    "market_line_home": -16.5,
+    "band_side": [
+     -0.021897810218973746,
+-    8.09664785689177
++    8.096647856891757
+    ],
+-   "fair_total": 47.34505525141931,
++   "fair_total": 47.3450552514193,
+    "market_total": 46.5,
+    "status": "pending",
+    "home_pts": null,
+@@ -494,14 +494,14 @@
+    "away": "BAL",
+    "home": "CAR",
+    "url": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11",
+-   "fair_side": 1.1116862947192914,
++   "fair_side": 1.1116862947192985,
+    "market_side": 1.5,
+    "market_line_home": -1.5,
+    "band_side": [
+     -0.021897810218973746,
+     5.029220712565639
+    ],
+-   "fair_total": 49.52127052919708,
++   "fair_total": 49.521270529197075,
+    "market_total": 44.5,
+    "status": "pending",
+    "home_pts": null,
+@@ -515,14 +515,14 @@
+    "away": "NO",
+    "home": "CHI",
+    "url": "https://www.nfl.com/games/saints-at-bears-2026-reg-11",
+-   "fair_side": 5.004819010768678,
++   "fair_side": 5.004819010768685,
+    "market_side": 9.5,
+    "market_line_home": -9.5,
+    "band_side": [
+     -0.021897810218973746,
+-    5.004819010768678
++    5.004819010768685
+    ],
+-   "fair_total": 50.51258997364153,
++   "fair_total": 50.512589973641525,
+    "market_total": 48.5,
+    "status": "pending",
+    "home_pts": null,
+@@ -582,8 +582,8 @@
+    "market_side": 14.0,
+    "market_line_home": -14.0,
+    "band_side": [
+-    -0.9889501815914201,
+-    5.310846423580529
++    -0.9889501815914272,
++    5.3108464235805215
+    ],
+    "fair_total": 46.4688978440119,
+    "market_total": 42.5,
+@@ -599,14 +599,14 @@
+    "away": "PIT",
+    "home": "PHI",
+    "url": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11",
+-   "fair_side": -5.050640094169594,
++   "fair_side": -5.0506400941696015,
+    "market_side": -4.5,
+    "market_line_home": 4.5,
+    "band_side": [
+-    -9.77015830148968,
++    -9.770158301489682,
+     -0.021897810218973746
+    ],
+-   "fair_total": 40.54547963413536,
++   "fair_total": 40.545479634135354,
+    "market_total": 38.5,
+    "status": "pending",
+    "home_pts": null,
+@@ -683,14 +683,14 @@
+    "away": "MIN",
+    "home": "SF",
+    "url": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11",
+-   "fair_side": 1.6178591342254762,
++   "fair_side": 1.6178591342254691,
+    "market_side": 3.5,
+    "market_line_home": -3.5,
+    "band_side": [
+     -0.021897810218973746,
+-    4.8743420965837245
++    4.874342096583717
+    ],
+-   "fair_total": 40.187937195863746,
++   "fair_total": 40.18793719586375,
+    "market_total": 45.5,
+    "status": "pending",
+    "home_pts": null,
+@@ -708,7 +708,7 @@
+    "market_side": -3.5,
+    "market_line_home": 3.5,
+    "band_side": [
+-    -5.740775539910935,
++    -5.740775539910928,
+     -0.021897810218973746
+    ],
+    "fair_total": 50.53544876993782,
