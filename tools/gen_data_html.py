@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate data.html table bodies from the committed CSVs (single source of truth)."""
-import csv, json
+import csv, json, re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,7 +53,7 @@ week10 = [
     ("LAC", "BAL", "Mon Nov 16, 8:15 PM", "ESPN", "Scheduled", "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10"),
 ]
 week10_rows = [
-    f'<tr><td><b>{a}</b> at <b>{h}</b></td><td>{when}</td><td>{tv}</td><td>{st}</td>'
+    f'<tr><td><b>{a}</b> at <b>{h}</b> </td><td>{when}</td><td>{tv}</td><td>{st}</td>'
     f'<td><a href="{u}" target="_blank" rel="noreferrer">game page ↗</a></td></tr>'
     for a, h, when, tv, st, u in week10
 ]
@@ -111,10 +111,10 @@ TEMPLATE = """<!doctype html>
 
 <section class="section"><div class="section-head"><div><span class="eyebrow">INTEGRITY PANEL</span><h2>Transcription self-checks</h2><p class="muted">Run by <code>tools/compute_stats.py</code> — fails loudly if a committed number is mistyped.</p></div><span class="tag green">ALL PASSED</span></div>
 <div class="metrics">
-<article><span>Σ POINTS FOR</span><b>{sum_pf:,}</b><small>Must equal Σ points against — it does</small></article>
-<article><span>Σ POINTS AGAINST</span><b>{sum_pa:,}</b><small>Equality proves standings row balance</small></article>
-<article><span>WINS vs LOSSES</span><b>{wins} = {losses}</b><small>Ties: {ties} (one tie game, both teams)</small></article>
-<article><span>ROWS CHECKED</span><b>32 teams · 57 games · 13 odds</b><small>Neutral-site flags asserted: London, Saint-Denis, Madrid</small></article>
+<article><span>Σ POINTS FOR</span><b>{sum_pf:,}</b> <small>Must equal Σ points against — it does</small></article>
+<article><span>Σ POINTS AGAINST</span><b>{sum_pa:,}</b> <small>Equality proves standings row balance</small></article>
+<article><span>WINS vs LOSSES</span><b>{wins} = {losses}</b> <small>Ties: {ties} (one tie game, both teams)</small></article>
+<article><span>ROWS CHECKED</span><b>32 teams · 57 games · 13 odds</b> <small>Neutral-site flags asserted: London, Saint-Denis, Madrid</small></article>
 </div>
 <div class="note"><b>Policy:</b> values that could not be confirmed from the linked pages are not on this site — they are blank and listed on <a href="flagged.html">Flagged for review</a>. Abbreviations follow nfl.com standings codes (LA = Rams, AZ = Cardinals).</div>
 </section>
@@ -156,6 +156,7 @@ html = TEMPLATE.format(
     week11_rows="\n".join(week11_rows),
     results_rows="\n".join(results_rows),
 )
+html = re.sub(r'</b>(?=[<a-z0-9`])', '</b> ', html)  # match the desk page polish rule
 out = ROOT / "data.html"
 out.write_text(html)
 (ROOT / "site" / "data.html").write_text(html)
