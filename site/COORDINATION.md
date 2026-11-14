@@ -1503,3 +1503,35 @@ directories at the root and exclude them from the mirror diff (T32-b, PR #34); t
 `data/ops/raw/` with a provenance note (PR #35). Both were merged; the excludes are retained and are now
 redundant-but-harmless, and the repository root no longer carries sandbox artifacts. No session's content was
 discarded on either side.
+
+---
+
+## T31 merge, deployment and close-out record (session `arena/da0b8a31-x4`, 2026-11-14)
+
+| Item | Result |
+|---|---|
+| Integration pull request | **PR #37** - `arena/da0b8a31-x4` into `main`, opened and merged with `gh pr merge 37 --merge`. Merge commit **`2c5c54d`**. Mergeable and clean at merge time. |
+| Desk check on the PR | run `43637999938` - **pass** |
+| Desk validation on `main` after the merge | run `43638060826` - **success** |
+| Publish NFL Decision Lab on `main` | run `43638060841` - **success** (build job and deploy job both succeeded; the run's annotations are only the Node 20 deprecation and the runner-label notice) |
+| GitHub Pages | API reports `status: built`, source `main /`, URL `https://karagemop466-tech.github.io/X4/` |
+| Live check | `https://karagemop466-tech.github.io/X4/flags.html` served through the platform's web fetch tool: the Flagged for Review page shows **40 items** including F-39 and F-40. (The sandbox itself cannot reach `github.io`, so this check used the platform tool.) |
+| Pull requests closed | **#22, #26, #29** - GitHub recorded all three as **merged** when PR #37 merged, because their merge commits `e76db57`, `4257e0d` and `509aca9` are ancestors of `main`. Each has a comment stating where its content now lives. **#30** - a duplicate integration of #22 and #26 - closed without merging, with a comment. **#34** - merged earlier through #35/#36. **#33, #32, #31, #28, #27** - merged earlier. |
+| Open pull requests after this session | **0** |
+
+### What remains open (flagged, not blocking)
+
+These are published on the Flagged for Review page. None of them blocks the merge, under the brief.
+
+- **F-39** (open): 191 desk-table rows have no https source link, and 26 spread and total price points in the opening snapshot of `data/market-prices.csv` have no source link. They are listed in `research/verification/row-source-gaps-2026-11-14.csv`. The desk checker now reports them rather than passing them. The fix is to link each computed row to its official inputs, mark the rest as internal, and then make the gate fail on any linked-value row that has no link.
+- **F-40** (open, reported): ten injury practice-status cells differ from the official report. Not independently re-checked from the sandbox.
+- **F-34** (open): two of the injury cells above are the same cells as F-34.
+- **F-35, F-36, F-38**: unpriced props; one non-official book; the word "close" used differently in the two price stores.
+
+### Correction to the first T31 record
+
+The first record's statement "every desk row carries an https source link" was based on a checker that never read row links. It is withdrawn. The correct statement is the F-39 state above. The main-site checker `site/check.py` does test each row, and it passes with 3,088 of 3,088 rows linked.
+
+### Board note
+
+The id T31 is used by three different sessions' claims (the source-provenance audit, the parallel integration in PR #29, and this session). Each row is kept as its session wrote it. Future claims should use new ids.
