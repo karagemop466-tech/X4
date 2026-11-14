@@ -492,4 +492,19 @@ claims.
 
 | # | Pull request | Result |
 |---|---|---|
-| 12 | https://github.com/karagemop466-tech/X4/pull/12 | (recorded after merge) |
+| 12 | https://github.com/karagemop466-tech/X4/pull/12 | **Merged** into `main` as `9f03406` on 2026-11-14 (merge commit `9f03406dbbf36c37b3b023a1dea4aea142eab150`). 37 files, all additions except the shared `COORDINATION.md`/`README.md`; zero changes to task-3 owned core files (`site/` mirror pages, `data/**`, their `tools/*`, `pages.yml`). |
+
+## Deployment verification after PR #12 (2026-11-14)
+
+| Check | Result |
+|---|---|
+| Actions `Desk validation` on main (run 43555548026) | **success** - desk links/anchors/nav/355 data-row sources + 13 site/ mirrors |
+| Actions `Publish NFL Decision Lab` on main (run 43555548014) | **success** - verify (460 checks) + rebuild + site checks (892 rows) + console check (682 rows) + reproducibility gate |
+| Actions legacy `pages build and deployment` (run 43555547429) | **success** |
+| GitHub Pages API | `status: built`, `build_type: legacy`, source `main /`, https://karagemop466-tech.github.io/X4/ |
+| Live fetch `https://karagemop466-tech.github.io/X4/signals.html` | **HTTP 200 content verified** - line lab (13 games vs market), 10 signals, 8 gates, correlations all rendered |
+| Live fetch `https://karagemop466-tech.github.io/X4/review.html` | **HTTP 200 content verified** - 18 proposals with Accept/Hold/Reject controls |
+| Live fetch `https://karagemop466-tech.github.io/X4/` (main landing) | **HTTP 200 content verified** - task-3 dashboard intact after merge |
+| Local reproducibility gate after merge | `build.py && pages.py && sync.py && git diff --exit-code` = clean; desk generators byte-identical |
+
+PR #13 (https://github.com/karagemop466-tech/X4/pull/13) carries this record to `main`; this section's presence on `main` is itself the proof that PR #13 merged (it can only reach `main` through that merge).
