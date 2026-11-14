@@ -99,6 +99,15 @@
 </section>
 
 <section>
+  <div class="section-head"><div><span class="eyebrow">Integrity</span>
+  <h2>The two price captures reconciled</h2><p class="muted">This site holds two independent
+  captures of the same book's prices. They are compared number by number, and the comparison is
+  part of the publication gate.</p></div><span class="tag acc">Re-derived from the CSVs</span></div>
+  <div id="reconciliation"><div class="table-wrap"><table><thead><tr><th>What was compared</th><th class="num">Games</th><th class="num">Comparisons</th><th class="num">Agreements</th><th class="num">Disagreements</th><th>Source</th></tr></thead><tbody><tr><td>Spread, total and moneyline: the opening line and the last posted line</td><td class="num">14</td><td class="num">112</td><td class="num">112</td><td class="num">0</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noreferrer noopener">NFL.com schedule &nearr;</a> &middot; <a href="research/data/price_capture_reconciliation.csv" target="_blank" rel="noreferrer">row-by-row CSV &#8599;</a></td></tr><tr><td>Archive store: games priced for the backtest</td><td class="num">29</td><td class="num">174</td><td class="num">-</td><td class="num">-</td><td><a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer noopener">NFL.com standings &nearr;</a></td></tr></tbody></table><div class="tbl-note">Two captures of the same book, taken independently, compared number by number. The comparison is re-derived from the two CSVs by <code>tools/reconcile_prices.py</code>, which is part of the publication gate.</div></div></div>
+  <div class="note"><b>The one difference is a naming difference, and it is flagged.</b> In this archive the word <i>close</i> means the last line the book was showing when the capture was taken, so it is filled for every game, played or not. In the integrity store on the price-snapshot page the same number is called <i>current</i>, and <i>close</i> is reserved for a game that has actually been played. The numbers agree; the words do not. See flag F-38.</div>
+</section>
+
+<section>
   <div class="section-head"><div><span class="eyebrow">What this page does not have</span>
   <h2>Blank, and why</h2></div></div>
   <div class="grid g2">

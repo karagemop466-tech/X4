@@ -344,6 +344,39 @@ def build(M, P):
         "anywhere on this site. It is reported here and <b>not</b> corrected: changing a model "
         "after seeing the results would be hindsight."))
 
+    # ---------------------------------------------------- capture reconciliation
+    # The site carries two price stores (the integrity capture and this archive).
+    # They were taken independently, so the only thing that keeps them honest is a
+    # published reconciliation of the numbers they share.
+    recon_tbl = ""
+    recon_note = ""
+    recon_path = os.path.join(ROOT, "data", "output", "price_reconciliation.json")
+    if os.path.exists(recon_path):
+        with open(recon_path, encoding="utf-8") as fh:
+            RC = json.load(fh)
+        recon_tbl = wrap("reconciliation", table(
+            [("What was compared", 0), ("Games", 1), ("Comparisons", 1), ("Agreements", 1),
+             ("Disagreements", 1), ("Source", 0)],
+            [["Spread, total and moneyline: the opening line and the last posted line",
+              num(RC["integrity_games"]), num(RC["comparisons"]), num(RC["matches"]),
+              num(RC["mismatches"]),
+              src("https://www.nfl.com/schedules/2026/by-week/week-11", "NFL.com schedule")
+              + ' &middot; <a href="research/data/price_capture_reconciliation.csv" '
+                'target="_blank" rel="noreferrer">row-by-row CSV &#8599;</a>'],
+             ["Archive store: games priced for the backtest",
+              num(RC["archive_games"]), num(RC["archive_rows"]), "-", "-",
+              src("https://www.nfl.com/standings/", "NFL.com standings")]],
+            "Two captures of the same book, taken independently, compared number by number. "
+            "The comparison is re-derived from the two CSVs by "
+            "<code>tools/reconcile_prices.py</code>, which is part of the publication gate."))
+        recon_note = (
+            "<b>The one difference is a naming difference, and it is flagged.</b> In this "
+            "archive the word <i>close</i> means the last line the book was showing when the "
+            "capture was taken, so it is filled for every game, played or not. In the "
+            "integrity store on the price-snapshot page the same number is called "
+            "<i>current</i>, and <i>close</i> is reserved for a game that has actually been "
+            "played. The numbers agree; the words do not. See flag F-38.")
+
     body = """
 <div class="hero">
   <span class="eyebrow light">T30 &middot; real prices, not model estimates</span>
@@ -428,6 +461,15 @@ def build(M, P):
 </section>
 
 <section>
+  <div class="section-head"><div><span class="eyebrow">Integrity</span>
+  <h2>The two price captures reconciled</h2><p class="muted">This site holds two independent
+  captures of the same book's prices. They are compared number by number, and the comparison is
+  part of the publication gate.</p></div><span class="tag acc">Re-derived from the CSVs</span></div>
+  %(recon)s
+  <div class="note">%(recon_note)s</div>
+</section>
+
+<section>
   <div class="section-head"><div><span class="eyebrow">What this page does not have</span>
   <h2>Blank, and why</h2></div></div>
   <div class="grid g2">
@@ -453,7 +495,7 @@ def build(M, P):
            snap=snap, res=res, skill=skill_tbl, stake=stake_tbl, n_final=len(final),
            depth=depth_tbl, corr=corr_tbl, dem=dem_tbl, rules=rules,
            policy=esc(dem["policy"]), live=dem["live_count"], paper=dem["paper_count"],
-           anc=anc_tbl,
+           anc=anc_tbl, recon=recon_tbl, recon_note=recon_note,
            best_mae=min(skill[k]["spread_mae"] for k in skill if k != "MARKET"),
            mkt_mae=skill["MARKET"]["spread_mae"])
     return body

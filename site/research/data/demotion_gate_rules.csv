@@ -1,0 +1,6 @@
+gate,rule,state,why,consequence
+D1 signal: beat the close,clv_positive_share >= 0.55 on n >= 100 settled bets,BLOCKED,n=9 settled bets (< 100); no stake-time capture,paper only - cannot be promoted
+D2 staking: net ROI 95% CI lower bound > 0,n >= 100 and CI low > 0,NOT MET,n=9 settled bets (< 100),paper only - cannot be promoted
+D3 probability quality: Brier < 0.25 baseline,n >= 100 and Brier < 0.25,NOT MET,n=9 settled bets (< 100),paper only - cannot be promoted
+D4 drawdown <= 20% of peak bankroll,measured over the run,NOT MET,n=9 settled bets (< 100),paper only - cannot be promoted
+D5 market availability: >= 1 priced market at stake time,price store row exists,BLOCKED,n=9 settled bets (< 100),paper only - cannot be promoted

@@ -1,0 +1,113 @@
+comparison,capture_a,capture_b,status
+WAS @ NYG | spread | away | open,1.5,1.5,match
+WAS @ NYG | spread | away | close,1.5,1.5,match
+WAS @ NYG | total | open,47.5,47.5,match
+WAS @ NYG | total | close,40.5,40.5,match
+WAS @ NYG | moneyline | away | open,105.0,105.0,match
+WAS @ NYG | moneyline | away | close,105.0,105.0,match
+WAS @ NYG | moneyline | home | open,-125.0,-125.0,match
+WAS @ NYG | moneyline | home | close,-125.0,-125.0,match
+IND @ HOU | spread | away | open,5.5,5.5,match
+IND @ HOU | spread | away | close,10.0,10.0,match
+IND @ HOU | total | open,45.5,45.5,match
+IND @ HOU | total | close,44.5,44.5,match
+IND @ HOU | moneyline | away | open,195.0,195.0,match
+IND @ HOU | moneyline | away | close,350.0,350.0,match
+IND @ HOU | moneyline | home | open,-238.0,-238.0,match
+IND @ HOU | moneyline | home | close,-455.0,-455.0,match
+MIA @ BUF | spread | away | open,11.5,11.5,match
+MIA @ BUF | spread | away | close,16.5,16.5,match
+MIA @ BUF | total | open,47.5,47.5,match
+MIA @ BUF | total | close,46.5,46.5,match
+MIA @ BUF | moneyline | away | open,440.0,440.0,match
+MIA @ BUF | moneyline | away | close,950.0,950.0,match
+MIA @ BUF | moneyline | home | open,-600.0,-600.0,match
+MIA @ BUF | moneyline | home | close,-1650.0,-1650.0,match
+NO @ CHI | spread | away | open,6.5,6.5,match
+NO @ CHI | spread | away | close,9.5,9.5,match
+NO @ CHI | total | open,46.5,46.5,match
+NO @ CHI | total | close,48.5,48.5,match
+NO @ CHI | moneyline | away | open,225.0,225.0,match
+NO @ CHI | moneyline | away | close,370.0,370.0,match
+NO @ CHI | moneyline | home | open,-278.0,-278.0,match
+NO @ CHI | moneyline | home | close,-485.0,-485.0,match
+BAL @ CAR | spread | away | open,-4.5,-4.5,match
+BAL @ CAR | spread | away | close,1.5,1.5,match
+BAL @ CAR | total | open,46.5,46.5,match
+BAL @ CAR | total | close,44.5,44.5,match
+BAL @ CAR | moneyline | away | open,-218.0,-218.0,match
+BAL @ CAR | moneyline | away | close,105.0,105.0,match
+BAL @ CAR | moneyline | home | open,180.0,180.0,match
+BAL @ CAR | moneyline | home | close,-125.0,-125.0,match
+TEN @ DAL | spread | away | open,6.5,6.5,match
+TEN @ DAL | spread | away | close,7.5,7.5,match
+TEN @ DAL | total | open,48.5,48.5,match
+TEN @ DAL | total | close,51.5,51.5,match
+TEN @ DAL | moneyline | away | open,235.0,235.0,match
+TEN @ DAL | moneyline | away | close,330.0,330.0,match
+TEN @ DAL | moneyline | home | open,-290.0,-290.0,match
+TEN @ DAL | moneyline | home | close,-425.0,-425.0,match
+TB @ DET | spread | away | open,4.5,4.5,match
+TB @ DET | spread | away | close,3.5,3.5,match
+TB @ DET | total | open,49.5,49.5,match
+TB @ DET | total | close,47.5,47.5,match
+TB @ DET | moneyline | away | open,190.0,190.0,match
+TB @ DET | moneyline | away | close,150.0,150.0,match
+TB @ DET | moneyline | home | open,-230.0,-230.0,match
+TB @ DET | moneyline | home | close,-180.0,-180.0,match
+ARI @ KC | spread | away | open,11.5,11.5,match
+ARI @ KC | spread | away | close,14.0,14.0,match
+ARI @ KC | total | open,44.5,44.5,match
+ARI @ KC | total | close,42.5,42.5,match
+ARI @ KC | moneyline | away | open,440.0,440.0,match
+ARI @ KC | moneyline | away | close,600.0,600.0,match
+ARI @ KC | moneyline | home | open,-600.0,-600.0,match
+ARI @ KC | moneyline | home | close,-900.0,-900.0,match
+PIT @ PHI | spread | away | open,5.5,5.5,match
+PIT @ PHI | spread | away | close,-4.5,-4.5,match
+PIT @ PHI | total | open,42.5,42.5,match
+PIT @ PHI | total | close,38.5,38.5,match
+PIT @ PHI | moneyline | away | open,205.0,205.0,match
+PIT @ PHI | moneyline | away | close,-198.0,-198.0,match
+PIT @ PHI | moneyline | home | open,-250.0,-250.0,match
+PIT @ PHI | moneyline | home | close,164.0,164.0,match
+JAX @ NYG | spread | away | open,-1.5,-1.5,match
+JAX @ NYG | spread | away | close,-6.0,-6.0,match
+JAX @ NYG | total | open,46.5,46.5,match
+JAX @ NYG | total | close,44.5,44.5,match
+JAX @ NYG | moneyline | away | open,-125.0,-125.0,match
+JAX @ NYG | moneyline | away | close,-265.0,-265.0,match
+JAX @ NYG | moneyline | home | open,105.0,105.0,match
+JAX @ NYG | moneyline | home | close,215.0,215.0,match
+NYJ @ LAC | spread | away | open,9.5,9.5,match
+NYJ @ LAC | spread | away | close,1.5,1.5,match
+NYJ @ LAC | total | open,41.5,41.5,match
+NYJ @ LAC | total | close,42.5,42.5,match
+NYJ @ LAC | moneyline | away | open,340.0,340.0,match
+NYJ @ LAC | moneyline | away | close,105.0,105.0,match
+NYJ @ LAC | moneyline | home | open,-440.0,-440.0,match
+NYJ @ LAC | moneyline | home | close,-125.0,-125.0,match
+LV @ DEN | spread | away | open,8.5,8.5,match
+LV @ DEN | spread | away | close,8.5,8.5,match
+LV @ DEN | total | open,41.5,41.5,match
+LV @ DEN | total | close,41.5,41.5,match
+LV @ DEN | moneyline | away | open,330.0,330.0,match
+LV @ DEN | moneyline | away | close,340.0,340.0,match
+LV @ DEN | moneyline | home | open,-425.0,-425.0,match
+LV @ DEN | moneyline | home | close,-440.0,-440.0,match
+MIN @ SF | spread | away | open,3.5,3.5,match
+MIN @ SF | spread | away | close,3.5,3.5,match
+MIN @ SF | total | open,46.5,46.5,match
+MIN @ SF | total | close,45.5,45.5,match
+MIN @ SF | moneyline | away | open,170.0,170.0,match
+MIN @ SF | moneyline | away | close,170.0,170.0,match
+MIN @ SF | moneyline | home | open,-205.0,-205.0,match
+MIN @ SF | moneyline | home | close,-205.0,-205.0,match
+CIN @ WAS | spread | away | open,-1.5,-1.5,match
+CIN @ WAS | spread | away | close,-3.5,-3.5,match
+CIN @ WAS | total | open,52.5,52.5,match
+CIN @ WAS | total | close,51.5,51.5,match
+CIN @ WAS | moneyline | away | open,-125.0,-125.0,match
+CIN @ WAS | moneyline | away | close,-205.0,-205.0,match
+CIN @ WAS | moneyline | home | open,105.0,105.0,match
+CIN @ WAS | moneyline | home | close,170.0,170.0,match

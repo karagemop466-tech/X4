@@ -1,0 +1,2 @@
+strategy,from,to,rule_fired,reason,n,p_value
+"v1 ratio model (side, total, moneyline)",paper,paper,P-ROMOTION-GATE,2 of 8 gates passed; stays on paper until the rest pass,12,0.0918

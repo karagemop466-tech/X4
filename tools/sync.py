@@ -106,6 +106,42 @@ def main():
     if os.path.isdir(DOCS):
         changed += ["console/" + c for c in mirror_tree(DOCS, CONSOLE, skip=NOT_SITE)]
 
+    # 3. the datasets and notes the published pages cite.
+    # The Pages artifact is `site/`, so a page that links to research/<file>.csv
+    # or data/ops/<file>.csv would 404 for a reader unless the file is published
+    # next to the page. `data/output/` and `data/transactions/` are build output
+    # and transaction ledgers that no page links to, so they are not published.
+    research = os.path.join(ROOT, "research")
+    if os.path.isdir(research):
+        changed += ["site/" + c for c in mirror_tree(research, os.path.join(SITE, "research"))]
+
+    data = os.path.join(ROOT, "data")
+    if os.path.isdir(data):
+        for name in sorted(os.listdir(data)):
+            src = os.path.join(data, name)
+            if not os.path.isfile(src) or not name.endswith(".csv"):
+                continue
+            dst = os.path.join(SITE, "data", name)
+            if os.path.exists(dst) and filecmp.cmp(src, dst, shallow=False):
+                continue
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copyfile(src, dst)
+            changed.append("site/data/" + name)
+        ops = os.path.join(data, "ops")
+        if os.path.isdir(ops):
+            changed += ["site/" + c for c in mirror_tree(ops, os.path.join(SITE, "data", "ops"))]
+
+    # 4. the audit trail the pages point at
+    for name in ("COORDINATION.md", "README.md"):
+        src = os.path.join(ROOT, name)
+        dst = os.path.join(SITE, name)
+        if not os.path.exists(src):
+            continue
+        if os.path.exists(dst) and filecmp.cmp(src, dst, shallow=False):
+            continue
+        shutil.copyfile(src, dst)
+        changed.append("site/" + name)
+
     if changed:
         print("synchronised: %s" % ", ".join(changed))
     else:

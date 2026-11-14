@@ -28,6 +28,8 @@ STEPS = [
      [PY, os.path.join(ROOT, "tools", "market.py")]),
     ("re-derive every market number independently",
      [PY, os.path.join(ROOT, "tools", "market_check.py")]),
+    ("reconcile the two independent price captures",
+     [PY, os.path.join(ROOT, "tools", "reconcile_prices.py")]),
     ("build site pages", [PY, os.path.join(ROOT, "tools", "pages.py")]),
     ("originate the markets and the price store", [PY, os.path.join(ROOT, "tools", "fetch.py"), "plan"]),
     ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),

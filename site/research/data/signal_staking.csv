@@ -1,0 +1,13 @@
+edge,staking,bets,final_bankroll,profit,max_drawdown,true_edge
+fair coin at -110 (p = 0.500),flat 1-unit stakes,100,103.09,3.09,0.0817,0.5238
+fair coin at -110 (p = 0.500),flat 1-unit stakes,1000,73.64,-26.36,0.4575,0.5238
+fair coin at -110 (p = 0.500),flat 1-unit stakes,5000,-28.0,-128.0,1.5891,0.5238
+fair coin at -110 (p = 0.500),5% of bankroll,100,104.18,4.18,0.3889,0.5238
+fair coin at -110 (p = 0.500),5% of bankroll,1000,19.1,-80.9,0.8829,0.5238
+fair coin at -110 (p = 0.500),5% of bankroll,5000,19.1,-80.9,0.8829,0.5238
+true 52.4% edge at -110,flat 1-unit stakes,100,118.36,18.36,0.0437,0.5478
+true 52.4% edge at -110,flat 1-unit stakes,1000,165.27,65.27,0.1783,0.5478
+true 52.4% edge at -110,flat 1-unit stakes,5000,382.45,282.45,0.1783,0.5478
+true 52.4% edge at -110,5% of bankroll,100,224.09,124.09,0.2419,0.5478
+true 52.4% edge at -110,5% of bankroll,1000,843.55,743.55,0.7654,0.5478
+true 52.4% edge at -110,5% of bankroll,5000,472253.33,472153.33,0.9724,0.5478

@@ -36,19 +36,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Prove the data against the official NFL.com standings
-        run: python3 tools/verify.py
-      - name: Check the price store, the origination card and the results feed
-        run: python3 tools/market_store.py
-      - name: Rebuild the published numbers and the site
-        run: |
-          python3 tools/build.py
-          python3 tools/pages.py
-          python3 tools/sync.py
-      - name: Check the published site and the repository-root copy
-        run: |
-          python3 site/check.py
-          python3 site/check.py .
+      - name: Run the full publication gate
+        # One gate, in order: prove the data against the official NFL.com
+        # standings, rebuild every published number, rebuild the site, re-derive
+        # the market numbers independently, reconcile the two price captures,
+        # check every published page for broken links and unsourced rows, check
+        # the repository-root copy and the X4 Console, and prove the whole build
+        # is byte-for-byte reproducible.
+        run: python3 tools/validate.py
       - name: Check the X4 Console (docs/) for broken links and unsourced rows
         run: node docs/check.js
       - name: Confirm the published output is reproducible
