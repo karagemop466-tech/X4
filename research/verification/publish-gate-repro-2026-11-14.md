@@ -121,3 +121,25 @@ normalising every published float through `round_floats(obj, places=9)`;
   resamples from Python's random module … replaced with a fixed linear
   congruential generator and normalised every published float to a fixed
   precision").
+
+## Addendum (post-rebase, 2026-11-14 ~20:05 UTC): the second latent failure
+
+While this record was being written, PR #33 (session `279eb9b4`) merged an
+equivalent `market_store.py` normalisation; this session's rebase took their
+generator implementation verbatim and kept its own independent contributions
+(the 3.12.9-built-from-source reproduction, the `tools/fetch.py` plan-writer
+determinism fix, and the cross-interpreter sha256 proof — the regenerated
+`data/output/market_store.json` hashes identically to theirs: `4ded3b0a…9649d`).
+
+With the reproducibility step green, the workflow surfaced a **second latent
+failure** at the next step — *Confirm the repository-root mirror is in step*
+(run `43635100704`, the PR #33 merge): `Only in .: .retrieval` /
+`Only in .: .scratch`. Those two session-artifact directories were committed
+with the PR #24/#25 market-capture work and are root-only, non-site content —
+the same category as `data/`, `tools/` and `research/`, which the step already
+excludes. The failure predates this session (it was masked by the
+reproducibility failure since PR #25) and is fixed by adding
+`--exclude=.retrieval --exclude=.scratch` to the root-mirror diff. Verified by
+re-running the step's exact `diff -rq` commands locally: exit 1 before, exit 0
+after; full `tools/validate.py` PASS; CI rebuild sequence byte-identical under
+both Python 3.11.2 and 3.12.9.
