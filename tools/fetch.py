@@ -448,7 +448,25 @@ def main(argv):
         items = plan()
         os.makedirs(OPS, exist_ok=True)
         doc = {"generated_utc": utc_now(), "count": len(items), "items": items}
-        with open(os.path.join(OPS, "fetch_plan.json"), "w", encoding="utf-8") as fh:
+        path = os.path.join(OPS, "fetch_plan.json")
+        # T32 (2026-11-14): leave the file untouched when the plan items have
+        # not changed. The generated_utc stamp alone used to be rewritten on
+        # every run, which dirtied the working tree after every full gate run
+        # (validate.py executes this step) and invited a timestamp-only commit.
+        # The plan's *content* is the deliverable; a fresh stamp is written only
+        # when the content actually changes.
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                existing = json.load(fh)
+            same = (isinstance(existing, dict) and existing.get("count") == len(items)
+                    and existing.get("items") == items)
+        except (OSError, ValueError):
+            same = False
+        if same:
+            print("%d URLs planned -> data/ops/fetch_plan.json (unchanged, not rewritten)"
+                  % len(items))
+            return 0
+        with open(path, "w", encoding="utf-8") as fh:
             json.dump(doc, fh, indent=1)
             fh.write("\n")
         print("%d URLs planned -> data/ops/fetch_plan.json" % len(items))

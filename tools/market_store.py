@@ -395,6 +395,14 @@ def write_output():
         "chains": replacement_chains(),
         "unconfirmed": unconfirmed_claims(),
     }
+    # T32 (2026-11-14): normalise every published float to a fixed precision,
+    # exactly as build.py has done since the PR #6 repair. Without this, the
+    # serialised JSON carries interpreter-dependent last-ULP differences:
+    # reproduced on CPython 3.12.9 vs 3.11.2, where "fair": 4.054587529287197
+    # (3.11) came out as 4.054587529287204 (3.12) and the publish gate's
+    # byte-identical check failed on every push to main since PR #25.
+    # Reproduction record: research/verification/publish-gate-repro-2026-11-14.md
+    payload = build.round_floats(payload, 9)
     with open(os.path.join(OUT, "market_store.json"), "w", encoding="utf-8") as fh:
         # Normalise floats exactly like tools/build.py does (round_floats, 9 places).
         # Without this, the last 1-2 ulps of every derived float differ between the
