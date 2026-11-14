@@ -1,12 +1,12 @@
 [
  {
   "id": "F-01",
-  "item": "Current market betting lines and odds",
+  "item": "Official market betting lines",
   "type": "Unverified data",
-  "kind": "no",
-  "status": "unverified",
-  "detail": "No spread, total, moneyline or prop price is published anywhere on this site. The NFL publishes no official betting lines.",
-  "why": "No licensed, timestamped odds feed has been authorised for this repository, so any expected value, ROI, bankroll or parlay price would be invented. Every market-line cell is left blank rather than filled from a secondary aggregator.",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "Reconciled. Real prices now exist, but they are NOT official and they are NOT in this register's scope: the NFL publishes no betting lines, so no price on this site is official. One licensed book's prices (DraftKings, published by ESPN) were captured for 29 games - open and close, spread, total and moneyline - and are on the Market &amp; price archive page. Every one of those rows carries two links: the NFL.com game page that proves the result, and the ESPN odds resource the price was archived from. What remains unverified is any price for a player prop or a prop combination: no official or licensed source was confirmed for those, so those cells are still blank (F-35).",
+  "why": "The capture is a transcription of one book's published numbers at a timestamped moment, not an official league figure and not a market consensus. It is sufficient to compute a backtest, a ROI and a closing-line value against a real price; it is not sufficient to claim a price is the best available, that a line is official, or that an arbitrage exists between books. Those claims are not made.",
   "official_url": "https://www.nfl.com/",
   "url": "https://www.nfl.com/"
  },
@@ -372,5 +372,38 @@
   "why": "Flagged rather than quietly overwritten, because the register is on a published page and the contradiction is with official data already in this repository. The corrected chains are on the gates page, where each link is quoted and the starter is named, so the accurate version is already live and the reader can compare. The discrepancy is: this register says Jacobs is the replacement for a blank starter; the article it links says Jacobs is the injured starter.",
   "official_url": "https://www.nfl.com/injuries/",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/replacement-depth.csv"
+ },
+ {
+  "id": "F-35",
+  "item": "Player-prop and prop-combination prices",
+  "type": "Unverified data",
+  "kind": "no",
+  "status": "unverified",
+  "detail": "No player-prop price, prop line or prop-combination correlation is published. The 174 captured prices cover only the three game markets - spread, total and moneyline - for 29 games.",
+  "why": "A prop price needs a licensed feed that carries player markets. The one book captured here publishes them, but no timestamped, reversible archive of player props was obtained, and a prop correlation can only be computed from prices that were actually captured. Estimating one would be invention, so the cells are blank. This is the remaining honest gap in the market work, and it is the reason no prop-combination product is priced anywhere on this site.",
+  "official_url": "https://www.nfl.com/",
+  "url": "https://www.espn.com/nfl/"
+ },
+ {
+  "id": "F-36",
+  "item": "Prices are from one book and are not official",
+  "type": "Unverified data",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "The 174 captured prices on the Market &amp; price archive page come from a single licensed sportsbook (DraftKings, as published by ESPN) at the moment of capture. The NFL publishes no betting lines at all, so no price on this site is an official league figure.",
+  "why": "A single book's number is a transcription of what that book showed, not a market consensus and not the best available price. It is enough to compute error against a real closing line, a ROI and a closing-line value; it is not enough to claim an arbitrage between books, to claim a price was the best available, or to call a line official. None of those claims is made, and every price row carries both its NFL.com result link and its ESPN odds resource so a reviewer can re-read the number.",
+  "official_url": "https://www.nfl.com/",
+  "url": "https://www.espn.com/nfl/"
+ },
+ {
+  "id": "F-37",
+  "item": "Doubled HTML entity in the depth summary text",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "The landing page sentence about depth reads 'Depth &amp;amp; deficiency' - the ampersand is escaped twice, so a reader sees the literal text '&amp;' in that one phrase.",
+  "why": "Found while adding a landing-page directory card in a different session's file and left unfixed deliberately: the owning session's page text is not edited from another session. It is cosmetic, affects one phrase, and does not misstate any number. Recorded here so it is not lost.",
+  "official_url": "https://www.nfl.com/",
+  "url": "https://www.nfl.com/"
  }
 ]
