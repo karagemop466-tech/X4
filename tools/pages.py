@@ -45,6 +45,7 @@ NAV = [
     ("standings.html", "Standings & results"),
     ("lines.html", "Model lines"),
     ("price-snapshots.html", "Price snapshots"),
+    ("markets.html", "Price store"),
     ("results.html", "Results feed"),
     ("strategies.html", "Strategy lab"),
     ("availability.html", "Injuries & depth"),
