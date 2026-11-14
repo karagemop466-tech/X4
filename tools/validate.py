@@ -69,6 +69,15 @@ def main():
             return 1
         print("  - %s reproducible" % rel)
 
+    # ---- the second console, if a parallel session published one ----
+    console_check = os.path.join(ROOT, "docs", "check.js")
+    if os.path.exists(console_check):
+        print("\n=== check the X4 console (docs/) ===", flush=True)
+        r = subprocess.run(["node", console_check], cwd=ROOT)
+        if r.returncode != 0:
+            print("\nVALIDATION FAILED at step: console check")
+            return 1
+
     # ---- data hygiene ----
     print("\n=== data hygiene ===", flush=True)
     problems = []
