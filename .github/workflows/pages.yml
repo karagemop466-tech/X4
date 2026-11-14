@@ -9,6 +9,7 @@ on:
       - "tools/**"
       - "research/**"
       - "docs/**"
+      - "console/**"
       - "*.html"
       - "*.css"
       - "*.js"
@@ -46,14 +47,8 @@ jobs:
         run: |
           python3 site/check.py
           python3 site/check.py .
-      - name: Check and publish the X4 Console (docs/) into site/ and the repository root
-        run: |
-          node docs/check.js
-          rm -rf site/console console
-          mkdir -p site/console console
-          cp -R docs/. site/console/
-          cp -R docs/. console/
-          rm -f site/console/check.js console/check.js
+      - name: Check the X4 Console (docs/) for broken links and unsourced rows
+        run: node docs/check.js
       - name: Confirm the published output is reproducible
         run: |
           git diff --exit-code || (
@@ -61,6 +56,19 @@ jobs:
             echo "Run 'python3 tools/build.py && python3 tools/pages.py && python3 tools/sync.py' and commit the result."
             exit 1
           )
+      - name: Add the X4 Console (docs/) to the published artifact
+        run: |
+          rm -rf site/console
+          mkdir -p site/console
+          cp -R docs/. site/console/
+          rm -f site/console/check.js
+      - name: Confirm the repository-root mirror is in step
+        run: |
+          diff -rq --exclude=check.js docs console
+          diff -rq --exclude=check.py --exclude=site --exclude=console --exclude=docs \
+            --exclude=data --exclude=tools --exclude=research --exclude=.git \
+            --exclude=.github --exclude=README.md --exclude=COORDINATION.md \
+            --exclude=.gitignore site .
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

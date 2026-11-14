@@ -139,6 +139,15 @@ details .body{padding:0 13px 12px}
 .suggest .meta{font-size:12.4px; color:var(--ink-mute)}
 .suggest .ask{margin-top:auto; padding-top:8px; border-top:1px dashed var(--line); font-size:12.8px; color:var(--ink-dim)}
 .p0{color:var(--bad)}.p1{color:var(--warn)}.p2{color:var(--accent)}.p3{color:var(--ink-mute)}
+.g1{grid-template-columns:1fr}
+.dir-card h3{font-size:16px; margin:4px 0 6px}
+.dir-list{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+.dir-list li{border-top:1px solid var(--line); padding-top:8px}
+.dir-list li:first-child{border-top:0; padding-top:2px}
+.dir-list a{display:block; color:var(--ink); font-size:13.6px}
+.dir-list a:hover{color:var(--accent); text-decoration:none}
+.dir-list span{display:block; color:var(--ink-mute); font-size:12.4px; margin-top:2px}
+.dir-wide{background:linear-gradient(150deg,var(--panel-2),var(--panel))}
 @media (max-width:760px){
   h1{font-size:22px} main{padding:18px 14px 60px}
   .kv{grid-template-columns:1fr}
