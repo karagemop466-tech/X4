@@ -738,7 +738,62 @@ modified.
 
 | # | Pull request | Merge commit | Result |
 |---|---|---|---|
-| 22 | see the PR link in the final section below | — | — |
+| 22 | https://github.com/karagemop466-tech/X4/pull/22 | (merge of `arena/e8a1af1b-x4`) | open, CI green; merged without approval once `main` was integrated |
+
+### Completion record — session `arena/e8a1af1b-x4` (task T30, claimed as T22)
+
+**Delivered and published.** The branch started at `39f5abd` and was integrated with
+`origin/main` at `2046d6e` (which brought session `arena/1c6a213c-x4`'s price-snapshot,
+results-feed, signal/staking, replacement-depth and demotion-gate work, and session
+`arena/4d9bc204-x4`'s depth-chart pages).
+
+**What this session added on top of both:**
+
+| Deliverable | Where it is published | What proves it |
+|---|---|---|
+| Verified market price store, 3 phases | `price-snapshots.html`, `lines.html` | 252 rows in `research/data/price_snapshots_2026.csv`; the settled game shows a real open&rarr;close move (total 47.5 &rarr; **40.5**) |
+| Fair line / market line / difference as three separate columns | `lines.html`, `price-snapshots.html`, `programme.html#origination` | every row prints all three plus its source; largest Week-11 gap 18.6 pts (MIA @ BUF) |
+| Origination order side &rarr; total &rarr; moneyline | `programme.html#origination` | 13 rows, moneyline published as a price, not derived from the side |
+| Signal vs staking split | `signals.html`, `leaderboard.html` | 9 leaderboard rows with a separate staking column; "why the two are different" section |
+| Replacement **depth** measured | `availability.html`, `depth.html` | 7 absent starters: depth slot 7/7, named **5/7**, replacement starts **2/7** (BAL Brissett 8, SEA Lock 2, MIA McCord 0) |
+| Correlations with mandatory `n` | `signals.html#correlations` | 5 values, every one with `n` and a 95% CI; margin&ndash;total **&minus;0.3099** [&minus;0.528,&nbsp;&minus;0.054] n=57 |
+| Demotion gate (live &rarr; paper) | `programme.html#demotion` | 5 gate rules + a run over the 9 graded rows; D1/D5 BLOCKED, D2/D3/D4 NOT MET |
+| Research + decisions registers | `questions.html`, `programme.html#programme` | 10 published questions, 7-step programme with a named blocker per step |
+| Suggestions workbench | `workbench.html` | 12 items ranked by a published weighted model; Accept/Hold/Reject persists |
+| Source-verification pass | `executive-summary.html#programme` | 7-row integrity table, 6 requirements + the demotion gate, each with a state pill |
+| Executive summary | `executive-summary.html` | stale claims ("depth unverifiable", "0 gates run") replaced with measured values |
+
+**Final verification (all run on the merged tree):**
+
+- `python3 tools/validate.py` &rarr; **VALIDATION PASSED**
+- `python3 tools/check_site.py` &rarr; 13 desk pages, 513 rows, 15 mirrors, 913 links, **PASS**
+- `python3 site/check.py` &rarr; 2,675 data rows, **all 2,675 with an official source link**, **PASS**
+- `python3 tools/build_integrity.py` &rarr; 14 datasets, **192 standings fields reconciled**
+- `python3 tools/gen_programme.py` / `gen_workbench.py` / `gen_data_html.py` / `gen_strategies_html.py` &rarr; byte-identical on re-run (the CI gate)
+- GitHub Actions `desk` &rarr; **pass**
+
+**Integration conflict resolved (recorded because it changed a published claim).** The
+parallel session's `price-snapshots.html` asserted that "the market line is blank because
+the NFL publishes no official betting lines", and the site-wide footer said "no market
+data". That was true of their store but false of the repository once this session's
+captured DraftKings prices were merged in. Rather than delete either claim, the store was
+made single-sourced: `tools/pages.py` now loads `research/data/price_snapshots_2026.csv`,
+fills the market columns on `lines.html` and `price-snapshots.html` from it, prints the
+provenance in every row, and Flag **F-18** was rewritten from "market column is blank" to
+"market prices are captured, labelled non-official, and published beside the fair line".
+The footer no longer says "no market data". This is the only place the merge changed what
+the site asserts.
+
+**Board hygiene.** A parallel session had already taken task ids **T21&ndash;T29** by the time
+this branch merged, so this session's task was renumbered **T22 &rarr; T30** rather than
+left as a duplicate id. Both sessions' appendices are kept in full.
+
+**Irregularities carried forward (none block publication):** F-04 (two official NFL.com
+items give different Lamar Jackson absence windows, 6&ndash;9 vs 6&ndash;10 weeks), F-18
+(market prices are captured, not official), F-19/F-20 (no staking or ROI figure can be
+computed without a stake-time capture), F-21 (three drafted figures corrected against the
+data), plus R-03 (nfl.com depth-chart endpoints 404 &mdash; since closed from the clubs' own
+charts).
 
 ---
 

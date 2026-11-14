@@ -26,10 +26,10 @@ it answers, so nothing has to be guessed at.
 
 | Category | Pages |
 |---|---|
-| Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) |
+| Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) · `programme.html` (integrity gates, the seven-step programme, the demotion gate) |
 | Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) |
-| Model & strategies | `lines.html` (13 Week-11 model lines) · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) |
-| Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `flags.html` (main register) · `flagged.html` (desk register) |
+| Model & strategies | `lines.html` (13 Week-11 model lines: fair, market and the difference as three columns) · `price-snapshots.html` (252 price rows, open and close) · `results.html` (137 verified results) · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) |
+| Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk proposal list) · `workbench.html` (the **Suggestion workbench**: a weighted prioritisation model, ranked, with Accept / Hold / Reject) · `flags.html` (main register) · `flagged.html` (desk register) |
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
 | Second build | The **X4 Console** at `/console/` - 15 pages, built independently, reaching the same two structural conclusions |
 
@@ -70,9 +70,24 @@ well calibrated - but its Bonferroni-adjusted bootstrap interval still contains 
 correlation matrix shows that four of the nine strategies (S3, S4, S6 and S7, minimum
 pairwise prediction correlation 0.94) are effectively one signal, so they cannot be
 counted as four independent pieces of evidence. Model lines for all 13 official
-Week 11 games are published as a range across strategies, with the market-line column
-deliberately empty: the NFL publishes no official betting lines and no licensed odds feed
-has been authorised for this repository.
+Week 11 games are published as a range across strategies.
+
+## The market column: what it is and what it is not
+
+The league publishes no betting lines, so there is no official market price to quote. The
+market columns are nevertheless published, because a fair line with nothing beside it
+cannot show whether the model disagrees with the market. They are filled from a **captured**
+price - DraftKings, read through the ESPN odds endpoint on 2026-11-14 - and every figure
+carries that provenance in its row and its source link. **252 price rows** cover 14 games
+&times; 3 markets (spread, total, moneyline) &times; 3 phases (open, current, close); 78 cells
+are genuinely absent because no price was posted.
+
+Fair line, market line and **fair &minus; market** are published as three separate columns so
+a disagreement is never mistaken for an edge; the largest gap in Week 11 is 18.6 points
+(Miami at Buffalo), which is a statement about the model, not about value. The one settled
+game in the store shows a real move: the Week 10 total opened 47.5 and closed **40.5**, a
+&minus;7.0 move. Flag F-18 records the provenance; it no longer claims the market column is
+blank.
 
 ## Roster depth: which starters are actually missing
 
