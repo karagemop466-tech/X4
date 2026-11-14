@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Leaderboard &amp; Rewards</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Leaderboard &amp; Rewards</h1>
+    <p class="lede">
+      A competition that rewards top-performing strategies — but scores
+      <strong>evidence</strong>, not profit. A leaderboard that ranks profit ranks variance,
+      and the winner is whoever got lucky.
+    </p>
+
+    <div class="callout warn">
+      <strong>Status: no entries.</strong> No strategy has passed the minimum-sample gate
+      (G1), because there is no data to score against. Everything below is the design, not a
+      live competition.
+    </div>
+
+    <h2>Current standings</h2>
+    <div data-table="lbStandings"></div>
+
+    <h2>Divisions</h2>
+    <p>
+      Strategies are promoted and demoted on gate results, not on profit. A strategy cannot
+      reach a staked division without passing the out-of-sample gate.
+    </p>
+    <div data-table="lbDivisions"></div>
+
+    <h2>Scoring</h2>
+    <p>
+      Raw profit is weighted at <strong>0%</strong>. That is deliberate, and it is the single
+      most important design decision on this page.
+    </p>
+    <div data-table="lbScoring"></div>
+
+    <h2>Rewards</h2>
+    <div class="callout bad">
+      <strong>Undefined.</strong> No prize, no funding source and no eligibility terms have
+      been approved. That is why every reward cell below is blank and marked unverified —
+      these are business decisions (Q-20, Q-21), not facts this project can supply.
+    </div>
+    <div data-table="lbRewards"></div>
+
+    <h2>Anti-luck rules</h2>
+    <ol class="tight">
+      <li><strong>Minimum sample before ranking.</strong> Below the threshold a strategy is
+        displayed as "provisionally tracked, unranked" rather than ranked. (Q-16)</li>
+      <li><strong>Submission cap plus a multiplicity correction.</strong> Without this, the
+        best of N submitted strategies looks skilled under pure chance, and the leaderboard
+        systematically rewards the luckiest entrant. (Q-22, S-18)</li>
+      <li><strong>Out-of-sample required for promotion.</strong> In-sample edge is nearly
+        free to manufacture. (G4)</li>
+      <li><strong>Profit excluded from scoring.</strong> Even after 1,000 bets there was
+        roughly a 1-in-10 chance that luck alone produced a 2% profit where the expectation
+        was a 2% loss.</li>
+      <li><strong>Capacity is a cap, not a bonus.</strong> A strategy that cannot be executed
+        at the size it assumes is capped at what it can actually do. (G7)</li>
+      <li><strong>An award for well-documented kills.</strong> Rewarding a clear write-up of
+        why a strategy was killed by a gate removes the incentive to keep a failing strategy
+        alive until it happens to look good.</li>
+    </ol>
+
+    <h2>Guard against our own judgement</h2>
+    <p>
+      One row in the anti-luck table on the
+      <a href="validation.html">Validation Gates</a> page is not a statistic at all: it is a
+      reminder. Peer-reviewed survey evidence finds participants in both daily fantasy and
+      sports betting rate their own activity as more skill than luck — means of 6.10 and 5.90
+      on an 11-point scale where 10 is pure skill — and that a false perception of control is
+      positively related to gambling problems. Our own conviction that a strategy is good is
+      evidence of nothing.
+    </p>
+
+    <footer class="pgfoot">
+      Competition design is this project's own proposal. Weighting rationale cites the sources
+      in each row. No strategy is currently entered.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/leaderboard.js"></script>
+</body>
+</html>

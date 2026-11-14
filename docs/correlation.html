@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Correlation Reference</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Correlation Reference</h1>
+    <p class="lede">
+      The brief asks for correlation values. This page enumerates every pair that matters and
+      says exactly how each value will be estimated. It publishes <strong>no numbers</strong>,
+      because no correlation has been estimated yet.
+    </p>
+
+    <div class="callout bad">
+      <strong>Every value cell on this page is blank on purpose.</strong> Sixteen pairs are
+      listed; zero values are estimated. Inventing a plausible-looking correlation would be
+      the most damaging thing this project could do: parlay and same-game-combination prices
+      are driven entirely by it, so a wrong correlation produces a <em>confidently</em> wrong
+      price. A blank cell is honest. A guessed cell is dangerous.
+    </div>
+
+    <div class="cards">
+      <div class="card info"><div class="k">Pairs enumerated</div><div class="v" data-stat="X4_CORR_COUNT">16</div><div class="d">Same-game, cross-game, prop, injury-driven, portfolio, micro</div></div>
+      <div class="card bad"><div class="k">Values estimated</div><div class="v" data-stat="X4_CORR_ESTIMATED">0</div><div class="d">Deliberately blank</div></div>
+      <div class="card warn"><div class="k">Blocked on</div><div class="v">Q-14, Q-15</div><div class="d">Estimation sample and window</div></div>
+      <div class="card bad"><div class="k">Gate affected</div><div class="v">G6</div><div class="d">Fails closed when correlation is unestimated</div></div>
+    </div>
+
+    <h2>The register</h2>
+    <div data-table="correlation"></div>
+
+    <h2>Estimation protocol</h2>
+    <ol class="tight">
+      <li><strong>Source the data first.</strong> Correlation cannot be estimated from
+        standings or injury reports. It needs play-by-play or per-game player statistics plus
+        price history (Q-09, Q-11).</li>
+      <li><strong>Fix the window before looking.</strong> Choose the estimation window
+        (Q-15), then estimate. Choosing the window after seeing the result is how a number
+        gets tuned to a story.</li>
+      <li><strong>Report n, the estimator and the standard error</strong> next to every value.
+        A correlation without a sample size is decoration.</li>
+      <li><strong>Estimate both pooled and per-season</strong> and report the disagreement as
+        the G5 stability metric.</li>
+      <li><strong>Never extrapolate across contexts.</strong> A correlation estimated on
+        ordinary weeks does not apply to weeks with playoff-seeding dependencies (C-08), and a
+        cross-game correlation assumed to be zero should be <em>tested</em> against zero
+        rather than assumed (C-07).</li>
+      <li><strong>Treat mechanical relationships as structural, not free.</strong> A
+        receiver's yards are a component of his quarterback's passing yards (C-03). That is
+        arithmetic, not a parameter to fit.</li>
+    </ol>
+
+    <h2>The one correlation most people forget</h2>
+    <div class="callout warn">
+      <strong>C-14: the correlation between your own strategies.</strong> Two strategies that
+      fire on the same underlying signal are not independent, even across different games.
+      Estimate the correlation matrix of per-week strategy <em>returns</em> directly rather
+      than inferring it from leg-level correlations. A portfolio that looks diversified on
+      paper can be a single concentrated bet once this is measured — and it is exactly the
+      kind of hidden concentration that makes a "diversified" set of strategies blow up
+      together.
+    </div>
+
+    <h2>What a completed row will look like</h2>
+    <p>
+      When C-01 is estimated, the row will carry a numeric value, a 95% confidence interval,
+      the sample size <em>n</em>, the estimator used, and the estimation window. Until then
+      the value, CI and n columns render as <em>— unverified —</em> and the row's status stays
+      <span class="b bad">unverified</span>.
+    </p>
+
+    <footer class="pgfoot">
+      Estimation protocol: this project's own (<a href="https://github.com/karagemop466-tech/X4/blob/main/docs/data/correlation.js" target="_blank" rel="noopener">docs/data/correlation.js</a>).
+      Market-efficiency context from the cited line-movement analysis.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/correlation.js"></script>
+</body>
+</html>

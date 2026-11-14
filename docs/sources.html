@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Source Register</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Source Register</h1>
+    <p class="lede">
+      Every source used anywhere on this site, tiered by how much weight it can carry.
+      All were retrieved during this session, on 2026-11-14.
+    </p>
+
+    <h2>Tiering rules</h2>
+    <div class="cards">
+      <div class="card ok">
+        <div class="k">primary</div>
+        <div class="v">Official</div>
+        <div class="d">The league (nfl.com, operations.nfl.com), official club sites,
+          regulators, government bodies, standards bodies, or this repository's own
+          artifacts. Sufficient on its own to mark a value verified.</div>
+      </div>
+      <div class="card info">
+        <div class="k">academic</div>
+        <div class="v">Peer-reviewed</div>
+        <div class="d">Peer-reviewed or university-published work, cited with a DOI or
+          institutional URL. Sufficient for a methodological claim, not for a league fact.</div>
+      </div>
+      <div class="card warn">
+        <div class="k">secondary</div>
+        <div class="v">Not sufficient alone</div>
+        <div class="d">Media, aggregators and analytics blogs. Used only for context,
+          methodology discussion, or as evidence of a cross-source conflict. Never used on
+          its own to mark a value verified.</div>
+      </div>
+    </div>
+
+    <div class="callout bad">
+      <strong>Two negative findings are recorded as sources.</strong> A source row that
+      documents the <em>absence</em> of data is as important as one that documents its
+      presence — see <code>NFL_DEPTH_CHART_404</code> (NFL.com has no depth charts) and
+      <code>AGG_STANDINGS_CONFLICT</code> (an aggregator contradicts the official standings).
+    </div>
+
+    <h2>The register</h2>
+    <div data-table="sourceRegister"></div>
+
+    <h2>Verification policy, restated</h2>
+    <ol class="tight">
+      <li>A value is <strong>verified</strong> only if it was read off a primary source
+        during this session and that source's URL is recorded on the row.</li>
+      <li>Values shown as <span class="b info">design</span> are this project's own
+        engineering proposals — thresholds, schemas, workflows. They are not facts and are
+        labelled as proposals everywhere they appear.</li>
+      <li>Values shown as <span class="b grey">secondary</span> rest on a media or aggregator
+        source and should be re-checked against a primary one before being relied on.</li>
+      <li>Values shown as <span class="b bad">unverified</span> are unknown. They are left
+        blank and appear on the <a href="flagged.html">Flagged for Review</a> page.</li>
+      <li><strong>Nothing is inferred, interpolated, modelled or filled in.</strong> Unknown
+        means blank.</li>
+    </ol>
+
+    <h2>What is deliberately absent from this register</h2>
+    <p>
+      There is no row for an odds provider, because none was evaluated. There is no row for a
+      depth-data provider, for the same reason. Those two absences are the project's two
+      largest blockers (<a href="flagged.html">F-02, F-03</a>), and naming a provider without
+      reading its own documentation would violate the policy above.
+    </p>
+
+    <footer class="pgfoot">
+      Source registry maintained in
+      <a href="https://github.com/karagemop466-tech/X4/blob/main/docs/data/sources.js" target="_blank" rel="noopener">docs/data/sources.js</a>.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/sources-table.js"></script>
+</body>
+</html>

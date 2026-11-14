@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — NFL Data</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">NFL Data (Verified)</h1>
+    <p class="lede">
+      2026 regular-season standings and the Week 10 schedule, transcribed from NFL.com. Every
+      row links to the official page it came from.
+    </p>
+
+    <div class="callout info">
+      <strong>Captured 2026-11-14.</strong> Standings reflect all games played through
+      Thursday Night Football on November 12. Clubs have played different numbers of games
+      (8 or 9) because of bye weeks and the Thursday game, so points-for and points-against
+      are <strong>not</strong> like-for-like across clubs — see
+      <a href="flagged.html">F-14</a>.
+    </div>
+
+    <h2>Standings — 2026 regular season</h2>
+    <p>
+      Source:
+      <a href="https://www.nfl.com/standings/" target="_blank" rel="noopener">nfl.com/standings</a>.
+      All 32 clubs, all columns as displayed on the official page.
+    </p>
+    <div data-table="standings"></div>
+
+    <h2>Week 10 schedule</h2>
+    <p>
+      Source:
+      <a href="https://www.nfl.com/schedules/2026/REG10" target="_blank" rel="noopener">nfl.com/schedules/2026/REG10</a>
+      and
+      <a href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">nfl.com/injuries</a>.
+      Each row cites the page on which that game was observed. Times are Eastern.
+    </p>
+    <div data-table="schedule"></div>
+
+    <h2>Officially reported personnel notes for Week 10</h2>
+    <ul class="tight">
+      <li><strong>Seahawks:</strong> Sam Darnold ruled out; Drew Lock to start, no injury
+        designation —
+        <a href="https://www.nfl.com/news/sam-darnold-ruled-out-for-seahawks-week-10-game-vs-raiders-drew-lock-expected-to-start-again" target="_blank" rel="noopener">NFL.com</a>,
+        <a href="https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders" target="_blank" rel="noopener">NFL.com</a>.</li>
+      <li><strong>Dolphins:</strong> QB Malik Willis (groin) placed on injured reserve;
+        Kyle McCord in line for first start —
+        <a href="https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start" target="_blank" rel="noopener">NFL.com</a>.</li>
+      <li><strong>Browns:</strong> Deshaun Watson to start against the Texans;
+        <strong>Cardinals:</strong> Carson Beck to start against the Rams —
+        <a href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-wednesday-nov-11" target="_blank" rel="noopener">NFL.com</a>.</li>
+      <li><strong>Ravens:</strong> Lamar Jackson expected to miss 6-10 weeks —
+        <a href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13" target="_blank" rel="noopener">NFL.com</a>.
+        Note: a different NFL.com article says 6-9 weeks. Flagged as
+        <a href="flagged.html">F-06</a>; neither figure is treated as official data.</li>
+      <li><strong>Rams:</strong> Puka Nacua likely to be placed on injured reserve
+        (turf toe, sprained MCL and PCL) —
+        <a href="https://www.nfl.com/news/rams-wr-puka-nacua-likely-to-be-placed-on-injured-reserve-with-turf-toe-sprained-mcl-and-pcl" target="_blank" rel="noopener">NFL.com</a>.</li>
+      <li><strong>Packers:</strong> Josh Jacobs to undergo finger surgery, timeline TBD —
+        <a href="https://www.nfl.com/news/packers-rb-josh-jacobs-to-undergo-surgery-on-finger-this-week" target="_blank" rel="noopener">NFL.com</a>.</li>
+    </ul>
+
+    <div class="callout warn">
+      <strong>Interpretation rule used on this site.</strong> Reported recovery timelines are
+      journalistic, not official data. Only the published practice status and game status are
+      treated as official. Where two official pages disagree, both are linked and neither is
+      used as a value.
+    </div>
+
+    <footer class="pgfoot">
+      Rows: 32 standings + 18 schedule. Every row carries a source link. Blank cells are
+      blank because the official page showed nothing.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/nfl-standings.js"></script>
+<script src="data/nfl-schedule.js"></script>
+</body>
+</html>

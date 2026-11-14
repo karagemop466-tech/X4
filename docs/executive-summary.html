@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Executive Summary</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Executive Summary</h1>
+    <p class="lede">
+      The important details, in the order that matters. Every row carries a status and a
+      source. Where we do not know something, the value is blank rather than estimated.
+    </p>
+
+    <h2>The one-paragraph version</h2>
+    <div class="panel">
+      <p>
+        The repository was empty — one commit containing only a README — so there was no
+        existing site to review or improve; this console was built from scratch. What exists
+        now is a complete research and governance scaffold: 35 requirements tracked,
+        <span data-stat="X4_QUESTION_STATS.total">32</span> open questions,
+        <span data-stat="X4_SUGGESTION_STATS.total">18</span> suggestions queued for review,
+        9 validation gates, <span data-stat="X4_STRATEGY_SUMMARY.total">12</span> candidate
+        strategies, and a full set of verified 2026 NFL data (all 32 clubs' standings, the
+        Week 10 schedule, and <span data-stat="X4_INJURY_ROWS.n">345</span> official
+        injury-report rows). What does <em>not</em> exist
+        is any evidence that any strategy works, because there is no historical odds or
+        play-by-play data to test against, and because two of the brief's core requirements —
+        knowing when a backup replaces a starter, and originating our own lines — depend on
+        data for which no official primary source exists. The recommendation is to resolve
+        the nine P0 questions before writing any more model code.
+      </p>
+    </div>
+
+    <h2>Key facts</h2>
+    <div data-table="execSummary"></div>
+
+    <h2>What we verified, and where</h2>
+    <ul class="tight">
+      <li><strong>Standings.</strong> All 32 clubs, 2026 regular season —
+        <a href="https://www.nfl.com/standings/" target="_blank" rel="noopener">nfl.com/standings</a>.
+        Reproduced in full on the <a href="nfl-data.html">NFL Data</a> page.</li>
+      <li><strong>Injuries.</strong> 345 player entries, Week 10 2026 —
+        <a href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">nfl.com/injuries</a>.
+        Reproduced in full on the <a href="injuries.html">Injuries</a> page, with empty
+        official cells left empty.</li>
+      <li><strong>Schedule.</strong> 14 Week 10 games plus the official bye list —
+        <a href="https://www.nfl.com/schedules/2026/REG10" target="_blank" rel="noopener">nfl.com/schedules</a>.</li>
+      <li><strong>Roster rules.</strong> 53-man active list, standard elevation addendum,
+        practice-squad elevation limits —
+        <a href="https://operations.nfl.com/calendar-events/nfl-free-agency/contract-language" target="_blank" rel="noopener">operations.nfl.com</a>.</li>
+      <li><strong>Injury-report definitions.</strong> Out / Doubtful / Questionable and
+        DNP / Limited / Full —
+        <a href="https://www.nfl.com/news/competition-committee-approves-revisions-to-injury-report-0ap3000000688693" target="_blank" rel="noopener">NFL Competition Committee revisions</a>.</li>
+      <li><strong>Gambling policy.</strong> Player and staff prohibitions —
+        <a href="https://www.nfl.com/news/nfl-reminds-players-of-league-gambling-policy-in-light-of-federal-indictments" target="_blank" rel="noopener">NFL.com</a> and
+        <a href="https://media.nfl.com/news-and-releases/corporate-communications/summary-of-nfl-gambling-policy-education---integrity-monitoring-" target="_blank" rel="noopener">NFL corporate communications</a>.</li>
+    </ul>
+
+    <h2>The three decisions that unblock everything</h2>
+    <div class="flow">
+      <div class="step">
+        <div class="n">Decision 1</div>
+        <div class="h">Paper or real money?</div>
+        <div class="p">Sets legal exposure, tax, KYC and whether rewards are prize money.
+        Recommend paper until the jurisdiction is confirmed. (Q-01, Q-02)</div>
+      </div>
+      <div class="step">
+        <div class="n">Decision 2</div>
+        <div class="h">Which data do we license?</div>
+        <div class="p">Without play-by-play and price history nothing can be validated.
+        This is a budget decision, not an engineering one. (Q-09, Q-10, Q-11)</div>
+      </div>
+      <div class="step">
+        <div class="n">Decision 3</div>
+        <div class="h">Who may promote a strategy?</div>
+        <div class="p">Promotion to live stakes needs a named approver and an audit record,
+        or an unvalidated strategy will eventually reach real money. (Q-25, S-07)</div>
+      </div>
+    </div>
+
+    <h2>What we are deliberately not doing</h2>
+    <ul class="tight">
+      <li><strong>Not publishing a correlation number we have not estimated.</strong> Sixteen
+        pairs are enumerated on the <a href="correlation.html">Correlation</a> page with an
+        estimation method attached, and every value cell is blank. A wrong correlation makes
+        a parlay price confidently wrong, which is worse than having no price.</li>
+      <li><strong>Not scoring the leaderboard on profit.</strong> Profit separates from luck
+        far too slowly. In the cited worked example, even after 1,000 bets there was roughly
+        a 1-in-10 chance that luck alone produced a 2% profit where the expectation was a
+        2% loss. The leaderboard scores closing-line value instead.</li>
+      <li><strong>Not filling in blank official cells.</strong> Where the NFL's injury page
+        shows an empty game status, this site shows it as unverified rather than reading it
+        as "will play".</li>
+      <li><strong>Not guessing depth-chart URLs.</strong> Only the one club site verified
+        this session has its URL published on the
+        <a href="injuries.html">Injuries</a> page. The other 31 are blank, because a guessed
+        URL is a broken link.</li>
+      <li><strong>Not implementing any suggestion before review.</strong> All 18 sit at
+        Proposed.</li>
+    </ul>
+
+    <footer class="pgfoot">
+      Sources for every row above are linked in the table's Source column. Data captured
+      2026-11-14. Nothing here is wagering advice.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/exec-summary.js"></script>
+<script src="data/questions.js"></script>
+<script src="data/suggestions.js"></script>
+<script src="data/strategies.js"></script>
+<script src="data/nfl-injuries.js"></script>
+</body>
+</html>

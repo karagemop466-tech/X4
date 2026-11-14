@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Suggestions</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Suggestions (Review Queue)</h1>
+    <p class="lede">
+      A dedicated place to review suggestions and choose the best path
+      <strong>before</strong> implementing anything. Every row below is currently at
+      <span class="b warn">proposed</span>. Nothing here has been built.
+    </p>
+
+    <h2>The review workflow</h2>
+    <div class="flow">
+      <div class="step">
+        <div class="n">Stage 1</div>
+        <div class="h">Proposed</div>
+        <div class="p">Written up with the problem, the proposal, the benefit, the risk and
+        the decision required. Nothing may be implemented at this stage.</div>
+      </div>
+      <div class="step">
+        <div class="n">Stage 2</div>
+        <div class="h">Under review</div>
+        <div class="p">Someone is actively weighing it. Still not implementable.</div>
+      </div>
+      <div class="step">
+        <div class="n">Stage 3</div>
+        <div class="h">Approved</div>
+        <div class="p">A named decision has been made, including any parameter values. Only
+        now may it be implemented.</div>
+      </div>
+      <div class="step">
+        <div class="n">Stage 4</div>
+        <div class="h">Implemented / Rejected / Deferred</div>
+        <div class="p">Closed out, with the outcome recorded so the same ground is not
+        covered twice.</div>
+      </div>
+    </div>
+
+    <div class="callout bad">
+      <strong>Hard rule.</strong> A suggestion at status <em>Proposed</em> must not be
+      implemented. That is the whole point of this page: the brief asked for a place where
+      the best path is chosen first. Two exceptions were made in this build, and they are
+      disclosed here: this page, and the
+      <a href="flagged.html">Flagged for Review</a> page. Both are review <em>machinery</em> —
+      they create no model, no signal and no stake.
+    </div>
+
+    <h2>The queue</h2>
+    <div data-table="suggestions"></div>
+
+    <h2>Recommended review order</h2>
+    <ol class="tight">
+      <li><strong>S-01 and S-02 first.</strong> Operating mode and eligibility. Everything
+        else is downstream of whether real money can move at all.</li>
+      <li><strong>S-08, S-10, S-11 next.</strong> Licensing, the price feed, and the bet-log
+        schema. These are prerequisites for any strategy ever being scored.</li>
+      <li><strong>S-05, S-06, S-07 after that.</strong> Sizing, limits and the promotion gate.
+        These bound the damage if a strategy is wrong.</li>
+      <li><strong>S-13 and S-15 once data exists.</strong> Correlation estimation and the
+        depth pipeline.</li>
+      <li><strong>S-17 and S-18 last.</strong> Rewards and the multiplicity correction, once
+        there is something worth ranking.</li>
+    </ol>
+
+    <h2>How to record a decision</h2>
+    <p>
+      Set the row's Review status using the filter dropdown, and record the decision in
+      <a href="https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md</a>
+      with the date, the decision, and any parameter values chosen. A decision recorded only
+      in someone's memory will be re-litigated.
+    </p>
+
+    <footer class="pgfoot">
+      Suggestions S-01 to S-18. Each row's Source column points to the official source that
+      motivates it, or to this project's own design spec where the row is our proposal.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/suggestions.js"></script>
+</body>
+</html>
