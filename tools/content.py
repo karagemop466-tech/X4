@@ -395,6 +395,12 @@ FLAGS = [
          official_url="https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season",
          url="https://github.com/karagemop466-tech/X4/blob/main/site/check.py"),
 
+    dict(id="F-33", item="The depth register on this site contradicted the official injury report for four of its seven rows", type="Irregularity", kind="bad", status="unverified",
+         detail="data/replacement-depth.csv, merged in with PR #21, has seven rows and all seven are marked verified=unverified. Four of them name a replacement without naming who he replaced: Cleveland (Watson), Arizona (Beck), the Rams (Puka Nacua) and Green Bay (Josh Jacobs). Two more are wrong on their face. The Rams row lists Puka Nacua as a replacement_in, but the official Week 10 injury report also in this repository records Nacua as DNP - did not participate - so he is not a replacement for anyone that week. The Green Bay row lists Josh Jacobs as a replacement_in, but the nfl.com article cited in the same row is the report that Jacobs himself is having finger surgery: he is the starter who is out, not the man coming in. The replacement_depth column, which is the one number the whole register exists to carry, is blank on all seven rows.",
+         why="Flagged rather than quietly overwritten, because the register is on a published page and the contradiction is with official data already in this repository. The corrected chains are on the gates page, where each link is quoted and the starter is named, so the accurate version is already live and the reader can compare. The discrepancy is: this register says Jacobs is the replacement for a blank starter; the article it links says Jacobs is the injured starter.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/replacement-depth.csv"),
+
 ]
 
 
