@@ -1,4 +1,8 @@
 espn_id,nfl_abbr,evidence
 2,BUF,favorite named in ESPN `details` on an event where this id is on the favorite's side
+4,CIN,favorite named in ESPN `details` on an event where this id is on the favorite's side
+8,DET,favorite named in ESPN `details` on an event where this id is on the favorite's side
+18,NO,favorite named in ESPN `details` on an event where this id is on the favorite's side
 19,NYG,favorite named in ESPN `details` on an event where this id is on the favorite's side
+30,JAX,favorite named in ESPN `details` on an event where this id is on the favorite's side
 34,HOU,favorite named in ESPN `details` on an event where this id is on the favorite's side

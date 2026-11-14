@@ -1,7 +1,22 @@
 {
- "generated_utc": "2026-11-14T19:20:55Z",
- "count": 41,
+ "generated_utc": "2026-11-14T19:25:23Z",
+ "count": 58,
  "items": [
+  {
+   "kind": "event_list",
+   "week": 9,
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/weeks/9/events?limit=20",
+   "file": "events-week-9.json",
+   "why": "The event ids that exist in week 9; the odds endpoint is per event"
+  },
+  {
+   "kind": "nfl_results",
+   "week": 9,
+   "url": "https://www.nfl.com/schedules/2026/by-week/week-9",
+   "file": "nfl-week-9.md",
+   "optional": true,
+   "why": "Official NFL.com results and kickoff times for week 9 - the source of record for the results feed and for the event pairing"
+  },
   {
    "kind": "event_list",
    "week": 10,
@@ -31,6 +46,126 @@
    "file": "nfl-week-11.md",
    "optional": true,
    "why": "Official NFL.com results and kickoff times for week 11 - the source of record for the results feed and for the event pairing"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873037",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873037/competitions/401873037/odds/100",
+   "file": "odds-401873037.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873038",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873038/competitions/401873038/odds/100",
+   "file": "odds-401873038.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873040",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873040/competitions/401873040/odds/100",
+   "file": "odds-401873040.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873045",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873045/competitions/401873045/odds/100",
+   "file": "odds-401873045.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873042",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873042/competitions/401873042/odds/100",
+   "file": "odds-401873042.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873039",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873039/competitions/401873039/odds/100",
+   "file": "odds-401873039.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873044",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873044/competitions/401873044/odds/100",
+   "file": "odds-401873044.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873043",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873043/competitions/401873043/odds/100",
+   "file": "odds-401873043.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873041",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873041/competitions/401873041/odds/100",
+   "file": "odds-401873041.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873046",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873046/competitions/401873046/odds/100",
+   "file": "odds-401873046.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873049",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873049/competitions/401873049/odds/100",
+   "file": "odds-401873049.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873047",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873047/competitions/401873047/odds/100",
+   "file": "odds-401873047.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873048",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873048/competitions/401873048/odds/100",
+   "file": "odds-401873048.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873050",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873050/competitions/401873050/odds/100",
+   "file": "odds-401873050.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 9,
+   "event_id": "401873051",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873051/competitions/401873051/odds/100",
+   "file": "odds-401873051.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
   },
   {
    "kind": "odds",

@@ -48,10 +48,10 @@ TXN = os.path.join(ROOT, "data", "transactions")
 CORE = "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl"
 NFL = "https://www.nfl.com"
 
-# Weeks we originate. Week 10 is settled (its odds carry a final `close`); week 11
+# Weeks we originate. Week 9 is settled, so its odds carry a final `close`; week 11
 # is unplayed (its odds carry the live book). Originating both is deliberate: it
 # proves the store records a real movement and a settled close, not a live guess.
-EVENT_WEEKS = [10, 11]
+EVENT_WEEKS = [9, 10, 11]
 
 # Official NFL.com transaction pages used for replacement depth. November is the
 # window in which the Week 11 unavailable list is decided; October supplies the

@@ -1,8 +1,20 @@
 event_id,week,reason
-401873053,10,"no cached odds body for this event, or the payload names no favourite (pick'em)"
-401873054,10,"no cached odds body for this event, or the payload names no favourite (pick'em)"
-401873055,10,"no cached odds body for this event, or the payload names no favourite (pick'em)"
-401873056,10,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873040,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873041,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873042,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873043,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873044,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873045,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873046,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873047,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873048,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873049,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873050,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873051,9,"no cached odds body for this event, or the payload names no favourite (pick'em)"
+401873053,10,0 official games match favourite DET at home
+401873054,10,0 official games match favourite BUF at away
+401873055,10,0 official games match favourite NO at home
+401873056,10,0 official games match favourite HOU at away
 401873057,10,"no cached odds body for this event, or the payload names no favourite (pick'em)"
 401873058,10,"no cached odds body for this event, or the payload names no favourite (pick'em)"
 401873059,10,"no cached odds body for this event, or the payload names no favourite (pick'em)"

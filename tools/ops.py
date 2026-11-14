@@ -217,14 +217,18 @@ def load():
         "standings": read_csv(os.path.join(DATA, "standings-wk10-2026.csv")),
         "injuries": read_csv(os.path.join(DATA, "injuries-wk10-2026.csv")),
         "transactions": read_csv(os.path.join(DATA, "transactions", "transactions-2026.csv")),
+        "depth": read_csv(os.path.join(OPS, "depth.csv")),
+        "depth_club": read_csv(os.path.join(OPS, "depth_club.csv")),
         "schedule": read_csv(os.path.join(DATA, "schedule-wk11-2026.csv")),
     }
     return d
 
 
-def correlation_rows(d):
+def correlation_rows(d, weeks=None):
     """Every published correlation, computed only from officially sourced numbers."""
-    games = d["games"]
+    games = [g for g in d["games"]]
+    if weeks:
+        games = [g for g in games if int(g["week"]) in weeks]
     away = [int(g["away_pts"]) for g in games if g.get("away_pts") not in ("", None)]
     home = [int(g["home_pts"]) for g in games if g.get("home_pts") not in ("", None)]
     margins = [h - a for a, h in zip(away, home)]
@@ -594,6 +598,18 @@ def build_correlations(d):
             ext(r["url"], r["src_label"]),
         ])
 
+    full = {r["label"]: r for r in rows}
+    narrow = {r["label"]: r for r in correlation_rows(d, weeks=range(6, 10))}
+    window_rows = []
+    for label in full:
+        for tag, src in (("all completed games", full), ("weeks 6–9 only", narrow)):
+            r = src.get(label)
+            if not r or r["r"] is None:
+                continue
+            window_rows.append([esc(label), esc(tag), "r = %+.3f" % r["r"],
+                                "[%+.3f, %+.3f]" % (r["lo"], r["hi"]), esc(r["n"]),
+                                ext(NFL_STAND if r["n"] == 32 else NFL_SCHED, "official")])
+
     excluded = [
         ["Closing-line value per bet", "needs a full open→close history per bet", "the store holds "
          "one reading per market, not a time series", ext("price-store.html", "price store")],
@@ -625,15 +641,25 @@ def build_correlations(d):
                   "FAIL CLOSED",
                   table(["Correlation", "Why it needs more than we have", "What is missing",
                          "Path"], [[esc(a), esc(b), esc(c), v] for a, b, c, v in excluded]))
+        + section("windows", "SAME QUESTION, TWO WINDOWS", "The estimate moves — say so",
+                  "The headline value above uses every completed game. An earlier desk-layer "
+                  "estimate used only weeks 6–9. They disagree, and the disagreement is itself "
+                  "the finding: on one season, a correlation is not stable enough to build a "
+                  "parlay price on.", "WINDOW SENSITIVITY",
+                  table(["Quantity", "Window", "r", "95% CI", "n", "Official source"],
+                        window_rows))
         + section("read", "HOW TO READ IT", "", "", "",
-                  '<div class="callout"><b>The one number that matters most</b><p>The '
-                  'margin-to-total correlation is the one a same-game parlay lives on. If it is '
-                  'strongly negative, a big favourite and an over are less independent than they '
-                  'look, and pricing them as independent legs overstates the payout. Ours is '
-                  'computed from the official log, published with its n, and its interval does '
-                  'not include zero — the first correlation in this project strong enough to '
-                  'state as a finding rather than a hypothesis. It is still a single-season '
-                  'estimate, so it is labelled as one.</p></div>')
+                  '<div class="callout"><b>The number a same-game parlay depends on</b>'
+                  '<p>The margin-to-total correlation decides whether a big favourite and an '
+                  'over are really independent legs. In the full-season window the estimate is '
+                  'negative but its 95% interval <b>includes zero</b>, so it cannot be stated as '
+                  'a finding. In the weeks 6–9 window the same calculation is more strongly '
+                  'negative and its interval excludes zero — but that is 54 games, and the two '
+                  'windows disagreeing is exactly why a single-season correlation should be '
+                  'treated as a hypothesis with a wide interval rather than as a coefficient to '
+                  'price with. A parlay priced as if these legs were independent would be '
+                  'overstated; a parlay priced with either point estimate would be '
+                  'overconfident. That is the honest conclusion.</p></div>')
     )
     return body
 
@@ -679,9 +705,9 @@ def build_replacements(d):
         ])
 
     txn_rows = []
-    for r in txn[:60]:
+    for r in txn:
         txn_rows.append([esc(r["date"]), esc(r["from"]), esc(r["to"]) or "—",
-                         esc(r["player"]), esc(r["pos"]), esc(r["transaction"]),
+                         esc(r["player"]), esc(r["pos"]) or "—", esc(r["transaction"]),
                          ext(r.get("player_url"), "player"),
                          ext(r.get("source_url"), "official transaction")])
 
@@ -730,6 +756,42 @@ def build_replacements(d):
                          "Official source"], out_rows) if out_rows else
                   '<div class="note">No player carries an official "Out" designation in the '
                   'cached report.</div>')
+        + section("ledger", "REPLACEMENT DEPTH", "Measured from official transaction timing",
+                  "For every player a club lost to Reserve/Injured, how long did the club take "
+                  "to add a body? A club that had to move within a day had nobody behind him. "
+                  "This is urgency, which is observable — not ability, which is not.",
+                  "%d ROWS" % len(d["depth"]),
+                  table(["Club", "Player lost", "Pos", "Lost on", "Replacement",
+                         "Added on", "Gap (days)", "Depth read", "Evidence"],
+                        [[esc(r["team"]), "<b>%s</b>" % esc(r["player_lost"]),
+                          esc(r["pos"]) or "—", esc(r["lost_on"]),
+                          esc(r["replacement"]) or "—", esc(r["replacement_on"]) or "—",
+                          esc(r["gap_days"]) or "—",
+                          pill(r["depth_read"],
+                               "bad" if r["depth_read"] in ("THIN", "UNRESOLVED") else
+                               "warn" if r["depth_read"] == "NORMAL" else "ok"),
+                          ext(r["loss_url"], "loss") +
+                          (" · " + ext(r["replacement_url"], "replacement")
+                           if r["replacement_url"] else "")]
+                         for r in d["depth"]], numeric=(6,))
+                  if d["depth"] else
+                  '<div class="note">No loss and addition pair is recorded in the cached '
+                  'window, so no depth reading can be made.</div>')
+        + section("clubread", "BY CLUB", "Which clubs are thinnest, by this proxy",
+                  "The churn index counts official losses plus official additions. A high "
+                  "churn index with thin moves is the signal a depth model would want.",
+                  "%d CLUBS" % len(d["depth_club"]),
+                  table(["Club", "Losses", "Additions", "Thin moves", "Unresolved",
+                         "Mean gap (days)", "Churn", "Read"],
+                        [[esc(c["team"]), esc(c["losses_recorded"]), esc(c["additions_recorded"]),
+                          esc(c["thin_moves"]), esc(c["unresolved"]),
+                          esc(c["mean_gap_days"]) or "—", esc(c["churn_index"]),
+                          pill(c["read"], "bad" if c["read"] == "THIN" else
+                               "warn" if c["read"] == "MIXED" else "ok"),
+                          ext(NFL_TXN, "official transactions")]
+                         for c in d["depth_club"]], numeric=(1, 2, 3, 4, 5, 6))
+                  if d["depth_club"] else
+                  '<div class="note">No club has a recorded loss in the cached window.</div>')
         + section("txn", "TRANSACTIONS", "The official record that dates a replacement",
                   "Every row is a league-published transaction. The date is what turns 'a player "
                   "is missing' into 'a club had N hours to find a body', which is the depth "
