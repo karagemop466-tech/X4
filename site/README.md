@@ -263,6 +263,11 @@ The final integration after the origination layers landed:
   `tools/market_check.py` (432/432 re-derivations) all pass.
 - **Every page is reachable from the landing directory**, including the nine
   origination-desk pages that previously only the desk sidebar linked.
+- **Second pass (same day, after `main` moved to PR #33 and PR #29 opened):** `main` and PR #29's
+  integration were merged in full; PR #34's live-sweep records were imported (its branch was too old
+  to merge whole). The desk row-source check, which had never tested any row, now does, and it
+  reports 191 rows without an official link (flag F-39, open). Ten new injury drift cells are on
+  the flags page (F-40). Details: `COORDINATION.md`, "T31 second integration pass".
 - **One flag register, one nav, one gate**: F-01..F-37 with no duplicate ids, a union
   sidebar nav enforced by `tools/check_site.py`, and `tools/validate.py` now builds and
   checks every layer (main site, market layer, integrity programme, desk tables, console)

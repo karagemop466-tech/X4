@@ -447,8 +447,19 @@ def main(argv):
     if argv[1] == "plan":
         items = plan()
         os.makedirs(OPS, exist_ok=True)
+        path = os.path.join(OPS, "fetch_plan.json")
+        # Rewrite only when the plan itself changed. A timestamp-only rewrite
+        # dirtied the tree on every full validate.py run and broke the byte-for-byte
+        # reproducibility gate (T32 finding); the stored stamp is kept when nothing moved.
+        prev = None
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as fh:
+                prev = json.load(fh)
+        if prev is not None and prev.get("items") == items:
+            print("%d URLs planned, unchanged -> data/ops/fetch_plan.json" % len(items))
+            return 0
         doc = {"generated_utc": utc_now(), "count": len(items), "items": items}
-        with open(os.path.join(OPS, "fetch_plan.json"), "w", encoding="utf-8") as fh:
+        with open(path, "w", encoding="utf-8") as fh:
             json.dump(doc, fh, indent=1)
             fh.write("\n")
         print("%d URLs planned -> data/ops/fetch_plan.json" % len(items))

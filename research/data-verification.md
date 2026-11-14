@@ -96,6 +96,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-36 | Prices are from one book and are not official |
 | F-37 | Doubled HTML entity in the depth summary text |
 | F-38 | The two price stores use the word 'close' differently |
+| F-39 | Desk rows without an official source link: the row-source gate was not reading row links |
+| F-40 | Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked) |
 
 ## What is deliberately absent
 

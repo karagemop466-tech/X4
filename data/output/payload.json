@@ -13401,6 +13401,28 @@
    "why": "Recorded rather than silently renamed, because the collision is easy to misread: a reader who compares the two pages and sees an empty 'close' in one of them could think a price is missing when it is the same number under another name. The reconciliation table on the Market & price archive page publishes the comparison number by number, and this flag names the difference. Neither store is edited to hide it.",
    "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/data/price_capture_reconciliation.csv"
+  },
+  {
+   "id": "F-39",
+   "item": "Desk rows without an official source link: the row-source gate was not reading row links",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "The per-row source check in tools/check_site.py recorded each link in the page-level list but never attached it to its table row, so every row was tested as empty and the check passed without testing anything. Found by the source-provenance audit (arena/5092bd99-x4) and fixed at T31 integration. With the check reading row links, 191 desk-table rows on 13 pages have no https link. They are listed one by one in research/verification/row-source-gaps-2026-11-14.csv. They are decision and requirement text, rubric weights, simulation output, programme status, or computed statistics whose inputs are not yet linked row by row. None of them is a sourced official value that the page presents as confirmed. A second gap of the same kind is in the price store: 26 spread and total points in the 2026W11-OPEN snapshot of data/market-prices.csv have no source link (their note reads 'points only'). The moneyline rows of that snapshot are all linked. Those 26 points are not given a link here, so they remain unverified.",
+   "why": "The earlier 'every data row has an official source link' PASS on this site was not evidence. It is withdrawn. The gate now reports these rows and does not hide them. Open work: link each computed statistic to the official pages that carry its inputs, mark the rest as internal, and then make the gate fail on any row that presents an official value without a link. Until then, any reader should treat those rows as unverified.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/row-source-gaps-2026-11-14.csv"
+  },
+  {
+   "id": "F-40",
+   "item": "Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "A parallel session's full capture of the Week 10 injury page (345 of 345 rows) found twelve practice-status cells that differ from data/injuries-wk10-2026.csv. Two are already flagged as F-34 (Greg Van Roten, Charles Woods). The other ten are: Savion Williams (WR, GB), Antonio Johnson (S, JAX), Kaytron Allen (RB, MIA), David Montgomery (RB, HOU), Jaylin Smith (CB, HOU), Denzel Ward (CB, CLE), Andrew Wingard (S, ARI), C.J. West (DT, SF), Von Miller (LB, DAL), Rodney Shelley (CB, LAC). Each row, with its committed value, its live value and its official player page, is in research/verification/live-verification-2026-11-14-e6ee28a8.md.",
+   "why": "The official report is updated during the week, so the committed snapshot is older than the live page. The committed data is deliberately not edited, so the published numbers stay tied to the snapshot they were verified against. The live values were captured by the parallel session through the platform's web tools; they were not independently re-checked from this sandbox, which cannot reach nfl.com. Recommended: re-run the capture and then regenerate the injury dataset through the normal pipeline, not by hand.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-verification-2026-11-14-e6ee28a8.md"
   }
  ],
  "replacement_depth": [
