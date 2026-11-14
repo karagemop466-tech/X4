@@ -58,7 +58,7 @@ week10_rows = [
     for a, h, when, tv, st, u in week10
 ]
 
-# Week 11: schedule from nfl.com, odds from ESPN (both fetched 2026-11-14)
+# Week 11: official NFL schedule only; betting-line fields remain blank because NFL.com does not publish odds.
 wk11_meta = {
     "IND": ("HOU", "Thu Nov 19, 8:15 PM", "Prime", 0), "MIA": ("BUF", "Sun Nov 22, 1:00 PM", "CBS", 0),
     "NO": ("CHI", "Sun Nov 22, 1:00 PM", "FOX", 0), "TEN": ("DAL", "Sun Nov 22, 1:00 PM", "FOX", 0),
@@ -78,13 +78,12 @@ week11_rows = []
 for o in odds:
     a, h = norm(o["away"]), norm(o["home"])
     when, tv, neutral = wk11_meta[o["away"]][1], wk11_meta[o["away"]][2], wk11_meta[o["away"]][3]
-    fav, sp, tot = norm(o["favorite"]), float(o["spread"]), o["total"]
     src_sched = f'https://www.nfl.com/games/{GAME_SLUG[o["away"]]}-2026-reg-11'
+    # No sportsbook values are published here: they have no official NFL source.
     week11_rows.append(
         f'<tr><td><b>{a}</b> at <b>{h}</b>{" · neutral" if neutral else ""}</td><td>{when}</td><td>{tv}</td>'
-        f'<td class="num">{fav} −{sp:g}</td><td class="num">{tot}</td>'
-        f'<td><a href="{src_sched}" target="_blank" rel="noreferrer">nfl.com game ↗</a> · '
-        f'<a href="https://www.espn.com/nfl/schedule/_/week/11/year/2026/seasontype/2" target="_blank" rel="noreferrer">ESPN odds ↗</a></td></tr>'
+        f'<td class="num blank" aria-label="Unverified; left blank">&nbsp;</td><td class="num blank" aria-label="Unverified; left blank">&nbsp;</td>'
+        f'<td><a href="{src_sched}" target="_blank" rel="noreferrer">official NFL fixture ↗</a></td></tr>'
     )
 
 results_rows = []
@@ -103,7 +102,7 @@ it = stats["integrity"]
 
 TEMPLATE = """<!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Verified NFL data tables: standings, schedules, odds and results with official source links."><title>Verified data | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="NFL data tables: official standings, schedules and results with source links; unavailable odds left blank."><title>Verified data | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
 <body>
 <aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="signals.html">◎ &nbsp;Line lab &amp; signals</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="injuries.html">＋ &nbsp;Availability</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="review.html">✳ &nbsp;Suggestions</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
 <main>
@@ -114,7 +113,7 @@ TEMPLATE = """<!doctype html>
 <article><span>Σ POINTS FOR</span><b>{sum_pf:,}</b> <small>Must equal Σ points against — it does</small></article>
 <article><span>Σ POINTS AGAINST</span><b>{sum_pa:,}</b> <small>Equality proves standings row balance</small></article>
 <article><span>WINS vs LOSSES</span><b>{wins} = {losses}</b> <small>Ties: {ties} (one tie game, both teams)</small></article>
-<article><span>ROWS CHECKED</span><b>32 teams · 57 games · 13 odds</b> <small>Neutral-site flags asserted: London, Saint-Denis, Madrid</small></article>
+<article><span>ROWS CHECKED</span><b>32 teams · 57 games · 13 scheduled fixtures</b> <small>Neutral-site flags asserted: London, Saint-Denis, Madrid</small></article>
 </div>
 <div class="note"><b>Policy:</b> values that could not be confirmed from the linked pages are not on this site — they are blank and listed on <a href="flagged.html">Flagged for review</a>. Abbreviations follow nfl.com standings codes (LA = Rams, AZ = Cardinals).</div>
 </section>
@@ -129,7 +128,7 @@ TEMPLATE = """<!doctype html>
 {week10_rows}
 </tbody></table></div></section>
 
-<section class="section" id="week11"><div class="section-head"><div><span class="eyebrow">WEEK 11 · NEXT SLATE</span><h2>Schedule + market snapshot</h2><p class="muted">Matchups/times from nfl.com; lines are DraftKings odds as published by ESPN, snapshot 2026-11-14 — lines move. Byes: ATL, CLE, GB, LAR, NE, SEA (cross-checked via ESPN API).</p></div><span class="tag">13 ROWS</span></div>
+<section class="section" id="week11"><div class="section-head"><div><span class="eyebrow">WEEK 11 · NEXT SLATE</span><h2>Official schedule; market values unavailable</h2><p class="muted">Matchups, times and networks are from nfl.com. NFL.com does not publish sportsbook lines, so spread and total cells are deliberately blank and flagged as unverified. Byes: ATL, CLE, GB, LAR, NE, SEA per the NFL schedule.</p></div><span class="tag">13 ROWS</span></div>
 <div class="table-wrap"><table class="data"><thead><tr><th>Matchup</th><th>Kickoff (ET)</th><th>TV</th><th>Market spread</th><th>O/U</th><th>Source</th></tr></thead><tbody>
 {week11_rows}
 </tbody></table></div></section>
@@ -138,7 +137,7 @@ TEMPLATE = """<!doctype html>
 <div class="table-wrap"><table class="data"><thead><tr><th>Wk</th><th>Matchup</th><th>Score (away – home)</th><th>Margin</th><th>Source</th></tr></thead><tbody>
 {results_rows}
 </tbody></table></div>
-<div class="note"><b>Machine-readable copies:</b> <a href="research/data/games_weeks6-9_2026.csv">games CSV</a> · <a href="research/data/standings_2026_through_week10_tnf.csv">standings CSV</a> · <a href="research/data/week11_odds_2026.csv">odds CSV</a> · <a href="research/computed_stats.json">computed stats JSON</a>.</div>
+<div class="note"><b>Machine-readable copies:</b> <a href="research/data/games_weeks6-9_2026.csv">games CSV</a> · <a href="research/data/standings_2026_through_week10_tnf.csv">standings CSV</a> · <a href="research/data/week11_odds_2026.csv">market-availability CSV (odds fields blank)</a> · <a href="research/computed_stats.json">computed stats JSON</a>.</div>
 </section>
 
 <footer><span>FOURTH DOWN RESEARCH · Verified data</span><span><a href="index.html">← Overview</a> · <a href="signals.html">Line lab →</a></span></footer>

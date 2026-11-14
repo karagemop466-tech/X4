@@ -4,7 +4,7 @@
 Inputs (each row transcribed from an official source fetch on 2026-11-14):
   research/data/games_weeks6-9_2026.csv     -> nfl.com by-week schedule pages (weeks 6-9, 2026 REG)
   research/data/standings_2026_through_week10_tnf.csv -> nfl.com/standings (2026, retrieved 2026-11-14)
-  research/data/week11_odds_2026.csv         -> espn.com NFL week-11 schedule (DraftKings odds shown by ESPN)
+  research/data/week11_odds_2026.csv         -> NFL Week 11 fixtures; odds fields intentionally blank (NFL does not publish betting lines)
 
 Outputs: research/computed_stats.json (all values used in site tables).
 
@@ -59,7 +59,9 @@ def main():
     for g in games:
         g["away"], g["home"] = norm(g["away"]), norm(g["home"])
     for o in odds:
-        o["away"], o["home"], o["favorite"] = norm(o["away"]), norm(o["home"]), norm(o["favorite"])
+        o["away"], o["home"] = norm(o["away"]), norm(o["home"])
+        if o["favorite"]:
+            o["favorite"] = norm(o["favorite"])
     neutral = {(g["away"], g["home"]) for g in games if g["neutral_site"] == "1"}
     assert neutral == {("HOU", "JAX"), ("PIT", "NO"), ("CIN", "ATL")}, neutral
     assert len(teams) == 32 and len(odds) == 13
@@ -96,22 +98,29 @@ def main():
         is_neutral = o["neutral_site"] == "1"
         my_margin = S[h] - S[a] + (0.0 if is_neutral else h_mean)  # + for home team
         my_total = (C[h] + C[a]) / 2
-        # market: favorite spread; convert to home-team-signed margin
-        fav, sp = o["favorite"], float(o["spread"])
-        if fav == h:
-            mkt_margin = sp
-        elif fav == a:
-            mkt_margin = -sp
+        # NFL.com does not publish sportsbook odds. Keep every market field null
+        # unless an authorized, explicitly approved source is added in a future task.
+        market_available = bool(o["favorite"] and o["spread"] and o["total"])
+        if market_available:
+            fav, sp, market_total = o["favorite"], float(o["spread"]), float(o["total"])
+            if fav == h:
+                mkt_margin = sp
+            elif fav == a:
+                mkt_margin = -sp
+            else:
+                raise AssertionError(fav)
+            delta_margin = round(my_margin - mkt_margin, 1)
+            delta_total = round(my_total - market_total, 1)
         else:
-            raise AssertionError(fav)
+            fav = sp = market_total = mkt_margin = delta_margin = delta_total = None
         lines.append({
             "away": a, "home": h, "neutral": is_neutral,
             "my_home_margin": round(my_margin, 1),
             "my_total": round(my_total, 1),
             "mkt_home_margin": mkt_margin,
-            "mkt_total": float(o["total"]),
-            "delta_margin": round(my_margin - mkt_margin, 1),
-            "delta_total": round(my_total - float(o["total"]), 1),
+            "mkt_total": market_total,
+            "delta_margin": delta_margin,
+            "delta_total": delta_total,
             "market_favorite": fav, "market_spread": sp,
         })
 
@@ -120,7 +129,7 @@ def main():
         "inputs": {
             "games": "research/data/games_weeks6-9_2026.csv (nfl.com, weeks 6-9 2026 REG, fetched 2026-11-14)",
             "standings": "research/data/standings_2026_through_week10_tnf.csv (nfl.com/standings, fetched 2026-11-14)",
-            "odds": "research/data/week11_odds_2026.csv (espn.com week-11 schedule, DraftKings odds, fetched 2026-11-14)",
+            "market_lines": "research/data/week11_odds_2026.csv (official NFL Week 11 fixtures; odds/favorite fields blank because NFL.com does not publish betting odds)",
         },
         "integrity": {
             "sum_points_for": pf, "sum_points_against": pa,
