@@ -9,7 +9,7 @@ Checks (every root *.html, excluding the historical site/ archive):
   5. Every page carries the same sidebar navigation (link set equality).
 Exits non-zero on any violation.
 """
-import re, sys
+import os, re, sys
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -133,7 +133,8 @@ def main() -> int:
         if not fn.endswith(".csv"):
             continue
         with open(ROOT / "research" / "data" / fn, newline="", encoding="utf-8") as fh:
-            raw = list(_csv.reader(fh))
+            # comment lines are part of the format for this repository's captures
+            raw = list(_csv.reader(ln for ln in fh if not ln.startswith("#")))
         if not raw:
             continue
         width = len(raw[0])
