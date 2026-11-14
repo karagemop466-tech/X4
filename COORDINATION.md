@@ -1013,3 +1013,19 @@ touch none of these files).
   `tools/fetch.py` determinism fix and the T33 sweep; and once the reproducibility step went
   green, the workflow's mirror step surfaced a second latent failure (`Only in .: .retrieval /
   .scratch`), fixed as T32-b above and verified by re-running the step's exact commands.
+
+## Pull request and merge log (session `arena/e6ee28a8-x4`)
+
+| # | Pull request | Result |
+|---|---|---|
+| 34 | https://github.com/karagemop466-tech/X4/pull/34 | **Merged** into `main` as `5661c08` on 2026-11-14 20:04:40 UTC (T32 repair remainder + T32-b mirror excludes + T33 sweep). |
+
+## Deployment verification after PR #34 (2026-11-14 ~20:06 UTC)
+
+| Check | Result |
+|---|---|
+| Actions `Publish NFL Decision Lab` on `main` (run 43635532659) | **success — zero failed steps.** First green gated publish since PR #21: the reproducibility step passes (float normalisation) AND the mirror step passes (`.retrieval`/`.scratch` excludes). |
+| Actions `Desk validation` on `main` (run 43635532640) | **success** |
+| Legacy `pages build and deployment` (run 43635532099) | **success** |
+| GitHub Pages API | `status: built`, https://karagemop466-tech.github.io/X4/ |
+| Live fetch of the landing page | **HTTP 200, content verified** — dashboard renders (137 games verified, 32 clubs, 345 injury rows, 0-of-9 leaderboard eligibility, flag register). |
