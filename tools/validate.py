@@ -3,7 +3,7 @@
 Full publication gate. Runs every step in order and fails on the first problem.
 
   1. tools/verify.py  - prove the data against the official NFL.com standings
-  2. tools/build.py   - regenerate every published number into site/data.js
+  2. tools/build.py   - regenerate every published number into data/output/
   3. tools/pages.py   - regenerate the site pages
   4. tools/sync.py    - keep the repository-root copies in step with site/
   5. site/check.py    - check the rendered site for broken links and unsourced rows
@@ -23,6 +23,7 @@ STEPS = [
     ("verify data against official standings", [PY, os.path.join(ROOT, "tools", "verify.py")]),
     ("build published numbers", [PY, os.path.join(ROOT, "tools", "build.py")]),
     ("build site pages", [PY, os.path.join(ROOT, "tools", "pages.py")]),
+    ("write the research findings", [PY, os.path.join(ROOT, "tools", "research.py")]),
     ("sync root copies", [PY, os.path.join(ROOT, "tools", "sync.py")]),
     ("check site", [PY, os.path.join(ROOT, "site", "check.py")]),
     ("check repository-root copy of the site", [PY, os.path.join(ROOT, "site", "check.py"), ROOT]),
@@ -46,14 +47,17 @@ def main():
     # ---- determinism: rebuild and require byte-identical output ----
     print("\n=== determinism ===", flush=True)
     before = {}
-    for rel in ("site/data.js", "site/index.html", "site/styles.css",
-                "index.html", "data.js", "styles.css"):
+    for rel in ("site/index.html", "site/styles.css", "site/app.js",
+                "index.html", "styles.css", "app.js",
+                "research/strategy-validation.md", "research/injuries-and-depth.md"):
         path = os.path.join(ROOT, rel)
         if os.path.exists(path):
             before[rel] = open(path, "rb").read()
     subprocess.run([PY, os.path.join(ROOT, "tools", "build.py")], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run([PY, os.path.join(ROOT, "tools", "pages.py")], cwd=ROOT,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([PY, os.path.join(ROOT, "tools", "research.py")], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run([PY, os.path.join(ROOT, "tools", "sync.py")], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -87,8 +91,9 @@ def main():
             problems.append("expected directory is missing: %s" % rel)
     for rel in ("README.md", "COORDINATION.md", "data/games-2026.csv",
                 "data/standings-wk10-2026.csv", "data/schedule-wk11-2026.csv",
-                "data/injuries-wk10-2026.csv", "site/index.html", "site/data.js",
+                "data/injuries-wk10-2026.csv", "site/index.html",
                 "site/app.js", "site/styles.css", "site/check.py",
+                "data/output/payload.json", "data/output/payload.js",
                 ".github/workflows/pages.yml"):
         if not os.path.exists(os.path.join(ROOT, rel)):
             problems.append("expected file is missing: %s" % rel)

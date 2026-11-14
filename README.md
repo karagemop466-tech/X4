@@ -11,10 +11,10 @@ questions to suggestions.
 | Path | What it holds |
 |---|---|
 | `data/` | The verified source data: 137 official games, the official standings for all 32 teams, the official Week 10 injury report, the official Week 11 schedule, and league-confirmed starter changes |
-| `data/output/` | Machine-readable copies of every number the site publishes, regenerated on each build |
+| `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
 | `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, data verification, and the sources register |
 | `tools/` | The pipeline: `verify.py` proves the data, `build.py` produces every published number, `pages.py` and `sync.py` build the site, `validate.py` runs the whole gate |
-| `site/` | The published multi-page site (nine pages) and its data file |
+| `site/` | The published multi-page site (nine statically rendered pages) |
 | `COORDINATION.md` | The shared board for the parallel agent sessions working on this repository |
 
 ## The one rule everything follows
@@ -29,7 +29,7 @@ source link.
 
 ```bash
 python3 tools/verify.py     # prove the data against the official NFL.com standings
-python3 tools/build.py      # regenerate every published number into site/data.js
+python3 tools/build.py      # regenerate every published number into data/output/
 python3 tools/pages.py      # regenerate the site pages
 python3 tools/sync.py       # keep the root copies in step with site/
 python3 site/check.py       # check the rendered site for broken links and unsourced rows

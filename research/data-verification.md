@@ -1,7 +1,6 @@
 # Data verification
 
-Everything published on this site is traceable to an official NFL page. This document
-records what was fetched, how each value was checked, and what could not be confirmed.
+Everything published on this site is traceable to an official NFL page. This document records what was fetched, how each value was checked, and what could not be confirmed.
 
 ## Official sources used
 
@@ -10,29 +9,17 @@ records what was fetched, how each value was checked, and what could not be conf
 | NFL league standings | <https://www.nfl.com/standings/> | W, L, T, PCT, PF, PA, NET PTS for all 32 teams | 14 Nov 2026 |
 | NFL injury reports | <https://www.nfl.com/injuries/> | Week 10 report for all 28 teams playing | 14 Nov 2026 |
 | NFL Week 11 schedule | <https://www.nfl.com/schedules/2026/by-week/week-11> | 13 games, kickoff times, networks, international site, teams on bye | 14 Nov 2026 |
-| NFL Week 5 schedule | <https://www.nfl.com/schedules/2026/by-week/week-5> | Week 5 matchups and final scores | 14 Nov 2026 |
 | NFL 2026 schedule | <https://www.nfl.com/schedules/2026/> | Season schedule and results index | 14 Nov 2026 |
-| NFL team pages | <https://www.nfl.com/teams/> | Per-team links in every team table | 14 Nov 2026 |
+| NFL team directory | <https://www.nfl.com/teams/> | Per-team links in every team table | 14 Nov 2026 |
 | NFL news | <https://www.nfl.com/news/> | Starter changes and long-term absences | 14 Nov 2026 |
 | NFL Football Operations - rules | <https://operations.nfl.com/rules-officiating/2026-nfl-rulebook> | Game rules (not sportsbook settlement terms) | 14 Nov 2026 |
 | Federal Trade Commission - UIGEA | <https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act> | US statute overview (not legal advice) | 14 Nov 2026 |
 
 ## Secondary sources, and the rule applied to them
 
-A compact results table from <https://www.footballdb.com/games/index.html?lg=NFL&yr=2026&type=reg>
-and the game log at <https://www.pro-football-reference.com/years/2026/games.htm> were used to
-**reconstruct** the week-by-week game log, because the NFL publishes results week by week
-rather than as one season-long list.
+A compact results table from <https://www.footballdb.com/games/index.html?lg=NFL&yr=2026&type=reg> and the game log at <https://www.pro-football-reference.com/years/2026/games.htm> were used to **reconstruct** the week-by-week game log, because the NFL publishes results week by week rather than as one season-long list.
 
-Neither of those pages backs a published value. Instead, every reconstructed score is
-**proved against the official standings**: a single incorrect score changes at least one
-team's points for or points allowed, so when all 32 teams match the NFL's own totals on
-wins, losses, ties, points for, points allowed and net points, every score in the log is
-correct. `tools/verify.py` runs that check on every build, plus the URL pattern for every
-row, the games-played count per team, the Week 11 pairing structure and duplicate detection.
-
-The official NFL.com weekly schedule pages for Weeks 5 and 11 were opened directly and
-compared game by game with the reconstruction as a second, independent check.
+Neither of those pages backs a published value. Instead, every reconstructed score is **proved against the official standings**: a single incorrect score changes at least one team's points for or points allowed, so when all 32 teams match the NFL's own totals on wins, losses, ties, points for, points allowed and net points, every score in the log is correct. `tools/verify.py` runs that check on every build, plus the URL pattern for every row, the games-played count per team, the Week 11 pairing structure and duplicate detection.
 
 ## What the verification checks
 
@@ -47,25 +34,23 @@ compared game by game with the reconstruction as a second, independent check.
 - the Week 11 schedule has 13 games, 26 distinct teams, and a correct URL for each
 - no duplicate game rows
 
-`site/check.py` - the site gate, which executes the real renderer and inspects the output:
+`site/check.py` - the site gate, which inspects the published HTML directly:
 
-- every rendered table row that holds data contains a link to an official domain
-  (nfl.com, operations.nfl.com or ftc.gov)
+- every rendered table row that holds data contains a link to an official domain (nfl.com, operations.nfl.com or ftc.gov)
 - no broken internal links, no missing assets, no non-HTTPS external links
 - no external link without `rel="noreferrer"`
 - no placeholder markers anywhere in the published pages
+- the derived points-per-game columns are arithmetically consistent with the official columns beside them
+- the page loads with JavaScript enabled and the filters are wired to the static rows
 
-## Two real errors the verification caught
+## Errors the verification caught
 
-Both were found by the harness rather than by reading, and both are recorded here because a
-verification log that only lists successes is not a verification log.
+Both were found by the harness rather than by reading, and both are recorded here because a verification log that only lists successes is not a verification log.
 
-1. **A swapped score.** The Week 3 game at Buffalo had the two teams' scores transposed.
-   The harness flagged it immediately because Buffalo's official points for did not add up.
-   Fixed, and the check now passes.
-2. **A wrong winning-percentage formula.** The first implementation divided wins by games
-   played, which disagreed with NFL.com for the two teams with a tie. NFL.com counts a tie
-   as half a win. The formula was corrected to `(W + 0.5 x T) / G`.
+1. **A swapped score.** The Week 3 game at Buffalo had the two teams' scores transposed. The harness flagged it immediately because Buffalo's official points for did not add up. Fixed, and the check now passes.
+2. **A wrong winning-percentage formula.** The first implementation divided wins by games played, which disagreed with NFL.com for the two teams with a tie. NFL.com counts a tie as half a win. The formula was corrected to `(W + 0.5 x T) / G`.
+3. **A string-concatenation bug** that divided official points by a concatenated games-played figure, so the points-per-game columns were wrong by a factor of ten. `site/check.py` now checks the arithmetic of all 32 standings rows.
+4. **A stale injury-report snapshot.** The official Week 10 injury report is updated by the league during the week. Re-fetching it and diffing line by line against the stored copy found 55 practice-participation changes and one row that had been attributed to the wrong team. The stored copy was regenerated from the fresh snapshot.
 
 ## Irregularities found during verification
 
@@ -73,11 +58,18 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 
 | ID | Irregularity |
 |---|---|
-| F-03 | The public weekly injury report omits players on injured reserve, reserve/nontheatre injured list and physically unable to perform. Long-term absences appear only in league news. |
-| F-04 | Two official NFL.com items give different absence windows for the same player - six to nine weeks and six to ten weeks for Baltimore's quarterback. Both are recorded; neither is corrected here. |
-| F-09 | URLs of the form `nfl.com/schedules/2026/REG<n>/` silently resolve to the current week instead of the requested one. The working per-week pattern is `nfl.com/schedules/2026/by-week/week-<n>`. |
-| F-11 | The injury-report policy link recorded by an earlier session in this repository was not re-fetched during this build and is not re-certified here. |
-| F-12 | At the start of this build the repository contained one tracked file, a four-byte README, with no licence, no tests, no continuous integration, no data and no site. |
+| F-01 | Current market betting lines and odds |
+| F-02 | Depth-chart string: starter, 2nd, 3rd, 4th |
+| F-03 | Players on injured reserve, PUP and NFI |
+| F-04 | Two official sources give different absence windows for the same player |
+| F-05 | Player-level game logs, snaps, drives and EPA |
+| F-06 | Player-prop and parlay strategy performance |
+| F-07 | No strategy has passed all seven validation gates |
+| F-08 | Model parameters have no official source |
+| F-09 | NFL.com deep links of the form /schedules/2026/REG<n>/ silently redirect to the current week |
+| F-10 | Weeks 12 to 18 of the 2026 schedule are not published here |
+| F-11 | Injury-report policy link carried over from an earlier session was not re-verified |
+| F-12 | Repository hygiene at the start of this build |
 
 ## What is deliberately absent
 
@@ -95,10 +87,10 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 python3 tools/verify.py     # prove the data against the official standings
 python3 tools/build.py      # regenerate every published number
 python3 tools/pages.py      # regenerate the site
-python3 site/check.py       # check the rendered site
+python3 tools/research.py   # regenerate the written findings
+python3 site/check.py       # check the published site
 python3 tools/validate.py   # all of the above, plus determinism and hygiene
 ```
 
-The build is deterministic: the same inputs produce the same tables and the same
-confidence intervals on every run, which `tools/validate.py` enforces by rebuilding and
-requiring byte-identical output.
+The build is deterministic: the same inputs produce the same tables and the same confidence intervals on every run, which `tools/validate.py` enforces by rebuilding and requiring byte-identical output.
+

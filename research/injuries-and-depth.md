@@ -13,7 +13,7 @@ For each listed player: the listed position, the injury description, the practic
 | Indianapolis Colts | 14 | 6 | 0 | 2 | Offensive line x1, Tight end x1 | Defensive line x1, Linebacker x2 | [NFL.com](https://www.nfl.com/teams/indianapolis-colts/) |
 | Dallas Cowboys | 19 | 5 | 1 | 5 | Running back x1, Tight end x1, Wide receiver x1 | Defensive back x1, Linebacker x1 | [NFL.com](https://www.nfl.com/teams/dallas-cowboys/) |
 | Houston Texans | 16 | 5 | 0 | 6 | Offensive line x1, Tight end x1, Wide receiver x1 | Defensive line x1, Linebacker x1 | [NFL.com](https://www.nfl.com/teams/houston-texans/) |
-| Minnesota Vikings | 14 | 5 | 0 | 3 | Quarterback x1, Tight end x1, Wide receiver x1 | Defensive line x1, Linebacker x1 | [NFL.com](https://www.nfl.com/teams/minnesota-vikings/) |
+| Minnesota Vikings | 13 | 5 | 0 | 3 | Quarterback x1, Tight end x1, Wide receiver x1 | Defensive line x1, Linebacker x1 | [NFL.com](https://www.nfl.com/teams/minnesota-vikings/) |
 | Tennessee Titans | 12 | 5 | 0 | 1 | Offensive line x1, Wide receiver x1 | Linebacker x2 | [NFL.com](https://www.nfl.com/teams/tennessee-titans/) |
 | Green Bay Packers | 17 | 4 | 1 | 7 | Offensive line x1, Running back x1, Tight end x1 | Linebacker x1 | [NFL.com](https://www.nfl.com/teams/green-bay-packers/) |
 | New Orleans Saints | 12 | 4 | 0 | 2 | Offensive line x2, Running back x1 | Defensive line x1 | [NFL.com](https://www.nfl.com/teams/new-orleans-saints/) |
@@ -39,13 +39,13 @@ For each listed player: the listed position, the injury description, the practic
 | New York Giants | 11 | 0 | 0 | 1 | - | - | [NFL.com](https://www.nfl.com/teams/new-york-giants/) |
 | Pittsburgh Steelers | 8 | 0 | 0 | 1 | - | - | [NFL.com](https://www.nfl.com/teams/pittsburgh-steelers/) |
 
-Totals across the 28 teams playing: **346** players listed, **66** Out, **10** Doubtful, **84** Questionable.
+Totals across the 28 teams playing: **345** players listed, **66** Out, **10** Doubtful, **84** Questionable.
 
 ## What the report cannot tell us
 
 Two gaps, both material to any depth analysis:
 
-**1. Players on injured reserve do not appear.** The public weekly report covers players expected to take part in the upcoming game. Baltimore's starting quarterback appears nowhere in the Week 10 table - his absence surfaces only in the league's own news reporting, where the Ravens confirm he is expected to miss six to ten weeks. Any availability model built from the public report alone will silently miss exactly the absences that move a line the most. This is flag F-03.
+**1. Players on injured reserve do not appear.** The public weekly report covers players who are expected to take part in the upcoming game. Baltimore's starting quarterback appears nowhere in the Week 10 table - his absence surfaces only in the league's own news reporting, where the Ravens confirm he is expected to miss six to ten weeks. Any availability model built from the public report alone will silently miss exactly the absences that move a line the most. This is flag F-03.
 
 **2. There is no depth-chart string.** The report says who is available; it does not say who the second, third or fourth string is at a position. The NFL publishes no consolidated league depth chart, so no player on this site is assigned a depth rank. This is flag F-02.
 
