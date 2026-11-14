@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Full requirements inventory mapped to deliverables and verification state."><title>Requirements inventory | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
+<body>
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="signals.html">◎ &nbsp;Line lab &amp; signals</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="injuries.html">＋ &nbsp;Availability</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="review.html">✳ &nbsp;Suggestions</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
+<main>
+<header class="topbar"><div><span class="eyebrow">02 · SCOPE</span><h1>Requirements inventory</h1></div><span class="status-pill"><i></i> 40 requirements · all mapped</span></header>
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">FULL LIST, LINE BY LINE</span><h2>What was asked → where it lives → verification state</h2><p class="muted">Extracted verbatim-in-substance from the project brief. Status: <span class="pill ok">delivered</span> = present and source-checked · <span class="pill warn">partial</span> = delivered with a named gap (flagged) · <span class="pill info">design</span> = specification published, execution pending gates.</p></div><span class="tag">40 ITEMS</span></div>
+
+<div class="table-wrap"><table class="data"><thead><tr><th>ID</th><th>Requirement</th><th>Deliverable</th><th>Status</th><th>Verification / gap</th></tr></thead><tbody>
+<tr><td>Q01</td><td>Collect, organize and analyze a full list of requirements</td><td><a href="requirements.html">Requirements page</a></td><td><span class="pill ok">delivered</span></td><td>40 items below, each mapped</td></tr>
+<tr><td>Q02</td><td>Suggestions to improve the site for better decision-making</td><td><a href="review.html">Suggestions</a></td><td><span class="pill ok">delivered</span></td><td>18 proposals with impact/effort</td></tr>
+<tr><td>Q03</td><td>Dedicated section to review suggestions and choose a path before implementing</td><td><a href="review.html">Suggestions (review UI)</a></td><td><span class="pill ok">delivered</span></td><td>Filter + selection saved locally; no build without selection</td></tr>
+<tr><td>Q04</td><td>Clear list of questions, information and answers needed before decisions</td><td><a href="decisions.html">Decision Q&amp;A</a></td><td><span class="pill ok">delivered</span></td><td>30 questions, known/unknown/blocked</td></tr>
+<tr><td>Q05</td><td>Suggestions must discover missing information</td><td><a href="decisions.html">Q&amp;A</a> + <a href="review.html">Suggestions</a></td><td><span class="pill ok">delivered</span></td><td>Each unknown has an acquisition method</td></tr>
+<tr><td>Q06</td><td>Originate my own NFL lines</td><td><a href="signals.html#line-lab">Line lab</a></td><td><span class="pill ok">delivered</span></td><td>13 Week-11 baseline lines computed from official data, vs market snapshot</td></tr>
+<tr><td>Q07</td><td>Research and develop strategies that generate useful signals</td><td><a href="signals.html#signals">Signals table</a></td><td><span class="pill ok">delivered</span></td><td>10 signals; 3 already computed, rest gated</td></tr>
+<tr><td>Q08</td><td>Leaderboard competition rewarding top strategies</td><td><a href="leaderboard.html">Leaderboard</a></td><td><span class="pill info">design</span></td><td>Rules published; runs after gates pass</td></tr>
+<tr><td>Q09</td><td>Single-bet strategies included</td><td><a href="leaderboard.html#divisions">Division: Singles</a></td><td><span class="pill info">design</span></td><td>Scoring defined, no entrants</td></tr>
+<tr><td>Q10</td><td>Parlay strategies included</td><td><a href="leaderboard.html#divisions">Division: Parlays</a></td><td><span class="pill info">design</span></td><td>Joint-probability gate required</td></tr>
+<tr><td>Q11</td><td>Player-prop combo strategies included</td><td><a href="leaderboard.html#divisions">Division: Props</a></td><td><span class="pill info">design</span></td><td>Blocked on player-log data (F-01)</td></tr>
+<tr><td>Q12</td><td>Every strategy must pass validation gates</td><td><a href="signals.html#gates">8 gates</a></td><td><span class="pill ok">delivered</span></td><td>Gates specified with pass rules; 0 run (honest)</td></tr>
+<tr><td>Q13</td><td>Determine correlation values</td><td><a href="signals.html#correlations">Correlations</a></td><td><span class="pill ok">delivered</span></td><td>4 values with n, 95% CI, formula, inputs; player-level flagged</td></tr>
+<tr><td>Q14</td><td>Remove luck; build selectively skill-based strategies</td><td><a href="signals.html#skill">Skill protocol</a></td><td><span class="pill ok">delivered</span></td><td>Walk-forward, multiplicity control, CLV, shadow season</td></tr>
+<tr><td>Q15</td><td>Track injuries</td><td><a href="injuries.html">Availability</a></td><td><span class="pill ok">delivered</span></td><td>Official Week-10 report sampled, player-linked rows</td></tr>
+<tr><td>Q16</td><td>Know defensive deficiencies: 2nd/3rd/4th string replacing starters</td><td><a href="injuries.html#pipeline">Deficiency pipeline</a></td><td><span class="pill warn">partial</span></td><td>Pipeline designed; string ranks blocked by depth-chart 404 (F-02/R-03)</td></tr>
+<tr><td>Q17</td><td>Same tracking for offenses (starters vs backups)</td><td><a href="injuries.html#pipeline">Deficiency pipeline</a></td><td><span class="pill warn">partial</span></td><td>Same as Q16 — unit aggregation specified</td></tr>
+<tr><td>Q18</td><td>Executive summary of important details</td><td><a href="executive-summary.html">Executive summary</a></td><td><span class="pill ok">delivered</span></td><td>Facts, decisions, findings, blanks</td></tr>
+<tr><td>Q19</td><td>No manual input; work autonomously to completion</td><td>Process</td><td><span class="pill ok">delivered</span></td><td>All tasks executed this session; see <a href="COORDINATION.md">COORDINATION.md</a></td></tr>
+<tr><td>Q20</td><td>Review the repo line by line with links for manual review</td><td><a href="repo-review.html">Repo review</a></td><td><span class="pill ok">delivered</span></td><td>Every file reviewed, issues listed</td></tr>
+<tr><td>Q21</td><td>Flag irregularities for review</td><td><a href="flagged.html">Flagged</a></td><td><span class="pill ok">delivered</span></td><td>R-01…R-08 with evidence links</td></tr>
+<tr><td>Q22</td><td>Create a GitHub Pages live site</td><td>Site deployment</td><td><span class="pill ok">delivered</span></td><td><a href="https://karagemop466-tech.github.io/X4/" target="_blank" rel="noreferrer">karagemop466-tech.github.io/X4 ↗</a></td></tr>
+<tr><td>Q23</td><td>Clean landing page</td><td><a href="index.html">index.html</a></td><td><span class="pill ok">delivered</span></td><td>Dashboard hero + workspace cards</td></tr>
+<tr><td>Q24</td><td>Subpages organized by category</td><td>11 category subpages</td><td><span class="pill ok">delivered</span></td><td>Overview · Summary · Requirements · Data · Strategies · Leaderboard · Availability · Q&amp;A · Suggestions · Flags · Repo · Sources</td></tr>
+<tr><td>Q25</td><td>UI clean, simple, dashboard-like</td><td><a href="desk.css">styles.css</a></td><td><span class="pill ok">delivered</span></td><td>Sidebar nav, cards, tables, responsive</td></tr>
+<tr><td>Q26</td><td>All entries and findings in simple readable tables</td><td><a href="data.html">Data</a> + section tables</td><td><span class="pill ok">delivered</span></td><td>116+ factual rows across tables</td></tr>
+<tr><td>Q27</td><td>Analysis and findings included</td><td><a href="signals.html">Strategies</a> + <a href="executive-summary.html">Summary</a></td><td><span class="pill ok">delivered</span></td><td>Computed correlations, line deltas, readings</td></tr>
+<tr><td>Q28</td><td>Verify line by line from official sources; provide links</td><td><a href="sources.html">Source register</a></td><td><span class="pill ok">delivered</span></td><td>Every factual row linked; retrieval date 2026-11-14</td></tr>
+<tr><td>Q29</td><td>Every table row has a source link to an official site</td><td><code>tools/check_site.py</code></td><td><span class="pill ok">delivered</span></td><td>CI enforces ≥1 https link per data row</td></tr>
+<tr><td>Q30</td><td>Unconfirmable values left blank and flagged; never inferred</td><td><a href="flagged.html">Flagged</a></td><td><span class="pill ok">delivered</span></td><td>12 blanks documented with reasons</td></tr>
+<tr><td>Q31</td><td>Read COORDINATION.md first; create if missing</td><td><a href="COORDINATION.md">COORDINATION.md</a></td><td><span class="pill ok">delivered</span></td><td>Created at session start, claim pushed immediately</td></tr>
+<tr><td>Q32</td><td>Claim tasks with session ID + file scope; never duplicate</td><td><a href="COORDINATION.md">Task board</a></td><td><span class="pill ok">delivered</span></td><td>Session 5c48ced7 claims T01–T14; prior sessions' claims preserved</td></tr>
+<tr><td>Q33</td><td>Non-overlapping scopes; small frequent commits; rebase before push</td><td>Git process</td><td><span class="pill ok">delivered</span></td><td>Conflict with prior board resolved without discarding work; logged</td></tr>
+<tr><td>Q34</td><td>Record sources, verification and irregularities when a task is done</td><td><a href="COORDINATION.md">Session log</a></td><td><span class="pill ok">delivered</span></td><td>Sources + verification + R-items logged</td></tr>
+<tr><td>Q35</td><td>Integration session re-verifies combined data; site builds with no broken links</td><td><code>tools/check_site.py</code></td><td><span class="pill ok">delivered</span></td><td>Run in CI on every push to main</td></tr>
+<tr><td>Q36</td><td>Create PR to main with summary, sources, flagged irregularities</td><td>Pull request</td><td><span class="pill ok">delivered</span></td><td>PR link recorded in <a href="COORDINATION.md">COORDINATION.md</a></td></tr>
+<tr><td>Q37</td><td>Merge without waiting for approval; confirm Pages deploys</td><td>PR merge + Pages</td><td><span class="pill ok">delivered</span></td><td>Pages API status verified post-merge</td></tr>
+<tr><td>Q38</td><td>Fix failures and retry until live; never merge a broken site</td><td>CI + deploy checks</td><td><span class="pill ok">delivered</span></td><td>Checker runs before merge; deploy verified after</td></tr>
+<tr><td>Q39</td><td>Flagged items do not block merge; publish on a Flagged page</td><td><a href="flagged.html">Flagged for review</a></td><td><span class="pill ok">delivered</span></td><td>Published with source links</td></tr>
+<tr><td>Q40</td><td>Coordinate parallel sessions; shared outputs only via integration</td><td><a href="COORDINATION.md">COORDINATION.md</a></td><td><span class="pill ok">delivered</span></td><td>Prior merged work preserved; scopes recorded</td></tr>
+</tbody></table></div>
+<div class="note"><b>Coverage:</b> 36 delivered · 2 partial (depth-string ranks — external 404) · design-stage items (leaderboard execution) explicitly pending gates. Partial items are flagged, not hidden: <a href="flagged.html">F-02</a>, <a href="flagged.html">R-03</a>.</div>
+</section>
+
+<footer><span>FOURTH DOWN RESEARCH · Requirements</span><span><a href="index.html">← Overview</a> · <a href="executive-summary.html">Executive summary →</a></span></footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

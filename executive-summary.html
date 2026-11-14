@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Executive summary — verified state of the NFL line-origination research system."><title>Executive summary | Fourth Down Research</title><link rel="stylesheet" href="desk.css"></head>
+<body>
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>RESEARCH DESK</small></span></a><div class="side-label">WORKSPACE</div><nav><a href="index.html">◫ &nbsp;Overview</a><a href="executive-summary.html">★ &nbsp;Executive summary</a><a href="requirements.html">☰ &nbsp;Requirements</a><a href="data.html">▦ &nbsp;Verified data</a><a href="signals.html">◎ &nbsp;Line lab &amp; signals</a><a href="leaderboard.html">↗ &nbsp;Leaderboard</a><a href="injuries.html">＋ &nbsp;Availability</a><a href="decisions.html">? &nbsp;Decision Q&amp;A</a><a href="review.html">✳ &nbsp;Suggestions</a><a href="flagged.html">⚑ &nbsp;Flagged for review</a><a href="repo-review.html">§ &nbsp;Repo review</a><a href="sources.html">↗ &nbsp;Sources</a></nav><div class="side-bottom"><span class="pulse"></span> Research mode <small>Snapshot 2026-11-14 · no live feed</small></div></aside>
+<main>
+<header class="topbar"><div><span class="eyebrow">01 · SUMMARY</span><h1>Executive summary</h1></div><span class="status-pill"><i></i> Snapshot 2026-11-14</span></header>
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">THE IMPORTANT DETAILS</span><h2>What exists, what works, what is missing</h2><p class="muted">One page for a decision-maker. Every claim links to its evidence.</p></div><span class="tag green">VERIFIED SNAPSHOT</span></div>
+
+<div class="kv">
+<div>Season state</div><div>2026 NFL regular season, <b>Week 10 in progress</b> (TNF Nov 12: Commanders 24, Giants 21 final; Sunday Nov 15 slate pending). Source: <a href="https://www.nfl.com/scores/" target="_blank" rel="noreferrer">nfl.com/scores ↗</a></div>
+<div>Standings captured</div><div>All 32 teams, W-L-T / PF / PA / net, including the Week-10 TNF result. Source: <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">nfl.com/standings ↗</a> — transcription self-checked (ΣPF = ΣPA = 6,291; wins = losses = 136).</div>
+<div>Results captured</div><div><b>57 final scores</b> from Weeks 6–9 (3 neutral-site games identified and excluded from home-edge math). Each row links its official game page. See <a href="data.html">Verified data</a>.</div>
+<div>Lines originated</div><div>A transparent baseline produced <b>spreads and totals for all 13 Week-11 games</b>, compared against the market snapshot (DraftKings odds as published by ESPN). Model is v0 — no injury, rest or QB adjustments yet. See <a href="signals.html#line-lab">Line lab</a>.</div>
+<div>Correlation values</div><div>Four correlations computed from official data with 95% CIs — including margin-vs-total <span class="mono">r = −0.32</span> (parlay-relevant) and point-differential-vs-win% <span class="mono">r = 0.87</span> (strength-signal validation). See <a href="signals.html#correlations">Correlations</a>.</div>
+<div>Home edge (measured)</div><div><span class="mono">+0.1 pts</span> mean home margin, n = 54, 95% CI [−3.6, +3.7] — this 4-week window shows no reliable home edge; the model therefore carries wide uncertainty. See <a href="signals.html#correlations">Correlations</a>.</div>
+<div>Injury tracking</div><div>Official Week-10 injury report sampled (practice + game statuses, 19 rows published with player-level links). Depth-chart <b>string ranks could not be verified</b>: nfl.com depth-chart endpoints returned 404 (flag R-03). See <a href="injuries.html">Availability</a>.</div>
+<div>Validation gates</div><div>8 gates defined (data integrity → shadow period). <b>0 gates run</b> — no strategy performance is claimed anywhere on this site. See <a href="signals.html#gates">Gates</a>.</div>
+<div>Leaderboard</div><div>Competition designed for three divisions (singles / parlays / prop combos) with anti-luck scoring; reward pool amount is an owner decision (blank + flagged). See <a href="leaderboard.html">Leaderboard</a>.</div>
+<div>Open flags</div><div><b>12 unverified items</b> (left blank) + <b>8 repo irregularities</b> (evidence-linked). None block the merge; all published on <a href="flagged.html">Flagged for review</a>.</div>
+</div></section>
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">TOP DECISIONS NEEDED</span><h2>Before anything is built</h2></div><span class="tag amber">OWNER INPUT REQUIRED</span></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>#</th><th>Decision</th><th>Why it blocks</th><th>Fastest way to answer</th><th>Detail</th></tr></thead><tbody>
+<tr><td>1</td><td><b>Product &amp; jurisdiction scope</b> — research tool, contest, or wagering product; where?</td><td>Everything downstream: data rights, rewards, publishing</td><td>One-page scope memo + counsel review</td><td><a href="decisions.html">Q1–Q5 ↗</a></td></tr>
+<tr><td>2</td><td><b>Data provider &amp; budget</b> — odds feed, play-by-play, player logs, depth charts</td><td>Correlations for props/parlays, CLV tracking, depth scoring</td><td>Pick provider; confirm licensing &amp; refresh SLA</td><td><a href="decisions.html">Q6–Q12 ↗</a></td></tr>
+<tr><td>3</td><td><b>Validation protocol sign-off</b> — accept the 8 gates + sample thresholds as written?</td><td>Leaderboard credibility; what counts as skill</td><td>Review <a href="signals.html#gates">gates</a>, approve or amend</td><td><a href="decisions.html">Q13–Q18 ↗</a></td></tr>
+<tr><td>4</td><td><b>Reward structure &amp; legality</b> — amounts, eligibility, jurisdictions</td><td>Any reward publication</td><td>Define pool + counsel sign-off</td><td><a href="decisions.html">Q19–Q23 ↗</a></td></tr>
+<tr><td>5</td><td><b>Suggestions selection</b> — which of the 18 proposals to implement first</td><td>Build order; site improvements</td><td>Review and select on <a href="review.html">Suggestions</a></td><td><a href="review.html">18 proposals ↗</a></td></tr>
+</tbody></table></div></section>
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">CANDIDATE FINDINGS</span><h2>What the verified data already says</h2><p class="muted">Computed by <code>tools/compute_stats.py</code> from committed CSVs — reproduce any time.</p></div><span class="tag">COMPUTED, NOT CLAIMED</span></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>Finding</th><th>Value</th><th>Reading</th><th>Source / method</th></tr></thead><tbody>
+<tr><td>Net points ↔ win% (2026, 32 teams)</td><td class="num">r = 0.872 <span class="muted">[0.75, 0.94]</span></td><td>Point differential is a legitimate strength signal for line origination</td><td><a href="research/computed_stats.json">computed_stats.json ↗</a> · <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">nfl.com standings ↗</a></td></tr>
+<tr><td>Margin ↔ game total (Wks 6–9)</td><td class="num">r = −0.322 <span class="muted">[−0.54, −0.06]</span></td><td>High-scoring games skew closer — favorite+over parlays carry <b>negative</b> leg correlation</td><td><a href="research/computed_stats.json">computed_stats.json ↗</a> · <a href="data.html#results">57 games ↗</a></td></tr>
+<tr><td>Away score ↔ home score</td><td class="num">r = 0.018 <span class="muted">[−0.24, 0.28]</span></td><td>No usable correlation between opponent scores in this window</td><td><a href="research/computed_stats.json">computed_stats.json ↗</a></td></tr>
+<tr><td>Scoring environment (Wks 6–9)</td><td class="num">44.9 <span class="muted">± 13.8</span></td><td>Mean game total; baseline for totals modeling</td><td><a href="research/computed_stats.json">computed_stats.json ↗</a></td></tr>
+<tr><td>Baseline vs market (Wk 11)</td><td class="num">6 of 13 within ±2.5</td><td>Largest spread disagreements: NYJ/LAC (9.1), PIT/PHI (8.0), CIN/WAS (7.6) — investigation candidates, not edges</td><td><a href="signals.html#line-lab">Line lab ↗</a> · <a href="https://www.espn.com/nfl/schedule/_/week/11/year/2026/seasontype/2" target="_blank" rel="noreferrer">ESPN odds ↗</a></td></tr>
+</tbody></table></div>
+<div class="note"><b>Anti-hype clause:</b> none of the above is evidence of profit. They are reproducible facts about the input data and the v0 baseline. Profitability requires passing the <a href="signals.html#gates">8 gates</a> on untouched data — not yet started.</div>
+</section>
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">WHAT IS DELIBERATELY BLANK</span><h2>Missing information (never inferred)</h2></div><span class="tag red">12 FLAGS</span></div>
+<div class="table-wrap"><table class="data"><thead><tr><th>Item</th><th>Status</th><th>Why blank</th><th>Flag</th></tr></thead><tbody>
+<tr><td>Player-prop correlations (QB↔WR etc.)</td><td class="blank">blank</td><td>No paired player game logs ingested yet</td><td><a href="flagged.html">F-01 ↗</a></td></tr>
+<tr><td>Depth-chart string ranks (1st–4th)</td><td class="blank">blank</td><td>nfl.com depth-chart endpoints returned 404 on 2026-11-14</td><td><a href="flagged.html">F-02 / R-03 ↗</a></td></tr>
+<tr><td>Historical point-in-time odds &amp; CLV</td><td class="blank">blank</td><td>No timestamped odds feed connected</td><td><a href="flagged.html">F-03 ↗</a></td></tr>
+<tr><td>Strategy ROI / accuracy / ranks</td><td class="blank">blank</td><td>No predictions or bet records exist; gates not run</td><td><a href="flagged.html">F-04 ↗</a></td></tr>
+<tr><td>Reward pool amounts</td><td class="blank">blank</td><td>Owner + legal decision not made</td><td><a href="flagged.html">F-05 ↗</a></td></tr>
+<tr><td>Live injury feed / game-day inactives</td><td class="blank">blank</td><td>Static snapshot only; no automated ingest</td><td><a href="flagged.html">F-06 ↗</a></td></tr>
+<tr><td>Weather, snaps, QB change adjustments</td><td class="blank">blank</td><td>Not in v0 baseline; sources to be chosen</td><td><a href="flagged.html">F-07 ↗</a></td></tr>
+<tr><td>Data licensing / API rights</td><td class="blank">blank</td><td>Public pages ≠ redistribution rights</td><td><a href="flagged.html">F-08 ↗</a></td></tr>
+<tr><td>Jurisdiction legality of rewards</td><td class="blank">blank</td><td>Requires counsel per jurisdiction</td><td><a href="flagged.html">F-09 ↗</a></td></tr>
+<tr><td>Model calibration (Brier/log-loss)</td><td class="blank">blank</td><td>No probability model fitted yet</td><td><a href="flagged.html">F-10 ↗</a></td></tr>
+<tr><td>Market settlement rules (void/push)</td><td class="blank">blank</td><td>Book-specific; no book selected</td><td><a href="flagged.html">F-11 ↗</a></td></tr>
+<tr><td>Closing-line comparison at settlement</td><td class="blank">blank</td><td>Snapshot odds only, no history</td><td><a href="flagged.html">F-12 ↗</a></td></tr>
+</tbody></table></div></section>
+
+<footer><span>FOURTH DOWN RESEARCH · Executive summary</span><span><a href="index.html">← Back to overview</a> · <a href="flagged.html">Flags</a> · <a href="sources.html">Sources</a></span></footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

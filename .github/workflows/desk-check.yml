@@ -1,0 +1,29 @@
+name: Desk validation
+
+# Validation only - this workflow never deploys, so it cannot race "Publish NFL Decision Lab".
+# It gates the decision-desk pages (session 5c48ced7): links, anchors, navigation,
+# one https source per data row, mirror parity with site/, and reproducible statistics.
+
+on:
+  push:
+    branches: [main, "arena/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  desk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Desk page gate (links, anchors, nav, data-row sources, site/ mirror)
+        run: python3 tools/check_site.py
+      - name: Statistics reproduce with integrity assertions
+        run: python3 tools/compute_stats.py > /dev/null
+      - name: Desk tables regenerate byte-identically from the committed CSVs
+        run: |
+          python3 tools/gen_data_html.py
+          python3 tools/gen_strategies_html.py
+          git diff --exit-code -- data.html signals.html site/data.html site/signals.html

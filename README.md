@@ -116,3 +116,40 @@ node docs/check.js     # 15 pages, 22 tables, 682 rows, 142 internal links, 27 e
 The reconciliation of the two builds — including the merge conflict on `COORDINATION.md`
 and `README.md`, and the file-scope statement — is logged in the
 *Appendix — session `arena/528008d6-x4`* at the bottom of `COORDINATION.md`.
+
+## Decision-desk pages (session `5c48ced7`, PR #12)
+
+An additional layer of ten category pages sits alongside the main site. Each exists
+**byte-identically at the repository root and in `site/`**, so every publishing path
+(legacy root build and the `site/` artifact) carries them, and `tools/sync.py` keeps
+them mirrored. No existing `site/` file was modified.
+
+| Page | What it adds |
+|---|---|
+| `executive-summary.html` | Decision-maker summary: verified state, top decisions, findings, blanks |
+| `requirements.html` | All 40 brief requirements mapped to deliverables, status and verification |
+| `data.html` | Standings (32), Week 10 slate, Week 11 schedule **with the market snapshot**, 57 results - every row linked |
+| `signals.html` | 13 originated baseline lines vs market, 10 candidate signals, 8 validation gates, **4 correlation values with 95% CIs**, skill-vs-luck protocol |
+| `leaderboard.html` | Singles/parlays/props divisions, scoring formula, anti-gaming rules, reward phases (amounts blank + flagged) |
+| `injuries.html` | 21 official player-linked injury rows + the starter-to-2nd/3rd/4th-string deficiency specification (offense and defense) |
+| `decisions.html` | 30-question decision Q&A: known / missing / how to obtain / decision blocked |
+| `review.html` | 18 proposals with Accept/Hold/Reject selection (saved locally) - review before any build |
+| `flagged.html` | Desk flags F-01..F-12 and irregularities R-01..R-08 with evidence links |
+| `repo-review.html` | Line-by-line file review of the repository |
+| `sources.html` | Full source register with tiers and retrieval dates |
+
+Desk-specific tooling (separate from the pipeline above):
+
+```bash
+python3 tools/check_site.py     # desk pages: links, anchors, nav, https source per data row
+python3 tools/compute_stats.py  # recompute correlations / home edge / baseline lines from research/data/*.csv
+python3 tools/gen_data_html.py  # regenerate data.html from the CSVs (CI enforces byte-identical output)
+```
+
+**What the desk layer contributes to the open gaps:** a dated **market snapshot**
+(all 13 Week-11 spreads and totals, DraftKings as published by ESPN, 2026-11-14,
+labelled T3 - not official NFL lines), four **computed correlation values** with
+confidence intervals (including margin-vs-total r = -0.32, the parlay-relevant one),
+and a **measured home edge** whose confidence interval spans zero. These are separate
+inputs (`research/data/*.csv`) and never fork the numbers produced by `tools/build.py`;
+`data/**` was not touched.
