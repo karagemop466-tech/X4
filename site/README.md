@@ -387,3 +387,27 @@ confidence intervals (including margin-vs-total r = -0.32, the parlay-relevant o
 and a **measured home edge** whose confidence interval spans zero. These are separate
 inputs (`research/data/*.csv`) and never fork the numbers produced by `tools/build.py`;
 `data/**` was not touched.
+
+## Publish-gate repair and live re-verification (T32 / T33, session `arena/e6ee28a8-x4`)
+
+- **T32** repairs the `Publish NFL Decision Lab` gate, which had failed on every
+  `main` push since PR #25. Root cause, reproduced exactly by building CPython
+  3.12.9 from source: `tools/market_store.py` serialised `data/output/market_store.json`
+  with interpreter-dependent last-ULP float drift (CI runs Python 3.12, the authors'
+  sandbox 3.11). The writer now normalises every float with the same
+  `build.round_floats(obj, 9)` call `tools/build.py` adopted at PR #6, and
+  `tools/fetch.py plan` no longer rewrites `data/ops/fetch_plan.json` when its
+  plan items are unchanged (the timestamp-only rewrite used to dirty the tree
+  after every full gate run). Verified byte-identical under 3.11.2 and 3.12.9 and
+  through the full CI sequence; full write-up in
+  `research/verification/publish-gate-repro-2026-11-14.md`.
+- **T33** is an independent live re-verification sweep: all three official
+  NFL.com pages (standings, Week 11 schedule, Week 10 injury report) re-fetched
+  in full and diffed mechanically against the committed CSVs — **1,656 field
+  checks**. Standings 32/32 and schedule 13/13 (including the Mexico City
+  designation and the six byes) match exactly; the full 345-row injury capture
+  (T20's sample was 44 rows) finds **12 practice-status cells the league has
+  updated since the committed snapshot** — flagged with each cell's official
+  player-page source link and left unedited. Record, captures, parser and
+  per-row snapshot CSVs live in `research/verification/`
+  (`live-verification-2026-11-14-e6ee28a8.md`, `captures-2026-11-14-e6ee28a8/`).

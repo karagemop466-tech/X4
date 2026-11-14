@@ -447,18 +447,25 @@ def main(argv):
     if argv[1] == "plan":
         items = plan()
         os.makedirs(OPS, exist_ok=True)
-        path = os.path.join(OPS, "fetch_plan.json")
-        # Rewrite only when the plan itself changed. A timestamp-only rewrite
-        # dirtied the tree on every full validate.py run and broke the byte-for-byte
-        # reproducibility gate (T32 finding); the stored stamp is kept when nothing moved.
-        prev = None
-        if os.path.exists(path):
-            with open(path, encoding="utf-8") as fh:
-                prev = json.load(fh)
-        if prev is not None and prev.get("items") == items:
-            print("%d URLs planned, unchanged -> data/ops/fetch_plan.json" % len(items))
-            return 0
         doc = {"generated_utc": utc_now(), "count": len(items), "items": items}
+        path = os.path.join(OPS, "fetch_plan.json")
+        # T32 (2026-11-14): leave the file untouched when the plan items have
+        # not changed. The generated_utc stamp alone used to be rewritten on
+        # every run, which dirtied the working tree after every full gate run
+        # (validate.py executes this step) and invited a timestamp-only commit.
+        # The plan's *content* is the deliverable; a fresh stamp is written only
+        # when the content actually changes.
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                existing = json.load(fh)
+            same = (isinstance(existing, dict) and existing.get("count") == len(items)
+                    and existing.get("items") == items)
+        except (OSError, ValueError):
+            same = False
+        if same:
+            print("%d URLs planned -> data/ops/fetch_plan.json (unchanged, not rewritten)"
+                  % len(items))
+            return 0
         with open(path, "w", encoding="utf-8") as fh:
             json.dump(doc, fh, indent=1)
             fh.write("\n")

@@ -395,15 +395,19 @@ def write_output():
         "chains": replacement_chains(),
         "unconfirmed": unconfirmed_claims(),
     }
+    # T32 (2026-11-14): normalise floats exactly like tools/build.py does
+    # (round_floats, 9 places). Without this, the last 1-2 ulps of every derived
+    # float differ between the CPython builds that produced the committed file
+    # (3.11) and CI's (3.12), and the publish gate's byte-reproducibility check
+    # fails on an interpreter difference that has no bearing on any published
+    # number. Independently reproduced with CPython 3.12.9 built from source
+    # before the CI diagnostic capture landed (session 279eb9b4's
+    # research/verification/ci-drift-2026-11-14.txt shows the identical 62/62-line
+    # drift; this session's record is
+    # research/verification/publish-gate-repro-2026-11-14.md). The equivalent
+    # normalisation was merged first by PR #33; this session's rebase keeps that
+    # merged implementation verbatim.
     with open(os.path.join(OUT, "market_store.json"), "w", encoding="utf-8") as fh:
-        # Normalise floats exactly like tools/build.py does (round_floats, 9 places).
-        # Without this, the last 1-2 ulps of every derived float differ between the
-        # CPython builds that produced the committed file (3.11) and CI's (3.12),
-        # and the publish gate's byte-reproducibility check fails on an interpreter
-        # difference that has no bearing on any published number. All 34 drift
-        # values observed on 2026-11-14 agreed to 9 decimal places across both
-        # interpreters (max abs difference 7.1e-15), so this changes no published
-        # digit; it only stabilises the serialisation. (T32, see COORDINATION.md.)
         json.dump(build.round_floats(payload), fh, indent=1, sort_keys=False)
     return payload
 
