@@ -163,9 +163,17 @@ a team replacing him with a third-string call-up trip the same flag.
 |---|---|
 | Depth slot recorded | 7 of 7 |
 | Replacement identified by name | 5 of 7 (two rows leave it blank) |
-| Replacement starts this season | 1 of 7 |
+| Replacement starts this season | 2 of 7 |
 | Snap share | **0 of 7** |
 | Deficiency points | **0 of 7** |
+
+**The Baltimore row is the case the requirement was written for.** Read as a flag, it
+says "starter out". Read as depth, it says: the starter is on injured reserve, the
+backup was already out for the season with turf toe, an undrafted third-stringer started
+a game, and the club then traded for a veteran who had started eight games for another
+team. The replacement on the field is a **slot-3** quarterback with no snaps in this
+system, not the slot-2 backup the depth chart implies. A model rating season-to-date
+form has no way to know that from a binary flag.
 
 Three of the five columns are substantially blank, and this is the honest state. The
 official injury report publishes a **designation** — Out, Doubtful, Questionable, or a
