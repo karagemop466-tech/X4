@@ -1,0 +1,332 @@
+{
+ "generated_utc": "2026-11-14T19:20:55Z",
+ "count": 41,
+ "items": [
+  {
+   "kind": "event_list",
+   "week": 10,
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/weeks/10/events?limit=20",
+   "file": "events-week-10.json",
+   "why": "The event ids that exist in week 10; the odds endpoint is per event"
+  },
+  {
+   "kind": "nfl_results",
+   "week": 10,
+   "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "file": "nfl-week-10.md",
+   "optional": true,
+   "why": "Official NFL.com results and kickoff times for week 10 - the source of record for the results feed and for the event pairing"
+  },
+  {
+   "kind": "event_list",
+   "week": 11,
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/weeks/11/events?limit=20",
+   "file": "events-week-11.json",
+   "why": "The event ids that exist in week 11; the odds endpoint is per event"
+  },
+  {
+   "kind": "nfl_results",
+   "week": 11,
+   "url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "file": "nfl-week-11.md",
+   "optional": true,
+   "why": "Official NFL.com results and kickoff times for week 11 - the source of record for the results feed and for the event pairing"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873052",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873052/competitions/401873052/odds/100",
+   "file": "odds-401873052.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873053",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873053/competitions/401873053/odds/100",
+   "file": "odds-401873053.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873058",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873058/competitions/401873058/odds/100",
+   "file": "odds-401873058.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873056",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873056/competitions/401873056/odds/100",
+   "file": "odds-401873056.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873060",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873060/competitions/401873060/odds/100",
+   "file": "odds-401873060.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873057",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873057/competitions/401873057/odds/100",
+   "file": "odds-401873057.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873059",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873059/competitions/401873059/odds/100",
+   "file": "odds-401873059.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873055",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873055/competitions/401873055/odds/100",
+   "file": "odds-401873055.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873054",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873054/competitions/401873054/odds/100",
+   "file": "odds-401873054.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873062",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873062/competitions/401873062/odds/100",
+   "file": "odds-401873062.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873061",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873061/competitions/401873061/odds/100",
+   "file": "odds-401873061.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873063",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873063/competitions/401873063/odds/100",
+   "file": "odds-401873063.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873064",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873064/competitions/401873064/odds/100",
+   "file": "odds-401873064.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 10,
+   "event_id": "401873065",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873065/competitions/401873065/odds/100",
+   "file": "odds-401873065.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873066",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds/100",
+   "file": "odds-401873066.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873070",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873070/competitions/401873070/odds/100",
+   "file": "odds-401873070.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873071",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873071/competitions/401873071/odds/100",
+   "file": "odds-401873071.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873073",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873073/competitions/401873073/odds/100",
+   "file": "odds-401873073.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873072",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873072/competitions/401873072/odds/100",
+   "file": "odds-401873072.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873067",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873067/competitions/401873067/odds/100",
+   "file": "odds-401873067.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873076",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873076/competitions/401873076/odds/100",
+   "file": "odds-401873076.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873068",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873068/competitions/401873068/odds/100",
+   "file": "odds-401873068.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873074",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873074/competitions/401873074/odds/100",
+   "file": "odds-401873074.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873075",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873075/competitions/401873075/odds/100",
+   "file": "odds-401873075.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873069",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873069/competitions/401873069/odds/100",
+   "file": "odds-401873069.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873077",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873077/competitions/401873077/odds/100",
+   "file": "odds-401873077.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "odds",
+   "week": 11,
+   "event_id": "401873078",
+   "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873078/competitions/401873078/odds/100",
+   "file": "odds-401873078.json",
+   "why": "Open, close and current prices for the spread, total and moneyline of this event, per book"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/10",
+   "txn": "trades",
+   "url": "https://www.nfl.com/transactions/league/trades/2026/10",
+   "file": "nfl-trades-2026-10.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/10",
+   "txn": "signings",
+   "url": "https://www.nfl.com/transactions/league/signings/2026/10",
+   "file": "nfl-signings-2026-10.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/10",
+   "txn": "reserve-list",
+   "url": "https://www.nfl.com/transactions/league/reserve-list/2026/10",
+   "file": "nfl-reserve-list-2026-10.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/10",
+   "txn": "waivers",
+   "url": "https://www.nfl.com/transactions/league/waivers/2026/10",
+   "file": "nfl-waivers-2026-10.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/10",
+   "txn": "terminations",
+   "url": "https://www.nfl.com/transactions/league/terminations/2026/10",
+   "file": "nfl-terminations-2026-10.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/11",
+   "txn": "trades",
+   "url": "https://www.nfl.com/transactions/league/trades/2026/11",
+   "file": "nfl-trades-2026-11.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/11",
+   "txn": "signings",
+   "url": "https://www.nfl.com/transactions/league/signings/2026/11",
+   "file": "nfl-signings-2026-11.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/11",
+   "txn": "reserve-list",
+   "url": "https://www.nfl.com/transactions/league/reserve-list/2026/11",
+   "file": "nfl-reserve-list-2026-11.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/11",
+   "txn": "waivers",
+   "url": "https://www.nfl.com/transactions/league/waivers/2026/11",
+   "file": "nfl-waivers-2026-11.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  },
+  {
+   "kind": "nfl_transactions",
+   "month": "2026/11",
+   "txn": "terminations",
+   "url": "https://www.nfl.com/transactions/league/terminations/2026/11",
+   "file": "nfl-terminations-2026-11.md",
+   "why": "Official record of who a club lost and when - the date a player was lost is what decides the depth of his replacement"
+  }
+ ]
+}

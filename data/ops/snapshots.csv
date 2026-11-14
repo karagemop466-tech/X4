@@ -1,0 +1,6 @@
+file,kind,url,retrieved_utc,bytes,sha256
+raw/events-week-10.json,event_list,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/weeks/10/events?limit=20,2026-11-14T19:17:00Z,1668,5587ef4b3560c46e3b3c1ea941513add13a89756336fa0b7ee762909c4eb43ed
+raw/events-week-11.json,event_list,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/weeks/11/events?limit=20,2026-11-14T19:26:00Z,1558,81feee1bbaa74d049e18948f14816c09aed519ba68813d3fe65beba6bf673544
+raw/odds-401873052.json,odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873052/competitions/401873052/odds/100,2026-11-14T19:31:00Z,3859,b3ef892ab34022a2af9e7d39e2ddd023b3dfc1ab849cac4132a02f4aebb911ab
+raw/odds-401873066.json,odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds/100,2026-11-14T19:26:00Z,2866,f10399971607f97687786b95383b51a661ea6754ba5af27da69c567e3cca93cb
+raw/odds-401873070.json,odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873070/competitions/401873070/odds/100,2026-11-14T19:26:00Z,2874,04d336334c9aed3bd415266f343e83c3fe5288e9c22da70f8ef7146205adcad1

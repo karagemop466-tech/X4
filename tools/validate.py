@@ -23,10 +23,15 @@ STEPS = [
     ("verify data against official standings", [PY, os.path.join(ROOT, "tools", "verify.py")]),
     ("build published numbers", [PY, os.path.join(ROOT, "tools", "build.py")]),
     ("build site pages", [PY, os.path.join(ROOT, "tools", "pages.py")]),
+    ("originate the markets and the price store", [PY, os.path.join(ROOT, "tools", "fetch.py"), "plan"]),
+    ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),
+    ("originate lines and grade them", [PY, os.path.join(ROOT, "tools", "origination.py")]),
+    ("build the origination pages", [PY, os.path.join(ROOT, "tools", "ops.py")]),
     ("write the research findings", [PY, os.path.join(ROOT, "tools", "research.py")]),
     ("sync root copies", [PY, os.path.join(ROOT, "tools", "sync.py")]),
     ("check site", [PY, os.path.join(ROOT, "site", "check.py")]),
     ("check repository-root copy of the site", [PY, os.path.join(ROOT, "site", "check.py"), ROOT]),
+    ("check the desk pages", [PY, os.path.join(ROOT, "tools", "check_site.py")]),
 ]
 
 

@@ -1,0 +1,10 @@
+event_id,week,away,home,market,order,book,lineup,fair_home
+401873052,10,WAS,NYG,side,0,DraftKings,home,2.2
+401873052,10,WAS,NYG,total,1,DraftKings,over,45.6
+401873052,10,WAS,NYG,moneyline,2,DraftKings,,56.51%
+401873066,11,IND,HOU,side,0,DraftKings,home,6.0
+401873066,11,IND,HOU,total,1,DraftKings,over,48.1
+401873066,11,IND,HOU,moneyline,2,DraftKings,,67.14%
+401873070,11,MIA,BUF,side,0,DraftKings,home,11.5
+401873070,11,MIA,BUF,total,1,DraftKings,over,47.3
+401873070,11,MIA,BUF,moneyline,2,DraftKings,,80.19%

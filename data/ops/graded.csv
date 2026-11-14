@@ -1,0 +1,4 @@
+event_id,week,market,bet,price,outcome,pnl,fair_margin
+401873052,10,side,home,-110,lost,-1.0,0.7000000000000002
+401873052,10,total,over,-112,won,0.8928571428571428,5.100000000000001
+401873052,10,moneyline,home,-125,lost,-1.0,0.9544444444444355

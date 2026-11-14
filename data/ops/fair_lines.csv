@@ -1,0 +1,4 @@
+event_id,week,away,home,fair_side_home,fair_total,fair_ml_home_pct,fair_ml_away_pct,away_gp,home_gp,away_diff,home_diff,away_total,home_total,home_edge,sigma,neutral,prior_games,model
+401873052,10,WAS,NYG,2.2,45.6,56.51,43.49,9,9,-2.08,0.54,23.18,22.41,-0.39,13.6,0,4.0,"ratio, shrunk k=4.0, home edge -0.39"
+401873066,11,IND,HOU,6.0,48.1,67.14,32.86,9,8,-5.00,1.42,23.72,24.36,-0.39,13.6,0,4.0,"ratio, shrunk k=4.0, home edge -0.39"
+401873070,11,MIA,BUF,11.5,47.3,80.19,19.81,8,8,-6.17,5.75,21.24,26.11,-0.39,13.6,0,4.0,"ratio, shrunk k=4.0, home edge -0.39"
