@@ -221,7 +221,7 @@ window.X4_SOURCES = {
   },
   NFL_TIEBREAK: {
     tier: "primary", publisher: "NFL",
-    url: "http://www.nfl.com/standings/tiebreakingprocedures",
+    url: "https://www.nfl.com/standings/tiebreakingprocedures",
     label: "NFL.com — Tie-breaking procedures",
     confirms: "Linked from the official standings page; governs division/conference tiebreakers. Full text not read this session.",
     retrieved: "2026-11-14 (link confirmed on standings page)"

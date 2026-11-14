@@ -1,0 +1,18 @@
+{
+ "ew_lambda_slow": 0.65,
+ "ew_lambda_fast": 0.8,
+ "shrink_k_moderate": 4.0,
+ "shrink_k_heavy": 6.0,
+ "median_shrink_k": 4.0,
+ "ew_lambda_slowest": 0.45,
+ "shrink_k_heaviest": 8.0,
+ "blend_weight_s3": 0.5,
+ "bootstrap_resamples": 10000,
+ "bootstrap_seed": 20261114,
+ "min_eval_games": 40,
+ "min_weekly_improvement_share": 0.6,
+ "calibration_bands": 5,
+ "calibration_max_gap": 0.12,
+ "alpha": 0.05,
+ "eval_first_week": 3
+}

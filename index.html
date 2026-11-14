@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Official-source NFL decision support: verified standings, model lines, strategy validation gates, injury and depth tracking.">
+<title>NFL Decision Desk · NFL Decision Desk</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="index">
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>NFL DECISION DESK</small></span></a>
+    <nav class="main"><a href="index.html" class="active">Overview</a><a href="standings.html">Standings & results</a><a href="lines.html">Model lines</a><a href="strategies.html">Strategy lab</a><a href="availability.html">Injuries & depth</a><a href="questions.html">Decision checklist</a><a href="suggestions.html">Suggestions</a><a href="flags.html">Flagged for review</a><a href="methodology.html">Methodology</a></nav>
+  </div>
+</header>
+<main>
+
+<div class="hero">
+  <span class="eyebrow light">Executive summary</span>
+  <h2>Official NFL data, verified line by line. Model lines labelled as estimates. Nothing filled in that could not be confirmed.</h2>
+  <p>This desk is built on the NFL's own pages. Every number in every table traces to an official NFL.com URL that a reviewer can open. Scores were rebuilt from a reconstructed game log and then <b>proved</b> against the official standings: 137 games, and every team's wins, losses, ties, points for, points allowed and winning percentage match the NFL exactly. Where an official source does not exist - market lines, depth-chart strings, player-prop prices - the cell is left blank and the gap is listed on the <a href="flags.html">Flagged for review</a> page.</p>
+  <p>What the work actually shows: the model has signal over a league-average benchmark, but the improvement is <b>not yet statistically separable from luck</b>, so the leaderboard marks every strategy ineligible for reward. That is the validation gate working, not a gap in the analysis.</p>
+</div>
+
+<div class="grid g4">
+  <article class="card hero-card"><span class="k">Games verified</span><div class="v" id="kpi-games">—</div><div class="n" id="kpi-games-n">—</div></article>
+  <article class="card hero-card"><span class="k">Teams verified</span><div class="v" id="kpi-teams">—</div><div class="n" id="kpi-teams-n">—</div></article>
+  <article class="card hero-card"><span class="k">Injury rows</span><div class="v" id="kpi-inj">—</div><div class="n" id="kpi-inj-n">—</div></article>
+  <article class="card hero-card"><span class="k">Players ruled Out</span><div class="v" id="kpi-out">—</div><div class="n" id="kpi-out-n">—</div></article>
+  <article class="card hero-card"><span class="k">Strategies scored</span><div class="v" id="kpi-strat">—</div><div class="n" id="kpi-strat-n">—</div></article>
+  <article class="card hero-card"><span class="k">Passing all gates</span><div class="v" id="kpi-elig">—</div><div class="n" id="kpi-elig-n">—</div></article>
+  <article class="card hero-card"><span class="k">Best improvement</span><div class="v" id="kpi-best">—</div><div class="n" id="kpi-best-n">—</div></article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">What the official sources say right now</span><h2>Verified position</h2></div><span class="tag acc">NFL.com · 14 Nov 2026</span></div>
+  <div class="grid g4" id="wk-facts"></div>
+</section>
+
+<section>
+  <div class="section-head"><div><span class="eyebrow">Strategy leaderboard</span><h2>Every strategy must clear every gate</h2><p class="muted">Scored by out-of-sample spread accuracy, significance, stability and calibration. A strategy that cannot show its edge is separated from luck does not earn a reward, however good its recent record looks.</p></div><span class="tag" id="lb-status">—</span></div>
+  <div id="lb-preview"></div>
+  <p style="margin-top:12px"><a class="btn" href="strategies.html">Open the Strategy Lab →</a></p>
+</section>
+
+<section>
+  <div class="section-head"><div><span class="eyebrow">How to read this site</span><h2>Four rules</h2></div></div>
+  <div class="grid g2">
+    <article class="card"><span class="eyebrow">Rule 1</span><h3>Every row has a source link</h3><p class="muted">Each table row links to the official page it came from - a specific NFL.com game page, player page or news article - not a home page. Click it and check the value yourself.</p></article>
+    <article class="card"><span class="eyebrow">Rule 2</span><h3>Blank means blank</h3><p class="muted">Where a value cannot be confirmed from an official source, the cell stays empty and the item is flagged. Nothing is inferred, estimated in place of a fact, or filled from an aggregator.</p></article>
+    <article class="card"><span class="eyebebrow">Rule 3</span><h3>Estimates are labelled</h3><p class="muted">Model output is always marked as a model estimate and always shown with the range across all nine strategies, so you can see where the model is confident and where it is guessing.</p></article>
+    <article class="card"><span class="eyebrow">Rule 4</span><h3>Luck is removed, not wished away</h3><p class="muted">Correlated strategies are grouped rather than counted as rivals, significance is tested with a Bonferroni-adjusted bootstrap, and until the evidence clears the bar no strategy is declared a winner.</p></article>
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><div><span class="eyebrow">Open items</span><h2>Flagged for review</h2><p class="muted">Unverified values and irregularities found during verification. These do not block publication; they are simply not hidden.</p></div><span class="tag warn">Full register on its own page</span></div>
+  <div id="flag-preview"></div>
+  <p style="margin-top:12px"><a class="btn" href="flags.html">See every flag →</a></p>
+</section>
+
+<section>
+  <div class="section-head"><div><span class="eyebrow">Where to go next</span><h2>The desk</h2></div></div>
+  <div class="grid g3">
+    <article class="card"><span class="eyebrow">Data</span><h3><a href="standings.html">Standings &amp; results</a></h3><p class="muted">Official standings for all 32 teams, opponent-adjusted power ratings, and all 137 completed games with a link to each official game page.</p></article>
+    <article class="card"><span class="eyebrow">Model</span><h3><a href="lines.html">Model lines</a></h3><p class="muted">Week 11 model spreads and totals for all 13 official games, with the full range across strategies and the market-line column left blank on purpose.</p></article>
+    <article class="card"><span class="eyebrow">Validation</span><h3><a href="strategies.html">Strategy lab</a></h3><p class="muted">The leaderboard, the seven gates, the error-correlation matrix, the calibration check and the week-by-week stability table.</p></article>
+    <article class="card"><span class="eyebrow">Availability</span><h3><a href="availability.html">Injuries &amp; depth</a></h3><p class="muted">The full official Week 10 injury report, a unit-level roll-up of absences, and the starter changes the league confirmed in its own news.</p></article>
+    <article class="card"><span class="eyebrow">Decisions</span><h3><a href="questions.html">Decision checklist</a></h3><p class="muted">Nine questions that must be answered before a decision here is reasonable: what we know, what is missing, what it blocks and how to close it.</p></article>
+    <article class="card"><span class="eyebrow">Review</span><h3><a href="suggestions.html">Suggestions</a></h3><p class="muted">Twelve proposals, ranked, with the decision each one needs and the evidence that would show it worked. Review before building.</p></article>
+  </div>
+</section>
+
+<div class="note bad" id="render-error" style="display:none"></div>
+</main>
+<footer>
+  <div class="inner">
+    <span>FOURTH DOWN RESEARCH · NFL decision support</span>
+    <span>Official sources: nfl.com/standings · nfl.com/injuries · nfl.com/schedules · operations.nfl.com · ftc.gov</span>
+    <span>Evidence status: verified official data + labelled model estimates · no market data · not betting advice</span>
+  </div>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

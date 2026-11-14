@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Official NFL Week 10 injury report, unit-level absence roll-up, and league-confirmed starter changes.">
+<title>Injuries & depth · NFL Decision Desk</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="availability">
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>NFL DECISION DESK</small></span></a>
+    <nav class="main"><a href="index.html">Overview</a><a href="standings.html">Standings & results</a><a href="lines.html">Model lines</a><a href="strategies.html">Strategy lab</a><a href="availability.html" class="active">Injuries & depth</a><a href="questions.html">Decision checklist</a><a href="suggestions.html">Suggestions</a><a href="flags.html">Flagged for review</a><a href="methodology.html">Methodology</a></nav>
+  </div>
+</header>
+<main>
+
+<div class="section-head"><div><span class="eyebrow">06 · Availability</span><h2>Injuries and depth deficiencies</h2><p class="muted">The official NFL.com Week 10 injury report, transcribed in full: every listed player, their position, the injury, the practice designation and the game status. NFL clubs publish these under the league's injury-report policy, which is why they are the authoritative record.</p></div><span class="tag acc">Source: nfl.com/injuries</span></div>
+<div id="avail"></div>
+<div class="note warn" style="margin-top:12px"><b>The public report is not the whole story.</b> Players on injured reserve, the reserve/nontheatre injured list or the physically-unable-to-perform list do not appear in the public weekly report. Those absences show up in league news instead - see the next two tables. This is recorded as flag F-03.</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Starter changes</span><h2>Confirmed by the league</h2><p class="muted">Quarterback starter changes and long-term absences, each tied to the official NFL.com article that reports it. These are the facts the public injury report does not carry.</p></div><span class="tag acc">NFL.com news</span></div>
+<div id="qb"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Official reporting</span><h2>All captured league updates</h2><p class="muted">Every official NFL.com item captured alongside the Week 10 injury report.</p></div></div>
+<div id="news"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Full report</span><h2>Every listed player</h2><p class="muted">The complete Week 10 report, filterable by team and by status. Filter by 'No designation' to see players who were listed with no injury and no game status.</p></div></div>
+<div class="toolbar" id="inj-toolbar"></div>
+<div id="inj-full"></div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="note"><b>What is deliberately not here.</b> No player is assigned a depth-chart string - starter, 2nd, 3rd or 4th. The NFL publishes no consolidated league depth chart, so any such ranking would be an invention. That gap is flag F-02, and the fix is on the <a href="suggestions.html">Suggestions</a> page as the highest-impact proposal on the list.</div>
+</section>
+
+<div class="note bad" id="render-error" style="display:none"></div>
+</main>
+<footer>
+  <div class="inner">
+    <span>FOURTH DOWN RESEARCH · NFL decision support</span>
+    <span>Official sources: nfl.com/standings · nfl.com/injuries · nfl.com/schedules · operations.nfl.com · ftc.gov</span>
+    <span>Evidence status: verified official data + labelled model estimates · no market data · not betting advice</span>
+  </div>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

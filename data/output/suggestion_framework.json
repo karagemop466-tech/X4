@@ -1,0 +1,44 @@
+[
+ {
+  "step": "1",
+  "question": "Name the decision in one sentence.",
+  "rule": "If the decision cannot be written in a sentence, no data or model is worth building yet.",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+ },
+ {
+  "step": "2",
+  "question": "What is the smallest data set that could change that decision?",
+  "rule": "Prefer the narrowest official source that can overturn the current answer.",
+  "url": "https://www.nfl.com/standings/"
+ },
+ {
+  "step": "3",
+  "question": "Is the source official, machine-readable and re-fetchable?",
+  "rule": "Official beats secondary. Re-fetchable beats one-off. A source that cannot be re-read cannot be audited.",
+  "url": "https://www.nfl.com/injuries/"
+ },
+ {
+  "step": "4",
+  "question": "How much would we trust the result if it were reversed?",
+  "rule": "If a reversal would not change the decision, it is not worth the effort.",
+  "url": "https://www.nfl.com/schedules/2026/"
+ },
+ {
+  "step": "5",
+  "question": "What metric and threshold decide success, before we measure?",
+  "rule": "Pre-register the metric and the threshold; choosing them after seeing the result is how luck gets mistaken for skill.",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+ },
+ {
+  "step": "6",
+  "question": "What would make this fail?",
+  "rule": "Every proposal needs a named failure condition and a stop rule.",
+  "url": "https://operations.nfl.com/rules-officiating/2026-nfl-rulebook"
+ },
+ {
+  "step": "7",
+  "question": "Who reviews the result, and is it published either way?",
+  "rule": "Failures are published with the same prominence as successes, or the evidence is worthless.",
+  "url": "https://www.ftc.gov/legal-library/browse/statutes/unlawful-internet-gambling-enforcement-act"
+ }
+]

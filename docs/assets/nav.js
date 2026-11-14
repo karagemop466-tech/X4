@@ -41,7 +41,8 @@ const X4_NAV = [
   });
   html += '</nav><div class="foot">Static site · no build step<br>'
         + 'Data verified against primary sources only.<br>'
-        + 'Unconfirmed values are left blank and flagged.</div>';
+        + 'Unconfirmed values are left blank and flagged.<br>'
+        + '<a href="../index.html" style="color:#8fb4e0">&larr; Back to the main NFL Decision Desk</a></div>';
   document.getElementById("sidebar").innerHTML = html;
 
   const t = document.getElementById("pagetitle");
@@ -77,10 +78,10 @@ function esc(s) {
 function srcCell(s) {
   if (!s) return '<td class="srclink"><span class="b grey">no source</span></td>';
   if (typeof s === "string") {
-    return '<td class="srclink"><a href="' + esc(s) + '" target="_blank" rel="noopener">source</a></td>';
+    return '<td class="srclink"><a href="' + esc(s) + '" target="_blank" rel="noreferrer">source</a></td>';
   }
   const label = s.label || "source";
-  return '<td class="srclink"><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(label) + '</a></td>';
+  return '<td class="srclink"><a href="' + esc(s.url) + '" target="_blank" rel="noreferrer">' + esc(label) + '</a></td>';
 }
 
 /* Status badge vocabulary used across every table. */

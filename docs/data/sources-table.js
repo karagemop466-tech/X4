@@ -14,7 +14,7 @@
       id: id,
       tier: s.tier,
       publisher: s.publisher,
-      link: '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + "</a>",
+      link: '<a href="' + esc(s.url) + '" target="_blank" rel="noreferrer">' + esc(s.label) + "</a>",
       confirms: s.confirms,
       retrieved: s.retrieved,
       src: { url: s.url, label: "link" },

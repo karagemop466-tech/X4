@@ -38,9 +38,9 @@
     const isDetroit = c[1] === "detroit-lions";
     return {
       club: c[0],
-      nflTeamPage: '<a href="https://www.nfl.com/teams/' + c[1] + '/" target="_blank" rel="noopener">nfl.com/teams/' + c[1] + '</a>',
+      nflTeamPage: '<a href="https://www.nfl.com/teams/' + c[1] + '/" target="_blank" rel="noreferrer">nfl.com/teams/' + c[1] + '</a>',
       clubDepthChart: isDetroit
-        ? '<a href="https://www.detroitlions.com/team/depth-chart" target="_blank" rel="noopener">detroitlions.com/team/depth-chart</a>'
+        ? '<a href="https://www.detroitlions.com/team/depth-chart" target="_blank" rel="noreferrer">detroitlions.com/team/depth-chart</a>'
         : "",   // intentionally blank — not verified; not guessed
       stringsLabelled: isDetroit ? "No" : "",   // Detroit verified: ordered list, no string labels
       src: S(isDetroit ? "LIONS_DC" : "NFL_STANDINGS"),
