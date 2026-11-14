@@ -250,7 +250,7 @@ file scope. Never start work on a task another session has claimed.
     (`standings-live-2026-11-14.csv`, `schedule-wk11-live-2026-11-14.csv`,
     `injuries-wk10-live-2026-11-14.csv`), each row carrying its source URL and
     retrieved date, plus `live-verification-2026-11-14.md` (this record).
-  - **Two new flags**: **F-29** on the main register (`flags.html`, generated
+  - **Two new flags**: **F-34** on the main register (`flags.html`, generated
     from `tools/content.py`) and **R-14** on the decision-desk register
     (`flagged.html`, hand-written). Regenerated via `pages.py` + `sync.py`; the
     root/`site/` mirrors are byte-identical and `tools/validate.py` PASSES.
@@ -278,7 +278,7 @@ file scope. Never start work on a task another session has claimed.
 
   | Main site | Desk layer | Finding |
   |---|---|---|
-  | F-29 | R-14 | **Official injury-report drift on two practice-status cells.** The committed Week-10 injury dataset records Greg Van Roten (G, NE) and Charles Woods (CB, NE) as `Limited`; the live official NFL.com injury report re-fetched 2026-11-14 shows both as `Full Participation in Practice`. The league updates the report during the week, so the committed cells reflect an earlier snapshot. **Flagged, not edited** — changing the committed data would fork the published numbers away from the snapshot the build was verified against. Both values and both source links are recorded on the flagged pages. |
+  | F-34 | R-14 | **Official injury-report drift on two practice-status cells.** The committed Week-10 injury dataset records Greg Van Roten (G, NE) and Charles Woods (CB, NE) as `Limited`; the live official NFL.com injury report re-fetched 2026-11-14 shows both as `Full Participation in Practice`. The league updates the report during the week, so the committed cells reflect an earlier snapshot. **Flagged, not edited** — changing the committed data would fork the published numbers away from the snapshot the build was verified against. Both values and both source links are recorded on the flagged pages. |
 
 ---
 

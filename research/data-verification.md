@@ -75,7 +75,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-15 | The X4 Console's no-JavaScript fallback counts were stale |
 | F-16 | Two different flagged registers reuse the same identifiers |
 | F-17 | The three published layers define three different validation gates |
-| F-29 | Official injury-report drift on two practice-status cells |
+| F-34 | Official injury-report drift on two practice-status cells |
 | F-18 | Market betting lines (spread, total, moneyline) |
 | F-19 | Staking / bankroll figures |
 | F-20 | ROI and expected-value figures |

@@ -13173,13 +13173,13 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
   },
   {
-   "id": "F-29",
+   "id": "F-34",
    "item": "Official injury-report drift on two practice-status cells",
    "type": "Irregularity",
    "kind": "warn",
    "status": "irregularity",
    "detail": "The committed Week-10 injury dataset records Greg Van Roten (G, NE) and Charles Woods (CB, NE) as Limited participation. The live official NFL.com injury report, re-fetched 2026-11-14 by the new live-verification harness (tools/verify_live.py), shows both as Full Participation in Practice. The league updates the report during the week, so the committed cells reflect an earlier snapshot.",
-   "why": "The committed data was deliberately not changed - editing it would fork the published numbers away from the snapshot the rest of the build was verified against. Both values and both source links are recorded here and on the decision-desk register (R-14) so the drift can be reviewed and, if the current snapshot is adopted, regenerated through the normal pipeline rather than hand-patched.",
+   "why": "The committed data was deliberately not changed - editing it would fork the published numbers away from the snapshot the rest of the build was verified against. Both values and both source links are recorded here and on the decision-desk register (R-14) so the drift can be reviewed and, if the current snapshot is adopted, regenerated through the normal pipeline rather than hand-patched. This entry records the two cells this session's live harness caught; F-29 records the broader set of practice-status moves found by a parallel live verification, and the two are complementary, not duplicate.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/injuries-wk10-2026.csv"
   },
