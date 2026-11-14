@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X4 — Flagged for Review</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap">
+
+    <h1 id="pagetitle">Flagged for Review</h1>
+    <p class="lede">
+      Everything this session could not verify against an official primary source, plus every
+      inconsistency between sources that a human should adjudicate. Nothing here blocks the
+      site; all of it is published with source links so it can be reviewed after the site is
+      live.
+    </p>
+
+    <div class="callout warn">
+      <strong><span data-stat="X4_FLAG_STATS.total">15</span> items, of which
+      <span data-stat="X4_FLAG_STATS.high">6</span> are High severity.</strong>
+      Filter by Severity = High for the ones that matter most: the empty repository (F-01),
+      the absence of an official odds source (F-02), the absence of an official depth/string
+      source (F-03), the unestimated correlations (F-11) and the missing datasets (F-15).
+    </div>
+
+    <div data-table="flagged"></div>
+
+    <h2>The two structural flags, in plain terms</h2>
+    <div class="cards">
+      <div class="card bad">
+        <div class="k">F-02 · Prices</div>
+        <div class="v">No official source</div>
+        <div class="d">
+          The league does not publish odds. Without a licensed price feed there is no closing
+          line, without a closing line there is no CLV, and without CLV the project's main
+          anti-luck instrument does not work. This is the highest-leverage unresolved item.
+        </div>
+      </div>
+      <div class="card bad">
+        <div class="k">F-03 · Depth</div>
+        <div class="v">No official source</div>
+        <div class="d">
+          NFL.com 404s on depth charts; club sites publish ordered lists without string
+          labels. Requirements R-16 and R-17 cannot be met from an official source — only
+          derived, and derived values must be labelled as derived.
+        </div>
+      </div>
+    </div>
+
+    <h2>What was NOT flagged, and why</h2>
+    <p>
+      Restraint matters as much as flagging. The following looked odd but were
+      <strong>not</strong> flagged, because flagging them would have been an error:
+    </p>
+    <ul class="tight">
+      <li><strong>Player–team assignments that differ from prior seasons.</strong> Aaron
+        Donald appearing on the Rams' injury report looks wrong to anyone carrying 2024
+        knowledge — but NFL.com reports he unretired to play for the Rams in 2026. Similarly
+        for other roster changes. Rule: never flag a roster entry on the basis of prior-season
+        knowledge (F-09).</li>
+      <li><strong>Teams on bye in Week 10 (Chicago, Denver, Philadelphia, Tampa Bay).</strong>
+        These are listed explicitly on the official schedule page under "Teams on Bye", so
+        they are verified, not inferred.</li>
+      <li><strong>Clubs having played different numbers of games.</strong> That is normal at
+        this point in a season. It is flagged only as an interpretation caution (F-14) about
+        comparing raw points-for and points-against across clubs — not as a data error.</li>
+    </ul>
+
+    <h2>How to clear a flag</h2>
+    <ol class="tight">
+      <li>Read the <em>Source</em> link on the row.</li>
+      <li>Adjudicate against a primary source — the league, the club, the regulator, or the
+        publisher's own documentation.</li>
+      <li>Update the affected data file in <code>docs/data/</code> and set the row's status to
+        <span class="b ok">verified</span>.</li>
+      <li>Record the resolution and its date in
+        <a href="https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md" target="_blank" rel="noreferrer">COORDINATION.md</a>.</li>
+      <li>Where two sources genuinely disagree, keep both links and leave the value blank.
+        Do not average them and do not pick the convenient one.</li>
+    </ol>
+
+    <footer class="pgfoot">
+      Flagged items F-01 to F-16, each with a source link. Data captured 2026-11-14.
+    </footer>
+
+  </div></main>
+</div>
+<script src="data/sources.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/table.js"></script>
+<script src="data/flagged.js"></script>
+</body>
+</html>
