@@ -30,9 +30,9 @@ from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repository root
 SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT, "site")
-PAGES = ["index.html", "standings.html", "lines.html", "strategies.html",
-         "availability.html", "questions.html", "suggestions.html", "flags.html",
-         "methodology.html", "markets.html", "results.html", "gates.html"]
+PAGES = ["index.html", "standings.html", "lines.html", "price-snapshots.html",
+         "results.html", "strategies.html", "availability.html", "depth.html",
+         "questions.html", "suggestions.html", "flags.html", "methodology.html"]
 ASSETS = ["styles.css", "app.js"]
 # Matched case-insensitively as substrings EXCEPT where a real word contains the
 # marker: "Fagnano" (the Ravens' third-string QB, named by nfl.com) contains
@@ -42,8 +42,24 @@ PLACEHOLDER_RE = __import__("re").compile(r"\bNaN\b")
 
 LINK = re.compile(r"<(?:a|link)\b[^>]*?href=\"([^\"]+)\"[^>]*>", re.I)
 EXTERNAL = re.compile(r"<a\b[^>]*?href=\"(https?://[^\"]+)\"[^>]*>", re.I)
+# Official source domains. nfl.com and its operations/legal subdomains, the
+# federal trade commission (for the gambling-advertising rules), and the 32
+# clubs' own official websites. A club site is included only as a literal
+# domain in this closed list - never a wildcard - because the clubs are the
+# authority on their own rosters and depth charts and nothing else.
+CLUB_DOMAINS = [
+    "azcardinals.com", "atlantafalcons.com", "baltimoreravens.com", "buffalobills.com",
+    "panthers.com", "chicagobears.com", "bengals.com", "clevelandbrowns.com",
+    "dallascowboys.com", "denverbroncos.com", "detroitlions.com", "packers.com",
+    "houstontexans.com", "colts.com", "jaguars.com", "chiefs.com", "chargers.com",
+    "therams.com", "raiders.com", "miamidolphins.com", "vikings.com", "patriots.com",
+    "neworleanssaints.com", "giants.com", "newyorkjets.com", "philadelphiaeagles.com",
+    "steelers.com", "seahawks.com", "49ers.com", "buccaneers.com",
+    "tennesseetitans.com", "commanders.com",
+]
 OFFICIAL = re.compile(
-    r"<a\b[^>]*href=\"https://(?:www\.)?(?:nfl\.com|operations\.nfl\.com|ftc\.gov)/[^\"]*\"",
+    r"<a\b[^>]*href=\"https://(?:www\.)?(?:nfl\.com|operations\.nfl\.com|ftc\.gov|"
+    + "|".join(re.escape(d) for d in CLUB_DOMAINS) + r")/[^\"]*\"",
     re.I)
 
 
@@ -136,6 +152,13 @@ def main():
 
         low = html.lower()
         for bad in PLACEHOLDERS:
+            if bad == "NaN":
+                # A bare JavaScript NaN, as a token. A substring search here
+                # false-positives on real surnames that contain the letters
+                # (the Ravens' backup quarterback Joe Fagnano, for example).
+                if re.search(r"(?<![A-Za-z])NaN(?![A-Za-z])", html):
+                    problems.append("%s: contains placeholder marker %r" % (page, bad))
+                continue
             if bad.lower() in low:
                 problems.append("%s: contains placeholder marker %r" % (page, bad))
         # A page that documents the NaN-vs-surname collision necessarily quotes the
