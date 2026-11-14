@@ -20,6 +20,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "output")
 SITE = os.path.join(ROOT, "site")
 
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import market_store  # the price store, the origination card and the results feed
+
 with open(os.path.join(DATA, "payload.json"), encoding="utf-8") as fh:
     P = json.load(fh)
 
@@ -27,9 +31,11 @@ NAV = [
     ("index.html", "Overview"),
     ("standings.html", "Standings & results"),
     ("lines.html", "Model lines"),
+    ("markets.html", "Price store"),
     ("strategies.html", "Strategy lab"),
     ("availability.html", "Injuries & depth"),
     ("questions.html", "Decision checklist"),
+    ("gates.html", "Gates & demotion"),
     ("suggestions.html", "Suggestions"),
     ("flags.html", "Flagged for review"),
     ("methodology.html", "Methodology"),
@@ -61,6 +67,10 @@ DIRECTORY = [
          "Official standings for all {n_teams} teams, power ratings, and every completed game with its official link."),
         ("data.html", "Verified data",
          "Standings, the Week 10 slate, the Week 11 schedule with a dated market snapshot, and 57 results."),
+        ("markets.html", "Price snapshot store",
+         "Opening and current numbers for all 13 Week 11 games across all three markets, the closing snapshot registered and deliberately empty, and our fair line beside the market line with the difference as its own column."),
+        ("results.html", "Verified results feed",
+         "Every originated line joined to a verified result or explicitly marked pending - the feed that backtests and ROI have to be computed against."),
         ("availability.html", "Injuries &amp; depth",
          "The full official Week 10 injury report, a unit-level roll-up, and the starter changes the league confirmed."),
         ("injuries.html", "Availability",
@@ -71,6 +81,8 @@ DIRECTORY = [
          "Week 11 model spreads and totals for all {n_schedule} official games, with the market column left blank."),
         ("strategies.html", "Strategy lab",
          "The leaderboard, the {spell_n_gates} validation gates, the error-correlation matrix, calibration and stability."),
+        ("gates.html", "Gates &amp; demotion",
+         "Signal scored separately from staking, the demotion gate that sends a live strategy back to paper, and replacement depth with its own measurement rule."),
         ("signals.html", "Line lab &amp; signals",
          "Thirteen originated baseline lines against the market, ten candidate signals, eight gates and four correlations with confidence intervals."),
         ("leaderboard.html", "Leaderboard",
@@ -714,6 +726,472 @@ def directory_section():
            npages=sum(len(p) for _, p in DIRECTORY) + 1)
 
 
+# ---------------------------------------------------------------- price store
+OFFICIAL_SRC = "https://www.nfl.com/standings/"          # the model's input, cited per fair line
+GAME_SRC = "https://www.nfl.com/schedules/2026/by-week/week-11"
+ESPN_ODDS = "https://www.espn.com/nfl/odds/_/week/11"
+KIND_BADGE = {"opening": "acc", "current": "ok", "closing": "warn"}
+
+
+def _fixtures():
+    """Official NFL.com game page for each Week 11 matchup.
+
+    Every market row carries two links: the official game page, which is the
+    source of the fixture itself (teams, date, venue), and the T3 odds row that
+    is the source of the price. The rule is one official source per row; the
+    price is not an official NFL value, so it is cited separately and labelled.
+    """
+    out = {}
+    for g in P["wk11_lines"]:
+        out[(g["away"], g["home"])] = g["url"]
+    return out
+
+
+def store_rows():
+    """The snapshot register: one row per dated snapshot, including the empty one."""
+    rows = []
+    for s in market_store.price_store_summary():
+        if s["kind"] == "closing":
+            state = badge("registered", "warn") + " " + badge("empty by design", "mute")
+        else:
+            state = badge("captured", "ok")
+        rows.append([
+            '<span class="mono">%s</span>' % esc(s["snapshot_id"]),
+            esc(s["kind"]),
+            esc(s["provider"]),
+            esc(s["retrieved"]),
+            num(s["games"]),
+            num(s["rows"]),
+            num(s["rows_with_a_number"]),
+            num(s["rows_with_a_source_link"]),
+            state,
+            src("https://www.nfl.com/schedules/2026/by-week/week-11", "nfl.com schedule"),
+            src(ESPN_ODDS, "ESPN odds"),
+        ])
+    return table(
+        ["Snapshot", "Kind", "Provider (tier)", "Retrieved (UTC)", "Games", "Rows",
+         ("Rows with a number", True), ("Rows with a source", True), "State",
+         "Official source", "Market source"],
+        rows,
+        note=("The market is the only non-NFL source on this site. The NFL publishes no "
+              "betting lines (nfl.com/odds and nfl.com/teams/depth-chart both return 404 - "
+              "recorded as F-01 and F-02), so every market number is tier T3: a commercial "
+              "publisher, labelled as such, never shown as an official NFL value."))
+
+
+def price_rows():
+    """Every stored price row, with blanks left blank."""
+    def fmt_line(v):
+        return "" if v in (None, "") else ("%+.1f" % float(v) if float(v) != 0 else "0.0")
+
+    def fmt_price(v):
+        return "" if v in (None, "") else market_store.american(v)
+
+    rows = []
+    for r in market_store.prices():
+        blank_cell = '<span class="blank">blank</span>'
+        closed = r["snapshot_id"] == "2026W11-CLOSE"
+        rows.append([
+            '<span class="mono">%s</span> %s' % (esc(r["away"]), esc(r["home"])),
+            esc(r["market"]),
+            '<span class="mono">%s</span>' % esc(r["snapshot_id"].split("-")[1]),
+            fmt_line(r["line_open_away"]) if not closed else blank_cell,
+            fmt_line(r["line_cur_away"]) if not closed else blank_cell,
+            fmt_price(r["price_open_away"]) if not closed else blank_cell,
+            fmt_price(r["price_cur_away"]) if not closed else blank_cell,
+            fmt_line(r["line_open_home"]) if not closed else blank_cell,
+            fmt_line(r["line_cur_home"]) if not closed else blank_cell,
+            fmt_price(r["price_open_home"]) if not closed else blank_cell,
+            fmt_price(r["price_cur_home"]) if not closed else blank_cell,
+            (badge("pending", "warn") if closed else badge(r["status"], "ok")),
+            src(_fixtures().get((r["away"], r["home"]), ""), "game page"),
+            src(r.get("source_url") or "", "odds row") if r.get("source_url")
+            else '<span class="blank">no closing line exists yet</span>',
+        ])
+    return table(
+        ["Game", "Market", "Snap", ("Open away", True), ("Now away", True),
+         ("Open px", True), ("Now px", True), ("Open home", True), ("Now home", True),
+         ("Open px", True), ("Now px", True), "Status", "Official source",
+         "Market source"],
+        [r for r in rows if r[2].find("CLOSE") == -1],
+        note=("Spread and total are points; moneyline cells are american prices. A cell is "
+              "blank when the value was not transcribed - never because it was assumed. "
+              "The 39 closing rows are stored but not shown here; they are listed, empty, at "
+              "the bottom of this page."))
+
+
+def market_movement_rows():
+    """Opening vs current, with the movement computed, not asserted."""
+    rows = []
+    seen = {}
+    for r in market_store.prices():
+        if r["market"] == "spread":
+            seen.setdefault((r["away"], r["home"]), {})[r["snapshot_id"]] = r
+    for (away, home), snaps in seen.items():
+        o, c = snaps.get("2026W11-OPEN"), snaps.get("2026W11-PRE")
+        if not o or not c:
+            continue
+
+        def move(open_v, cur_v):
+            a, b = market_store.num(open_v), market_store.num(cur_v)
+            if a is None or b is None:
+                return ""
+            d = b - a
+            if abs(d) < 1e-9:
+                return "no move"
+            return "%+.1f" % d
+
+        oh, chh = market_store.num(o["line_cur_home"]), market_store.num(c["line_cur_home"])
+        flipped = oh is not None and chh is not None and (oh > 0) != (chh > 0)
+        rows.append([
+            '<span class="mono">%s - %s</span>' % (esc(away), esc(home)),
+            "%+.1f" % oh if oh is not None else "",
+            "%+.1f" % chh if chh is not None else "",
+            move(o["line_cur_home"], c["line_cur_home"]),
+            move(o["line_cur_away"], c["line_cur_away"]),
+            (badge("favourite flipped", "warn") if flipped else badge("held", "mute")),
+            src(_fixtures().get((away, home), ""), "game page"),
+            src(c["source_url"], "odds row"),
+        ])
+    return table(
+        ["Game", ("Open home", True), ("Now home", True), ("Home move", True),
+         ("Away move", True), "Direction", "Official source", "Market source"],
+        rows,
+        note=("Movement is current minus opening, in points. A flip means the favourite "
+              "changed side between the two snapshots - both PIT/PHI and BAL/CAR did. "
+              "Movement is a fact about the market; it is not evidence about the game."))
+
+
+def fair_vs_market_rows():
+    """The originated card: fair line, market line and difference as three columns."""
+    rows = []
+    for c in market_store.origination_card():
+        side, total, ml = c["side"], c["total"], c["moneyline"]
+
+        def cell(v, d=1):
+            if v is None:
+                return '<span class="blank">unverified</span>'
+            return "%+.*f" % (d, v)
+
+        diff = side["diff"]
+        if diff is None:
+            diff_cell = '<span class="blank">unverified</span>'
+            flag = badge("market missing", "warn")
+        else:
+            diff_cell = "%+.1f" % diff
+            flag = (badge("investigate", "warn") if abs(diff) >= 5.0
+                    else badge("within 2.5", "ok") if abs(diff) <= 2.5
+                    else badge("watch", "mute"))
+        market_as_published = (cell(side["market_line_home"])
+                               if side["market_line_home"] is not None
+                               else '<span class="blank">unverified</span>')
+        rows.append([
+            '<span class="mono">%s - %s</span>' % (esc(c["away"]), esc(c["home"])),
+            cell(side["fair"]),
+            market_as_published,
+            diff_cell,
+            "%+.1f to %+.1f" % (side["band"][0], side["band"][1]),
+            "%+.1f" % side["fair"],
+            "%+.1f" % total["fair"],
+            cell(total["market"]),
+            "%+.1f" % total["diff"] if total["diff"] is not None else '<span class="blank">unverified</span>',
+            market_store.american(ml["market_home"]) if ml["market_home"] is not None
+            else '<span class="blank">unverified</span>',
+            flag,
+            src(c["url"], "game page"),
+        ])
+    return table(
+        ["Game", ("Fair margin", True), ("Market (home)", True),
+         ("Diff (margin)", True), ("Band, 9 strategies", True), ("Total fair", True),
+         ("Total market", True), ("Total diff", True), ("ML home (mkt)", True),
+         "Read", "Official source"],
+        rows,
+        note=("Fair = this desk's own line (S1, the best-scoring strategy). Band = the range "
+              "across all nine strategies, the honest uncertainty on a one-line model. "
+              "Difference = fair minus market, so a positive number means we rate the home "
+              "team stronger than the market does. The three columns are never combined. "
+              "No column here is a pick, and none is eligible for staking - see the "
+              '<a href="gates.html">demotion gate</a>.'))
+
+
+# ----------------------------------------------------------------- results feed
+def results_rows():
+    """Every originated line against a verified result, or explicitly pending."""
+    feed = market_store.results_feed()
+    rows = []
+    for r in feed:
+        final = r["status"] == "final"
+        rows.append([
+            '<span class="mono">%s - %s</span>' % (esc(r["away"]), esc(r["home"])),
+            "%+.1f" % r["fair_side"],
+            ("%+.1f" % r["market_line_home"]) if r["market_line_home"] is not None else "",
+            ("%d-%d" % (r["away_pts"], r["home_pts"])) if final
+            else '<span class="blank">not played</span>',
+            esc(r["side_result"]) if final else '<span class="blank">pending</span>',
+            "%+.1f" % r["fair_total"],
+            "%+.1f" % r["market_total"] if r["market_total"] is not None else "",
+            ("%d" % (r["home_pts"] + r["away_pts"])) if final
+            else '<span class="blank">not played</span>',
+            esc(r["total_result"]) if final else '<span class="blank">pending</span>',
+            badge("final", "ok") if final
+            else badge("pending", "warn"),
+            (src(r["result_url"], "final score") if final
+             else '<a href="%s" target="_blank" rel="noreferrer noopener">fixture &nearr;</a>'
+                  % esc(r["url"])),
+        ])
+    return table(
+        ["Game", ("Fair margin", True), ("Market (home)", True), "Final",
+         "Side accuracy", ("Fair total", True), ("Market total", True), "Points",
+         "Total accuracy", "Status", "Source"],
+        rows,
+        note=("Fair margin is home minus away; the market column is the published home line, "
+              "which carries a negative number for the favourite. Accuracy compares the "
+              "absolute error of each against the actual margin, so the two conventions cannot "
+              "flatter either side. A row is graded only when the game exists in the verified result set. Until "
+              "then every result column is blank and the row says pending - a pending game "
+              "is never scored as a win. 'Closer' means our line landed nearer the truth "
+              "than the market line did; it is a statement about accuracy, not about money, "
+              "because this desk publishes no picks and stakes nothing."))
+
+
+# --------------------------------------------------- gates, split and demotion
+def signal_staking_rows():
+    rows = []
+    for r in market_store.leaderboard_split():
+        state = badge(market_store.DEMOTION[r["state"]]["label"],
+                      "ok" if r["state"] == "live" else "warn")
+        rows.append([
+            '<span class="mono">%s</span>' % esc(r["id"]),
+            esc(r["name"]),
+            ("%.1f" % r["signal"]),
+            ("#%d" % r["rank_signal"]),
+            ("#%d" % r["rank_staking"]),
+            ("%+d" % r["hits"]),
+            num(r["stakes"]),
+            ("%+.1f%%" % r["staking"]),
+            "%d of %d" % (r["gates_passed"], r["gates_total"]),
+            state,
+            src(OFFICIAL_SRC, "nfl.com standings"),
+        ])
+    return table(
+        ["ID", "Strategy", ("Signal score", True), ("Signal rank", True),
+         ("Staking rank", True), ("Hits", True), ("Stakes", True),
+         ("Flat-stake ROI", True), "Gates", "State", "Source"],
+        rows,
+        note=("The signal score is built only from line accuracy: beating the benchmark, "
+              "clearing the significance gate, weekly stability and calibration. The staking "
+              "column is a flat 1-unit, -110 book on the same predictions and is shown beside "
+              "it, never folded into it - a lucky run moves the staking rank and cannot move "
+              "the signal rank. Both ranks are published so the gap is visible."))
+
+
+def demotion_rows():
+    rows = []
+    for r in market_store.leaderboard_split():
+        reasons = "; ".join(r["reasons"]) if r["reasons"] else "every gate passed"
+        rows.append([
+            '<span class="mono">%s</span>' % esc(r["id"]),
+            esc(r["name"]),
+            badge(market_store.DEMOTION[r["state"]]["label"],
+                  "ok" if r["state"] == "live" else "warn"),
+            "%d of %d" % (r["gates_passed"], r["gates_total"]),
+            esc(reasons),
+            src(OFFICIAL_SRC, "nfl.com standings"),
+        ])
+    return table(
+        ["ID", "Strategy", "State after the gate", "Gates", "Why it is not Live", "Source"],
+        rows,
+        note=("The demotion gate is deliberately one-directional in effect: passing it is "
+              "the only way in, and failing any single gate sends a strategy back to paper "
+              "at once - no averaging, no grace period, no 'improving trend'. The promotion "
+              "and demotion counters start at zero because no strategy has ever been Live."))
+
+
+
+# ------------------------------------------------- replacement depth (measured)
+def _unit(pos):
+    """Map an official roster position to the side of the ball it plays on."""
+    off = {"QB", "RB", "FB", "WR", "TE", "T", "OT", "G", "OG", "C", "OL"}
+    dfn = {"DE", "DT", "NT", "EDGE", "LB", "ILB", "OLB", "MLB", "CB", "S", "SS", "FS", "DB"}
+    if pos in off:
+        return "Offence"
+    if pos in dfn:
+        return "Defence"
+    return "Special teams / other"
+
+
+# The starting-lineup size per unit, used only to express a deficiency as a share
+# of the unit. These are structural facts about the formation, not measurements.
+UNIT_STARTERS = {"Offence": 11, "Defence": 11}
+
+# Positions whose removal changes what the unit can run. Declared, not measured.
+IMPACT_POSITIONS = {
+    "QB": 3, "T": 2, "OT": 2, "C": 2, "G": 2, "OG": 2, "TE": 1, "WR": 2, "RB": 2,
+    "DE": 2, "DT": 1, "LB": 2, "ILB": 2, "OLB": 2, "MLB": 2, "CB": 2, "S": 2,
+}
+
+
+def replacement_depth_rows():
+    """What each club's official Week 10 report costs that club on each side of the ball.
+
+    Every input is a published official field: the ruled-out players, their
+    positions, and how many players the club listed as limited or full. Nothing
+    here is inferred about who lines up on Sunday - no official source publishes
+    depth-chart strings (nfl.com/teams/<club>/depth-chart is a 404, flag F-02),
+    so the depth of the replacement is measured as how much of the official
+    healthy-listing the club has left, not invented as a 2nd or 3rd string label.
+    """
+    import csv as _csv
+    path = os.path.join(ROOT, "data", "injuries-wk10-2026.csv")
+    with open(path, newline="", encoding="utf-8") as fh:
+        rows = list(_csv.DictReader(fh))
+    teams = {}
+    for r in rows:
+        t = r["team"]
+        d = teams.setdefault(t, {"out": [], "limited": 0, "full": 0, "total": 0,
+                                 "out_off": 0, "out_def": 0, "impact_off": 0, "impact_def": 0})
+        d["total"] += 1
+        if r["practice"].strip().lower().startswith("dnp") or \
+           r["game_status"].strip().lower() == "out":
+            unit = _unit(r["pos"])
+            d["out"].append(r)
+            if unit == "Offence":
+                d["out_off"] += 1
+                d["impact_off"] += IMPACT_POSITIONS.get(r["pos"], 1)
+            elif unit == "Defence":
+                d["out_def"] += 1
+                d["impact_def"] += IMPACT_POSITIONS.get(r["pos"], 1)
+        elif r["practice"].strip().lower().startswith("limited"):
+            d["limited"] += 1
+        elif r["practice"].strip().lower().startswith("full"):
+            d["full"] += 1
+
+    out = []
+    for t in sorted(teams):
+        d = teams[t]
+        healthy = d["full"]
+        n_out = len(d["out"])
+        # depth of replacement = how many officially-available players remain per
+        # ruled-out player. 0.0 out means no replacement is needed.
+        ratio = (healthy / n_out) if n_out else None
+        worst = sorted(d["out"], key=lambda r: -IMPACT_POSITIONS.get(r["pos"], 1))[:2]
+        out.append({
+            "team": t, "ninetyNine": d["total"], "out": n_out,
+            "limited": d["limited"], "full": healthy,
+            "out_off": d["out_off"], "out_def": d["out_def"],
+            "impact_off": d["impact_off"], "impact_def": d["impact_def"],
+            "replacement_depth": ratio,
+            "worst": worst,
+            "unit": "Defence" if d["impact_def"] > d["impact_off"] else "Offence",
+        })
+    return out
+
+
+def replacement_depth_table():
+    rows = []
+    for r in replacement_depth_rows():
+        worst = ", ".join("%s %s" % (esc(w["player"]), esc(w["pos"])) for w in r["worst"])
+        d = r["replacement_depth"]
+        if d is None:
+            depth_cell = '<span class="blank">no replacement needed</span>'
+        else:
+            depth_cell = "%.1f" % d
+        # a club below 1.0 has fewer healthy listed players than players ruled out
+        flag = (badge("thin", "warn") if d is not None and d < 1.0
+                else badge("covered", "ok") if d is not None
+                else badge("no absence", "mute"))
+        first = r["worst"][0] if r["worst"] else None
+        rows.append([
+            '<span class="mono">%s</span>' % esc(r["team"]),
+            num(r["ninetyNine"]),
+            num(r["out"]),
+            num(r["limited"]),
+            num(r["full"]),
+            depth_cell,
+            "%d / %d" % (r["out_off"], r["out_def"]),
+            "%d / %d" % (r["impact_off"], r["impact_def"]),
+            badge(r["unit"].lower(), "mute"),
+            esc(worst) if worst else '<span class="blank">none</span>',
+            flag,
+            src("https://www.nfl.com/players/%s/"
+                % (first["player_url"].rstrip("/").rsplit("/", 1)[-1] if first else ""),
+                "player page") if first else
+            src("https://www.nfl.com/injuries/", "injury report"),
+        ])
+    return table(
+        ["Club", ("Listed", True), ("Out", True), ("Limited", True), ("Full", True),
+         ("Depth of replacement", True), ("Out O/D", True), ("Impact O/D", True),
+         "Hardest hit unit", "Highest-impact absences", "Read", "Source"],
+        rows,
+        note=("Depth of replacement = officially full participants per player ruled out. "
+              "Below 1.0 means the club has fewer healthy listed bodies than it has players "
+              "out, which is the clearest available proxy for a unit reaching into its "
+              "backups. Impact weights are declared in the source (QB 3, line and secondary 2, "
+              "others 1) and are an analyst choice, not an official value - changing them "
+              "changes the impact columns and nothing else."))
+
+
+# ------------------------------------------------------ correlation with its n
+def corr_with_n_rows():
+    """Every published correlation, with the sample size and the depth behind it."""
+    import json as _json
+    path = os.path.join(ROOT, "research", "computed_stats.json")
+    if not os.path.exists(path):
+        return "", 0
+    with open(path, encoding="utf-8") as fh:
+        stats = _json.load(fh)
+    labels = {
+        "away_vs_home_scores": "Away score vs home score, same game",
+        "margin_vs_total": "Winning margin vs game total (parlay-relevant)",
+        "net_points_vs_win_pct": "Team net points vs winning percentage",
+        "scoring_rate_consistency": "A team's scoring rate vs its own allowing rate",
+    }
+    rows = []
+    for key, c in stats.get("correlations", {}).items():
+        rows.append([
+            '<span class="mono">%s</span>' % esc(key),
+            esc(labels.get(key, key.replace("_", " "))),
+            ("%+.4f" % c["r"]),
+            "[%+.4f, %+.4f]" % tuple(c["ci95"]),
+            num(c["n"]),
+            "cross-game, official results" if c["n"] <= 57 else "cross-team, official standings",
+            src("https://www.nfl.com/standings/", "nfl.com"),
+        ])
+    n_cross = len(rows)
+
+    with open(os.path.join(DATA, "payload.json"), encoding="utf-8") as fh:
+        payload = _json.load(fh)
+    n_eval = payload["meta"]["eval_games"]
+    ids = [x["id"] for x in payload["strategies"]]
+    pairs = []
+    for i, a in enumerate(ids):
+        for b in ids[i + 1:]:
+            pairs.append((a, b, payload["correlation_error"][a][b]))
+    pairs.sort(key=lambda x: -abs(x[2]))
+    for a, b, r in pairs:
+        rows.append([
+            '<span class="mono">%s vs %s</span>' % (esc(a), esc(b)),
+            "Model error correlation on the same evaluated games",
+            ("%+.4f" % r),
+            '<span class="blank">not computed</span>',
+            num(n_eval),
+            "pairwise over the same games (cluster: %s)" % (esc(a) if a in ("S6", "S4", "S7") else esc(b)),
+            src(OFFICIAL_SRC, "nfl.com standings"),
+        ])
+    return table(
+        ["Correlation", "What it measures", ("r", True), ("95% interval", True),
+         ("n", True), "Depth", "Source"],
+        rows,
+        note=("Every published correlation carries its n. The %d cross-game coefficients "
+              "have a Fisher-z interval because their n is small (%d games or %d teams); the "
+              "%d model-error correlations are computed pairwise over the same %d evaluated "
+              "games and no interval is published for them, because the nine strategies are "
+              "not independent of each other or of the benchmark they are measured against. "
+              "A coefficient on eight games and a coefficient on 105 are not the same "
+              "evidence, which is why n is a column here and not a footnote."
+              % (n_cross, stats["integrity"]["games_n"], 32, len(pairs), n_eval))), len(rows)
+
+
 def shell(slug, title, description, body, active):
     nav = "".join('<a href="%s"%s>%s</a>'
                   % (href, ' class="active"' if href == active else "", esc(label))
@@ -1013,6 +1491,146 @@ PAGES.append(("methodology.html", "Methodology",
   <p style="margin-top:9px">The build is deterministic: the same inputs produce the same tables and the same confidence intervals on every run, and every table is written into the HTML so no published value depends on JavaScript.</p></div>
 </section>
 """ % dict(params=params_table(), verify=verification_table()), "methodology.html"))
+
+
+
+# --- markets: the price-snapshot store, fair vs market ---
+PAGES.append(("markets.html", "Price store",
+               "A dated opening/current/closing price-snapshot store for every Week 11 market, "
+               "with the model's fair line, the market line and the difference published as "
+               "separate columns.",
+               """
+<div class="section-head"><div><span class="eyebrow">11 &middot; Price store</span><h2>Every number we originate has a price beside it</h2><p class="muted">A line nobody can price cannot be scored. This store records the market number at the moment we originate and again before kickoff, keyed by game, market and snapshot, so the same line can be re-read later without guessing what the market looked like. The closing snapshot is registered and empty on purpose: no Week 11 game has kicked off, so no closing line exists yet.</p></div><span class="tag acc">%(nsnap)d snapshots &middot; %(nrows)d rows</span></div>
+
+<div class="grid g4">
+  <article class="card"><span class="eyebrow">Markets covered</span><h3>Three, every game</h3><p class="muted">Side, total and moneyline, for all %(ngames)d Week 11 games. Every row is keyed to an ESPN event id so a line can be traced back to the exact published page.</p></article>
+  <article class="card"><span class="eyebrow">The one non-NFL source</span><h3>Market, tier T3</h3><p class="muted">The NFL publishes no odds. Market values are DraftKings numbers as published by ESPN, labelled T3 wherever they appear, and never presented as official.</p></article>
+  <article class="card"><span class="eyebrow">Closing line</span><h3>Registered, not fabricated</h3><p class="muted">%(nclose)d closing rows are stored with every price blank. They fill in only when a game has actually kicked off and the closing number can be read.</p></article>
+  <article class="card"><span class="eyebrow">Eligibility</span><h3>No line is stakeable</h3><p class="muted">A fair line is published because it is honest and comparable, not because it is profitable. Nothing on this page has passed the <a href="gates.html">demotion gate</a>.</p></article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">01 &middot; The store</span><h2>What was captured, and when</h2><p class="muted">A snapshot is dated and counted. A snapshot with no rows is not the same as a snapshot that does not exist, so the empty one is listed with zeroes rather than omitted.</p></div><span class="tag warn">closing open</span></div>
+  %(store)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">02 &middot; Origination order</span><h2>Side first, then the total, then the moneyline</h2><p class="muted">The order is not a preference. Each market is priced off a different error process, and the weakest-supported market is originated last so it inherits a spread that has already been checked rather than standing in for one.</p></div></div>
+  %(order)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03 &middot; Fair, market, difference</span><h2>Three columns, never blended</h2><p class="muted">Fair is ours. Market is theirs. Difference is the subtraction and nothing else. Keeping them apart is what makes it possible to tell a model that disagrees with the market from a model that has simply been read off the market.</p></div><span class="tag">%(ngames)d games</span></div>
+  %(fair)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">04 &middot; Market movement</span><h2>What moved, from open to now</h2><p class="muted">Computed, not described: current minus opening, in points, for every game and both sides.</p></div></div>
+  %(move)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">05 &middot; Stored rows</span><h2>Every captured price</h2><p class="muted">One row per game and market for the two captured snapshots. The point spreads and totals are points; the moneyline cells are american prices. A blank cell is a value that was not transcribed, which is not the same as a value that does not exist.</p></div><span class="tag acc">%(ncap)d rows</span></div>
+  %(prices)s
+</section>
+""" % dict(nsnap=len(market_store.snapshots()),
+           nrows=len(market_store.prices()),
+           ngames=len(market_store.origination_card()),
+           nclose=sum(1 for r in market_store.prices() if r["snapshot_id"] == "2026W11-CLOSE"),
+           store=store_rows(), fair=fair_vs_market_rows(),
+           move=market_movement_rows(), prices=price_rows(),
+           order=table(
+               ["#", "Market", ("Order", True), "Why this position", "State",
+                "Official source", "Market source"],
+               [["%d" % n, esc(label), "%d" % n, esc(why),
+                 badge("originated", "ok"),
+                 src(GAME_SRC, "nfl.com schedule"),
+                 src(ESPN_ODDS, "market line")]
+                for key, label, n, why in market_store.ORIGINATION_ORDER],
+               note=("All three markets are originated from the same team-rate model, so the "
+                     "order is about evidence, not machinery. The side carries the only "
+                     "out-of-sample error this desk can measure; the moneyline carries every "
+                     "spread error plus a conversion error on top of it.")),
+           ncap=sum(1 for r in market_store.prices() if r["snapshot_id"] != "2026W11-CLOSE")),
+          "markets.html"))
+
+# --- results: the verified results feed ---
+PAGES.append(("results.html", "Verified results feed",
+               "Every originated line joined to a verified official result, or plainly marked "
+               "pending - the feed a backtest or an ROI figure has to be computed against.",
+               """
+<div class="section-head"><div><span class="eyebrow">12 &middot; Results feed</span><h2>A backtest is only as good as its results file</h2><p class="muted">ROI, closing-line value and any honest hit rate need settled outcomes joined to the exact line that was originated. This page is that join. A game that has not been played is marked pending with every outcome column empty, because a pending game scored as a win is the single easiest way to manufacture a track record.</p></div><span class="tag warn">%(npending)d pending &middot; %(nfinal)d final</span></div>
+
+<div class="grid g3">
+  <article class="card"><span class="eyebrow">Rule 1</span><h3>Nothing is graded without a final</h3><p class="muted">A row becomes final only when the game appears in the verified result set, which is built from NFL.com game pages and proved against the official standings.</p></article>
+  <article class="card"><span class="eyebrow">Rule 2</span><h3>Accuracy, not profit</h3><p class="muted">The grade says whether our number landed closer to the truth than the market's. It does not say we won a bet, because this desk publishes no picks and stakes nothing.</p></article>
+  <article class="card"><span class="eyebrow">Rule 3</span><h3>The feed is the input</h3><p class="muted">When a strategy is finally eligible for reward, the ROI it reports has to be recomputable from this table and no other.</p></article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Originated lines, joined to results</span><h2>Week 11</h2><p class="muted">Fair line and market line are carried unchanged from the <a href="markets.html">price store</a>, so a later edit to either would show up as a mismatch here.</p></div></div>
+  %(feed)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">What this feed makes possible</span><h2>Compute on it, do not assume it</h2></div></div>
+  <div class="note"><b>Measures are defined now; the numbers arrive when games are final.</b>
+  <p style="margin-top:9px"><b>Hit rate</b> - share of final rows graded closer than the market. Denominator is finals only.<br>
+  <b>Closing-line value</b> - our fair number minus the closing market number, once a closing snapshot exists. It requires the snapshot store, which is why that store was built first.<br>
+  <b>ROI</b> - flat 1-unit stakes at a declared price on the graded call, reported with its sample size and never as a percentage of an unknown bankroll.<br>
+  <b>Backtest</b> - any retrospective score must run on this same join, with the pending rule applied, or it is not measuring the strategy this site publishes.</p></div>
+</section>
+""" % dict(npending=sum(1 for r in market_store.results_feed() if r["status"] == "pending"),
+           nfinal=sum(1 for r in market_store.results_feed() if r["status"] == "final"),
+           feed=results_rows()),
+          "results.html"))
+
+# --- gates: signal vs staking, demotion, replacement depth, correlation n ---
+PAGES.append(("gates.html", "Gates & demotion",
+               "Signal scored separately from staking, a demotion gate that sends a live "
+               "strategy back to paper, replacement depth measured from official reports, and "
+               "every correlation with its n.",
+               """
+<div class="section-head"><div><span class="eyebrow">13 &middot; Gates</span><h2>Separate the signal from the staking, then police the door</h2><p class="muted">Three separate defences against mistaking luck for skill. The signal is scored on line accuracy with no results bought; staking is shown beside it and can never lift it; and a single failed gate returns a live strategy to paper immediately, with no averaging and no grace period.</p></div><span class="tag warn">0 of %(n)d live</span></div>
+
+<div class="grid g3">
+  <article class="card"><span class="eyebrow">Signal</span><h3>Built only from accuracy</h3><p class="muted">Benchmark improvement (35%%), significance (30%%), weekly stability (20%%) and calibration (15%%). No staking result can enter the score.</p></article>
+  <article class="card"><span class="eyebrow">Staking</span><h3>Shown, never scored</h3><p class="muted">Flat 1 unit at %(price)d on every graded call. It is the unit a staker reads, and it is deliberately quarantined from the ranking that decides eligibility.</p></article>
+  <article class="card"><span class="eyebrow">Demotion</span><h3>One failure is enough</h3><p class="muted">Live requires every gate. Anything else is paper, which is where all %(n)d strategies are today - not because the site is unfinished, but because the significance gate has not been passed.</p></article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">01 &middot; Signal vs staking</span><h2>Two ranks, on purpose</h2><p class="muted">Both ranks are published for the same strategy. Where they diverge, the staking rank has been moved by results and the signal rank has not - which is exactly the case a single blended score would hide.</p></div></div>
+  %(split)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">02 &middot; The demotion gate</span><h2>What sends a live strategy back to paper</h2></div></div>
+  <div class="grid g2">
+    <article class="card"><span class="eyebrow">Promotion</span><h3>Every gate, every time</h3><p class="muted">A strategy is Live only when it passes all %(ngates)d gates in the same evaluation window. Passing six of seven is paper. There is no partial credit and no conditional promotion.</p></article>
+    <article class="card"><span class="eyebrow">Demotion</span><h3>Any single failure, immediately</h3><p class="muted">Once Live, a strategy returns to paper the moment any gate fails in a re-evaluation: the significance interval re-crosses zero, calibration breaks its tolerance, the minimum sample is not met, or a stability share falls below the declared floor. Re-entry requires passing every gate again from scratch.</p></article>
+    <article class="card"><span class="eyebrow">Retirement</span><h3>After two demotions</h3><p class="muted">A strategy that has been demoted twice is retired rather than cycled again. A model that keeps failing and passing in alternation is showing that the gate is noisy, not that the model is good.</p></article>
+    <article class="card"><span class="eyebrow">Why it exists</span><h3>Because promotion is cheap and demotion is not</h3><p class="muted">Anyone can publish a rule that promotes a hot strategy. The demotion rule is what makes the leaderboard falsifiable: it commits, in advance, to the exact evidence that will take a strategy's eligibility away.</p></article>
+  </div>
+  <div style="margin-top:14px">%(demotion)s</div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03 &middot; Replacement depth</span><h2>The depth matters, not the fact of the replacement</h2><p class="muted">A club missing its third receiver is not in the same position as a club missing its starting quarterback, and a club that lists nine healthy bodies is not in the same position as one that lists three. Every column below is an official count from the Week 10 injury report - no depth-chart string is asserted anywhere, because no official source publishes one.</p></div><span class="tag acc">%(nrep)d clubs</span></div>
+  %(repmap)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">04 &middot; Correlations</span><h2>Every coefficient with its n</h2><p class="muted">A correlation without a sample size is a rumour. The cross-game coefficients rest on a few dozen games; the model-error correlations rest on 105 evaluated games. Both numbers are published, and the interval is published only where it can honestly be computed.</p></div><span class="tag acc">%(ncorr)d values</span></div>
+  %(corr)s
+</section>
+""" % dict(n=len(market_store.leaderboard_split()),
+           price=int(market_store.STAKING_POLICY["american"]),
+           ngates=len(P["leaderboard"][0]["gates"]),
+           split=signal_staking_rows(), demotion=demotion_rows(),
+           nrep=len(replacement_depth_rows()), repmap=replacement_depth_table(),
+           ncorr=corr_with_n_rows()[1], corr=corr_with_n_rows()[0]),
+          "gates.html"))
 
 
 def main():

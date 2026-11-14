@@ -20,6 +20,7 @@ const PAGES = [
   ["strategies.html", "strategies"], ["availability.html", "availability"],
   ["questions.html", "questions"], ["suggestions.html", "suggestions"],
   ["flags.html", "flags"], ["methodology.html", "methodology"],
+  ["markets.html", "markets"], ["results.html", "results"], ["gates.html", "gates"],
 ];
 
 function makeElement(id) {

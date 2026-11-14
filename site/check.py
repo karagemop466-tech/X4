@@ -32,7 +32,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repos
 SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT, "site")
 PAGES = ["index.html", "standings.html", "lines.html", "strategies.html",
          "availability.html", "questions.html", "suggestions.html", "flags.html",
-         "methodology.html"]
+         "methodology.html", "markets.html", "results.html", "gates.html"]
 ASSETS = ["styles.css", "app.js"]
 PLACEHOLDERS = ["TODO", "FIXME", "lorem ipsum", "undefined;", "NaN"]
 

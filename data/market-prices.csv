@@ -1,0 +1,118 @@
+snapshot_id,event_id,away,home,neutral_site,market,line_open_away,line_open_home,line_cur_away,line_cur_home,price_open_away,price_open_home,price_cur_away,price_cur_home,line_close_away,line_close_home,price_close_away,price_close_home,status,note,source_url
+2026W11-OPEN,401873066,IND,HOU,0,spread,+5.5,-5.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873066,IND,HOU,0,spread,,,+10,-10,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds
+2026W11-OPEN,401873066,IND,HOU,0,total,45.5,45.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873066,IND,HOU,0,total,,,44.5,44.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds
+2026W11-OPEN,401873066,IND,HOU,0,moneyline,,,,,+195,-238,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds
+2026W11-PRE,401873066,IND,HOU,0,moneyline,,,,,,,+350,-455,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds
+2026W11-OPEN,401873070,MIA,BUF,0,spread,+11.5,-11.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873070,MIA,BUF,0,spread,,,+16.5,-16.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873070/competitions/401873070/odds
+2026W11-OPEN,401873070,MIA,BUF,0,total,47.5,47.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873070,MIA,BUF,0,total,,,46.5,46.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873070/competitions/401873070/odds
+2026W11-OPEN,401873070,MIA,BUF,0,moneyline,,,,,+440,-600,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873070/competitions/401873070/odds
+2026W11-PRE,401873070,MIA,BUF,0,moneyline,,,,,,,+950,-1650,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873070/competitions/401873070/odds
+2026W11-OPEN,401873071,NO,CHI,0,spread,+6.5,-6.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873071,NO,CHI,0,spread,,,+9.5,-9.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873071/competitions/401873071/odds
+2026W11-OPEN,401873071,NO,CHI,0,total,46.5,46.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873071,NO,CHI,0,total,,,48.5,48.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873071/competitions/401873071/odds
+2026W11-OPEN,401873071,NO,CHI,0,moneyline,,,,,+225,-278,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873071/competitions/401873071/odds
+2026W11-PRE,401873071,NO,CHI,0,moneyline,,,,,,,+370,-485,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873071/competitions/401873071/odds
+2026W11-OPEN,401873073,TEN,DAL,0,spread,+6.5,-6.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873073,TEN,DAL,0,spread,,,+7.5,-7.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873073/competitions/401873073/odds
+2026W11-OPEN,401873073,TEN,DAL,0,total,48.5,48.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873073,TEN,DAL,0,total,,,51.5,51.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873073/competitions/401873073/odds
+2026W11-OPEN,401873073,TEN,DAL,0,moneyline,,,,,+235,-290,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873073/competitions/401873073/odds
+2026W11-PRE,401873073,TEN,DAL,0,moneyline,,,,,,,+330,-425,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873073/competitions/401873073/odds
+2026W11-OPEN,401873072,TB,DET,0,spread,+4.5,-4.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873072,TB,DET,0,spread,,,+3.5,-3.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873072/competitions/401873072/odds
+2026W11-OPEN,401873072,TB,DET,0,total,49.5,49.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873072,TB,DET,0,total,,,47.5,47.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873072/competitions/401873072/odds
+2026W11-OPEN,401873072,TB,DET,0,moneyline,,,,,+190,-230,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873072/competitions/401873072/odds
+2026W11-PRE,401873072,TB,DET,0,moneyline,,,,,,,+150,-180,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873072/competitions/401873072/odds
+2026W11-OPEN,401873067,ARI,KC,0,spread,+11.5,-11.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873067,ARI,KC,0,spread,,,+14,-14,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873067/competitions/401873067/odds
+2026W11-OPEN,401873067,ARI,KC,0,total,44.5,44.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873067,ARI,KC,0,total,,,42.5,42.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873067/competitions/401873067/odds
+2026W11-OPEN,401873067,ARI,KC,0,moneyline,,,,,+440,-600,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873067/competitions/401873067/odds
+2026W11-PRE,401873067,ARI,KC,0,moneyline,,,,,,,+600,-900,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873067/competitions/401873067/odds
+2026W11-OPEN,401873076,PIT,PHI,0,spread,+5.5,-5.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873076,PIT,PHI,0,spread,,,-4.5,+4.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873076/competitions/401873076/odds
+2026W11-OPEN,401873076,PIT,PHI,0,total,42.5,42.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873076,PIT,PHI,0,total,,,38.5,38.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873076/competitions/401873076/odds
+2026W11-OPEN,401873076,PIT,PHI,0,moneyline,,,,,+205,-250,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873076/competitions/401873076/odds
+2026W11-PRE,401873076,PIT,PHI,0,moneyline,,,,,,,-198,+164,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873076/competitions/401873076/odds
+2026W11-OPEN,401873068,BAL,CAR,0,spread,-4.5,+4.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873068,BAL,CAR,0,spread,,,+1.5,-1.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873068/competitions/401873068/odds
+2026W11-OPEN,401873068,BAL,CAR,0,total,46.5,46.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873068,BAL,CAR,0,total,,,44.5,44.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873068/competitions/401873068/odds
+2026W11-OPEN,401873068,BAL,CAR,0,moneyline,,,,,-218,+180,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873068/competitions/401873068/odds
+2026W11-PRE,401873068,BAL,CAR,0,moneyline,,,,,,,+105,-125,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873068/competitions/401873068/odds
+2026W11-OPEN,401873074,NYJ,LAC,0,spread,+9.5,-9.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873074,NYJ,LAC,0,spread,,,+1.5,-1.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873074/competitions/401873074/odds
+2026W11-OPEN,401873074,NYJ,LAC,0,total,41.5,41.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873074,NYJ,LAC,0,total,,,42.5,42.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873074/competitions/401873074/odds
+2026W11-OPEN,401873074,NYJ,LAC,0,moneyline,,,,,+340,-440,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873074/competitions/401873074/odds
+2026W11-PRE,401873074,NYJ,LAC,0,moneyline,,,,,,,+105,-125,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873074/competitions/401873074/odds
+2026W11-OPEN,401873075,LV,DEN,0,spread,+8.5,-8.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873075,LV,DEN,0,spread,,,+8.5,-8.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873075/competitions/401873075/odds
+2026W11-OPEN,401873075,LV,DEN,0,total,41.5,41.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873075,LV,DEN,0,total,,,41.5,41.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873075/competitions/401873075/odds
+2026W11-OPEN,401873075,LV,DEN,0,moneyline,,,,,+330,-425,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873075/competitions/401873075/odds
+2026W11-PRE,401873075,LV,DEN,0,moneyline,,,,,,,+340,-440,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873075/competitions/401873075/odds
+2026W11-OPEN,401873069,JAX,NYG,0,spread,-1.5,+1.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873069,JAX,NYG,0,spread,,,-6,+6,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873069/competitions/401873069/odds
+2026W11-OPEN,401873069,JAX,NYG,0,total,46.5,46.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873069,JAX,NYG,0,total,,,44.5,44.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873069/competitions/401873069/odds
+2026W11-OPEN,401873069,JAX,NYG,0,moneyline,,,,,-125,+105,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873069/competitions/401873069/odds
+2026W11-PRE,401873069,JAX,NYG,0,moneyline,,,,,,,-265,+215,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873069/competitions/401873069/odds
+2026W11-OPEN,401873077,MIN,SF,1,spread,+3.5,-3.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873077,MIN,SF,1,spread,,,+3.5,-3.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873077/competitions/401873077/odds
+2026W11-OPEN,401873077,MIN,SF,1,total,46.5,46.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873077,MIN,SF,1,total,,,45.5,45.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873077/competitions/401873077/odds
+2026W11-OPEN,401873077,MIN,SF,1,moneyline,,,,,+170,-205,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873077/competitions/401873077/odds
+2026W11-PRE,401873077,MIN,SF,1,moneyline,,,,,,,+170,-205,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873077/competitions/401873077/odds
+2026W11-OPEN,401873078,CIN,WAS,0,spread,-1.5,+1.5,,,,,,,,,,,opened,points only: the spread price is not transcribed in this snapshot,
+2026W11-PRE,401873078,CIN,WAS,0,spread,,,-3.5,+3.5,,,,,,,,,current,points only: the spread price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873078/competitions/401873078/odds
+2026W11-OPEN,401873078,CIN,WAS,0,total,52.5,52.5,,,,,,,,,,,opened,points only: the total price is not transcribed in this snapshot,
+2026W11-PRE,401873078,CIN,WAS,0,total,,,51.5,51.5,,,,,,,,,current,points only: the total price is not transcribed in this snapshot,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873078/competitions/401873078/odds
+2026W11-OPEN,401873078,CIN,WAS,0,moneyline,,,,,-125,+105,,,,,,,opened,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873078/competitions/401873078/odds
+2026W11-PRE,401873078,CIN,WAS,0,moneyline,,,,,,,-205,+170,,,,,current,american odds,https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873078/competitions/401873078/odds
+2026W11-CLOSE,401873066,IND,HOU,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873066,IND,HOU,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873066,IND,HOU,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873070,MIA,BUF,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873070,MIA,BUF,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873070,MIA,BUF,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873071,NO,CHI,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873071,NO,CHI,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873071,NO,CHI,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873073,TEN,DAL,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873073,TEN,DAL,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873073,TEN,DAL,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873072,TB,DET,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873072,TB,DET,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873072,TB,DET,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873067,ARI,KC,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873067,ARI,KC,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873067,ARI,KC,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873076,PIT,PHI,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873076,PIT,PHI,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873076,PIT,PHI,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873068,BAL,CAR,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873068,BAL,CAR,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873068,BAL,CAR,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873074,NYJ,LAC,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873074,NYJ,LAC,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873074,NYJ,LAC,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873075,LV,DEN,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873075,LV,DEN,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873075,LV,DEN,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873069,JAX,NYG,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873069,JAX,NYG,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873069,JAX,NYG,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873077,MIN,SF,1,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873077,MIN,SF,1,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873077,MIN,SF,1,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873078,CIN,WAS,0,spread,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873078,CIN,WAS,0,total,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
+2026W11-CLOSE,401873078,CIN,WAS,0,moneyline,,,,,,,,,,,,,pending,"blank by design: the game has not kicked off, so no closing line exists yet",
