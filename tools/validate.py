@@ -22,6 +22,8 @@ PY = sys.executable
 STEPS = [
     ("verify data against official standings", [PY, os.path.join(ROOT, "tools", "verify.py")]),
     ("build published numbers", [PY, os.path.join(ROOT, "tools", "build.py")]),
+    ("check the price store, origination card and results feed",
+     [PY, os.path.join(ROOT, "tools", "market_store.py")]),
     ("build site pages", [PY, os.path.join(ROOT, "tools", "pages.py")]),
     ("write the research findings", [PY, os.path.join(ROOT, "tools", "research.py")]),
     ("sync root copies", [PY, os.path.join(ROOT, "tools", "sync.py")]),

@@ -1,0 +1,102 @@
+team,player,pos,injuries,practice,game_status,player_url
+CAR,Jonathon Brooks,RB,Groin,Limited,Doubtful,https://www.nfl.com/players/jonathon-brooks/
+CAR,Brady Christensen,G,Hamstring,Full,Questionable,https://www.nfl.com/players/brady-christensen/
+CAR,Trevor Etienne,RB,,Full,,https://www.nfl.com/players/trevor-etienne/
+CAR,Chuba Hubbard,RB,,Full,,https://www.nfl.com/players/chuba-hubbard/
+CAR,Lee Hunter,DT,,Full,,https://www.nfl.com/players/lee-hunter/
+CAR,Mike Jackson,CB,Groin,Limited,Doubtful,https://www.nfl.com/players/mike-jackson/
+CAR,Will Lee III,CB,Hamstring,Limited,Questionable,https://www.nfl.com/players/will-lee-iii/
+CAR,Xavier Legette,WR,Knee,Full,Questionable,https://www.nfl.com/players/xavier-legette/
+CAR,Damien Lewis,G,,Full,,https://www.nfl.com/players/damien-lewis/
+CAR,Bobby Okereke,LB,Foot,DNP,Out,https://www.nfl.com/players/bobby-okereke/
+CAR,Jaelan Phillips,LB,Hamstring,Full,Questionable,https://www.nfl.com/players/jaelan-phillips/
+CAR,Torricelli Simpkins III,G,,Full,,https://www.nfl.com/players/torricelli-simpkins-iii/
+NO,Kelvin Banks Jr.,T,,Full,,https://www.nfl.com/players/kelvin-banks-jr/
+NO,CJ Donaldson,RB,Shoulder,DNP,Out,https://www.nfl.com/players/cj-donaldson/
+NO,David Edwards,G,,Full,,https://www.nfl.com/players/david-edwards-x1290/
+NO,Martin Emerson,CB,Shin,Limited,Questionable,https://www.nfl.com/players/martin-emerson/
+NO,Travis Etienne,RB,Hamstring,Full,Questionable,https://www.nfl.com/players/travis-etienne/
+NO,Noah Fant,TE,,Full,,https://www.nfl.com/players/noah-fant-x4946/
+NO,Taliese Fuaga,T,Knee,DNP,Out,https://www.nfl.com/players/taliese-fuaga/
+NO,Alvin Kamara,RB,,Full,,https://www.nfl.com/players/alvin-kamara/
+NO,Erik McCoy,C,Biceps,DNP,Out,https://www.nfl.com/players/erik-mccoy/
+NO,Christen Miller,DT,Knee,DNP,Out,https://www.nfl.com/players/christen-miller/
+NO,Asim Richards,T,,Full,,https://www.nfl.com/players/asim-richards/
+NO,Quincy Riley,CB,,Full,,https://www.nfl.com/players/quincy-riley/
+HOU,Azeez Al-Shaair,LB,"Groin, Not injury related - personal matter",DNP,Out,https://www.nfl.com/players/azeez-al-shaair/
+HOU,Will Anderson Jr.,DE,Ankle,DNP,Questionable,https://www.nfl.com/players/will-anderson-jr/
+HOU,Reed Blankenship,S,,Full,,https://www.nfl.com/players/reed-blankenship/
+HOU,Trent Brown,T,"Wrist, Illness",DNP,Questionable,https://www.nfl.com/players/trent-brown/
+HOU,Tank Dell,WR,,Full,,https://www.nfl.com/players/tank-dell/
+HOU,Blake Fisher,T,,Full,,https://www.nfl.com/players/blake-fisher/
+HOU,Marvin Harrison Jr.,WR,Hamstring,DNP,Out,https://www.nfl.com/players/marvin-harrison-jr/
+HOU,Jacob Hummel,LB,Groin,Full,Questionable,https://www.nfl.com/players/jake-hummel/
+HOU,Danielle Hunter,DE,Hamstring,DNP,Out,https://www.nfl.com/players/danielle-hunter/
+HOU,Brevin Jordan,TE,"Finger, Foot",DNP,Out,https://www.nfl.com/players/brevin-jordan/
+HOU,Woody Marks,RB,,Full,,https://www.nfl.com/players/woody-marks/
+HOU,David Montgomery,RB,Groin,Full,Questionable,https://www.nfl.com/players/david-montgomery/
+HOU,Keylan Rutledge,G,"Neck, Shoulder",DNP,Out,https://www.nfl.com/players/keylan-rutledge/
+HOU,Jaylin Smith,CB,Hamstring,Full,Questionable,https://www.nfl.com/players/jaylin-smith/
+HOU,Wyatt Teller,G,"Illness, Back",Limited,Questionable,https://www.nfl.com/players/wyatt-teller/
+HOU,Tommy Togiai,DT,,Full,,https://www.nfl.com/players/tommy-togiai/
+CLE,Austin Barber,T,,Full,,https://www.nfl.com/players/austin-barber/
+CLE,Denzel Boston,WR,Toe,Limited,Questionable,https://www.nfl.com/players/denzel-boston/
+CLE,Michael Burton,FB,Calf,DNP,Out,https://www.nfl.com/players/michael-burton/
+CLE,Maliek Collins,DT,,Full,,https://www.nfl.com/players/maliek-collins/
+CLE,Harold Fannin Jr.,TE,,Full,,https://www.nfl.com/players/harold-fannin-jr/
+CLE,Ronnie Hickman Jr.,S,Concussion,DNP,Out,https://www.nfl.com/players/ronnie-hickman-jr/
+CLE,Tytus Howard,T,,Full,,https://www.nfl.com/players/tytus-howard-x1979/
+CLE,Elgton Jenkins,C,,Full,,https://www.nfl.com/players/elgton-jenkins/
+CLE,Donovan McMillon,S,,Limited,,https://www.nfl.com/players/donovan-mcmillon-2/
+CLE,Carson Schwesinger,LB,,Full,,https://www.nfl.com/players/carson-schwesinger/
+CLE,Denzel Ward,CB,,Limited,,https://www.nfl.com/players/denzel-ward/
+CLE,Quincy Williams,LB,,Full,,https://www.nfl.com/players/quincy-williams/
+LAR,Davis Allen,TE,Oblique,Limited,Questionable,https://www.nfl.com/players/davis-allen/
+LAR,Steve Avila,G,Hamstring,DNP,Out,https://www.nfl.com/players/steve-avila/
+LAR,Joe Cardona,LS,Ankle,Limited,Questionable,https://www.nfl.com/players/joe-cardona/
+LAR,Kam Curl,S,Toe,Limited,Questionable,https://www.nfl.com/players/kamren-curl/
+LAR,Aaron Donald,DT,,DNP,,https://www.nfl.com/players/aaron-donald/
+LAR,Terrance Ferguson,TE,"Ankle, Hamstring",DNP,Out,https://www.nfl.com/players/terrance-ferguson-2/
+LAR,Braden Fiske,DT,,DNP,,https://www.nfl.com/players/braden-fiske/
+LAR,Myles Garrett,LB,"Knee, Not injury related - resting player",DNP,Questionable,https://www.nfl.com/players/myles-garrett/
+LAR,Tyler Higbee,TE,,Limited,,https://www.nfl.com/players/tyler-higbee/
+LAR,Trent McDuffie,CB,Back,Limited,Questionable,https://www.nfl.com/players/trent-mcduffie/
+LAR,Puka Nacua,WR,,DNP,,https://www.nfl.com/players/puka-nacua/
+LAR,Colby Parkinson,TE,,Full,,https://www.nfl.com/players/colby-parkinson/
+LAR,Matthew Stafford,QB,,Full,,https://www.nfl.com/players/matthew-stafford/
+LAR,Byron Young,LB,,DNP,,https://www.nfl.com/players/byron-young-2/
+ARI,Budda Baker,S,,Full,,https://www.nfl.com/players/budda-baker/
+ARI,Zachary Carter,DT,Knee,Limited,Out,https://www.nfl.com/players/zachary-carter-x9168/
+ARI,Hjalte Froholdt,C,Concussion,DNP,Out,https://www.nfl.com/players/hjalte-froholdt/
+ARI,Jon Gaines II,G,Ankle,DNP,Out,https://www.nfl.com/players/jon-gaines-ii/
+ARI,Bam Knight,RB,,Full,,https://www.nfl.com/players/bam-knight/
+ARI,Hunter Long,TE,Knee,Limited,Questionable,https://www.nfl.com/players/hunter-long/
+ARI,Roy Lopez,DT,"Toe, Ankle",Limited,Questionable,https://www.nfl.com/players/roy-lopez/
+ARI,Max Melton,CB,"Knee, Hand",Limited,Questionable,https://www.nfl.com/players/max-melton/
+ARI,Darius Robinson,DT,Wrist,Limited,Questionable,https://www.nfl.com/players/darius-robinson-2/
+ARI,Isaac Seumalo,G,,Full,,https://www.nfl.com/players/isaac-seumalo/
+ARI,Dante Stills,DT,,Full,,https://www.nfl.com/players/dante-stills/
+ARI,Josh Sweat,LB,,Full,,https://www.nfl.com/players/josh-sweat/
+ARI,Jayden Williams,T,Knee,Limited,Questionable,https://www.nfl.com/players/jayden-williams/
+ARI,Mack Wilson,LB,,Full,,https://www.nfl.com/players/mack-wilson/
+ARI,Andrew Wingard,S,Groin,DNP,Questionable,https://www.nfl.com/players/andrew-wingard/
+SEA,AJ Barner,TE,,Full,,https://www.nfl.com/players/aj-barner/
+SEA,Anthony Bradford,G,,Full,,https://www.nfl.com/players/anthony-bradford/
+SEA,Charles Cross,T,Ankle,DNP,Out,https://www.nfl.com/players/charles-cross-2/
+SEA,Sam Darnold,QB,"Ribs, Quadricep",DNP,Out,https://www.nfl.com/players/sam-darnold/
+SEA,Derick Hall,LB,,DNP,,https://www.nfl.com/players/derick-hall/
+SEA,Drew Lock,QB,,Limited,,https://www.nfl.com/players/drew-lock/
+SEA,Quenton Nelson,G,Knee,DNP,Out,https://www.nfl.com/players/quenton-nelson/
+SEA,Uchenna Nwosu,LB,,Full,,https://www.nfl.com/players/uchenna-nwosu/
+SEA,Patrick O'Connell,LB,,Full,,https://www.nfl.com/players/patrick-o-connell/
+SEA,Connor O'Toole,LB,,Full,,https://www.nfl.com/players/connor-o-toole/
+SEA,Brandon Pili,DT,,Full,,https://www.nfl.com/players/brandon-pili/
+SEA,Jarran Reed,DT,,Full,,https://www.nfl.com/players/jarran-reed/
+SEA,Rashid Shaheed,WR,,Full,,https://www.nfl.com/players/rashid-shaheed/
+SEA,Jaxon Smith-Njigba,WR,,Full,,https://www.nfl.com/players/jaxon-smith-njigba/
+SEA,Leonard Williams,DT,Stinger,DNP,Out,https://www.nfl.com/players/leonard-williams/
+LV,Thomas Booker,DT,Ankle,Full,Questionable,https://www.nfl.com/players/thomas-booker/
+LV,Foley Fatukasi,DT,,Full,,https://www.nfl.com/players/foley-fatukasi/
+LV,Ian Thomas,TE,,Full,,https://www.nfl.com/players/ian-thomas/
+LV,Dont'e Thornton Jr.,WR,Back,DNP,Questionable,https://www.nfl.com/players/dont-e-thornton-jr/
+LV,Trey Zuhn III,C,,Full,,https://www.nfl.com/players/trey-zuhn-iii/

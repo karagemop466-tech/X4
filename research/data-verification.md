@@ -86,6 +86,11 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-26 | Clubs disagree on what a depth chart is, and some say so in writing |
 | F-27 | A published depth chart is not proof of who started |
 | F-28 | Only two position rows have no published replacement, and no row has both starter and backup out |
+| F-29 | Four practice statuses moved between the committed injury snapshot and the 2026-11-14 read |
+| F-30 | No official closing line can exist, so the closing snapshot is stored empty |
+| F-31 | The opening snapshot records points, not the price on those points |
+| F-32 | The publication gate rejected the surname Fagnano as a placeholder marker |
+| F-33 | The depth register on this site contradicted the official injury report for four of its seven rows |
 
 ## What is deliberately absent
 

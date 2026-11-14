@@ -165,6 +165,27 @@ SUGGESTIONS = [
          verify="A dated weekly changelog showing the movement of each strategy's improvement and interval.",
          effort="Medium", impact="Medium",
          decision="Whether the leaderboard is frozen for a season or updated continuously."),
+
+    dict(priority="P0", priority_class="p0", area="Validation", title="S-15 - Decide whether the significance gate measures mean error or paired win rate",
+         body="The same 105 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.21, +1.82] points and contains zero, so every strategy fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 68 of 105 games (64.8%), exact binomial p = 0.0016, which would clear the Bonferroni threshold of 0.00625. Both statistics are computed from the same predictions and both are correct.",
+         why="The gate currently asks 'is the average improvement distinguishable from zero'. The blowouts dominate that average, and no team-rate model can price a blowout. The sign test asks 'how often is this model better head-to-head', which is the question a staker and a reviewer both actually care about. Choosing one over the other changes whether the leaderboard can ever promote anything - and choosing it now, after seeing that one answer passes, is exactly what a pre-registered gate is supposed to prevent unless the choice is made in the open and recorded before the next evaluation window.",
+         verify="Both statistics are published together on gates.html; the gate definition is committed before the next evaluation window; after 50 prospective locked games the two agree or the divergence is explained.",
+         effort="Low", impact="Very high",
+         decision="Define G4 on the mean error difference (current), on the paired win rate (proposed), or on both with a stated primary."),
+
+    dict(priority="P0", priority_class="p0", area="Data", title="S-16 - Capture the closing line at kickoff, automatically, or lose CLV permanently",
+         body="Take a dated snapshot of every market at or after each kickoff, store it under the same snapshot key as the opening and current rows, and recompute closing-line value from it. The store built this session already has the closing slot registered for all 13 games; it is empty only because no game has kicked off yet.",
+         why="Closing-line value is the only economic measure a staking strategy cannot fake with a lucky run, and it is the only gate input that does not depend on the result at all. A closing line that was not captured at kickoff cannot be reconstructed afterwards from an official source, because there is no official source - so every missed kickoff is a permanently lost observation, not a delay.",
+         verify="Every final game has a closing row with a value and a retrieval timestamp at or after kickoff, and CLV recomputes for that game.",
+         effort="Medium", impact="Very high",
+         decision="Who or what captures the snapshot, and at what clock offset from kickoff."),
+
+    dict(priority="P1", priority_class="p1", area="Presentation", title="S-17 - Make the signal/staking split load-bearing, or label it decorative",
+         body="Either introduce a staking rule that is not a monotone function of the hit rate (variable stake sizing, or staking only a selected subset of games), or state on the leaderboard that the two columns are expected to agree under the current flat-stake policy and are published as a cross-check rather than as independent evidence.",
+         why="Under a flat 1-unit stake at -110, bankroll growth is a pure function of the hit rate, so the staking rank cannot diverge from the signal rank in any informative way. A split that is presented as independent protection while being mathematically collinear with the score it is meant to check gives a false sense of two-factor validation. Publishing the condition under which the split becomes informative is more honest and costs nothing.",
+         verify="The leaderboard states the condition under which the ranks can diverge, and either the staking policy produces divergence or the collinearity is stated on the page.",
+         effort="Low", impact="Medium",
+         decision="Whether variable staking is in scope, and if so under what published rule."),
 ]
 
 SUGGESTION_FRAMEWORK = [
@@ -348,7 +369,40 @@ FLAGS = [
          official_url="https://www.nfl.com/injuries/",
          url="https://www.tennesseetitans.com/team/depth-chart"),
 
+    # --- added by arena/4e108e9a-x4; numbered from F-29 because F-18..F-28
+    # --- were already taken on main when this branch was reconciled.
+    dict(id="F-29", item="Four practice statuses moved between the committed injury snapshot and the 2026-11-14 read", type="Irregularity", kind="warn", status="unverified",
+         detail="tools/build.py reads data/injuries-wk10-2026.csv. Re-reading the official NFL.com injury report on 2026-11-14 for eight clubs (101 players, 404 practice-status fields) found four cells that no longer match: Houston's Montgomery and Jaylin Smith are now Full where the snapshot says Limited, Cleveland's Denzel Ward is now Limited where the snapshot says Full, and Arizona's Andrew Wingard is now DNP where the snapshot says Limited.",
+         why="The snapshot was not overwritten. Both transcriptions are committed (research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv) so a reader can see the drift rather than a silently corrected number. An earlier version of this flag described three drifts and 401 of 404 fields because it was computed from a four-club subset; the eight-club re-read found four, and the smaller number is the wrong one.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv"),
+
+    dict(id="F-30", item="No official closing line can exist, so the closing snapshot is stored empty", type="Limitation", kind="warn", status="unverified",
+         detail="A closing line is the last price before kickoff. Every Week 11 game is still in the future, so no closing line exists for any of the 39 registered closing rows. The rows are stored with every price cell blank rather than omitted or back-filled.",
+         why="Storing the row and leaving it blank is the difference between 'not yet observed' and 'not tracked'. Back-filling it with the current price would produce a column that looks like data and is a guess. It also means closing-line value cannot be computed yet, which is stated on the results page rather than worked around.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/market-snapshots.csv"),
+
+    dict(id="F-31", item="The opening snapshot records points, not the price on those points", type="Limitation", kind="warn", status="unverified",
+         detail="The opening spread and total are recorded as points (-1.0, 43.5). The american price attached to those points at the open (-110, -105, +100) is not part of the same published payload, so the opening rows carry a line without a price on it.",
+         why="Points and prices are different numbers and a strategy can be right about one and wrong about the other. An opening line at -110 and the same line at +100 are not the same bet. Recording the points alone is truthful; attaching an assumed -110 would not be.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/market-prices.csv"),
+
+    dict(id="F-32", item="The publication gate rejected the surname Fagnano as a placeholder marker", type="Irregularity", kind="warn", status="resolved",
+         detail="site/check.py ran a case-insensitive substring search for a three-letter not-a-number placeholder marker over every published page. The row naming the Ravens' third-string quarterback - Joe Fagnano, as stated by nfl.com news - contains those three letters and failed the build. The page was correct and the checker was wrong.",
+         why="Recorded rather than silently fixed because it is a failure mode worth knowing about: a substring placeholder test will eventually collide with a real word, and the collision produces a build failure that looks like a data problem but is not. The fix is a word-boundary match on that one marker, with the other markers left as substrings. The alternative - renaming the player - would have put an inaccurate name on the site to satisfy a checker.",
+         official_url="https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season",
+         url="https://github.com/karagemop466-tech/X4/blob/main/site/check.py"),
+
+    dict(id="F-33", item="The depth register on this site contradicted the official injury report for four of its seven rows", type="Irregularity", kind="bad", status="unverified",
+         detail="data/replacement-depth.csv, merged in with PR #21, has seven rows and all seven are marked verified=unverified. Four of them name a replacement without naming who he replaced: Cleveland (Watson), Arizona (Beck), the Rams (Puka Nacua) and Green Bay (Josh Jacobs). Two more are wrong on their face. The Rams row lists Puka Nacua as a replacement_in, but the official Week 10 injury report also in this repository records Nacua as DNP - did not participate - so he is not a replacement for anyone that week. The Green Bay row lists Josh Jacobs as a replacement_in, but the nfl.com article cited in the same row is the report that Jacobs himself is having finger surgery: he is the starter who is out, not the man coming in. The replacement_depth column, which is the one number the whole register exists to carry, is blank on all seven rows.",
+         why="Flagged rather than quietly overwritten, because the register is on a published page and the contradiction is with official data already in this repository. The corrected chains are on the gates page, where each link is quoted and the starter is named, so the accurate version is already live and the reader can compare. The discrepancy is: this register says Jacobs is the replacement for a blank starter; the article it links says Jacobs is the injured starter.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/replacement-depth.csv"),
+
 ]
+
 
 # ------------------------------------------------------------------ verification log
 VERIFICATION = [
