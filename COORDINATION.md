@@ -51,10 +51,10 @@ file scope. Never start work on a task another session has claimed.
 | I2 | Re-verify combined data line by line against official sources | done | arena/59059060-x4 | `tools/verify.py` - 460 checks, all 32 teams match NFL.com on W/L/T/PF/PA/PCT |
 | I3 | Confirm the site builds with no broken links | done | arena/59059060-x4 | `site/check.py` - 859 rendered data rows, every one carrying an official source link; plus a numeric-consistency check on all 32 standings rows |
 | I4 | Publish to GitHub Pages + open PR to main + merge | done | arena/59059060-x4 | see the PR and merge log below |
-| I5 | Merge the two open pull requests (#10 publish race, #11 console polish) after review | in progress | arena/da12b830-x4 | final integration pass |
-| I6 | Independent re-verification of the combined data, line by line, against nfl.com | in progress | arena/da12b830-x4 | standings 32/32 checked against `nfl.com/standings` this session |
-| I7 | Unify navigation and landing page: every page in `site/`, the desk layer and the console reachable from one directory | in progress | arena/da12b830-x4 | closes the open nav-reciprocity request from session `5c48ced7` |
-| I8 | Final publish to GitHub Pages + PR to main + merge + deploy confirmation | in progress | arena/da12b830-x4 | final integration pass |
+| I5 | Merge the two open pull requests (#10 publish race, #11 console polish) after review | done | arena/da12b830-x4 | **Both branches refused to merge** (`fatal: refusing to merge unrelated histories` - `main` was flattened by merge commits). Their content was integrated and re-verified instead; the two defects found in #10 were corrected. PRs #10 and #11 closed with a pointer to the integration PR |
+| I6 | Independent re-verification of the combined data, line by line, against nfl.com | done | arena/da12b830-x4 | standings 32/32, Week 10 injuries (44 rows read individually), Week 11 schedule 13/13 + byes, 57 game rows, 4 correlations + 4 CIs + home edge + mean total recomputed independently. See the session log |
+| I7 | Unify navigation and landing page: every page in `site/`, the desk layer and the console reachable from one directory | done | arena/da12b830-x4 | landing-page directory (`#directory`) + a `Directory` item in the shared top nav. Closes the open nav-reciprocity request from session `5c48ced7` |
+| I8 | Final publish to GitHub Pages + PR to main + merge + deploy confirmation | done | arena/da12b830-x4 | see the pull-request and merge log at the bottom of this file |
 
 ## Requests (log here instead of editing another session's files)
 
@@ -516,3 +516,104 @@ claims.
 | Local reproducibility gate after merge | `build.py && pages.py && sync.py && git diff --exit-code` = clean; desk generators byte-identical |
 
 PR #13 (https://github.com/karagemop466-tech/X4/pull/13) carries this record to `main`; this section's presence on `main` is itself the proof that PR #13 merged (it can only reach `main` through that merge).
+
+---
+
+# Appendix - session `arena/da12b830-x4` (final integration)
+
+The final integration session. It did not change any published number; it re-verified the
+combined data, unified the navigation and the landing page, integrated the two pull
+requests that were still open, corrected the defects found in them, and published.
+
+## Merge-conflict and handoff log
+
+- **PR #10 and PR #11 could not be merged.** Both branches (`arena/59059060-x4`,
+  `arena/528008d6-x4`) had diverged from `main`, which had been flattened by merge
+  commits, so Git refused: `fatal: refusing to merge unrelated histories`. GitHub also
+  reported both as `CONFLICTING`. **Resolution: the content of both pull requests was
+  integrated and re-verified on this branch instead of merging the branches**, which
+  preserves every earlier commit's work without touching anyone else's files. PR #10
+  added `tools/sync.py` (the `docs/` -> `console/` mirror), the mirror gate in
+  `tools/validate.py`, and the `console/**` trigger plus the mirror step in
+  `.github/workflows/pages.yml`; PR #11 corrected the console's stale no-JavaScript
+  fallback counts. Both were then closed with a comment pointing at the integration PR.
+- **A defect in PR #10 was found and fixed before it was taken forward.** The mirror step
+  it proposed exits non-zero on a clean checkout: `diff -rq docs console` reports
+  "Only in docs: check.js" and `diff -rq site .` reports "Only in site: check.py" and
+  "Only in .: site". `check.py` and `check.js` are build tools, not site assets, and the
+  `site` directory is the source of the comparison rather than a file inside it, so all
+  three are now excluded. The step was re-run locally against the committed tree and
+  exits 0. Published as **F-13** (main register) and **R-09** (desk register).
+- **Two stale counts were found on the decision-desk executive summary** and corrected:
+  the injury sample is 22 published rows (not 19) and the irregularity register holds 12
+  entries (not 8).
+
+## What this session changed
+
+- **A landing-page directory** (`#directory`): every published page, grouped by the
+  question it answers - Overview & decisions, Verified data, Model & strategies,
+  Review & flags, Method & sources - plus the X4 Console. The shared top navigation gains
+  a `Directory` item so the whole map is one click from every page. This closes the
+  nav-reciprocity request that session `5c48ced7` left open.
+- **A deterministic publish path**: `tools/sync.py` mirrors `docs/` into `console/` as
+  well as `site/` into the repository root, so the legacy Pages build (which serves the
+  root) and the custom workflow (which uploads `site/`) publish the same bytes. The
+  workflow checks the mirror before it uploads.
+- **Four new flags on the main register (F-13 to F-16)** and four on the desk register
+  (R-09 to R-12), each with a source link.
+- `README.md` rewritten to describe the site by category and the final integration pass.
+
+## Sources used (all fetched directly by this session, 2026-11-14)
+
+`https://www.nfl.com/standings/` (both chunks), `https://www.nfl.com/injuries/`,
+`https://www.nfl.com/schedules/2026/by-week/week-10`, `.../week-11`,
+`https://www.nfl.com/games/commanders-at-giants-2026-reg-10`,
+`https://www.nfl.com/games/49ers-at-rams-2026-reg-1`,
+`https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=11&season=2026`
+(Week-11 byes only; ESPN is a third-party publisher, not an official NFL source, and is
+used for nothing that the site presents as official).
+
+## Verification performed
+
+1. **Standings, all 32 clubs**, re-read from `nfl.com/standings` and compared field by
+   field with `data/standings-wk10-2026.csv`: wins, losses, ties, points for, points
+   allowed and winning percentage match on every club.
+2. **The desk layer's independent transcription** of the same table
+   (`research/data/standings_2026_through_week10_tnf.csv`) was compared club by club with
+   the main dataset: all 32 agree on W/L/T/PF/PA/net, after the documented `LA`/`LAR` and
+   `AZ`/`ARI` label mapping.
+3. **The NFL's own winning-percentage formula** `(w + 0.5t) / (w + l + t)` was recomputed
+   from the CSV and reproduces the published `pct` column for all 32 clubs.
+4. **Injuries**: every row for Washington, New York, New England and Detroit - 44 rows -
+   was read individually from `nfl.com/injuries` and compared with the CSV on name,
+   position, injury, practice status and game status: all 44 match. The per-team row
+   counts match (9, 11, 15, 9) and the 28-team coverage matches the official Week 10
+   bye list (Chicago, Denver, Philadelphia, Tampa Bay).
+5. **Schedule**: all 13 Week 11 games match `nfl.com/schedules/2026/by-week/week-11` on
+   matchup, date, kickoff, network and game-page URL, and the six official bye teams
+   match.
+6. **Games**: the desk layer's 57 week 6-9 rows match `data/games-2026.csv` on every
+   matchup and every score; the full 137-game log is proved against the official
+   standings by `tools/verify.py` (460 checks). Two game pages were opened directly:
+   `commanders-at-giants-2026-reg-10` (24-21) and `49ers-at-rams-2026-reg-1` (27-7),
+   both matching the CSV.
+7. **Statistics recomputed independently** from the committed CSVs: all four Pearson
+   correlations and all four 95% Fisher-z intervals reproduce to the published values
+   (away-home +0.0182, margin-total -0.3224, net-points-win% +0.8717, scoring-rate -
+   0.2041), as do the measured home edge (+0.074 pts, n=54) and the mean game total
+   (44.95). The integrity totals reproduce too: sum PF = sum PA = 6,291; wins = losses =
+   136; ties = 2; games = 57.
+8. **Gates**: `tools/validate.py` PASS (896 sourced data rows in the main site, 682 in
+   the console, 32 standings rows numeric-consistent, the root mirror in step),
+   `site/check.py` PASS in `site/` and at the root, `tools/check_site.py` PASS (11 desk
+   pages, 359 rows, 688 links), `node docs/check.js` PASS, and the publish workflow's
+   mirror step re-run locally with exit code 0.
+
+## Irregularities found (published on the Flagged for review pages)
+
+| Main site | Desk layer | Finding |
+|---|---|---|
+| F-13 | R-09 | The publish mirror check proposed in PR #10 exits non-zero on a clean checkout - fixed and re-run locally |
+| F-14 | R-11 | The Rams and Cardinals are labelled `LAR`/`ARI` in the main dataset and `LA`/`AZ` on NFL.com and in the desk layer - documented, no value differs |
+| F-15 | R-10 | The console's no-JavaScript fallback counts (26, 15) did not match its own data (27, 16) - fixed |
+| F-16 | R-12 | The two flagged registers both number their entries F-01, F-02 ... for different items - documented rather than renumbered |
