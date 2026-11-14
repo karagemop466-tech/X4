@@ -138,12 +138,12 @@
       { label: "PA", num: true }, { label: "NET", num: true }, { label: "PF/G", num: true },
       { label: "PA/G", num: true }, { label: "Source" }],
         st.slice().sort(function (a, b) { return b.pf - b.pf; }).map(function (r) {
-          var gp = r.w + r.l + r.t;
+          var gp = Number(r.w) + Number(r.l) + Number(r.t);
           return [
             '<a href="' + esc(r.url) + '" target="_blank" rel="noreferrer noopener"><b>' + esc(r.team_name) + "</b></a>",
             esc(r.division),
             n(r.w), n(r.l), n(r.t), n(r.pct, 3), n(r.pf), n(r.pa), n(r.net_pts),
-            n(r.pf / gp, 1), n(r.pa / gp, 1),
+            n(Number(r.pf) / gp, 1), n(Number(r.pa) / gp, 1),
             src("https://www.nfl.com/standings/", "NFL.com")
           ];
         }), { note: "Columns W, L, T, PCT, PF, PA and NET PTS are the official NFL.com league standings values, retrieved 14 Nov 2026. PF/G and PA/G are computed from those official totals. NFL.com counts a tie as half a win in PCT." });

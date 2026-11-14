@@ -191,7 +191,42 @@ def main():
                         problems.append("%s: #%s table %d row %d has no official source link"
                                         % (page, el_id, t_i + 1, r_i + 1))
 
+    # ---- 4. numeric consistency: derived columns must match the official columns ----
+    def cells_of(html):
+        rows = []
+        for m in re.finditer(r"<tr\b[^>]*>(.*?)</tr>", html, re.S | re.I):
+            cs = re.findall(r"<t[dh]\b[^>]*>(.*?)</t[dh]>", m.group(1), re.S | re.I)
+            if cs:
+                rows.append([re.sub(r"<[^>]+>", "", c).replace("\u00a0", " ").strip() for c in cs])
+        return rows
+
+    st_rows = cells_of(rendered.get("standings.html", {}).get("elements", {}).get("standings", ""))
+    checked_rows = 0
+    for r in st_rows:
+        if len(r) < 11:
+            continue
+        try:
+            w, l, t = int(r[2]), int(r[3]), int(r[4])
+            pf, pa = int(r[6]), int(r[7])
+            pfg, pag = float(r[9]), float(r[10])
+        except (ValueError, IndexError):
+            continue
+        checked_rows += 1
+        gp = w + l + t
+        if abs(pfg * gp - pf) > 0.51:
+            problems.append("standings: PF/G for %s is %s but PF %s over %d games is %.2f"
+                            % (r[0], r[9], pf, gp, pf / gp))
+        if abs(pag * gp - pa) > 0.51:
+            problems.append("standings: PA/G for %s is %s but PA %s over %d games is %.2f"
+                            % (r[0], r[10], pa, gp, pa / gp))
+        if pf - pa != int(r[8]):
+            problems.append("standings: NET for %s is %s but PF %s minus PA %s is %d"
+                            % (r[0], r[8], pf, pa, pf - pa))
+    if checked_rows != 32:
+        problems.append("standings: expected 32 team rows, checked %d" % checked_rows)
+
     print("pages checked: %d" % checked_pages)
+    print("numeric consistency checked: %d team rows" % checked_rows)
     print("rendered tables checked: %d" % total_tables)
     print("data rows checked: %d (with an official source link: %d)" % (total_rows, sourced_rows))
     if problems:

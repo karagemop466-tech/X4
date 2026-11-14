@@ -682,7 +682,12 @@ payload = {
         "eval_weeks": [min(weeks), max(weeks)],
         "bonferroni_alpha": alpha_adj,
     },
-    "standings": [dict(r, team_name=NAME[r["abbr"]], division=DIVISION[r["abbr"]],
+    "standings": [dict(r,
+                       w=int(r["w"]), l=int(r["l"]), t=int(r["t"]),
+                       pct=float(r["pct"]), pf=int(r["pf"]), pa=int(r["pa"]),
+                       net_pts=int(r["net_pts"]),
+                       gp=int(r["w"]) + int(r["l"]) + int(r["t"]),
+                       team_name=NAME[r["abbr"]], division=DIVISION[r["abbr"]],
                        conference=CONF[r["abbr"]], url=TEAM_URL[r["abbr"]])
                   for r in standings.values()],
     "power": power,
