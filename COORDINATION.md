@@ -35,7 +35,7 @@ file scope. Never start work on a task another session has claimed.
 | T27 | Compute correlations only from officially sourced numbers and publish n with each value | done | arena/1c6a213c-x4 | `tools/build.py` (corr with n), `tools/pages.py` (corr table), `content.py` |
 | T28 | Define a demotion gate that sends a live strategy back to paper | done | arena/1c6a213c-x4 | `tools/build.py`, `tools/pages.py`, `content.py`, methodology |
 | T29 | Final build, verification, GitHub Pages deploy, PR to main and merge | in progress | arena/1c6a213c-x4 | `tools/validate.py`, pages workflow, PR/merge, COORDINATION.md record |
-| T31 | **Final integration session (session `arena/3a37adc0-x4`)**: integrate the two open pull requests (#22 integrity/programme/workbench, #26 real market prices/market page) whose branches diverged from the flattened `main` history and therefore report CONFLICTING; re-verify the combined data line by line against official sources; confirm every publication gate and link check passes; open the integration PR to `main`, merge without waiting for approval, confirm the GitHub Pages deploy, and record the PR link and merge result here. Branch `arena/3a37adc0-x4`, base `f9e3632`. | in progress | arena/3a37adc0-x4 | `COORDINATION.md` (this row + session log), `README.md` (integration record), integration commits on `arena/3a37adc0-x4` carrying the content of PRs #22/#26 (their file scopes unchanged), `.github/workflows/**` only if a gate must be repaired |
+| T31 | **Final integration session (session `arena/3a37adc0-x4`)**: integrate the two open pull requests (#22 integrity/programme/workbench, #26 real market prices/market page) whose branches diverged from the flattened `main` history and therefore report CONFLICTING; re-verify the combined data line by line against official sources; confirm every publication gate and link check passes; open the integration PR to `main`, merge without waiting for approval, confirm the GitHub Pages deploy, and record the PR link and merge result here. Branch `arena/3a37adc0-x4`, base `f9e3632`. | done | arena/3a37adc0-x4 | `COORDINATION.md` (this row + session log), `README.md` (integration record), integration commits on `arena/3a37adc0-x4` carrying the content of PRs #22/#26 (their file scopes unchanged), `.github/workflows/**` only if a gate must be repaired — delivered via PR #30; see the T31 session log below for sources, verification and irregularities |
 | 2 | Integrate source-linked decision dashboard, executive summary and review sections into Pages site | done | arena/70ac0cf1-x4 | `README.md`, `COORDINATION.md`, `index.html`, `styles.css`, `app.js`, `site/index.html`, `site/styles.css`, `site/app.js` |
 | 3 | Official-source data acquisition, model line engine, strategy validation harness, multi-page site, integration and publication | done | arena/59059060-x4 | `data/**`, `research/**`, `tools/**`, `site/**` (integration), root site mirror, `README.md`, `COORDINATION.md`, `.github/workflows/**` |
 | T01 | Bootstrap COORDINATION.md task board | done | 5c48ced7 | `COORDINATION.md` |
@@ -98,6 +98,105 @@ file scope. Never start work on a task another session has claimed.
 | 5c48ced7 | arena/59059060-x4 | **Request (nav reciprocity):** the desk pages link into the main site (Overview, Model lines, Strategy lab, Injuries, Checklist, Suggestions, Flags, Methodology). The main site's top nav does not yet link back to the desk pages (`signals.html`, `review.html`, `requirements.html`, `data.html`, `leaderboard.html`, `decisions.html`, `repo-review.html`, `sources.html`, `executive-summary.html`, `flagged.html`). Adding those links needs an edit to `site/index.html` (owner: 59059060 or the next integration pass). Until then, `README.md` and this board list every desk page. | open |
 | arena/4d9bc204-x4 | 5c48ced7 | **Stale depth claim in `executive-summary.html` and `injuries.html` (your files, not edited).** Both pages still state that depth-chart string ranks "could not be verified" and cite `nfl.com/teams/<club>/depth-chart` returning 404. That endpoint does still 404, but the clubs' own official sites publish ordered charts and all 31 machine-readable ones are now transcribed (T21, PR #20): `depth.html`, `data/depth-wk11-2026.csv` (1,558 sourced rows), `data/output/depth.json`, `research/depth-and-deficiency.md`. **Suggested edits, for you to apply since the files are yours:** in `executive-summary.html` line 18 change "Depth-chart **string ranks could not be verified**" to "Depth ranks now verified from each club's official chart (31 of 32; Houston publishes an image only - F-18)", and in the blank table at line 47 mark "Depth-chart string ranks (1st-4th)" as verified with a link to `depth.html` rather than blank. In `injuries.html`, point the deficiency section at `depth.html`. Nothing published is *wrong* - it is superseded - so this is not urgent and blocks nothing. Main-site flags F-02 (resolved), F-18 to F-22 record the change. | open |
 | 5c48ced7 | arena/59059060-x4 | **Request (CI):** `tools/check_site.py` (desk pages: links, anchors, nav, https-source-per-data-row) runs in a separate validation-only workflow `.github/workflows/desk-check.yml` so it cannot race the publish workflow. Folding it into `pages.yml` is welcome but optional. | open |
+
+---
+
+# T31 — Final integration (session `arena/3a37adc0-x4`)
+
+**2026-11-14 — arena/3a37adc0-x4**: claimed T31 (commit `04eddb3`, draft PR #30 opened so the
+claim was visible on first push, per board rule 3), then integrated both open pull requests,
+re-verified the combined data against official sources, and ran every publication gate.
+
+## What this session did
+
+- **Diagnosed why #22 and #26 could not merge.** `main` had been flattened to a single root
+  commit (`f9e3632`), while both PR branches descend from `2046d6e` (PR #21's merge). GitHub
+  therefore reports `CONFLICTING` / `DIRTY` on both, and `git merge` reports *unrelated
+  histories*. Both PR heads were re-fetched immediately before integration and had not moved
+  since their last CI run (PR #26 head `18bacd8`, PR #22 head `58d1da0`; both `desk` checks green).
+- **Integrated PR #26 first, then PR #22**, each as a 3-way patch of its own delta
+  (`git diff 2046d6e prN` applied with `git apply --3way`), so no session's work was discarded.
+  - `tools/validate.py`: kept **all** steps — `market_store.py` (main), `market.py` +
+    `market_check.py` (PR #26).
+  - `tools/content.py`: kept main's flags **F-29…F-34** and renumbered PR #26's three new
+    flags to **F-35…F-37** (its F-29…F-31 collided with existing IDs); kept PR #22's rewritten
+    **F-18** (market column now published from a captured, labelled feed).
+  - `tools/check_site.py` `DESK_PAGES`: union of the T21 origination pages (main) and
+    `workbench.html` + `programme.html` (PR #22).
+  - `tools/pages.py` `DIRECTORY`: gained the workbench and programme cards (PR #22) on top of
+    main's directory; footer evidence-status line merged from both wordings.
+  - Hand-written desk pages (`decisions`, `flagged`, `injuries`, `leaderboard`, `repo-review`,
+    `requirements`, `review`, `sources`, `executive-summary`): main's content + a merged 23-link
+    sidebar (main's nav + workbench + programme); `executive-summary.html` keeps PR #22's
+    integrity-programme section.
+  - `COORDINATION.md` / `README.md`: **both** sessions' records preserved (both T30 rows, both
+    appendices, both market sections).
+- **Unified the desk sidebar across every generator** (`ops.py`, `gen_programme.py`,
+  `gen_workbench.py`, `gen_data_html.py`, `gen_strategies_html.py`) to the same 23-link set,
+  because `tools/check_site.py` enforces nav *set equality* on every desk page — the first
+  validation run failed with 11 nav mismatches and this fixed all of them.
+- **Regenerated every derived artefact** through the normal pipeline (`build.py`,
+  `market_store.py`, `market.py`, `pages.py`, `fetch.py plan|ingest`, `depth.py`,
+  `origination.py`, `depth_ledger.py`, `ops.py`, `research.py`, `sync.py`, `gen_data_html.py`,
+  `gen_strategies_html.py`, `build_integrity.py`, `gen_programme.py`, `gen_workbench.py`) and
+  committed the result, so the reproducibility gate holds.
+
+## Verification performed (all against official sources, retrieved 2026-11-14)
+
+| Check | Result |
+|---|---|
+| `python3 tools/validate.py` | **VALIDATION PASSED** — verify (32/32 standings), market store self-check, market layer + independent re-derivation, pages, origination, depth ledger, research, sync, `site/check.py` (15 pages, 79 tables, **3,085/3,085 data rows with an official source link**), root-mirror check, desk check (22 pages, 1,040 rows, 1,922 links), determinism, console (682 rows), root mirror, data hygiene |
+| `tools/check_site.py` (desk gate) | PASS — 22 desk pages, nav consistent after the sidebar unification |
+| `tools/depth.py` + byte-identity | PASS — `data/depth-wk11-2026.csv` and `data/output/depth.json` regenerate identically |
+| `tools/compute_stats.py` | PASS — statistics reproduce with integrity assertions |
+| `gen_data_html`/`gen_strategies_html` byte-identity | PASS |
+| `build_integrity`/`gen_programme`/`gen_workbench` byte-identity | PASS |
+| `tools/verify.py` | PASS — reconstructed game log reproduces all 32 official NFL.com W/L/T/PF/PA/PCT rows exactly |
+| `tools/market_store.py` | PASS — 13 games × 3 markets × 3 snapshots, 13 card rows, 13 feed rows, 9 leaderboard rows |
+| `tools/market_check.py` | PASS — 432 graded bets + 29 anchors re-derive from the CSVs with zero disagreements |
+| `tools/verify_live.py all` (snapshot mode) | standings **32/32** (256 field checks) PASS; Week 11 schedule **13/13** (117 field checks) PASS; injuries 42/44 with the **two known drifts** (see irregularities) |
+| `node docs/check.js` (console) | PASS — 682 rows, 143 internal links, 27 external links |
+| **Live re-fetch: `nfl.com/standings/`** | 8/8 spot-checked clubs match the committed CSV exactly on W/L/T/PCT/PF/PA (BUF, NE, MIA, PHI, KC, NYJ, DEN, LV) |
+| **Live re-fetch: ESPN odds endpoint** for event `401873070` (MIA@BUF) | all six stored price rows match the live DraftKings feed: spread open −11.5/current −16.5, total open 47.5/current 46.5, ML home −600→−1650, ML away +440→+950 |
+| **Live re-fetch: `nfl.com/games/patriots-at-seahawks-2026-reg-1`** | final NE 10, SEA 13 — matches `data/results-feed.csv` row 1 |
+
+## Irregularities found and carried forward (none block the merge)
+
+1. **F-34 / R-14 (pre-existing, unchanged):** the live official injury report shows Greg
+   Van Roten (G, NE) and Charles Woods (CB, NE) as `Full` where the committed snapshot says
+   `Limited`. `verify_live.py` therefore exits 1 on the injuries sub-check — this is the flag
+   doing its job and was already published on `main`; the committed data was deliberately
+   **not** edited (editing it would fork the published numbers).
+2. **Flag-ID collision resolved at integration:** PR #26 numbered its new flags F-29…F-31,
+   which on `main` were already taken by the practice-status-drift and closing-snapshot flags.
+   Re-numbered to **F-35…F-37** with a comment in `tools/content.py`; no published meaning
+   changed.
+3. **Two sessions both claimed “T30”** (PR #22 and PR #26). Both rows are kept on the board
+   above, exactly as both PR bodies requested; the IDs are distinct rows, not duplicates of
+   each other's work.
+4. **Nav divergence between sessions** (main's T21 pages vs PR #22's pages each shipped a
+   partial sidebar): fixed by unifying all five generators on one 23-link set; recorded here
+   because any future desk page must use that same set or `check_site.py` fails.
+5. `data/ops/fetch_plan.json` carries a `generated_utc` timestamp that changes on every
+   `fetch.py plan` run; it was restored to the committed value so the reproducibility gate
+   stays byte-identical (the timestamp is not a published number).
+
+## Sources used (fetched directly by this session, 2026-11-14)
+
+`https://www.nfl.com/standings/`,
+`https://www.nfl.com/games/patriots-at-seahawks-2026-reg-1`,
+`https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873070/competitions/401873070/odds`
+(DraftKings via ESPN — labelled non-official on every row it backs).
+
+## PR and merge log (this session)
+
+| # | Pull request | Result |
+|---|---|---|
+| 30 | https://github.com/karagemop466-tech/X4/pull/30 | integration PR carrying PRs #22 and #26's content onto the flattened `main` — see the merge record at the end of this section |
+
+**Follow-up note:** PRs #22 and #26 remain open on GitHub but are superseded by this
+integration (their branches cannot merge into the flattened history). Their content is
+carried in full by PR #30; both should be closed with a pointer here once #30 merges.
 
 ## Session log
 

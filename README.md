@@ -223,6 +223,28 @@ The last session (`arena/da12b830-x4`) closed the site out:
 - **Two stale counts were corrected** in the desk executive summary (the injury sample is
   22 published rows, not 19; the irregularity register holds 12 entries, not 8).
 
+## The T31 integration (session `arena/3a37adc0-x4`)
+
+The two pull requests that were still open — **#22** (integrity gates, decision programme,
+suggestion workbench) and **#26** (real captured market prices, skill-vs-staking boards,
+numeric demotion gate, market page) — both branched from the pre-flatten history and so
+reported `CONFLICTING` against `main`. This session took their content forward the same way
+earlier integrations did:
+
+- Each PR's own delta (`git diff 2046d6e prN`) was applied 3-way onto the branch, so nothing
+  either session wrote was discarded. `tools/validate.py` keeps **all** steps from both sides;
+  `tools/content.py` keeps main's flags and renumbers PR #26's new flags to F-35…F-37 (they
+  collided with existing IDs); `DESK_PAGES`, the landing directory and the desk sidebar are
+  the union of both sessions' pages — one 23-link nav shared by every desk page and generator.
+- Every derived page was regenerated through the normal pipeline and committed, so the
+  reproducibility gate holds: `python3 tools/validate.py` **PASSES** (3,085/3,085 data rows
+  carry an official source link; desk, console, root-mirror and determinism checks green).
+- The combined data was re-checked against sources fetched live in this session: 8/8 clubs
+  spot-checked on `nfl.com/standings`, all six stored price rows for MIA@BUF against the
+  ESPN/DraftKings odds endpoint, and the NE@SEA week-1 result against its official NFL.com
+  game page (10–13, as stored). `verify_live.py` standings 32/32 and schedule 13/13 PASS;
+  the injuries sub-check still reports the two known drifts already published as F-34/R-14.
+
 ## Sources
 
 Official NFL.com pages only for published values: the league standings, the weekly injury
