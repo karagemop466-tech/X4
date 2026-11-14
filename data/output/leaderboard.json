@@ -10,18 +10,18 @@
   },
   "metrics": {
    "n": 105,
-   "spread_mae": 9.259948771318005,
-   "spread_rmse": 12.497922050339724,
-   "total_mae": 11.447769698022432,
-   "total_rmse": 13.908931891179769,
-   "direction_accuracy": 0.6571428571428571
+   "spread_mae": 9.259948771,
+   "spread_rmse": 12.49792205,
+   "total_mae": 11.447769698,
+   "total_rmse": 13.908931891,
+   "direction_accuracy": 0.657142857
   },
-  "improvement_abs": 0.8396007918408461,
-  "improvement_pct": 0.08313249879019782,
-  "ci_low": -0.22618865026579146,
-  "ci_high": 1.882304013288905,
+  "improvement_abs": 0.839600792,
+  "improvement_pct": 0.083132499,
+  "ci_low": -0.210639064,
+  "ci_high": 1.82207858,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.07596066166092275,
+  "calibration_max_gap": 0.075960662,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -37,7 +37,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.226, 1.882]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.211, 1.822]."
    },
    "G5 stability": {
     "pass_": true,
@@ -67,18 +67,18 @@
   },
   "metrics": {
    "n": 105,
-   "spread_mae": 9.294807776824971,
-   "spread_rmse": 12.506205769946112,
-   "total_mae": 11.568361796455898,
-   "total_rmse": 14.034701768940955,
-   "direction_accuracy": 0.6476190476190476
+   "spread_mae": 9.294807777,
+   "spread_rmse": 12.50620577,
+   "total_mae": 11.568361796,
+   "total_rmse": 14.034701769,
+   "direction_accuracy": 0.647619048
   },
-  "improvement_abs": 0.8047417863338797,
-  "improvement_pct": 0.07968095817554258,
-  "ci_low": -0.2495692306783855,
-  "ci_high": 1.8520982998174103,
+  "improvement_abs": 0.804741786,
+  "improvement_pct": 0.079680958,
+  "ci_low": -0.234555826,
+  "ci_high": 1.824891907,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.06526975184606965,
+  "calibration_max_gap": 0.065269752,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -94,7 +94,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.250, 1.852]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.235, 1.825]."
    },
    "G5 stability": {
     "pass_": true,
@@ -124,18 +124,18 @@
   },
   "metrics": {
    "n": 105,
-   "spread_mae": 9.389789343686067,
-   "spread_rmse": 12.5955667678706,
-   "total_mae": 11.215598522860985,
-   "total_rmse": 13.669622224820557,
-   "direction_accuracy": 0.6285714285714286
+   "spread_mae": 9.389789344,
+   "spread_rmse": 12.595566768,
+   "total_mae": 11.215598523,
+   "total_rmse": 13.669622225,
+   "direction_accuracy": 0.628571429
   },
-  "improvement_abs": 0.7097602194727841,
-  "improvement_pct": 0.07027642322404638,
-  "ci_low": -0.5342644992562805,
-  "ci_high": 1.8814441016457342,
+  "improvement_abs": 0.709760219,
+  "improvement_pct": 0.070276423,
+  "ci_low": -0.518581297,
+  "ci_high": 1.892842147,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.07352549765240513,
+  "calibration_max_gap": 0.073525498,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -151,7 +151,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.534, 1.881]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.519, 1.893]."
    },
    "G5 stability": {
     "pass_": true,
@@ -181,18 +181,18 @@
   },
   "metrics": {
    "n": 105,
-   "spread_mae": 9.494123257419707,
-   "spread_rmse": 12.68789100169177,
-   "total_mae": 11.170168337272658,
-   "total_rmse": 13.597730094538496,
-   "direction_accuracy": 0.6095238095238096
+   "spread_mae": 9.494123257,
+   "spread_rmse": 12.687891002,
+   "total_mae": 11.170168337,
+   "total_rmse": 13.597730095,
+   "direction_accuracy": 0.60952381
   },
-  "improvement_abs": 0.6054263057391438,
-  "improvement_pct": 0.05994587203647365,
-  "ci_low": -0.20239216558591944,
-  "ci_high": 1.4263712510700974,
+  "improvement_abs": 0.605426306,
+  "improvement_pct": 0.059945872,
+  "ci_low": -0.213092878,
+  "ci_high": 1.447944422,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.05857366685170973,
+  "calibration_max_gap": 0.058573667,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -208,7 +208,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.202, 1.426]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.213, 1.448]."
    },
    "G5 stability": {
     "pass_": true,
@@ -238,18 +238,18 @@
   },
   "metrics": {
    "n": 105,
-   "spread_mae": 9.765430806409382,
-   "spread_rmse": 12.81953898557684,
-   "total_mae": 11.033104867588682,
-   "total_rmse": 13.523094767089205,
-   "direction_accuracy": 0.5714285714285714
+   "spread_mae": 9.765430806,
+   "spread_rmse": 12.819538986,
+   "total_mae": 11.033104868,
+   "total_rmse": 13.523094767,
+   "direction_accuracy": 0.571428571
   },
-  "improvement_abs": 0.33411875674946856,
-  "improvement_pct": 0.033082540430146246,
-  "ci_low": -0.44360266656990865,
-  "ci_high": 1.0554717511487635,
+  "improvement_abs": 0.334118757,
+  "improvement_pct": 0.03308254,
+  "ci_low": -0.448981597,
+  "ci_high": 1.099072331,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.06483429097016791,
+  "calibration_max_gap": 0.064834291,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -265,7 +265,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.444, 1.055]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.449, 1.099]."
    },
    "G5 stability": {
     "pass_": true,
@@ -295,18 +295,18 @@
   },
   "metrics": {
    "n": 105,
-   "spread_mae": 9.83347647803065,
-   "spread_rmse": 12.859686383295541,
-   "total_mae": 11.063830057961015,
-   "total_rmse": 13.597454362339393,
-   "direction_accuracy": 0.5714285714285714
+   "spread_mae": 9.833476478,
+   "spread_rmse": 12.859686383,
+   "total_mae": 11.063830058,
+   "total_rmse": 13.597454362,
+   "direction_accuracy": 0.571428571
   },
-  "improvement_abs": 0.26607308512820005,
-  "improvement_pct": 0.026345044743260805,
-  "ci_low": -0.49220349925584983,
-  "ci_high": 0.9461698214410778,
+  "improvement_abs": 0.266073085,
+  "improvement_pct": 0.026345045,
+  "ci_low": -0.480984396,
+  "ci_high": 0.970525185,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.0726622287739227,
+  "calibration_max_gap": 0.072662229,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -322,7 +322,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.492, 0.946]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.481, 0.971]."
    },
    "G5 stability": {
     "pass_": true,
@@ -351,18 +351,18 @@
   },
   "metrics": {
    "n": 105,
-   "spread_mae": 9.91381681575806,
-   "spread_rmse": 12.95252804513172,
-   "total_mae": 11.02937046662053,
-   "total_rmse": 13.548594343527753,
-   "direction_accuracy": 0.5523809523809524
+   "spread_mae": 9.913816816,
+   "spread_rmse": 12.952528045,
+   "total_mae": 11.029370467,
+   "total_rmse": 13.548594344,
+   "direction_accuracy": 0.552380952
   },
-  "improvement_abs": 0.18573274740078993,
-  "improvement_pct": 0.01839020109157205,
-  "ci_low": -0.5905574359131629,
-  "ci_high": 0.910087745538208,
+  "improvement_abs": 0.185732747,
+  "improvement_pct": 0.018390201,
+  "ci_low": -0.573191231,
+  "ci_high": 0.927754048,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.07584224691962382,
+  "calibration_max_gap": 0.075842247,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -378,7 +378,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.591, 0.910]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.573, 0.928]."
    },
    "G5 stability": {
     "pass_": true,
@@ -408,18 +408,18 @@
   },
   "metrics": {
    "n": 105,
-   "spread_mae": 10.075512223720992,
-   "spread_rmse": 13.101649877788644,
-   "total_mae": 11.036476310667982,
-   "total_rmse": 13.5884358170848,
-   "direction_accuracy": 0.49523809523809526
+   "spread_mae": 10.075512224,
+   "spread_rmse": 13.101649878,
+   "total_mae": 11.036476311,
+   "total_rmse": 13.588435817,
+   "direction_accuracy": 0.495238095
   },
-  "improvement_abs": 0.024037339437859018,
-  "improvement_pct": 0.002380040742167597,
-  "ci_low": -0.7568362378680461,
-  "ci_high": 0.7338929345184051,
+  "improvement_abs": 0.024037339,
+  "improvement_pct": 0.002380041,
+  "ci_low": -0.750545355,
+  "ci_high": 0.758905909,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.06941481978337866,
+  "calibration_max_gap": 0.06941482,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -435,7 +435,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.757, 0.734]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.751, 0.759]."
    },
    "G5 stability": {
     "pass_": true,
@@ -462,18 +462,18 @@
   "params": {},
   "metrics": {
    "n": 105,
-   "spread_mae": 10.09954956315885,
-   "spread_rmse": 12.779069477099993,
-   "total_mae": 11.121755668935869,
-   "total_rmse": 13.429794343662232,
-   "direction_accuracy": 0.42857142857142855
+   "spread_mae": 10.099549563,
+   "spread_rmse": 12.779069477,
+   "total_mae": 11.121755669,
+   "total_rmse": 13.429794344,
+   "direction_accuracy": 0.428571429
   },
   "improvement_abs": 0.0,
   "improvement_pct": 0.0,
   "ci_low": 0.0,
   "ci_high": 0.0,
   "weekly_positive_share": 0.0,
-  "calibration_max_gap": 0.052665238109477375,
+  "calibration_max_gap": 0.052665238,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
