@@ -12,7 +12,7 @@ questions to suggestions.
 |---|---|
 | `data/` | The verified source data: 137 official games, the official standings for all 32 teams, the official Week 10 injury report, the official Week 11 schedule, and league-confirmed starter changes |
 | `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
-| `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, data verification, and the sources register |
+| `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, depth-chart acquisition, data verification, and the sources register |
 | `tools/` | The pipeline: `verify.py` proves the data, `build.py` produces every published number, `pages.py` and `sync.py` build the site, `validate.py` runs the whole gate |
 | `site/` | The published multi-page site: nine generated pages plus eleven decision-desk pages, all statically rendered |
 | `docs/` | The X4 Console - a second, independent build of the same project, published at `/console/` |
@@ -27,7 +27,7 @@ it answers, so nothing has to be guessed at.
 | Category | Pages |
 |---|---|
 | Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) |
-| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) |
+| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) |
 | Model & strategies | `lines.html` (13 Week-11 model lines) · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) |
 | Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `flags.html` (main register) · `flagged.html` (desk register) |
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
@@ -73,6 +73,30 @@ counted as four independent pieces of evidence. Model lines for all 13 official
 Week 11 games are published as a range across strategies, with the market-line column
 deliberately empty: the NFL publishes no official betting lines and no licensed odds feed
 has been authorised for this repository.
+
+## Roster depth: which starters are actually missing
+
+`depth.html` answers the depth question from an official source. The league publishes no
+consolidated depth chart and `nfl.com/teams/<club>/depth-chart` 404s, but **each club publishes
+its own chart on its own official website as a table whose column position is the depth
+position**. 31 of the 32 clubs publish a machine-readable ordered chart; all 1,558 positions are
+transcribed with a link to the page each came from, and joined by name to the official NFL.com
+Week 10 injury report.
+
+| Measure | Week 10 |
+|---|---|
+| Out/Doubtful players who sit on their club's chart | 57 of 76 |
+| ... at **depth 1** (the listed starter) | **40** (23 offense, 17 defense) |
+| Clubs with at least one listed starter out | 19 |
+| Positions where the club names nobody behind a ruled-out starter | 2 (both Tennessee) |
+| Cascades - starter *and* his listed backup both out | **0** |
+
+The zero is published deliberately. Any model that assumes a second- or third-string cascade is
+happening in Week 10 would be inventing it. Houston publishes its chart only as an image, so it
+contributes no rows (F-18); 19 ruled-out players who are absent from their own club's chart are
+listed by name rather than given a guessed rank (F-19), which makes the starter-out figure a
+floor. A published chart is not proof of who started - that is F-21, and ingesting the official
+game books is the fix ranked first in the suggestions queue.
 
 ## What is deliberately missing, and why
 

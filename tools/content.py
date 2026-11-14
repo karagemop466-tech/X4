@@ -89,12 +89,12 @@ SUGGESTIONS = [
          effort="Low", impact="High",
          decision="Agree the retention window and the fetch schedule."),
 
-    dict(priority="P0", priority_class="p0", area="Data", title="Ingest the official game books for snaps, starters and drives",
-         body="Add an ingestion step for the official NFL.com box scores of every completed game, producing snap counts, starter/backup depth ranks, possession splits and drive-level efficiency.",
-         why="This is the single largest gap. Depth-chart depth (question 3), long-term absences (question 4) and roster quality (question 6) all become measurable once snaps and starters are in hand. Everything else on this site is a scoring-rate model.",
-         verify="An absence is assigned a measured point value, and a depth rank can be quoted with a source link for every player.",
-         effort="High", impact="Very high",
-         decision="Confirm the game-book format is acceptable to parse and redistribute in this repository."),
+    dict(priority="P0", priority_class="p0", area="Data", title="Repeat the depth capture every week and archive it, then add the official game books for snaps",
+         body="The depth half of this suggestion is now delivered for one week: tools/depth.py transcribes all 31 clubs that publish an ordered chart (1,558 positions) and joins them to the official injury report, on the Depth &amp; deficiency page. The remaining work is (a) run that same capture every week and keep every snapshot with its retrieval date, and (b) ingest the official game books so that snap counts and the players who actually took the first snap are recorded.",
+         why="A single-week snapshot is the right shape for originating next week's line and the wrong shape for backtesting: a Week-w forecast may only see what was known before Week w, so an availability term cannot enter the walk-forward model until the capture has been running for a stretch of weeks and been archived. The game books close the second half - a published chart is not proof of who started (F-21) - and they are what turns an absence into a measured point value.",
+         verify="An availability term can be added to a Week-w forecast using only snapshots dated before Week w, and a starter can be confirmed from the game book rather than from the pre-game chart.",
+         effort="Medium", impact="Very high",
+         decision="Confirm the game-book format is acceptable to parse and redistribute, and commit to the weekly capture schedule plus the retention window."),
 
     dict(priority="P0", priority_class="p0", area="Market", title="Decide the market strategy before building any pricing",
          body="Either authorise a licensed odds feed, or state formally that the project prices its own lines and never compares them to a market. The current code deliberately contains no odds path.",
@@ -185,11 +185,11 @@ FLAGS = [
          official_url="https://www.nfl.com/",
          url="https://www.nfl.com/"),
 
-    dict(id="F-02", item="Depth-chart string: starter, 2nd, 3rd, 4th", type="Unverified data", kind="no", status="unverified",
-         detail="No player on this site is assigned a depth-chart rank.",
-         why="The NFL publishes no consolidated official depth chart; clubs publish their own on their official sites, and those were not captured or archived for this build. Assigning a rank from inference would be fabrication.",
+    dict(id="F-02", item="Depth-chart string: starter, 2nd, 3rd, 4th", type="Unverified data", kind="ok", status="resolved",
+         detail="This was open in the first build: no player on the site was assigned a depth position, because nfl.com/teams/<club>/depth-chart returns HTTP 404 for every club. It is now closed from an official source. Each club's own official website publishes its depth chart as an ordered table, and the column order is the depth position - first name in a row = starter, second = backup, third = third string. 31 of the 32 clubs publish a machine-readable ordered chart, and all 1,558 depth rows are on the Depth &amp; deficiency page with a link to the club page each one came from.",
+         why="The league publishes no consolidated chart, but the clubs are the authority on their own depth and they publish it themselves. Recording the ordering the club itself prints is a transcription, not an inference: no rank is assigned where the club does not print one, co-starters are kept as co-starters, and a club that publishes its chart only as an image (Houston) is left blank and flagged as F-18 instead of being guessed at.",
          official_url="https://www.nfl.com/teams/",
-         url="https://www.nfl.com/teams/"),
+         url="https://www.buffalobills.com/team/depth-chart"),
 
     dict(id="F-03", item="Players on injured reserve, PUP and NFI", type="Limitation", kind="warn", status="limitation",
          detail="The public Week 10 injury page omits players on IR/PUP/NIR. Baltimore's starting quarterback, for example, appears only in league news.",
@@ -280,6 +280,74 @@ FLAGS = [
          why="The main site's seven are the gates that can actually be scored from the official data that exists; the other two are written as designs for gates that cannot yet be evaluated. A reader comparing the layers would reasonably ask which inventory is authoritative, so each layer states its own count on its own page and the difference is recorded here rather than left to be discovered.",
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"),
+
+
+    dict(id="F-18", item="Market betting lines (spread, total, moneyline)", type="Unverified data", kind="no", status="unverified",
+         detail="No market spread, total or moneyline is published anywhere on this site. The market-line cells are blank, and the difference column (fair line minus market line) is blank as a consequence.",
+         why="The NFL publishes no official betting lines, and no licensed odds feed has been authorised for this repository. Filling the market column from a secondary aggregator would violate the blank-unless-official rule, so every market-line cell stays blank and is flagged.",
+         official_url="https://www.nfl.com/",
+         url="https://www.nfl.com/"),
+
+    dict(id="F-19", item="Staking / bankroll figures", type="Unverified data", kind="no", status="unverified",
+         detail="No staking, bankroll, Kelly or position-sizing figure is published for any strategy. The staking column of the leaderboard is blank.",
+         why="Staking requires market prices and bankroll rules. With no licensed odds feed, no staking figure can be computed, which is exactly what keeps a lucky staking run from masquerading as signal.",
+         official_url="https://www.nfl.com/",
+         url="https://www.nfl.com/"),
+
+    dict(id="F-20", item="ROI and expected-value figures", type="Unverified data", kind="no", status="unverified",
+         detail="No ROI, expected value or parlay price is published for any bet, combination or player prop.",
+         why="ROI needs a settled result (available in the verified results feed) AND a price at which the bet was taken (not available, see F-18). Until a price feed is authorised, ROI cells stay blank rather than be invented.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         url="https://www.nfl.com/schedules/2026/by-week/week-10"),
+
+    dict(id="F-21", item="Replacement depth: starter, 2nd, 3rd, 4th string", type="Unverified data", kind="no", status="unverified",
+         detail="No player on this site is assigned a replacement depth. The replacement-depth table records who replaced whom and why, but the depth column is blank for every row.",
+         why="The NFL publishes no consolidated league depth chart that labels 1st/2nd/3rd/4th string, so any depth rank would be an invention. The fact of a replacement is tracked from league reporting; the depth of that replacement is not.",
+         official_url="https://www.nfl.com/teams/",
+         url="https://www.nfl.com/teams/"),
+
+    dict(id="F-22", item="Demotion gate basis", type="Limitation", kind="warn", status="limitation",
+         detail="The demotion gate (live strategy -> paper trading) is a project design choice, not an official NFL rule.",
+         why="No league or regulator publishes a demotion gate for betting strategies. The gate's thresholds (5-game rolling window, 0.12 calibration gap, 10-game paper return) are analyst choices and should be challenged before any live use.",
+         official_url="https://operations.nfl.com/rules-officiating/2026-nfl-rulebook",
+         url="https://operations.nfl.com/rules-officiating/2026-nfl-rulebook"),
+
+    dict(id="F-23", item="Price-snapshot store values are model estimates, not official lines", type="Limitation", kind="warn", status="limitation",
+         detail="The price-snapshot store records the opening and closing fair lines we originate for each market. The opening values are model estimates (S3 recommended line) derived from official NFL.com results; the closing values are blank until the games close.",
+         why="Because we originate our own lines, the snapshot store is our own record. It is not a market observation and must not be read as an official or sportsbook line.",
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://www.nfl.com/schedules/2026/by-week/week-11"),
+
+    dict(id="F-24", item="The Houston Texans publish their depth chart only as an image", type="Unverified data", kind="no", status="unverified",
+         detail="houstontexans.com/team/depth-chart renders its chart as a single bitmap image with no table markup and no ordered text, so no Houston depth position can be transcribed from it. Houston is the only club of the 32 with no rows on the Depth &amp; deficiency page.",
+         why="The five Houston players the official NFL injury report rules Out or Doubtful for Week 10 (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) therefore have no published depth position on this site. Reading a rank off a picture would be an eyeball inference, so those cells are blank and the five names are listed as unmatched instead.",
+         official_url="https://www.houstontexans.com/team/depth-chart",
+         url="https://www.houstontexans.com/team/depth-chart"),
+
+    dict(id="F-25", item="19 officially ruled-out players do not appear on their own club's published depth chart", type="Irregularity", kind="warn", status="irregularity",
+         detail="Of the 76 players the official Week 10 injury report lists as Out or Doubtful, 57 appear somewhere on their club's published depth chart and 19 do not: Lucas Patrick (WAS), Kerby Joseph (DET), Omarr Norman-Lott (KC), Micah Parsons (GB), BJ Green II (JAX), Tommy Townsend (TEN), Luke Rhodes (IND), Jonathon Brooks and Mike Jackson (CAR), Terrance Ferguson (LAR), Zachary Carter (ARI), Jalen Davis, Andrei Iosivas and Brian Parker II (CIN), plus the five Houston players above.",
+         why="A club's depth chart is editorial and lags roster moves, so an absent name is not evidence the player is not on the team. The effect on this site is conservative: those 19 absences are counted in the official injury totals but not in the depth-based starter-out score, so the starter-out figures are a floor, not a ceiling. Each is listed by name on the Depth &amp; deficiency page so a reviewer can chase them individually.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://www.tennesseetitans.com/team/depth-chart"),
+
+    dict(id="F-26", item="Clubs disagree on what a depth chart is, and some say so in writing", type="Irregularity", kind="warn", status="irregularity",
+         detail="The Patriots state that their chart 'is unofficial and is published by the writers of Patriots.com' and does not necessarily reflect the organization's view. The Jets and Eagles say theirs is compiled by their communications departments. The Chiefs, Vikings, Rams, Titans, Bears, Bengals and Cardinals stamp a date on theirs (10-31 to 11-10); the others do not. Section and position labels differ club to club - DL / DT / NT / EDGE / RUSH / LOLB / WILL / MIKE / SAM / NCB / NICKEL / DB.",
+         why="The ordering is official in the sense that the club publishes it, but it is editorial rather than a league record, and its vintage varies by up to a fortnight. No attempt is made here to reconcile the label vocabularies into a single taxonomy; each row keeps the club's own position label, so a reviewer sees exactly what the club printed. The date each club stamps is shown where one exists and left blank where the club stamps none.",
+         official_url="https://www.patriots.com/team/depth-chart",
+         url="https://www.patriots.com/team/depth-chart"),
+
+    dict(id="F-27", item="A published depth chart is not proof of who started", type="Limitation", kind="warn", status="limitation",
+         detail="Nothing in this dataset records who actually took the first snap. A club can list a player first and start someone else; snap counts and official game books would settle it, and neither is captured here.",
+         why="The starter-out score therefore measures listed depth, not realised participation. It is a pre-game availability signal, which is what a line is set from, but it cannot be used as a post-game explanation of a result without the game books. The suggestion queue ranks game-book ingestion as the fix.",
+         official_url="https://www.nfl.com/schedules/2026/",
+         url="https://www.nfl.com/schedules/2026/"),
+
+    dict(id="F-28", item="Only two position rows have no published replacement, and no row has both starter and backup out", type="Result", kind="ok", status="verified",
+         detail="Tennessee is the only club where a listed starter is ruled out at a position where the club names nobody behind him: left guard Peter Skoronski and linebacker Cody Barton. No club has both its listed starter and its listed backup ruled out at the same position for Week 10.",
+         why="This is a negative result and it is published because it constrains the strategy work: the '2nd and 3rd string replace the starter' cascade that the brief asks to detect cannot be found in the official Week 10 data at all, so any model that assumes a cascade is happening would be inventing it. The detection is in place for the weeks where it does occur.",
+         official_url="https://www.nfl.com/injuries/",
+         url="https://www.tennesseetitans.com/team/depth-chart"),
+
 ]
 
 # ------------------------------------------------------------------ verification log

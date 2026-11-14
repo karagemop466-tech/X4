@@ -54,7 +54,15 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 51.5
+  "reward": 51.5,
+  "signal": {
+   "score": 0.0831,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  },
  {
   "id": "S8",
@@ -111,7 +119,15 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 50.7
+  "reward": 50.7,
+  "signal": {
+   "score": 0.0797,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  },
  {
   "id": "S2",
@@ -168,7 +184,15 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 45.3
+  "reward": 45.3,
+  "signal": {
+   "score": 0.0703,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  },
  {
   "id": "S5",
@@ -225,7 +249,15 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 41.3
+  "reward": 41.3,
+  "signal": {
+   "score": 0.0599,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  },
  {
   "id": "S3",
@@ -282,7 +314,15 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 27.4
+  "reward": 27.4,
+  "signal": {
+   "score": 0.0331,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  },
  {
   "id": "S4",
@@ -339,7 +379,15 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 23.4
+  "reward": 23.4,
+  "signal": {
+   "score": 0.0263,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  },
  {
   "id": "S7",
@@ -395,7 +443,15 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 19.1
+  "reward": 19.1,
+  "signal": {
+   "score": 0.0184,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  },
  {
   "id": "S6",
@@ -452,7 +508,15 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 11.7
+  "reward": 11.7,
+  "signal": {
+   "score": 0.0024,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  },
  {
   "id": "S0",
@@ -506,6 +570,14 @@
   },
   "gates_passed": 4,
   "eligible": false,
-  "reward": 5.6
+  "reward": 5.6,
+  "signal": {
+   "score": 0.0,
+   "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
+  },
+  "staking": {
+   "score": "",
+   "basis": "blank - staking requires a licensed odds feed (spread / total / moneyline prices) and bankroll rules. The NFL publishes no official odds, so no staking figure is published and no lucky staking run can masquerade as signal."
+  }
  }
 ]

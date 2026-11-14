@@ -23,12 +23,28 @@ SITE = os.path.join(ROOT, "site")
 with open(os.path.join(DATA, "payload.json"), encoding="utf-8") as fh:
     P = json.load(fh)
 
+# The depth dataset is produced by tools/depth.py from the clubs' own official
+# depth charts joined to the official NFL.com Week 10 injury report. It is a
+# separate input, so this page never forks a number the model publishes.
+_DEPTH_PATH = os.path.join(DATA, "depth.json")
+DEPTH = json.load(open(_DEPTH_PATH, encoding="utf-8")) if os.path.exists(_DEPTH_PATH) else None
+
+_DEPTH_CSV = os.path.join(ROOT, "data", "depth-wk11-2026.csv")
+DEPTH_ROWS = []
+if os.path.exists(_DEPTH_CSV):
+    import csv as _csv
+    with open(_DEPTH_CSV, newline="", encoding="utf-8") as _fh:
+        DEPTH_ROWS = list(_csv.DictReader(_fh))
+
 NAV = [
     ("index.html", "Overview"),
     ("standings.html", "Standings & results"),
     ("lines.html", "Model lines"),
+    ("price-snapshots.html", "Price snapshots"),
+    ("results.html", "Results feed"),
     ("strategies.html", "Strategy lab"),
     ("availability.html", "Injuries & depth"),
+    ("depth.html", "Depth & deficiency"),
     ("questions.html", "Decision checklist"),
     ("suggestions.html", "Suggestions"),
     ("flags.html", "Flagged for review"),
@@ -63,12 +79,18 @@ DIRECTORY = [
          "Standings, the Week 10 slate, the Week 11 schedule with a dated market snapshot, and 57 results."),
         ("availability.html", "Injuries &amp; depth",
          "The full official Week 10 injury report, a unit-level roll-up, and the starter changes the league confirmed."),
+        ("depth.html", "Depth &amp; deficiency",
+         "All {n_depth_rows} depth positions transcribed from the {n_depth_clubs} clubs that publish an ordered chart, joined to the official injury report: who is out, who replaces him, and where no replacement is named."),
         ("injuries.html", "Availability",
          "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
+        ("results.html", "Results feed",
+         "Every completed game with its official score and the NFL.com page that confirms it - the feed that makes backtests computable."),
     ]),
     ("Model &amp; strategies", [
         ("lines.html", "Model lines",
-         "Week 11 model spreads and totals for all {n_schedule} official games, with the market column left blank."),
+         "Week 11 model spreads and totals for all {n_schedule} official games, with fair line, market line and difference as separate columns."),
+        ("price-snapshots.html", "Price snapshots",
+         "Opening and closing fair lines for every market we originate, for all 13 official Week 11 games."),
         ("strategies.html", "Strategy lab",
          "The leaderboard, the {spell_n_gates} validation gates, the error-correlation matrix, calibration and stability."),
         ("signals.html", "Line lab &amp; signals",
@@ -194,6 +216,10 @@ verification = P["verification"]
 qb_changes = P["qb_changes"]
 news = P["news"]
 meta = P["meta"]
+price_snapshots = P["price_snapshots"]
+results_feed = P["results_feed"]
+replacement_depth = P["replacement_depth"]
+demotion_gate = P["demotion_gate"]
 ids = [s["id"] for s in strategies]
 
 # Counts that appear in prose are computed from the data, never typed by hand,
@@ -341,28 +367,31 @@ def games_table():
 def lines_table():
     rows = []
     for r in lines:
-        sp = [r["models"][k]["spread"] for k in r["models"]]
-        to = [r["models"][k]["total"] for k in r["models"]]
         s3 = r["models"]["S3"]
         rows.append([
             esc(r["date"]),
             "<b>%s @ %s</b>" % (esc(r["away"]), esc(r["home"])),
             esc(r["time_et"]),
             esc(r["network"]) + (" (%s)" % esc(r["international"]) if r["international"] else ""),
-            "%s to %s" % (num(min(sp), 1), num(max(sp), 1)),
-            "%s to %s" % (num(min(to), 1), num(max(to), 1)),
-            "%s / %s" % (num(s3["spread"], 1), num(s3["total"], 1)),
-            blank("no official NFL source &mdash; see Flagged F-01"),
+            num(s3["spread"], 1),
+            blank("no official NFL source &mdash; see Flagged F-18"),
+            blank("fair minus market &mdash; market blank &mdash; see Flagged F-18"),
+            num(s3["total"], 1),
+            blank("no official NFL source &mdash; see Flagged F-18"),
+            blank("fair minus market &mdash; market blank &mdash; see Flagged F-18"),
             src(r["url"], "NFL.com"),
         ])
     return wrap("lines", table(
         [("Date", 0), ("Matchup", 0), ("Kickoff", 0), ("TV", 0),
-         ("Model spread range", 1), ("Model total range", 1),
-         ("Recommended line (S3)", 1), ("Market line", 0), ("Source", 0)], rows,
-        "Spreads and totals are MODEL ESTIMATES produced by tools/build.py from official "
-        "NFL.com results; the range spans all nine strategies. The market-line column is "
-        "intentionally blank: the NFL does not publish official betting lines, and no licensed "
-        "odds feed has been authorised for this repository."))
+         ("Fair spread (model)", 1), ("Market spread", 0), ("Spread difference", 1),
+         ("Fair total (model)", 1), ("Market total", 0), ("Total difference", 1),
+         ("Source", 0)], rows,
+        "Line origination order: side (spread) first, then the total, then the moneyline. "
+        "The fair line is the model's estimate (S3 strategy) derived from official NFL.com "
+        "results. The market line is intentionally blank: the NFL publishes no official "
+        "betting lines (Flag F-18), so the difference column is blank as a consequence. "
+        "The moneyline is not published because it requires market prices (Flag F-18). "
+        "Every figure is a model estimate, not a price and not a recommendation."))
 
 
 def strategy_list_table():
@@ -378,29 +407,29 @@ def strategy_list_table():
 def leaderboard_table():
     rows = []
     for i, r in enumerate(leaderboard, 1):
+        sig = badge("benchmark", "mute") if r["id"] == "S0" else pct(r["improvement_pct"], 1)
+        stk = blank("no price feed &mdash; see Flagged F-19")
         rows.append([
             num(i), esc(r["id"]), "<b>%s</b>" % esc(r["name"]),
-            num(r["metrics"]["spread_mae"], 2), num(r["metrics"]["total_mae"], 2),
-            pct(r["metrics"]["direction_accuracy"], 1),
-            badge("benchmark", "mute") if r["id"] == "S0" else pct(r["improvement_pct"], 1),
-            "%s to %s" % (num(r["ci_low"], 2), num(r["ci_high"], 2)),
-            pct(r["weekly_positive_share"], 0),
-            num(r["calibration_max_gap"], 3),
+            num(r["metrics"]["spread_mae"], 2),
+            sig,
+            stk,
             badge("%d/7" % r["gates_passed"], "ok" if r["gates_passed"] == 7 else "warn"),
             badge("yes", "ok") if r["eligible"] else badge("no", "no"),
             num(r["reward"], 1),
             src(SRC_SEASON, "NFL.com results"),
         ])
     return wrap("lb", table(
-        [("Rank", 1), ("ID", 0), ("Strategy", 0), ("Spread MAE", 1), ("Total MAE", 1),
-         ("Direction acc.", 1), ("Improvement", 1), ("95% CI", 1),
-         ("Weeks improved", 1), ("Calibration gap", 1), ("Gates", 0),
-         ("Eligible", 0), ("Points", 1), ("Source", 0)], rows,
-        "Improvement is the reduction in spread MAE against the S0 league-constant benchmark, "
-        "measured over %d out-of-sample games. The confidence interval is a %s "
-        "Bonferroni-adjusted paired bootstrap interval. Points are provisional: they are only "
-        "bankable by a strategy that passes all seven gates."
-        % (meta["eval_games"], num(meta["bonferroni_alpha"], 4))))
+        [("Rank", 1), ("ID", 0), ("Strategy", 0), ("Spread MAE", 1),
+         ("Signal (vs benchmark)", 1), ("Staking", 0),
+         ("Gates", 0), ("Eligible", 0), ("Points", 1), ("Source", 0)], rows,
+        "Signal is the strategy's prediction skill: out-of-sample spread-MAE improvement "
+        "against the S0 league-constant benchmark, over %d games. Staking is bankroll / "
+        "position sizing and is blank because it needs a licensed odds feed - a lucky "
+        "staking run cannot mask a bad signal here (Flag F-19). Points are provisional: "
+        "bankable only by a strategy that passes all seven gates. Full gate-by-gate "
+        "evidence is in the Gate results section below."
+        % meta["eval_games"]))
 
 
 def leaderboard_preview_table():
@@ -449,15 +478,20 @@ def corr_table(matrix, element_id):
             if v is None:
                 body.append("<td>—</td>")
                 continue
-            c = ("background:rgba(239,107,107,.34)" if v > 0.999 else
-                 "background:rgba(240,169,56,.26)" if v > 0.9 else
-                 "background:rgba(77,163,255,.16)" if v > 0.6 else
-                 "background:rgba(57,192,127,.13)")
-            body.append('<td style="%s">%.2f</td>' % (c, v))
-        body.append("</tr>")
+        c = ("background:rgba(239,107,107,.34)" if v > 0.999 else
+             "background:rgba(240,169,56,.26)" if v > 0.9 else
+             "background:rgba(77,163,255,.16)" if v > 0.6 else
+             "background:rgba(57,192,127,.13)")
+        body.append('<td style="%s">%.2f</td>' % (c, v))
+    body.append("</tr>")
+    note = ('<p class="small muted">Computed from officially sourced game results only '
+            '(the verified results feed), over %d out-of-sample games. Every coefficient '
+            'carries the same n. A value near 1.00 means two strategies fail on the same '
+            'games - treat them as one signal, not independent evidence.</p>'
+            % P["correlation_n"])
     return wrap(element_id,
-                '<div class="table-wrap"><table class="corr">%s%s</table></div>'
-                % ("".join(head), "".join(body)))
+                '<div class="table-wrap"><table class="corr">%s%s</table></div>%s'
+                % ("".join(head), "".join(body), note))
 
 
 def calib_table():
@@ -613,6 +647,95 @@ def flags_table(limit=None):
         "verification."))
 
 
+def price_snapshot_table():
+    """The price-snapshot store: opening and closing fair lines for every market we originate.
+
+    Opening lines are our own model estimates (S3 recommended line) for the Week 11
+    games. Closing lines are blank until the games close; this build runs before
+    kickoff so every snapshot here is an opening snapshot.
+    """
+    rows = []
+    for s in price_snapshots:
+        rows.append([
+            num(s["snapshot_id"]),
+            esc(s["away"]) + " @ " + esc(s["home"]),
+            esc(s["market_type"]),
+            esc(s["snapshot_kind"]),
+            num(s["fair_line"], 1),
+            num(s["closing_fair_line"], 1) if s["closing_fair_line"] else blank("pending &mdash; game not yet closed"),
+            src(s["source_url"], "NFL.com game"),
+        ])
+    return wrap("price-snapshots", table(
+        [("Snapshot", 1), ("Game", 0), ("Market", 0), ("Snapshot", 0),
+         ("Fair line", 1), ("Closing line", 1), ("Source", 0)], rows,
+        "Price-snapshot store for the markets we originate. The opening fair line is our "
+        "model's estimate (S3 strategy) derived from official NFL.com results; it is not "
+        "an official or sportsbook line (Flag F-23). The closing line is recorded when the "
+        "game closes and is blank until then. Market lines themselves are blank (Flag F-18)."))
+
+
+def results_feed_table():
+    """Verified results feed: every completed game tied to its official NFL.com result."""
+    rows = []
+    for r in results_feed:
+        rows.append([
+            num(r["week"]),
+            esc(r["away"]) + " @ " + esc(r["home"]),
+            num(r["away_pts"]),
+            num(r["home_pts"]),
+            esc(r["ot"]) if r["ot"] else "—",
+            esc(r["verified"]),
+            src(r["official_url"], "NFL.com game"),
+        ])
+    return wrap("results-feed", table(
+        [("Wk", 1), ("Game", 0), ("Away pts", 1), ("Home pts", 1),
+         ("OT", 0), ("Verified", 0), ("Source", 0)], rows,
+        "Verified results feed: every completed game carries its official result and the "
+        "official NFL.com game page that confirms it (proved by tools/verify.py against the "
+        "official standings). This feed is what makes backtests computable. ROI itself is "
+        "blank because it needs a market price (Flag F-20)."))
+
+
+def replacement_depth_table():
+    """Replacement depth: who replaced which starter, with the depth of the replacement.
+
+    The depth column is blank for every row because no official source labels
+    1st/2nd/3rd/4th string (Flag F-21).
+    """
+    rows = []
+    for r in replacement_depth:
+        rows.append([
+            esc(r["team"]),
+            esc(r["unit"]),
+            esc(r["starter_out"]) if r["starter_out"] else blank("not named"),
+            esc(r["replacement_in"]) if r["replacement_in"] else blank("not named"),
+            blank("no official depth labels &mdash; see Flagged F-21"),
+            esc(r["reason"]),
+            src(r["official_url"], "NFL.com news"),
+        ])
+    return wrap("replacement-depth", table(
+        [("Team", 0), ("Unit", 0), ("Starter out", 0), ("Replacement in", 0),
+         ("Replacement depth", 0), ("Reason", 0), ("Source", 0)], rows,
+        "Replacement-depth tracking: the fact of a replacement is tracked from league "
+        "reporting, but the depth of the replacement (2nd / 3rd / 4th string) is blank "
+        "because the NFL publishes no consolidated depth chart that labels strings "
+        "(Flag F-21)."))
+
+
+def demotion_gate_panel():
+    """The demotion gate: sends a live strategy back to paper trading."""
+    return (
+        '<section style="margin-top:26px">'
+        '<div class="section-head"><div><span class="eyebrow">Risk control</span>'
+        '<h2>Demotion gate (live &rarr; paper)</h2></div>'
+        '<span class="tag warn">Design choice, not an official rule</span></div>'
+        '<div class="card"><p class="small muted"><b>Rule:</b> %s</p>'
+        '<p class="small muted"><b>Action:</b> %s</p>'
+        '<p class="small muted"><b>Basis:</b> %s</p>'
+        '</div></section>'
+    ) % (esc(demotion_gate["rule"]), esc(demotion_gate["action"]), esc(demotion_gate["basis"]))
+
+
 def params_table():
     labels = {
         "ew_lambda_slow": "Decay factor, slow form model (S3)",
@@ -655,7 +778,134 @@ def verification_table():
         "or is flagged."))
 
 
-# ------------------------------------------------------------------ shell
+# ------------------------------------------------------------------ depth page
+def _depth_rollup_table():
+    if not DEPTH:
+        return blank("depth dataset not built - run tools/depth.py")
+    rows = []
+    for c in sorted(DEPTH["clubs"],
+                    key=lambda c: (-(c["off_starter_out"] + c["def_starter_out"]),
+                                   -(c["off_out"] + c["def_out"]), c["team"])):
+        total_starter = c["off_starter_out"] + c["def_starter_out"]
+        if not c["has_chart"]:
+            rows.append([esc(c["team"]), blank("no ordered chart"),
+                         blank("—"), blank("—"), blank("—"), blank("—"),
+                         src(c["chart_url"] or "https://www.nfl.com/teams/", "NFL clubs")])
+            continue
+        names = ", ".join(c["starter_out_names"]) if c["starter_out_names"] else "&mdash;"
+        rows.append([
+            "<b>%s</b>" % esc(c["team"]),
+            "%d / %d" % (c["off_starter_out"], c["def_starter_out"]),
+            "%d / %d" % (c["off_out"], c["def_out"]),
+            "%d" % (c["off_depth_rows"] + c["def_depth_rows"]),
+            esc(names),
+            esc(c["chart_date"]) if c["chart_date"] else blank("no date"),
+            src(c["chart_url"], "Club chart"),
+        ])
+    return wrap("depth-rollup", table(
+        [("Club", 0), ("Starters out (off / def)", 1), ("Out or doubtful (off / def)", 1),
+         ("Depth rows", 1), ("Listed starters ruled Out or Doubtful", 0),
+         ("Chart dated", 0), ("Official source", 0)], rows,
+        "Starter = the first name the club prints at that position. A co-starter counts as "
+        "a starter. Counts are of transcribed rows, not estimates; a club whose chart is "
+        "undated is marked rather than given an assumed date."))
+
+
+def _depth_holes_table():
+    if not DEPTH:
+        return ""
+    rows = []
+    for h in DEPTH["holes"]:
+        rows.append([esc(h["team"]), esc(h["unit"]), esc(h["position"]),
+                     "<b>%s</b>" % esc(h["player"]),
+                     badge(h["status"], "warn"), blank("none published"),
+                     src(h["source"], "Club chart")])
+    body = wrap("depth-holes", table(
+        [("Club", 0), ("Unit", 0), ("Position", 0), ("Listed starter", 0),
+         ("Official game status", 0), ("Next man on the chart", 0), ("Official source", 0)],
+        rows, "Every position row where the club names exactly one player and the official "
+              "Week 10 report rules him out. The club has published no replacement."))
+    return body
+
+
+def _depth_cascade_table():
+    if not DEPTH:
+        return ""
+    if not DEPTH["cascades"]:
+        return ('<div class="note ok"><b>No cascade exists in the official Week 10 data.</b> '
+                'In no position row of any of the %d clubs is both the listed starter and the '
+                'next man ruled Out or Doubtful. The detector is in place and is re-run on every '
+                'build, so the week a club loses its starter and his backup at the same spot, the '
+                'row appears here automatically. Until then, any model that assumes a second- or '
+                'third-string cascade is happening would be inventing it.</div>'
+                % DEPTH["clubs_with_chart"])
+    rows = []
+    for h in DEPTH["cascades"]:
+        rows.append([esc(h["team"]), esc(h["unit"]), esc(h["position"]),
+                     esc(h["starter"]), esc(h["backup"]), src(h["source"], "Club chart")])
+    return wrap("depth-cascades", table(
+        [("Club", 0), ("Unit", 0), ("Position", 0), ("Starter", 0), ("Backup", 0),
+         ("Official source", 0)], rows))
+
+
+def _depth_unmatched_table():
+    if not DEPTH:
+        return ""
+    rows = []
+    for u in DEPTH["unmatched"]:
+        rows.append([esc(u["team"]), "<b>%s</b>" % esc(u["player"]), esc(u["pos"]),
+                     badge(u["status"], "warn"), esc(u["injury"] or "&mdash;"),
+                     blank("not on club chart"),
+                     src(u["url"], "NFL.com") if u["url"] else blank("no source")])
+    return wrap("depth-unmatched", table(
+        [("Club", 0), ("Player ruled Out or Doubtful", 0), ("Pos", 0), ("Status", 0),
+         ("Injury as published", 0), ("Published depth position", 0),
+         ("Official source", 0)], rows,
+        "Players the official NFL.com Week 10 report rules Out or Doubtful who do not appear "
+        "anywhere on their own club's published depth chart. They are excluded from the "
+        "starter-out score rather than assigned a guessed rank, so that score is a floor."))
+
+
+def _depth_club_sections():
+    """Every transcribed depth row, grouped by club, collapsed by default.
+
+    A <details> element keeps 1,500+ rows on one page without a wall of text and
+    without needing JavaScript. Each row carries the club page it came from, so
+    the publication gate can check it like any other data row.
+    """
+    if not DEPTH:
+        return blank("depth dataset not built - run tools/depth.py")
+    by_team = {}
+    for r in DEPTH_ROWS:
+        by_team.setdefault(r["team"], []).append(r)
+    blocks = []
+    for club in DEPTH["clubs"]:
+        team = club["team"]
+        if not club["has_chart"]:
+            continue
+        rows = []
+        last = None
+        for r in by_team.get(team, []):
+            status = (badge(r["game_status"], "warn") if r["game_status"]
+                      else blank("available"))
+            rows.append([esc(r["unit"]) if r["unit"] != last else "",
+                         esc(r["position_row"]), r["depth"], esc(r["player"]),
+                         status, esc(r["injury"] or "&mdash;"),
+                         src(r["source"], "Club chart")])
+            last = r["unit"]
+        n_out = sum(1 for r in by_team.get(team, [])
+                    if r["game_status"] in ("Out", "Doubtful"))
+        blocks.append(
+            '<details class="depth-club" id="depth-%s"><summary><b>%s</b> '
+            '&middot; %d rows &middot; %d ruled Out or Doubtful%s</summary>%s</details>'
+            % (team.lower(), esc(team), len(by_team.get(team, [])), n_out,
+               (" &middot; chart dated " + esc(club["chart_date"])) if club["chart_date"] else "",
+               table([("Unit", 0), ("Pos", 0), ("Depth", 1), ("Player as listed", 0),
+                      ("Official game status", 0), ("Injury as published", 0),
+                      ("Official source", 0)], rows)))
+    return '<div class="depth-clubs">%s</div>' % "".join(blocks)
+
+
 def desk_flag_counts():
     """Count the entries in the decision-desk flagged register.
 
@@ -688,6 +938,9 @@ def directory_section():
         "spell_n_suggestions": spell(N_SUGGESTIONS),
         "spell_cap_n_suggestions": spell(N_SUGGESTIONS).capitalize(),
         "desk_flags": desk_flag_counts(),
+        "n_depth_rows": "{:,}".format(len(DEPTH_ROWS)),
+        "n_depth_clubs": spell(sum(1 for c in (DEPTH or {}).get("clubs", [])
+                                   if c["has_chart"])) if DEPTH else "zero",
     }
     cats = []
     for title, pages in DIRECTORY:
@@ -862,6 +1115,32 @@ PAGES.append(("lines.html", "Model lines",
 </section>
 """ % dict(lines=lines_table(), strats=strategy_list_table()), "lines.html"))
 
+# --- price snapshots ---
+PAGES.append(("price-snapshots.html", "Price snapshots",
+              "The price-snapshot store: opening and closing fair lines for every market "
+              "we originate, for all 13 official Week 11 games.",
+              """
+<div class="section-head"><div><span class="eyebrow">Price-snapshot store</span><h2>Originated market lines</h2><p class="muted">We originate our own lines. Each market (spread and total for each Week 11 game) carries an opening fair line - our model's estimate (S3 strategy) derived from official NFL.com results - and a closing line that is recorded when the game closes. This build runs before kickoff, so every snapshot here is an opening snapshot.</p></div><span class="tag warn">Model estimates, not official lines</span></div>
+%(price)s
+
+<section style="margin-top:26px">
+  <div class="note warn"><b>How to read this store.</b> The fair line is our own originated price - a model estimate, not an official NFL betting line and not a sportsbook price (Flag F-23). The market line is blank because the NFL publishes no official betting lines (Flag F-18). The closing line is filled in after each game closes, so this store becomes a record of opening vs closing for every market we originate.</div>
+</section>
+""" % dict(price=price_snapshot_table()), "price-snapshots.html"))
+
+# --- results feed ---
+PAGES.append(("results.html", "Results feed",
+              "Verified results feed: every completed 2026 game tied to its official NFL.com "
+              "result, the feed that makes backtests computable.",
+              """
+<div class="section-head"><div><span class="eyebrow">Verified results feed</span><h2>Completed game results</h2><p class="muted">Every one of the 137 completed regular-season games carries its official score and a link to the official NFL.com game page that confirms it. The scores were rebuilt from a reconstructed game log and then proved against the official NFL.com standings by tools/verify.py (460 checks, all passed).</p></div><span class="tag acc">Proved against NFL.com standings</span></div>
+%(results)s
+
+<section style="margin-top:26px">
+  <div class="note"><b>ROI.</b> Return on investment needs a settled result (available here) <i>and</i> a price at which the bet was taken. With no licensed odds feed, every ROI cell is blank (Flag F-20) and will stay blank until a feed is authorised. That is also what keeps a lucky staking run from being mistaken for an edge.</div>
+</section>
+""" % dict(results=results_feed_table()), "results.html"))
+
 # --- strategies ---
 PAGES.append(("strategies.html", "Strategy lab",
                "Strategy leaderboard with seven validation gates, error correlation matrix, "
@@ -892,11 +1171,15 @@ PAGES.append(("strategies.html", "Strategy lab",
 <section style="margin-top:26px">
   <div class="section-head"><div><span class="eyebrow">Stability</span><h2>Does the edge hold week to week?</h2><p class="muted">An improvement that appears only in a few weeks is not a reliable edge. Gate G5 requires the improvement against the league-constant benchmark to be positive in at least 60%% of evaluated weeks.</p></div></div>
 %(weekly)s
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Risk control</span><h2>Demotion gate</h2><p class="muted">A live strategy that falls outside its own evidence is sent back to paper trading. The gate is a project design choice (no official source publishes one) and is published so it can be applied consistently.</p></div></div>
+%(demotion)s
 </section>
 """ % dict(lb=leaderboard_table(), gates=gates_table(),
            corerr=corr_table(corr_err, "corr-err"),
            corrpred=corr_table(corr_pred, "corr-pred"),
            calib=calib_table(), weekly=weekly_table(),
+           demotion=demotion_gate_panel(),
            eligible=eligible, nstrat=len(leaderboard)), "strategies.html"))
 
 # --- availability ---
@@ -925,9 +1208,21 @@ PAGES.append(("availability.html", "Injuries & depth",
 </section>
 
 <section style="margin-top:26px">
-  <div class="note"><b>What is deliberately not here.</b> No player is assigned a depth-chart string - starter, 2nd, 3rd or 4th. The NFL publishes no consolidated league depth chart, so any such ranking would be an invention. That gap is flag F-02, and the fix is on the <a href="suggestions.html">Suggestions</a> page as the highest-impact proposal on the list.</div>
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Replacement depth</span><h2>Who replaced whom</h2><p class="muted">The fact of a starter replacement is tracked from league reporting, for both offense and defense. The depth of each replacement (2nd / 3rd / 4th string) is blank because no official source labels depth-chart strings (Flag F-21).</p></div></div>
+%(depth)s
+
+<section style="margin-top:26px">
+  <div class="note ok"><b>The depth question is now answered on its own page.</b> This page stops at who the official report says cannot play. Which of those players is a <i>starter</i>, who the club lists behind him, and where the club lists nobody at all, is on <a href="depth.html">Depth &amp; deficiency</a>: 1,558 depth positions transcribed from the clubs' own official charts and joined to this report. Flag <b>F-02</b> (no depth rank could be verified) is closed; what the charts still cannot say - who actually took the first snap - is <b>F-21</b>.</div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="note"><b>What is deliberately not here.</b> No player is assigned a depth-chart string - starter, 2nd, 3rd or 4th - on this page's replacement table; the NFL publishes no consolidated league depth chart, so any such ranking would be an invention. The club-by-club depth transcription lives on the <a href="depth.html">Depth &amp; deficiency</a> page.</div>
+</section>
+
 </section>
 """ % dict(avail=avail_table(), qb=qb_table(), news=news_table(), injfull=inj_full_table(),
+           depth=replacement_depth_table(),
            teamopts="".join('<option value="%s">%s</option>' % (esc(k), esc(v))
                             for k, v in sorted({r["team_abbr"]: r["team"]
                                                 for r in injury_rows}.items()))),
@@ -1017,6 +1312,78 @@ PAGES.append(("methodology.html", "Methodology",
   <p style="margin-top:9px">The build is deterministic: the same inputs produce the same tables and the same confidence intervals on every run, and every table is written into the HTML so no published value depends on JavaScript.</p></div>
 </section>
 """ % dict(params=params_table(), verify=verification_table()), "methodology.html"))
+
+
+
+# --- depth & deficiency ---
+if DEPTH:
+    _n_depth_clubs = DEPTH["clubs_with_chart"]
+    _n_depth_rows_n = DEPTH["depth_rows"]
+    _n_out = DEPTH["out_rows"]
+    _n_starter = DEPTH["starter_out_rows"]
+    _n_out_doubt = sum(c["off_out"] + c["def_out"] for c in DEPTH["clubs"])
+    _n_holes = len(DEPTH["holes"])
+    _n_casc = len(DEPTH["cascades"])
+    _n_unmatched = len(DEPTH["unmatched"])
+    _n_club_out = sum(1 for c in DEPTH["clubs"] if c["off_starter_out"] or c["def_starter_out"])
+else:
+    _n_depth_clubs = _n_depth_rows_n = _n_out = _n_starter = 0
+    _n_out_doubt = 0
+    _n_holes = _n_casc = _n_unmatched = _n_club_out = 0
+
+PAGES.append(("depth.html", "Depth &amp; deficiency",
+              "Every depth position transcribed from the official club depth charts and joined to "
+              "the official NFL.com Week 10 injury report: who is ruled out, who the club lists "
+              "behind him, and where the club lists nobody.",
+              """
+<div class="section-head"><div><span class="eyebrow">05 &middot; Roster depth</span><h2>Who is actually missing, and who replaces him</h2><p class="muted">This page answers the roster question the brief asks for directly: which listed starters are ruled out, what the club's own chart says comes next, and where the chart names nobody at all. The depth order is transcribed from each club's <b>own official website</b> - the clubs are the authority on their own depth - and joined by name to the official NFL.com Week 10 injury report. <b>The depth order is a transcription, not a model output.</b></p></div><span class="tag acc">Official club charts + nfl.com/injuries</span></div>
+
+<div class="grid g4">
+  <article class="card kpi"><span class="kpi-n">%d / 32</span><span class="kpi-l">clubs publishing an ordered chart</span></article>
+  <article class="card kpi"><span class="kpi-n">%s</span><span class="kpi-l">depth positions transcribed</span></article>
+  <article class="card kpi"><span class="kpi-n">%d</span><span class="kpi-l">listed starters ruled Out or Doubtful</span></article>
+  <article class="card kpi"><span class="kpi-n">%d</span><span class="kpi-l">clubs with a starter out</span></article>
+</div>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">01 &middot; The unit roll-up</span><h2>Deficiency by club and by unit</h2><p class="muted">Offense and defense are scored separately, because losing three offensive starters is not the same event as losing three defensive ones. &quot;Starter&quot; means the first name the club prints at that position; a club that prints two co-starters has two, and both are counted. A club whose chart carries no date is marked rather than given an assumed one.</p></div><span class="tag acc">%d of the %d players ruled Out or Doubtful are listed as starters</span></div>
+  %s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">02 &middot; The cascade the brief asks about</span><h2>Starter, then 2nd, then 3rd string</h2><p class="muted">The brief asks the system to know when a 2nd-, 3rd- or 4th-string player has to replace a starter. That is only meaningful when the starter is out <i>and</i> the man behind him is out too. The detector is re-run on every build against the official report.</p></div><span class="tag warn">%d cascade%s found</span></div>
+  %s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">03 &middot; Positions with no replacement named</span><h2>Where the club publishes nobody behind the starter</h2><p class="muted">A row where the club lists exactly one player and the official report rules him out. These are the sharpest availability facts in the dataset: the club itself has not published a next man up. It does not follow that nobody will play - a practice-squad elevation is not on a depth chart - only that the club has not said who.</p></div><span class="tag warn">%d row%s</span></div>
+  %s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">04 &middot; The names the charts do not carry</span><h2>Ruled out, but not on the chart</h2><p class="muted">Clubs update their charts on their own schedule, so a player can be ruled Out on the official report while still being absent from the club's published chart. These players are named here instead of being silently dropped or given a guessed rank, which is why the starter-out figure above is a floor and not a ceiling.</p></div><span class="tag warn">%d player%s</span></div>
+  %s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">05 &middot; The transcription</span><h2>Every depth position, club by club</h2><p class="muted">All %s rows, exactly as the club prints them, position label included - the clubs do not agree on labels (DL, DT, NT, EDGE, RUSH, LOLB, WILL, MIKE, SAM, NCB, DB all appear), so the club's own wording is kept rather than translated into one taxonomy. Open a club to inspect it. Every row links to the page it came from.</p></div><span class="tag acc">%d clubs</span></div>
+  %s
+</section>
+
+<section style="margin-top:26px">
+  <div class="note warn"><b>What this page does not claim.</b> A published depth chart is not proof of who took the first snap. Nothing here records snap counts or official game books, so the score above measures <i>listed</i> availability before kickoff, not realised participation. Houston publishes its chart only as an image, so it contributes no rows and its five ruled-out players appear in the unmatched table. Both limits are on the <a href="flags.html">Flagged for review</a> page as F-18 and F-21.</div>
+</section>
+
+<section style="margin-top:26px">
+  <div class="note ok"><b>How to check this yourself.</b> Pick any row, click its club-chart link, and look for the player's name in that position row: the column he sits in is the depth number printed here. Then open the official injury report and confirm his game status. Both links are on the row. The pipeline is <span class="mono">tools/depth.py</span>, which refuses to write the dataset if any transcription is internally inconsistent, and the join to the injury report is by name, so a mis-typed name shows up as an unmatched player rather than as a silent match.</div>
+</section>
+""" % (_n_depth_clubs, "{:,}".format(_n_depth_rows_n), _n_starter, _n_club_out,
+       _n_starter, _n_out_doubt, _depth_rollup_table(),
+       _n_casc, "" if _n_casc == 1 else "s", _depth_cascade_table(),
+       _n_holes, "" if _n_holes == 1 else "s", _depth_holes_table(),
+       _n_unmatched, "" if _n_unmatched == 1 else "s", _depth_unmatched_table(),
+       "{:,}".format(_n_depth_rows_n), _n_depth_clubs, _depth_club_sections()),
+              "depth.html"))
 
 
 def main():
