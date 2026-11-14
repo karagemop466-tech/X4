@@ -25,7 +25,7 @@ I fed the parser three controlled `table.data` fixtures: (1) no link, (2) only a
 
 - `site/check.py` does use an explicit host allowlist, but its `PAGES` list covers the 14 main generated pages, not the 20 desk pages covered by `tools/check_site.py`. See [`site/check.py`](https://github.com/karagemop466-tech/X4/blob/6014d73dc7c9c76c4b3eded63284a33081bad9c6/site/check.py).
 - `tools/check_site.py` is the gate that includes the newer origination/operations pages, but its per-row href collection is empty and its intended rule checks only for an HTTPS prefix, not official domains.
-- The repository explicitly labels ESPN/DraftKings odds as third-party (`T3`) rather than NFL-official. For example, `data/market-prices.csv` cites an ESPN odds endpoint for the IND–HOU market row: [ESPN odds payload](https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds). That is useful provenance for what ESPN published, but it is not an official NFL source or a direct DraftKings source. Keep that distinction visible; do not let a separate NFL schedule URL satisfy the provenance requirement for the price.
+- The repository's market page labels ESPN/DraftKings odds as third-party (`T3`) rather than NFL-official. For example, `data/market-prices.csv` cites an ESPN odds endpoint for the IND–HOU market row: [ESPN odds payload](https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401873066/competitions/401873066/odds). That is provenance for what ESPN published, but it is not an official NFL source or a direct DraftKings source. The open [PR #26](https://github.com/karagemop466-tech/X4/pull/26) is also explicit that its one-book prices are non-official. That disclosure is good; under the user's strict verification rule, however, such values must not populate the verified official-source table. Use a direct official sportsbook source or leave those values blank and flag them. A separate NFL schedule URL cannot substantiate a sportsbook price.
 - Official-source examples already used by the project include the [NFL standings](https://www.nfl.com/standings/), [official Week 11 schedule](https://www.nfl.com/schedules/2026/by-week/week-11), [NFL injury report](https://www.nfl.com/injuries/), and a club's own [Bills depth chart](https://www.buffalobills.com/team/depth-chart). These sources support only the facts they publish; they do not substantiate sportsbook prices.
 
 ## Verification performed
@@ -44,7 +44,9 @@ Snapshot verification uses the committed official captures and is reproducible o
 1. Add each anchor href to the row currently being parsed; fail on a data row with no source.
 2. Add regression tests for no link, HTTP-only link, non-official HTTPS link, and allowed official links. A mutation test should remove a published row's source and prove the gate fails.
 3. Apply an explicit host/source-tier policy. Distinguish official NFL, official club, official provider, third-party publisher, and model-derived values. Require the evidence link to support the value it is attached to; a generic official schedule link must not validate a third-party price.
-4. If an item cannot meet the requested official-source standard, leave the official value blank or publish it only as clearly identified third-party/unverified data with a visible Flagged-for-Review entry.
+4. If an item cannot meet the requested official-source standard, leave its numeric cell blank in the verified table and add a visible Flagged-for-Review entry. Optional third-party research values must be segregated and labelled non-official; they cannot satisfy the official-source gate.
+
+The T30 source-policy request was also logged for the owner of PR #26 in `COORDINATION.md` and on the PR: use a direct official operator source or leave the verified price cells blank; third-party ESPN readings must not be passed off as official.
 
 ## Irregularities / limits
 
