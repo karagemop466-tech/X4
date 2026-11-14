@@ -396,7 +396,15 @@ def write_output():
         "unconfirmed": unconfirmed_claims(),
     }
     with open(os.path.join(OUT, "market_store.json"), "w", encoding="utf-8") as fh:
-        json.dump(payload, fh, indent=1, sort_keys=False)
+        # Normalise floats exactly like tools/build.py does (round_floats, 9 places).
+        # Without this, the last 1-2 ulps of every derived float differ between the
+        # CPython builds that produced the committed file (3.11) and CI's (3.12),
+        # and the publish gate's byte-reproducibility check fails on an interpreter
+        # difference that has no bearing on any published number. All 34 drift
+        # values observed on 2026-11-14 agreed to 9 decimal places across both
+        # interpreters (max abs difference 7.1e-15), so this changes no published
+        # digit; it only stabilises the serialisation. (T32, see COORDINATION.md.)
+        json.dump(build.round_floats(payload), fh, indent=1, sort_keys=False)
     return payload
 
 
