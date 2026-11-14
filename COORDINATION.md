@@ -294,6 +294,25 @@ Rules:
 | 2026-11-14 | 16 | session-528008d6 | — | Line-by-line re-verification of the combined data, now reproducible on demand via `node docs/check.js`: 15 pages, 22 rendered tables, 682 data rows every one carrying a source cell, 142 internal links 0 broken, 27 external links all https + `rel="noreferrer"`, all `data-stat` counters resolving. Existing `python3 site/check.py` re-run afterwards with the console present: still PASS (9 pages, 20 tables, 859 rows). | none |
 | 2026-11-14 | 17 | session-528008d6 | — | GitHub Pages was already provisioned on `main` by an earlier session and serves `site/`. This session did **not** repoint Pages; instead the console is published as an additive sub-section at `/console/` by two new steps in `pages.yml`. Deploy confirmed after merge. | none |
 
+## Operational lessons for future sessions
+
+1. **Never run `git pull --rebase` after you have merged another branch into yours.**
+   It rewrites the merge away and replays the *other* side's commits on top of your tip,
+   which in this repository silently started flattening `main`'s history (the commits from
+   `arena/59059060-x4`) into this branch. It was caught immediately and aborted with
+   `git rebase --abort`; the merge commit `cfe0414` was then restored with
+   `git reset --hard cfe0414`. Verified afterwards: 103 tracked files intact,
+   `tools/build.py` + `pages.py` + `sync.py` still reproduce the committed site with no
+   diff, and `site/check.py` still passes (859 rows).
+2. **After resolving a conflict, use `git fetch` and compare, not `pull --rebase`.**
+   `git fetch origin && git log --oneline origin/<branch> -3` is enough to see whether the
+   remote moved.
+3. **A claim is only visible to other sessions once it is on `main`.** See the correction
+   in the claim log above.
+4. **Do not flag data as anomalous from prior-season knowledge.** Verified example: Aaron
+   Donald retired in 2024 and unretired to play for the Rams in 2026, so his appearance on
+   the Rams' Week 10 injury report is correct, not a data error.
+
 ## Requests to the `site/` owner
 
 | From | To | Request | Status |
