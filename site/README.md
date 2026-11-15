@@ -95,13 +95,20 @@ a home-field edge was being applied to a game played in Germany. It is now read 
 weekly schedule page that labels them as such; `tools/compute_stats.py` asserts that the
 neutral flags in the game log equal exactly that official set.
 
-## The one rule everything follows
+## Provenance and the known source-link gap
 
-Every table row carries a direct link to the official NFL page it came from, and every
-value that cannot be confirmed from an official source is left blank and flagged rather
-than filled in. `site/check.py` enforces this: it executes the real renderer, inspects
-the resulting markup, and fails the build if any rendered data row lacks an official
-source link.
+A verified NFL fact should link directly to the official NFL page that supports it; a
+value that cannot be confirmed stays blank and is flagged. Do not interpret this as a
+claim that every table row already meets that standard: flag F-39 records **191 desk-table
+rows on 13 pages** that currently have no row-level HTTPS source link. They are not
+presented as verified NFL facts, and no unrelated NFL URL is added just to satisfy a
+checker. The full row-by-row inventory is
+[`research/verification/row-source-gaps-2026-11-14.csv`](research/verification/row-source-gaps-2026-11-14.csv).
+
+The main-site `site/check.py` gate checks the rendered main-site data tables; the separate
+`tools/check_site.py` desk-page checker reports missing row-level links without treating
+those known F-39 rows as verified. Its output must be read together with the open flag,
+not as an all-rows-sourced pass.
 
 ## Reproducing everything
 
