@@ -2295,6 +2295,9 @@ def main():
         with open(os.path.join(SITE, href), "w", encoding="utf-8") as fh:
             fh.write(shell(slug, title, desc, body, href))
         written.append(href)
+    # T37 extension pages (tools/desk_extension.py): luck, readiness, per-team view
+    import desk_extension
+    written += desk_extension.write_pages(SITE, shell)
     print("wrote %d pages: %s" % (len(written), ", ".join(written)))
 
 

@@ -1,0 +1,282 @@
+{
+ "bootstrap_resamples": 10000,
+ "control_favourites": {
+  "losses": 3,
+  "pnl_units": 3.51691303865217,
+  "pushes": 0,
+  "roi": 0.2930760865543475,
+  "wins": 9
+ },
+ "control_random": {
+  "roi_ci95": [
+   -0.591714243888157,
+   0.3917223477006086
+  ],
+  "roi_mean": -0.10483518085980058,
+  "share_ge_ours_recorded": 0.1573,
+  "share_ge_ours_resettled": 0.0521
+ },
+ "draws": 10000,
+ "favourite_rule": "side: the side laying points; total: the shorter (more negative) price, ties to over; moneyline: the shorter price, ties to away",
+ "generated_from": [
+  "data/ops/graded.csv",
+  "data/ops/price_snapshots.csv",
+  "data/ops/results.csv",
+  "data/ops/markets.csv"
+ ],
+ "min_bets_per_type": 100,
+ "mismatches": [
+  {
+   "bet": "away",
+   "event_id": "401873039",
+   "line": 4.5,
+   "market": "side",
+   "official_away": 22,
+   "official_home": 23,
+   "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+   "recorded": "lost",
+   "resettled": "won"
+  }
+ ],
+ "n_bets": 12,
+ "n_events": 4,
+ "origination_settlement_note": {
+  "file": "tools/origination.py",
+  "finding": "side bets are graded on the straight-up winner (margin > 0 compared with the side picked) and the spread line is not applied",
+  "lines": "575-578"
+ },
+ "ours_recorded": {
+  "ci95_cluster": [
+   -0.3663419913419914,
+   0.7133637296680776
+  ],
+  "pnl_units": 2.0821304299565173,
+  "roi": 0.17351086916304312
+ },
+ "ours_resettled": {
+  "ci95_cluster": [
+   -0.10830835830835832,
+   0.7133637296680776
+  ],
+  "losses": 3,
+  "pnl_units": 4.03451138233747,
+  "pushes": 0,
+  "roi": 0.3362092818614559,
+  "wins": 9
+ },
+ "per_type": {
+  "moneyline": {
+   "losses_resettled": 2,
+   "n": 4,
+   "need": 96,
+   "wins_resettled": 2
+  },
+  "side": {
+   "losses_resettled": 1,
+   "n": 4,
+   "need": 96,
+   "wins_resettled": 3
+  },
+  "total": {
+   "losses_resettled": 0,
+   "n": 4,
+   "need": 96,
+   "wins_resettled": 4
+  }
+ },
+ "seed": 20261115,
+ "units": [
+  {
+   "away": "JAX",
+   "bet": "away",
+   "event_id": "401873037",
+   "home": "BAL",
+   "line": -9.5,
+   "market": "side",
+   "matches": true,
+   "official_away": 33,
+   "official_home": 10,
+   "official_url": "https://www.nfl.com/games/jaguars-at-ravens-2026-reg-9",
+   "price": "-110",
+   "recorded_outcome": "won",
+   "resettled_outcome": "won",
+   "week": 9
+  },
+  {
+   "away": "JAX",
+   "bet": "over",
+   "event_id": "401873037",
+   "home": "BAL",
+   "line": 40.5,
+   "market": "total",
+   "matches": true,
+   "official_away": 33,
+   "official_home": 10,
+   "official_url": "https://www.nfl.com/games/jaguars-at-ravens-2026-reg-9",
+   "price": "-112",
+   "recorded_outcome": "won",
+   "resettled_outcome": "won",
+   "week": 9
+  },
+  {
+   "away": "JAX",
+   "bet": "away",
+   "event_id": "401873037",
+   "home": "BAL",
+   "line": null,
+   "market": "moneyline",
+   "matches": true,
+   "official_away": 33,
+   "official_home": 10,
+   "official_url": "https://www.nfl.com/games/jaguars-at-ravens-2026-reg-9",
+   "price": "-455",
+   "recorded_outcome": "won",
+   "resettled_outcome": "won",
+   "week": 9
+  },
+  {
+   "away": "CIN",
+   "bet": "away",
+   "event_id": "401873038",
+   "home": "ATL",
+   "line": -3.0,
+   "market": "side",
+   "matches": true,
+   "official_away": 34,
+   "official_home": 17,
+   "official_url": "https://www.nfl.com/games/bengals-at-falcons-2026-reg-9",
+   "price": "-120",
+   "recorded_outcome": "won",
+   "resettled_outcome": "won",
+   "week": 9
+  },
+  {
+   "away": "CIN",
+   "bet": "under",
+   "event_id": "401873038",
+   "home": "ATL",
+   "line": 52.5,
+   "market": "total",
+   "matches": true,
+   "official_away": 34,
+   "official_home": 17,
+   "official_url": "https://www.nfl.com/games/bengals-at-falcons-2026-reg-9",
+   "price": "-115",
+   "recorded_outcome": "won",
+   "resettled_outcome": "won",
+   "week": 9
+  },
+  {
+   "away": "CIN",
+   "bet": "away",
+   "event_id": "401873038",
+   "home": "ATL",
+   "line": null,
+   "market": "moneyline",
+   "matches": true,
+   "official_away": 34,
+   "official_home": 17,
+   "official_url": "https://www.nfl.com/games/bengals-at-falcons-2026-reg-9",
+   "price": "-180",
+   "recorded_outcome": "won",
+   "resettled_outcome": "won",
+   "week": 9
+  },
+  {
+   "away": "CLE",
+   "bet": "away",
+   "event_id": "401873039",
+   "home": "NO",
+   "line": 4.5,
+   "market": "side",
+   "matches": false,
+   "official_away": 22,
+   "official_home": 23,
+   "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+   "price": "-105",
+   "recorded_outcome": "lost",
+   "resettled_outcome": "won",
+   "week": 9
+  },
+  {
+   "away": "CLE",
+   "bet": "over",
+   "event_id": "401873039",
+   "home": "NO",
+   "line": 43.5,
+   "market": "total",
+   "matches": true,
+   "official_away": 22,
+   "official_home": 23,
+   "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+   "price": "-110",
+   "recorded_outcome": "won",
+   "resettled_outcome": "won",
+   "week": 9
+  },
+  {
+   "away": "CLE",
+   "bet": "away",
+   "event_id": "401873039",
+   "home": "NO",
+   "line": null,
+   "market": "moneyline",
+   "matches": true,
+   "official_away": 22,
+   "official_home": 23,
+   "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+   "price": "+190",
+   "recorded_outcome": "lost",
+   "resettled_outcome": "lost",
+   "week": 9
+  },
+  {
+   "away": "WAS",
+   "bet": "home",
+   "event_id": "401873052",
+   "home": "NYG",
+   "line": -1.5,
+   "market": "side",
+   "matches": true,
+   "official_away": 24,
+   "official_home": 21,
+   "official_url": "https://www.nfl.com/games/commanders-at-giants-2026-reg-10",
+   "price": "-110",
+   "recorded_outcome": "lost",
+   "resettled_outcome": "lost",
+   "week": 10
+  },
+  {
+   "away": "WAS",
+   "bet": "over",
+   "event_id": "401873052",
+   "home": "NYG",
+   "line": 40.5,
+   "market": "total",
+   "matches": true,
+   "official_away": 24,
+   "official_home": 21,
+   "official_url": "https://www.nfl.com/games/commanders-at-giants-2026-reg-10",
+   "price": "-112",
+   "recorded_outcome": "won",
+   "resettled_outcome": "won",
+   "week": 10
+  },
+  {
+   "away": "WAS",
+   "bet": "home",
+   "event_id": "401873052",
+   "home": "NYG",
+   "line": null,
+   "market": "moneyline",
+   "matches": true,
+   "official_away": 24,
+   "official_home": 21,
+   "official_url": "https://www.nfl.com/games/commanders-at-giants-2026-reg-10",
+   "price": "-125",
+   "recorded_outcome": "lost",
+   "resettled_outcome": "lost",
+   "week": 10
+  }
+ ]
+}
