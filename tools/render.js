@@ -22,6 +22,7 @@ const PAGES = [
   ["strategies.html", "strategies"], ["availability.html", "availability"],
   ["depth.html", "depth"],
   ["markets.html", "markets"], ["gates.html", "gates"],
+  ["luck.html", "luck"], ["readiness.html", "readiness"], ["teams.html", "teams"],
   ["questions.html", "questions"], ["suggestions.html", "suggestions"],
   ["flags.html", "flags"], ["methodology.html", "methodology"],
   ["markets.html", "markets"], ["results.html", "results"], ["gates.html", "gates"],

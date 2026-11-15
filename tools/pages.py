@@ -2254,6 +2254,9 @@ def main():
         with open(os.path.join(SITE, href), "w", encoding="utf-8") as fh:
             fh.write(shell(slug, title, desc, body, href))
         written.append(href)
+    # T34 extension pages (tools/t34.py): luck, readiness, per-team view
+    import t34
+    written += t34.write_pages(SITE, shell)
     print("wrote %d pages: %s" % (len(written), ", ".join(written)))
 
 
