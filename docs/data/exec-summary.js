@@ -21,7 +21,7 @@
     E("Data","Standings rows verified","32 of 32 clubs",
       "Every club's W-L-T, PCT, PF, PA, net points, home, road, division, conference, non-conference, streak and last-5 record transcribed from nfl.com/standings.","NFL_STANDINGS"),
 
-    E("Data","Injury-report rows verified","345 player entries for Week 10",
+    E("Data","Injury-report rows verified","347 player entries for Week 10",
       "Player, position, injury, practice status and game status for every club, transcribed from nfl.com/injuries. Empty cells on the official page are rendered as unverified, not filled in.","NFL_INJURY"),
 
     E("Data","Week 10 games verified","14 games + 4 clubs on bye",

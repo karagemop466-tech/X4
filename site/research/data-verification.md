@@ -83,7 +83,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-22 | Demotion gate basis |
 | F-23 | Price-snapshot store values are model estimates, not official lines |
 | F-24 | The Houston Texans publish their depth chart only as an image |
-| F-25 | 19 officially ruled-out players do not appear on their own club's published depth chart |
+| F-25 | 20 officially ruled-out or doubtful players do not appear on their own club's published depth chart |
 | F-26 | Clubs disagree on what a depth chart is, and some say so in writing |
 | F-27 | A published depth chart is not proof of who started |
 | F-28 | Only two position rows have no published replacement, and no row has both starter and backup out |
@@ -98,6 +98,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-38 | The two price stores use the word 'close' differently |
 | F-39 | Desk rows without an official source link: the row-source gate was not reading row links |
 | F-40 | Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked) |
+| F-41 | Week 10 injury dataset re-captured from the live official NFL.com report: 347 rows, 26 corrected cells, 2 added rows |
+| F-42 | Two hand-written depth figures disagreed with the tool that produces them, and one depth match is by name only |
 
 ## What is deliberately absent
 
