@@ -24,6 +24,7 @@ file scope. Never start work on a task another session has claimed.
 | 21 | **T21 - Origination-side build (session `arena/f39958e6-x4`)**: price-snapshot store (open/close per market), origination order (side -> total -> moneyline), fair/market/difference columns, signal-vs-staking split, replacement-depth tracking, n-published correlations, paper-demotion gate, best-practice library, fundamentals-differentials research, new desk pages + publication gates | done (PR #24) | arena/f39958e6-x4 | `data/ops/**`, `data/transactions/**`, `tools/fetch.py`, `tools/origination.py`, `tools/ops.py`, `tools/check_ops.py`, `site/_template/origination.html`, `site/_template/operations*.html`, `site/_template/*.css` (new files only), `tools/check_site.py` (additive: allow `_template/` pages), `COORDINATION.md` § T21, `README.md` § T21 |
 | # | Task | Status | Owner session | File scope |
 |---|---|---|---|---|
+| T34 | **Decision-desk extension (session `arena/31354751-x4`)**: removal-of-luck panel on the dashboard with random-pick and favourites-only controls and cluster-bootstrap intervals; decision-readiness table on the landing page (one row per requirement, blocking gate, number that clears it); two-sided 'what would change our mind' field on every strategy; per-team view (starters out, replacements named, injury counts); Week 11 venues transcribed from the official NFL game centre; pre-registration of the forward Week 11 window committed before kickoff; settlement-discrepancy flag on the side market | in progress | arena/31354751-x4 | `tools/luck.py`, `tools/readiness.py`, `tools/teams.py`, `tools/fixtures.py` (all new), `data/venues-wk11-2026.csv`, `data/strategy-register-2026.csv`, `research/preregistration/**` (new), `tools/pages.py` (additive hooks only: NAV, DIRECTORY, index placeholders, strategy columns), `site/check.py` (page list), `site/*.html` new pages + root mirror via `tools/sync.py`, `COORDINATION.md` § T34, `README.md` § T34 |
 | 1 | Build NFL decision-support research dashboard and documented verification framework | done | arena/25459fae-x4 | `site/**`, `README.md`, `COORDINATION.md`, workflow config |
 | T21 | Price-snapshot store: opening and closing fair lines for every market we originate | done | arena/1c6a213c-x4 | `data/price-snapshots.csv`, `tools/build.py` (generation), `tools/pages.py` (render), `content.py` (flag) |
 | T22 | Verified results feed so backtests and ROI can be computed | done | arena/1c6a213c-x4 | `data/results-feed.csv`, `tools/build.py`, `tools/pages.py` |
@@ -1535,3 +1536,13 @@ The first record's statement "every desk row carries an https source link" was b
 ### Board note
 
 The id T31 is used by three different sessions' claims (the source-provenance audit, the parallel integration in PR #29, and this session). Each row is kept as its session wrote it. Future claims should use new ids.
+
+---
+
+# T34 - decision-desk extension (session `arena/31354751-x4`)
+
+Claimed 2026-11-15 on branch `arena/31354751-x4` (base `41c6088`). Scope is the file list in the task-board row above. Other sessions' files are not edited; any request to another owner is logged in the Requests table.
+
+## Session log
+
+- 2026-11-15: claim committed before any build work. Baseline `python3 tools/validate.py` = PASS (exit 0), with one open gate note: 191 desk-table rows without an https source link (F-39, `research/verification/row-source-gaps-2026-11-14.csv`), which the validator reports but does not fail on.
