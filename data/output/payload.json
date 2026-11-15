@@ -7006,16 +7006,6 @@
    "doubtful": [],
    "questionable": [
     {
-     "player": "Arden Key",
-     "pos": "DE",
-     "injuries": "Hamstring",
-     "practice": "Full",
-     "status": "Questionable",
-     "url": "https://www.nfl.com/players/arden-key/",
-     "unit": "Defensive line",
-     "side": "Defense"
-    },
-    {
      "player": "Will Mallory",
      "pos": "TE",
      "injuries": "Hamstring",
@@ -7072,8 +7062,8 @@
    ],
    "out_count": 6,
    "doubtful_count": 0,
-   "questionable_count": 2,
-   "active_status_count": 8,
+   "questionable_count": 1,
+   "active_status_count": 7,
    "listed_players": 14
   },
   {
@@ -7339,7 +7329,7 @@
      "player": "David Montgomery",
      "pos": "RB",
      "injuries": "Groin",
-     "practice": "Limited",
+     "practice": "Full",
      "status": "Questionable",
      "url": "https://www.nfl.com/players/david-montgomery/",
      "unit": "Running back",
@@ -7349,7 +7339,7 @@
      "player": "Jaylin Smith",
      "pos": "CB",
      "injuries": "Hamstring",
-     "practice": "Limited",
+     "practice": "Full",
      "status": "Questionable",
      "url": "https://www.nfl.com/players/jaylin-smith/",
      "unit": "Defensive back",
@@ -8118,7 +8108,7 @@
      "player": "Andrew Wingard",
      "pos": "S",
      "injuries": "Groin",
-     "practice": "Limited",
+     "practice": "DNP",
      "status": "Questionable",
      "url": "https://www.nfl.com/players/andrew-wingard/",
      "unit": "Defensive back",
@@ -8410,6 +8400,143 @@
    "listed_players": 13
   },
   {
+   "team": "Los Angeles Chargers",
+   "abbr": "LAC",
+   "url": "https://www.nfl.com/teams/los-angeles-chargers/",
+   "rows": 19,
+   "out": [
+    {
+     "player": "Branson Taylor",
+     "pos": "G",
+     "injuries": "Ankle",
+     "practice": "DNP",
+     "status": "Out",
+     "url": "https://www.nfl.com/players/branson-taylor/",
+     "unit": "Offensive line",
+     "side": "Offense"
+    },
+    {
+     "player": "Isas Waxter",
+     "pos": "CB",
+     "injuries": "Ankle",
+     "practice": "DNP",
+     "status": "Out",
+     "url": "https://www.nfl.com/players/isas-waxter/",
+     "unit": "Defensive back",
+     "side": "Defense"
+    },
+    {
+     "player": "Kendall Williamson",
+     "pos": "S",
+     "injuries": "Calf",
+     "practice": "DNP",
+     "status": "Out",
+     "url": "https://www.nfl.com/players/kendall-williamson/",
+     "unit": "Defensive back",
+     "side": "Defense"
+    }
+   ],
+   "doubtful": [
+    {
+     "player": "Brenen Thompson",
+     "pos": "WR",
+     "injuries": "Hamstring",
+     "practice": "DNP",
+     "status": "Doubtful",
+     "url": "https://www.nfl.com/players/brenen-thompson/",
+     "unit": "Wide receiver",
+     "side": "Offense"
+    }
+   ],
+   "questionable": [
+    {
+     "player": "Kayode Awosika",
+     "pos": "G",
+     "injuries": "Fibula",
+     "practice": "Full",
+     "status": "Questionable",
+     "url": "https://www.nfl.com/players/kayode-awosika/",
+     "unit": "Offensive line",
+     "side": "Offense"
+    },
+    {
+     "player": "Justin Eboigbe",
+     "pos": "DE",
+     "injuries": "Ankle",
+     "practice": "Limited",
+     "status": "Questionable",
+     "url": "https://www.nfl.com/players/justin-eboigbe/",
+     "unit": "Defensive line",
+     "side": "Defense"
+    },
+    {
+     "player": "Ladd McConkey",
+     "pos": "WR",
+     "injuries": "Back",
+     "practice": "DNP",
+     "status": "Questionable",
+     "url": "https://www.nfl.com/players/ladd-mcconkey/",
+     "unit": "Wide receiver",
+     "side": "Offense"
+    },
+    {
+     "player": "David Njoku",
+     "pos": "TE",
+     "injuries": "Fibula",
+     "practice": "Full",
+     "status": "Questionable",
+     "url": "https://www.nfl.com/players/david-njoku/",
+     "unit": "Tight end",
+     "side": "Offense"
+    },
+    {
+     "player": "Denzel Perryman",
+     "pos": "LB",
+     "injuries": "Pectoral",
+     "practice": "Full",
+     "status": "Questionable",
+     "url": "https://www.nfl.com/players/denzel-perryman/",
+     "unit": "Linebacker",
+     "side": "Defense"
+    },
+    {
+     "player": "Trey Pipkins",
+     "pos": "T",
+     "injuries": "Not injury related - personal matter, Knee",
+     "practice": "Limited",
+     "status": "Questionable",
+     "url": "https://www.nfl.com/players/trey-pipkins/",
+     "unit": "Offensive line",
+     "side": "Offense"
+    }
+   ],
+   "counts": {},
+   "out_by_unit": [
+    {
+     "side": "Defense",
+     "unit": "Defensive back",
+     "count": 2,
+     "players": [
+      "Isas Waxter",
+      "Kendall Williamson"
+     ]
+    },
+    {
+     "side": "Offense",
+     "unit": "Offensive line",
+     "count": 1,
+     "players": [
+      "Branson Taylor"
+     ]
+    }
+   ],
+   "out_count": 3,
+   "doubtful_count": 1,
+   "questionable_count": 6,
+   "active_status_count": 10,
+   "listed_players": 19
+  },
+  {
    "team": "New England Patriots",
    "abbr": "NE",
    "url": "https://www.nfl.com/teams/new-england-patriots/",
@@ -8522,7 +8649,7 @@
      "player": "Greg Van Roten",
      "pos": "G",
      "injuries": "Hamstring",
-     "practice": "Limited",
+     "practice": "Full",
      "status": "Questionable",
      "url": "https://www.nfl.com/players/greg-van-roten/",
      "unit": "Offensive line",
@@ -8532,7 +8659,7 @@
      "player": "Charles Woods",
      "pos": "CB",
      "injuries": "Hamstring",
-     "practice": "Limited",
+     "practice": "Full",
      "status": "Questionable",
      "url": "https://www.nfl.com/players/charles-woods/",
      "unit": "Defensive back",
@@ -8951,6 +9078,53 @@
    "listed_players": 11
   },
   {
+   "team": "Baltimore Ravens",
+   "abbr": "BAL",
+   "url": "https://www.nfl.com/teams/baltimore-ravens/",
+   "rows": 10,
+   "out": [
+    {
+     "player": "Jaylinn Hawkins",
+     "pos": "S",
+     "injuries": "Knee",
+     "practice": "Limited",
+     "status": "Out",
+     "url": "https://www.nfl.com/players/jaylinn-hawkins/",
+     "unit": "Defensive back",
+     "side": "Defense"
+    }
+   ],
+   "doubtful": [],
+   "questionable": [
+    {
+     "player": "Adam Randall",
+     "pos": "RB",
+     "injuries": "Neck, Hamstring",
+     "practice": "Full",
+     "status": "Questionable",
+     "url": "https://www.nfl.com/players/adam-randall/",
+     "unit": "Running back",
+     "side": "Offense"
+    }
+   ],
+   "counts": {},
+   "out_by_unit": [
+    {
+     "side": "Defense",
+     "unit": "Defensive back",
+     "count": 1,
+     "players": [
+      "Jaylinn Hawkins"
+     ]
+    }
+   ],
+   "out_count": 1,
+   "doubtful_count": 0,
+   "questionable_count": 1,
+   "active_status_count": 2,
+   "listed_players": 10
+  },
+  {
    "team": "Carolina Panthers",
    "abbr": "CAR",
    "url": "https://www.nfl.com/teams/carolina-panthers/",
@@ -9305,7 +9479,7 @@
      "player": "C.J. West",
      "pos": "DT",
      "injuries": "Knee",
-     "practice": "Limited",
+     "practice": "Full",
      "status": "Questionable",
      "url": "https://www.nfl.com/players/cj-west/",
      "unit": "Defensive line",
@@ -9338,22 +9512,6 @@
    "questionable_count": 7,
    "active_status_count": 8,
    "listed_players": 12
-  },
-  {
-   "team": "Baltimore Ravens",
-   "abbr": "BAL",
-   "url": "https://www.nfl.com/teams/baltimore-ravens/",
-   "rows": 8,
-   "out": [],
-   "doubtful": [],
-   "questionable": [],
-   "counts": {},
-   "out_by_unit": [],
-   "out_count": 0,
-   "doubtful_count": 0,
-   "questionable_count": 0,
-   "active_status_count": 0,
-   "listed_players": 8
   },
   {
    "team": "Buffalo Bills",
@@ -9422,22 +9580,6 @@
    "questionable_count": 4,
    "active_status_count": 5,
    "listed_players": 14
-  },
-  {
-   "team": "Los Angeles Chargers",
-   "abbr": "LAC",
-   "url": "https://www.nfl.com/teams/los-angeles-chargers/",
-   "rows": 19,
-   "out": [],
-   "doubtful": [],
-   "questionable": [],
-   "counts": {},
-   "out_by_unit": [],
-   "out_count": 0,
-   "doubtful_count": 0,
-   "questionable_count": 0,
-   "active_status_count": 0,
-   "listed_players": 19
   },
   {
    "team": "Las Vegas Raiders",
@@ -9868,7 +10010,7 @@
    "player": "Greg Van Roten",
    "pos": "G",
    "injuries": "Hamstring",
-   "practice": "Limited",
+   "practice": "Full",
    "status": "Questionable",
    "url": "https://www.nfl.com/players/greg-van-roten/"
   },
@@ -9878,7 +10020,7 @@
    "player": "Charles Woods",
    "pos": "CB",
    "injuries": "Hamstring",
-   "practice": "Limited",
+   "practice": "Full",
    "status": "Questionable",
    "url": "https://www.nfl.com/players/charles-woods/"
   },
@@ -10498,7 +10640,7 @@
    "player": "Savion Williams",
    "pos": "WR",
    "injuries": "",
-   "practice": "Full",
+   "practice": "Limited",
    "status": "",
    "url": "https://www.nfl.com/players/savion-williams/"
   },
@@ -10578,7 +10720,7 @@
    "player": "Antonio Johnson",
    "pos": "S",
    "injuries": "",
-   "practice": "Full",
+   "practice": "Limited",
    "status": "",
    "url": "https://www.nfl.com/players/antonio-johnson-3/"
   },
@@ -10988,7 +11130,7 @@
    "player": "Kaytron Allen",
    "pos": "RB",
    "injuries": "",
-   "practice": "Limited",
+   "practice": "Full",
    "status": "",
    "url": "https://www.nfl.com/players/kaytron-allen/"
   },
@@ -11137,9 +11279,9 @@
    "team_abbr": "IND",
    "player": "Arden Key",
    "pos": "DE",
-   "injuries": "Hamstring",
+   "injuries": "",
    "practice": "Full",
-   "status": "Questionable",
+   "status": "",
    "url": "https://www.nfl.com/players/arden-key/"
   },
   {
@@ -11578,7 +11720,7 @@
    "player": "David Montgomery",
    "pos": "RB",
    "injuries": "Groin",
-   "practice": "Limited",
+   "practice": "Full",
    "status": "Questionable",
    "url": "https://www.nfl.com/players/david-montgomery/"
   },
@@ -11598,7 +11740,7 @@
    "player": "Jaylin Smith",
    "pos": "CB",
    "injuries": "Hamstring",
-   "practice": "Limited",
+   "practice": "Full",
    "status": "Questionable",
    "url": "https://www.nfl.com/players/jaylin-smith/"
   },
@@ -11728,7 +11870,7 @@
    "player": "Denzel Ward",
    "pos": "CB",
    "injuries": "",
-   "practice": "Full",
+   "practice": "Limited",
    "status": "",
    "url": "https://www.nfl.com/players/denzel-ward/"
   },
@@ -12028,7 +12170,7 @@
    "player": "Andrew Wingard",
    "pos": "S",
    "injuries": "Groin",
-   "practice": "Limited",
+   "practice": "DNP",
    "status": "Questionable",
    "url": "https://www.nfl.com/players/andrew-wingard/"
   },
@@ -12338,7 +12480,7 @@
    "player": "C.J. West",
    "pos": "DT",
    "injuries": "Knee",
-   "practice": "Limited",
+   "practice": "Full",
    "status": "Questionable",
    "url": "https://www.nfl.com/players/cj-west/"
   },
@@ -12448,7 +12590,7 @@
    "player": "Von Miller",
    "pos": "LB",
    "injuries": "",
-   "practice": "Full",
+   "practice": "DNP",
    "status": "",
    "url": "https://www.nfl.com/players/von-miller/"
   },
@@ -12717,9 +12859,9 @@
    "team_abbr": "LAC",
    "player": "Kayode Awosika",
    "pos": "G",
-   "injuries": "",
-   "practice": "Limited",
-   "status": "",
+   "injuries": "Fibula",
+   "practice": "Full",
+   "status": "Questionable",
    "url": "https://www.nfl.com/players/kayode-awosika/"
   },
   {
@@ -12728,7 +12870,7 @@
    "player": "Bud Dupree",
    "pos": "DE",
    "injuries": "",
-   "practice": "DNP",
+   "practice": "Full",
    "status": "",
    "url": "https://www.nfl.com/players/bud-dupree/"
   },
@@ -12737,9 +12879,9 @@
    "team_abbr": "LAC",
    "player": "Justin Eboigbe",
    "pos": "DE",
-   "injuries": "",
+   "injuries": "Ankle",
    "practice": "Limited",
-   "status": "",
+   "status": "Questionable",
    "url": "https://www.nfl.com/players/justin-eboigbe/"
   },
   {
@@ -12807,9 +12949,9 @@
    "team_abbr": "LAC",
    "player": "Ladd McConkey",
    "pos": "WR",
-   "injuries": "",
+   "injuries": "Back",
    "practice": "DNP",
-   "status": "",
+   "status": "Questionable",
    "url": "https://www.nfl.com/players/ladd-mcconkey/"
   },
   {
@@ -12818,7 +12960,7 @@
    "player": "Keaton Mitchell",
    "pos": "RB",
    "injuries": "",
-   "practice": "Limited",
+   "practice": "Full",
    "status": "",
    "url": "https://www.nfl.com/players/keaton-mitchell/"
   },
@@ -12827,9 +12969,9 @@
    "team_abbr": "LAC",
    "player": "David Njoku",
    "pos": "TE",
-   "injuries": "",
-   "practice": "Limited",
-   "status": "",
+   "injuries": "Fibula",
+   "practice": "Full",
+   "status": "Questionable",
    "url": "https://www.nfl.com/players/david-njoku/"
   },
   {
@@ -12837,9 +12979,9 @@
    "team_abbr": "LAC",
    "player": "Denzel Perryman",
    "pos": "LB",
-   "injuries": "",
+   "injuries": "Pectoral",
    "practice": "Full",
-   "status": "",
+   "status": "Questionable",
    "url": "https://www.nfl.com/players/denzel-perryman/"
   },
   {
@@ -12847,9 +12989,9 @@
    "team_abbr": "LAC",
    "player": "Trey Pipkins",
    "pos": "T",
-   "injuries": "",
-   "practice": "DNP",
-   "status": "",
+   "injuries": "Not injury related - personal matter, Knee",
+   "practice": "Limited",
+   "status": "Questionable",
    "url": "https://www.nfl.com/players/trey-pipkins/"
   },
   {
@@ -12867,9 +13009,9 @@
    "team_abbr": "LAC",
    "player": "Branson Taylor",
    "pos": "G",
-   "injuries": "",
+   "injuries": "Ankle",
    "practice": "DNP",
-   "status": "",
+   "status": "Out",
    "url": "https://www.nfl.com/players/branson-taylor/"
   },
   {
@@ -12877,9 +13019,9 @@
    "team_abbr": "LAC",
    "player": "Brenen Thompson",
    "pos": "WR",
-   "injuries": "",
+   "injuries": "Hamstring",
    "practice": "DNP",
-   "status": "",
+   "status": "Doubtful",
    "url": "https://www.nfl.com/players/brenen-thompson/"
   },
   {
@@ -12887,9 +13029,9 @@
    "team_abbr": "LAC",
    "player": "Isas Waxter",
    "pos": "CB",
-   "injuries": "",
+   "injuries": "Ankle",
    "practice": "DNP",
-   "status": "",
+   "status": "Out",
    "url": "https://www.nfl.com/players/isas-waxter/"
   },
   {
@@ -12897,9 +13039,9 @@
    "team_abbr": "LAC",
    "player": "Kendall Williamson",
    "pos": "S",
-   "injuries": "",
+   "injuries": "Calf",
    "practice": "DNP",
-   "status": "",
+   "status": "Out",
    "url": "https://www.nfl.com/players/kendall-williamson/"
   },
   {
@@ -12925,6 +13067,16 @@
   {
    "team": "Baltimore Ravens",
    "team_abbr": "BAL",
+   "player": "Calais Campbell",
+   "pos": "DT",
+   "injuries": "",
+   "practice": "DNP",
+   "status": "",
+   "url": "https://www.nfl.com/players/calais-campbell/"
+  },
+  {
+   "team": "Baltimore Ravens",
+   "team_abbr": "BAL",
    "player": "Kyle Hamilton",
    "pos": "S",
    "injuries": "",
@@ -12937,9 +13089,9 @@
    "team_abbr": "BAL",
    "player": "Jaylinn Hawkins",
    "pos": "S",
-   "injuries": "",
+   "injuries": "Knee",
    "practice": "Limited",
-   "status": "",
+   "status": "Out",
    "url": "https://www.nfl.com/players/jaylinn-hawkins/"
   },
   {
@@ -12967,10 +13119,20 @@
    "team_abbr": "BAL",
    "player": "Adam Randall",
    "pos": "RB",
-   "injuries": "",
+   "injuries": "Neck, Hamstring",
    "practice": "Full",
-   "status": "",
+   "status": "Questionable",
    "url": "https://www.nfl.com/players/adam-randall/"
+  },
+  {
+   "team": "Baltimore Ravens",
+   "team_abbr": "BAL",
+   "player": "Ronnie Stanley",
+   "pos": "T",
+   "injuries": "",
+   "practice": "DNP",
+   "status": "",
+   "url": "https://www.nfl.com/players/ronnie-stanley/"
   },
   {
    "team": "Baltimore Ravens",
@@ -13176,9 +13338,9 @@
    "item": "Official injury-report drift on two practice-status cells",
    "type": "Irregularity",
    "kind": "warn",
-   "status": "irregularity",
+   "status": "resolved",
    "detail": "The committed Week-10 injury dataset records Greg Van Roten (G, NE) and Charles Woods (CB, NE) as Limited participation. The live official NFL.com injury report, re-fetched 2026-11-14 by the new live-verification harness (tools/verify_live.py), shows both as Full Participation in Practice. The league updates the report during the week, so the committed cells reflect an earlier snapshot.",
-   "why": "The committed data was deliberately not changed - editing it would fork the published numbers away from the snapshot the rest of the build was verified against. Both values and both source links are recorded here and on the decision-desk register (R-14) so the drift can be reviewed and, if the current snapshot is adopted, regenerated through the normal pipeline rather than hand-patched. This entry records the two cells this session's live harness caught; F-29 records the broader set of practice-status moves found by a parallel live verification, and the two are complementary, not duplicate.",
+   "why": "SUPERSEDED on 2026-11-15 by F-41: the injury dataset was re-captured from the live official page and regenerated through the pipeline. The text below records the state on 2026-11-14. The committed data was deliberately not changed then - editing it would fork the published numbers away from the snapshot the rest of the build was verified against. Both values and both source links are recorded here and on the decision-desk register (R-14) so the drift can be reviewed and, if the current snapshot is adopted, regenerated through the normal pipeline rather than hand-patched. This entry records the two cells this session's live harness caught; F-29 records the broader set of practice-status moves found by a parallel live verification, and the two are complementary, not duplicate.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/injuries-wk10-2026.csv"
   },
@@ -13261,12 +13423,12 @@
   },
   {
    "id": "F-25",
-   "item": "19 officially ruled-out players do not appear on their own club's published depth chart",
+   "item": "20 officially ruled-out or doubtful players do not appear on their own club's published depth chart",
    "type": "Irregularity",
    "kind": "warn",
    "status": "irregularity",
-   "detail": "Of the 76 players the official Week 10 injury report lists as Out or Doubtful, 57 appear somewhere on their club's published depth chart and 19 do not: Lucas Patrick (WAS), Kerby Joseph (DET), Omarr Norman-Lott (KC), Micah Parsons (GB), BJ Green II (JAX), Tommy Townsend (TEN), Luke Rhodes (IND), Jonathon Brooks and Mike Jackson (CAR), Terrance Ferguson (LAR), Zachary Carter (ARI), Jalen Davis, Andrei Iosivas and Brian Parker II (CIN), plus the five Houston players above.",
-   "why": "A club's depth chart is editorial and lags roster moves, so an absent name is not evidence the player is not on the team. The effect on this site is conservative: those 19 absences are counted in the official injury totals but not in the depth-based starter-out score, so the starter-out figures are a floor, not a ceiling. Each is listed by name on the Depth & deficiency page so a reviewer can chase them individually.",
+   "detail": "Of the 81 players the official Week 10 injury report lists as Out or Doubtful (70 Out, 11 Doubtful), 62 appear on their club's published depth chart (61 by exact name, plus one name-only match flagged in F-42) and 20 do not: Lucas Patrick (WAS), Kerby Joseph (DET), Omarr Norman-Lott (KC), Micah Parsons (GB), BJ Green II (JAX), Tommy Townsend (TEN), Luke Rhodes (IND), Jonathon Brooks and Mike Jackson (CAR), Terrance Ferguson (LAR), Zachary Carter (ARI), Jalen Davis, Andrei Iosivas and Brian Parker II (CIN), Isas Waxter (LAC), plus the five Houston players above.",
+   "why": "A club's depth chart is editorial and lags roster moves, so an absent name is not evidence the player is not on the team. The effect on this site is conservative: those 20 absences are counted in the official injury totals but not in the depth-based starter-out score, so the starter-out figures are a floor, not a ceiling. Each is listed by name on the Depth & deficiency page so a reviewer can chase them individually. (The count was 19 of 76 before the 2026-11-15 re-capture in F-41.)",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://www.tennesseetitans.com/team/depth-chart"
   },
@@ -13308,7 +13470,7 @@
    "item": "Four practice statuses moved between the committed injury snapshot and the 2026-11-14 read",
    "type": "Irregularity",
    "kind": "warn",
-   "status": "unverified",
+   "status": "resolved",
    "detail": "tools/build.py reads data/injuries-wk10-2026.csv. Re-reading the official NFL.com injury report on 2026-11-14 for eight clubs (101 players, 404 practice-status fields) found four cells that no longer match: Houston's Montgomery and Jaylin Smith are now Full where the snapshot says Limited, Cleveland's Denzel Ward is now Limited where the snapshot says Full, and Arizona's Andrew Wingard is now DNP where the snapshot says Limited.",
    "why": "The snapshot was not overwritten. Both transcriptions are committed (research/verification/injuries-week10-2026-11-14-session-4e108e9a.csv) so a reader can see the drift rather than a silently corrected number. An earlier version of this flag described three drifts and 401 of 404 fields because it was computed from a four-club subset; the eight-club re-read found four, and the smaller number is the wrong one.",
    "official_url": "https://www.nfl.com/injuries/",
@@ -13418,11 +13580,33 @@
    "item": "Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked)",
    "type": "Irregularity",
    "kind": "warn",
-   "status": "irregularity",
+   "status": "resolved",
    "detail": "A parallel session's full capture of the Week 10 injury page (345 of 345 rows) found twelve practice-status cells that differ from data/injuries-wk10-2026.csv. Two are already flagged as F-34 (Greg Van Roten, Charles Woods). The other ten are: Savion Williams (WR, GB), Antonio Johnson (S, JAX), Kaytron Allen (RB, MIA), David Montgomery (RB, HOU), Jaylin Smith (CB, HOU), Denzel Ward (CB, CLE), Andrew Wingard (S, ARI), C.J. West (DT, SF), Von Miller (LB, DAL), Rodney Shelley (CB, LAC). Each row, with its committed value, its live value and its official player page, is in research/verification/live-verification-2026-11-14-e6ee28a8.md.",
-   "why": "The official report is updated during the week, so the committed snapshot is older than the live page. The committed data is deliberately not edited, so the published numbers stay tied to the snapshot they were verified against. The live values were captured by the parallel session through the platform's web tools; they were not independently re-checked from this sandbox, which cannot reach nfl.com. Recommended: re-run the capture and then regenerate the injury dataset through the normal pipeline, not by hand.",
+   "why": "SUPERSEDED on 2026-11-15 by F-41. Nine of these ten reproduce on the live read; Rodney Shelley does not (see F-41). The official report is updated during the week, so the committed snapshot is older than the live page. The committed data is deliberately not edited, so the published numbers stay tied to the snapshot they were verified against. The live values were captured by the parallel session through the platform's web tools; they were not independently re-checked from this sandbox, which cannot reach nfl.com. Recommended: re-run the capture and then regenerate the injury dataset through the normal pipeline, not by hand.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-verification-2026-11-14-e6ee28a8.md"
+  },
+  {
+   "id": "F-41",
+   "item": "Week 10 injury dataset re-captured from the live official NFL.com report: 347 rows, 26 corrected cells, 2 added rows",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "On 2026-11-15 the official NFL.com Week 10 injury report was read in full (every row of all 28 team sections). The read holds 347 player rows. The committed file held 345. Against it, 26 cells differed in practice or game status, and two Baltimore rows were absent: Calais Campbell (DNP) and Ronnie Stanley (DNP). Twelve of the 26 are in the Chargers section (Kayode Awosika, Bud Dupree, Justin Eboigbe, Ladd McConkey, Keaton Mitchell, David Njoku, Denzel Perryman, Trey Pipkins, Branson Taylor, Brenen Thompson, Isas Waxter, Kendall Williamson). The other fourteen: Van Roten and Woods (NE), Savion Williams (GB), Antonio Johnson (JAX), Kaytron Allen (MIA), Arden Key (IND), David Montgomery and Jaylin Smith (HOU), Denzel Ward (CLE), Andrew Wingard (ARI), C.J. West (SF), Von Miller (DAL), Jaylinn Hawkins and Adam Randall (BAL). The three Detroit designations that were listed as blank (Kerby Joseph, Cade Mays, D.J. Reed) read Out on the live page and were already Out in the committed file, so no blank remains. Two figures in the brief did not reproduce: the committed file held 345 rows, not 254, and the live page holds 347, not 279. Rodney Shelley (LAC) was recorded as Full-to-Limited on 2026-11-14 (F-40); the live read shows Full, matching the committed value, so that one change is not reproduced. Every corrected value is the value printed on the page, transcribed to research/verification/official-injury-report-wk10-capture-2026-11-15.csv and checked against the committed file by tools/capture_check.py.",
+   "why": "The live page changes during the week, so the committed file is a dated copy and not a standing fact. The regenerated site now carries the 2026-11-15 read: depth counts, availability rows and the starter-out figures were recomputed by the normal pipeline, not hand-patched. The read was made with the platform's page-fetch tool, which returns the page as text; this sandbox cannot reach nfl.com directly, so the capture is a transcription of that text rather than the raw HTTP bytes. A raw, hashed, timestamped capture is what the new capture workflow (tools/capture_official.py) is built to keep, daily, once it runs on GitHub's runners.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-injury-report-wk10-capture-2026-11-15.csv"
+  },
+  {
+   "id": "F-42",
+   "item": "Two hand-written depth figures disagreed with the tool that produces them, and one depth match is by name only",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The README and research/depth-and-deficiency.md published 57 of 76 Out or Doubtful players on a club chart and 40 at depth 1, and cited this flag as F-19. The depth tool's own output held 58 at the committed snapshot, so the prose did not match the tool it cited, and F-19 is the staking flag, not the depth one. Michael Burton (CLE) is matched by name only. The injury report lists him as FB, Calf, Out; the club's chart lists a Michael Burton at RB, depth 3, Out, Calf. The match counts him toward the 62 on-chart figure and he does not enter any starter count, because depth 3 is not a starter.",
+   "why": "A figure in prose must come from the run that produced the data. The README and the depth note now quote the rebuilt values (62 of 81 on chart; 41 at depth 1, 23 offense and 18 defense; 20 clubs with a starter out or doubtful; 20 unmatched; two holes; zero cascades) and cite F-25. The Burton match is left in place and flagged: a reviewer should confirm from the club's own page whether the chart's RB row is the same man the report lists at FB before the join is treated as exact.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://www.clevelandbrowns.com/team/depth-chart"
   }
  ],
  "replacement_depth": [

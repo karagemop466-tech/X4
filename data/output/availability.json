@@ -69,16 +69,6 @@
   "doubtful": [],
   "questionable": [
    {
-    "player": "Arden Key",
-    "pos": "DE",
-    "injuries": "Hamstring",
-    "practice": "Full",
-    "status": "Questionable",
-    "url": "https://www.nfl.com/players/arden-key/",
-    "unit": "Defensive line",
-    "side": "Defense"
-   },
-   {
     "player": "Will Mallory",
     "pos": "TE",
     "injuries": "Hamstring",
@@ -135,8 +125,8 @@
   ],
   "out_count": 6,
   "doubtful_count": 0,
-  "questionable_count": 2,
-  "active_status_count": 8,
+  "questionable_count": 1,
+  "active_status_count": 7,
   "listed_players": 14
  },
  {
@@ -402,7 +392,7 @@
     "player": "David Montgomery",
     "pos": "RB",
     "injuries": "Groin",
-    "practice": "Limited",
+    "practice": "Full",
     "status": "Questionable",
     "url": "https://www.nfl.com/players/david-montgomery/",
     "unit": "Running back",
@@ -412,7 +402,7 @@
     "player": "Jaylin Smith",
     "pos": "CB",
     "injuries": "Hamstring",
-    "practice": "Limited",
+    "practice": "Full",
     "status": "Questionable",
     "url": "https://www.nfl.com/players/jaylin-smith/",
     "unit": "Defensive back",
@@ -1181,7 +1171,7 @@
     "player": "Andrew Wingard",
     "pos": "S",
     "injuries": "Groin",
-    "practice": "Limited",
+    "practice": "DNP",
     "status": "Questionable",
     "url": "https://www.nfl.com/players/andrew-wingard/",
     "unit": "Defensive back",
@@ -1473,6 +1463,143 @@
   "listed_players": 13
  },
  {
+  "team": "Los Angeles Chargers",
+  "abbr": "LAC",
+  "url": "https://www.nfl.com/teams/los-angeles-chargers/",
+  "rows": 19,
+  "out": [
+   {
+    "player": "Branson Taylor",
+    "pos": "G",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/branson-taylor/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Isas Waxter",
+    "pos": "CB",
+    "injuries": "Ankle",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/isas-waxter/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   },
+   {
+    "player": "Kendall Williamson",
+    "pos": "S",
+    "injuries": "Calf",
+    "practice": "DNP",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/kendall-williamson/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [
+   {
+    "player": "Brenen Thompson",
+    "pos": "WR",
+    "injuries": "Hamstring",
+    "practice": "DNP",
+    "status": "Doubtful",
+    "url": "https://www.nfl.com/players/brenen-thompson/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   }
+  ],
+  "questionable": [
+   {
+    "player": "Kayode Awosika",
+    "pos": "G",
+    "injuries": "Fibula",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/kayode-awosika/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   },
+   {
+    "player": "Justin Eboigbe",
+    "pos": "DE",
+    "injuries": "Ankle",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/justin-eboigbe/",
+    "unit": "Defensive line",
+    "side": "Defense"
+   },
+   {
+    "player": "Ladd McConkey",
+    "pos": "WR",
+    "injuries": "Back",
+    "practice": "DNP",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/ladd-mcconkey/",
+    "unit": "Wide receiver",
+    "side": "Offense"
+   },
+   {
+    "player": "David Njoku",
+    "pos": "TE",
+    "injuries": "Fibula",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/david-njoku/",
+    "unit": "Tight end",
+    "side": "Offense"
+   },
+   {
+    "player": "Denzel Perryman",
+    "pos": "LB",
+    "injuries": "Pectoral",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/denzel-perryman/",
+    "unit": "Linebacker",
+    "side": "Defense"
+   },
+   {
+    "player": "Trey Pipkins",
+    "pos": "T",
+    "injuries": "Not injury related - personal matter, Knee",
+    "practice": "Limited",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/trey-pipkins/",
+    "unit": "Offensive line",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive back",
+    "count": 2,
+    "players": [
+     "Isas Waxter",
+     "Kendall Williamson"
+    ]
+   },
+   {
+    "side": "Offense",
+    "unit": "Offensive line",
+    "count": 1,
+    "players": [
+     "Branson Taylor"
+    ]
+   }
+  ],
+  "out_count": 3,
+  "doubtful_count": 1,
+  "questionable_count": 6,
+  "active_status_count": 10,
+  "listed_players": 19
+ },
+ {
   "team": "New England Patriots",
   "abbr": "NE",
   "url": "https://www.nfl.com/teams/new-england-patriots/",
@@ -1585,7 +1712,7 @@
     "player": "Greg Van Roten",
     "pos": "G",
     "injuries": "Hamstring",
-    "practice": "Limited",
+    "practice": "Full",
     "status": "Questionable",
     "url": "https://www.nfl.com/players/greg-van-roten/",
     "unit": "Offensive line",
@@ -1595,7 +1722,7 @@
     "player": "Charles Woods",
     "pos": "CB",
     "injuries": "Hamstring",
-    "practice": "Limited",
+    "practice": "Full",
     "status": "Questionable",
     "url": "https://www.nfl.com/players/charles-woods/",
     "unit": "Defensive back",
@@ -2014,6 +2141,53 @@
   "listed_players": 11
  },
  {
+  "team": "Baltimore Ravens",
+  "abbr": "BAL",
+  "url": "https://www.nfl.com/teams/baltimore-ravens/",
+  "rows": 10,
+  "out": [
+   {
+    "player": "Jaylinn Hawkins",
+    "pos": "S",
+    "injuries": "Knee",
+    "practice": "Limited",
+    "status": "Out",
+    "url": "https://www.nfl.com/players/jaylinn-hawkins/",
+    "unit": "Defensive back",
+    "side": "Defense"
+   }
+  ],
+  "doubtful": [],
+  "questionable": [
+   {
+    "player": "Adam Randall",
+    "pos": "RB",
+    "injuries": "Neck, Hamstring",
+    "practice": "Full",
+    "status": "Questionable",
+    "url": "https://www.nfl.com/players/adam-randall/",
+    "unit": "Running back",
+    "side": "Offense"
+   }
+  ],
+  "counts": {},
+  "out_by_unit": [
+   {
+    "side": "Defense",
+    "unit": "Defensive back",
+    "count": 1,
+    "players": [
+     "Jaylinn Hawkins"
+    ]
+   }
+  ],
+  "out_count": 1,
+  "doubtful_count": 0,
+  "questionable_count": 1,
+  "active_status_count": 2,
+  "listed_players": 10
+ },
+ {
   "team": "Carolina Panthers",
   "abbr": "CAR",
   "url": "https://www.nfl.com/teams/carolina-panthers/",
@@ -2368,7 +2542,7 @@
     "player": "C.J. West",
     "pos": "DT",
     "injuries": "Knee",
-    "practice": "Limited",
+    "practice": "Full",
     "status": "Questionable",
     "url": "https://www.nfl.com/players/cj-west/",
     "unit": "Defensive line",
@@ -2401,22 +2575,6 @@
   "questionable_count": 7,
   "active_status_count": 8,
   "listed_players": 12
- },
- {
-  "team": "Baltimore Ravens",
-  "abbr": "BAL",
-  "url": "https://www.nfl.com/teams/baltimore-ravens/",
-  "rows": 8,
-  "out": [],
-  "doubtful": [],
-  "questionable": [],
-  "counts": {},
-  "out_by_unit": [],
-  "out_count": 0,
-  "doubtful_count": 0,
-  "questionable_count": 0,
-  "active_status_count": 0,
-  "listed_players": 8
  },
  {
   "team": "Buffalo Bills",
@@ -2485,22 +2643,6 @@
   "questionable_count": 4,
   "active_status_count": 5,
   "listed_players": 14
- },
- {
-  "team": "Los Angeles Chargers",
-  "abbr": "LAC",
-  "url": "https://www.nfl.com/teams/los-angeles-chargers/",
-  "rows": 19,
-  "out": [],
-  "doubtful": [],
-  "questionable": [],
-  "counts": {},
-  "out_by_unit": [],
-  "out_count": 0,
-  "doubtful_count": 0,
-  "questionable_count": 0,
-  "active_status_count": 0,
-  "listed_players": 19
  },
  {
   "team": "Las Vegas Raiders",
