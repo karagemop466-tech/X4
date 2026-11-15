@@ -1584,7 +1584,7 @@ The id T31 is used by three different sessions' claims (the source-provenance au
 
 ## Session log — arena/0a180c64-x4 (T36: Week 10 official injury re-capture, immutable capture system, 2026-11-15)
 
-**Branch note.** This session works only on `arena/0a180c64-x4`, as its branch note requires. The `session-<id>/<task>` branch naming in the brief could not be followed, and the status-quo board rule is kept: claims, scope and log all live on this branch.
+**Branch note.** This session works only on `arena/0a180c64-x4`, as its branch note requires. Claims, scope and log all live on this branch.
 
 **Claimed and committed before the bulk of the work:** claim commit `5c19b8e`, then work `08d4a88` and record `f75283b`, all on this branch and pushed. The branch was rebased onto `origin/main` at `2c0da55` (PR #45) before the gate was run.
 
