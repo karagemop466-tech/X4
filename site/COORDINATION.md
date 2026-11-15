@@ -25,8 +25,10 @@ file scope. Never start work on a task another session has claimed.
 | # | Task | Status | Owner session | File scope |
 |---|---|---|---|---|
 | T35 | **Suggestion register and decision-readiness reconciliation** — audit the published Suggestions page against the merged repository, distinguish delivered work from open proposals, remove stale claims, and add a clear no-input-required recommended sequence plus documented open questions/known answers and non-inferable missing information | done | arena/634c7558-x4 | `suggestions.html`, `site/suggestions.html`, `tools/pages.py` (Suggestions page body/description only; stale T31 sub-scope handoff), `site/COORDINATION.md` (mirror of the coordination board), `COORDINATION.md` (T35 row + session log only) |
-| T36 | **Week 10 official injury re-capture and immutable capture system** (session `arena/0a180c64-x4`, 2026-11-15): read every row of the official NFL.com Week 10 report (347 rows, 28 clubs), correct the committed dataset cell by cell (26 cells, 2 added rows), add a drift alarm (`tools/capture_check.py`) and a raw, hashed, timestamped capture tool with a six-hourly workflow (`tools/capture_official.py`, `.github/workflows/capture.yml`), supersede F-29/F-34/F-40, add F-41/F-42, recompute the depth figures and the console's injury rows | done (PR and merge recorded in the session log below) | arena/0a180c64-x4 | `data/injuries-wk10-2026.csv`; `research/verification/official-injury-report-wk10-capture-2026-11-15.csv` (new); `research/verification/injury-recapture-2026-11-15.md` (new); `research/depth-and-deficiency.md`; `README.md` (depth table and row-count sentences only); `tools/content.py` (F-25, F-29, F-34, F-40, F-41, F-42 only); `tools/capture_check.py` (new); `tools/capture_official.py` (new); `tools/validate.py` (two steps); `.github/workflows/capture.yml` (new); `docs/data/nfl-injuries.js`, `docs/data/exec-summary.js`, `docs/executive-summary.html`, `docs/index.html`, `docs/injuries.html`, `docs/lines-market.html` (injury counts and rows only); generated mirrors and outputs that the pipeline regenerates (`site/`, root, `console/`, `data/output/`, `data/depth-wk11-2026.csv`, `depth.html`, `availability.html`, `gates.html`, `replacements.html`, `index.html`); `COORDINATION.md` (T36 row and log only). Overlap note: PR #39 (`arena/deec2dc3-x4`) re-checked four clubs (44 rows) and agrees with this capture on those rows; its file `research/verification/official-recheck-2026-11-15.md` is not touched here. |
+| T37 | **Week 10 official injury re-capture and immutable capture system** (session `arena/0a180c64-x4`, 2026-11-15): read every row of the official NFL.com Week 10 report (347 rows, 28 clubs), correct the committed dataset cell by cell (26 cells, 2 added rows), add a drift alarm (`tools/capture_check.py`) and a raw, hashed, timestamped capture tool with a six-hourly workflow (`tools/capture_official.py`, `.github/workflows/capture.yml`), supersede F-29/F-34/F-40, add F-41/F-42, recompute the depth figures and the console's injury rows | done (PR and merge recorded in the session log below) | arena/0a180c64-x4 | `data/injuries-wk10-2026.csv`; `research/verification/official-injury-report-wk10-capture-2026-11-15.csv` (new); `research/verification/injury-recapture-2026-11-15.md` (new); `research/depth-and-deficiency.md`; `README.md` (depth table and row-count sentences only); `tools/content.py` (F-25, F-29, F-34, F-40, F-41, F-42 only); `tools/capture_check.py` (new); `tools/capture_official.py` (new); `tools/validate.py` (two steps); `.github/workflows/capture.yml` (new); `docs/data/nfl-injuries.js`, `docs/data/exec-summary.js`, `docs/executive-summary.html`, `docs/index.html`, `docs/injuries.html`, `docs/lines-market.html` (injury counts and rows only); generated mirrors and outputs that the pipeline regenerates (`site/`, root, `console/`, `data/output/`, `data/depth-wk11-2026.csv`, `depth.html`, `availability.html`, `gates.html`, `replacements.html`, `index.html`); `COORDINATION.md` (T37 row and log only). Overlap note: PR #39 (`arena/deec2dc3-x4`) re-checked four clubs (44 rows) and agrees with this capture on those rows; its file `research/verification/official-recheck-2026-11-15.md` is not touched here. |
+| T36 | Mark the legacy executive-summary page as a dated snapshot and link the already-merged C18 current decision-readiness review, avoiding a duplicate audit | done (PR pending) | arena/0a115f28-x4 | `executive-summary.html`, `site/executive-summary.html` (banner only), `COORDINATION.md` (T36 row + session log additions only) |
 | T34 | Correct the landing-page and README provenance claims so they explicitly disclose the known desk-row source-link gap F-39; do not invent sources or change the captured data | done (PR #40 merged) | arena/3961a8e9-x4 | `tools/pages.py`, `index.html`, `site/index.html`, `README.md`, `site/README.md`, `site/COORDINATION.md`, `COORDINATION.md` (T34 row + session log only) |
+| T36 | Remove remaining site-wide provenance overclaims in the landing-page hero and README build comparison; state measured scope and F-39 accurately without changing data | done (PR pending) | arena/3961a8e9-x4 | `tools/pages.py`, `index.html`, `site/index.html`, `README.md`, `site/README.md`, `COORDINATION.md` (T36 row + session log only) |
 | 1 | Build NFL decision-support research dashboard and documented verification framework | done | arena/25459fae-x4 | `site/**`, `README.md`, `COORDINATION.md`, workflow config |
 | T21 | Price-snapshot store: opening and closing fair lines for every market we originate | done | arena/1c6a213c-x4 | `data/price-snapshots.csv`, `tools/build.py` (generation), `tools/pages.py` (render), `content.py` (flag) |
 | T22 | Verified results feed so backtests and ROI can be computed | done | arena/1c6a213c-x4 | `data/results-feed.csv`, `tools/build.py`, `tools/pages.py` |
@@ -1476,7 +1478,6 @@ touch none of these files).
   `tools/fetch.py` determinism fix and the T33 sweep; and once the reproducibility step went
   green, the workflow's mirror step surfaced a second latent failure (`Only in .: .retrieval /
   .scratch`), fixed as T32-b above and verified by re-running the step's exact commands.
-=======
 
 ### Addendum — second gate break behind the first (same task, same session)
 
@@ -1553,6 +1554,29 @@ The id T31 is used by three different sessions' claims (the source-provenance au
 - Sources/evidence: F-39 and [`research/verification/row-source-gaps-2026-11-14.csv`](research/verification/row-source-gaps-2026-11-14.csv); the repo's `tools/check_site.py` implementation and validator output; GitHub Actions run `43638267873`; live GitHub Pages landing page. NFL-specific values were not changed or newly asserted.
 - Irregularities left open: 191 desk rows still lack row-level HTTPS sources and 26 opening market price values remain without source links, as F-39 already states. Ten injury-status drifts remain reported under F-40. This task corrects disclosure only; none of those gaps is marked verified or closed.
 
+---
+
+## Session log — arena/3961a8e9-x4 (T35 landing-page provenance consistency, 2026-11-15)
+
+- Found two remaining site-wide overclaims after T34: the landing-page hero still said every table number had an official NFL URL, and the README's build comparison described every row in both builds as linked. Those statements contradicted open F-39.
+- Replaced the hero copy with the measured exception (191 rows on 13 desk pages have no HTTPS row source) and clarified that they are unverified. Updated README to report the distinct check scopes and the 682 X4 Console rows carrying source cells, without implying full repository-wide source verification.
+- Regenerated root/site mirrors. No data or NFL-specific values changed.
+- Verification: `python3 tools/validate.py` PASS. Main-site rows, local links, determinism and root/site mirrors pass; desk checker continues to report the 191 known F-39 gaps explicitly as “Not a pass”; console checker reports 682 rows with source cells.
+- Evidence: `research/verification/row-source-gaps-2026-11-14.csv`, flag F-39, `tools/check_site.py`, `tools/validate.py` output. No new NFL fact was asserted.
+- Remaining items are unchanged: F-39 (191 desk rows and 26 opening market price values without links) and F-40 (ten reported injury-status drifts).
+
+---
+
+## Session log — arena/3961a8e9-x4 (T36 landing-page provenance consistency, 2026-11-15)
+
+- Found two remaining site-wide overclaims after T34: the landing-page hero still said every table number had an official NFL URL, and the README build comparison described every row in both builds as linked. Those statements contradicted open F-39.
+- Replaced the hero copy with the measured exception (191 rows on 13 desk pages have no HTTPS row source) and clarified that they are unverified. Updated README to report the distinct check scopes and the 682 X4 Console rows carrying source cells, without implying full repository-wide source verification.
+- Regenerated root/site mirrors. No data or NFL-specific values changed.
+- Verification: `python3 tools/validate.py` PASS. Main-site rows, local links, determinism and root/site mirrors pass; desk checker continues to report the 191 known F-39 gaps explicitly as “Not a pass”; console checker reports 682 rows with source cells.
+- Evidence: `research/verification/row-source-gaps-2026-11-14.csv`, flag F-39, `tools/check_site.py`, `tools/validate.py` output. No new NFL fact was asserted.
+- Rebase note: T35 was concurrently claimed by session `arena/634c7558-x4` for a separate Suggestions task. During rebase, preserved that session's completed T35 row and work; this provenance correction is uniquely numbered T36. Rebase conflicts in `COORDINATION.md` were resolved additively; no other session's work was discarded.
+- Remaining items are unchanged: F-39 (191 desk rows and 26 opening market price values without links) and F-40 (ten reported injury-status drifts).
+
 ## Session log — arena/5873b053-x4 (C18 decision-readiness audit)
 
 **2026-11-15 — C18 completed.** Added `research/verification/decision-readiness-review-2026-11-15.md` as an additive, source-linked audit of the current committed evidence, validation outputs, blockers, and recommended order of work. `python3 tools/validate.py` passed; its generated mirror places the report at `site/research/verification/decision-readiness-review-2026-11-15.md`. The report explicitly distinguishes repository verification from fresh source verification and says no live NFL.com re-fetch occurred in this sandbox.
@@ -1582,7 +1606,7 @@ The id T31 is used by three different sessions' claims (the source-provenance au
 
 **Irregularities carried forward:** the stale landing-page suggestion count remains an integration request; 191 desk rows have source-link gaps under F-39; third-party odds are not official; and availability/depth/game-book history is incomplete. These are disclosed, not cleared by this page.
 
-## Session log — arena/0a180c64-x4 (T36: Week 10 official injury re-capture, immutable capture system, 2026-11-15)
+## Session log — arena/0a180c64-x4 (T37: Week 10 official injury re-capture, immutable capture system, 2026-11-15)
 
 **Branch note.** This session works only on `arena/0a180c64-x4`, as its branch note requires. Claims, scope and log all live on this branch.
 
@@ -1632,3 +1656,18 @@ The id T31 is used by three different sessions' claims (the source-provenance au
 - **Schema check against raw HTML** is untested: the markers in `schema_injuries` are written against the report's known headings and columns and have not been run against the live HTML.
 - **Requirements not implemented in this round:** pre-registration with a frozen commit (the `research/` strategy files exist, but no new registration commit), train, validation and holdout seasons, control baselines in each leaderboard run, proper-score divisions for singles, parlays and props, the joint-evidence gate, injury designation reliability (needs archived past-season reports, not fetched), snap counts and game books (no official source verified this round), the Houston depth image (F-18, unchanged), and the Baltimore transactions-log check.
 - **Market-source policy (T30 request)** is unchanged: captured prices are still a third-party feed, labelled as such.
+### T35 publication and merge record
+
+- **Implementation PR:** [#43](https://github.com/karagemop466-tech/X4/pull/43) from `arena/634c7558-x4` to `main` — **merged** at 2026-11-15 18:35:56 UTC as merge commit `0ed960be4ea2303ac2ea3f975a1b93a8381d6e6f`.
+- **PR checks:** Desk validation passed (run `43747623537`; the merge check also passed as run `43747637974`).
+- **Pages:** the direct publish run for the merge commit was cancelled by a higher-priority queued Pages deployment. The subsequent `Publish NFL Decision Lab` run `43747687522` completed **successfully** (build and deploy) on main commit `2c0da558a6dedacc3475a34396a4103983f472ac`, which includes PR #43. GitHub Pages API reports `status: built`, source `main /`, URL <https://karagemop466-tech.github.io/X4/>.
+- **Published artifact check:** GitHub Contents API for `suggestions.html` at `main` returns the new “Suggestions & decision readiness” page. A live page fetch was not performed in this session.
+---
+
+## Session log — arena/0a115f28-x4 (T36 legacy-summary linkage, 2026-11-15)
+
+- Checked the task board after rebasing onto the latest `main`. T35 already completed the Suggestions/decision-readiness reconciliation, and C18 had published the authoritative current-state audit at `research/verification/decision-readiness-review-2026-11-15.md` (PR #41, merged and deployed). To avoid duplicating either task, this session narrowed its scope to clarifying the stale summary page.
+- Added a dated evidence notice to `executive-summary.html` and its `site/` mirror. The notice labels that page as a 2026-11-14 snapshot, directs readers to the merged C18 review, and warns that older counts/readiness claims are superseded. No sports data, strategy output, or open flags were changed.
+- Verification: ran `python3 tools/validate.py` after the final edits: **VALIDATION PASSED**. All checked site links resolved, root/site mirrors matched, and the checker still explicitly reports 191 desk-page rows without HTTPS sources under F-39 (not passed). The new link target is the already-published C18 audit page.
+- Official NFL data sources were not newly fetched or asserted by this task; the linked C18 audit includes its source references and states its verification limits. F-39/F-40 remain open and visible.
+- Rebase conflict note: upstream merged PR #46 (T35) while PR #47 was being prepared, producing a conflict in the shared coordination log/mirror. Resolved additively by retaining T35's full publication/deployment record and this T36 entry; no other session's content was removed.
