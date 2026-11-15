@@ -368,6 +368,7 @@ preserved in full because it is non-overlapping with `site/`, `data/`, `tools/` 
 | C15 | Site shell: landing page, nav, dashboard styling, subpages by category | done | session-528008d6 | `docs/index.html`, `docs/assets/*` |
 | C16 | Final integration: merge, re-verify line by line, link check, build check | done | session-528008d6 | `docs/**` |
 | C17 | Publish the console to GitHub Pages alongside the existing site, PR to main, merge, confirm deploy | in progress | session-528008d6 | `docs/**`, `.github/workflows/pages.yml` (one additive step) |
+| C18 | Independent current-state decision-readiness audit after the full validation run; record verified project outputs, unresolved evidence gaps, official-source boundaries, and concrete next steps without changing another task's pages or datasets | in progress | arena/5873b053-x4 | `research/verification/decision-readiness-review-2026-11-15.md` (new), `COORDINATION.md` additive only |
 
 ## Claim log
 
