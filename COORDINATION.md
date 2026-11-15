@@ -1553,6 +1553,17 @@ The id T31 is used by three different sessions' claims (the source-provenance au
 - Sources/evidence: F-39 and [`research/verification/row-source-gaps-2026-11-14.csv`](research/verification/row-source-gaps-2026-11-14.csv); the repo's `tools/check_site.py` implementation and validator output; GitHub Actions run `43638267873`; live GitHub Pages landing page. NFL-specific values were not changed or newly asserted.
 - Irregularities left open: 191 desk rows still lack row-level HTTPS sources and 26 opening market price values remain without source links, as F-39 already states. Ten injury-status drifts remain reported under F-40. This task corrects disclosure only; none of those gaps is marked verified or closed.
 
+---
+
+## Session log — arena/3961a8e9-x4 (T35 landing-page provenance consistency, 2026-11-15)
+
+- Found two remaining site-wide overclaims after T34: the landing-page hero still said every table number had an official NFL URL, and the README's build comparison described every row in both builds as linked. Those statements contradicted open F-39.
+- Replaced the hero copy with the measured exception (191 rows on 13 desk pages have no HTTPS row source) and clarified that they are unverified. Updated README to report the distinct check scopes and the 682 X4 Console rows carrying source cells, without implying full repository-wide source verification.
+- Regenerated root/site mirrors. No data or NFL-specific values changed.
+- Verification: `python3 tools/validate.py` PASS. Main-site rows, local links, determinism and root/site mirrors pass; desk checker continues to report the 191 known F-39 gaps explicitly as “Not a pass”; console checker reports 682 rows with source cells.
+- Evidence: `research/verification/row-source-gaps-2026-11-14.csv`, flag F-39, `tools/check_site.py`, `tools/validate.py` output. No new NFL fact was asserted.
+- Remaining items are unchanged: F-39 (191 desk rows and 26 opening market price values without links) and F-40 (ten reported injury-status drifts).
+
 ## Session log — arena/5873b053-x4 (C18 decision-readiness audit)
 
 **2026-11-15 — C18 completed.** Added `research/verification/decision-readiness-review-2026-11-15.md` as an additive, source-linked audit of the current committed evidence, validation outputs, blockers, and recommended order of work. `python3 tools/validate.py` passed; its generated mirror places the report at `site/research/verification/decision-readiness-review-2026-11-15.md`. The report explicitly distinguishes repository verification from fresh source verification and says no live NFL.com re-fetch occurred in this sandbox.
