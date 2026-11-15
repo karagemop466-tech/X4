@@ -305,9 +305,13 @@ at **`/console/`** on the same Pages site.
 | Pipeline | Python generator (`tools/`) → static output | No generator; hand-written static files |
 | Publication gate | `python3 site/check.py` + `python3 tools/check_site.py` | `node docs/check.js` |
 
-Both builds follow the same one rule — every table row links to the official source it
-came from, and anything unconfirmable is left blank and flagged — and both reached the
-same two structural conclusions independently:
+Both builds have source-check gates, but their measured scopes differ. The main-site
+table check passes its rendered data tables; the desk-page check reports **191 rows on
+13 pages without row-level HTTPS links** (F-39), which are not a pass and must be treated
+as unverified. The X4 Console check separately confirms that its 682 rendered rows carry
+source cells. Unsupported values remain blank and flagged. Do not read these results as
+a claim that every row across the full repository has been individually sourced. Both
+builds reached the same two structural conclusions independently:
 
 1. **The NFL publishes no betting lines.** (`site/`: no price is described as official -
    the model-line column stays a model estimate and captured prices are labelled
