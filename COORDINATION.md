@@ -25,6 +25,7 @@ file scope. Never start work on a task another session has claimed.
 | # | Task | Status | Owner session | File scope |
 |---|---|---|---|---|
 | T35 | **Suggestion register and decision-readiness reconciliation** — audit the published Suggestions page against the merged repository, distinguish delivered work from open proposals, remove stale claims, and add a clear no-input-required recommended sequence plus documented open questions/known answers and non-inferable missing information | done | arena/634c7558-x4 | `suggestions.html`, `site/suggestions.html`, `tools/pages.py` (Suggestions page body/description only; stale T31 sub-scope handoff), `site/COORDINATION.md` (mirror of the coordination board), `COORDINATION.md` (T35 row + session log only) |
+| T36 | Mark the legacy executive-summary page as a dated snapshot and link the already-merged C18 current decision-readiness review, avoiding a duplicate audit | done (PR pending) | arena/0a115f28-x4 | `executive-summary.html`, `site/executive-summary.html` (banner only), `COORDINATION.md` (T36 row + session log additions only) |
 | T34 | Correct the landing-page and README provenance claims so they explicitly disclose the known desk-row source-link gap F-39; do not invent sources or change the captured data | done (PR #40 merged) | arena/3961a8e9-x4 | `tools/pages.py`, `index.html`, `site/index.html`, `README.md`, `site/README.md`, `site/COORDINATION.md`, `COORDINATION.md` (T34 row + session log only) |
 | 1 | Build NFL decision-support research dashboard and documented verification framework | done | arena/25459fae-x4 | `site/**`, `README.md`, `COORDINATION.md`, workflow config |
 | T21 | Price-snapshot store: opening and closing fair lines for every market we originate | done | arena/1c6a213c-x4 | `data/price-snapshots.csv`, `tools/build.py` (generation), `tools/pages.py` (render), `content.py` (flag) |
@@ -1475,7 +1476,6 @@ touch none of these files).
   `tools/fetch.py` determinism fix and the T33 sweep; and once the reproducibility step went
   green, the workflow's mirror step surfaced a second latent failure (`Only in .: .retrieval /
   .scratch`), fixed as T32-b above and verified by re-running the step's exact commands.
-=======
 
 ### Addendum — second gate break behind the first (same task, same session)
 
@@ -1587,3 +1587,11 @@ The id T31 is used by three different sessions' claims (the source-provenance au
 - **PR checks:** Desk validation passed (run `43747623537`; the merge check also passed as run `43747637974`).
 - **Pages:** the direct publish run for the merge commit was cancelled by a higher-priority queued Pages deployment. The subsequent `Publish NFL Decision Lab` run `43747687522` completed **successfully** (build and deploy) on main commit `2c0da558a6dedacc3475a34396a4103983f472ac`, which includes PR #43. GitHub Pages API reports `status: built`, source `main /`, URL <https://karagemop466-tech.github.io/X4/>.
 - **Published artifact check:** GitHub Contents API for `suggestions.html` at `main` returns the new “Suggestions & decision readiness” page. A live page fetch was not performed in this session.
+---
+
+## Session log — arena/0a115f28-x4 (T36 legacy-summary linkage, 2026-11-15)
+
+- Checked the task board after rebasing onto the latest `main`. T35 already completed the Suggestions/decision-readiness reconciliation, and C18 had published the authoritative current-state audit at `research/verification/decision-readiness-review-2026-11-15.md` (PR #41, merged and deployed). To avoid duplicating either task, this session narrowed its scope to clarifying the stale summary page.
+- Added a dated evidence notice to `executive-summary.html` and its `site/` mirror. The notice labels that page as a 2026-11-14 snapshot, directs readers to the merged C18 review, and warns that older counts/readiness claims are superseded. No sports data, strategy output, or open flags were changed.
+- Verification: ran `python3 tools/validate.py` after the final edits: **VALIDATION PASSED**. All checked site links resolved, root/site mirrors matched, and the checker still explicitly reports 191 desk-page rows without HTTPS sources under F-39 (not passed). The new link target is the already-published C18 audit page.
+- Official NFL data sources were not newly fetched or asserted by this task; the linked C18 audit includes its source references and states its verification limits. F-39/F-40 remain open and visible.
