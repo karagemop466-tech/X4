@@ -1723,3 +1723,44 @@ Claimed 2026-11-15 on branch `arena/31354751-x4` (base `41c6088`). Scope is the 
 - **GitHub Pages:** workflow `43747984363` completed successfully (build and deploy). GitHub Pages API reports `status: built`, source `main /`, URL <https://karagemop466-tech.github.io/X4/>.
 - **Live check:** fetched <https://karagemop466-tech.github.io/X4/executive-summary.html> after deployment and confirmed it shows the 2026-11-15 evidence notice and links to the C18 review. The stale body below is explicitly labeled as the 2026-11-14 snapshot.
 - **Conflict record:** PR #47 initially could not merge because PR #46 had advanced `main`; `git pull --rebase origin main` conflicted in the shared coordination log and its mirror. Resolved additively, retaining T35's merge/deploy record and this task's entry. Later, while recording the merge result, PR #51 advanced `main` with T36/T37 entries; this task's T36 identifier overlapped the new T36, so it was renumbered T38. A subsequent rebase over PR #53 also conflicted in the shared coordination log; the T37 capture record and this T38 close-out were both retained. No other session's changes were discarded.
+
+---
+
+# T38 - decision-desk extension (renumbered from T34, then T37, which is taken on main) (session `arena/31354751-x4`)
+
+Claimed 2026-11-15 on branch `arena/31354751-x4` (base `41c6088`). Scope is the file list in the task-board row above. Other sessions' files are not edited; any request to another owner is logged in the Requests table.
+
+## Session log
+
+- 2026-11-15: claim committed before any build work. Baseline `python3 tools/validate.py` = PASS (exit 0), with one open gate note: 191 desk-table rows without an https source link (F-39, `research/verification/row-source-gaps-2026-11-14.csv`), which the validator reports but does not fail on.
+- 2026-11-15: pre-registration `research/preregistration/wk11-forward-v1.md` (its text labels this task 'T34'; the registered file is not edited, the task is now T38) committed before any Week 11 result or close exists. Correction logged: the 'six graded mismatches' in the prior session came from a bug in the first check. Re-settled on the recorded line, one row differs (event 401873039, side away): `tools/origination.py` grades side bets on the straight-up winner, not the spread.
+- Requests for T31 final integration (not done by this session): add F-41 to F-44 to the flag register; add links to the three new pages to NAV and the directory; add a decision-readiness card to the landing page.
+- 2026-11-15: built `tools/luck.py` (controls: seeded random picks, 10,000 draws; favourites-only rule; game-cluster bootstrap, 10,000 resamples, fixed seeds), `tools/desk_extension.py` (pages `luck.html`, `readiness.html`, `teams.html`), one additive hook in `tools/pages.py` main(), the three pages in `site/check.py` PAGES and `tools/render.js` smoke list. Full `tools/validate.py` = VALIDATION PASSED (exit 0); `site/check.py` = PASS, 3,181 of 3,181 data rows with an official source link; F-39 remains OPEN for the 191 desk rows (unchanged, non-blocking).
+
+## Sources used (all fetched 2026-11-15)
+
+- Week 11 venues, kickoff, network: https://www.nfl.com/games/<game>-2026-reg-11 for all 13 games (Game Info block), and https://www.nfl.com/schedules/2026/by-week/week-11 (`data/venues-wk11-2026.csv`).
+- Week 11 injury report: https://www.nfl.com/games/<game>-2026-reg-11 reads 'Injury Report is not available at this time' for every game, so no Week-11 status is published. https://www.nfl.com/injuries/league/2026/reg11 returns Week-10 content; it is not used as Week-11 evidence.
+- Settlement check: https://www.nfl.com/games/<game>-2026-reg-11 pages and `data/ops/results.csv` official URLs for the 4 graded events.
+
+## Irregularities found (for Flagged for Review; not blocking)
+
+- **I-1 settlement defect.** `tools/origination.py` lines 575-578 grade side (spread) bets on the straight-up winner. Event 401873039 (Week 9, CLE at NO; away CLE side at +4.5 close; official CLE 22 - NO 23) is recorded 'lost' and re-settles 'won' against the line. The recorded `data/ops/graded.csv` is not edited; the corrected figure (ROI 33.6% re-settled vs 17.4% recorded, n=12) is shown beside it on `luck.html`. Rule change pre-registered in `research/preregistration/wk11-forward-v1.md`.
+- **I-2 correction to the prior session.** The 'six graded mismatches' recorded earlier came from a bug in the first check. Re-settled on the recorded line, one row differs (I-1).
+- **I-3 depth gaps against the official Week-10 report.** Kerby Joseph (DET, S, Out, knee) is not in the Lions depth file; Micah Parsons (GB, LB, Out, knee and illness) is not in the Packers file; Luke Rhodes (IND) and Lucas Patrick (WAS) are Out and not in their depth files. Shown in the 'Official Out, not in depth file' column on `teams.html`.
+- **I-4 Houston.** The Texans chart is an image, so 0 depth rows exist. Its five Out players (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) cannot be joined. No chart is transcribed.
+- **I-5 chart dates.** Only the Packers chart carries a chart date (2026-11-10); the other clubs' dates are not stated. Shown as 'chart date not stated', not inferred.
+- **I-6 no injury change series.** Only one dated official snapshot (Week 10) exists, so no delta can be published. Gate S4 is marked blocking.
+- **I-7 blank thresholds.** Demotion rules D1 and D6 have blank thresholds in `data/ops/demotion_rules.csv`; shown as not evaluable, not filled.
+- **I-8 Week 11 injury report unpublished** (see Sources).
+
+## Requests for T31 final integration (`arena/f7614083-x4`)
+
+- Add I-1 to I-8 to the flag register in `tools/content.py` (F-41 onward) so they appear on the Flagged for Review page. Not done here: `content.py` is shared table data.
+- Add `luck.html`, `readiness.html`, `teams.html` to NAV in `tools/pages.py`, to the directory cards, and to `tools/desk_nav.py` if the desk sidebar should show them. Not done here: NAV and index are integration-only.
+- Add a decision-readiness card to the landing page (index template). Not done here.
+- The weekly 'what changed' diff needs a second dated official snapshot (I-6) before it can publish a delta.
+
+## Status
+
+- PR #53 merged at `5365885`. Its Pages build then FAILED the reproducibility gate: `main` had received another session's injury re-capture (PR #50) after my branch merged, so the committed `site/teams.html` no longer matched a fresh build. Fixed in a follow-up PR from this branch: `site/teams.html` regenerated from the merged data; no source value changed.
