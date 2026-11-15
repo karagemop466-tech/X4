@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""T34 decision-desk extension: three pages, rendered by the shared generator.
+"""T37 decision-desk extension: three pages, rendered by the shared generator.
 
 Pages written into site/ (called from tools/pages.py main() through write_pages):
 
@@ -328,7 +328,7 @@ def teams_page():
 
 
 # --------------------------------------------------------------- writer
-PAGES_T34 = [
+PAGES_T37 = [
     ("luck.html", "Removal of luck",
      "Controls for the staking record, a game-cluster interval, and the settlement check against official scores.",
      luck_page, "luck.html"),
@@ -343,7 +343,7 @@ PAGES_T34 = [
 
 def write_pages(site_dir, shell):
     written = []
-    for href, title, desc, fn, active in PAGES_T34:
+    for href, title, desc, fn, active in PAGES_T37:
         body = fn()
         slug = href.replace(".html", "")
         with open(os.path.join(site_dir, href), "w", encoding="utf-8") as fh:
