@@ -26,7 +26,7 @@ file scope. Never start work on a task another session has claimed.
 |---|---|---|---|---|
 | T35 | **Suggestion register and decision-readiness reconciliation** — audit the published Suggestions page against the merged repository, distinguish delivered work from open proposals, remove stale claims, and add a clear no-input-required recommended sequence plus documented open questions/known answers and non-inferable missing information | done | arena/634c7558-x4 | `suggestions.html`, `site/suggestions.html`, `tools/pages.py` (Suggestions page body/description only; stale T31 sub-scope handoff), `site/COORDINATION.md` (mirror of the coordination board), `COORDINATION.md` (T35 row + session log only) |
 | T34 | Correct the landing-page and README provenance claims so they explicitly disclose the known desk-row source-link gap F-39; do not invent sources or change the captured data | done (PR #40 merged) | arena/3961a8e9-x4 | `tools/pages.py`, `index.html`, `site/index.html`, `README.md`, `site/README.md`, `site/COORDINATION.md`, `COORDINATION.md` (T34 row + session log only) |
-| T36 | Remove remaining site-wide provenance overclaims in the landing-page hero and README build comparison; state measured scope and F-39 accurately without changing data | in progress | arena/3961a8e9-x4 | `tools/pages.py`, `index.html`, `site/index.html`, `README.md`, `site/README.md`, `COORDINATION.md` (T36 row + session log only) |
+| T36 | Remove remaining site-wide provenance overclaims in the landing-page hero and README build comparison; state measured scope and F-39 accurately without changing data | done (PR pending) | arena/3961a8e9-x4 | `tools/pages.py`, `index.html`, `site/index.html`, `README.md`, `site/README.md`, `COORDINATION.md` (T36 row + session log only) |
 | 1 | Build NFL decision-support research dashboard and documented verification framework | done | arena/25459fae-x4 | `site/**`, `README.md`, `COORDINATION.md`, workflow config |
 | T21 | Price-snapshot store: opening and closing fair lines for every market we originate | done | arena/1c6a213c-x4 | `data/price-snapshots.csv`, `tools/build.py` (generation), `tools/pages.py` (render), `content.py` (flag) |
 | T22 | Verified results feed so backtests and ROI can be computed | done | arena/1c6a213c-x4 | `data/results-feed.csv`, `tools/build.py`, `tools/pages.py` |
@@ -1562,6 +1562,18 @@ The id T31 is used by three different sessions' claims (the source-provenance au
 - Regenerated root/site mirrors. No data or NFL-specific values changed.
 - Verification: `python3 tools/validate.py` PASS. Main-site rows, local links, determinism and root/site mirrors pass; desk checker continues to report the 191 known F-39 gaps explicitly as “Not a pass”; console checker reports 682 rows with source cells.
 - Evidence: `research/verification/row-source-gaps-2026-11-14.csv`, flag F-39, `tools/check_site.py`, `tools/validate.py` output. No new NFL fact was asserted.
+- Remaining items are unchanged: F-39 (191 desk rows and 26 opening market price values without links) and F-40 (ten reported injury-status drifts).
+
+---
+
+## Session log — arena/3961a8e9-x4 (T36 landing-page provenance consistency, 2026-11-15)
+
+- Found two remaining site-wide overclaims after T34: the landing-page hero still said every table number had an official NFL URL, and the README build comparison described every row in both builds as linked. Those statements contradicted open F-39.
+- Replaced the hero copy with the measured exception (191 rows on 13 desk pages have no HTTPS row source) and clarified that they are unverified. Updated README to report the distinct check scopes and the 682 X4 Console rows carrying source cells, without implying full repository-wide source verification.
+- Regenerated root/site mirrors. No data or NFL-specific values changed.
+- Verification: `python3 tools/validate.py` PASS. Main-site rows, local links, determinism and root/site mirrors pass; desk checker continues to report the 191 known F-39 gaps explicitly as “Not a pass”; console checker reports 682 rows with source cells.
+- Evidence: `research/verification/row-source-gaps-2026-11-14.csv`, flag F-39, `tools/check_site.py`, `tools/validate.py` output. No new NFL fact was asserted.
+- Rebase note: T35 was concurrently claimed by session `arena/634c7558-x4` for a separate Suggestions task. During rebase, preserved that session's completed T35 row and work; this provenance correction is uniquely numbered T36. Rebase conflicts in `COORDINATION.md` were resolved additively; no other session's work was discarded.
 - Remaining items are unchanged: F-39 (191 desk rows and 26 opening market price values without links) and F-40 (ten reported injury-status drifts).
 
 ## Session log — arena/5873b053-x4 (C18 decision-readiness audit)
