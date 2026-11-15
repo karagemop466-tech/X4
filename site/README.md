@@ -95,13 +95,20 @@ a home-field edge was being applied to a game played in Germany. It is now read 
 weekly schedule page that labels them as such; `tools/compute_stats.py` asserts that the
 neutral flags in the game log equal exactly that official set.
 
-## The one rule everything follows
+## Provenance and the known source-link gap
 
-Every table row carries a direct link to the official NFL page it came from, and every
-value that cannot be confirmed from an official source is left blank and flagged rather
-than filled in. `site/check.py` enforces this: it executes the real renderer, inspects
-the resulting markup, and fails the build if any rendered data row lacks an official
-source link.
+A verified NFL fact should link directly to the official NFL page that supports it; a
+value that cannot be confirmed stays blank and is flagged. Do not interpret this as a
+claim that every table row already meets that standard: flag F-39 records **191 desk-table
+rows on 13 pages** that currently have no row-level HTTPS source link. They are not
+presented as verified NFL facts, and no unrelated NFL URL is added just to satisfy a
+checker. The full row-by-row inventory is
+[`research/verification/row-source-gaps-2026-11-14.csv`](research/verification/row-source-gaps-2026-11-14.csv).
+
+The main-site `site/check.py` gate checks the rendered main-site data tables; the separate
+`tools/check_site.py` desk-page checker reports missing row-level links without treating
+those known F-39 rows as verified. Its output must be read together with the open flag,
+not as an all-rows-sourced pass.
 
 ## Reproducing everything
 
@@ -298,9 +305,13 @@ at **`/console/`** on the same Pages site.
 | Pipeline | Python generator (`tools/`) → static output | No generator; hand-written static files |
 | Publication gate | `python3 site/check.py` + `python3 tools/check_site.py` | `node docs/check.js` |
 
-Both builds follow the same one rule — every table row links to the official source it
-came from, and anything unconfirmable is left blank and flagged — and both reached the
-same two structural conclusions independently:
+Both builds have source-check gates, but their measured scopes differ. The main-site
+table check passes its rendered data tables; the desk-page check reports **191 rows on
+13 pages without row-level HTTPS links** (F-39), which are not a pass and must be treated
+as unverified. The X4 Console check separately confirms that its 682 rendered rows carry
+source cells. Unsupported values remain blank and flagged. Do not read these results as
+a claim that every row across the full repository has been individually sourced. Both
+builds reached the same two structural conclusions independently:
 
 1. **The NFL publishes no betting lines.** (`site/`: no price is described as official -
    the model-line column stays a model estimate and captured prices are labelled
