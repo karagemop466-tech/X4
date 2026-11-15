@@ -1535,3 +1535,22 @@ The first record's statement "every desk row carries an https source link" was b
 ### Board note
 
 The id T31 is used by three different sessions' claims (the source-provenance audit, the parallel integration in PR #29, and this session). Each row is kept as its session wrote it. Future claims should use new ids.
+
+## Session log — arena/deec2dc3-x4 (2026-11-15, repository review and official re-check)
+
+**Claim.** Single-branch session (`arena/deec2dc3-x4`; the session instructions allow work on this branch only, so the per-task `session-<id>/<task>` branches in the brief were not created). Scope claimed: `research/verification/official-recheck-2026-11-15.md` (new) and this section. No other file was edited.
+
+**Full brief not completed.** The brief lists roughly 100 requirements, including daily multi-day official captures, a snapshot store with hashes, depth-chart registers for 32 clubs, and reward and legality decisions that need a human. This session did not attempt them. Most are already covered by earlier sessions' pages and flags; the rest need work that cannot be verified from this sandbox in one pass.
+
+**Verification performed (2026-11-15):**
+- `python3 tools/validate.py` on the branch: exit 0. It prints OPEN for F-39 (191 desk rows without https links), which is still open.
+- Official re-check of 44 rows for WAS, NYG, NE and DET (page chunk 1 of 8): https://www.nfl.com/injuries/league/2026/reg10. All positions, injuries and game statuses match. Two practice cells differ (Van Roten, Woods; NE). Both are already F-34 and were not edited.
+- Lions game-status cells (Joseph, Mays, Reed): already `Out` in `data/injuries-wk10-2026.csv` and on the official page. The "blank" item is resolved in the data.
+- Week 11: https://www.nfl.com/injuries/league/2026/reg11 served the Week 10 page on 2026-11-15, so no Week 11 official report is available at that address yet.
+
+**Irregularities for review (not edited):**
+1. The committed Week 10 CSV has 345 rows across 28 club labels. The request cites 254 and 279 rows. Neither figure is reproduced, and the full official count was not verified.
+2. Cincinnati has 9 committed rows, not zero as the request states. Unverified against the official page.
+3. F-34 (2 practice cells) and F-39 (191 unlinked desk rows) remain open.
+
+**Handoff.** Not merged. The PR is left open for review because the brief was not completed. Open items are listed above and in `research/verification/official-recheck-2026-11-15.md`.
