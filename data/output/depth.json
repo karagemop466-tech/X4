@@ -6,8 +6,8 @@
   "HOU"
  ],
  "depth_rows": 1558,
- "out_rows": 58,
- "starter_out_rows": 40,
+ "out_rows": 62,
+ "starter_out_rows": 41,
  "clubs": [
   {
    "team": "ARI",
@@ -55,11 +55,15 @@
    "off_depth_rows": 25,
    "def_depth_rows": 26,
    "off_out": 0,
-   "def_out": 0,
+   "def_out": 1,
    "off_starter_out": 0,
-   "def_starter_out": 0,
-   "out_names": [],
-   "starter_out_names": []
+   "def_starter_out": 1,
+   "out_names": [
+    "SS Jaylinn Hawkins (depth 1, Out)"
+   ],
+   "starter_out_names": [
+    "SS Jaylinn Hawkins (depth 1, Out)"
+   ]
   },
   {
    "team": "BUF",
@@ -312,11 +316,15 @@
    "chart_date": "",
    "off_depth_rows": 25,
    "def_depth_rows": 25,
-   "off_out": 0,
-   "def_out": 0,
+   "off_out": 2,
+   "def_out": 1,
    "off_starter_out": 0,
    "def_starter_out": 0,
-   "out_names": [],
+   "out_names": [
+    "LT Branson Taylor (depth 2, Out)",
+    "WR2 Brenen Thompson (depth 2, Doubtful)",
+    "S2 Kendall Williamson (depth 3, Out)"
+   ],
    "starter_out_names": []
   },
   {
@@ -768,6 +776,14 @@
    "status": "Doubtful",
    "injury": "Knee",
    "url": "https://www.nfl.com/players/brian-parker-ii/"
+  },
+  {
+   "team": "LAC",
+   "player": "Isas Waxter",
+   "pos": "CB",
+   "status": "Out",
+   "injury": "Ankle",
+   "url": "https://www.nfl.com/players/isas-waxter/"
   }
  ]
 }

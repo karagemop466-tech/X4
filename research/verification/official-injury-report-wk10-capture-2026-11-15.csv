@@ -1,0 +1,348 @@
+team,player,pos,injuries,practice,game_status
+WAS,John Bates,TE,,Full,
+WAS,Treylon Burks,WR,,DNP,
+WAS,Jayden Daniels,QB,,Full,
+WAS,Matt Gulbin,C,,Full,
+WAS,Chig Okonkwo,TE,,Full,
+WAS,Lucas Patrick,C,Concussion,DNP,Out
+WAS,Amik Robertson,CB,,Limited,
+WAS,Shy Tuttle,DT,,Full,
+WAS,Colson Yankoff,TE,Knee,DNP,Out
+NYG,Abdul Carter,LB,,Full,
+NYG,Jermaine Eluemunor,T,,Full,
+NYG,Malik Harrison,LB,Groin,Limited,Questionable
+NYG,Colton Hood,CB,,Full,
+NYG,Theo Johnson,TE,,Full,
+NYG,Charlie Jones,WR,,Full,
+NYG,J.J. McCarthy,QB,,Full,
+NYG,Darnell Mooney,WR,,Full,
+NYG,Malik Nabers,WR,,Full,
+NYG,Cam Skattebo,RB,,Full,
+NYG,Andrew Thomas,T,,Full,
+NE,Ben Brown,C,Knee,DNP,Out
+NE,A.J. Brown,WR,"Ankle, Knee",Limited,Questionable
+NE,Kevin Byard,S,Chest,Full,Questionable
+NE,Carlton Davis III,CB,Knee,DNP,Out
+NE,Reggie Gilliam,FB,Knee,Limited,Questionable
+NE,TreVeyon Henderson,RB,Illness,DNP,Out
+NE,Hunter Henry,TE,,Limited,
+NE,Cameron Latu,TE,Back,Limited,Questionable
+NE,Drake Maye,QB,,Full,
+NE,Morgan Moses,T,,Full,
+NE,Walter Rouse,T,Concussion,Limited,Questionable
+NE,Brenden Schooler,S,Hamstring,Limited,Questionable
+NE,Rhamondre Stevenson,RB,Knee,Limited,Questionable
+NE,Greg Van Roten,G,Hamstring,Full,Questionable
+NE,Charles Woods,CB,Hamstring,Full,Questionable
+DET,Brian Branch,S,,Full,
+DET,Jared Goff,QB,,Full,
+DET,Kerby Joseph,S,Knee,DNP,Out
+DET,Cade Mays,C,Ankle,DNP,Out
+DET,D.J. Reed,CB,Hip,DNP,Out
+DET,Jacob Saylors,RB,,Full,
+DET,Amon-Ra St. Brown,WR,Rib,Limited,Questionable
+DET,Sione Vaki,RB,Ankle,Limited,Questionable
+DET,DJ Wonnum,DE,,Full,
+KC,Jeffrey Bassa,LB,,Full,
+KC,Mansoor Delane,CB,Shoulder,Full,Questionable
+KC,Justin Fields,QB,,Full,
+KC,Jaden Hicks,S,,Full,
+KC,Travis Kelce,TE,,Full,
+KC,Patrick Mahomes,QB,,Full,
+KC,Jaylon Moore,T,Ankle,DNP,Out
+KC,Omarr Norman-Lott,DT,Knee,Limited,Out
+KC,Jaydn Ott,RB,Hamstring,Limited,Questionable
+KC,Rashee Rice,WR,,Full,
+KC,Kenneth Walker III,RB,Groin,DNP,Questionable
+KC,Peter Woods,DT,Neck,DNP,Out
+KC,Xavier Worthy,WR,,Full,
+ATL,Zachariah Branch,WR,Hamstring,DNP,Out
+ATL,Kendal Daniels,LB,,Full,
+ATL,Divine Deablo,LB,Forearm,DNP,Doubtful
+ATL,Gervon Dexter Sr.,DT,Illness,Limited,Questionable
+ATL,Jake Matthews,T,,Limited,
+ATL,Liam McCullough,LS,,DNP,
+ATL,James Pearce Jr.,DE,Back,Limited,Questionable
+ATL,Za'Darius Smith,DE,,Full,
+ATL,Jawaan Taylor,T,,Limited,
+ATL,Cameron Thomas,DE,,Full,
+ATL,Josh Woods,LB,Ankle,Full,Questionable
+MIN,Jordan Addison,WR,Thumb,Limited,Questionable
+MIN,Blake Cashman,LB,Concussion,Limited,Out
+MIN,Christian Darrisaw,T,,DNP,
+MIN,T.J. Hockenson,TE,"Wrist, Chest",DNP,Out
+MIN,Tyrion Ingram-Dawkins,DT,Ankle,DNP,Out
+MIN,Theo Jackson,S,,Full,
+MIN,Jauan Jennings,WR,Calf,DNP,Out
+MIN,Josh Metellus,S,Shoulder,Limited,Questionable
+MIN,Kyler Murray,QB,Hamstring,DNP,Out
+MIN,Harrison Smith,S,,Limited,
+MIN,Kyle Van Noy,LB,Calf,Limited,Questionable
+MIN,Jay Ward,S,,Full,
+MIN,Carson Wentz,QB,,Full,
+GB,Aaron Banks,G,,Limited,
+GB,Chris Brooks,RB,Ankle,Limited,Questionable
+GB,Javon Bullard,S,"Ankle, Knee",Limited,Questionable
+GB,Zaire Franklin,LB,Shin,DNP,Doubtful
+GB,Travis Glover,G,Knee,Limited,Questionable
+GB,Ty'Ron Hopper,LB,,Full,
+GB,Josh Jacobs,RB,Finger,DNP,Out
+GB,Xavier McKinney,S,Foot,Limited,Questionable
+GB,Bo Melton,WR,,Full,
+GB,Skyy Moore,WR,Ankle,Limited,Questionable
+GB,Micah Parsons,LB,"Knee, Illness",Limited,Out
+GB,Sean Rhyan,C,Ankle,DNP,Out
+GB,Trey Smack,K,,Full,
+GB,Lukas Van Ness,LB,Back,Limited,Questionable
+GB,Josh Whyle,TE,Concussion,DNP,Out
+GB,Savion Williams,WR,,Limited,
+GB,Kevin Zeitler,G,"Ankle, Triceps",DNP,Questionable
+JAX,Jessie Bates,S,Not injury related - resting player,Limited,Out
+JAX,Ezra Cleveland,G,,Full,
+JAX,Branson Combs,LB,,Full,
+JAX,Jordan Davis,DT,Not injury related - resting player,Limited,Out
+JAX,BJ Green II,DE,Forearm,Full,Out
+JAX,Robert Hainsey,C,Concussion,Limited,Questionable
+JAX,Antonio Johnson,S,,Limited,
+JAX,Jakobi Meyers,WR,,Limited,
+JAX,Chris Rodriguez Jr.,RB,,Limited,
+JAX,Bhayshul Tuten,RB,,Limited,
+JAX,Travon Walker,DE,,Limited,
+TEN,Cody Barton,LB,Concussion,DNP,Out
+TEN,John Franklin-Myers,DE,,Full,
+TEN,Marcus Harris,CB,,Full,
+TEN,Anthony Hill Jr.,LB,Neck,DNP,Out
+TEN,Jaylon Jones,CB,,Full,
+TEN,JC Latham,T,,Full,
+TEN,Tony Pollard,RB,,Full,
+TEN,Peter Skoronski,G,Hamstring,DNP,Out
+TEN,Tyjae Spears,RB,Knee,Full,Questionable
+TEN,Carnell Tate,WR,Shoulder,DNP,Out
+TEN,Tommy Townsend,P,"Knee, Achilles",DNP,Out
+TEN,Kevin Winston Jr.,S,,Full,
+BUF,Alec Anderson,G,,Full,
+BUF,Christian Benford,CB,Wrist,Full,Questionable
+BUF,Terrel Bernard,LB,,DNP,
+BUF,Spencer Brown,T,Ankle,DNP,Doubtful
+BUF,Dion Dawkins,T,,Full,
+BUF,Sam Franklin Jr.,S,Shoulder,Limited,Questionable
+BUF,Greg Gaines,DT,,Full,
+BUF,Jordan Hancock,CB,Hamstring,Full,Questionable
+BUF,Dalton Kincaid,TE,,Full,
+BUF,Connor McGovern,C,,Full,
+BUF,Ed Oliver,DE,,DNP,
+BUF,Ar'maj Reed-Adams,G,,Full,
+BUF,T.J. Sanders,DE,,Full,
+BUF,Tyrell Shavers,WR,Knee,Full,Questionable
+NYJ,Jarvis Brownlee Jr.,CB,Illness,Limited,Questionable
+NYJ,Omar Cooper Jr.,WR,Ankle,Full,Questionable
+NYJ,Adonai Mitchell,WR,Knee,Full,Questionable
+NYJ,Joseph Ossai,DE,Ankle,Full,Questionable
+NYJ,VJ Payne,S,Knee,Full,Questionable
+NYJ,Harrison Phillips,DT,Ankle,Full,Questionable
+NYJ,Trevin Wallace,LB,Groin,DNP,Out
+NYJ,Garrett Wilson,WR,Concussion,Full,Questionable
+NYJ,Nahshon Wright,CB,Back,Full,Questionable
+MIA,Tucker Addington,LS,,Limited,
+MIA,Kaytron Allen,RB,,Full,
+MIA,Darrell Baker Jr.,CB,Knee,Full,Questionable
+MIA,Chris Bell,WR,Knee,DNP,Doubtful
+MIA,Aaron Brewer,C,Concussion,DNP,Out
+MIA,Malik Herring,DE,,Full,
+MIA,Will Kacmarek,TE,,Full,
+MIA,Michael Taaffe,S,,Full,
+MIA,Dante Trader Jr.,S,,Full,
+MIA,Jared Wayne,WR,Quadricep,DNP,Out
+MIA,Jaylen Wright,RB,,Full,
+IND,Mo Alie-Cox,TE,Groin,DNP,Out
+IND,CJ Allen,LB,,Full,
+IND,Jaylon Carlies,LB,Neck,DNP,Out
+IND,Akeem Davis-Gaither,LB,Knee,DNP,Out
+IND,A.J. Haulcy,S,,Full,
+IND,Arden Key,DE,,Full,
+IND,Will Mallory,TE,Hamstring,Limited,Questionable
+IND,Luke Rhodes,LS,Hamstring,DNP,Out
+IND,Grover Stewart,DT,,Full,
+IND,Jonathan Taylor,RB,,Full,
+IND,Jerry Tillery,DT,Calf,DNP,Out
+IND,Jalen Travis,T,Knee,DNP,Out
+IND,Justin Walley,CB,,Full,
+IND,Charvarius Ward,CB,,Full,
+CAR,Jonathon Brooks,RB,Groin,Limited,Doubtful
+CAR,Brady Christensen,G,Hamstring,Full,Questionable
+CAR,Trevor Etienne,RB,,Full,
+CAR,Chuba Hubbard,RB,,Full,
+CAR,Lee Hunter,DT,,Full,
+CAR,Mike Jackson,CB,Groin,Limited,Doubtful
+CAR,Will Lee III,CB,Hamstring,Limited,Questionable
+CAR,Xavier Legette,WR,Knee,Full,Questionable
+CAR,Damien Lewis,G,,Full,
+CAR,Bobby Okereke,LB,Foot,DNP,Out
+CAR,Jaelan Phillips,LB,Hamstring,Full,Questionable
+CAR,Torricelli Simpkins III,G,,Full,
+NO,Kelvin Banks Jr.,T,,Full,
+NO,CJ Donaldson,RB,Shoulder,DNP,Out
+NO,David Edwards,G,,Full,
+NO,Martin Emerson,CB,Shin,Limited,Questionable
+NO,Travis Etienne,RB,Hamstring,Full,Questionable
+NO,Noah Fant,TE,,Full,
+NO,Taliese Fuaga,T,Knee,DNP,Out
+NO,Alvin Kamara,RB,,Full,
+NO,Erik McCoy,C,Biceps,DNP,Out
+NO,Christen Miller,DT,Knee,DNP,Out
+NO,Asim Richards,T,,Full,
+NO,Quincy Riley,CB,,Full,
+HOU,Azeez Al-Shaair,LB,"Groin, Not injury related - personal matter",DNP,Out
+HOU,Will Anderson Jr.,DE,Ankle,DNP,Questionable
+HOU,Reed Blankenship,S,,Full,
+HOU,Trent Brown,T,"Wrist, Illness",DNP,Questionable
+HOU,Tank Dell,WR,,Full,
+HOU,Blake Fisher,T,,Full,
+HOU,Marvin Harrison Jr.,WR,Hamstring,DNP,Out
+HOU,Jacob Hummel,LB,Groin,Full,Questionable
+HOU,Danielle Hunter,DE,Hamstring,DNP,Out
+HOU,Brevin Jordan,TE,"Finger, Foot",DNP,Out
+HOU,Woody Marks,RB,,Full,
+HOU,David Montgomery,RB,Groin,Full,Questionable
+HOU,Keylan Rutledge,G,"Neck, Shoulder",DNP,Out
+HOU,Jaylin Smith,CB,Hamstring,Full,Questionable
+HOU,Wyatt Teller,G,"Illness, Back",Limited,Questionable
+HOU,Tommy Togiai,DT,,Full,
+CLE,Austin Barber,T,,Full,
+CLE,Denzel Boston,WR,Toe,Limited,Questionable
+CLE,Michael Burton,FB,Calf,DNP,Out
+CLE,Maliek Collins,DT,,Full,
+CLE,Harold Fannin Jr.,TE,,Full,
+CLE,Ronnie Hickman Jr.,S,Concussion,DNP,Out
+CLE,Tytus Howard,T,,Full,
+CLE,Elgton Jenkins,C,,Full,
+CLE,Donovan McMillon,S,,Limited,
+CLE,Carson Schwesinger,LB,,Full,
+CLE,Denzel Ward,CB,,Limited,
+CLE,Quincy Williams,LB,,Full,
+LAR,Davis Allen,TE,Oblique,Limited,Questionable
+LAR,Steve Avila,G,Hamstring,DNP,Out
+LAR,Joe Cardona,LS,Ankle,Limited,Questionable
+LAR,Kam Curl,S,Toe,Limited,Questionable
+LAR,Aaron Donald,DT,,DNP,
+LAR,Terrance Ferguson,TE,"Ankle, Hamstring",DNP,Out
+LAR,Braden Fiske,DT,,DNP,
+LAR,Myles Garrett,LB,"Knee, Not injury related - resting player",DNP,Questionable
+LAR,Tyler Higbee,TE,,Limited,
+LAR,Trent McDuffie,CB,Back,Limited,Questionable
+LAR,Puka Nacua,WR,,DNP,
+LAR,Colby Parkinson,TE,,Full,
+LAR,Matthew Stafford,QB,,Full,
+LAR,Byron Young,LB,,DNP,
+AZ,Budda Baker,S,,Full,
+AZ,Zachary Carter,DT,Knee,Limited,Out
+AZ,Hjalte Froholdt,C,Concussion,DNP,Out
+AZ,Jon Gaines II,G,Ankle,DNP,Out
+AZ,Bam Knight,RB,,Full,
+AZ,Hunter Long,TE,Knee,Limited,Questionable
+AZ,Roy Lopez,DT,"Toe, Ankle",Limited,Questionable
+AZ,Max Melton,CB,"Knee, Hand",Limited,Questionable
+AZ,Darius Robinson,DT,Wrist,Limited,Questionable
+AZ,Isaac Seumalo,G,,Full,
+AZ,Dante Stills,DT,,Full,
+AZ,Josh Sweat,LB,,Full,
+AZ,Jayden Williams,T,Knee,Limited,Questionable
+AZ,Mack Wilson,LB,,Full,
+AZ,Andrew Wingard,S,Groin,DNP,Questionable
+SEA,AJ Barner,TE,,Full,
+SEA,Anthony Bradford,G,,Full,
+SEA,Charles Cross,T,Ankle,DNP,Out
+SEA,Sam Darnold,QB,"Ribs, Quadricep",DNP,Out
+SEA,Derick Hall,LB,,DNP,
+SEA,Drew Lock,QB,,Limited,
+SEA,Quenton Nelson,G,Knee,DNP,Out
+SEA,Uchenna Nwosu,LB,,Full,
+SEA,Patrick O'Connell,LB,,Full,
+SEA,Connor O'Toole,LB,,Full,
+SEA,Brandon Pili,DT,,Full,
+SEA,Jarran Reed,DT,,Full,
+SEA,Rashid Shaheed,WR,,Full,
+SEA,Jaxon Smith-Njigba,WR,,Full,
+SEA,Leonard Williams,DT,Stinger,DNP,Out
+LV,Thomas Booker,DT,Ankle,Full,Questionable
+LV,Foley Fatukasi,DT,,Full,
+LV,Ian Thomas,TE,,Full,
+LV,Dont'e Thornton Jr.,WR,Back,DNP,Questionable
+LV,Trey Zuhn III,C,,Full,
+SF,Mike Evans,WR,Achilles,DNP,Out
+SF,Renardo Green,CB,Back,Limited,Questionable
+SF,Dre Greenlaw,LB,Knee,Limited,Questionable
+SF,Nate Hobbs,CB,Groin,Full,Questionable
+SF,Deommodore Lenoir,CB,Foot,Limited,Questionable
+SF,Christian McCaffrey,RB,,Full,
+SF,Siran Neal,S,,Full,
+SF,Demarcus Robinson,WR,,Full,
+SF,Deebo Samuel Sr.,WR,,Full,
+SF,Upton Stout,CB,"Shoulder, Neck",Limited,Questionable
+SF,C.J. West,DT,Knee,Full,Questionable
+SF,Trent Williams,T,Shoulder,DNP,Questionable
+DAL,DaRon Bland,CB,Ankle,Limited,Questionable
+DAL,Jonathan Bullard,DT,Calf,Full,Questionable
+DAL,Alijah Clark,S,Illness,DNP,Questionable
+DAL,Donovan Ezeiruaku,LB,Ankle,DNP,Out
+DAL,Jake Ferguson,TE,"Knee, Ankle",DNP,Out
+DAL,Tyler Goodson,RB,"Ankle, Knee",DNP,Out
+DAL,Malik Hooker,S,,DNP,
+DAL,Marist Liufau,LB,,Full,
+DAL,P.J. Locke,S,Concussion,DNP,Out
+DAL,Von Miller,LB,,DNP,
+DAL,Jonathan Mingo,WR,Ankle,DNP,Out
+DAL,Devin Moore,CB,Hip,Full,Questionable
+DAL,DeMarvion Overshown,LB,,Full,
+DAL,George Pickens,WR,,Full,
+DAL,Joey Porter Jr.,CB,"Ankle, Foot",Limited,Questionable
+DAL,Luke Schoonmaker,TE,,Full,
+DAL,Brevyn Spann-Ford,TE,,Full,
+DAL,Juanyeh Thomas,S,Hamstring,DNP,Doubtful
+DAL,KaVontae Turpin,WR,,Full,
+PIT,Brandin Echols,CB,,Full,
+PIT,DeShon Elliott,S,,Full,
+PIT,Derrick Harmon,DT,Foot,Full,Questionable
+PIT,Cameron Heyward,DT,,Full,
+PIT,Ben Skowronek,WR,,Full,
+PIT,Doneiko Slaughter,CB,,Full,
+PIT,Darnell Washington,TE,,Full,
+PIT,T.J. Watt,LB,,Full,
+CIN,Jonathan Allen,DT,,Limited,
+CIN,Jalen Davis,CB,Hamstring,Full,Doubtful
+CIN,Kyle Dugger,S,Quadricep,DNP,Out
+CIN,Dylan Fairchild,G,,Full,
+CIN,B.J. Hill,DT,,DNP,
+CIN,Andrei Iosivas,WR,Thumb,Full,Doubtful
+CIN,Dexter Lawrence,DT,,DNP,
+CIN,Brian Parker II,G,Knee,Full,Doubtful
+CIN,DJ Turner II,CB,,Full,
+LAC,Kayode Awosika,G,Fibula,Full,Questionable
+LAC,Bud Dupree,DE,,Full,
+LAC,Justin Eboigbe,DE,Ankle,Limited,Questionable
+LAC,Alex Harkey,G,,Full,
+LAC,Tre Harris,WR,,Full,
+LAC,Cam Hart,CB,,Full,
+LAC,Daiyan Henley,LB,,Full,
+LAC,Deane Leonard,CB,,Full,
+LAC,Khalil Mack,LB,,Full,
+LAC,Ladd McConkey,WR,Back,DNP,Questionable
+LAC,Keaton Mitchell,RB,,Full,
+LAC,David Njoku,TE,Fibula,Full,Questionable
+LAC,Denzel Perryman,LB,Pectoral,Full,Questionable
+LAC,Trey Pipkins,T,"Not injury related - personal matter, Knee",Limited,Questionable
+LAC,Rodney Shelley,CB,,Full,
+LAC,Branson Taylor,G,Ankle,DNP,Out
+LAC,Brenen Thompson,WR,Hamstring,DNP,Doubtful
+LAC,Isas Waxter,CB,Ankle,DNP,Out
+LAC,Kendall Williamson,S,Calf,DNP,Out
+BAL,Rasheen Ali,RB,,Full,
+BAL,Rashod Bateman,WR,,Full,
+BAL,Calais Campbell,DT,,DNP,
+BAL,Kyle Hamilton,S,,Full,
+BAL,Jaylinn Hawkins,S,Knee,Limited,Out
+BAL,Matthew Hibner,TE,,Full,
+BAL,Olaivavega Ioane,G,,Full,
+BAL,Adam Randall,RB,"Neck, Hamstring",Full,Questionable
+BAL,Ronnie Stanley,T,,DNP,
+BAL,Nate Wiggins,CB,,Full,

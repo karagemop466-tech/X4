@@ -10,7 +10,7 @@ For each listed player: the listed position, the injury description, the practic
 
 | Team | Players listed | Out | Doubtful | Questionable | Offense units hit | Defense units hit | Source |
 |---|---|---|---|---|---|---|---|
-| Indianapolis Colts | 14 | 6 | 0 | 2 | Offensive line x1, Tight end x1 | Defensive line x1, Linebacker x2 | [NFL.com](https://www.nfl.com/teams/indianapolis-colts/) |
+| Indianapolis Colts | 14 | 6 | 0 | 1 | Offensive line x1, Tight end x1 | Defensive line x1, Linebacker x2 | [NFL.com](https://www.nfl.com/teams/indianapolis-colts/) |
 | Dallas Cowboys | 19 | 5 | 1 | 5 | Running back x1, Tight end x1, Wide receiver x1 | Defensive back x1, Linebacker x1 | [NFL.com](https://www.nfl.com/teams/dallas-cowboys/) |
 | Houston Texans | 16 | 5 | 0 | 6 | Offensive line x1, Tight end x1, Wide receiver x1 | Defensive line x1, Linebacker x1 | [NFL.com](https://www.nfl.com/teams/houston-texans/) |
 | Minnesota Vikings | 13 | 5 | 0 | 3 | Quarterback x1, Tight end x1, Wide receiver x1 | Defensive line x1, Linebacker x1 | [NFL.com](https://www.nfl.com/teams/minnesota-vikings/) |
@@ -22,24 +22,24 @@ For each listed player: the listed position, the injury description, the practic
 | Detroit Lions | 9 | 3 | 0 | 2 | Offensive line x1 | Defensive back x2 | [NFL.com](https://www.nfl.com/teams/detroit-lions/) |
 | Jacksonville Jaguars | 11 | 3 | 0 | 1 | - | Defensive back x1, Defensive line x2 | [NFL.com](https://www.nfl.com/teams/jacksonville-jaguars/) |
 | Kansas City Chiefs | 13 | 3 | 0 | 3 | Offensive line x1 | Defensive line x2 | [NFL.com](https://www.nfl.com/teams/kansas-city-chiefs/) |
+| Los Angeles Chargers | 19 | 3 | 1 | 6 | Offensive line x1 | Defensive back x2 | [NFL.com](https://www.nfl.com/teams/los-angeles-chargers/) |
 | New England Patriots | 15 | 3 | 0 | 9 | Offensive line x1, Running back x1 | Defensive back x1 | [NFL.com](https://www.nfl.com/teams/new-england-patriots/) |
 | Cleveland Browns | 12 | 2 | 0 | 1 | - | Defensive back x1 | [NFL.com](https://www.nfl.com/teams/cleveland-browns/) |
 | Los Angeles Rams | 14 | 2 | 0 | 5 | Offensive line x1, Tight end x1 | - | [NFL.com](https://www.nfl.com/teams/los-angeles-rams/) |
 | Miami Dolphins | 11 | 2 | 1 | 1 | Offensive line x1, Wide receiver x1 | - | [NFL.com](https://www.nfl.com/teams/miami-dolphins/) |
 | Washington Commanders | 9 | 2 | 0 | 0 | Offensive line x1, Tight end x1 | - | [NFL.com](https://www.nfl.com/teams/washington-commanders/) |
 | Atlanta Falcons | 11 | 1 | 1 | 3 | Wide receiver x1 | - | [NFL.com](https://www.nfl.com/teams/atlanta-falcons/) |
+| Baltimore Ravens | 10 | 1 | 0 | 1 | - | Defensive back x1 | [NFL.com](https://www.nfl.com/teams/baltimore-ravens/) |
 | Carolina Panthers | 12 | 1 | 2 | 4 | - | Linebacker x1 | [NFL.com](https://www.nfl.com/teams/carolina-panthers/) |
 | Cincinnati Bengals | 9 | 1 | 3 | 0 | - | Defensive back x1 | [NFL.com](https://www.nfl.com/teams/cincinnati-bengals/) |
 | New York Jets | 9 | 1 | 0 | 8 | - | Linebacker x1 | [NFL.com](https://www.nfl.com/teams/new-york-jets/) |
 | San Francisco 49ers | 12 | 1 | 0 | 7 | Wide receiver x1 | - | [NFL.com](https://www.nfl.com/teams/san-francisco-49ers/) |
-| Baltimore Ravens | 8 | 0 | 0 | 0 | - | - | [NFL.com](https://www.nfl.com/teams/baltimore-ravens/) |
 | Buffalo Bills | 14 | 0 | 1 | 4 | - | - | [NFL.com](https://www.nfl.com/teams/buffalo-bills/) |
-| Los Angeles Chargers | 19 | 0 | 0 | 0 | - | - | [NFL.com](https://www.nfl.com/teams/los-angeles-chargers/) |
 | Las Vegas Raiders | 5 | 0 | 0 | 2 | - | - | [NFL.com](https://www.nfl.com/teams/las-vegas-raiders/) |
 | New York Giants | 11 | 0 | 0 | 1 | - | - | [NFL.com](https://www.nfl.com/teams/new-york-giants/) |
 | Pittsburgh Steelers | 8 | 0 | 0 | 1 | - | - | [NFL.com](https://www.nfl.com/teams/pittsburgh-steelers/) |
 
-Totals across the 28 teams playing: **345** players listed, **66** Out, **10** Doubtful, **84** Questionable.
+Totals across the 28 teams playing: **347** players listed, **70** Out, **11** Doubtful, **90** Questionable.
 
 ## What the report cannot tell us
 

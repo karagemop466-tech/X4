@@ -27,7 +27,7 @@ it answers, so nothing has to be guessed at.
 | Category | Pages |
 |---|---|
 | Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) |
-| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (345 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) · `replacements.html` (desk: the replacement chains, side by side) · `markets.html` (the price-snapshot store) · `results.html` (the verified results feed) |
+| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (347 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) · `replacements.html` (desk: the replacement chains, side by side) · `markets.html` (the price-snapshot store) · `results.html` (the verified results feed) |
 | Model & strategies | `lines.html` (13 Week-11 model lines, fair / market / difference as three columns) · `market.html` (the captured-price archive: 29 games, 87 price rows, skill and staking boards) · `price-snapshots.html` · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `gates.html` (signal vs staking, the demotion gate) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) · `origination.html` + `price-store.html` + `signal-vs-staking.html` + `correlations.html` + `method-lab.html` (the origination layer) |
 | Review & flags | `suggestions.html` (12 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `workbench.html` (12 proposals on one documented rubric, ranked) · `programme.html` (the eight integrity gates) · `flags.html` (main register, 38 entries) · `flagged.html` (desk register, 12 blanks + 14 irregularities) · `ops-review.html` · `verification.html` · `requirements-closure.html` (ten of twelve requirements closed) |
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
@@ -182,17 +182,18 @@ Week 10 injury report.
 
 | Measure | Week 10 |
 |---|---|
-| Out/Doubtful players who sit on their club's chart | 57 of 76 |
-| ... at **depth 1** (the listed starter) | **40** (23 offense, 17 defense) |
-| Clubs with at least one listed starter out | 19 |
+| Out/Doubtful players who sit on their club's chart | 62 of 81 (see F-42 on the one name-only match) |
+| ... at **depth 1** (the listed starter) | **41** (23 offense, 18 defense) |
+| Clubs with at least one listed starter out or doubtful | 20 |
 | Positions where the club names nobody behind a ruled-out starter | 2 (both Tennessee) |
 | Cascades - starter *and* his listed backup both out | **0** |
 
 The zero is published deliberately. Any model that assumes a second- or third-string cascade is
 happening in Week 10 would be inventing it. Houston publishes its chart only as an image, so it
-contributes no rows (F-18); 19 ruled-out players who are absent from their own club's chart are
-listed by name rather than given a guessed rank (F-19), which makes the starter-out figure a
-floor. A published chart is not proof of who started - that is F-21, and ingesting the official
+contributes no rows (F-18); 20 ruled-out or doubtful players who are absent from their own club's chart are
+listed by name rather than given a guessed rank (F-25), which makes the starter-out figure a
+floor. These figures are from the 2026-11-15 re-capture of the official report (F-41); the earlier
+prose (57 of 76, 40, 19) was not produced by the depth tool and is superseded (F-42). A published chart is not proof of who started - that is F-21, and ingesting the official
 game books is the fix ranked first in the suggestions queue.
 
 ## What is deliberately missing, and why

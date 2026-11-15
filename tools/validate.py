@@ -21,6 +21,10 @@ PY = sys.executable
 
 STEPS = [
     ("verify data against official standings", [PY, os.path.join(ROOT, "tools", "verify.py")]),
+    ("verify the injury dataset cell for cell against the official capture",
+     [PY, os.path.join(ROOT, "tools", "capture_check.py")]),
+    ("verify every stored official capture is unaltered (SHA-256)",
+     [PY, os.path.join(ROOT, "tools", "capture_official.py"), "verify"]),
     ("build published numbers", [PY, os.path.join(ROOT, "tools", "build.py")]),
     ("check the price store, origination card and results feed",
      [PY, os.path.join(ROOT, "tools", "market_store.py")]),

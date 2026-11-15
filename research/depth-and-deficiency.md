@@ -30,17 +30,17 @@ come from.
 
 ## 2. What the join shows for Week 10
 
-The official NFL.com Week 10 report lists **76** players Out or Doubtful across the 28 clubs
-playing that week. Joined by name to the club charts:
+The official NFL.com Week 10 report, read in full on 2026-11-15 (F-41), lists **81** players Out or
+Doubtful (70 Out, 11 Doubtful) across the 28 clubs playing that week. Joined by name to the club charts:
 
 | Measure | Value |
 |---|---|
-| Out/Doubtful players who sit somewhere on their club's chart | 57 |
-| ... at **depth 1** (the listed starter) | **40** |
+| Out/Doubtful players who sit somewhere on their club's chart | 62 (61 by exact name, plus one name-only match, F-42) |
+| ... at **depth 1** (the listed starter) | **41** |
 | ... of those, on offense | 23 |
-| ... of those, on defense | 17 |
-| Clubs with at least one listed starter out or doubtful | 19 |
-| Out/Doubtful players absent from their club's chart | 19 |
+| ... of those, on defense | 18 |
+| Clubs with at least one listed starter out or doubtful | 20 |
+| Out/Doubtful players absent from their club's chart | 20 |
 
 The clubs hit hardest by listed-starter losses: **Minnesota (5: 3 offense, 2 defense)**,
 **Seattle (4)**, **Tennessee (4)**, **Dallas (3)**, **Green Bay (3)**, **Indianapolis (3)**.
@@ -61,9 +61,9 @@ are the sharpest availability facts in the dataset - the club itself has publish
 up. It does not follow that nobody plays (a practice-squad elevation never appears on a depth
 chart), only that the club has not said who.
 
-**Nineteen ruled-out players are not on their club's chart (F-19).** Clubs update charts on
-their own schedule. The 19 are named individually on the page rather than dropped or given a
-guessed rank, which is why the starter-out figure is a **floor, not a ceiling** - 40 is the
+**Twenty ruled-out or doubtful players are not on their club's chart (F-25).** Clubs update charts on
+their own schedule. The 20 are named individually on the page rather than dropped or given a
+guessed rank, which is why the starter-out figure is a **floor, not a ceiling** - 41 is the
 minimum number of listed starters ruled out, not the true number of starters who will not play.
 
 ## 4. Why the numbers can be trusted, and what they still cannot say

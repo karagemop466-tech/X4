@@ -1,7 +1,8 @@
 /* X4 — 2026 NFL WEEK 10 OFFICIAL INJURY REPORT (verified transcript)
    Source: https://www.nfl.com/injuries/  (page title: "Official Latest NFL Injury Report
    for Players - Week 10 of the 2026 Season | NFL.com")
-   Retrieved 2026-11-14.
+   Retrieved 2026-11-14; re-read in full 2026-11-15 (347 rows, cell-for-cell against
+   research/verification/official-injury-report-wk10-capture-2026-11-15.csv in the main repository).
 
    Transcription rules applied:
      - Practice status and game status are copied verbatim from the official page.
@@ -191,7 +192,7 @@
   ["IND","Jaylon Carlies","LB","Neck",DNP,"Out","MIA at IND"],
   ["IND","Akeem Davis-Gaither","LB","Knee",DNP,"Out","MIA at IND"],
   ["IND","A.J. Haulcy","S","",FP,"","MIA at IND"],
-  ["IND","Arden Key","DE","Hamstring",FP,"Questionable","MIA at IND"],
+  ["IND","Arden Key","DE","",FP,"","MIA at IND"],
   ["IND","Will Mallory","TE","Hamstring",LP,"Questionable","MIA at IND"],
   ["IND","Luke Rhodes","LS","Hamstring",DNP,"Out","MIA at IND"],
   ["IND","Grover Stewart","DT","",FP,"","MIA at IND"],
@@ -363,32 +364,34 @@
   ["CIN","DJ Turner II","CB","",FP,"","PIT at CIN"],
 
   // --- Monday, Nov 16, 8:15 PM: LAC at BAL ---
-  ["LAC","Kayode Awosika","G","",LP,"","LAC at BAL"],
-  ["LAC","Bud Dupree","DE","",DNP,"","LAC at BAL"],
-  ["LAC","Justin Eboigbe","DE","",LP,"","LAC at BAL"],
+  ["LAC","Kayode Awosika","G","Fibula",FP,"Questionable","LAC at BAL"],
+  ["LAC","Bud Dupree","DE","",FP,"","LAC at BAL"],
+  ["LAC","Justin Eboigbe","DE","Ankle",LP,"Questionable","LAC at BAL"],
   ["LAC","Alex Harkey","G","",FP,"","LAC at BAL"],
   ["LAC","Tre Harris","WR","",FP,"","LAC at BAL"],
   ["LAC","Cam Hart","CB","",FP,"","LAC at BAL"],
   ["LAC","Daiyan Henley","LB","",FP,"","LAC at BAL"],
   ["LAC","Deane Leonard","CB","",FP,"","LAC at BAL"],
   ["LAC","Khalil Mack","LB","",FP,"","LAC at BAL"],
-  ["LAC","Ladd McConkey","WR","",DNP,"","LAC at BAL"],
-  ["LAC","Keaton Mitchell","RB","",LP,"","LAC at BAL"],
-  ["LAC","David Njoku","TE","",LP,"","LAC at BAL"],
-  ["LAC","Denzel Perryman","LB","",FP,"","LAC at BAL"],
-  ["LAC","Trey Pipkins","T","",DNP,"","LAC at BAL"],
-  ["LAC","Rodney Shelley","CB","",LP,"","LAC at BAL"],
-  ["LAC","Branson Taylor","G","",DNP,"","LAC at BAL"],
-  ["LAC","Brenen Thompson","WR","",DNP,"","LAC at BAL"],
-  ["LAC","Isas Waxter","CB","",DNP,"","LAC at BAL"],
-  ["LAC","Kendall Williamson","S","",DNP,"","LAC at BAL"],
+  ["LAC","Ladd McConkey","WR","Back",DNP,"Questionable","LAC at BAL"],
+  ["LAC","Keaton Mitchell","RB","",FP,"","LAC at BAL"],
+  ["LAC","David Njoku","TE","Fibula",FP,"Questionable","LAC at BAL"],
+  ["LAC","Denzel Perryman","LB","Pectoral",FP,"Questionable","LAC at BAL"],
+  ["LAC","Trey Pipkins","T","Not injury related - personal matter, Knee",LP,"Questionable","LAC at BAL"],
+  ["LAC","Rodney Shelley","CB","",FP,"","LAC at BAL"],
+  ["LAC","Branson Taylor","G","Ankle",DNP,"Out","LAC at BAL"],
+  ["LAC","Brenen Thompson","WR","Hamstring",DNP,"Doubtful","LAC at BAL"],
+  ["LAC","Isas Waxter","CB","Ankle",DNP,"Out","LAC at BAL"],
+  ["LAC","Kendall Williamson","S","Calf",DNP,"Out","LAC at BAL"],
   ["BAL","Rasheen Ali","RB","",FP,"","LAC at BAL"],
   ["BAL","Rashod Bateman","WR","",FP,"","LAC at BAL"],
+  ["BAL","Calais Campbell","DT","",DNP,"","LAC at BAL"],
   ["BAL","Kyle Hamilton","S","",FP,"","LAC at BAL"],
-  ["BAL","Jaylinn Hawkins","S","",LP,"","LAC at BAL"],
+  ["BAL","Jaylinn Hawkins","S","Knee",LP,"Out","LAC at BAL"],
   ["BAL","Matthew Hibner","TE","",FP,"","LAC at BAL"],
   ["BAL","Olaivavega Ioane","G","",FP,"","LAC at BAL"],
-  ["BAL","Adam Randall","RB","",FP,"","LAC at BAL"],
+  ["BAL","Adam Randall","RB","Neck, Hamstring",FP,"Questionable","LAC at BAL"],
+  ["BAL","Ronnie Stanley","T","",DNP,"","LAC at BAL"],
   ["BAL","Nate Wiggins","CB","",FP,"","LAC at BAL"],
   ];
 

@@ -143,7 +143,7 @@ BAL,Defense,CB,2,Chidobe Awuzie,,,,https://www.baltimoreravens.com/team/depth-ch
 BAL,Defense,DB,1,Kyle Hamilton,,,,https://www.baltimoreravens.com/team/depth-chart,2026-11-14
 BAL,Defense,DB,2,Keyon Martin,,,,https://www.baltimoreravens.com/team/depth-chart,2026-11-14
 BAL,Defense,DB,3,Chandler Rivers,,,,https://www.baltimoreravens.com/team/depth-chart,2026-11-14
-BAL,Defense,SS,1,Jaylinn Hawkins,,,,https://www.baltimoreravens.com/team/depth-chart,2026-11-14
+BAL,Defense,SS,1,Jaylinn Hawkins,Out,Knee,,https://www.baltimoreravens.com/team/depth-chart,2026-11-14
 BAL,Defense,SS,2,Keondre Jackson,,,,https://www.baltimoreravens.com/team/depth-chart,2026-11-14
 BAL,Defense,FS,1,Malaki Starks,,,,https://www.baltimoreravens.com/team/depth-chart,2026-11-14
 BAL,Defense,FS,2,K'Von Wallace,,,,https://www.baltimoreravens.com/team/depth-chart,2026-11-14
@@ -756,13 +756,13 @@ KC,Defense,S,2,Chris Roland-Wallace,,,,https://www.chiefs.com/team/depth-chart,2
 KC,Defense,S2,1,Chamarri Conner,,,,https://www.chiefs.com/team/depth-chart,2026-11-14
 KC,Defense,S2,2,Jaden Hicks,,,,https://www.chiefs.com/team/depth-chart,2026-11-14
 KC,Defense,S2,3,Xavier Nwankpa,,,,https://www.chiefs.com/team/depth-chart,2026-11-14
-LAC,Offense,WR,1,Ladd McConkey,,,,https://www.chargers.com/team/depth-chart,2026-11-14
+LAC,Offense,WR,1,Ladd McConkey,Questionable,Back,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,WR,2,Tre' Harris,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,WR,3,Derius Davis,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,WR,4,Theo Wease Jr.,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,LT,1,Travis Burke,,,,https://www.chargers.com/team/depth-chart,2026-11-14
-LAC,Offense,LT,2,Branson Taylor,,,,https://www.chargers.com/team/depth-chart,2026-11-14
-LAC,Offense,LG,1,Kayode Awosika,,,,https://www.chargers.com/team/depth-chart,2026-11-14
+LAC,Offense,LT,2,Branson Taylor,Out,Ankle,,https://www.chargers.com/team/depth-chart,2026-11-14
+LAC,Offense,LG,1,Kayode Awosika,Questionable,Fibula,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,LG,2,Logan Taylor,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,C,1,Jake Slaughter,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,C,2,Jacob Spomer,,,,https://www.chargers.com/team/depth-chart,2026-11-14
@@ -773,7 +773,7 @@ LAC,Offense,RT,2,Alex Harkey,,,,https://www.chargers.com/team/depth-chart,2026-1
 LAC,Offense,TE,1,Charlie Kolar,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,TE,2,Oronde Gadsden,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,WR2,1,Quentin Johnston,,,,https://www.chargers.com/team/depth-chart,2026-11-14
-LAC,Offense,WR2,2,Brenen Thompson,,,,https://www.chargers.com/team/depth-chart,2026-11-14
+LAC,Offense,WR2,2,Brenen Thompson,Doubtful,Hamstring,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,QB,1,Justin Herbert,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,QB,2,DJ Uiagalelei,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Offense,FB,1,Alec Ingold,,,,https://www.chargers.com/team/depth-chart,2026-11-14
@@ -786,7 +786,7 @@ LAC,Defense,EDGE,2,Akheem Mesidor,,,,https://www.chargers.com/team/depth-chart,2
 LAC,Defense,DL,1,Jamaree Caldwell,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,DL,2,Nick Barrett,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,DL2,1,Dalvin Tomlinson,,,,https://www.chargers.com/team/depth-chart,2026-11-14
-LAC,Defense,DL2,2,Justin Eboigbe,,,,https://www.chargers.com/team/depth-chart,2026-11-14
+LAC,Defense,DL2,2,Justin Eboigbe,Questionable,Ankle,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,DL3,1,Teair Tart,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,EDGE2,1,Tuli Tuipulotu,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,EDGE2,2,Bud Dupree,,,,https://www.chargers.com/team/depth-chart,2026-11-14
@@ -802,7 +802,7 @@ LAC,Defense,S,2,Tony Jefferson,,,,https://www.chargers.com/team/depth-chart,2026
 LAC,Defense,S,3,RJ Mickens,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,S2,1,Elijah Molden,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,S2,2,Genesis Smith,,,,https://www.chargers.com/team/depth-chart,2026-11-14
-LAC,Defense,S2,3,Kendall Williamson,,,,https://www.chargers.com/team/depth-chart,2026-11-14
+LAC,Defense,S2,3,Kendall Williamson,Out,Calf,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,CB2,1,Donte Jackson,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,CB2,2,Cam Hart,,,,https://www.chargers.com/team/depth-chart,2026-11-14
 LAC,Defense,CB2,3,Rodney Shelley,,,,https://www.chargers.com/team/depth-chart,2026-11-14
