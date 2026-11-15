@@ -1714,6 +1714,15 @@ Claimed 2026-11-15 on branch `arena/31354751-x4` (base `41c6088`). Scope is the 
 ## Status
 
 - Merge: pending. PR link and merge result are recorded below when the PR is merged.
+
+### T37 post-merge publication fix — arena/0a180c64-x4 (2026-11-15)
+
+- After PR #50 merged (`fcf6fc3`), the `Publish NFL Decision Lab` run on the later `main` head `5365885` (PR #53) failed at **"Confirm the published output is reproducible"**. The build step itself passed.
+- Cause: the committed `teams.html` (and `site/teams.html`) was stale. A fresh `python3 tools/validate.py` on that tree produced a different page from the same data. Two runs of the generator produced identical output, so the generator is deterministic; the committed page was simply not regenerated after the data and generator changed.
+- Concrete effect on the published page: BAL and LAC rows showed no injury counts and "none listed", although the official Week 10 report (and the committed dataset, which matches it) lists Jaylinn Hawkins (BAL, S, Knee, Out) and Isas Waxter (LAC, CB, Ankle, Out). The regenerated page shows these correctly.
+- Fix: committed the regenerated `teams.html` and `site/teams.html` only (two lines each). No data, source, or other page was edited. `tools/validate.py` PASS (7 RESULT PASS lines; F-39 still reported open, not passed).
+- Process note for the integrating session: run `python3 tools/validate.py` and commit its output immediately before merging, because a merge elsewhere can make a committed page stale without touching its generator.
+
 - Rebase conflict note: upstream merged PR #46 (T35) while PR #47 was being prepared, producing a conflict in the shared coordination log/mirror. Resolved additively by retaining T35's full publication/deployment record and this T38 entry; no other session's content was removed.
 
 ### T38 publication and merge record
