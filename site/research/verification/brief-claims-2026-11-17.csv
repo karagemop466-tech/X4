@@ -1,0 +1,18 @@
+id,brief_claim,verdict,official_source_url,evidence,read_date_utc,flag
+C1,"Lions game-status blanks: Joseph, Mays, Reed (VR-08, VR-12)",Not reproduced,https://www.nfl.com/injuries/,"Week 10 report: all three Out (Knee, Ankle, Hip; DNP)",2026-11-17,
+C2,Week 10 tables stale: 254 vs 279 rows (VR-04..07),Not reproduced (prior record stands),https://www.nfl.com/injuries/,First of 8 chunks re-read; full 347-row read is 2026-11-15 record,2026-11-15 record,
+C3,"Malik Willis absent because on IR, not healthy (VR-25, VQ-06)",Confirmed,https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start,IR (groin) placed on a Tuesday; NFL.com reserve list 11/10 Malik Willis Reserve/Injured,2026-11-17,F-43
+C4,"Kyle McCord replaces Willis (VR-25, VQ-05)",Confirmed as announced,https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start,McCord to start vs Colts; game-day starter not confirmed,2026-11-17,
+C5,Drew Lock starts for Seattle with Darnold out (VR-24),Confirmed as announced,https://www.nfl.com/news/sam-darnold-ruled-out-for-seahawks-week-10-game-vs-raiders-drew-lock-expected-to-start-again; https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders,"Darnold ruled out; Lock no injury designation, elbow/oblique limits in practice",2026-11-17,
+C6,"Lamar Jackson on injured reserve (VR-17, VR-26)","Reported, conflict open",https://www.nfl.com/news/ravens-qb-lamar-jackson-suffers-right-thumb-injury-bills; https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season,Articles say IR; November reserve-list reads do not show him,2026-11-17,F-44
+C7,Tyler Huntley on injured reserve (VR-26),"Reported, conflict open",https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season,As C6; reserve-list reads do not show him,2026-11-17,F-44
+C8,"Baltimore still publishes Jackson and Huntley at QB (VR-17, VQ-07)",Not reproduced,https://www.baltimoreravens.com/team/depth-chart,"Club chart QB: Brissett, Fagnano, Slovis",2026-11-17,F-45
+C9,"Brissett acquired by trade as replacement (VR-24, VR-25)",Confirmed,https://www.nfl.com/transactions/league/trades/2026/11,Brissett ARI to BAL 11/06; club chart QB1,2026-11-17,F-45
+C10,"Colts two starting-receiver trades (Downs, Allen)",Confirmed,https://www.nfl.com/transactions/league/trades/2026/11,Downs IND to KC 11/10; Allen IND to SF 11/10; same-article link not checked,2026-11-17,
+C11,Texans depth chart is an image; needs structured source,Confirmed,https://www.houstontexans.com/team/depth-chart,Image-only chart labelled Unofficial Depth Chart; no transcription made,2026-11-17,F-46
+C12,"Reserve list: not listed never means available (VR-25, VQ-06)",Confirmed in part,https://www.nfl.com/transactions/league/reserve-list/2026/11,Reads disagree: 17 rows (11/14 capture) vs 25 rows (11/17),2026-11-17,F-43
+C13,Seattle Lock row: no injury designation,Confirmed,https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders,Coach statement; practice limits recorded in article,2026-11-17,
+C14,Immutable multi-day availability snapshots exist,Not reproduced,https://github.com/karagemop466-tech/X4/tree/arena/d15ce403-x4/.github/workflows,data/captures absent on this branch; capture workflow runs from default branch,2026-11-17,F-47
+C15,"Seattle shared slot; Washington empty slot (VR-21, VR-23, VQ-08)",Not checked,,Out of this pass,,
+C16,"Week 11 status for Lions, Seattle, Cincinnati injuries",Not checked,,Week 11 report not posted at read; out of this pass,,
+C17,Texans and Ravens later-week depth charts,Not checked,,Only the two charts above were read,,
