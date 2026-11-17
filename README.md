@@ -11,6 +11,7 @@ questions to suggestions.
 | Path | What it holds |
 |---|---|
 | `data/` | The verified source data: 137 official games, the official standings for all 32 teams, the official Week 10 injury report, the official Week 11 schedule, and league-confirmed starter changes |
+| `research/data/injury-report-delta-wk10.csv` | The first published **what-changed delta**: every cell that moved between the 2026-11-14 and 2026-11-15 official captures of the same Week 10 report (2 players added, 32 cells changed on 16 players) |
 | `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
 | `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, depth-chart acquisition, data verification, and the sources register |
 | `tools/` | The pipeline: `verify.py` proves the data, `build.py` produces every published number, `pages.py` and `sync.py` build the site, `validate.py` runs the whole gate |
@@ -29,7 +30,7 @@ it answers, so nothing has to be guessed at.
 | Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) |
 | Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (347 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) · `replacements.html` (desk: the replacement chains, side by side) · `markets.html` (the price-snapshot store) · `results.html` (the verified results feed) |
 | Model & strategies | `lines.html` (13 Week-11 model lines, fair / market / difference as three columns) · `market.html` (the captured-price archive: 29 games, 87 price rows, skill and staking boards) · `price-snapshots.html` · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `gates.html` (signal vs staking, the demotion gate) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) · `origination.html` + `price-store.html` + `signal-vs-staking.html` + `correlations.html` + `method-lab.html` (the origination layer) |
-| Review & flags | `suggestions.html` (8 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `workbench.html` (12 proposals on one documented rubric, ranked) · `programme.html` (the eight integrity gates) · `flags.html` (main register, 55 entries; F-43 to F-55 added 2026-11-17) · `flagged.html` (desk register, 12 blanks + 14 irregularities) · `ops-review.html` · `verification.html` · `requirements-closure.html` (ten of twelve requirements closed) |
+| Review & flags | `suggestions.html` (8 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `workbench.html` (12 proposals on one documented rubric, ranked) · `programme.html` (the eight integrity gates) · `flags.html` (main register, 57 entries; F-43 to F-57 added 2026-11-17) · `flagged.html` (desk register, 13 blanks + 14 irregularities) · `ops-review.html` · `verification.html` · `requirements-closure.html` (ten of twelve requirements closed) · `delta.html` (the injury report as a delta between dated captures) |
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
 | Second build | The **X4 Console** at `/console/` - 15 pages, built independently, reaching the same two structural conclusions |
 
@@ -98,12 +99,14 @@ neutral flags in the game log equal exactly that official set.
 ## Provenance and the known source-link gap
 
 A verified NFL fact should link directly to the official NFL page that supports it; a
-value that cannot be confirmed stays blank and is flagged. Do not interpret this as a
-claim that every table row already meets that standard: flag F-39 records **191 desk-table
-rows on 13 pages** that currently have no row-level HTTPS source link. They are not
-presented as verified NFL facts, and no unrelated NFL URL is added just to satisfy a
-checker. The full row-by-row inventory is
-[`research/verification/row-source-gaps-2026-11-14.csv`](research/verification/row-source-gaps-2026-11-14.csv).
+value that cannot be confirmed stays blank and is flagged. As of the 2026-11-17 build,
+flag F-39 is **closed**: the row-source checker tests **1,045 desk-table rows on 22 pages
+and reports 0 rows without an HTTPS source link**. The 191 rows that lacked one were
+closed line by line — official NFL pages for NFL facts, the committed artifact (exact CSV
+or script on GitHub) for computed rows, and the page checked plus a flag for blanks. Two
+limits stay open on purpose: the checker verifies link presence, not that a link supports
+the exact value beside it, and the 26 "points only" price rows in the 2026W11-OPEN
+snapshot remain unverified rather than gaining a link that does not support the value.
 
 The main-site `site/check.py` gate checks the rendered main-site data tables; the separate
 `tools/check_site.py` desk-page checker reports missing row-level links without treating
@@ -274,7 +277,8 @@ The final integration after the origination layers landed:
 - **Second pass (same day, after `main` moved to PR #33 and PR #29 opened):** `main` and PR #29's
   integration were merged in full; PR #34's live-sweep records were imported (its branch was too old
   to merge whole). The desk row-source check, which had never tested any row, now does, and it
-  reports 191 rows without an official link (flag F-39, open). Ten new injury drift cells are on
+  then reported 191 rows without an official link (flag F-39; closed line by line on 2026-11-17,
+  see the provenance section above). Ten new injury drift cells are on
   the flags page (F-40). Details: `COORDINATION.md`, "T31 second integration pass".
 - **One flag register, one nav, one gate**: F-01..F-37 with no duplicate ids, a union
   sidebar nav enforced by `tools/check_site.py`, and `tools/validate.py` now builds and
@@ -307,9 +311,10 @@ at **`/console/`** on the same Pages site.
 | Publication gate | `python3 site/check.py` + `python3 tools/check_site.py` | `node docs/check.js` |
 
 Both builds have source-check gates, but their measured scopes differ. The main-site
-table check passes its rendered data tables; the desk-page check reports **191 rows on
-13 pages without row-level HTTPS links** (F-39), which are not a pass and must be treated
-as unverified. The X4 Console check separately confirms that its 682 rendered rows carry
+table check passes its rendered data tables; the desk-page check tests **1,045 rows on
+22 pages and reports 0 rows without row-level HTTPS links** (F-39 closed 2026-11-17),
+with the caveat that link presence is checked, not per-value semantic support. The X4
+Console check separately confirms that its 682 rendered rows carry
 source cells. Unsupported values remain blank and flagged. Do not read these results as
 a claim that every row across the full repository has been individually sourced. Both
 builds reached the same two structural conclusions independently:
@@ -423,3 +428,37 @@ inputs (`research/data/*.csv`) and never fork the numbers produced by `tools/bui
   player-page source link and left unedited. Record, captures, parser and
   per-row snapshot CSVs live in `research/verification/`
   (`live-verification-2026-11-14-e6ee28a8.md`, `captures-2026-11-14-e6ee28a8/`).
+
+## Final integration and F-39 closure (T41, session `arena/550d7436-x4`, 2026-11-17)
+
+- **F-39 closed line by line.** The 191 desk-table rows that had no HTTPS source link
+  (13 pages) each now carry their authoritative evidence: official NFL pages for NFL
+  facts, the committed artifact (the exact CSV or script, linked at its GitHub home) for
+  computed and programme rows, and the official page checked plus a flag for blanks.
+  The checker now reports **1,045 desk rows on 22 pages, 0 without a link**. The gate
+  was not weakened; the honest limits are recorded on the flag (link presence is
+  verified, not per-value semantic support; the 26 "points only" price rows stay
+  unverified).
+- **Stale-claim reconciliations.** The depth-rank rows that still said "404, unverified"
+  (executive summary, requirements Q16/Q17, desk flags F-02/R-03) were superseded by the
+  verified 31-club transcription (takeover of the stale T35 claim PR #44).
+- **T38 Game Book evidence audit delivered** (takeover of stale claim PR #49, whose log
+  cited a report that was never committed):
+  [`research/verification/gamebook-source-review-2026-11-17.md`](research/verification/gamebook-source-review-2026-11-17.md).
+  Verified live: the official [support article](https://support.nfl.com/hc/en-us/articles/35869678028180-Game-Books),
+  a completed [Game Center](https://www.nfl.com/games/vikings-at-packers-2026-reg-10) with
+  its Game Book PDF, the PDF's own use restriction (quoted verbatim in the report), the
+  [Week 10 inactives article](https://www.nfl.com/news/nfl-week-10-inactives-players-ruled-out-sunday-2026-season),
+  and the Game Book's **Playtime Percentage** section - the official playing-time source.
+  No player row is republished.
+- **The injury report is published as a delta, not a level.** New `delta.html` and
+  `tools/injury_delta.py` compute and publish every cell that moved between the two dated
+  official captures of the Week 10 report; readiness row S4 now passes (the automated
+  weekly series stays blocked on the failing capture workflow, flag F-43).
+- **Every model total is published twice** (S3 model estimate and S0 benchmark, gap as its
+  own column on `lines.html`) until the pre-registered walk-forward comparison picks a
+  winner; the **price-data policy** and the **train/validation/final-holdout split** are
+  frozen on `methodology.html`, dated before any backtest is published.
+- **The T40 capture-health finding is surfaced** on both flag registers (main F-43, desk
+  F-13), as its session requested. This session reproduced the same run-log EOF, so the
+  failure cause remains unknown and is not guessed at.

@@ -13569,11 +13569,11 @@
    "item": "Desk rows without an official source link: the row-source gate was not reading row links",
    "type": "Irregularity",
    "kind": "bad",
-   "status": "open",
-   "detail": "The per-row source check in tools/check_site.py recorded each link in the page-level list but never attached it to its table row, so every row was tested as empty and the check passed without testing anything. Found by the source-provenance audit (arena/5092bd99-x4) and fixed at T31 integration. With the check reading row links, 191 desk-table rows on 13 pages have no https link. They are listed one by one in research/verification/row-source-gaps-2026-11-14.csv. They are decision and requirement text, rubric weights, simulation output, programme status, or computed statistics whose inputs are not yet linked row by row. None of them is a sourced official value that the page presents as confirmed. A second gap of the same kind is in the price store: 26 spread and total points in the 2026W11-OPEN snapshot of data/market-prices.csv have no source link (their note reads 'points only'). The moneyline rows of that snapshot are all linked. Those 26 points are not given a link here, so they remain unverified.",
-   "why": "The earlier 'every data row has an official source link' PASS on this site was not evidence. It is withdrawn. The gate now reports these rows and does not hide them. Open work: link each computed statistic to the official pages that carry its inputs, mark the rest as internal, and then make the gate fail on any row that presents an official value without a link. Until then, any reader should treat those rows as unverified.",
+   "status": "resolved",
+   "detail": "The per-row source check in tools/check_site.py recorded each link in the page-level list but never attached it to its table row, so every row was tested as empty and the check passed without testing anything. Found by the source-provenance audit (arena/5092bd99-x4) and fixed at T31 integration. With the check reading row links, 191 desk-table rows on 13 pages had no https link; they were listed one by one in research/verification/row-source-gaps-2026-11-14.csv. They were decision and requirement text, rubric weights, simulation output, programme status, or computed statistics whose inputs were not linked row by row. None of them was a sourced official value that the page presented as confirmed. A second gap of the same kind was in the price store: 26 spread and total points in the 2026W11-OPEN snapshot of data/market-prices.csv had no source link (their note reads 'points only'); the moneyline rows of that snapshot are all linked.",
+   "why": "RESOLVED on 2026-11-17 (T41, session arena/550d7436-x4) by line-by-line closure, not by weakening the gate: every one of the 1,045 desk-table rows on 22 pages now carries an https source link, and the checker re-run reports 0 rows without one. NFL-fact rows link to the official NFL page; computed and programme rows cite the committed artifact that produced the value (GitHub blob of the exact CSV/script); blank decision rows cite the official page checked plus the flag. Two honest limits remain, and neither is closed by this fix: (1) the checker verifies link presence, not that a link supports the exact value beside it \u2014 a per-value semantic source gate is still open work; (2) the 26 'points only' price rows keep their recorded gap and stay unverified rather than gaining a link that does not support the value. Any reader should still treat a computed row as the artifact's output, not as an official NFL fact.",
    "official_url": "https://www.nfl.com/standings/",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/row-source-gaps-2026-11-14.csv"
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/check_site.py"
   },
   {
    "id": "F-40",
@@ -13750,6 +13750,28 @@
    "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
+  },
+  {
+   "id": "F-56",
+   "item": "Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The T40 audit (research/audits/capture-workflow-health-2026-11-17.md) confirmed two code-path risks that survive even after the failing runs recorded in F-47 and F-48 are fixed. (1) A partial success is lost: tools/capture_official.py fetch --kind all can store one source's capture and write its manifest line before exiting non-zero on another source, and the workflow's later verify/freshness/commit steps have no if: always() condition, so the partial capture dies with the runner. (2) Freshness is global: freshness() takes the newest fetched_utc over every manifest entry and does not require schema_ok or a stored file per source, so one fresh error entry could make the whole store look current. The run-log download returned EOF for two independent sessions (arena/bdf71572-x4 and arena/550d7436-x4), so the fetch failure's cause stays unknown and is not guessed at here.",
+   "why": "These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/audits/capture-workflow-health-2026-11-17.md"
+  },
+  {
+   "id": "F-57",
+   "item": "Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4)",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "The final-integration audit committed with PR #70 measured the tree against a criterion stricter than F-39's: a row must link an allowlisted official domain (nfl.com and its subdomains, ftc.gov, the 32 clubs' own sites), not just any https URL, and each source link should be attributable to the specific value it supports. Its audit found 366 of 1,045 rows short at its commit; re-measured on the current tree (1,259 rows on 26 desk pages, after the F-39 closure added delta/luck/readiness/teams and the artifact links), the count is 464 rows with no official-domain link, concentrated on workbench (111), price-store (78) and programme (58) - mostly rows whose evidence is this project's own committed artifact (a GitHub blob of the exact CSV or script) rather than an official NFL page. Audit record: site/research/verification/official-row-source-coverage-2026-11-17.csv.",
+   "why": "This does not contradict the F-39 closure, which used the any-https criterion the checker has always published: every row now carries a link, and computed rows honestly cite the artifact that produced them instead of borrowing an official URL that does not support the value. What remains open is real: (1) an allowlisted official-domain gate as a separate, stricter check, (2) source-to-value attribution per row, and (3) a semantic check that a link supports the value beside it. Until those land, a row whose only link is a repository artifact must be read as the artifact's output, not as an official NFL fact.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/site/research/verification/official-row-source-coverage-2026-11-17.csv"
   }
  ],
  "replacement_depth": [

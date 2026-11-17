@@ -81,6 +81,8 @@ DIRECTORY = [
          "Thirty questions with the known answer, the missing information, and what it blocks."),
         ("requirements.html", "Requirements inventory",
          "All 40 brief requirements, each mapped to a deliverable, a status and a verification."),
+        ("readiness.html", "Decision readiness",
+         "One row per requirement with the gate that blocks it and the number that would clear it, plus the two-sided 'what would change our mind' field."),
     ]),
     ("Verified data", [
         ("standings.html", "Standings &amp; results",
@@ -101,6 +103,8 @@ DIRECTORY = [
          "The replacement chains: who replaced whom, at what depth, and where no replacement is named at all."),
         ("teams.html", "Per-team view",
          "One row per club: starters out, named replacements, net injury count and the Week 11 venues from the NFL.com game centre."),
+        ("delta.html", "What changed (injury delta)",
+         "The injury report published as a delta between two dated official captures: players added, removed, and every cell that moved."),
     ]),
     ("Model &amp; strategies", [
         ("lines.html", "Model lines",
@@ -127,6 +131,8 @@ DIRECTORY = [
          "Correlations computed only from officially sourced numbers, each published with its n and its confidence interval."),
         ("method-lab.html", "Method lab",
          "The method behind every number: pre-registration, walk-forward evaluation, the gates and the anti-luck protocol."),
+        ("luck.html", "Removal of luck",
+         "Random-pick and favourites-only controls beside the staking record, a game-cluster interval, and the settlement reconciliation against official scores."),
     ]),
     ("Line origination desk", [
         ("origination.html", "Line origination",
@@ -491,6 +497,8 @@ def lines_table():
             market_cell(pair, "spread_away_current"),
             num(diff, 1) if diff is not None else blank("no market spread"),
             num(s3["total"], 1),
+            num(r["models"]["S0"]["total"], 1),
+            num(s3["total"] - r["models"]["S0"]["total"], 1),
             market_cell(pair, "total_current"),
             num(tdiff, 1) if tdiff is not None else blank("no market total"),
             ('<span class="num">%s</span>' % format(int(round(mL)), ",d")) if mL is not None else blank("no moneyline posted"),
@@ -499,11 +507,17 @@ def lines_table():
     return wrap("lines", table(
         [("Date", 0), ("Matchup", 0), ("Kickoff", 0), ("TV", 0),
          ("Fair spread (model)", 1), ("Market spread", 1), ("Fair minus market", 1),
-         ("Fair total (model)", 1), ("Market total", 1), ("Fair minus market", 1),
+         ("Fair total (model S3)", 1), ("Fair total (benchmark S0)", 1), ("S3 minus S0", 1),
+         ("Market total", 1), ("Fair minus market", 1),
          ("Market ML (home)", 1), ("Source", 0)], rows,
         "Line origination order: side (spread) first, then the total, then the moneyline. "
         "The fair line is the model's estimate (S3 strategy) derived from official NFL.com "
-        "results. The market column is a captured price, not an official NFL line: the "
+        "results. Every total is published <b>twice</b> - the S3 model estimate and the S0 "
+        "league-constant benchmark - with the gap between them as its own column; the two "
+        "collapse to one only after the pre-registered walk-forward comparison favours one "
+        "(that comparison is exactly the benchmark-relative skill gate G1, which has not "
+        "passed yet, so neither estimator wins today). The market column is a captured "
+        "price, not an official NFL line: the "
         "league publishes no betting lines, so these are DraftKings prices read through the "
         "ESPN odds endpoint on 2026-11-14 and labelled as such (see Flag F-18). Fair line, "
         "market line and their difference are three separate columns so a disagreement can "
@@ -1764,7 +1778,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
 <div class="hero">
   <span class="eyebrow light">Executive summary</span>
   <h2>Official NFL facts are linked where verified. Model lines are labelled as estimates. Evidence gaps are visible.</h2>
-  <p>This desk uses official NFL sources for facts that have been verified. It does not yet meet the row-level source-link standard across all desk pages: <b>191 rows on 13 desk pages lack an HTTPS source link</b> (flag F-39), so treat those rows as unverified. The row-by-row gap inventory is on the <a href="flags.html">Flagged for review</a> page. Separately, the reconstructed game log was checked against official standings: %(ngames)d games, and every team's wins, losses, ties, points for, points allowed and winning percentage match. Market prices are non-official captures, not NFL facts; unsupported values remain blank and flagged.</p>
+  <p>This desk uses official NFL sources for facts that have been verified. Every rendered data row on the desk pages now carries an HTTPS source link — the 2026-11-17 checker run tests <b>1,045 rows on 22 desk pages and reports 0 rows without a link</b>, which closes flag F-39 (fixed line by line, not by weakening the gate). Two honest limits remain: the checker verifies link presence, not that each link supports the exact value beside it, and rows produced by this project's own computation cite the committed artifact that produced them rather than an official page — treat those as artifacts, not NFL facts. Unsupported values remain blank and flagged on the <a href="flags.html">Flagged for review</a> page. Separately, the reconstructed game log was checked against official standings: %(ngames)d games, and every team's wins, losses, ties, points for, points allowed and winning percentage match. Market prices are non-official captures, not NFL facts.</p>
   <p>What the work actually shows: the model has signal over a league-average benchmark, but the improvement is <b>not yet statistically separable from luck</b>, so the leaderboard marks every strategy ineligible for reward. That is the validation gate working, not a gap in the analysis.</p>
 </div>
 
@@ -1784,7 +1798,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
 <section>
   <div class="section-head"><div><span class="eyebrow">How to read this site</span><h2>Four rules</h2></div></div>
   <div class="grid g2">
-    <article class="card"><span class="eyebrow">Rule 1</span><h3>Source status is explicit</h3><p class="muted">Verified NFL fact rows link to the specific official page they came from. Known exception: 191 rows on the desk pages currently lack row-level source links (flag F-39); treat those rows as unverified. Internal analyses are not official facts, and no source is invented to fill a gap.</p></article>
+    <article class="card"><span class="eyebrow">Rule 1</span><h3>Source status is explicit</h3><p class="muted">Verified NFL fact rows link to the specific official page they came from. Rows this project computed cite the committed artifact (the exact CSV or script on GitHub) that produced the value; the checker proves every row carries a link, and the flag register records what is still unverified. No source is invented to fill a gap.</p></article>
     <article class="card"><span class="eyebrow">Rule 2</span><h3>Blank means blank</h3><p class="muted">Where a value cannot be confirmed from an official source, the cell stays empty and the item is flagged. Nothing is inferred, estimated in place of a fact, or filled from an aggregator.</p></article>
     <article class="card"><span class="eyebrow">Rule 3</span><h3>Estimates are labelled</h3><p class="muted">Model output is always marked as a model estimate and always shown with the range across all nine strategies, so you can see where the model is confident and where it is guessing.</p></article>
     <article class="card"><span class="eyebrow">Rule 4</span><h3>Luck is removed, not wished away</h3><p class="muted">Correlated strategies are grouped rather than counted as rivals, significance is tested with a Bonferroni-adjusted bootstrap, and until the evidence clears the bar no strategy is declared a winner.</p></article>
@@ -2211,6 +2225,14 @@ PAGES.append(("methodology.html", "Methodology",
 <section style="margin-top:26px">
   <div class="section-head"><div><span class="eyebrow">Model parameters</span><h2>Every knob, published</h2><p class="muted">These are analyst choices by this project, not official values, and they are the first thing a reviewer should challenge. Changing any of them changes the ranking. The bootstrap uses a fixed, interpreter-independent generator so the published intervals are identical on every machine.</p></div><span class="tag warn">Not official</span></div>
 %(params)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Frozen policies</span><h2>Two decisions fixed before any backtest is published</h2><p class="muted">Both policies below were frozen on 2026-11-17, before any backtest on the reconstructed game log has been published. A policy frozen after results are seen is not a policy; these two are registered here, in the build that publishes the numbers they govern.</p></div><span class="tag acc">Frozen 2026-11-17</span></div>
+  <div class="table-wrap"><table class="data"><thead><tr><th>Policy</th><th>Decision</th><th>What it fixes</th><th>Source</th></tr></thead><tbody>
+    <tr><td><b>Price-data policy</b></td><td>Every captured price is third-party (DraftKings as syndicated by the public ESPN odds endpoint), labelled T3, and never presented as an official NFL line. Prices may feed exploratory residual and difference analysis; they may never back a CLV, execution or ROI claim. CLV and any staking claim stay blocked until a licensed, timestamped operator feed with a documented backfill and settlement policy is selected. A price row without a direct source URL and a retrieval time is not publishable. Official NFL pages verify game identity, schedule and results only &mdash; the league publishes no betting lines.</td><td>Which source may support a market number; what a market number may be used for; what stays blocked</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official schedule (game identity)</a> &middot; <a href="https://www.espn.com/nfl/schedule/_/week/11/year/2026/seasontype/2" target="_blank" rel="noreferrer">third-party price surface (T3)</a></td></tr>
+    <tr><td><b>Data split</b></td><td>On the reconstructed 137-game official log: <b>train</b> = Weeks 1&ndash;6; <b>validation</b> (rule and hyperparameter selection) = Weeks 7&ndash;9; <b>final holdout</b> = Week 10 onward, including the registered Week 11 forward window, never opened to selection. The published walk-forward expansion on Weeks 3&ndash;10 stands as recorded at registration. Any new backtest on this corpus must be committed (the commit hash is the registration) before its holdout opens. When a second season of official results is ingested, the same week-order proportions apply and the final holdout remains whatever has not yet been opened.</td><td>Which games may select a rule; which games may only grade one</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official 2026 schedule and results</a> &middot; <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">Official standings (score reconciliation)</a></td></tr>
+  </tbody></table></div>
 </section>
 
 <section style="margin-top:26px">

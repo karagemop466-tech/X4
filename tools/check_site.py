@@ -30,6 +30,8 @@ DESK_PAGES = [
     "workbench.html", "programme.html",
     # T38 decision-desk extension (session arena/31354751-x4)
     "luck.html", "readiness.html", "teams.html",
+    # T44 final integration (session arena/550d7436-x4)
+    "delta.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/

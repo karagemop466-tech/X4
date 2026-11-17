@@ -81,6 +81,12 @@ snap_price_url = {g["game_id"]: g["source_url"] for g in snap}
 
 
 SEP = " \u00b7 "
+def repo_blob(path, label):
+    """Link to the committed copy of a repository file, for manual review."""
+    return ('<a href="https://github.com/karagemop466-tech/X4/blob/main/%s" '
+            'target="_blank" rel="noreferrer">%s</a>') % (esc(path), esc(label))
+
+
 F04_LINKS = src("https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season",
                 "source 1 (6-9 weeks)") + SEP + src(
     "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13",
@@ -186,14 +192,15 @@ for s in sim:
     sim_rows.append([esc(s["edge"]), esc(s["staking"]), esc(s["bets"]),
                      num(s["final_bankroll"], 2), num(s["profit"], 2),
                      num(s["max_drawdown"], 3), esc(s["busted"]),
-                     '<span class="muted">%s</span>' % esc(s["note"])])
+                     ('<span class="muted">%s</span> &middot; %s' % (esc(s["note"]),
+                      repo_blob("tools/build_integrity.py", "simulation code")))])
 
 # ================================================================== SECTION 9 - gates
 gate_rows = []
 for g in gates:
     gate_rows.append([("<b>%s</b>" % esc(g["gate"])), esc(g["rule"]), pill(g["state"]),
                       esc(g["why"]), esc(g["consequence"]),
-                      '<a href="research/data/demotion_gate_run.csv">graded rows CSV</a>'])
+                      repo_blob("research/data/demotion_gate_run.csv", "graded rows CSV")])
 
 # ---------------------------------------------------------------- page assembly
 side = desk_nav.side()
@@ -211,35 +218,35 @@ body = f"""<!doctype html>
  [["<b>Price-snapshot store: opening and closing for every market</b>", pill("MEASURED"),
    f"{PS['rows']} price rows &middot; {PS['games']} games &times; 3 markets &times; 3 phases ({PS['filled']} filled, {PS['blank']} genuinely absent)",
    "A pre-game close only exists once the game starts; the 13 Week 11 games carry open and current, not close.",
-   '<a href="research/data/price_snapshots_2026.csv">price store CSV</a> &middot; <a href="programme.html#store">programme</a>'],
+   repo_blob("research/data/price_snapshots_2026.csv", "price store CSV") + ' &middot; <a href="programme.html#store">programme</a>'],
   ["<b>Verified results feed so backtests and ROI can be computed</b>", pill("MEASURED"),
    f"{RS['games']} games, {RS['standings_teams']} clubs, {RS['reconciled_fields']} standings fields reconciled exactly",
    "Week 10 is a one-game sample; there is no full-season feed yet.",
-   '<a href="research/data/results_2026.csv">results CSV</a> &middot; <a href="programme.html#results">programme</a>'],
+   repo_blob("research/data/results_2026.csv", "results CSV") + ' &middot; <a href="programme.html#results">programme</a>'],
   ["<b>Originate the side, then the total, then the moneyline</b>", pill("MEASURED"),
    f"{OR['games']} Week-11 games with the order recorded in the data, fair line and market line in separate columns",
    "The moneyline is derived from the side by the same distribution; it is not an independent model.",
-   '<a href="research/data/market_origination_wk11.csv">origination CSV</a> &middot; <a href="programme.html#origination">programme</a>'],
+   repo_blob("research/data/market_origination_wk11.csv", "origination CSV") + ' &middot; <a href="programme.html#origination">programme</a>'],
   ["<b>Fair line, market line and difference as separate columns</b>", pill("MEASURED"),
    f"Published for all {OR['games']} games; {OR['within_2_5']} within 2.5 points, {OR['over_5']} more than 5 points apart",
    "A 5-point gap is a disagreement, not an edge: the model still ignores availability and rest.",
-   '<a href="research/data/market_origination_wk11.csv">origination CSV</a> &middot; <a href="programme.html#origination">programme</a>'],
+   repo_blob("research/data/market_origination_wk11.csv", "origination CSV") + ' &middot; <a href="programme.html#origination">programme</a>'],
   ["<b>Separate signal from staking on the leaderboard</b>", pill("MEASURED"),
    "Two separate blocks, never combined: signal (hit rate, no-vig cover probability, Brier, CLV) and staking (units, drawdown)",
    "CLV needs a stake-time price; none exists, so the CLV column is published blank and labelled blocked.",
-   '<a href="research/data/leaderboard_signal_staking.csv">signal/staking CSV</a> &middot; <a href="programme.html#signal">programme</a>'],
+   repo_blob("research/data/leaderboard_signal_staking.csv", "signal/staking CSV") + ' &middot; <a href="programme.html#signal">programme</a>'],
   ["<b>Track the depth of the replacement, not the fact</b>", pill("PARTIAL"),
    f"{len(dep)} measured rows: depth slot recorded for every one",
    f"Snap share and deficiency points are measured for {summary['replacement_measured']} of {len(dep)} - the official injury report carries the designation, not the snap counts.",
-   '<a href="research/data/replacement_depth_measured.csv">depth CSV</a> &middot; <a href="programme.html#depth">programme</a>'],
+   repo_blob("research/data/replacement_depth_measured.csv", "depth CSV") + ' &middot; <a href="programme.html#depth">programme</a>'],
   ["<b>Correlations only from officially sourced numbers, with n</b>", pill("MEASURED"),
    f"{len(corr)} values, each with n and a 95% Fisher-z interval, each traceable to an official input file",
    "Player-prop correlations need paired player game logs, which this repository does not hold.",
-   '<a href="research/data/correlation_n.csv">correlation CSV</a> &middot; <a href="programme.html#correlations">programme</a>'],
+   repo_blob("research/data/correlation_n.csv", "correlation CSV") + ' &middot; <a href="programme.html#correlations">programme</a>'],
   ["<b>A demotion gate that sends a live strategy back to paper</b>", pill("BLOCKED"),
    f"{len(gates)} written rules, each with a state and a reason, evaluated on the {GR['spread_rows']} real graded rows",
    "No strategy is live, so there is nothing to demote yet; D1 and D5 can never fire until the capture starts at stake time.",
-   '<a href="research/data/demotion_gate_rules.csv">gate CSV</a> &middot; <a href="programme.html#demotion">programme</a>']])}
+   repo_blob("research/data/demotion_gate_rules.csv", "gate CSV") + ' &middot; <a href="programme.html#demotion">programme</a>']])}
 <div class="note"><b>Read this before the tables.</b> Every value below is loaded from a committed dataset (Path column) or derived from one by <code>tools/build_integrity.py</code>, whose formulas are printed in the file. Where a number does not exist, the cell says <b>blank</span></b> and the reason is stated. No cell is estimated, averaged from memory, or carried over from another page.</div></section>
 
 <section class="section" id="store"><div class="section-head"><div><span class="eyebrow">GATE 1 &middot; PRICE SNAPSHOTS</span><h2>Opening, current and closing numbers for every market</h2><p class="muted">Provider: <b>DraftKings</b> as syndicated by ESPN's public odds endpoint, captured <b>2026-11-14T19:17Z</b>. Spreads are quoted from the <b>away</b> side: a positive number means the away team receives points. Totals are the over/under. Moneylines are American odds. The store keeps all three phases in one file, so a missing close is visible as a blank rather than silently substituted.</p></div><span class="tag green">{PS['rows']} ROWS</span></div>
@@ -296,13 +303,13 @@ body = f"""<!doctype html>
 
 <section class="section" id="programme"><div class="section-head"><div><span class="eyebrow">THE PROGRAMME</span><h2>What to do next, in order, and what each step needs</h2></div><span class="tag">SEQUENCED</span></div>
 {table(["#", "Step", "Why it is next", "What it needs", "State", "Source"],
- [["1", "<b>Start the capture before the kick-off</b>", "Every blocked gate above unblocks the moment a pre-game row exists", "One scheduled run per week that writes the store at T&minus;60 min", pill("OPEN")],
-  ["2", "<b>Grow the results feed to a full season</b>", "n = 9 cannot separate skill from luck, and no gate accepts fewer than 100", "Weeks 1&ndash;9 scores, already reconstructable from the standings reconciliation", pill("OPEN"), '<a href="research/data/results_2026.csv">results CSV</a>'],
-  ["3", "<b>Price availability into the side</b>", "The 9 of 13 games more than 5 points off the market are the model ignoring who is playing", "The depth slot and a measured value for it", pill("OPEN"), '<a href="research/data/replacement_depth_measured.csv">depth CSV</a>'],
+ [["1", "<b>Start the capture before the kick-off</b>", "Every blocked gate above unblocks the moment a pre-game row exists", "One scheduled run per week that writes the store at T&minus;60 min", pill("OPEN"), repo_blob(".github/workflows/capture.yml", "capture workflow") + " &middot; " + repo_blob("tools/capture_official.py", "capture tool")],
+  ["2", "<b>Grow the results feed to a full season</b>", "n = 9 cannot separate skill from luck, and no gate accepts fewer than 100", "Weeks 1&ndash;9 scores, already reconstructable from the standings reconciliation", pill("OPEN"), repo_blob("research/data/results_2026.csv", "results CSV")],
+  ["3", "<b>Price availability into the side</b>", "The 9 of 13 games more than 5 points off the market are the model ignoring who is playing", "The depth slot and a measured value for it", pill("OPEN"), repo_blob("research/data/replacement_depth_measured.csv", "depth CSV")],
   ["4", "<b>Resolve the two-source conflict on absence windows</b>", "A depth table is only as good as the availability assumption under it", "A human ruling on F-04", pill("BLOCKED"), F04_LINKS],
-  ["5", "<b>Collect paired player logs before any prop work</b>", "Prop correlation is uncomputable without them, and a prop parlay priced without it is a guess", "An official per-player game log source", pill("BLOCKED"), '<a href="research/data/correlation_n.csv">correlations CSV</a>'],
-  ["6", "<b>Hold the reward schedule until a strategy clears D1 and D2</b>", "Paying on a bankroll curve pays for luck", "Nothing - this is a decision, not a dataset", pill("OPEN"), '<a href="research/data/demotion_gate_rules.csv">demotion CSV</a>'],
-  ["7", "<b>Re-run the demotion gate on every new settled row</b>", "The gate is only real if it runs", "This script in the weekly job", pill("OPEN"), '<a href="research/data/demotion_gate_rules.csv">demotion CSV</a>']])}
+  ["5", "<b>Collect paired player logs before any prop work</b>", "Prop correlation is uncomputable without them, and a prop parlay priced without it is a guess", "An official per-player game log source", pill("BLOCKED"), repo_blob("research/data/correlation_n.csv", "correlations CSV")],
+  ["6", "<b>Hold the reward schedule until a strategy clears D1 and D2</b>", "Paying on a bankroll curve pays for luck", "Nothing - this is a decision, not a dataset", pill("OPEN"), repo_blob("research/data/demotion_gate_rules.csv", "demotion CSV")],
+  ["7", "<b>Re-run the demotion gate on every new settled row</b>", "The gate is only real if it runs", "This script in the weekly job", pill("OPEN"), repo_blob("research/data/demotion_gate_rules.csv", "demotion CSV")]])}
 <div class="note"><b>Reproduce every number on this page.</b> <code>python3 tools/build_integrity.py</code> rewrites all eight datasets from the committed captures and prints the reconciliation counts; <code>python3 tools/gen_programme.py</code> rewrites this page from those datasets. Neither script fetches anything, so the page is reproducible offline and a reviewer can diff a rebuild against what is published.</div></section>
 
 <footer><span>FOURTH DOWN RESEARCH &middot; Integrity &amp; programme</span><span><a href="review.html">&larr; Suggestions</a> &middot; <a href="injuries.html">Availability &rarr;</a></span></footer>

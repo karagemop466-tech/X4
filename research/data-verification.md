@@ -113,6 +113,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-53 | No full dated series of the official injury report exists yet: one full read and one partial read (I-6) |
 | F-54 | Two demotion rules have blank thresholds, so they cannot trigger (I-7) |
 | F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
+| F-56 | Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit) |
+| F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
 
 ## What is deliberately absent
 
