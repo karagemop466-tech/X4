@@ -1,14 +1,13 @@
 name: Official capture (injury report and club depth pages)
 
-# Captures the official NFL.com injury report and every club's official depth-chart
-# page, stores the raw bytes with SHA-256 hashes, UTC fetch times and a schema check,
-# and commits only what changed. Every run appends a manifest line, so freshness is
-# visible even when nothing moved. Any fetch or schema failure fails this job, which
-# is how a page change or outage is alerted (GitHub notifies the repository on a
-# failed scheduled run). See tools/capture_official.py.
+# Capture the NFL injury report and each club's structured official depth chart.
+# The Houston chart is image-only and intentionally excluded (F-18); it is not
+# silently treated as a successful source. Raw changed bytes are retained with
+# SHA-256 hashes and UTC timestamps. See tools/capture_official.py.
 #
-# [skip ci] on the commit stops the capture from triggering a site rebuild every run;
-# the site is rebuilt only from committed datasets, and captures are not published.
+# Capture errors are committed to the manifest before the workflow fails. This
+# preserves operational evidence and lets a later successful run demonstrate
+# recovery instead of leaving no record of repeated failures.
 
 on:
   schedule:
@@ -30,13 +29,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Fetch, schema-check and store the official pages
+      - name: Test capture and freshness gates without network access
+        run: python3 -m unittest discover -s tests -p 'test_capture_official.py'
+      - name: Fetch every structured official source and record failures
+        id: fetch
+        continue-on-error: true
         run: python3 tools/capture_official.py fetch --kind all
       - name: Verify every stored hash (immutability)
+        id: verify
+        continue-on-error: true
         run: python3 tools/capture_official.py verify
-      - name: Freshness (the newest capture must be under 13 hours old)
-        run: python3 tools/capture_official.py freshness --max-hours 13
-      - name: Commit new captures and manifest lines
+      - name: Require freshness for every expected source
+        id: freshness
+        continue-on-error: true
+        run: python3 tools/capture_official.py freshness --kind all --max-hours 13
+      - name: Commit capture bytes and manifest, including failure evidence
+        id: persist
         run: |
           git config user.name "official-capture"
           git config user.email "official-capture@users.noreply.github.com"
@@ -47,4 +55,20 @@ jobs:
             git commit -m "capture: official pages $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+      - name: Fail after preserving capture diagnostics
+        if: always()
+        env:
+          FETCH_OUTCOME: ${{ steps.fetch.outcome }}
+          VERIFY_OUTCOME: ${{ steps.verify.outcome }}
+          FRESHNESS_OUTCOME: ${{ steps.freshness.outcome }}
+          PERSIST_OUTCOME: ${{ steps.persist.outcome }}
+        run: |
+          echo "fetch=${FETCH_OUTCOME} verify=${VERIFY_OUTCOME} freshness=${FRESHNESS_OUTCOME} persist=${PERSIST_OUTCOME}"
+          if [ "${FETCH_OUTCOME}" != "success" ] || \
+             [ "${VERIFY_OUTCOME}" != "success" ] || \
+             [ "${FRESHNESS_OUTCOME}" != "success" ] || \
+             [ "${PERSIST_OUTCOME}" != "success" ]; then
+            echo "::error::One or more official capture gates failed; manifest evidence has been persisted when possible."
+            exit 1
           fi
