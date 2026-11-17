@@ -1914,7 +1914,7 @@ Claimed 2026-11-17 as T40 on branch `arena/a04ae774-x4`, base `fb8a6cb`; renumbe
 - `python3 -m py_compile tools/audit_official_row_sources.py` — PASS.
 - `python3 tools/audit_official_row_sources.py --check` — PASS (same 22 pages, 1,045 rows, 33 allowlisted hosts; 995 distinct per-row HTTPS URLs, 765 allowlisted and 230 other; zero HTTP links).
 - `python3 tools/check_site.py` — PASS for page/link/navigation structure; reports the existing 191 no-HTTPS rows as OPEN, not as verified.
-- `python3 site/check.py` — PASS (3,208 data rows with an allowlisted source URL; this is a link-host gate, not source-content verification).
+- `python3 site/check.py` — PASS (3,207 data rows with an allowlisted source URL; this is a link-host gate, not source-content verification).
 - `node docs/check.js` — PASS (684 rendered rows with a source cell).
 - `python3 tools/validate.py` — PASS (full publication gate, including 460 standings checks, injury-capture row/field comparison, reproducibility and mirror checks). Its desk gate still reports the 191-row F-39 gap; this task does not close it.
 
