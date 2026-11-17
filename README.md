@@ -98,12 +98,14 @@ neutral flags in the game log equal exactly that official set.
 ## Provenance and the known source-link gap
 
 A verified NFL fact should link directly to the official NFL page that supports it; a
-value that cannot be confirmed stays blank and is flagged. Do not interpret this as a
-claim that every table row already meets that standard: flag F-39 records **191 desk-table
-rows on 13 pages** that currently have no row-level HTTPS source link. They are not
-presented as verified NFL facts, and no unrelated NFL URL is added just to satisfy a
-checker. The full row-by-row inventory is
-[`research/verification/row-source-gaps-2026-11-14.csv`](research/verification/row-source-gaps-2026-11-14.csv).
+value that cannot be confirmed stays blank and is flagged. As of the 2026-11-17 build,
+flag F-39 is **closed**: the row-source checker tests **1,045 desk-table rows on 22 pages
+and reports 0 rows without an HTTPS source link**. The 191 rows that lacked one were
+closed line by line — official NFL pages for NFL facts, the committed artifact (exact CSV
+or script on GitHub) for computed rows, and the page checked plus a flag for blanks. Two
+limits stay open on purpose: the checker verifies link presence, not that a link supports
+the exact value beside it, and the 26 "points only" price rows in the 2026W11-OPEN
+snapshot remain unverified rather than gaining a link that does not support the value.
 
 The main-site `site/check.py` gate checks the rendered main-site data tables; the separate
 `tools/check_site.py` desk-page checker reports missing row-level links without treating
@@ -274,7 +276,8 @@ The final integration after the origination layers landed:
 - **Second pass (same day, after `main` moved to PR #33 and PR #29 opened):** `main` and PR #29's
   integration were merged in full; PR #34's live-sweep records were imported (its branch was too old
   to merge whole). The desk row-source check, which had never tested any row, now does, and it
-  reports 191 rows without an official link (flag F-39, open). Ten new injury drift cells are on
+  then reported 191 rows without an official link (flag F-39; closed line by line on 2026-11-17,
+  see the provenance section above). Ten new injury drift cells are on
   the flags page (F-40). Details: `COORDINATION.md`, "T31 second integration pass".
 - **One flag register, one nav, one gate**: F-01..F-37 with no duplicate ids, a union
   sidebar nav enforced by `tools/check_site.py`, and `tools/validate.py` now builds and
@@ -307,9 +310,10 @@ at **`/console/`** on the same Pages site.
 | Publication gate | `python3 site/check.py` + `python3 tools/check_site.py` | `node docs/check.js` |
 
 Both builds have source-check gates, but their measured scopes differ. The main-site
-table check passes its rendered data tables; the desk-page check reports **191 rows on
-13 pages without row-level HTTPS links** (F-39), which are not a pass and must be treated
-as unverified. The X4 Console check separately confirms that its 682 rendered rows carry
+table check passes its rendered data tables; the desk-page check tests **1,045 rows on
+22 pages and reports 0 rows without row-level HTTPS links** (F-39 closed 2026-11-17),
+with the caveat that link presence is checked, not per-value semantic support. The X4
+Console check separately confirms that its 682 rendered rows carry
 source cells. Unsupported values remain blank and flagged. Do not read these results as
 a claim that every row across the full repository has been individually sourced. Both
 builds reached the same two structural conclusions independently:

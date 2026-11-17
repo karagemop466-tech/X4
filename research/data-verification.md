@@ -97,6 +97,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-37 | Doubled HTML entity in the depth summary text |
 | F-38 | The two price stores use the word 'close' differently |
 | F-39 | Desk rows without an official source link: the row-source gate was not reading row links |
+| F-43 | Scheduled official-capture workflow is failing at the fetch step on every recent run (cause unknown) |
 | F-40 | Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked) |
 | F-41 | Week 10 injury dataset re-captured from the live official NFL.com report: 347 rows, 26 corrected cells, 2 added rows |
 | F-42 | Two hand-written depth figures disagreed with the tool that produces them, and one depth match is by name only |
