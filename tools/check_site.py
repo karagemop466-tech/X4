@@ -28,6 +28,8 @@ DESK_PAGES = [
     "verification.html", "requirements-closure.html",
     # T30 integrity gates + programme + suggestion workbench (session arena/e8a1af1b-x4)
     "workbench.html", "programme.html",
+    # T38 decision-desk extension (session arena/31354751-x4)
+    "luck.html", "readiness.html", "teams.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/

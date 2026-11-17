@@ -13608,6 +13608,39 @@ window.X4 = {
    "why": "A figure in prose must come from the run that produced the data. The README and the depth note now quote the rebuilt values (62 of 81 on chart; 41 at depth 1, 23 offense and 18 defense; 20 clubs with a starter out or doubtful; 20 unmatched; two holes; zero cascades) and cite F-25. The Burton match is left in place and flagged: a reviewer should confirm from the club's own page whether the chart's RB row is the same man the report lists at FB before the join is treated as exact.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://www.clevelandbrowns.com/team/depth-chart"
+  },
+  {
+   "id": "F-43",
+   "item": "Settlement defect: side (spread) bets were graded on the straight-up winner, not against the line",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "tools/origination.py grades a side bet on the straight-up winner rather than on the point spread. The recorded row for event 401873039 (Week 9, CLE at NO; away CLE side taken at +4.5 close; official score CLE 22 - NO 23) is recorded 'lost' but re-settles 'won' against the line. The recorded data/ops/graded.csv is not edited; the corrected figure (ROI 33.6% re-settled against 17.4% recorded, n = 12) is shown beside it on luck.html.",
+   "why": "The settlement rule was corrected by pre-registration in research/preregistration/wk11-forward-v1.md before any Week 11 result existed. The committed graded.csv is left unchanged so the published numbers stay tied to the snapshot they were verified against; the corrected value is published beside it rather than silently swapped in. A reviewer should re-settle every graded side row against the closing line before any ROI or reward claim is acted on.",
+   "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
+  },
+  {
+   "id": "F-44",
+   "item": "No injury change series: only one dated official snapshot exists, so no delta can be published",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The site holds a single dated official Week 10 injury snapshot. Gate S4 requires two or more dated official snapshots before a change can be published. The Week 11 injury report is not yet published: every NFL.com Week 11 game centre reads 'Injury Report is not available at this time', so no Week 11 status is shown. Without a second dated snapshot, practice-status evolution (DNP -> Limited -> Full) and Questionable -> Out changes cannot be measured, so the injury signal is published as a level, not a surprise.",
+   "why": "The injury report is a timestamped series, not a weekly snapshot. The new capture workflow (tools/capture_official.py and .github/workflows/capture.yml) is built to keep a raw, hashed, timestamped history on a six-hourly schedule, but it has not yet produced a second comparable snapshot. Until two dated snapshots exist, no delta is published and the change-series gate stays blocking. No value is inferred to fill the gap.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/injury-recapture-2026-11-15.md"
+  },
+  {
+   "id": "F-45",
+   "item": "Two demotion thresholds are blank in demotion_rules.csv, so those rules cannot fire",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "Rules D1 (Skill evidence collapses) and D6 (Signal decay) have an empty threshold field in data/ops/demotion_rules.csv. D1 should read 'one-sided p > 0.20 on the skill score over the last 50 settled bets' and D6 should read 'the fair-market difference changes sign over 50 settled bets', but the numeric thresholds are blank, so the demotion gate cannot evaluate them. They are reported as not evaluable on readiness.html, not filled in.",
+   "why": "A demotion rule that cannot be evaluated is not a rule. The thresholds are left blank rather than invented, because assigning a number would let a strategy be demoted (or kept) on a threshold no one chose. A reviewer should set both thresholds and pre-register them before the demotion gate is trusted to move a live strategy back to paper.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/ops/demotion_rules.csv"
   }
  ],
  "replacement_depth": [
