@@ -43,6 +43,7 @@ STEPS = [
     ("originate the markets and the price store", [PY, os.path.join(ROOT, "tools", "fetch.py"), "plan"]),
     ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),
     ("build the official depth charts", [PY, os.path.join(ROOT, "tools", "depth.py")]),
+    ("test origination settlement rules", [PY, os.path.join(ROOT, "tools", "test_origination.py")]),
     ("originate lines and grade them", [PY, os.path.join(ROOT, "tools", "origination.py")]),
     ("build the replacement-depth ledger", [PY, os.path.join(ROOT, "tools", "depth_ledger.py")]),
     ("build the origination pages", [PY, os.path.join(ROOT, "tools", "ops.py")]),
