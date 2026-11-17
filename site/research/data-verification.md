@@ -100,7 +100,11 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-40 | Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked) |
 | F-41 | Week 10 injury dataset re-captured from the live official NFL.com report: 347 rows, 26 corrected cells, 2 added rows |
 | F-42 | Two hand-written depth figures disagreed with the tool that produces them, and one depth match is by name only |
-| F-43 | Side-market settlement now grades the spread rather than the straight-up winner |
+| F-43 | The NFL.com reserve-list reads disagree with each other, so 'not listed' cannot be read as 'available' |
+| F-44 | Lamar Jackson and Tyler Huntley: NFL.com articles say both were placed on injured reserve, but neither is on the November reserve-list reads |
+| F-45 | Baltimore: the club's own depth chart is current, but the committed replacement row for the Baltimore quarterback is out of date |
+| F-46 | Re-confirmed on 2026-11-17: the Texans depth chart is an image only, labelled 'Unofficial Depth Chart', so no structured source exists for the Texans row |
+| F-47 | No immutable multi-day availability capture history exists on this branch: data/captures/ is absent, and the capture workflow runs from the default branch |
 
 ## What is deliberately absent
 
