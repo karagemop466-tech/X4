@@ -81,6 +81,8 @@ DIRECTORY = [
          "Thirty questions with the known answer, the missing information, and what it blocks."),
         ("requirements.html", "Requirements inventory",
          "All 40 brief requirements, each mapped to a deliverable, a status and a verification."),
+        ("readiness.html", "Decision readiness",
+         "One row per requirement with the gate that blocks it and the number that would clear it, plus the two-sided 'what would change our mind' field."),
     ]),
     ("Verified data", [
         ("standings.html", "Standings &amp; results",
@@ -100,7 +102,13 @@ DIRECTORY = [
         ("replacements.html", "Availability &amp; depth",
          "The replacement chains: who replaced whom, at what depth, and where no replacement is named at all."),
         ("teams.html", "Per-team view",
+<<<<<<< HEAD
          "One row per club: starters out, named replacements, net injury count and the Week 11 venues from the NFL.com game centre."),
+=======
+         "Starters out, replacements named and net injury counts for all 32 clubs, with the Week 11 venues transcribed from the official game centre."),
+        ("delta.html", "What changed (injury delta)",
+         "The injury report published as a delta between two dated official captures: players added, removed, and every cell that moved."),
+>>>>>>> 765c152 (T41: add delta.html — injury report published as a delta between two dated official captures (tools/injury_delta.py); add luck/readiness/teams/delta to the landing directory; readiness S4 updated (first delta published, automation still F-43-blocked))
     ]),
     ("Model &amp; strategies", [
         ("lines.html", "Model lines",
@@ -127,6 +135,8 @@ DIRECTORY = [
          "Correlations computed only from officially sourced numbers, each published with its n and its confidence interval."),
         ("method-lab.html", "Method lab",
          "The method behind every number: pre-registration, walk-forward evaluation, the gates and the anti-luck protocol."),
+        ("luck.html", "Removal of luck",
+         "Random-pick and favourites-only controls beside the staking record, a game-cluster interval, and the settlement reconciliation against official scores."),
     ]),
     ("Line origination desk", [
         ("origination.html", "Line origination",

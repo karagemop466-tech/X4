@@ -20,8 +20,9 @@ Rules this module follows
   experience or salary.
 - Nothing here changes the leaderboard. Controls and ROI on this page are not
   ranking criteria; each is shown with n and an interval.
-- Injury signal is a change, not a level. The page shows the Week-10 report as a
-  level only, and states that no second dated snapshot exists to compute a delta.
+- Injury signal is a change, not a level. Two dated official Week-10 captures now exist,
+  so delta.html publishes the cell-level diff between them (tools/injury_delta.py).
+  The automated weekly series is still blocked on the failing capture workflow (F-43).
 """
 import csv
 import os
@@ -225,7 +226,9 @@ def readiness_page():
                  src(NFL_SCHEDULE_WK11, "Official Week 11 schedule")])
     rows.append([esc("S4"), esc("Injury change series"),
                  esc("Two or more dated official snapshots, so a change can be published"),
-                 esc("one Week-10 snapshot; no delta exists"), badge("fail", "bad"), badge("blocks", "bad"),
+                 esc("two dated Week-10 snapshots (2026-11-14 and 2026-11-15); first delta published on delta.html; "
+                     "weekly automation still blocked by the failing capture workflow (F-43)"),
+                 badge("pass", "ok"), badge("clear", "ok"),
                  src(NFL_WEEK10_INJURY, "NFL.com injury report")])
     rows.append([esc("S5"), esc("Depth charts for all 32 clubs"),
                  esc("A structured official chart for every club"),
@@ -328,6 +331,99 @@ def teams_page():
     return body
 
 
+def delta_page():
+    """The 'what changed' diff between two dated official captures of the Week 10 report.
+
+    Implements 'publish a weekly what-changed diff instead of a static snapshot' and
+    'publish the delta, never the level' with the two full captures the repository
+    already holds. The computation lives in tools/injury_delta.py and writes
+    research/data/injury-report-delta-wk10.csv; this page renders it."""
+    P = _page_helpers()
+    esc, src, badge, table, blank = P.esc, P.src, P.badge, P.table, P.blank
+    import injury_delta
+    added, removed, changed, urls_a, urls_b, meta = injury_delta.compute()
+
+    def player_link(k, urls):
+        url = urls.get(k, "")
+        if url.startswith("https://"):
+            return src(url, "%s %s" % (k[1], k[0]))
+        return esc("%s %s" % (k[1], k[0]))
+
+    def row_link(cell_a, cell_b, label=None):
+        a = esc(cell_a) if cell_a else blank("absent from the 2026-11-14 capture")
+        b = esc(cell_b) if cell_b else blank("absent from the 2026-11-15 capture")
+        return "%s &rarr; %s" % (a, b) if label is None else "%s: %s &rarr; %s" % (label, a, b)
+
+    added_rows = [[player_link(k, urls_b), esc(k[2]), "—", row_link(None, "listed"),
+                   src("https://www.nfl.com/injuries/league/2026/reg10",
+                       "Official Week 10 report")]
+                  for k in added]
+    removed_rows = [[player_link(k, urls_a), esc(k[2]), row_link("listed", None), "—",
+                     src("https://www.nfl.com/injuries/league/2026/reg10",
+                         "Official Week 10 report")]
+                    for k in removed]
+    change_rows = []
+    for (team, player, pos), field, old, new in changed:
+        k = (team, player, pos)
+        url = urls_b.get(k, "")
+        link = src(url, "%s %s" % (player, team)) if url.startswith("https://") \
+            else esc("%s %s" % (player, team))
+        change_rows.append([esc(field), link, esc(pos), row_link(old, new),
+                            src(url, "Official player page") if url.startswith("https://")
+                            else blank("no player URL in the captures")])
+
+    summary_rows = [
+        ["Rows in the 2026-11-14 official capture (T33 sweep)", str(meta["rows_a"]),
+         "research/verification/live-sweep-injuries-2026-11-14-e6ee28a8.csv",
+         src("https://www.nfl.com/injuries/league/2026/reg10", "Official Week 10 report")],
+        ["Rows in the 2026-11-15 official capture (T37 read; committed dataset)", str(meta["rows_b"]),
+         "data/injuries-wk10-2026.csv",
+         src("https://www.nfl.com/injuries/league/2026/reg10", "Official Week 10 report")],
+        ["Players added to the report between the two reads", str(meta["added"]),
+         "Calais Campbell (DT) and Ronnie Stanley (T), Baltimore - the two rows F-41 records",
+         src("https://www.nfl.com/injuries/league/2026/reg10", "Official Week 10 report")],
+        ["Players removed between the two reads", str(meta["removed"]),
+         "no player left the report between the two reads",
+         src("https://www.nfl.com/injuries/league/2026/reg10", "Official Week 10 report")],
+        ["Cells that changed on players present in both captures",
+         "%d cells on %d players" % (meta["changed_cells"], meta["changed_rows"]),
+         "19 practice/game-status cells and 13 injury-description cells; F-41 records the "
+         "26 status/practice cells of the parallel comparison against the pre-correction "
+         "committed file - a different pair, both records consistent",
+         src("https://www.nfl.com/injuries/league/2026/reg10", "Official Week 10 report")
+         + " &middot; <a href=\"https://github.com/karagemop466-tech/X4/blob/main/research/verification/injury-recapture-2026-11-15.md\" target=\"_blank\" rel=\"noreferrer\">T37 recapture record</a>"],
+    ]
+    summary = table(
+        [("Measure", 0), ("Value", 1), ("Detail", 0), ("Source", 0)], summary_rows,
+        "The delta is computed by tools/injury_delta.py from the two committed captures; "
+        "nothing is re-fetched or inferred. The full row-level diff is "
+        "research/data/injury-report-delta-wk10.csv.")
+
+    body = (
+        "<section><div class=\"section-head\"><div><span class=\"eyebrow\">What changed</span>"
+        "<h2>The injury report as a delta, not a level</h2>"
+        "<p class=\"muted\">Two dated official captures of the same Week 10 report exist in this "
+        "repository: 345 rows read on 2026-11-14 and 347 rows read on 2026-11-15. Their difference "
+        "is published here cell by cell instead of a static snapshot being republished. A level "
+        "says who was listed; a delta says what the league actually changed - and it is the delta "
+        "that a line has to react to.</p></div></div>"
+        "<div class=\"card\">%s</div></section>"
+        "<section><div class=\"card\"><span class=\"eyebrow\">Players added between the reads (%d)</span>%s</div></section>"
+        "<section><div class=\"card\"><span class=\"eyebrow\">Players removed between the reads (%d)</span>%s</div></section>"
+        "<section><div class=\"card\"><span class=\"eyebrow\">Changed cells on players present in both reads (%d cells, %d players)</span>%s</div></section>"
+        "<section><div class=\"card\"><span class=\"eyebrow\">The weekly mechanism</span>"
+        "<p class=\"muted\">The scheduled six-hourly capture workflow (tools/capture_official.py) is built to keep this "
+        "diff current for every future week automatically. Its scheduled runs are currently failing at the fetch step "
+        "with an unknown cause (flag F-43), so this page is a demonstrated mechanism over committed captures, not a "
+        "live series. The design pre-registration stands: each capture is stored with its clock time and hash, and the "
+        "published artifact is always the delta between dated reads - never a level without a date.</p></div></section>"
+    ) % (summary, meta["added"], table([("Player", 0), ("Pos", 0), ("2026-11-14", 0), ("2026-11-15", 0), ("Source", 0)], added_rows, ""),
+         meta["removed"], table([("Player", 0), ("Pos", 0), ("2026-11-14", 0), ("2026-11-15", 0), ("Source", 0)], removed_rows, ""),
+         meta["changed_cells"], meta["changed_rows"],
+         table([("Field", 0), ("Player", 0), ("Pos", 0), ("Change", 0), ("Source", 0)], change_rows, ""))
+    return body
+
+
 # --------------------------------------------------------------- writer
 PAGES_T38 = [
     ("luck.html", "Removal of luck",
@@ -339,6 +435,9 @@ PAGES_T38 = [
     ("teams.html", "Per-team view",
      "Availability, depth starters and named replacements for all 32 clubs, and the Week 11 venues from NFL.com.",
      teams_page, "teams.html"),
+    ("delta.html", "What changed",
+     "The injury report published as a delta between two dated official captures - what the league actually changed, cell by cell.",
+     delta_page, "delta.html"),
 ]
 
 
