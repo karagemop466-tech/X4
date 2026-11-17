@@ -562,20 +562,24 @@ def grade_and_score(fmd, results_by_pair, snapshots):
         pair = results_by_pair.get((int(r["week"]), r["away"], r["home"]))
         if not pair or r["fair"] == "":
             continue
-        bet = None
-        if r["close_kind"] == "close" or True:
-            pass
         if r["market"] == "side" and r["market_close"]:
             try:
-                mkt = -float(str(r["market_close"]).replace("\u2212", "-"))
+                # market_close is the home team's handicap (e.g. -4.5).
+                # fair is expressed as the model's expected home margin, so a
+                # bet settles on home_margin + home_line, not the straight-up
+                # winner.  The old implementation ignored the line entirely.
+                home_line = float(str(r["market_close"]).replace("\u2212", "-"))
             except ValueError:
                 continue
             fair = float(r["fair"])
-            pick_home = fair > mkt
-            if pair["margin"] == 0:
+            market_home_margin = -home_line
+            pick_home = fair > market_home_margin
+            spread_margin = pair["margin"] + home_line
+            if math.isclose(spread_margin, 0.0, abs_tol=1e-9):
                 outcome = "push"
             else:
-                won = (pair["margin"] > 0) == pick_home
+                home_covers = spread_margin > 0
+                won = home_covers == pick_home
                 outcome = "won" if won else "lost"
             bet = "home" if pick_home else "away"
             # the price of the side we took
@@ -587,7 +591,7 @@ def grade_and_score(fmd, results_by_pair, snapshots):
                 (american_to_dec(price) - 1.0) if (outcome == "won" and american_to_dec(price)) else -1.0)
             settled.append({"event_id": r["event_id"], "week": r["week"], "market": "side",
                             "bet": bet, "price": price or "", "outcome": outcome,
-                            "pnl": pnl, "fair_margin": fair - mkt})
+                            "pnl": pnl, "fair_margin": fair - market_home_margin})
         elif r["market"] == "total" and r["market_close"]:
             try:
                 line = float(r["market_close"])

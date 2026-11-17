@@ -532,6 +532,15 @@ FLAGS = [
          official_url="https://www.nfl.com/injuries/",
          url="https://www.clevelandbrowns.com/team/depth-chart"),
 
+    dict(id="F-43", item="Side-market settlement now grades the spread rather than the straight-up winner", type="Correction", kind="warn", status="resolved",
+         detail=("The prior settlement code compared the selected side with the game winner and ignored the closing point spread. "
+                 "For Week 9 CLE at NO (event 401873039), Cleveland lost 22-23 but covered +4.5; the old record called the away side a loss. "
+                 "The closing DraftKings quote was captured from the ESPN odds resource and is third-party price evidence, not an NFL-published line."),
+         why=("Settlement now evaluates the home score margin plus the home handicap, including exact pushes. "
+              "The corrected row is CLE away, +4.5, won. This changed the small 12-market paper-staking result from +2.082 units / 17.351% ROI to +4.035 units / 33.621% ROI; it does not change the signal score (mean fair-market difference -3.566, p=0.0918), does not pass the 2/8 gates, and is not evidence of a profitable strategy."),
+         official_url="https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/ops/fair_market_difference.csv"),
+
 ]
 
 # ------------------------------------------------------------------ verification log

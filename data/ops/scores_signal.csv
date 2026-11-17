@@ -1,2 +1,2 @@
 n,mean_diff,se,z,p,ci95_low,ci95_high,wins,losses,pushes,hit_rate_pct,gates_passed,gates_total,eligible
-12,-3.566,2.116,-1.686,0.0918,-7.713,0.58,8,4,0,66.67,2,8,False
+12,-3.566,2.116,-1.686,0.0918,-7.713,0.58,9,3,0,75.0,2,8,False
