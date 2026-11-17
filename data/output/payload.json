@@ -13658,10 +13658,21 @@
    "type": "Irregularity",
    "kind": "bad",
    "status": "open",
-   "detail": "data/captures/ does not exist in the repository on this branch, so the repository holds no raw, hashed, dated capture of the injury report or any club depth page. .github/workflows/capture.yml runs on a six-hourly schedule, and scheduled runs execute from the default branch (main), so it has not run here. The workflow's own design notes say the first scheduled run on GitHub's runners is the test of its schema check.",
-   "why": "The brief requires a multi-day history so practice designations can be replayed as they were known. One reading cannot support that. Until the capture workflow has run on main and committed captures, the requirement is not met and must not be described as met. After the merge of this branch, the first capture run and its freshness check should be read from the Actions log and recorded here.",
+   "detail": "data/captures/ does not exist in the repository, so the repository holds no raw, hashed, dated capture of the injury report or any club depth page. The capture workflow (.github/workflows/capture.yml) is scheduled on the default branch and has run four times there, and all four runs failed before any capture was stored (see F-48).",
+   "why": "The brief requires a multi-day history so practice designations can be replayed as they were known. One reading cannot support that. Until the capture workflow completes on main and commits captures, the requirement is not met and must not be described as met. The first step is the failing line in the run log (F-48).",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/.github/workflows/capture.yml"
+  },
+  {
+   "id": "F-48",
+   "item": "The official-capture workflow has failed on all four of its runs on main, so no capture has been stored",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "The capture workflow (.github/workflows/capture.yml), which fetches the NFL.com injury report and the 32 club depth-chart pages every six hours, has four runs on main, and all four concluded failure: 2026-11-16 06:40 UTC (run 43818369872), 2026-11-16 22:13 UTC (run 43967865851), 2026-11-17 08:00 UTC (run 44043083196), and 2026-11-17 21:00 UTC (run 44175196682). In each run the step 'Fetch, schema-check and store the official pages' failed, and the verification, freshness and commit steps were skipped. The job log could not be downloaded from the sandbox (the archive download returned an end-of-file error), so the failing line is not read here.",
+   "why": "Candidate causes, none confirmed: (a) an HTTP error or timeout on any of the 33 fetches (the injury page and 32 club pages), which the tool records as a failure; (b) the depth schema check, which requires a table tag in the raw HTML of every club page, while Houston publishes its chart as an image (F-24) and may carry no table; (c) the injury schema check, which requires the week heading and at least 28 'Practice Status' and 28 'Game Status' markers. The owner should open the failing run on GitHub, read the failing line, fix the check or the fetch, run the workflow manually, and confirm a stored capture and a passing freshness step. Until then there is no multi-day history, and the immutability requirement is not met.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/actions/workflows/capture.yml"
   }
  ],
  "replacement_depth": [
