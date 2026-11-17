@@ -27,6 +27,7 @@ import csv
 import os
 
 import luck
+import desk_nav
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -341,12 +342,37 @@ PAGES_T38 = [
 ]
 
 
+def desk_shell(slug, title, description, body):
+    """The decision-desk page shell: fixed sidebar + topbar + footer (desk.css).
+
+    Identical in structure to the hand-written desk pages, so every desk page -
+    hand-written or generated - carries the same sidebar navigation (the single
+    source of truth in tools/desk_nav.py) and the same layout.
+    """
+    return (
+        '<!doctype html>\n<html lang="en">\n<head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<meta name="description" content="%s">'
+        '<title>%s | Fourth Down Research</title>'
+        '<link rel="stylesheet" href="desk.css"></head>\n<body>'
+        '%s'
+        '<main>'
+        '<header class="topbar"><div><span class="eyebrow">DECISION DESK</span>'
+        '<h1>%s</h1></div><span class="status-pill"><i></i> Snapshot 2026-11-14</span></header>'
+        '%s'
+        '<footer><span>FOURTH DOWN RESEARCH &middot; %s</span>'
+        '<span><a href="index.html">&larr; Back to overview</a> &middot; '
+        '<a href="flagged.html">Flags</a> &middot; <a href="sources.html">Sources</a></span></footer>'
+        '</main><script src="nav.js"></script></body>\n</html>'
+    ) % (description, title, desk_nav.side(), title, body, title)
+
+
 def write_pages(site_dir, shell):
     written = []
     for href, title, desc, fn, active in PAGES_T38:
         body = fn()
         slug = href.replace(".html", "")
         with open(os.path.join(site_dir, href), "w", encoding="utf-8") as fh:
-            fh.write(shell(slug, title, desc, body, active))
+            fh.write(desk_shell(slug, title, desc, body))
         written.append(href)
     return written

@@ -51,6 +51,9 @@ NAV = [
     ("strategies.html", "Strategy lab"),
     ("availability.html", "Injuries & depth"),
     ("depth.html", "Depth & deficiency"),
+    ("teams.html", "Per-team view"),
+    ("luck.html", "Removal of luck"),
+    ("readiness.html", "Decision readiness"),
     ("questions.html", "Decision checklist"),
     ("gates.html", "Gates & demotion"),
     ("suggestions.html", "Suggestions"),
@@ -96,6 +99,8 @@ DIRECTORY = [
          "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
         ("replacements.html", "Availability &amp; depth",
          "The replacement chains: who replaced whom, at what depth, and where no replacement is named at all."),
+        ("teams.html", "Per-team view",
+         "One row per club: starters out, named replacements, net injury count and the Week 11 venues from the NFL.com game centre."),
     ]),
     ("Model &amp; strategies", [
         ("lines.html", "Model lines",
@@ -106,6 +111,8 @@ DIRECTORY = [
          "The leaderboard, the {spell_n_gates} validation gates, the error-correlation matrix, calibration and stability."),
         ("gates.html", "Gates &amp; demotion",
          "Signal scored separately from staking, the demotion gate that sends a live strategy back to paper, and replacement depth with its own measurement rule."),
+        ("luck.html", "Removal of luck",
+         "Controls for the staking record, a game-cluster interval and the settlement check against official scores, so a lucky run cannot be mistaken for skill."),
         ("signals.html", "Line lab &amp; signals",
          "Thirteen originated baseline lines against the market, ten candidate signals, eight gates and four correlations with confidence intervals."),
         ("leaderboard.html", "Leaderboard",
@@ -143,13 +150,15 @@ DIRECTORY = [
     ]),
     ("Review &amp; flags", [
         ("suggestions.html", "Suggestions",
-         "{spell_cap_n_suggestions} ranked proposals, each with the decision it needs and the evidence that would show it worked."),
+         "Eight ranked proposals, each with the decision it needs and the evidence that would show it worked."),
         ("review.html", "Suggestions review queue",
          "Eighteen proposals with Accept / Hold / Reject, saved in the browser, so a path is chosen before anything is built."),
         ("workbench.html", "Suggestion workbench",
          "Twelve proposals scored on one documented four-part rubric, ranked, and reviewable with a stored Accept / Hold / Reject so the best path is chosen before anything is built."),
         ("programme.html", "Integrity &amp; programme",
          "The eight integrity gates: a price-snapshot store, a verified results feed, side-then-total-then-moneyline, fair/market/difference columns, signal separated from staking, measured replacement depth, correlations with n, and a demotion gate."),
+        ("readiness.html", "Decision readiness",
+         "The gates that must clear before any claim is published, one row per requirement, with the gate that blocks it and the number that would clear it."),
         ("flags.html", "Flagged for review",
          "Unverified values and irregularities found while verifying, each with the reason it is still open - {n_flags} entries so far."),
         ("flagged.html", "Flagged for review (desk)",
@@ -889,6 +898,48 @@ def demotion_gate_panel():
         '<p class="small muted"><b>Basis:</b> %s</p>'
         '</div></section>'
     ) % (esc(demotion_gate["rule"]), esc(demotion_gate["action"]), esc(demotion_gate["basis"]))
+
+
+def readiness_preview_table():
+    """The landing-page decision-readiness table: one row per gate.
+
+    Each row is a requirement, the number that would clear it (the gate's rule),
+    what is observed now, whether it blocks, and the official source behind the
+    underlying fact. Reads data/ops/gates.csv unchanged, so the landing page and
+    readiness.html can never disagree.
+    """
+    gates_path = os.path.join(ROOT, "data", "ops", "gates.csv")
+    rows = []
+    if os.path.exists(gates_path):
+        with open(gates_path, newline="", encoding="utf-8") as fh:
+            for g in _csv.DictReader(fh):
+                passed = g["status"].strip().lower() == "pass"
+                rows.append([
+                    "<b>%s</b>" % esc(g["gate"]), esc(g["name"]),
+                    esc(g["rule"]), esc(g["observed"]),
+                    badge("pass" if passed else "fail", "ok" if passed else "bad"),
+                    badge("clear" if passed else "blocks", "ok" if passed else "bad"),
+                    src(SRC_SEASON, "NFL.com results"),
+                ])
+    return wrap("readiness-preview", table(
+        [("Gate", 0), ("Requirement", 0), ("Number that clears it", 0),
+         ("Observed now", 0), ("Status", 0), ("Effect", 0), ("Source", 0)], rows,
+        "A gate blocks a claim until its rule is met on official-sourced evidence. "
+        "The full register, with the extension rows and the demotion triggers, is on "
+        '<a href="readiness.html">Decision readiness</a>.'))
+
+
+def readiness_counts():
+    """(total gates, blocking gates) read from data/ops/gates.csv unchanged."""
+    gates_path = os.path.join(ROOT, "data", "ops", "gates.csv")
+    total = blocked = 0
+    if os.path.exists(gates_path):
+        with open(gates_path, newline="", encoding="utf-8") as fh:
+            for g in _csv.DictReader(fh):
+                total += 1
+                if g["status"].strip().lower() != "pass":
+                    blocked += 1
+    return total, blocked
 
 
 def params_table():
@@ -1747,6 +1798,12 @@ PAGES.append(("index.html", "NFL Decision Desk",
 </section>
 
 <section>
+  <div class="section-head"><div><span class="eyebrow">Decision readiness</span><h2>What must be true before any claim is published</h2><p class="muted">One row per requirement: the gate that blocks it and the number that would clear it. A claim stays unpublished until every row it depends on reads clear.</p></div><span class="tag warn">%(n_block)s of %(n_gates)s gates blocking</span></div>
+  %(readiness)s
+  <p style="margin-top:12px"><a class="btn" href="readiness.html">Open the full decision-readiness register &rarr;</a></p>
+</section>
+
+<section>
   <div class="section-head"><div><span class="eyebrow">Where to go next</span><h2>The desk</h2></div></div>
   <div class="grid g3">
     <article class="card"><span class="eyebrow">Data</span><h3><a href="standings.html">Standings &amp; results</a></h3><p class="muted">Official standings for all 32 teams, opponent-adjusted power ratings, and all %(ngames)d completed games with a link to each official game page.</p></article>
@@ -1754,7 +1811,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
     <article class="card"><span class="eyebrow">Validation</span><h3><a href="strategies.html">Strategy lab</a></h3><p class="muted">The leaderboard, the seven gates, the error-correlation matrix, the calibration check and the week-by-week stability table.</p></article>
     <article class="card"><span class="eyebrow">Availability</span><h3><a href="availability.html">Injuries &amp; depth</a></h3><p class="muted">The full official Week 10 injury report, a unit-level roll-up of absences, and the starter changes the league confirmed in its own news.</p></article>
     <article class="card"><span class="eyebrow">Decisions</span><h3><a href="questions.html">Decision checklist</a></h3><p class="muted">%(n_questions)s questions that must be answered before a decision here is reasonable: what we know, what is missing, what it blocks and how to close it.</p></article>
-    <article class="card"><span class="eyebrow">Review</span><h3><a href="suggestions.html">Suggestions</a></h3><p class="muted">Twelve proposals, ranked, with the decision each one needs and the evidence that would show it worked. Review before building.</p></article>
+    <article class="card"><span class="eyebrow">Review</span><h3><a href="suggestions.html">Suggestions</a></h3><p class="muted">Eight proposals, ranked, with the decision each one needs and the evidence that would show it worked. Review before building.</p></article>
   </div>
 </section>
 
@@ -1763,6 +1820,9 @@ PAGES.append(("index.html", "NFL Decision Desk",
            nstrat=len(leaderboard), lbpreview=leaderboard_preview_table(),
            flagpreview=flags_table(limit=6),
            n_questions=spell(N_QUESTIONS),
+           readiness=readiness_preview_table(),
+           n_gates=readiness_counts()[0],
+           n_block=readiness_counts()[1],
            directory="__DIRECTORY__"), "index.html"))
 
 # --- standings ---
