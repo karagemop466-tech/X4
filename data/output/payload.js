@@ -13674,6 +13674,83 @@ window.X4 = {
    "why": "Candidate causes, none confirmed: (a) an HTTP error or timeout on any of the 33 fetches (the injury page and 32 club pages), which the tool records as a failure; (b) the depth schema check, which requires a table tag in the raw HTML of every club page, while Houston publishes its chart as an image (F-24) and may carry no table; (c) the injury schema check, which requires the week heading and at least 28 'Practice Status' and 28 'Game Status' markers. The owner should open the failing run on GitHub, read the failing line, fix the check or the fetch, run the workflow manually, and confirm a stored capture and a passing freshness step. Until then there is no multi-day history, and the immutability requirement is not met.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/actions/workflows/capture.yml"
+  },
+  {
+   "id": "F-49",
+   "item": "Side bets were settled on the straight-up winner, not on the spread: one recorded result is wrong (Week 9, CLE +4.5)",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "tools/origination.py (lines 575-578) settles a side bet by comparing the straight-up margin with the pick, not with the selected team's closing line. Week 9, Browns at Saints (ESPN event 401873039; official NFL.com final: CLE 22 - NO 23, overtime): the recorded Browns +4.5 side bet at -105 is graded lost. Against its own closing line it covers (margin -1, plus 4.5, equals +3.5) and is won. Across the 12 graded bets the recorded record is 8-4, +2.082 units, +17.351% ROI; re-settled it is 9-3, +4.035 units, +33.621% ROI. Only one of the 12 outcomes changes. The corrected figure is on luck.html. signal-vs-staking.html still shows the uncorrected 2.082 units and 17.351% ROI per bet, with no note that a settlement error changes it.",
+   "why": "This is a settlement error, not a change of rule, so it is corrected rather than argued. The recorded graded file is not edited, so the original record stays auditable. n = 12 bets over four games: neither ROI is evidence of skill, and a cluster interval would span zero. Requested for the integration owner: label the uncorrected figure as superseded on signal-vs-staking.html, or re-grade and republish with a dated note. Not changed in this session, because the graded file and the page generator belong to the origination build. Reproducible: tools/settlement_recheck.py re-settles all 12 bets from the committed files, without reusing luck.py.",
+   "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"
+  },
+  {
+   "id": "F-50",
+   "item": "An earlier count of six graded mismatches was wrong: the independent re-check reproduces one",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "A previous session's board note reported six mismatches between the graded log and an official re-settlement. That count came from a bug in its first check. Re-running the check on the recorded closing lines gives one mismatch, the bet in F-49. data/output/luck.json lists exactly that one entry.",
+   "why": "The six-mismatch count appeared only in the coordination log, not on a published page, so no published figure needed changing. It is recorded here so the correction is visible. tools/settlement_recheck.py re-derives all 12 bets without tools/luck.py and reproduces luck.json exactly: 2.0821 units and 17.351% recorded; 4.0345 units and 33.621% re-settled.",
+   "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"
+  },
+  {
+   "id": "F-51",
+   "item": "Official Week 10 'Out' players missing from their club's depth file (I-3): the same players as F-25, re-read where stated",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The depth file has no row for Kerby Joseph (DET, S) or Micah Parsons (GB, LB), and none for Luke Rhodes (IND) or Lucas Patrick (WAS), all listed Out in the official Week 10 report. Re-read on 2026-11-17 from the official NFL.com Week 10 page: Kerby Joseph is Out (Did Not Participate, Out; knee) and Lucas Patrick is Out (Did Not Participate, Out; concussion). Micah Parsons and Luke Rhodes were not re-read in this session, so their status is carried from F-25 and not re-verified.",
+   "why": "This is the same gap as F-25, listed by club so each one can be chased. It means the starter-out counts on the site are a floor, not a ceiling. A missing name is not proof that the player is off the roster, because a club chart is editorial and can lag roster moves (F-26).",
+   "official_url": "https://www.nfl.com/injuries/league/2026/reg10",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"
+  },
+  {
+   "id": "F-52",
+   "item": "The depth file dates five club charts, not one: an earlier note said only the Packers' (I-5)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The chart_date column in data/depth-wk11-2026.csv is filled for five clubs: Chicago 2026-10-31, and Green Bay, Las Vegas, San Francisco and Tennessee 2026-11-10. The other 26 clubs have no date, and the site shows those as 'not stated'. The five dates were not re-read from the club pages in this session.",
+   "why": "The earlier note under-counted the dated charts, so it is corrected here. A date is recorded only when the club page states one, so 'not stated' is the honest value for the rest. Before any replay of a depth chart as of a date, each dated chart should be confirmed from its club page.",
+   "official_url": "https://www.packers.com/team/depth-chart",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/depth-wk11-2026.csv"
+  },
+  {
+   "id": "F-53",
+   "item": "No full dated series of the official injury report exists yet: one full read and one partial read (I-6)",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "The Week 10 report was read on 2026-11-14, but that read holds only 44 rows (research/verification/injuries-wk10-live-2026-11-14.csv), not the full report. The full read is the 2026-11-15 capture of 347 rows. The two reads use different practice-status wording (for example 'Full Participation in Practice' against 'Full'), so no change in a designation can be measured from the pair. The 2026-11-15 capture is a transcription of the page text, not raw bytes (F-41). No later capture is committed in research/verification/ as of 2026-11-17.",
+   "why": "A week-over-week or day-over-day delta needs at least two full, hashed, timestamped reads of the same report. The capture workflow in tools/capture_official.py is built for this, but no run after 2026-11-15 is in the repository. Until a second full read exists, the site publishes no change series, and it should not.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-injury-report-wk10-capture-2026-11-15.csv"
+  },
+  {
+   "id": "F-54",
+   "item": "Two demotion rules have blank thresholds, so they cannot trigger (I-7)",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "data/ops/demotion_rules.csv leaves the threshold column empty for D1 (Skill evidence collapses) and D6 (Signal decay). D1's trigger text reads 'one-sided p > 0.20 ... over the last 50 settled bets', so the number sits in the trigger, not in the threshold column, which is inconsistent with the other rules. The pre-registration (research/preregistration/wk11-forward-v1.md) says a rule with a blank threshold reports NOT EVALUABLE, never passed.",
+   "why": "Choosing a threshold is a decision for the owner, not something the data can supply, so none is set here. Requested: the owner states D1's and D6's thresholds in the rules file, and moves D1's p-value into the threshold column, before any gate can be evaluated.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/ops/demotion_rules.csv"
+  },
+  {
+   "id": "F-55",
+   "item": "The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8)",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "On 2026-11-17, https://www.nfl.com/injuries/league/2026/reg11 returned the Week 10 report, titled 'Official NFL Injury Report for Players - Week 10 of the 2026 Season', and its address resolved to /reg10. No Week 11 designation exists in any official source read, so none is published. The silent fall-back is the same pattern as F-09 for the schedule links.",
+   "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash.",
+   "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
   }
  ],
  "replacement_depth": [
