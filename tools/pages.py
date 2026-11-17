@@ -501,6 +501,8 @@ def lines_table():
             market_cell(pair, "spread_away_current"),
             num(diff, 1) if diff is not None else blank("no market spread"),
             num(s3["total"], 1),
+            num(r["models"]["S0"]["total"], 1),
+            num(s3["total"] - r["models"]["S0"]["total"], 1),
             market_cell(pair, "total_current"),
             num(tdiff, 1) if tdiff is not None else blank("no market total"),
             ('<span class="num">%s</span>' % format(int(round(mL)), ",d")) if mL is not None else blank("no moneyline posted"),
@@ -509,11 +511,17 @@ def lines_table():
     return wrap("lines", table(
         [("Date", 0), ("Matchup", 0), ("Kickoff", 0), ("TV", 0),
          ("Fair spread (model)", 1), ("Market spread", 1), ("Fair minus market", 1),
-         ("Fair total (model)", 1), ("Market total", 1), ("Fair minus market", 1),
+         ("Fair total (model S3)", 1), ("Fair total (benchmark S0)", 1), ("S3 minus S0", 1),
+         ("Market total", 1), ("Fair minus market", 1),
          ("Market ML (home)", 1), ("Source", 0)], rows,
         "Line origination order: side (spread) first, then the total, then the moneyline. "
         "The fair line is the model's estimate (S3 strategy) derived from official NFL.com "
-        "results. The market column is a captured price, not an official NFL line: the "
+        "results. Every total is published <b>twice</b> - the S3 model estimate and the S0 "
+        "league-constant benchmark - with the gap between them as its own column; the two "
+        "collapse to one only after the pre-registered walk-forward comparison favours one "
+        "(that comparison is exactly the benchmark-relative skill gate G1, which has not "
+        "passed yet, so neither estimator wins today). The market column is a captured "
+        "price, not an official NFL line: the "
         "league publishes no betting lines, so these are DraftKings prices read through the "
         "ESPN odds endpoint on 2026-11-14 and labelled as such (see Flag F-18). Fair line, "
         "market line and their difference are three separate columns so a disagreement can "
@@ -2221,6 +2229,14 @@ PAGES.append(("methodology.html", "Methodology",
 <section style="margin-top:26px">
   <div class="section-head"><div><span class="eyebrow">Model parameters</span><h2>Every knob, published</h2><p class="muted">These are analyst choices by this project, not official values, and they are the first thing a reviewer should challenge. Changing any of them changes the ranking. The bootstrap uses a fixed, interpreter-independent generator so the published intervals are identical on every machine.</p></div><span class="tag warn">Not official</span></div>
 %(params)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Frozen policies</span><h2>Two decisions fixed before any backtest is published</h2><p class="muted">Both policies below were frozen on 2026-11-17, before any backtest on the reconstructed game log has been published. A policy frozen after results are seen is not a policy; these two are registered here, in the build that publishes the numbers they govern.</p></div><span class="tag acc">Frozen 2026-11-17</span></div>
+  <div class="table-wrap"><table class="data"><thead><tr><th>Policy</th><th>Decision</th><th>What it fixes</th><th>Source</th></tr></thead><tbody>
+    <tr><td><b>Price-data policy</b></td><td>Every captured price is third-party (DraftKings as syndicated by the public ESPN odds endpoint), labelled T3, and never presented as an official NFL line. Prices may feed exploratory residual and difference analysis; they may never back a CLV, execution or ROI claim. CLV and any staking claim stay blocked until a licensed, timestamped operator feed with a documented backfill and settlement policy is selected. A price row without a direct source URL and a retrieval time is not publishable. Official NFL pages verify game identity, schedule and results only &mdash; the league publishes no betting lines.</td><td>Which source may support a market number; what a market number may be used for; what stays blocked</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official schedule (game identity)</a> &middot; <a href="https://www.espn.com/nfl/schedule/_/week/11/year/2026/seasontype/2" target="_blank" rel="noreferrer">third-party price surface (T3)</a></td></tr>
+    <tr><td><b>Data split</b></td><td>On the reconstructed 137-game official log: <b>train</b> = Weeks 1&ndash;6; <b>validation</b> (rule and hyperparameter selection) = Weeks 7&ndash;9; <b>final holdout</b> = Week 10 onward, including the registered Week 11 forward window, never opened to selection. The published walk-forward expansion on Weeks 3&ndash;10 stands as recorded at registration. Any new backtest on this corpus must be committed (the commit hash is the registration) before its holdout opens. When a second season of official results is ingested, the same week-order proportions apply and the final holdout remains whatever has not yet been opened.</td><td>Which games may select a rule; which games may only grade one</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official 2026 schedule and results</a> &middot; <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">Official standings (score reconciliation)</a></td></tr>
+  </tbody></table></div>
 </section>
 
 <section style="margin-top:26px">
