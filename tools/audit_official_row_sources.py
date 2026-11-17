@@ -2,7 +2,7 @@
 """Create a conservative, row-level inventory of links in the legacy desk pages.
 
 This is a link-presence audit, not a live-source verification. It classifies each
-``table.data`` body row in the same 22 pages used by ``tools/check_site.py`` as:
+``table.data`` body row on the 22 pinned legacy desk pages in ``LEGACY_DESK_PAGES`` as:
 
 * ``official_domain_link``: at least one link to an allowlisted NFL, NFL club, or
   U.S. FTC domain, and no other HTTPS host;
@@ -38,9 +38,23 @@ ROOT = HERE.parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
-# Reuse the same page list and parser as the legacy desk-link gate so row numbers
-# and coverage counts refer to the identical source set.
-from check_site import DESK_PAGES, Page  # noqa: E402
+# Reuse the desk parser, but pin the T43 scope to the 22 legacy pages that
+# existed when this task was claimed. Later additions to check_site.DESK_PAGES
+# must not silently change this audit's row universe.
+from check_site import Page  # noqa: E402
+
+LEGACY_DESK_PAGES = [
+    "executive-summary.html", "requirements.html", "data.html", "signals.html",
+    "leaderboard.html", "injuries.html", "decisions.html", "review.html",
+    "flagged.html", "repo-review.html", "sources.html",
+    # T21 origination layer.
+    "origination.html", "price-store.html", "signal-vs-staking.html",
+    "correlations.html", "replacements.html", "method-lab.html", "ops-review.html",
+    "verification.html", "requirements-closure.html",
+    # T30 integrity gates + programme + suggestion workbench.
+    "workbench.html", "programme.html",
+]
+assert len(LEGACY_DESK_PAGES) == 22
 
 DEPTH_CSV = ROOT / "data" / "depth-wk11-2026.csv"
 OUT_CSV = ROOT / "research" / "verification" / "official-row-source-coverage-2026-11-17.csv"
@@ -94,10 +108,10 @@ def audit_rows() -> tuple[list[dict[str, str]], dict[str, object]]:
     other_hosts: Counter[str] = Counter()
     total_links = Counter()
 
-    for name in DESK_PAGES:
+    for name in LEGACY_DESK_PAGES:
         path = ROOT / name
         if not path.is_file():
-            raise FileNotFoundError(f"desk page listed in tools/check_site.py is missing: {path}")
+            raise FileNotFoundError(f"legacy desk page in the T43 audit scope is missing: {path}")
         page = Page()
         page.feed(path.read_text(encoding="utf-8"))
         for row_number, hrefs in enumerate(page._rows, start=1):
@@ -142,10 +156,10 @@ def audit_rows() -> tuple[list[dict[str, str]], dict[str, object]]:
             })
 
     summary: dict[str, object] = {
-        "page_count": len(DESK_PAGES),
+        "page_count": len(LEGACY_DESK_PAGES),
         "row_count": len(rows),
         "classification_counts": dict(counts),
-        "page_counts": {page: dict(page_counts[page]) for page in DESK_PAGES},
+        "page_counts": {page: dict(page_counts[page]) for page in LEGACY_DESK_PAGES},
         "official_host_count": len(allowed),
         "official_hosts": sorted(allowed),
         "nonofficial_host_link_counts": dict(sorted(other_hosts.items())),
@@ -203,7 +217,7 @@ def render_report(summary: dict[str, object]) -> str:
         "| Page | Official host only | Official + non-official | Non-official HTTPS only | No HTTPS link | Total |",
         "|---|---:|---:|---:|---:|---:|",
     ]
-    for page in DESK_PAGES:
+    for page in LEGACY_DESK_PAGES:
         page_row_counts = page_counts.get(page, {})
         values = [
             page_row_counts.get("official_domain_link", 0),
@@ -218,7 +232,7 @@ def render_report(summary: dict[str, object]) -> str:
         "",
         "## Classification method and official-source references",
         "",
-        "The page set and row parser are shared with [`tools/check_site.py`](https://github.com/karagemop466-tech/X4/blob/main/tools/check_site.py): its 22 legacy desk pages and `table.data` body rows. Rows are numbered in parser order per page. URLs are deduplicated within a row, preserving their rendered order.",
+        "The row parser is reused from [`tools/check_site.py`](https://github.com/karagemop466-tech/X4/blob/main/tools/check_site.py); the audit intentionally pins its page set to the 22 legacy pages listed in this report rather than following later desk-page additions. Rows are numbered in parser order per page. URLs are deduplicated within a row, preserving their rendered order.",
         "",
         "The domain allowlist is conservative and explicit: `nfl.com` and its subdomains; `ftc.gov` and its subdomains; and the **exact** hostnames in the `source` column of [`data/depth-wk11-2026.csv`](../../data/depth-wk11-2026.csv), which [`tools/depth.py`](https://github.com/karagemop466-tech/X4/blob/main/tools/depth.py) documents as club-published depth-chart URLs. Team-host subdomains are not guessed. The 33 allowlisted hosts comprise those two base domains and 31 club chart hosts; Houston's chart is not machine-readable and is not used to add a hostname.",
         "",

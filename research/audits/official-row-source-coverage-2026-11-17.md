@@ -41,7 +41,7 @@ This is a wider source-link gap than the existing F-39 count represents. It does
 
 ## Classification method and official-source references
 
-The page set and row parser are shared with [`tools/check_site.py`](https://github.com/karagemop466-tech/X4/blob/main/tools/check_site.py): its 22 legacy desk pages and `table.data` body rows. Rows are numbered in parser order per page. URLs are deduplicated within a row, preserving their rendered order.
+The row parser is reused from [`tools/check_site.py`](https://github.com/karagemop466-tech/X4/blob/main/tools/check_site.py); the audit intentionally pins its page set to the 22 legacy pages listed in this report rather than following later desk-page additions. Rows are numbered in parser order per page. URLs are deduplicated within a row, preserving their rendered order.
 
 The domain allowlist is conservative and explicit: `nfl.com` and its subdomains; `ftc.gov` and its subdomains; and the **exact** hostnames in the `source` column of [`data/depth-wk11-2026.csv`](../../data/depth-wk11-2026.csv), which [`tools/depth.py`](https://github.com/karagemop466-tech/X4/blob/main/tools/depth.py) documents as club-published depth-chart URLs. Team-host subdomains are not guessed. The 33 allowlisted hosts comprise those two base domains and 31 club chart hosts; Houston's chart is not machine-readable and is not used to add a hostname.
 
