@@ -35,6 +35,7 @@ NAV = [
     ("workbench.html", "✳ &nbsp;Suggestion workbench"),
     ("programme.html", "◫ &nbsp;Integrity &amp; programme"),
     ("readiness.html", "⚑ &nbsp;Decision readiness"),
+    ("delta.html", "⚙ &nbsp;What changed"),
     ("flagged.html", "⚑ &nbsp;Flagged for review"),
     ("repo-review.html", "§ &nbsp;Repo review"),
     ("sources.html", "↗ &nbsp;Sources"),

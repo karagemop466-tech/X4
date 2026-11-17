@@ -97,7 +97,6 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-37 | Doubled HTML entity in the depth summary text |
 | F-38 | The two price stores use the word 'close' differently |
 | F-39 | Desk rows without an official source link: the row-source gate was not reading row links |
-| F-43 | Scheduled official-capture workflow is failing at the fetch step on every recent run (cause unknown) |
 | F-40 | Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked) |
 | F-41 | Week 10 injury dataset re-captured from the live official NFL.com report: 347 rows, 26 corrected cells, 2 added rows |
 | F-42 | Two hand-written depth figures disagreed with the tool that produces them, and one depth match is by name only |
@@ -114,6 +113,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-53 | No full dated series of the official injury report exists yet: one full read and one partial read (I-6) |
 | F-54 | Two demotion rules have blank thresholds, so they cannot trigger (I-7) |
 | F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
+| F-56 | Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit) |
+| F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
 
 ## What is deliberately absent
 

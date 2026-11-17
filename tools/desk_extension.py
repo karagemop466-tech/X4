@@ -22,7 +22,7 @@ Rules this module follows
   ranking criteria; each is shown with n and an interval.
 - Injury signal is a change, not a level. Two dated official Week-10 captures now exist,
   so delta.html publishes the cell-level diff between them (tools/injury_delta.py).
-  The automated weekly series is still blocked on the failing capture workflow (F-43).
+  The automated weekly series is still blocked on the failing capture workflow (F-47/F-48/F-56).
 """
 import csv
 import os
@@ -227,7 +227,7 @@ def readiness_page():
     rows.append([esc("S4"), esc("Injury change series"),
                  esc("Two or more dated official snapshots, so a change can be published"),
                  esc("two dated Week-10 snapshots (2026-11-14 and 2026-11-15); first delta published on delta.html; "
-                     "weekly automation still blocked by the failing capture workflow (F-43)"),
+                     "weekly automation still blocked by the failing capture workflow (F-47/F-48/F-56)"),
                  badge("pass", "ok"), badge("clear", "ok"),
                  src(NFL_WEEK10_INJURY, "NFL.com injury report")])
     rows.append([esc("S5"), esc("Depth charts for all 32 clubs"),
@@ -414,7 +414,7 @@ def delta_page():
         "<section><div class=\"card\"><span class=\"eyebrow\">The weekly mechanism</span>"
         "<p class=\"muted\">The scheduled six-hourly capture workflow (tools/capture_official.py) is built to keep this "
         "diff current for every future week automatically. Its scheduled runs are currently failing at the fetch step "
-        "with an unknown cause (flag F-43), so this page is a demonstrated mechanism over committed captures, not a "
+        "with an unknown cause (flags F-47, F-48 and F-56), so this page is a demonstrated mechanism over committed captures, not a "
         "live series. The design pre-registration stands: each capture is stored with its clock time and hash, and the "
         "published artifact is always the delta between dated reads - never a level without a date.</p></div></section>"
     ) % (summary, meta["added"], table([("Player", 0), ("Pos", 0), ("2026-11-14", 0), ("2026-11-15", 0), ("Source", 0)], added_rows, ""),

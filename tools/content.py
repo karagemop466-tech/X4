@@ -494,23 +494,7 @@ FLAGS = [
          official_url="https://www.nfl.com/standings/",
          url="https://github.com/karagemop466-tech/X4/blob/main/tools/check_site.py"),
 
-    dict(id="F-43", item="Scheduled official-capture workflow is failing at the fetch step on every recent run (cause unknown)", type="Irregularity", kind="warn", status="irregularity",
-         detail=("The six-hourly capture workflow (.github/workflows/capture.yml, added at T37) is intended to keep immutable official "
-                 "snapshots of the injury report and the club depth pages. Its four most recent scheduled runs (44175196682, 44043083196, "
-                 "43967865851, 43818369872 — Nov 16-17) all failed in 'Fetch, schema-check and store the official pages'; hash verification, "
-                 "freshness and the commit step were skipped, and no data/captures/ history exists in the checkout. The run-log download "
-                 "returned EOF for two independent sessions, so the underlying cause (network, source change, or schema mismatch) is "
-                 "unknown and is not guessed at here. Two confirmed code-path risks from the audit: a partial successful capture is lost "
-                 "because the later steps have no if: always() condition, and freshness is global rather than per source. Full evidence "
-                 "in research/audits/capture-workflow-health-2026-11-17.md (T40, arena/bdf71572-x4)."),
-         why=("Until the workflow completes a run, the point-in-time availability series is NOT operational: the site's committed datasets "
-              "remain dated snapshots, and no claim of an automated multi-day capture history may be made. The failure does not affect the "
-              "published data's own verification, which is tied to the committed captures, and it does not affect the Pages deploy. "
-              "Clears when: a scheduled run stores a capture and manifest, hash verification passes, and freshness is per source."),
-         official_url="https://www.nfl.com/injuries/",
-         url="https://github.com/karagemop466-tech/X4/blob/main/research/audits/capture-workflow-health-2026-11-17.md"),
-
-    dict(id="F-40", item="Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked)", type="Irregularity", kind="warn", status="resolved",
+dict(id="F-40", item="Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked)", type="Irregularity", kind="warn", status="resolved",
          detail=("A parallel session's full capture of the Week 10 injury page (345 of 345 rows) found twelve practice-status cells that "
                  "differ from data/injuries-wk10-2026.csv. Two are already flagged as F-34 (Greg Van Roten, Charles Woods). The other ten "
                  "are: Savion Williams (WR, GB), Antonio Johnson (S, JAX), Kaytron Allen (RB, MIA), David Montgomery (RB, HOU), Jaylin Smith "
@@ -684,6 +668,36 @@ FLAGS = [
               "The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash."),
          official_url="https://www.nfl.com/injuries/league/2026/reg11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"),
+
+    dict(id="F-56", item="Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit)", type="Irregularity", kind="warn", status="irregularity",
+         detail=("The T40 audit (research/audits/capture-workflow-health-2026-11-17.md) confirmed two code-path risks that survive even after "
+                 "the failing runs recorded in F-47 and F-48 are fixed. (1) A partial success is lost: tools/capture_official.py fetch --kind all "
+                 "can store one source's capture and write its manifest line before exiting non-zero on another source, and the workflow's later "
+                 "verify/freshness/commit steps have no if: always() condition, so the partial capture dies with the runner. (2) Freshness is "
+                 "global: freshness() takes the newest fetched_utc over every manifest entry and does not require schema_ok or a stored file per "
+                 "source, so one fresh error entry could make the whole store look current. The run-log download returned EOF for two independent "
+                 "sessions (arena/bdf71572-x4 and arena/550d7436-x4), so the fetch failure's cause stays unknown and is not guessed at here."),
+         why=("These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still "
+              "leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification "
+              "passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs."),
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/audits/capture-workflow-health-2026-11-17.md"),
+
+    dict(id="F-57", item="Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4)", type="Limitation", kind="warn", status="limitation",
+         detail=("The final-integration audit committed with PR #70 measured the tree against a criterion stricter than F-39's: a row must link "
+                 "an allowlisted official domain (nfl.com and its subdomains, ftc.gov, the 32 clubs' own sites), not just any https URL, and each "
+                 "source link should be attributable to the specific value it supports. Its audit found 366 of 1,045 rows short at its commit; "
+                 "re-measured on the current tree (1,259 rows on 26 desk pages, after the F-39 closure added delta/luck/readiness/teams and the "
+                 "artifact links), the count is 464 rows with no official-domain link, concentrated on workbench (111), price-store (78) and "
+                 "programme (58) - mostly rows whose evidence is this project's own committed artifact (a GitHub blob of the exact CSV or script) "
+                 "rather than an official NFL page. Audit record: site/research/verification/official-row-source-coverage-2026-11-17.csv."),
+         why=("This does not contradict the F-39 closure, which used the any-https criterion the checker has always published: every row now "
+              "carries a link, and computed rows honestly cite the artifact that produced them instead of borrowing an official URL that does "
+              "not support the value. What remains open is real: (1) an allowlisted official-domain gate as a separate, stricter check, (2) "
+              "source-to-value attribution per row, and (3) a semantic check that a link supports the value beside it. Until those land, a row "
+              "whose only link is a repository artifact must be read as the artifact's output, not as an official NFL fact."),
+         official_url="https://www.nfl.com/standings/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/site/research/verification/official-row-source-coverage-2026-11-17.csv"),
 ]
 
 # ------------------------------------------------------------------ verification log
