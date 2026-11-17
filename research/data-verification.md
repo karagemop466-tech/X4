@@ -105,6 +105,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-45 | Baltimore: the club's own depth chart is current, but the committed replacement row for the Baltimore quarterback is out of date |
 | F-46 | Re-confirmed on 2026-11-17: the Texans depth chart is an image only, labelled 'Unofficial Depth Chart', so no structured source exists for the Texans row |
 | F-47 | No immutable multi-day availability capture history exists on this branch: data/captures/ is absent, and the capture workflow runs from the default branch |
+| F-48 | The official-capture workflow has failed on all four of its runs on main, so no capture has been stored |
 
 ## What is deliberately absent
 
