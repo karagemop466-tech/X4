@@ -105,6 +105,14 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-45 | Baltimore: the club's own depth chart is current, but the committed replacement row for the Baltimore quarterback is out of date |
 | F-46 | Re-confirmed on 2026-11-17: the Texans depth chart is an image only, labelled 'Unofficial Depth Chart', so no structured source exists for the Texans row |
 | F-47 | No immutable multi-day availability capture history exists on this branch: data/captures/ is absent, and the capture workflow runs from the default branch |
+| F-48 | The official-capture workflow has failed on all four of its runs on main, so no capture has been stored |
+| F-49 | Side bets were settled on the straight-up winner, not on the spread: one recorded result is wrong (Week 9, CLE +4.5) |
+| F-50 | An earlier count of six graded mismatches was wrong: the independent re-check reproduces one |
+| F-51 | Official Week 10 'Out' players missing from their club's depth file (I-3): the same players as F-25, re-read where stated |
+| F-52 | The depth file dates five club charts, not one: an earlier note said only the Packers' (I-5) |
+| F-53 | No full dated series of the official injury report exists yet: one full read and one partial read (I-6) |
+| F-54 | Two demotion rules have blank thresholds, so they cannot trigger (I-7) |
+| F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
 
 ## What is deliberately absent
 
