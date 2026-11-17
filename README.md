@@ -11,6 +11,7 @@ questions to suggestions.
 | Path | What it holds |
 |---|---|
 | `data/` | The verified source data: 137 official games, the official standings for all 32 teams, the official Week 10 injury report, the official Week 11 schedule, and league-confirmed starter changes |
+| `research/data/injury-report-delta-wk10.csv` | The first published **what-changed delta**: every cell that moved between the 2026-11-14 and 2026-11-15 official captures of the same Week 10 report (2 players added, 32 cells changed on 16 players) |
 | `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
 | `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, depth-chart acquisition, data verification, and the sources register |
 | `tools/` | The pipeline: `verify.py` proves the data, `build.py` produces every published number, `pages.py` and `sync.py` build the site, `validate.py` runs the whole gate |
@@ -427,3 +428,37 @@ inputs (`research/data/*.csv`) and never fork the numbers produced by `tools/bui
   player-page source link and left unedited. Record, captures, parser and
   per-row snapshot CSVs live in `research/verification/`
   (`live-verification-2026-11-14-e6ee28a8.md`, `captures-2026-11-14-e6ee28a8/`).
+
+## Final integration and F-39 closure (T41, session `arena/550d7436-x4`, 2026-11-17)
+
+- **F-39 closed line by line.** The 191 desk-table rows that had no HTTPS source link
+  (13 pages) each now carry their authoritative evidence: official NFL pages for NFL
+  facts, the committed artifact (the exact CSV or script, linked at its GitHub home) for
+  computed and programme rows, and the official page checked plus a flag for blanks.
+  The checker now reports **1,045 desk rows on 22 pages, 0 without a link**. The gate
+  was not weakened; the honest limits are recorded on the flag (link presence is
+  verified, not per-value semantic support; the 26 "points only" price rows stay
+  unverified).
+- **Stale-claim reconciliations.** The depth-rank rows that still said "404, unverified"
+  (executive summary, requirements Q16/Q17, desk flags F-02/R-03) were superseded by the
+  verified 31-club transcription (takeover of the stale T35 claim PR #44).
+- **T38 Game Book evidence audit delivered** (takeover of stale claim PR #49, whose log
+  cited a report that was never committed):
+  [`research/verification/gamebook-source-review-2026-11-17.md`](research/verification/gamebook-source-review-2026-11-17.md).
+  Verified live: the official [support article](https://support.nfl.com/hc/en-us/articles/35869678028180-Game-Books),
+  a completed [Game Center](https://www.nfl.com/games/vikings-at-packers-2026-reg-10) with
+  its Game Book PDF, the PDF's own use restriction (quoted verbatim in the report), the
+  [Week 10 inactives article](https://www.nfl.com/news/nfl-week-10-inactives-players-ruled-out-sunday-2026-season),
+  and the Game Book's **Playtime Percentage** section - the official playing-time source.
+  No player row is republished.
+- **The injury report is published as a delta, not a level.** New `delta.html` and
+  `tools/injury_delta.py` compute and publish every cell that moved between the two dated
+  official captures of the Week 10 report; readiness row S4 now passes (the automated
+  weekly series stays blocked on the failing capture workflow, flag F-43).
+- **Every model total is published twice** (S3 model estimate and S0 benchmark, gap as its
+  own column on `lines.html`) until the pre-registered walk-forward comparison picks a
+  winner; the **price-data policy** and the **train/validation/final-holdout split** are
+  frozen on `methodology.html`, dated before any backtest is published.
+- **The T40 capture-health finding is surfaced** on both flag registers (main F-43, desk
+  F-13), as its session requested. This session reproduced the same run-log EOF, so the
+  failure cause remains unknown and is not guessed at.

@@ -33,12 +33,7 @@ SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT,
 PAGES = ["index.html", "market.html", "standings.html", "lines.html", "price-snapshots.html",
          "results.html", "strategies.html", "availability.html", "depth.html",
          "questions.html", "suggestions.html", "flags.html", "methodology.html",
-<<<<<<< HEAD
-         "markets.html", "gates.html"]
-=======
-         "markets.html", "gates.html",
-         "luck.html", "readiness.html", "teams.html", "delta.html"]
->>>>>>> 765c152 (T41: add delta.html — injury report published as a delta between two dated official captures (tools/injury_delta.py); add luck/readiness/teams/delta to the landing directory; readiness S4 updated (first delta published, automation still F-43-blocked))
+         "markets.html", "gates.html", "delta.html"]
 ASSETS = ["styles.css", "app.js"]
 # Matched case-insensitively as substrings EXCEPT where a real word contains the
 # marker: "Fagnano" (the Ravens' third-string QB, named by nfl.com) contains

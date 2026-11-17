@@ -102,13 +102,9 @@ DIRECTORY = [
         ("replacements.html", "Availability &amp; depth",
          "The replacement chains: who replaced whom, at what depth, and where no replacement is named at all."),
         ("teams.html", "Per-team view",
-<<<<<<< HEAD
          "One row per club: starters out, named replacements, net injury count and the Week 11 venues from the NFL.com game centre."),
-=======
-         "Starters out, replacements named and net injury counts for all 32 clubs, with the Week 11 venues transcribed from the official game centre."),
         ("delta.html", "What changed (injury delta)",
          "The injury report published as a delta between two dated official captures: players added, removed, and every cell that moved."),
->>>>>>> 765c152 (T41: add delta.html — injury report published as a delta between two dated official captures (tools/injury_delta.py); add luck/readiness/teams/delta to the landing directory; readiness S4 updated (first delta published, automation still F-43-blocked))
     ]),
     ("Model &amp; strategies", [
         ("lines.html", "Model lines",
