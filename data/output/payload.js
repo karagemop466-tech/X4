@@ -13608,6 +13608,61 @@ window.X4 = {
    "why": "A figure in prose must come from the run that produced the data. The README and the depth note now quote the rebuilt values (62 of 81 on chart; 41 at depth 1, 23 offense and 18 defense; 20 clubs with a starter out or doubtful; 20 unmatched; two holes; zero cascades) and cite F-25. The Burton match is left in place and flagged: a reviewer should confirm from the club's own page whether the chart's RB row is the same man the report lists at FB before the join is treated as exact.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://www.clevelandbrowns.com/team/depth-chart"
+  },
+  {
+   "id": "F-43",
+   "item": "The NFL.com reserve-list reads disagree with each other, so 'not listed' cannot be read as 'available'",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "open",
+   "detail": "Two official reads of the November 2026 reserve-list page disagree. The 2026-11-14 capture held 17 rows, dated 11/07 to 11/12, and included Michael Wilson (ARI, 11/10). The 2026-11-17 read holds 25 rows, dated 11/10 to 11/17, and does not include Wilson or any 11/07, 11/08 or 11/09 entry. Malik Willis (MIA, 11/10) is in both reads and is confirmed on NFL.com's own article (see F-44 and the register).",
+   "why": "A reserve-list read that drops rows cannot prove a player is absent from the list, and a player missing from the list is not evidence he is healthy. The cause is not determined from this sandbox: the page may show a fixed number of rows per view, or the reader may not have followed a pagination control. Until the page's controls are checked and the list is captured in full, the reserve list is used only as evidence of a listing, never as proof of absence. Transcription: research/verification/official-reserve-list-2026-11-17.csv (25 rows).",
+   "official_url": "https://www.nfl.com/transactions/league/reserve-list/2026/11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reserve-list-2026-11-17.csv"
+  },
+  {
+   "id": "F-44",
+   "item": "Lamar Jackson and Tyler Huntley: NFL.com articles say both were placed on injured reserve, but neither is on the November reserve-list reads",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "open",
+   "detail": "NFL.com reported on 1 Nov 2026 that Jesse Minter said Jackson 'will be placed on injured reserve' (at least four games). A later NFL.com article says 'With Jackson and Tyler Huntley placed on injured reserve, the Ravens were forced to start undrafted third-stringer Joe Fagnano'. Neither name appears on the NFL.com November reserve-list read of 2026-11-17 or on the 2026-11-14 capture.",
+   "why": "Two official NFL.com records disagree on whether two players are on IR. The articles are reporting; the reserve list is the transaction record. Until the reserve list shows both names, or a transaction record says otherwise, the IR status is carried as reported and not as a confirmed transaction. F-43 (incomplete reads) is the likeliest explanation to test first, but no cause is established here.",
+   "official_url": "https://www.nfl.com/news/ravens-qb-lamar-jackson-suffers-right-thumb-injury-bills",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/brief-claims-2026-11-17.md"
+  },
+  {
+   "id": "F-45",
+   "item": "Baltimore: the club's own depth chart is current, but the committed replacement row for the Baltimore quarterback is out of date",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "The Ravens' depth chart, read on 2026-11-17 (https://www.baltimoreravens.com/team/depth-chart), lists Jacoby Brissett, Joe Fagnano and Kedon Slovis at QB, not Lamar Jackson or Tyler Huntley. The brief's stale-row claim (VR-17, VQ-07) is therefore not reproduced on the club chart. The committed row in data/replacement-depth.csv for Baltimore says 'no replacement starter named in league reporting'. NFL.com reports Brissett's trade (ARI to BAL, 11/06, on the November trades table) and Fagnano starting a Week 9 Thursday night game.",
+   "why": "The row is wrong in the one place the club's chart is current, and the NFL.com article it cites reports a replacement. It is left unedited here because F-33 describes that file's contents, and changing one row would leave F-33 describing data that no longer matches. The owner of F-33 should correct the Baltimore row (replacement_in: Jacoby Brissett, with the trade as evidence) in the same pass as the other F-33 rows.",
+   "official_url": "https://www.baltimoreravens.com/team/depth-chart",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/replacement-depth.csv"
+  },
+  {
+   "id": "F-46",
+   "item": "Re-confirmed on 2026-11-17: the Texans depth chart is an image only, labelled 'Unofficial Depth Chart', so no structured source exists for the Texans row",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The Texans' depth-chart page, read 2026-11-17 (https://www.houstontexans.com/team/depth-chart), carries the chart as an image and labels it 'Unofficial Depth Chart'. The page holds no text rows that could be parsed. This re-confirms F-24, which records the same image-only chart from the earlier read; it adds only the club's own 'Unofficial' label.",
+   "why": "The brief requires an authorised structured source for the Texans rows, and says transcription by eye is not acceptable. No such source was found in this session, so the Texans depth remains unparsed and no Texans starter is stated on this site (F-24). The five Houston players on the Out or Doubtful list are therefore counted as absent from a chart, not as confirmed off a chart (see F-24). A decision is needed: an authorised data feed, a written permission to use the image, or the club's confirmation that a text version exists.",
+   "official_url": "https://www.houstontexans.com/team/depth-chart",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/brief-claims-2026-11-17.md"
+  },
+  {
+   "id": "F-47",
+   "item": "No immutable multi-day availability capture history exists on this branch: data/captures/ is absent, and the capture workflow runs from the default branch",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "data/captures/ does not exist in the repository on this branch, so the repository holds no raw, hashed, dated capture of the injury report or any club depth page. .github/workflows/capture.yml runs on a six-hourly schedule, and scheduled runs execute from the default branch (main), so it has not run here. The workflow's own design notes say the first scheduled run on GitHub's runners is the test of its schema check.",
+   "why": "The brief requires a multi-day history so practice designations can be replayed as they were known. One reading cannot support that. Until the capture workflow has run on main and committed captures, the requirement is not met and must not be described as met. After the merge of this branch, the first capture run and its freshness check should be read from the Actions log and recorded here.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/.github/workflows/capture.yml"
   }
  ],
  "replacement_depth": [
