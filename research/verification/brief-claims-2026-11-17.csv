@@ -12,7 +12,7 @@ C10,"Colts two starting-receiver trades (Downs, Allen)",Confirmed,https://www.nf
 C11,Texans depth chart is an image; needs structured source,Confirmed,https://www.houstontexans.com/team/depth-chart,Image-only chart labelled Unofficial Depth Chart; no transcription made,2026-11-17,F-46
 C12,"Reserve list: not listed never means available (VR-25, VQ-06)",Confirmed in part,https://www.nfl.com/transactions/league/reserve-list/2026/11,Reads disagree: 17 rows (11/14 capture) vs 25 rows (11/17),2026-11-17,F-43
 C13,Seattle Lock row: no injury designation,Confirmed,https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders,Coach statement; practice limits recorded in article,2026-11-17,
-C14,Immutable multi-day availability snapshots exist,Not reproduced,https://github.com/karagemop466-tech/X4/tree/arena/d15ce403-x4/.github/workflows,data/captures absent on this branch; capture workflow runs from default branch,2026-11-17,F-47
+C14,Immutable multi-day availability snapshots exist,Not reproduced,https://github.com/karagemop466-tech/X4/actions/workflows/capture.yml,"data/captures absent; capture workflow ran 4 times on main, all failure (runs 43818369872, 43967865851, 44043083196, 44175196682)",2026-11-17,F-47; F-48
 C15,"Seattle shared slot; Washington empty slot (VR-21, VR-23, VQ-08)",Not checked,,Out of this pass,,
 C16,"Week 11 status for Lions, Seattle, Cincinnati injuries",Not checked,,Week 11 report not posted at read; out of this pass,,
 C17,Texans and Ravens later-week depth charts,Not checked,,Only the two charts above were read,,
