@@ -95,11 +95,17 @@ def local(href, label):
     return '<a href="%s">%s</a>' % (esc(href), esc(label))
 
 
+def repo_blob(href):
+    """The committed copy of a repository file, for manual review. The blob is
+    the durable, verifiable home of the artifact a published value came from."""
+    return "https://github.com/karagemop466-tech/X4/blob/main/" + href
+
+
 def artifact(href, label="artifact"):
-    """A link to this project's own data file. Deliberately not styled as a
-    source: a source is an outside page that backs the value, an artifact is
-    where the value is stored."""
-    return '<a class="muted" href="%s">%s</a>' % (esc(href), esc(label))
+    """A link to this project's own data file at its committed home on GitHub.
+    Deliberately not styled as a source: a source is an outside page that backs
+    the value, an artifact is where the value is stored and can be re-read."""
+    return '<a class="muted" href="%s">%s</a>' % (esc(repo_blob(href)), esc(label))
 
 
 NFL_SCHED = NFL + "/schedules/2026/"
@@ -625,13 +631,13 @@ def build_correlations(d):
 
     excluded = [
         ["Closing-line value per bet", "needs a full open→close history per bet", "the store holds "
-         "one reading per market, not a time series", ext("price-store.html", "price store")],
+         "one reading per market, not a time series", artifact("data/ops/price_snapshots.csv") + " · " + local("price-store.html", "price store")],
         ["Player-prop correlations", "needs player-level game logs", "no official player-stat feed "
          "is cached in this build", ext(NFL + "/stats/", "nfl.com stats")],
         ["Rest-days correlations", "needs the exact rest days per club per game", "the official "
          "schedule gives kickoff times but not the full rest ledger", ext(NFL + "/schedules/2026/", "official schedule")],
         ["Parlay joint probabilities", "needs the two above, plus a pricing convention", "deferred "
-         "with the reason recorded, not estimated", ext("signals.html#gates", "gate G7")],
+         "with the reason recorded, not estimated", artifact("data/ops/gates.csv") + " · " + local("signals.html#gates", "gate G7")],
     ]
 
     body = (
@@ -1202,7 +1208,7 @@ def build_requirements_closure(d):
     s = d["signal"]
     kind = {"closed": "ok", "partial": "warn", "blocked": "bad"}
     rows = [[pill(st, kind.get(st, "info")), "<b>%s</b>" % esc(name),
-             esc(reason), local(page, "inspect")]
+             esc(reason), local(page, "inspect") + " · " + artifact(page, "committed page")]
             for name, st, page, reason in REQ_CLOSURE]
     closed = sum(1 for r in REQ_CLOSURE if r[1] == "closed")
     body = (
@@ -1254,15 +1260,18 @@ def build_verification(d):
         ["Every price reading carries an https source URL",
          "%d / %d" % (with_url, len(prices)),
          "pass" if with_url == len(prices) else "fail",
-         "a reading without provenance cannot be published"],
+         "a reading without provenance cannot be published",
+         artifact("data/ops/price_snapshots.csv")],
         ["Every price reading carries a UTC retrieval stamp",
          "%d / %d" % (sum(1 for p in prices if p["retrieved_utc"]), len(prices)),
          "pass" if all(p["retrieved_utc"] for p in prices) else "fail",
-         "an undated reading cannot be ranked against another"],
+         "an undated reading cannot be ranked against another",
+         artifact("data/ops/price_snapshots.csv")],
         ["Open and close are stored in separate fields",
          "2 fields, %d rows" % len(prices),
          "pass" if prices and "open_line" in prices[0] and "close_line" in prices[0] else "fail",
-         "a single line column cannot show movement"],
+         "a single line column cannot show movement",
+         artifact("data/ops/price_snapshots.csv")],
         ["Every settled market carries its official result page, and every unsettled one "
          "carries none",
          "%d settled with a URL, %d unsettled correctly blank"
@@ -1273,33 +1282,41 @@ def build_verification(d):
              ((r["official_result_url"] or "").startswith("https://"))
              == (r["settled"] == "1") for r in fmd) else "fail",
          "a settled grade without its official box score is an assertion; an unplayed market "
-         "must not carry one"],
+         "must not carry one",
+         artifact("data/ops/fair_market_difference.csv")],
         ["Every graded bet has an outcome",
          "%d / %d" % (graded_with_result, len(graded)),
          "pass" if graded_with_result == len(graded) else "fail",
-         "an unsettled bet must not be counted"],
+         "an unsettled bet must not be counted",
+         artifact("data/ops/graded.csv")],
         ["Every transaction carries its official page",
          "%d / %d" % (txn_with_url, len(txn)),
          "pass" if txn and txn_with_url == len(txn) else "fail",
-         "the depth proxy depends on the date being official"],
+         "the depth proxy depends on the date being official",
+         artifact("data/ops/transactions.csv")],
         ["Every depth row carries the official loss page",
          "%d / %d" % (depth_with_url, len(depth)),
          "pass" if depth and depth_with_url == len(depth) else "fail",
-         "a depth read without its source is a guess"],
+         "a depth read without its source is a guess",
+         artifact("data/ops/depth.csv")],
         ["Every correlation carries n and an interval",
          "%d / %d" % (sum(1 for r in corr if r["r"] is not None and r["n"] > 2), len(corr)),
          "pass" if all(r["r"] is None or (r["n"] > 2 and r["lo"] != "") for r in corr) else "fail",
-         "a correlation without n is a rumour"],
+         "a correlation without n is a rumour",
+         artifact("research/data/correlation_n.csv")],
         ["The event identity binding is unique per week",
          "%d bound, %d unresolved" % (len(d["identity"]), len(d["unresolved"])),
          "pass" if len({(r["week"], r["away"], r["home"]) for r in d["identity"]}) == len(d["identity"]) else "fail",
-         "a duplicated binding would mis-grade two games"],
+         "a duplicated binding would mis-grade two games",
+         artifact("data/ops/event_identity.csv")],
         ["The gate count is the published count",
          "%d gates" % len(d["gates"]),
          "pass" if len(d["gates"]) == 8 else "fail",
-         "the published inventory must match the evaluated one"],
+         "the published inventory must match the evaluated one",
+         artifact("data/ops/gates.csv")],
     ]
-    rows = [[esc(a), esc(b), pill(c, "ok" if c == "pass" else "bad"), esc(e)] for a, b, c, e in checks]
+    rows = [[esc(a), esc(b), pill(c, "ok" if c == "pass" else "bad"),
+             esc(e) + " " + art] for a, b, c, e, art in checks]
     failed = sum(1 for c in checks if c[2] != "pass")
 
     body = (

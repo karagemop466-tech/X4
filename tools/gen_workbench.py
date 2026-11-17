@@ -44,6 +44,13 @@ CAT_ORDER = ["Data integrity", "Statistics", "Model", "Markets", "Leaderboard",
              "Governance", "Interface"]
 assert set(by_category) <= set(CAT_ORDER), set(by_category) - set(CAT_ORDER)
 
+
+def repo_blob(path, label):
+    """Link to the committed copy of a repository file, for manual review."""
+    return ('<a href="https://github.com/karagemop466-tech/X4/blob/main/%s" '
+            'target="_blank" rel="noreferrer">%s</a>') % (esc(path), esc(label))
+
+
 # ------------------------------------------------------------------ score helpers
 def bar(score):
     pct = int(round((score - 1) / 4 * 100))
@@ -92,7 +99,8 @@ for it in ranked:
     table_rows.append(
         ['<b>#%d</b>' % it["rank"], '<b>%s</b><br><span class="muted">%s</span>' % (esc(it["title"]), it["id"]),
          esc(it["category"])] + score_cells(it) +
-        ['<a href="#%s">review &darr;</a>' % it["id"]])
+        ['<a href="#%s">review &darr;</a>' % it["id"] + " \u00b7 " +
+         repo_blob("tools/workbench.json", "scores")])
 
 cat_rows = []
 for cat in CAT_ORDER:
@@ -101,10 +109,13 @@ for cat in CAT_ORDER:
         continue
     cat_rows.append([esc(cat), str(len(items)),
                      ", ".join("#%d" % i["rank"] for i in items),
-                     "%.2f" % (sum(i["score"] for i in items) / len(items))])
+                     "%.2f" % (sum(i["score"] for i in items) / len(items)) + " \u00b7 " +
+                     repo_blob("tools/workbench.json", "scores")])
 
 rubric_rows = [[("<b>%s</b>" % esc(c["criterion"])), "%s" % W[c["criterion"]],
-                esc(c["question"]), esc(c["scale"])] for c in WB["rubric"]]
+                esc(c["question"]),
+                esc(c["scale"]) + " \u00b7 " + repo_blob("tools/workbench.json", "rubric data") ]
+               for c in WB["rubric"]]
 
 side = desk_nav.side()
 
@@ -148,10 +159,10 @@ body = f"""<!doctype html>
 
 <section class="section" id="next"><div class="section-head"><div><span class="eyebrow">AFTER REVIEW</span><h2>What to do with a shortlist</h2></div><span class="tag">SEQUENCE</span></div>
 <div class="table-wrap"><table class="data"><thead><tr><th>Step</th><th>Action</th><th>Why in this order</th></tr></thead><tbody>
-<tr><td>1</td><td><b>Accept at most two items per cycle</b></td><td>A shortlist of eight is a wish list; the repository's whole value is that each step is finished and verified before the next begins.</td></tr>
-<tr><td>2</td><td><b>Build the highest-scoring accepted item end to end</b></td><td>Including its gate, its data source and its page. A half-built suggestion is worse than an unbuilt one because it looks done.</td></tr>
-<tr><td>3</td><td><b>Re-score after it lands</b></td><td>Most of these items change each other's scores: the capture job raises the confidence of everything that needs a price, and settling Weeks 1&ndash;9 raises the sample on everything else.</td></tr>
-<tr><td>4</td><td><b>Publish the decision and the reason</b></td><td>On <a href="review.html">Suggestions</a>, beside the proposal. A rejected suggestion with a stated reason is more useful than one that quietly disappears.</td></tr>
+<tr><td>1</td><td><b>Accept at most two items per cycle</b></td><td>A shortlist of eight is a wish list; the repository's whole value is that each step is finished and verified before the next begins. <a href="https://github.com/karagemop466-tech/X4/blob/main/tools/workbench.json" target="_blank" rel="noreferrer">scored shortlist</a></td></tr>
+<tr><td>2</td><td><b>Build the highest-scoring accepted item end to end</b></td><td>Including its gate, its data source and its page. A half-built suggestion is worse than an unbuilt one because it looks done. <a href="https://github.com/karagemop466-tech/X4/blob/main/tools/workbench.json" target="_blank" rel="noreferrer">the item's evidence</a></td></tr>
+<tr><td>3</td><td><b>Re-score after it lands</b></td><td>Most of these items change each other's scores: the capture job raises the confidence of everything that needs a price, and settling Weeks 1&ndash;9 raises the sample on everything else. <a href="https://github.com/karagemop466-tech/X4/blob/main/tools/workbench.json" target="_blank" rel="noreferrer">current scores</a></td></tr>
+<tr><td>4</td><td><b>Publish the decision and the reason</b></td><td>On <a href="review.html">Suggestions</a>, beside the proposal. A rejected suggestion with a stated reason is more useful than one that quietly disappears. <a href="https://github.com/karagemop466-tech/X4/blob/main/tools/workbench.json" target="_blank" rel="noreferrer">decision ledger</a></td></tr>
 </tbody></table></div>
 <div class="callout"><b>The honest summary.</b><p>Two items dominate: <b>#{ranked[0]['rank']}</b> and <b>#{ranked[1]['rank']}</b>. Both are cheap, both are already evidenced inside the repository, and together they unblock the closing-line gate, the sample-size gate and four of the five demotion rules. Every other proposal on this page is worth less until those two are done, which is why they rank first and why the page recommends accepting at most two at a time.</p></div>
 </section>
