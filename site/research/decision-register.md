@@ -52,7 +52,7 @@ Companion data: `research/data/integrity_summary.json`,
 
 | # | Question | Answer today | Missing information | How to obtain it | Status |
 |---|---|---|---|---|---|
-| B1 | Can every published score be trusted? | **Yes.** 137 games reproduce all 32 official standings rows on 192 fields | — | — | ANSWERED |
+| B1 | Can every published score be trusted? | **Yes.** All 150 completed games through Week 10 reproduce all 32 official standings rows on 192 fields | — | — | ANSWERED |
 | B2 | How many settled bets exist? | **Nine** in the integrity store (one game × nine models) and **432** in the price archive (16 settled games × nine strategies × three markets) | The rest of the season | Settle weeks 1–9 from the feed; the scores already reconcile | PARTIAL |
 | B3 | Are those nine bets independent? | **No.** The models' prediction errors correlate 0.92–0.999 | An effective sample size, not a raw count of rows | Report the *number of independent signals*, not the number of bets, and shrink n accordingly | BLOCKED |
 | B4 | Is a 55% hit rate distinguishable from luck at the sample we have? | **No.** No gate accepts fewer than 100 settled bets | More settled bets | See B2 | BLOCKED |
@@ -117,7 +117,7 @@ Companion data: `research/data/integrity_summary.json`,
 1. **Schedule the capture before the kick-off.** It is one job, and it unblocks A1, A2,
    D3 and the two blocked demotion gates. Nothing else on this list has that leverage.
 2. **Settle weeks 1–9 from the feed that already reconciles.** It costs one script and it
-   moves B2 from 9 settled bets to 1,224 (136 games × 9 models), which is the first sample any gate accepts.
+   moves B2 from 9 settled bets to 1,350 (150 games × 9 models), which is the first sample any gate accepts.
 3. **Stop publishing a bankroll leaderboard, even in paper mode.** D1 is settled by
    simulation; continuing to rank on bankroll teaches the reader the wrong lesson.
 4. **Publish the number of independent signals, not the number of bets.** B3 is the

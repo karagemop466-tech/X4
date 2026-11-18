@@ -91,6 +91,7 @@ file scope. Never start work on a task another session has claimed.
 | T32-b | **Second latent publish-gate failure, surfaced by the float-drift fix.** With the reproducibility step green again (PR #33), the workflow's next step — *Confirm the repository-root mirror is in step* — failed on run `43635100704` with `Only in .: .retrieval` / `Only in .: .scratch`: the two session-artifact directories committed with the PR #24/#25 market-capture work are root-only, non-site content, exactly like `data/`, `tools/` and `research/`, which the step already excludes. Reproduced locally with the step's exact `diff -rq` commands (exit 1 before, exit 0 after). Fix: add `--exclude=.retrieval --exclude=.scratch` to the root-mirror diff in `.github/workflows/pages.yml` (content preserved, nothing moved or deleted; both files' owners' sessions are closed and merged). | done | arena/e6ee28a8-x4 | `.github/workflows/pages.yml` (two excludes + comment; file was left unclaimed by PR #33's restore), `COORDINATION.md` **Reconciliation:** arena/279eb9b4-x4 additionally moved the two directories byte-for-byte to `data/ops/raw/` (the path the committed capture harness itself writes to) with a provenance note and gitignored the sandbox paths, so the excludes are retained but now redundant; both fixes coexist in `.github/workflows/pages.yml`. | done |
 | T33 | **Independent live re-verification sweep (post-merge)**: re-fetch the official NFL.com pages (standings, Week 11 schedule, Week 10 injuries) and the already-merged verification harness outputs, diff against the committed CSVs at the current `main` tip, and publish an additive verification record with source links; any drift is flagged, never edited. | done | arena/e6ee28a8-x4 | `research/verification/**` (new files only), `COORDINATION.md` — additive only |
 | T37 | **Decision-desk extension (session `arena/31354751-x4`)** - status: done, pending merge (renumbered from a duplicate T34): removal-of-luck panel on the dashboard with random-pick and favourites-only controls and cluster-bootstrap intervals; decision-readiness table on the landing page (one row per requirement, blocking gate, number that clears it); two-sided 'what would change our mind' field on every strategy; per-team view (starters out, replacements named, injury counts); Week 11 venues transcribed from the official NFL game centre; pre-registration of the forward Week 11 window committed before kickoff; settlement-discrepancy flag on the side market | in progress | arena/31354751-x4 | `tools/luck.py`, `tools/readiness.py`, `tools/teams.py`, `tools/fixtures.py` (all new), `data/venues-wk11-2026.csv`, `research/preregistration/**` (new), `tools/pages.py` (one additive hook in `main()` only; NAV, DIRECTORY and index template are NOT edited, they belong to T31 final integration), `site/check.py` (page list), `site/*.html` new pages + root mirror via `tools/sync.py`, `COORDINATION.md` § T34, `README.md` § T34 |
+| T51 | **Personnel / availability ablation with uncertainty, and the identifiability gate that blocks the feature** (session `arena/dee8092e-x4`, claimed 2026-11-18): the brief twice asks for "injury and personnel ablations instead of fixed penalties" and once says the depth-order route must be verified for all 32 clubs before the feature is built. Neither route is verified (31/32 club charts, one Game Book), so no fixed penalty and no depth feature is published; instead this task measures the one availability effect the committed official data can support and publishes it with n and a 95% interval, together with the empty-control-group finding that explains why the feature is blocked. | done (PR #99) | arena/dee8092e-x4 | `tools/personnel_ablation.py` (new), `data/personnel-ablation-wk10-2026.csv` (new), `site/personnel-ablation.html` + root mirror (new), `research/verification/personnel-ablation-2026-11-18.md` (new), `tools/pages.py` (NAV + DIRECTORY + one additive `main()` hook only), `site/check.py` (PAGES additive), `tools/render.js` (PAGES additive), `tools/validate.py` (one additive step), `COORDINATION.md` + `README.md` (this row + session log only) |
 
 ### Non-overlapping scope map
 
@@ -2477,3 +2478,73 @@ assigned to its four new flags. Resolved without discarding their work:
 - **Fix.** `.github/workflows/pages.yml`: one `--exclude=tests` in the root-mirror diff, with a comment, following the T32-b precedent for `.retrieval` and `.scratch`. The step was re-run locally with its exact command (exit 0). The unit test is run in its own workflow (`capture.yml`, `unittest discover -s tests`) and passes there (verified locally by module run).
 - **Not changed.** `tests/test_capture_official.py` and PR #98's other files are untouched. Note: running the test as a bare script fails with `ModuleNotFoundError: tools`; it works as a module and in its workflow.
 - **ID collision recorded.** PR #98's commits still carry the label `T48`, which this session also used for the escrow. The merge message of `2034cbb` renumbered theirs to T50. The escrow remains T48 (PR #93).
+## Session log — arena/dee8092e-x4 (T51: personnel ablation, multiplicity fix, open-question register, 2026-11-18)
+
+### Why this task
+Claimed as T48; renumbered **T51** on rebase because `main` took T48 (escrow, arena/cc97fdb0-x4)
+and T50 (capture repair, arena/dad920d9-x4) while this branch was building. The task-ID collision is
+recorded here; no other session's work is displaced.
+
+Read the merged tree line by line against the brief on 2026-11-18. Three of the brief's
+requirements had no measurable answer and one of them had a silently wrong rule behind it:
+
+* **"Injury and personnel ablations instead of fixed penalties"** appeared twice in the brief and
+  had been answered with a *policy* (do not use a fixed penalty) but never with a *measurement*.
+  `data/ops/gates.csv` and the depth pages describe the pipeline; nothing published how much a
+  designation has actually cost a club.
+* **"Compute correlations / rank with proper scores and uncertainty"** was being served by a
+  multiplicity correction that divided by 8 while running 9 tests.
+* **"A clear list of questions, information and answers that need to be addressed before any
+  decision"** existed as three overlapping pages, none of which carried the blocking gate and the
+  clearing number on the same row.
+
+### What changed (all machine-verified)
+| Area | Change |
+|---|---|
+| `tools/personnel_ablation.py` (new) | Measures the only availability contrast the committed data supports: designated vs clear clubs on the official Week 10 report. Publishes n and Welch 95% intervals; **refuses** to publish an estimable row it cannot derive. Wired into `tools/validate.py`. |
+| `data/personnel-ablation-wk10-2026.csv` (new) | 17 rows: A1–A4 (with/without contrasts) and I1–I5 (the identifiability gates and their clearing numbers). `--check` fails the build if any cell drifts. |
+| `site/personnel-ablation.html` + mirror (new) | The finding: **24 of 28 clubs carried an `Out`; 0 carried no designation.** A3/A4 not estimable, A1/A2 rest on 4 club-games and both intervals span zero. Publishes the live-verification of the clear group (BUF, LV, NYG, PIT). |
+| `tools/sign_test.py` (new) | Recomputes the paired sign test from `build.py`'s own predictions at n = 118 instead of quoting a superseded 105-game figure. Gated. |
+| `tools/build.py` **(one-line correction, F-68)** | `alpha / (n_tests - 1)` → `alpha / n_tests`. The gate performed 9 tests and corrected for 8, and its own published definition said "across all trials". No conclusion flips (S1 p = 0.00030, S8 p = 0.00206 still clear); the rule now matches its definition. |
+| `site/open-questions.html` + mirror (new) | The brief's register: 8 questions, each with what is known (computed at build time, never typed), what is missing, the blocking gate, the clearing number and an official source. Gated by `--check`; added to the desk nav. |
+| `tools/content.py` | Flags **F-66** (stale numbers surviving in prose the gate does not read), **F-67** (two strategies now clear the sign test; S-15 is materially larger than when opened), **F-68** (multiplicity denominator, resolved), **F-69** (the Game Center injury widget says a club is injury-free while the report lists its injuries), **F-70** (the two venue cells are faithful transcriptions of their stated source, so F-60's mismatch claim was wrong). |
+
+### Effect on the published conclusion (stated, not hidden)
+* The sign test now names **two** strategies, not one: S1 78/118 (p = 0.00030) and S8 75/118
+  (p = 0.00206), against a corrected threshold of 0.00556. It still promotes nothing, because the
+  mean-error bootstrap gate G4 fails for all nine and **no primary metric has been chosen**.
+* The personnel ablation **strengthens the "no fixed penalty" policy** by showing the data cannot
+  yet support any points figure: the effect is not separable from noise, and there is no untreated
+  group to compare against.
+* Eligibility is unchanged: **0 of 9 eligible.**
+
+### Verification performed
+* `python3 tools/validate.py` → **VALIDATION PASSED** end to end, now with three named steps:
+  `rebuild the open-question register`, `re-derive the paired sign test` (PASS, n = 118),
+  `re-derive the personnel / availability ablation` (PASS, 17 rows, 0 mismatches).
+* `python3 tools/check_site.py` → PASS: 29 desk pages, 1,138 rows, 2,780 links, 0 rows without
+  an https source.
+* **Live official re-reads this session (2026-11-18 UTC, via the page-fetch tool):**
+  * <https://www.nfl.com/injuries/league/2026/reg10> — chunk-by-chunk read. All four "clear"
+    clubs confirmed at **zero** `Out` (BUF, LV, NYG, PIT); LV (5 rows) and PIT (8 rows) matched
+    the committed CSV **row for row and designation for designation**; SEA (15/4), CAR (12/1/2/4),
+    HOU (16/5) and CLE (12/2/1) also matched exactly.
+  * <https://www.nfl.com/standings/> — **24 clubs, 120 cells (W, L, T, PF, PA), 0 mismatches.**
+  * <https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11> and
+    `.../colts-at-texans-2026-reg-11` — the injury widget says both clubs are injury-free (F-69);
+    both venue cells are verbatim transcriptions (F-70).
+  * <https://www.nfl.com/injuries/league/2026/reg11> — **still serves Week 10 content**, so F-61
+    is current, not stale.
+
+### Irregularities (published, none blocking)
+F-66, F-67, F-69 and F-70 stay open. F-68 is resolved. Two claims were **corrected rather than
+repeated**: F-60's "mismatch" framing (the dataset is faithful, F-70) and a first draft of the
+standings note that said LAC had "two wins in ten games" (they are 1–8 in nine). Neither
+correction was quietly dropped; both are recorded in the files they affect.
+
+### Handoff note for the integration session
+`tools/personnel_ablation.py` and `tools/open_questions.py` are new gate steps in
+`tools/validate.py`; `tools/build.py` carries a one-line change that other sessions should not
+revert (see F-68). `tools/desk_nav.py` gained one nav entry, so **every** desk page had to be
+regenerated — any branch that edits a desk page must rebuild after rebasing, or `check_site.py`
+will report a nav mismatch.

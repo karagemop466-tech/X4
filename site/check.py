@@ -33,7 +33,8 @@ SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT,
 PAGES = ["index.html", "market.html", "standings.html", "lines.html", "price-snapshots.html",
          "results.html", "strategies.html", "availability.html", "depth.html",
          "questions.html", "suggestions.html", "flags.html", "methodology.html",
-         "markets.html", "gates.html", "matchup.html", "houston-depth.html"]
+         "markets.html", "gates.html", "matchup.html", "houston-depth.html",
+         "personnel-ablation.html"]
 ASSETS = ["styles.css", "app.js"]
 # Matched case-insensitively as substrings EXCEPT where a real word contains the
 # marker: "Fagnano" (the Ravens' third-string QB, named by nfl.com) contains
