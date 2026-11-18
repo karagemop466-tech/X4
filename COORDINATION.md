@@ -2072,7 +2072,9 @@ Final integration verification and publication closeout on branch `arena/9afe744
 36 delivered · 2 partial with named gaps (Houston depth image F-18 / depth-chart 404 R-03) · design-stage items correctly pending gates (leaderboard execution Q08–Q11). Executive summary, suggestions review (18 proposals + workbench), 30-question decision Q&A with known/missing/how-to-obtain/blocked-decision, line origination (side→total→moneyline; fair/market/difference columns), signal-vs-staking split, injury + depth tracking, removal-of-luck panel, all live.
 
 ### Pull request / merge / deploy
-Branch `arena/9afe7441-x4` pushed to origin and rebased onto main `3a58567`; this session's COORDINATION.md record is one commit ahead of main. GitHub Pages is live at https://karagemop466-tech.github.io/X4/ (build commit `3a58567`).
+- PR #81: https://github.com/karagemop466-tech/X4/pull/81 — `arena/9afe7441-x4` → `main`, title "Session closeout: verification complete, NFL Decision Desk live on GitHub Pages"
+- Merge: `gh pr merge 81 --merge`, merged to main as commit `5173a01` (merge of `00e309b`, rebased onto main `3a58567`), no conflicts after rebase
+- Deploy: GitHub Pages workflow `Publish NFL Decision Lab` runs on every push to main; all recent runs success (most recent run 44229134980, 41s). Live site confirmed by direct fetch: https://karagemop466-tech.github.io/X4/ and https://karagemop466-tech.github.io/X4/strategies.html both render fully with all source links intact.
 
 ### Irregularities (open, documented on Flagged for review — none block publication)
 Capture-workflow scheduled runs failing (F-47/F-48/F-56; cause unknown, run logs unavailable); Houston image-only depth chart (F-18, R-03); player-prop prices unavailable (F-01/F-35); live injury-report drift vs committed snapshot (F-14/F-40/F-41); reserve-list / IR disagreement (F-43/F-44); two blank demotion thresholds (F-54). Each carries evidence links and is deliberately not inferred.
