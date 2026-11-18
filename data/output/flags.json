@@ -530,22 +530,22 @@
  {
   "id": "F-49",
   "item": "Side bets were settled on the straight-up winner, not on the spread: one recorded result was wrong (Week 9, CLE +4.5). Fixed on main",
-  "type": "Correction",
-  "kind": "warn",
-  "status": "resolved",
-  "detail": "Before the fix (code at commit fb8a6cb, lines 575-578 of the then tools/origination.py), a side bet was graded by comparing the straight-up margin with the pick, ignoring the selected team's closing line. Week 9, Browns at Saints (ESPN event 401873039): against its own closing line Cleveland (margin -1, plus 4.5) covers and the bet is won, but the recorded row said lost. Official NFL.com final re-read live on 2026-11-18: CLE 22 - NO 23, overtime (see official_url). Fixed on main in PR #63 (commit 915bf42): settlement now grades the official margin plus the recorded home handicap, with an exact tie as a push, and three regression tests were added (tools/test_origination.py, run by the publication gate). The recorded row now says won. Re-verified 2026-11-18 by this session: tools/settlement_recheck.py on the current tree reports 24 settled bets (Weeks 9-10), 0 changed outcomes, recorded = re-settled; the published signal-vs-staking.html shows +15.414 units and +64.224% ROI per bet on n=24 and luck.html shows the same 15.41 units - the old claim that an uncorrected figure was still published is no longer true. The pre-fix row survives in git history at fb8a6cb, so the original record stays auditable.",
-  "why": "This is a settlement error, not a change of rule, so it is corrected rather than argued. Caveats that still stand: n = 24 bets over eight games - neither ROI is evidence of skill, a game-cluster interval would span zero, and the prices are one book's (DraftKings as published by ESPN, third-party, see F-01), not official lines. Reproducible: tools/settlement_recheck.py re-settles every bet from the committed files without reusing tools/luck.py, and tools/test_origination.py pins the rule.",
-  "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"
- },
- {
-  "id": "F-50",
-  "item": "An earlier count of six graded mismatches was wrong: the independent re-check reproduces one (none after the F-49 fix)",
   "type": "Irregularity",
   "kind": "warn",
   "status": "resolved",
-  "detail": "A previous session's board note reported six mismatches between the graded log and an official re-settlement. That count came from a bug in its first check. Re-running the check on the recorded closing lines gave one mismatch - the bet in F-49 - and data/output/luck.json listed exactly that one entry (pre-fix reference: 2.0821 units / 17.351% recorded, 4.0345 units / 33.621% re-settled over 12 bets, all from commit fb8a6cb). Since the F-49 fix (PR #63), luck.json was regenerated on 2026-11-18: its mismatches list is empty and tools/settlement_recheck.py reports changed: 0 across 24 settled bets.",
-  "why": "The six-mismatch count appeared only in the coordination log, not on a published page, so no published figure needed changing. It is recorded here so the correction is visible. The stale luck.json was a generated artifact the gate never re-ran (tools/luck.py main() is not a validate step); it is now regenerated and matches the recheck.",
+  "detail": "Before the fix, tools/origination.py (lines 575-578 of the base commit fb8a6cb) settled a side bet by comparing the straight-up margin with the pick, not with the selected team's closing line. Week 9, Browns at Saints (ESPN event 401873039; official NFL.com final CLE 22 - NO 23, overtime): the recorded Browns +4.5 side bet at -105 was graded lost. Against its own closing line it covers (margin -1, plus 4.5, equals +3.5) and is won. Across the 12 graded bets the record was 8-4, +2.082 units, +17.351% ROI before the fix; re-settled it is 9-3, +4.035 units, +33.621% ROI. Only one outcome changed. The historical re-settlement comparison remains archived at research/verification/settlement-recheck-2026-11-17.md. The closing price came from ESPN-published DraftKings odds, a third-party price source, not an official NFL line.",
+  "why": "Fixed on main in commit 915bf42 (branch arena/2b9267f0-x4, board row T42, PR #63): settlement now grades the home margin plus the home handicap, with an exact tie as a push. The recorded row was corrected by that fix. The pre-fix file remains in git history at commit fb8a6cb. Re-checked on 2026-11-17 by tools/settlement_recheck.py: the current graded.csv gives 0 changed outcomes and reproduces 9-3, +4.0345 units, +33.621% ROI, which matches data/output/luck.json. The fixing session's own flag, numbered F-43 on its branch, did not reach main because F-43 was already taken by PR #60; this entry carries its content. Regression coverage is in tools/test_origination.py (three tests) and runs in tools/validate.py; the signal statistic remains -3.566 points (p=0.0918), only 2/8 gates pass, and no strategy is eligible. Caveat that still stands: prices are one book's (ESPN-published DraftKings), and n = 12 over four games, so the ROI is not evidence of skill.",
+  "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
+  "url": "https://github.com/karagemop466-tech/X4/pull/63"
+ },
+ {
+  "id": "F-50",
+  "item": "An earlier count of six graded mismatches was wrong: the independent re-check reproduces one",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "resolved",
+  "detail": "A previous session's board note reported six mismatches between the graded log and an official re-settlement. That count came from a bug in its first check. Re-running the check on the recorded closing lines gives one mismatch, the bet in F-49. data/output/luck.json lists exactly that one entry.",
+  "why": "The six-mismatch count appeared only in the coordination log, not on a published page, so no published figure needed changing. It is recorded here so the correction is visible. tools/settlement_recheck.py re-derives all 12 bets without tools/luck.py and reproduces luck.json exactly: 2.0821 units and 17.351% recorded; 4.0345 units and 33.621% re-settled.",
   "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"
  },
@@ -600,7 +600,7 @@
   "kind": "warn",
   "status": "limitation",
   "detail": "On 2026-11-17, https://www.nfl.com/injuries/league/2026/reg11 returned the Week 10 report, titled 'Official NFL Injury Report for Players - Week 10 of the 2026 Season', and its address resolved to /reg10. No Week 11 designation exists in any official source read, so none is published. The silent fall-back is the same pattern as F-09 for the schedule links.",
-  "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash.",
+  "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash. Re-checked 2026-11-18 03:55 UTC (T46 sweep): the reg11 address still serves the Week 10 report (title 'Week 10 of the 2026 Season', resolves to /reg10); state unchanged.",
   "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
  },
@@ -611,7 +611,7 @@
   "kind": "warn",
   "status": "irregularity",
   "detail": "The T40 audit (research/audits/capture-workflow-health-2026-11-17.md) confirmed two code-path risks that survive even after the failing runs recorded in F-47 and F-48 are fixed. (1) A partial success is lost: tools/capture_official.py fetch --kind all can store one source's capture and write its manifest line before exiting non-zero on another source, and the workflow's later verify/freshness/commit steps have no if: always() condition, so the partial capture dies with the runner. (2) Freshness is global: freshness() takes the newest fetched_utc over every manifest entry and does not require schema_ok or a stored file per source, so one fresh error entry could make the whole store look current. The run-log download returned EOF for two independent sessions (arena/bdf71572-x4 and arena/550d7436-x4), so the fetch failure's cause stays unknown and is not guessed at here.",
-  "why": "These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs.",
+  "why": "These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs. Update 2026-11-18: both code-path risks are fixed by the capture hardening integrated at T46 (per-source failure records persisted before the run fails; per-source freshness against schema-valid HTTP 200 captures; the empty Houston chart URL no longer raises ValueError - five offline unit tests), but a successful scheduled run and the historical failure cause are still required to clear this entry.",
   "official_url": "https://www.nfl.com/injuries/",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/audits/capture-workflow-health-2026-11-17.md"
  },
@@ -621,7 +621,7 @@
   "type": "Limitation",
   "kind": "warn",
   "status": "limitation",
-  "detail": "The final-integration audit committed with PR #70 measured the tree against a criterion stricter than F-39's: a row must link an allowlisted official domain (nfl.com and its subdomains, ftc.gov, the 32 clubs' own sites), not just any https URL, and each source link should be attributable to the specific value it supports. Its audit found 366 of 1,045 rows short at its commit; re-measured on the current tree (1,259 rows on 26 desk pages, after the F-39 closure added delta/luck/readiness/teams and the artifact links), the count is 464 rows with no official-domain link, concentrated on workbench (111), price-store (78) and programme (58) - mostly rows whose evidence is this project's own committed artifact (a GitHub blob of the exact CSV or script) rather than an official NFL page. Audit record: research/audits/official-row-source-coverage-2026-11-17.md with its row-level CSV at research/verification/official-row-source-coverage-2026-11-17.csv (published mirror: site/research/verification/official-row-source-coverage-2026-11-17.csv).",
+  "detail": "The final-integration audit committed with PR #70 measured the tree against a criterion stricter than F-39's: a row must link an allowlisted official domain (nfl.com and its subdomains, ftc.gov, the 32 clubs' own sites), not just any https URL, and each source link should be attributable to the specific value it supports. Its audit found 366 of 1,045 rows short at its commit; re-measured on the current tree (1,259 rows on 26 desk pages, after the F-39 closure added delta/luck/readiness/teams and the artifact links), the count is 464 rows with no official-domain link, concentrated on workbench (111), price-store (78) and programme (58) - mostly rows whose evidence is this project's own committed artifact (a GitHub blob of the exact CSV or script) rather than an official NFL page. Audit record: site/research/verification/official-row-source-coverage-2026-11-17.csv.",
   "why": "This does not contradict the F-39 closure, which used the any-https criterion the checker has always published: every row now carries a link, and computed rows honestly cite the artifact that produced them instead of borrowing an official URL that does not support the value. What remains open is real: (1) an allowlisted official-domain gate as a separate, stricter check, (2) source-to-value attribution per row, and (3) a semantic check that a link supports the value beside it. Until those land, a row whose only link is a repository artifact must be read as the artifact's output, not as an official NFL fact.",
   "official_url": "https://www.nfl.com/standings/",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/site/research/verification/official-row-source-coverage-2026-11-17.csv"
@@ -713,5 +713,27 @@
   "why": "Until this is fixed no multi-day availability history can exist, which blocks every capture-dependent requirement in the brief: replayable practice designations, inactive lists, and the designation-reliability study.",
   "official_url": "https://www.nfl.com/injuries/",
   "url": "https://github.com/karagemop466-tech/X4/actions/runs/44175196682"
+ },
+ {
+  "id": "F-66",
+  "item": "The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it",
+  "type": "Irregularity",
+  "kind": "bad",
+  "status": "open",
+  "detail": "tools/build.py rewrites data/price-snapshots.csv on every build from the current game log (the Week 11 lines block), and stamps each row 'captured_at: 2026-11-14 (build)'. The file's own comment says the opening fair line is the first published model line, but nothing pins it. Found line by line during the 2026-11-18 T49 sweep while assessing a corpus ingest; the defect then materialized for real: the Week 10 ingest (F-58) rebuilt the file and 25 of the 39 opening rows changed value while still carrying the '2026-11-14 (build)' stamp, so the recorded Week 11 opening forecasts are no longer the ones first published. The pre-ingest values remain recoverable from git history at the pre-2026-11-18 commits.",
+  "why": "A price-snapshot store exists to preserve what was published when. An append-only store (as data/ops/price_snapshots.csv is for market prices - 'a re-ingest must never silently replace a reading') is the pattern; the model-line store does not follow it yet. Until it does, no rebuild can be trusted to leave a forecast record intact, and closing-line value cannot be measured against the true opening. Clears when: the opening rows are written once and never rewritten (append-only with a recorded clock time), and a regression test fails the build if a rebuild changes an existing opening row. The first-published Week 11 lines should then be restored from git history as the dated record.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
+ },
+ {
+  "id": "F-67",
+  "item": "Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "open",
+  "detail": "The capture pipeline (tools/capture_official.py, .github/workflows/capture.yml) stores raw injury-report and club depth-page bytes under data/captures/ in this repository. GitHub reports the repository public, so those raw pages are public repository content, while the brief's data-layer split requires raw row-level data to sit in a private store until the terms are read. The published site is not affected: the Pages artifact is site/ only and never serves data/. Raised as a privacy request by the capture-hardening session (arena/7db594d1-x4) and surfaced here for the owner's decision.",
+  "why": "No private store exists in this environment, and the brief also requires immutable multi-day raw captures with retained hashes, so both requirements cannot be met at once today. The repo's own register treats missing captures as the irregularity (F-47), so captures run while the question stays visible. Clears when the owner chooses: keep the repository public and accept raw pages as repository content, or make the repository private, or move data/captures to an authorized external store with a terms/retention decision recorded.",
+  "official_url": "https://www.nfl.com/injuries/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
  }
 ]

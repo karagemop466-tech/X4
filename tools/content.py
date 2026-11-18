@@ -615,7 +615,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "(DraftKings as published by ESPN, third-party, see F-01), not official lines. Reproducible: tools/settlement_recheck.py re-settles every bet from the committed files "
               "without reusing tools/luck.py, and tools/test_origination.py pins the rule."),
          official_url="https://www.nfl.com/games/browns-at-saints-2026-reg-9",
-         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"),
+         url="https://github.com/karagemop466-tech/X4/pull/63"),
 
     dict(id="F-50", item="An earlier count of six graded mismatches was wrong: the independent re-check reproduces one (none after the F-49 fix)", type="Irregularity", kind="warn", status="resolved",
          detail=("A previous session's board note reported six mismatches between the graded log and an official re-settlement. That count came from a bug in its first check. "
@@ -669,7 +669,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
                  "No Week 11 designation exists in any official source read, so none is published. "
                  "The silent fall-back is the same pattern as F-09 for the schedule links."),
          why=("Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. "
-              "The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash."),
+              "The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash. Re-checked 2026-11-18 03:55 UTC (T46 sweep): the reg11 address still serves the Week 10 report (title 'Week 10 of the 2026 Season', resolves to /reg10); state unchanged."),
          official_url="https://www.nfl.com/injuries/league/2026/reg11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"),
 
@@ -683,7 +683,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
                  "sessions (arena/bdf71572-x4 and arena/550d7436-x4), so the fetch failure's cause stays unknown and is not guessed at here."),
          why=("These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still "
               "leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification "
-              "passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs."),
+              "passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs. Update 2026-11-18: both code-path risks are fixed by the capture hardening integrated at T46 (per-source failure records persisted before the run fails; per-source freshness against schema-valid HTTP 200 captures; the empty Houston chart URL no longer raises ValueError - five offline unit tests), but a successful scheduled run and the historical failure cause are still required to clear this entry."),
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/audits/capture-workflow-health-2026-11-17.md"),
 
@@ -797,6 +797,27 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "brief: replayable practice designations, inactive lists, and the designation-reliability study."),
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/actions/runs/44175196682"),
+
+    dict(id="F-66", item="The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it", type="Irregularity", kind="bad", status="open",
+         detail=("tools/build.py rewrites data/price-snapshots.csv on every build from the current game log (the Week 11 lines block), and stamps each row 'captured_at: 2026-11-14 (build)'. "
+                 "The file's own comment says the opening fair line is the first published model line, but nothing pins it. Found line by line during the 2026-11-18 T49 sweep while assessing a corpus ingest; "
+                 "the defect then materialized for real: the Week 10 ingest (F-58) rebuilt the file and 25 of the 39 opening rows changed value while still carrying the '2026-11-14 (build)' stamp, "
+                 "so the recorded Week 11 opening forecasts are no longer the ones first published. The pre-ingest values remain recoverable from git history at the pre-2026-11-18 commits."),
+         why=("A price-snapshot store exists to preserve what was published when. An append-only store (as data/ops/price_snapshots.csv is for market prices - 'a re-ingest must never silently replace a reading') is the pattern; the model-line store does not follow it yet. "
+              "Until it does, no rebuild can be trusted to leave a forecast record intact, and closing-line value cannot be measured against the true opening. Clears when: the opening rows are written once and never rewritten (append-only with a recorded clock time), "
+              "and a regression test fails the build if a rebuild changes an existing opening row. The first-published Week 11 lines should then be restored from git history as the dated record."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"),
+    dict(id="F-67", item="Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data", type="Limitation", kind="warn", status="open",
+         detail=("The capture pipeline (tools/capture_official.py, .github/workflows/capture.yml) stores raw injury-report and club depth-page bytes under data/captures/ in this repository. "
+                 "GitHub reports the repository public, so those raw pages are public repository content, while the brief's data-layer split requires raw row-level data to sit in a private store until the terms are read. "
+                 "The published site is not affected: the Pages artifact is site/ only and never serves data/. Raised as a privacy request by the capture-hardening session (arena/7db594d1-x4) and surfaced here for the owner's decision."),
+         why=("No private store exists in this environment, and the brief also requires immutable multi-day raw captures with retained hashes, so both requirements cannot be met at once today. "
+              "The repo's own register treats missing captures as the irregularity (F-47), so captures run while the question stays visible. "
+              "Clears when the owner chooses: keep the repository public and accept raw pages as repository content, or make the repository private, or move data/captures to an authorized external store with a terms/retention decision recorded."),
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"),
+
 ]
 
 # ------------------------------------------------------------------ verification log
@@ -838,38 +859,4 @@ VERIFICATION = [
          url="https://www.nfl.com/schedules/2026/by-week/week-11",
          how="NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."),
 
-    dict(id="F-58", item="The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46)", type="Irregularity", kind="warn", status="resolved",
-         detail=("Read live on 2026-11-18, the official Week 10 schedule page shows all 14 finals played (Nov 12-16), while the committed game log held only the Nov 12 Thursday game. "
-                 "The official standings had therefore moved for 28 of 32 clubs, and every number derived from them - the power ratings, the walk-forward evaluation (105 games), the leaderboard, "
-                 "the luck panel and the Week 11 lines - described a season that no longer existed. Cause: no scheduled ingest of completed results; the last refresh ran on 2026-11-14."),
-         why=("This is the failure mode the brief calls out most often: a static snapshot presented as current. It was not a data-entry error but an evidence-freshness error, and it made a correct model look "
-              "measurably worse than it was (S1's improvement read 8.31% on 105 games and reads 9.49% on 118). Cleared by: the 13 finals transcribed from the official page, the standings rebuilt from the proved log, "
-              "130 changed cells audited in research/verification/standings-refresh-2026-11-18.csv, and every derived number regenerated. Record: research/verification/official-reverify-2026-11-18.md."),
-         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
-         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"),
-
-    dict(id="F-59", item="The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46)", type="Irregularity", kind="warn", status="resolved",
-         detail=("site/check.py's JavaScript smoke test asserted that the standings page renders exactly 137 game rows. When the 13 remaining Week 10 finals were added, the gate failed with 'expected 137 game rows in the DOM, found 150'. "
-                 "A gate that must be hand-edited to accept new official results punishes freshness and will be edited carelessly under time pressure."),
-         why=("Structural, not cosmetic: the same pattern can hide a genuinely missing row behind a literal. The expectation now reads the row count from data/games-2026.csv and still proves the week filter renders every row. "
-              "Cleared by: the rewrite plus a full tools/validate.py pass."),
-         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
-         url="https://github.com/karagemop466-tech/X4/blob/main/site/check.py"),
-
-    dict(id="F-60", item="Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)", type="Irregularity", kind="warn", status="irregularity",
-         detail=("The committed venue set (data/venues-wk11-2026.csv) says RELIANT STADIUM for Colts at Texans and ARROWHEAD STADIUM for Cardinals at Chiefs. The official Week 11 schedule page names NRG Stadium and "
-                 "'GEHA Field at Arrowhead Stadium' in its ticket and hotel links for the same two fixtures. Both are in-use names for the same buildings, so this is a naming question, not a venue error."),
-         why=("The requirement is that the venue of every fixture be transcribed from the official game centre. That transcription has not been re-done for these two clubs, and the official game-centre page itself "
-              "was not read for the stadium block this session. Not edited: an unverified rename is worse than a recorded difference. Clears when the Game Info block of both official game pages is read and the "
-              "dataset is updated with that reading."),
-         official_url="https://www.nfl.com/games/colts-at-texans-2026-reg-11",
-         url="https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"),
-
-    dict(id="F-61", item="The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)", type="Limitation", kind="warn", status="limitation",
-         detail=("Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. "
-                 "A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it."),
-         why=("The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository "
-              "holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series."),
-         official_url="https://www.nfl.com/injuries/league/2026/reg11",
-         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"),
-]
+    ]
