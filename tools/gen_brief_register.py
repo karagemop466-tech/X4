@@ -174,7 +174,10 @@ _cols = _dd(list)
 for _r in depth_rows:
     _cols[(_r["team"], _r["unit"], _r["position_row"])].append(int(_r["depth"]))
 _solo = sum(1 for v in _cols.values() if len(v) == 1)
-_shared_cells = sum(1 for v in _cols.values() if len(v) > 1)
+_cells = _dd(int)
+for _r in depth_rows:
+    _cells[(_r["team"], _r["unit"], _r["position_row"], _r["depth"])] += 1
+_shared_cells = sum(1 for v in _cells.values() if v > 1)
 _clean = sum(1 for v in _cols.values() if sorted(v) == list(range(1, len(v) + 1)))
 _dense = "".join("1" if _r["depth"] != "" else "0" for _r in depth_rows)
 
