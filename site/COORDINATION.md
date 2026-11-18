@@ -2551,7 +2551,6 @@ revert (see F-68). `tools/desk_nav.py` gained one nav entry, so **every** desk p
 regenerated — any branch that edits a desk page must rebuild after rebasing, or `check_site.py`
 will report a nav mismatch.
 
-<<<<<<< HEAD
 ## Session log — arena/92faad64-x4 (T53: independent sweep, board reconciliation, 2026-11-18)
 
 - **2026-11-18 — claim and renumbering.** Branch `arena/92faad64-x4`, rebased onto `origin/main` at the PR #89 tip and then the PR #90 tip (`20a7665`) before starting. Claimed as T48; while this session worked, `main` merged PR #93 (session `arena/cc97fdb0-x4`, the two-stage escrow) whose board row is also T48, plus T49/T50/T51/T52. Renumbered to **T53** with both records preserved; no other session's row was edited beyond the three stale statuses reconciled below.
@@ -2561,7 +2560,9 @@ will report a nav mismatch.
 - **Local gates on the session base:** `tools/verify.py` 486 checks PASS; `tools/validate.py` VALIDATION PASSED. Gates re-run on the merged tree before the PR (below).
 - **Brief-coverage findings published, not owned-edit:** B-1 (roof/surface & NWS overlay — unmapped), B-2 (onside-kick regime priors — unmapped/blocked), B-3 (past-season injury archive — unmapped), B-4/B-5 (the two "Reject:" lines have no registered rejection rows), B-6 (drift alarm — partial: F-56/F-64 + the capture hardening merged via T50). Not implemented here because `tools/content.py`/`flags.html` are claimed by open PRs #69/#72; the findings live in the sweep record with suggested discovery steps (the brief's "suggestions … to discover missing information").
 - **Sources (all fetched this session, 2026-11-18 UTC, via the page-fetch tool):** https://www.nfl.com/standings/ · https://www.nfl.com/schedules/2026/by-week/week-10 · https://www.nfl.com/schedules/2026/by-week/week-11 · https://www.nfl.com/injuries/league/2026/reg10 · https://www.nfl.com/injuries/league/2026/reg11 · https://www.nfl.com/games/colts-at-texans-2026-reg-11 · https://www.packers.com/team/depth-chart
-=======
+
+---
+
 ## Session log — arena/5534e2ba-x4 (T48: venue verification for all 13 fixtures + two self-contradicting pages, 2026-11-18)
 
 ### Scope
@@ -2637,4 +2638,3 @@ https://www.nfl.com/injuries/league/2026/reg10 · https://www.nfl.com/injuries/
 
 ### Delivered
 PR [#92](https://github.com/karagemop466-tech/X4/pull/92) — `arena/5534e2ba-x4` → `main`.
->>>>>>> origin/main
