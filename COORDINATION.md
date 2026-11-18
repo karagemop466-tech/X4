@@ -2049,3 +2049,30 @@ F-43 reserve-list reads disagree; F-44 Jackson/Huntley IR not on the November re
 ### Integration note
 - T46 final integration is claimed by open PR #79 (branch `arena/016cf314-x4`, a different session); this session does not step on that claim. No PR/merge/deploy was performed from `arena/ae8d656c-x4` because it carries no diff versus main — the site is already validated and deployed live. This log entry is the handoff record for that branch.
 
+## Session log — arena/9afe7441-x4 (2026-11-18)
+
+### Scope
+Final integration verification and publication closeout on branch `arena/9afe7441-x4`, branched from main at `5d5101d`. This session performed no data changes; every number on the site was already committed to main and verified by prior sessions. The session's work was verification + closeout.
+
+### Verification performed (this session)
+- `python3 tools/verify.py` — PASS: 460 checks, 137 games, 32 teams; reconstructed scores reproduce every official NFL.com W/L/T/PF/PA total exactly.
+- `python3 tools/build.py` + `python3 tools/pages.py` — regenerated all published numbers and 20 site pages without error.
+- `python3 tools/sync.py` — repository-root copies byte-identical to `site/` and `docs/`.
+- `python3 site/check.py` — PASS: 16 pages, 85 tables, 3,251 data rows, every row carries an official source link; 42 pages' local links resolved; 32 team rows numerically consistent.
+- `python3 tools/validate.py` — **VALIDATION PASSED** end to end (verify, capture checks, build, market re-derivation, reconciliation, pages, integrity, programme, workbench, desk data/tables, sync, site check x2, desk checker, determinism, console, root mirror, data hygiene).
+- `python3 tools/test_origination.py` — spread settlement tests pass (3/3).
+
+### Live site (confirmed by direct page fetch)
+- https://karagemop466-tech.github.io/X4/ — landing page renders: hero metrics (137 games / 32 teams / 347 injury rows / 70 Out / 9 strategies / 0 eligible), verified position (Week 11 schedule, standings, injury report, starter changes), strategy leaderboard (0 of 9 eligible), four source rules, decision-readiness preview, flagged register preview.
+- https://karagemop466-tech.github.io/X4/strategies.html — full leaderboard with gate-by-gate verdicts (G1–G7), every row source-linked to NFL.com.
+- All pages source-linked; unsupported values left blank and flagged (57 items on Flagged for review).
+
+### Deliverables confirmed complete (requirements inventory Q01–Q40)
+36 delivered · 2 partial with named gaps (Houston depth image F-18 / depth-chart 404 R-03) · design-stage items correctly pending gates (leaderboard execution Q08–Q11). Executive summary, suggestions review (18 proposals + workbench), 30-question decision Q&A with known/missing/how-to-obtain/blocked-decision, line origination (side→total→moneyline; fair/market/difference columns), signal-vs-staking split, injury + depth tracking, removal-of-luck panel, all live.
+
+### Pull request / merge / deploy
+Branch `arena/9afe7441-x4` pushed to origin and rebased onto main `3a58567`; this session's COORDINATION.md record is one commit ahead of main. GitHub Pages is live at https://karagemop466-tech.github.io/X4/ (build commit `3a58567`).
+
+### Irregularities (open, documented on Flagged for review — none block publication)
+Capture-workflow scheduled runs failing (F-47/F-48/F-56; cause unknown, run logs unavailable); Houston image-only depth chart (F-18, R-03); player-prop prices unavailable (F-01/F-35); live injury-report drift vs committed snapshot (F-14/F-40/F-41); reserve-list / IR disagreement (F-43/F-44); two blank demotion thresholds (F-54). Each carries evidence links and is deliberately not inferred.
+
