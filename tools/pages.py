@@ -390,15 +390,34 @@ def kpi_cards():
     ])
 
 
+def leader_line():
+    """The division leaders, read from the official standings table (no typed scores)."""
+    by_div = {}
+    for r in standings:
+        by_div.setdefault(r["division"], []).append(r)
+    parts = []
+    for div in sorted(by_div):
+        best = max(by_div[div], key=lambda r: (int(r["w"]) / max(1, int(r["w"]) + int(r["l"]) + int(r["t"])),
+                                               int(r["net_pts"])))
+        parts.append("%s %d&ndash;%d%s leads the %s"
+                     % (best["team_name"], int(best["w"]), int(best["l"]),
+                        "&ndash;%d" % int(best["t"]) if int(best["t"]) else "", div))
+    worst = min(standings, key=lambda r: (int(r["w"]), int(r["net_pts"])))
+    return "; ".join(parts) + "; %s are %d&ndash;%d" % (
+        worst["team_name"], int(worst["w"]), int(worst["l"]))
+
+
 def wk_facts():
     facts = [
         ("Week 11 schedule published",
          "NFL.com lists 13 games for Week 11 (Nov 19&ndash;23) and confirms the six teams on "
          "bye: Atlanta, Cleveland, Green Bay, LA Rams, New England and Seattle.",
          "https://www.nfl.com/schedules/2026/by-week/week-11"),
+        # T46: the standings line is read off the official-standings table, so it moves
+        # with the data instead of being re-typed each week.
         ("Official standings",
-         "Through the Nov 12 Thursday night game: Buffalo 7&ndash;1 leads the AFC East; San "
-         "Francisco 7&ndash;1 leads the NFC West; the Los Angeles Chargers are 0&ndash;8.",
+         "Through Week 10 (last game played 16 Nov 2026): %s."
+         % leader_line(),
          "https://www.nfl.com/standings/"),
         ("Official injury report",
          "The Week 10 report lists %s players across the 28 teams playing, including %s ruled "
@@ -469,7 +488,8 @@ def games_table():
     return wrap("games", table(
         [("Wk", 1), ("Away", 0), ("Away Pts", 1), ("Home", 0), ("Home Pts", 1),
          ("OT", 0), ("Source", 0)], rows,
-        "All %d completed games in the 2026 regular season through the Nov 12 game. Every "
+        "All %d completed games in the 2026 regular season, Weeks 1&ndash;10 complete " 
+        "(last game played 16 Nov 2026). Every "
         "score reproduces the official NFL.com standings totals for all 32 teams exactly "
         "(verified by tools/verify.py)." % len(games),
         row_attrs=lambda i: ' data-week="%d"' % games[i]["week"]))
