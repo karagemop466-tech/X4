@@ -49,6 +49,8 @@ STEPS = [
     ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),
     ("fail if the gate run mutated the committed data tree", [PY, os.path.join(ROOT, "tools", "validate.py"), "--gate-clean"]),
     ("build the official depth charts", [PY, os.path.join(ROOT, "tools", "depth.py")]),
+    ("re-derive the personnel / availability ablation",
+     [PY, os.path.join(ROOT, "tools", "personnel_ablation.py"), "--check"]),
     ("test origination settlement rules", [PY, os.path.join(ROOT, "tools", "test_origination.py")]),
     ("originate lines and grade them", [PY, os.path.join(ROOT, "tools", "origination.py")]),
     ("build the replacement-depth ledger", [PY, os.path.join(ROOT, "tools", "depth_ledger.py")]),

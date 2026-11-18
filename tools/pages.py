@@ -54,6 +54,7 @@ NAV = [
     ("depth-audit.html", "Depth audit"),
     ("matchup.html", "Matchup matrix"),
     ("houston-depth.html", "Houston depth"),
+    ("personnel-ablation.html", "Personnel ablation"),
     ("teams.html", "Per-team view"),
     ("luck.html", "Removal of luck"),
     ("readiness.html", "Decision readiness"),
@@ -107,6 +108,8 @@ DIRECTORY = [
          "Every Week 11 fixture's trench, coverage, backers, tight-end and safety groups with both sides' listed depth chains, the official game status on each player, and a flag wherever a listed starter is ruled out."),
         ("houston-depth.html", "Houston depth (authorized source)",
          "Houston publishes no structured depth chart (image only, F-24). Resolved from the official NFL Game Book: actual starters and per-player snap counts, published as derived playing-time depth indices with the Game Center and PDF links."),
+        ("personnel-ablation.html", "Personnel ablation",
+         "Injury and personnel ablations instead of fixed penalties: the measured points-per-designation contrast on the official Week 10 report, published with n and 95% intervals, plus the identifiability gate that blocks the feature."),
         ("injuries.html", "Availability",
          "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
         ("replacements.html", "Availability &amp; depth",
@@ -2425,6 +2428,9 @@ def main():
     # T46 Houston depth-chart gap resolution (tools/houston_depth.py)
     import houston_depth
     written += houston_depth.write_pages(SITE, shell)
+    # T48 personnel / availability ablation (tools/personnel_ablation.py)
+    import personnel_ablation
+    written += personnel_ablation.write_pages(SITE, shell)
     print("wrote %d pages: %s" % (len(written), ", ".join(written)))
 
 
