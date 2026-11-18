@@ -1,19 +1,18 @@
 name: Official capture (injury report and club depth pages)
 
 # Capture the NFL injury report and each club's structured official depth chart.
-# The Houston chart is image-only and intentionally excluded (F-18); it is not
-# silently treated as a successful source. Raw changed bytes are retained with
-# SHA-256 hashes and UTC timestamps. See tools/capture_official.py.
+# The Houston chart is image-only and intentionally excluded (flag F-24); it is not
+# silently treated as a successful source.
 #
-# Capture errors are committed to the manifest before the workflow fails. This
-# preserves operational evidence and lets a later successful run demonstrate
-# recovery instead of leaving no record of repeated failures.
+# Only the manifest is committed: URL, UTC time, HTTP status, bytes, SHA-256 and the
+# schema result of every read. Raw page bytes are NOT committed (public repository;
+# the brief keeps raw row-level data private). They are written only to a private store
+# named by X4_CAPTURE_RAW_DIR, which this workflow does not set. See tools/capture_official.py.
+#
+# Capture errors are committed to the manifest before the workflow fails, so repeated
+# failures stay on record and a later successful run shows recovery.
 
 on:
-  # TEMPORARY (T48 live test on this branch only; removed before merge): the token cannot
-  # dispatch workflows (HTTP 403), so a push to the working branch starts one live run.
-  push:
-    branches: [arena/dad920d9-x4]
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
