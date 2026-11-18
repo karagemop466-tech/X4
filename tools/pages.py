@@ -1784,14 +1784,14 @@ PAGES.append(("index.html", "NFL Decision Desk",
 <div class="hero">
   <span class="eyebrow light">Executive summary</span>
   <h2>Official NFL facts are linked where verified. Model lines are labelled as estimates. Evidence gaps are visible.</h2>
-  <p>This desk uses official NFL sources for facts that have been verified. Every rendered data row on the desk pages now carries an HTTPS source link — the 2026-11-17 checker run tests <b>1,045 rows on 22 desk pages and reports 0 rows without a link</b>, which closes flag F-39 (fixed line by line, not by weakening the gate). Two honest limits remain: the checker verifies link presence, not that each link supports the exact value beside it, and rows produced by this project's own computation cite the committed artifact that produced them rather than an official page — treat those as artifacts, not NFL facts. Unsupported values remain blank and flagged on the <a href="flags.html">Flagged for review</a> page. Separately, the reconstructed game log was checked against official standings: %(ngames)d games, and every team's wins, losses, ties, points for, points allowed and winning percentage match. Market prices are non-official captures, not NFL facts.</p>
+  <p>This desk uses official NFL sources for facts that have been verified. Every rendered data row on the desk pages now carries an HTTPS source link — the 2026-11-18 checker run tests <b>every row on all 26 desk pages and reports 0 rows without a link</b>, which closes flag F-39 (fixed line by line, not by weakening the gate). Two honest limits remain: the checker verifies link presence, not that each link supports the exact value beside it, and rows produced by this project's own computation cite the committed artifact that produced them rather than an official page — treat those as artifacts, not NFL facts. Unsupported values remain blank and flagged on the <a href="flags.html">Flagged for review</a> page. Separately, the reconstructed game log was checked against official standings: %(ngames)d games, and every team's wins, losses, ties, points for, points allowed and winning percentage match. Market prices are non-official captures, not NFL facts.</p>
   <p>What the work actually shows: the model has signal over a league-average benchmark, but the improvement is <b>not yet statistically separable from luck</b>, so the leaderboard marks every strategy ineligible for reward. That is the validation gate working, not a gap in the analysis.</p>
 </div>
 
 <div class="grid g4">%(kpis)s</div>
 
 <section style="margin-top:26px">
-  <div class="section-head"><div><span class="eyebrow">What the official sources say right now</span><h2>Verified position</h2></div><span class="tag acc">NFL.com &middot; 14 Nov 2026</span></div>
+  <div class="section-head"><div><span class="eyebrow">What the official sources say right now</span><h2>Verified position</h2></div><span class="tag acc">NFL.com &middot; re-read 18 Nov 2026</span></div>
   <div class="grid g4">%(facts)s</div>
 </section>
 
@@ -2387,6 +2387,16 @@ def main():
     # T38 extension pages (tools/desk_extension.py): luck, readiness, per-team view
     import desk_extension
     written += desk_extension.write_pages(SITE, shell)
+    # T46 landing decision-readiness table (tools/desk_extension.py helper)
+    import desk_extension as _dx
+    with open(os.path.join(SITE, "index.html"), encoding="utf-8") as fh:
+        _h = fh.read()
+    _start = _h.find('<div id="readiness-preview">')
+    _end = _h.find('</section>', _start)
+    if _start > 0 and _end > 0:
+        _h = _h[:_start] + _dx.landing_readiness_rows() + _h[_end:]
+        with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as fh:
+            fh.write(_h)
     # T45 matchup deficiency matrix (tools/matchup_page.py)
     import matchup_page
     written += matchup_page.write_pages(SITE, shell)
