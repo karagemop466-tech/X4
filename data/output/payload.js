@@ -33,7 +33,7 @@ window.X4 = {
    3,
    10
   ],
-  "bonferroni_alpha": 0.00625
+  "bonferroni_alpha": 0.005555556
  },
  "standings": [
   {
@@ -3790,8 +3790,8 @@ window.X4 = {
    },
    "improvement_abs": 0.994023336,
    "improvement_pct": 0.094863923,
-   "ci_low": -7.044e-05,
-   "ci_high": 1.940098656,
+   "ci_low": -0.013856739,
+   "ci_high": 1.965711661,
    "weekly_positive_share": 0.75,
    "calibration_max_gap": 0.071305083,
    "gates": {
@@ -3809,7 +3809,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.000, 1.940]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.014, 1.966]."
     },
     "G5 stability": {
      "pass_": true,
@@ -3855,8 +3855,8 @@ window.X4 = {
    },
    "improvement_abs": 0.886163831,
    "improvement_pct": 0.084570426,
-   "ci_low": -0.165198941,
-   "ci_high": 1.901979635,
+   "ci_low": -0.172696418,
+   "ci_high": 1.905017188,
    "weekly_positive_share": 0.75,
    "calibration_max_gap": 0.062263399,
    "gates": {
@@ -3874,7 +3874,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.165, 1.902]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.173, 1.905]."
     },
     "G5 stability": {
      "pass_": true,
@@ -3920,8 +3920,8 @@ window.X4 = {
    },
    "improvement_abs": 0.907156936,
    "improvement_pct": 0.086573888,
-   "ci_low": -0.248444945,
-   "ci_high": 2.069250928,
+   "ci_low": -0.267086747,
+   "ci_high": 2.084844511,
    "weekly_positive_share": 0.75,
    "calibration_max_gap": 0.089079818,
    "gates": {
@@ -3939,7 +3939,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.248, 2.069]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.267, 2.085]."
     },
     "G5 stability": {
      "pass_": true,
@@ -3985,8 +3985,8 @@ window.X4 = {
    },
    "improvement_abs": 0.691811721,
    "improvement_pct": 0.066022568,
-   "ci_low": -0.064487915,
-   "ci_high": 1.447851823,
+   "ci_low": -0.077161018,
+   "ci_high": 1.454310479,
    "weekly_positive_share": 0.75,
    "calibration_max_gap": 0.064711458,
    "gates": {
@@ -4004,7 +4004,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.064, 1.448]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.077, 1.454]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4050,8 +4050,8 @@ window.X4 = {
    },
    "improvement_abs": 0.375541216,
    "improvement_pct": 0.035839514,
-   "ci_low": -0.299026256,
-   "ci_high": 1.0649872,
+   "ci_low": -0.318285511,
+   "ci_high": 1.073775776,
    "weekly_positive_share": 0.625,
    "calibration_max_gap": 0.061293502,
    "gates": {
@@ -4069,7 +4069,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.299, 1.065]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.318, 1.074]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4115,8 +4115,8 @@ window.X4 = {
    },
    "improvement_abs": 0.306376984,
    "improvement_pct": 0.029238873,
-   "ci_low": -0.344718565,
-   "ci_high": 0.953704635,
+   "ci_low": -0.352844709,
+   "ci_high": 0.964935956,
    "weekly_positive_share": 0.625,
    "calibration_max_gap": 0.069925483,
    "gates": {
@@ -4134,7 +4134,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.345, 0.954]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.353, 0.965]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4179,8 +4179,8 @@ window.X4 = {
    },
    "improvement_abs": 0.21192891,
    "improvement_pct": 0.020225287,
-   "ci_low": -0.451020184,
-   "ci_high": 0.869679156,
+   "ci_low": -0.466429572,
+   "ci_high": 0.881262144,
    "weekly_positive_share": 0.625,
    "calibration_max_gap": 0.070873473,
    "gates": {
@@ -4198,7 +4198,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.451, 0.870]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.466, 0.881]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4244,8 +4244,8 @@ window.X4 = {
    },
    "improvement_abs": 0.036473494,
    "improvement_pct": 0.003480822,
-   "ci_low": -0.633805916,
-   "ci_high": 0.686885679,
+   "ci_low": -0.650604364,
+   "ci_high": 0.702124089,
    "weekly_positive_share": 0.625,
    "calibration_max_gap": 0.070705469,
    "gates": {
@@ -4263,7 +4263,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.634, 0.687]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.651, 0.702]."
     },
     "G5 stability": {
      "pass_": true,
@@ -13423,6 +13423,39 @@ window.X4 = {
  ],
  "flags": [
   {
+   "id": "F-68",
+   "item": "The multiplicity correction divided by 8 while performing 9 tests",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "tools/build.py computed the Bonferroni threshold as alpha / (n_tests - 1), i.e. 0.05 / 8 = 0.00625, on the assumption that the benchmark S0 was excluded. It is not: the bootstrap loop runs over every key in STRATEGIES, S0 included, so nine intervals are computed and nine comparisons are made against one threshold. The gate's own published definition is \"Bonferroni-adjusted p < 0.05 across all trials\", and the review page's S-15 text already described the denominator as 0.05 / 8 strategies for nine strategies - that is, the site published a rule it did not apply. Corrected in T48 to alpha / n_tests = 0.00556.",
+   "why": "A multiplicity correction that is one test too lenient is exactly the failure the correction exists to prevent: it makes each of the nine results look more significant than the family of nine tests permits. The correction was material: at 0.00625 two strategies (S1 at p = 0.00630 was not one of them, but the threshold decided S2 and S5's status at the margin) sat closer to the line than they do at 0.00556. After the correction S1 (p = 0.00030) and S8 (p = 0.00206) still clear, so no published conclusion flips - but the rule now matches its own definition, and that is the point.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/build.py"
+  },
+  {
+   "id": "F-66",
+   "item": "Stale numbers survive in generated prose because prose is not on the gate",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "open",
+   "detail": "A line-by-line read on 2026-11-18 found numeric claims that described a corpus that no longer exists, in places the publication gate does not read: tools/workbench.json (\"results_2026.csv: 137 games\" and \"1,224\" settled bets) rendered onto workbench.html; tools/build_integrity.py's docstring (\"verified results feed (137 games)\"); research/decision-register.md and research/integrity-gates.md (\"137 games\", one of which also said \"Weeks 1-10\" while holding 137 of the 150 games in that range); and research/price-store.md (\"68 of 105 games (64.8%), exact binomial p = 0.0016\", a sign-test result on a superseded corpus, now 78 of 118 at p = 0.00030). Every one of these was correct when written and became wrong when the Week 10 finals were ingested. The pattern, not any single number, is the finding: a count typed into prose or into a checker is a future false statement, and F-59 was the same defect one level up.",
+   "why": "The site's central claim is that every published number is reproducible from the committed data. A stale number in a JSON evidence string or a research note defeats that claim just as surely as a stale number in a table, and it is harder to notice because no checker reads prose. The workbench example is the worst of them: it told a reviewer the results feed covers 137 games while the feed on the same site held 150.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"
+  },
+  {
+   "id": "F-67",
+   "item": "Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided",
+   "type": "Method",
+   "kind": "warn",
+   "status": "open",
+   "detail": "tools/sign_test.py, added 2026-11-18, recomputes the paired sign test on the current corpus (n = 118 evaluated games) instead of quoting a superseded 105-game figure. At n = 118 the result has changed shape, not just size: S1 beats the league-constant benchmark in 78 of 118 games (66.1%, exact one-sided p = 0.00030) and S8 in 75 of 118 (63.6%, p = 0.00206). Against the Bonferroni threshold of 0.05 / 9 = 0.00556 (corrected in T48: the gate had divided by 8 while performing 9 tests), BOTH clear, where the previously published figure named only S1. Meanwhile the mean-error bootstrap gate G4 still fails for every strategy, with its lower bound touching zero. The two statistics are computed from the same predictions and both are correct.",
+   "why": "This is question S-15 on the review page, and it is now materially larger than when it was opened: it is no longer 'one strategy passes one test', it is 'two strategies pass one test while all nine fail the other'. Choosing the primary metric now, after seeing which one passes and by how much, is the exact failure pre-registration exists to prevent. The honest action is to publish both, promote nothing, and require the owner to fix the primary metric in writing before the next evaluation window opens - which is what the site does.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/output/sign_test.json"
+  },
+  {
    "id": "F-01",
    "item": "Official market betting lines",
    "type": "Unverified data",
@@ -14464,7 +14497,7 @@ window.X4 = {
    "priority_class": "p0",
    "area": "Validation",
    "title": "S-15 - Decide whether the significance gate measures mean error or paired win rate",
-   "body": "The same 118 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.00, +1.94] points: its upper bound has moved clear of zero after Week 10 completed, but its lower bound still touches it, so every strategy still fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 78 of 118 games (66.1%), exact one-sided binomial p = 0.00030, which would clear the Bonferroni threshold of 0.00625 (0.05 / 8 strategies). Both statistics are computed from the same predictions and both are correct.",
+   "body": "The same 118 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.00, +1.94] points: its upper bound has moved clear of zero after Week 10 completed, but its lower bound still touches it, so every strategy still fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 78 of 118 games (66.1%), exact one-sided binomial p = 0.00030, and S8 (last-5-games) in 75 of 118 (63.6%), p = 0.00206. BOTH clear the Bonferroni threshold of 0.00556 (0.05 / 9 strategies, corrected in T48 from 0.05 / 8) &mdash; two strategies, not one, which is a materially different question from the one this entry was opened to decide. Both statistics are computed from the same predictions and both are correct. Every number here is regenerated by tools/sign_test.py and gated by the publication check; none is typed.",
    "why": "The gate currently asks 'is the average improvement distinguishable from zero'. The blowouts dominate that average, and no team-rate model can price a blowout. The sign test asks 'how often is this model better head-to-head', which is the question a staker and a reviewer both actually care about. Choosing one over the other changes whether the leaderboard can ever promote anything - and choosing it now, after seeing that one answer passes, is exactly what a pre-registered gate is supposed to prevent unless the choice is made in the open and recorded before the next evaluation window.",
    "verify": "Both statistics are published together on gates.html; the gate definition is committed before the next evaluation window; after 50 prospective locked games the two agree or the divergence is explained.",
    "effort": "Low",

@@ -208,6 +208,8 @@ def identifiability(recs, statuses):
     # club-weeks of official playing time (the only player-level availability source present)
     hou = os.path.join(DATA, "houston-playtime-depth-wk10-2026.csv")
     hou_rows = len(read(hou)) if os.path.exists(hou) else 0
+    import build as _b  # the same Bonferroni denominator the skill gate uses
+    n_tests = len(_b.STRATEGIES)
     inj_weeks = 1  # data/injuries-wk10-2026.csv is the only official report captured
     spec = [
         ("I1", "Control group for a club-level with/without test",
@@ -227,6 +229,14 @@ def identifiability(recs, statuses):
          "one joined replacement pair per club-week, with both snap shares",
          "requires I3 first; the single Houston Game Book supplies one side only"),
     ]
+    spec.append((
+        "I5", "A Bonferroni denominator that matches the test count",
+        "%d skill intervals computed per evaluation, threshold %.5f = 0.05 / %d"
+        % (n_tests, 0.05 / n_tests, n_tests),
+        "the denominator must equal the number of tests actually run",
+        "corrected in T48: the gate divided by n-1 (8) while performing n (9) tests; "
+        "it now divides by the number of tests, which is the published rule"))
+
     out = []
     for aid, what, have, clear, why in spec:
         out.append([aid, "identifiability", what, "have", "", "", "", "", "",

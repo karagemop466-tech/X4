@@ -18,8 +18,8 @@
   },
   "improvement_abs": 0.994023336,
   "improvement_pct": 0.094863923,
-  "ci_low": -7.044e-05,
-  "ci_high": 1.940098656,
+  "ci_low": -0.013856739,
+  "ci_high": 1.965711661,
   "weekly_positive_share": 0.75,
   "calibration_max_gap": 0.071305083,
   "gates": {
@@ -37,7 +37,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.000, 1.940]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.014, 1.966]."
    },
    "G5 stability": {
     "pass_": true,
@@ -83,8 +83,8 @@
   },
   "improvement_abs": 0.886163831,
   "improvement_pct": 0.084570426,
-  "ci_low": -0.165198941,
-  "ci_high": 1.901979635,
+  "ci_low": -0.172696418,
+  "ci_high": 1.905017188,
   "weekly_positive_share": 0.75,
   "calibration_max_gap": 0.062263399,
   "gates": {
@@ -102,7 +102,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.165, 1.902]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.173, 1.905]."
    },
    "G5 stability": {
     "pass_": true,
@@ -148,8 +148,8 @@
   },
   "improvement_abs": 0.907156936,
   "improvement_pct": 0.086573888,
-  "ci_low": -0.248444945,
-  "ci_high": 2.069250928,
+  "ci_low": -0.267086747,
+  "ci_high": 2.084844511,
   "weekly_positive_share": 0.75,
   "calibration_max_gap": 0.089079818,
   "gates": {
@@ -167,7 +167,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.248, 2.069]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.267, 2.085]."
    },
    "G5 stability": {
     "pass_": true,
@@ -213,8 +213,8 @@
   },
   "improvement_abs": 0.691811721,
   "improvement_pct": 0.066022568,
-  "ci_low": -0.064487915,
-  "ci_high": 1.447851823,
+  "ci_low": -0.077161018,
+  "ci_high": 1.454310479,
   "weekly_positive_share": 0.75,
   "calibration_max_gap": 0.064711458,
   "gates": {
@@ -232,7 +232,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.064, 1.448]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.077, 1.454]."
    },
    "G5 stability": {
     "pass_": true,
@@ -278,8 +278,8 @@
   },
   "improvement_abs": 0.375541216,
   "improvement_pct": 0.035839514,
-  "ci_low": -0.299026256,
-  "ci_high": 1.0649872,
+  "ci_low": -0.318285511,
+  "ci_high": 1.073775776,
   "weekly_positive_share": 0.625,
   "calibration_max_gap": 0.061293502,
   "gates": {
@@ -297,7 +297,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.299, 1.065]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.318, 1.074]."
    },
    "G5 stability": {
     "pass_": true,
@@ -343,8 +343,8 @@
   },
   "improvement_abs": 0.306376984,
   "improvement_pct": 0.029238873,
-  "ci_low": -0.344718565,
-  "ci_high": 0.953704635,
+  "ci_low": -0.352844709,
+  "ci_high": 0.964935956,
   "weekly_positive_share": 0.625,
   "calibration_max_gap": 0.069925483,
   "gates": {
@@ -362,7 +362,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.345, 0.954]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.353, 0.965]."
    },
    "G5 stability": {
     "pass_": true,
@@ -407,8 +407,8 @@
   },
   "improvement_abs": 0.21192891,
   "improvement_pct": 0.020225287,
-  "ci_low": -0.451020184,
-  "ci_high": 0.869679156,
+  "ci_low": -0.466429572,
+  "ci_high": 0.881262144,
   "weekly_positive_share": 0.625,
   "calibration_max_gap": 0.070873473,
   "gates": {
@@ -426,7 +426,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.451, 0.870]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.466, 0.881]."
    },
    "G5 stability": {
     "pass_": true,
@@ -472,8 +472,8 @@
   },
   "improvement_abs": 0.036473494,
   "improvement_pct": 0.003480822,
-  "ci_low": -0.633805916,
-  "ci_high": 0.686885679,
+  "ci_low": -0.650604364,
+  "ci_high": 0.702124089,
   "weekly_positive_share": 0.625,
   "calibration_max_gap": 0.070705469,
   "gates": {
@@ -491,7 +491,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.634, 0.687]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.651, 0.702]."
    },
    "G5 stability": {
     "pass_": true,

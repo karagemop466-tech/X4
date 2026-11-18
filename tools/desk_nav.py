@@ -35,6 +35,7 @@ NAV = [
     ("workbench.html", "✳ &nbsp;Suggestion workbench"),
     ("programme.html", "◫ &nbsp;Integrity &amp; programme"),
     ("readiness.html", "⚑ &nbsp;Decision readiness"),
+    ("open-questions.html", "? &nbsp;Open questions"),
     ("delta.html", "⚙ &nbsp;What changed"),
     ("brief-register.html", "⊞ &nbsp;Brief register"),
     ("depth-audit.html", "⊘ &nbsp;Depth audit"),

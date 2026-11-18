@@ -35,6 +35,8 @@ DESK_PAGES = [
     # T46 brief register (session arena/ad5e4c3d-x4)
     "brief-register.html",
     "depth-audit.html",
+    # T48 open-question register (session arena/dee8092e-x4)
+    "open-questions.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
 MIRRORED = DESK_PAGES + ["desk.css", "nav.js"]   # each must exist byte-identically in site/
