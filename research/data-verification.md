@@ -115,6 +115,9 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
 | F-56 | Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit) |
 | F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
+| F-58 | Week 10 results after the registration snapshot are verified and staged, not in the corpus: corpus expansion is a registered follow-up (T46 sweep) |
+| F-59 | The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned |
+| F-60 | Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data |
 
 ## What is deliberately absent
 
