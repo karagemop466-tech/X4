@@ -597,7 +597,7 @@ def leaderboard_table():
         [("Backtest order", 1), ("ID", 0), ("Strategy", 0), ("Spread MAE", 1),
          ("Signal (vs benchmark)", 1), ("Staking", 0),
          ("Gates", 0), ("Eligible", 0), ("Points", 1), ("Source", 0)], rows,
-        "Backtest development board (T55): these are walk-forward results over %d "
+        "Backtest development board (T57): these are walk-forward results over %d "
         "evaluated games, not a leaderboard. The brief forbids backtest numbers from "
         "ever appearing on the leaderboard, so these rows never rank for rewards - the "
         "rewards leaderboard on this page shows forward, pre-registered samples only. "
@@ -614,7 +614,7 @@ def forward_leaderboard_table():
 
     The brief forbids backtest numbers from ever appearing on the leaderboard,
     so this table stays empty until the registered forward window settles
-    (T55 / flag E1). It publishes the number that would open it instead of
+    (T57 / flag E1). It publishes the number that would open it instead of
     borrowing the backtest's numbers.
     """
     rows = [[
@@ -652,7 +652,7 @@ def leaderboard_preview_table():
     return wrap("lb-preview", table(
         [("#", 1), ("Strategy", 0), ("Spread MAE", 1), ("vs benchmark", 1),
          ("Gates", 0), ("Status", 0), ("Source", 0)], rows,
-        "Backtest development board (T55): spread MAE is mean absolute error on the "
+        "Backtest development board (T57): spread MAE is mean absolute error on the "
         "point spread, in points, over the out-of-sample games. These rows are not a "
         "leaderboard and never rank for rewards - the rewards leaderboard is "
         "forward-only and empty at n = 0. Full detail on the Strategy Lab page."))
