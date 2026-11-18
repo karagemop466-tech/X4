@@ -24,6 +24,7 @@ file scope. Never start work on a task another session has claimed.
 | 21 | **T21 - Origination-side build (session `arena/f39958e6-x4`)**: price-snapshot store (open/close per market), origination order (side -> total -> moneyline), fair/market/difference columns, signal-vs-staking split, replacement-depth tracking, n-published correlations, paper-demotion gate, best-practice library, fundamentals-differentials research, new desk pages + publication gates | done (PR #24) | arena/f39958e6-x4 | `data/ops/**`, `data/transactions/**`, `tools/fetch.py`, `tools/origination.py`, `tools/ops.py`, `tools/check_ops.py`, `site/_template/origination.html`, `site/_template/operations*.html`, `site/_template/*.css` (new files only), `tools/check_site.py` (additive: allow `_template/` pages), `COORDINATION.md` § T21, `README.md` § T21 |
 | # | Task | Status | Owner session | File scope |
 |---|---|---|---|---|
+| T46 | **Verified Week-10 completion + live official re-verification and staleness closure** (session `arena/bca9fb72-x4`, claimed 2026-11-18): (a) re-verify every official claim the site makes against live NFL.com pages and publish a claim-by-claim verdict register with links; (b) close the biggest verified gap - the game log, standings, injury report and every derived model number stop at the Nov 12 Thursday game while the official Week 10 slate is now final, so transcribe the 13 remaining finals from the official Week 10 schedule page, rebuild the official standings, re-run every walk-forward model and re-publish the leaderboard, luck panel and Week 11 lines point-in-time; (c) add a dated, machine-checkable official-source snapshot register so the next drift is detected by the gate rather than by a reader; (d) publish a decision-readiness section on the landing page listing, per requirement, the gate that blocks it and the number that would clear it, sourced row by row. Data comes only from official NFL.com pages fetched this session; anything not confirmable stays blank and is flagged on the Flagged for Review register. | done (awaiting PR merge + deploy record below) | arena/bca9fb72-x4 | `data/games-2026.csv`, `data/standings-wk10-2026.csv` + new `data/standings-wk10-2026.csv` successor file, `research/verification/official-reverify-2026-11-18.{md,csv}` (new), `tools/reverify_2026_11_18.py` (new, additive), `suggestions.html`, `site/suggestions.html`, `executive-summary.html`, `site/executive-summary.html`, `questions.html`, `site/questions.html`, `flagged.html`, `site/flagged.html`, `tools/content.py` (new flag rows only), regenerated `site/**` + root mirror from the pipeline, `COORDINATION.md` (T46 row + session log only). **Not in scope (owned elsewhere):** `tools/capture_official.py` + `.github/workflows/capture.yml` (PR #62, arena/7db594d1-x4), `tools/settlement_recheck.py` + F-49 rows (PRs #69/#72, arena/2b9267f0-x4 and arena/c30d278a-x4), the matchup matrix (T45). |
 | T45 | **Interactive Offense vs. Defense Matchup Deficiency Matrix (1st-4th string)** (session `arena/9ffa88ad-x4`, claimed 2026-11-17; renumbered from this session's initial T41/T42 claim after `main` took T41-T44 - task-ID collision recorded in the session log): a new `site/matchup.html` joining the 13 official Week 11 fixtures to the club-published depth chains in `data/depth-wk11-2026.csv` and the official Week 10 report statuses - 117 rows (13 games x (4 paired groups x 2 directions + 1 QB row)), each showing both sides' chains depth 1 to the last string the club prints, a computed deficiency flag (listed depth-1 Out/Doubtful -> chart's next listed, or hole, or cascade), and three source links (official NFL.com game page + both clubs' charts). The full position pairing is published on the page as an analyst choice; Houston cells blank and flagged (F-24); statuses labelled as the Week 10 report because no Week 11 report exists (verified 2026-11-17); a chart-freshness caveat records two live-verified examples of clubs editing charts after the 2026-11-14 capture. Also fixes two pre-existing `main` defects found during line-by-line review: the shell footer printed raw DIRECTORY Python source on all pages (PR #57 overwrote the Evidence-status span), and the depth note cited F-18/F-21 instead of F-27/F-24. The initial T42 claim (landing readiness table + NAV for luck/readiness/teams) was dropped as superseded: the T-INT session delivered the equivalent on main in the desk layer. | in progress | arena/9ffa88ad-x4 | `tools/matchup_page.py` (new), `tools/pages.py` (NAV + DIRECTORY + one additive `main()` hook + footer restore + depth-note flag fix), `site/check.py` (PAGES list), `tools/render.js` (PAGES list), `site/app.js` (one additive filter), `site/matchup.html` + root mirror, regenerated `site/*.html` + root mirrors, `COORDINATION.md` (T45 row + session log only) |
 | T40 | Audit recurring scheduled official-capture workflow failures; publish only verified state, preserve unknown failure cause as unknown, and propose a reviewable recovery/alert path without changing capture data or another session’s files | done (audit complete; operational failure remains open and is requested for integration) | arena/bdf71572-x4 | `research/audits/capture-workflow-health-2026-11-17.md` (new); generated mirror `site/research/audits/capture-workflow-health-2026-11-17.md`; `COORDINATION.md` + generated mirror `site/COORDINATION.md` (T40 row + request + session log only) |
 | T42 | Correct and regression-test the origination settlement defect: grade spread outcomes against the closing spread, not the straight-up winner; verify the known CLE-at-NO case and pushes; keep the recorded result auditable | done (PR #63 merged; Pages deploy verified) | arena/2b9267f0-x4 | `tools/origination.py`, `tools/test_origination.py` (new), `tools/validate.py` (add one regression-test step), regenerated origination graded/signal/staking outputs, related pages and root mirrors, `COORDINATION.md` T42 row/session log only; `site/COORDINATION.md` additive mirror is generated by the required pipeline; T40 is reserved by `arena/bdf71572-x4`, and T41 settlement audit/flag registration is owned by `arena/c30d278a-x4` |
@@ -2050,3 +2051,54 @@ F-43 reserve-list reads disagree; F-44 Jackson/Huntley IR not on the November re
 - T46 final integration is claimed by open PR #79 (branch `arena/016cf314-x4`, a different session); this session does not step on that claim.
 - Merge and deploy record: PR [#80](https://github.com/karagemop466-tech/X4/pull/80) (branch `arena/ae8d656c-x4`) merged to `main` as commit `3a5856714a20e52e61b716f44c60c789b4dcea9c` at 2026-11-18T03:12:44Z. Desk validation run 341 = success; Publish NFL Decision Lab run 67 = success; pages build and deployment run 69 completed. GitHub Pages API: `status: built`, source `main /`, live at https://karagemop466-tech.github.io/X4/.
 
+## Session log — arena/bca9fb72-x4 (T46: verified Week-10 completion and 2026-11-18 live re-verification)
+
+### Why this task existed
+A line-by-line read of the official pages on 2026-11-18 found that `main` (at `5d5101d`) described the season
+as it stood after the **Nov 12 Thursday game**: `data/games-2026.csv` held 137 games and one Week 10 result,
+while the official Week 10 slate had **finished on 16 Nov**. Every standings-derived number on the site —
+power ratings, the walk-forward evaluation (105 games), the leaderboard, the removal-of-luck panel, the Week 11
+lines — was therefore a week old. That is the failure mode the brief calls out most often, so it was fixed
+rather than only flagged.
+
+### What changed (all machine-verified)
+| Area | Change |
+|---|---|
+| `data/games-2026.csv` | +13 Week 10 finals transcribed verbatim from https://www.nfl.com/schedules/2026/by-week/week-10 (150 games, Weeks 1–10 complete) |
+| `data/standings-wk10-2026.csv` | rebuilt **from the proved log**, not typed: the tool refuses to write unless the log reproduces the independently transcribed official standings for all 32 clubs |
+| `research/verification/standings-refresh-2026-11-18.csv` (new) | audit of all **130** standings cells that moved, before → after, with the official URL and retrieval date |
+| `research/verification/official-reverify-2026-11-18.md` (new, + site mirror) | claim-by-claim verdict register V1–V10 for every official statement the site makes, with the URL read for each |
+| `tools/reverify_2026_11_18.py` (new) | 486 deterministic checks: the 14 Week 10 finals vs the official page, and the whole log vs the official standings; `--write` regenerates the standings CSV and the audit |
+| `tools/build.py`, `tools/pages.py`, `tools/content.py`, `tools/market_store.py` | every published count now follows the data (150 games, 118 evaluated); `meta.as_of` says "Week 10 complete … last played 2026-11-16"; the division-leader sentence is built from the standings table |
+| `site/check.py` | the JS smoke test hard-coded 137 game rows, so **a completed official week failed the gate** (F-59); the expectation now reads `data/games-2026.csv` |
+| `site/index.html` (via `tools/desk_extension.py` + one hook in `tools/pages.py`) | the brief's **decision-readiness table on the landing page**: 10 requirements, the gate that blocks each, the number that would clear it, all read from the committed data at build time (7 blocked / 3 clear) |
+| `suggestions.html` (+ mirror) | new "Closing suggestions 2026-11-18" section, C1–C6, each row linked to its official source |
+| `executive-summary.html` (+ mirror) | season state = Week 10 complete, standings re-check sums, 150 final scores, 61-item register, "Verified 2026-11-18" |
+| `tools/content.py` | flags **F-58** (tree was a week stale — resolved), **F-59** (hard-coded row gate — resolved), **F-60** (Reliant/NRG and Arrowhead/GEHA venue naming — open, flagged not edited), **F-61** (Week 11 official report still unpublished on 18 Nov — limitation), plus a verification-log row |
+
+### Effect on the published conclusion (stated, not hidden)
+* Out-of-sample sample: **105 → 118** games. S1 spread MAE 9.26 → 9.48; improvement over the league constant
+  **8.31% → 9.49%**; Bonferroni interval **[-0.21, +1.82] → [-0.00, +1.94]**.
+* **Still 0 of 9 eligible.** The lower bound touches zero (-0.0001), so G4 still fails. The interval narrowed
+  rather than the claim being upgraded — the gate working, not a win.
+* The paired sign test now reads 78 of 118 (66.1%, exact one-sided p = 0.00030 vs the 0.00625 threshold), so the
+  two-statistics-disagree question (S-15) is unchanged and still the owner's call, published side by side.
+
+### Verification performed
+`python3 tools/reverify_2026_11_18.py` → 486 checks, 0 failures (independent two-source agreement: schedule page vs standings page).
+`python3 tools/verify.py` → 486 checks PASS, 150 games, 32 teams. `python3 tools/validate.py` → **VALIDATION PASSED**
+end to end (site gate 3,277 data rows all source-linked; root mirror byte-identical; determinism green; console gate
+PASS; desk checker PASS with 0 open rows). `python3 tools/check_site.py` → 26 desk pages, 1,046+6 rows, 0 rows without
+a link.
+
+### Sources (all official, read 2026-11-18 UTC through the page-fetch tool; the sandbox cannot open a socket to nfl.com)
+https://www.nfl.com/schedules/2026/by-week/week-10 · https://www.nfl.com/schedules/2026/by-week/week-11 ·
+https://www.nfl.com/standings/ · https://www.nfl.com/injuries/league/2026/reg10 ·
+https://www.nfl.com/injuries/league/2026/reg11 (still Week 10) · https://www.nfl.com/games/patriots-at-lions-2026-reg-10 ·
+https://www.nfl.com/games/colts-at-texans-2026-reg-11
+
+### Irregularities (published, none blocking)
+F-58 and F-59 are resolved by this session. F-60 (venue naming for Houston and Kansas City) and F-61 (no official
+Week 11 report yet) stay open and are on the Flagged-for-Review path with their sources. Not touched: the capture
+pipeline (`tools/capture_official.py`, `.github/workflows/capture.yml` — PR #62, arena/7db594d1-x4) still failing per
+F-47/F-48/F-56; that is why this record says **rendered-page reads, not hash-verified captures**.

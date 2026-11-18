@@ -71,7 +71,7 @@
   "type": "Result",
   "kind": "warn",
   "status": "limitation",
-  "detail": "Across 105 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval that still contains zero.",
+  "detail": "Across 118 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval whose lower bound still reaches zero (-0.0001 points), so it does not clear the gate.",
   "why": "This is the gate doing its job. A leaderboard that ranked strategies by point estimate alone would have declared a winner that the evidence does not support.",
   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
   "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
@@ -625,5 +625,49 @@
   "why": "This does not contradict the F-39 closure, which used the any-https criterion the checker has always published: every row now carries a link, and computed rows honestly cite the artifact that produced them instead of borrowing an official URL that does not support the value. What remains open is real: (1) an allowlisted official-domain gate as a separate, stricter check, (2) source-to-value attribution per row, and (3) a semantic check that a link supports the value beside it. Until those land, a row whose only link is a repository artifact must be read as the artifact's output, not as an official NFL fact.",
   "official_url": "https://www.nfl.com/standings/",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/site/research/verification/official-row-source-coverage-2026-11-17.csv"
+ },
+ {
+  "id": "F-58",
+  "item": "The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46)",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "resolved",
+  "detail": "Read live on 2026-11-18, the official Week 10 schedule page shows all 14 finals played (Nov 12-16), while the committed game log held only the Nov 12 Thursday game. The official standings had therefore moved for 28 of 32 clubs, and every number derived from them - the power ratings, the walk-forward evaluation (105 games), the leaderboard, the luck panel and the Week 11 lines - described a season that no longer existed. Cause: no scheduled ingest of completed results; the last refresh ran on 2026-11-14.",
+  "why": "This is the failure mode the brief calls out most often: a static snapshot presented as current. It was not a data-entry error but an evidence-freshness error, and it made a correct model look measurably worse than it was (S1's improvement read 8.31% on 105 games and reads 9.49% on 118). Cleared by: the 13 finals transcribed from the official page, the standings rebuilt from the proved log, 130 changed cells audited in research/verification/standings-refresh-2026-11-18.csv, and every derived number regenerated. Record: research/verification/official-reverify-2026-11-18.md.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
+ },
+ {
+  "id": "F-59",
+  "item": "The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46)",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "resolved",
+  "detail": "site/check.py's JavaScript smoke test asserted that the standings page renders exactly 137 game rows. When the 13 remaining Week 10 finals were added, the gate failed with 'expected 137 game rows in the DOM, found 150'. A gate that must be hand-edited to accept new official results punishes freshness and will be edited carelessly under time pressure.",
+  "why": "Structural, not cosmetic: the same pattern can hide a genuinely missing row behind a literal. The expectation now reads the row count from data/games-2026.csv and still proves the week filter renders every row. Cleared by: the rewrite plus a full tools/validate.py pass.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/site/check.py"
+ },
+ {
+  "id": "F-60",
+  "item": "Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "The committed venue set (data/venues-wk11-2026.csv) says RELIANT STADIUM for Colts at Texans and ARROWHEAD STADIUM for Cardinals at Chiefs. The official Week 11 schedule page names NRG Stadium and 'GEHA Field at Arrowhead Stadium' in its ticket and hotel links for the same two fixtures. Both are in-use names for the same buildings, so this is a naming question, not a venue error.",
+  "why": "The requirement is that the venue of every fixture be transcribed from the official game centre. That transcription has not been re-done for these two clubs, and the official game-centre page itself was not read for the stadium block this session. Not edited: an unverified rename is worse than a recorded difference. Clears when the Game Info block of both official game pages is read and the dataset is updated with that reading.",
+  "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"
+ },
+ {
+  "id": "F-61",
+  "item": "The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it.",
+  "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series.",
+  "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
  }
 ]

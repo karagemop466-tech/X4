@@ -390,15 +390,34 @@ def kpi_cards():
     ])
 
 
+def leader_line():
+    """The division leaders, read from the official standings table (no typed scores)."""
+    by_div = {}
+    for r in standings:
+        by_div.setdefault(r["division"], []).append(r)
+    parts = []
+    for div in sorted(by_div):
+        best = max(by_div[div], key=lambda r: (int(r["w"]) / max(1, int(r["w"]) + int(r["l"]) + int(r["t"])),
+                                               int(r["net_pts"])))
+        parts.append("%s %d&ndash;%d%s leads the %s"
+                     % (best["team_name"], int(best["w"]), int(best["l"]),
+                        "&ndash;%d" % int(best["t"]) if int(best["t"]) else "", div))
+    worst = min(standings, key=lambda r: (int(r["w"]), int(r["net_pts"])))
+    return "; ".join(parts) + "; %s are %d&ndash;%d" % (
+        worst["team_name"], int(worst["w"]), int(worst["l"]))
+
+
 def wk_facts():
     facts = [
         ("Week 11 schedule published",
          "NFL.com lists 13 games for Week 11 (Nov 19&ndash;23) and confirms the six teams on "
          "bye: Atlanta, Cleveland, Green Bay, LA Rams, New England and Seattle.",
          "https://www.nfl.com/schedules/2026/by-week/week-11"),
+        # T46: the standings line is read off the official-standings table, so it moves
+        # with the data instead of being re-typed each week.
         ("Official standings",
-         "Through the Nov 12 Thursday night game: Buffalo 7&ndash;1 leads the AFC East; San "
-         "Francisco 7&ndash;1 leads the NFC West; the Los Angeles Chargers are 0&ndash;8.",
+         "Through Week 10 (last game played 16 Nov 2026): %s."
+         % leader_line(),
          "https://www.nfl.com/standings/"),
         ("Official injury report",
          "The Week 10 report lists %s players across the 28 teams playing, including %s ruled "
@@ -469,7 +488,8 @@ def games_table():
     return wrap("games", table(
         [("Wk", 1), ("Away", 0), ("Away Pts", 1), ("Home", 0), ("Home Pts", 1),
          ("OT", 0), ("Source", 0)], rows,
-        "All %d completed games in the 2026 regular season through the Nov 12 game. Every "
+        "All %d completed games in the 2026 regular season, Weeks 1&ndash;10 complete " 
+        "(last game played 16 Nov 2026). Every "
         "score reproduces the official NFL.com standings totals for all 32 teams exactly "
         "(verified by tools/verify.py)." % len(games),
         row_attrs=lambda i: ' data-week="%d"' % games[i]["week"]))
@@ -990,7 +1010,9 @@ def params_table():
 
 def verification_table():
     rows = []
-    for r in verification:
+    # T46: `verification` is the payload's copy and now also carries the flag register
+    # (both live under the payload key list); the log rows are the ones with a "check".
+    for r in [x for x in verification if "check" in x]:
         rows.append([esc(r["check"]),
                      badge(r["result"], "ok" if r["result"] == "pass"
                            else ("warn" if r["result"] == "flag" else "no")),
@@ -1656,9 +1678,9 @@ def corr_with_n_rows():
               "%d model-error correlations are computed pairwise over the same %d evaluated "
               "games and no interval is published for them, because the nine strategies are "
               "not independent of each other or of the benchmark they are measured against. "
-              "A coefficient on eight games and a coefficient on 105 are not the same "
+              "A coefficient on eight games and a coefficient on %d are not the same "
               "evidence, which is why n is a column here and not a footnote."
-              % (n_cross, stats["integrity"]["games_n"], 32, len(pairs), n_eval))), len(rows)
+              % (n_cross, stats["integrity"]["games_n"], 32, len(pairs), n_eval, n_eval))), len(rows)
 
 
 
@@ -1762,14 +1784,14 @@ PAGES.append(("index.html", "NFL Decision Desk",
 <div class="hero">
   <span class="eyebrow light">Executive summary</span>
   <h2>Official NFL facts are linked where verified. Model lines are labelled as estimates. Evidence gaps are visible.</h2>
-  <p>This desk uses official NFL sources for facts that have been verified. Every rendered data row on the desk pages now carries an HTTPS source link — the 2026-11-17 checker run tests <b>1,045 rows on 22 desk pages and reports 0 rows without a link</b>, which closes flag F-39 (fixed line by line, not by weakening the gate). Two honest limits remain: the checker verifies link presence, not that each link supports the exact value beside it, and rows produced by this project's own computation cite the committed artifact that produced them rather than an official page — treat those as artifacts, not NFL facts. Unsupported values remain blank and flagged on the <a href="flags.html">Flagged for review</a> page. Separately, the reconstructed game log was checked against official standings: %(ngames)d games, and every team's wins, losses, ties, points for, points allowed and winning percentage match. Market prices are non-official captures, not NFL facts.</p>
+  <p>This desk uses official NFL sources for facts that have been verified. Every rendered data row on the desk pages now carries an HTTPS source link — the 2026-11-18 checker run tests <b>every row on all 26 desk pages and reports 0 rows without a link</b>, which closes flag F-39 (fixed line by line, not by weakening the gate). Two honest limits remain: the checker verifies link presence, not that each link supports the exact value beside it, and rows produced by this project's own computation cite the committed artifact that produced them rather than an official page — treat those as artifacts, not NFL facts. Unsupported values remain blank and flagged on the <a href="flags.html">Flagged for review</a> page. Separately, the reconstructed game log was checked against official standings: %(ngames)d games, and every team's wins, losses, ties, points for, points allowed and winning percentage match. Market prices are non-official captures, not NFL facts.</p>
   <p>What the work actually shows: the model has signal over a league-average benchmark, but the improvement is <b>not yet statistically separable from luck</b>, so the leaderboard marks every strategy ineligible for reward. That is the validation gate working, not a gap in the analysis.</p>
 </div>
 
 <div class="grid g4">%(kpis)s</div>
 
 <section style="margin-top:26px">
-  <div class="section-head"><div><span class="eyebrow">What the official sources say right now</span><h2>Verified position</h2></div><span class="tag acc">NFL.com &middot; 14 Nov 2026</span></div>
+  <div class="section-head"><div><span class="eyebrow">What the official sources say right now</span><h2>Verified position</h2></div><span class="tag acc">NFL.com &middot; re-read 18 Nov 2026</span></div>
   <div class="grid g4">%(facts)s</div>
 </section>
 
@@ -1886,13 +1908,13 @@ PAGES.append(("results.html", "Results feed",
               "Verified results feed: every completed 2026 game tied to its official NFL.com "
               "result, the feed that makes backtests computable.",
               """
-<div class="section-head"><div><span class="eyebrow">Verified results feed</span><h2>Completed game results</h2><p class="muted">Every one of the 137 completed regular-season games carries its official score and a link to the official NFL.com game page that confirms it. The scores were rebuilt from a reconstructed game log and then proved against the official NFL.com standings by tools/verify.py (460 checks, all passed).</p></div><span class="tag acc">Proved against NFL.com standings</span></div>
+<div class="section-head"><div><span class="eyebrow">Verified results feed</span><h2>Completed game results</h2><p class="muted">Every one of the %(ng)d completed regular-season games carries its official score and a link to the official NFL.com game page that confirms it. The scores were rebuilt from a reconstructed game log and then proved against the official NFL.com standings by tools/verify.py (486 checks, all passed, Weeks 1&ndash;10 complete as of 18 November 2026).</p></div><span class="tag acc">Proved against NFL.com standings</span></div>
 %(results)s
 
 <section style="margin-top:26px">
   <div class="note"><b>ROI.</b> Return on investment needs a settled result (available here) <i>and</i> a price at which the bet was taken. With no licensed odds feed, every ROI cell is blank (Flag F-20) and will stay blank until a feed is authorised. That is also what keeps a lucky staking run from being mistaken for an edge.</div>
 </section>
-""" % dict(results=results_feed_table()), "results.html"))
+""" % dict(results=results_feed_table(), ng=len(games)), "results.html"))
 
 # --- markets: the price-snapshot store, fair vs market ---
 PAGES.append(("markets.html", "Price store",
@@ -2000,7 +2022,7 @@ PAGES.append(("gates.html", "Gates & demotion",
 </section>
 
 <section style="margin-top:26px">
-  <div class="section-head"><div><span class="eyebrow">04 &middot; Correlations</span><h2>Every coefficient with its n</h2><p class="muted">A correlation without a sample size is a rumour. The cross-game coefficients rest on a few dozen games; the model-error correlations rest on 105 evaluated games. Both numbers are published, and the interval is published only where it can honestly be computed.</p></div><span class="tag acc">%(ncorr)d values</span></div>
+  <div class="section-head"><div><span class="eyebrow">04 &middot; Correlations</span><h2>Every coefficient with its n</h2><p class="muted">A correlation without a sample size is a rumour. The cross-game coefficients rest on a few dozen games; the model-error correlations rest on %(ne)d evaluated games. Both numbers are published, and the interval is published only where it can honestly be computed.</p></div><span class="tag acc">%(ncorr)d values</span></div>
   %(corr)s
 </section>
 """ % dict(n=len(market_store.leaderboard_split()),
@@ -2012,7 +2034,8 @@ PAGES.append(("gates.html", "Gates & demotion",
            chains=replacement_chain_table(),
            nunc=len(market_store.unconfirmed_claims()),
            unconfirmed=unconfirmed_claims_table(),
-           ncorr=corr_with_n_rows()[1], corr=corr_with_n_rows()[0]),
+           ncorr=corr_with_n_rows()[1], corr=corr_with_n_rows()[0],
+           ne=P["correlation_n"]),
           "gates.html"))
 
 
@@ -2215,7 +2238,7 @@ PAGES.append(("methodology.html", "Methodology",
   <div class="section-head"><div><span class="eyebrow">Frozen policies</span><h2>Two decisions fixed before any backtest is published</h2><p class="muted">Both policies below were frozen on 2026-11-17, before any backtest on the reconstructed game log has been published. A policy frozen after results are seen is not a policy; these two are registered here, in the build that publishes the numbers they govern.</p></div><span class="tag acc">Frozen 2026-11-17</span></div>
   <div class="table-wrap"><table class="data"><thead><tr><th>Policy</th><th>Decision</th><th>What it fixes</th><th>Source</th></tr></thead><tbody>
     <tr><td><b>Price-data policy</b></td><td>Every captured price is third-party (DraftKings as syndicated by the public ESPN odds endpoint), labelled T3, and never presented as an official NFL line. Prices may feed exploratory residual and difference analysis; they may never back a CLV, execution or ROI claim. CLV and any staking claim stay blocked until a licensed, timestamped operator feed with a documented backfill and settlement policy is selected. A price row without a direct source URL and a retrieval time is not publishable. Official NFL pages verify game identity, schedule and results only &mdash; the league publishes no betting lines.</td><td>Which source may support a market number; what a market number may be used for; what stays blocked</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official schedule (game identity)</a> &middot; <a href="https://www.espn.com/nfl/schedule/_/week/11/year/2026/seasontype/2" target="_blank" rel="noreferrer">third-party price surface (T3)</a></td></tr>
-    <tr><td><b>Data split</b></td><td>On the reconstructed 137-game official log: <b>train</b> = Weeks 1&ndash;6; <b>validation</b> (rule and hyperparameter selection) = Weeks 7&ndash;9; <b>final holdout</b> = Week 10 onward, including the registered Week 11 forward window, never opened to selection. The published walk-forward expansion on Weeks 3&ndash;10 stands as recorded at registration. Any new backtest on this corpus must be committed (the commit hash is the registration) before its holdout opens. When a second season of official results is ingested, the same week-order proportions apply and the final holdout remains whatever has not yet been opened.</td><td>Which games may select a rule; which games may only grade one</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official 2026 schedule and results</a> &middot; <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">Official standings (score reconciliation)</a></td></tr>
+    <tr><td><b>Data split</b></td><td>On the reconstructed %(ng)d-game official log: <b>train</b> = Weeks 1&ndash;6; <b>validation</b> (rule and hyperparameter selection) = Weeks 7&ndash;9; <b>final holdout</b> = Week 10 onward, including the registered Week 11 forward window, never opened to selection. The published walk-forward expansion on Weeks 3&ndash;10 stands as recorded at registration. Any new backtest on this corpus must be committed (the commit hash is the registration) before its holdout opens. When a second season of official results is ingested, the same week-order proportions apply and the final holdout remains whatever has not yet been opened.</td><td>Which games may select a rule; which games may only grade one</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official 2026 schedule and results</a> &middot; <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">Official standings (score reconciliation)</a></td></tr>
   </tbody></table></div>
 </section>
 
@@ -2235,7 +2258,7 @@ PAGES.append(("methodology.html", "Methodology",
   <span class="mono">python3 tools/validate.py</span> &nbsp;- runs the full publication gate</span>
   <p style="margin-top:9px">The build is deterministic: the same inputs produce the same tables and the same confidence intervals on every run, and every table is written into the HTML so no published value depends on JavaScript.</p></div>
 </section>
-""" % dict(params=params_table(), verify=verification_table()), "methodology.html"))
+""" % dict(params=params_table(), verify=verification_table(), ng=len(games)), "methodology.html"))
 
 
 
@@ -2364,6 +2387,16 @@ def main():
     # T38 extension pages (tools/desk_extension.py): luck, readiness, per-team view
     import desk_extension
     written += desk_extension.write_pages(SITE, shell)
+    # T46 landing decision-readiness table (tools/desk_extension.py helper)
+    import desk_extension as _dx
+    with open(os.path.join(SITE, "index.html"), encoding="utf-8") as fh:
+        _h = fh.read()
+    _start = _h.find('<div id="readiness-preview">')
+    _end = _h.find('</section>', _start)
+    if _start > 0 and _end > 0:
+        _h = _h[:_start] + _dx.landing_readiness_rows() + _h[_end:]
+        with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as fh:
+            fh.write(_h)
     # T45 matchup deficiency matrix (tools/matchup_page.py)
     import matchup_page
     written += matchup_page.write_pages(SITE, shell)

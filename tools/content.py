@@ -10,7 +10,7 @@ Nothing here is a placeholder for data that exists.
 # ------------------------------------------------------------------ information requirements
 QUESTIONS = [
     dict(q="What decision are we actually trying to make?",
-         know="The repository now holds a verified game log (137 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
+         know="The repository now holds a verified game log of all 150 completed 2026 games through the end of Week 10, the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
          missing="The market definition (point spread, total, player prop, or a proprietary rating), the decision horizon (single game, week, or season) and whether the output is informational analytics, a paper-trading competition, or a wagering product.",
          blocks="Reward design, data budget, legal scope, and which of the strategies on the Strategy Lab page is even relevant.",
          close="Write a one-page charter naming the market, the horizon, the decision owner and what 'success' means, then re-score every suggestion against it.",
@@ -38,7 +38,7 @@ QUESTIONS = [
          url="https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season"),
 
     dict(q="How many games are enough to call a strategy skilful rather than lucky?",
-         know="105 out-of-sample games are available (Weeks 3-10). The best strategy improves point-spread MAE over the league-constant benchmark, but its Bonferroni-adjusted bootstrap interval still contains zero, so no strategy passes the significance gate.",
+         know="118 out-of-sample games are available (Weeks 3-10 complete). The best strategy improves point-spread MAE over the league-constant benchmark by 9.5%, but its Bonferroni-adjusted bootstrap interval still contains zero, so no strategy passes the significance gate.",
          missing="More seasons of official history, and a pre-registered minimum sample size for the reward contest.",
          blocks="Awarding rewards, declaring a winner, or claiming an edge.",
          close="Pre-register the sample size and the metric now, then keep scoring prospective predictions so the evidence accrues on a published timeline.",
@@ -167,7 +167,7 @@ SUGGESTIONS = [
          decision="Whether the leaderboard is frozen for a season or updated continuously."),
 
     dict(priority="P0", priority_class="p0", area="Validation", title="S-15 - Decide whether the significance gate measures mean error or paired win rate",
-         body="The same 105 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.21, +1.82] points and contains zero, so every strategy fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 68 of 105 games (64.8%), exact binomial p = 0.0016, which would clear the Bonferroni threshold of 0.00625. Both statistics are computed from the same predictions and both are correct.",
+         body="The same 118 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.00, +1.94] points: its upper bound has moved clear of zero after Week 10 completed, but its lower bound still touches it, so every strategy still fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 78 of 118 games (66.1%), exact one-sided binomial p = 0.00030, which would clear the Bonferroni threshold of 0.00625 (0.05 / 8 strategies). Both statistics are computed from the same predictions and both are correct.",
          why="The gate currently asks 'is the average improvement distinguishable from zero'. The blowouts dominate that average, and no team-rate model can price a blowout. The sign test asks 'how often is this model better head-to-head', which is the question a staker and a reviewer both actually care about. Choosing one over the other changes whether the leaderboard can ever promote anything - and choosing it now, after seeing that one answer passes, is exactly what a pre-registered gate is supposed to prevent unless the choice is made in the open and recorded before the next evaluation window.",
          verify="Both statistics are published together on gates.html; the gate definition is committed before the next evaluation window; after 50 prospective locked games the two agree or the divergence is explained.",
          effort="Low", impact="Very high",
@@ -249,7 +249,7 @@ FLAGS = [
          url="https://www.nfl.com/injuries/"),
 
     dict(id="F-07", item="No strategy has passed all seven validation gates", type="Result", kind="warn", status="limitation",
-         detail="Across 105 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval that still contains zero.",
+         detail="Across 118 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval whose lower bound still reaches zero (-0.0001 points), so it does not clear the gate.",
          why="This is the gate doing its job. A leaderboard that ranked strategies by point estimate alone would have declared a winner that the evidence does not support.",
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://www.nfl.com/schedules/2026/by-week/week-10"),
@@ -698,13 +698,51 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "whose only link is a repository artifact must be read as the artifact's output, not as an official NFL fact."),
          official_url="https://www.nfl.com/standings/",
          url="https://github.com/karagemop466-tech/X4/blob/main/site/research/verification/official-row-source-coverage-2026-11-17.csv"),
+
+    dict(id="F-58", item="The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46)", type="Irregularity", kind="warn", status="resolved",
+         detail=("Read live on 2026-11-18, the official Week 10 schedule page shows all 14 finals played (Nov 12-16), while the committed game log held only the Nov 12 Thursday game. "
+                 "The official standings had therefore moved for 28 of 32 clubs, and every number derived from them - the power ratings, the walk-forward evaluation (105 games), the leaderboard, "
+                 "the luck panel and the Week 11 lines - described a season that no longer existed. Cause: no scheduled ingest of completed results; the last refresh ran on 2026-11-14."),
+         why=("This is the failure mode the brief calls out most often: a static snapshot presented as current. It was not a data-entry error but an evidence-freshness error, and it made a correct model look "
+              "measurably worse than it was (S1's improvement read 8.31% on 105 games and reads 9.49% on 118). Cleared by: the 13 finals transcribed from the official page, the standings rebuilt from the proved log, "
+              "130 changed cells audited in research/verification/standings-refresh-2026-11-18.csv, and every derived number regenerated. Record: research/verification/official-reverify-2026-11-18.md."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"),
+
+    dict(id="F-59", item="The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46)", type="Irregularity", kind="warn", status="resolved",
+         detail=("site/check.py's JavaScript smoke test asserted that the standings page renders exactly 137 game rows. When the 13 remaining Week 10 finals were added, the gate failed with 'expected 137 game rows in the DOM, found 150'. "
+                 "A gate that must be hand-edited to accept new official results punishes freshness and will be edited carelessly under time pressure."),
+         why=("Structural, not cosmetic: the same pattern can hide a genuinely missing row behind a literal. The expectation now reads the row count from data/games-2026.csv and still proves the week filter renders every row. "
+              "Cleared by: the rewrite plus a full tools/validate.py pass."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/site/check.py"),
+
+    dict(id="F-60", item="Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)", type="Irregularity", kind="warn", status="irregularity",
+         detail=("The committed venue set (data/venues-wk11-2026.csv) says RELIANT STADIUM for Colts at Texans and ARROWHEAD STADIUM for Cardinals at Chiefs. The official Week 11 schedule page names NRG Stadium and "
+                 "'GEHA Field at Arrowhead Stadium' in its ticket and hotel links for the same two fixtures. Both are in-use names for the same buildings, so this is a naming question, not a venue error."),
+         why=("The requirement is that the venue of every fixture be transcribed from the official game centre. That transcription has not been re-done for these two clubs, and the official game-centre page itself "
+              "was not read for the stadium block this session. Not edited: an unverified rename is worse than a recorded difference. Clears when the Game Info block of both official game pages is read and the "
+              "dataset is updated with that reading."),
+         official_url="https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"),
+
+    dict(id="F-61", item="The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)", type="Limitation", kind="warn", status="limitation",
+         detail=("Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. "
+                 "A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it."),
+         why=("The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository "
+              "holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series."),
+         official_url="https://www.nfl.com/injuries/league/2026/reg11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"),
 ]
 
 # ------------------------------------------------------------------ verification log
 VERIFICATION = [
     dict(check="Reconstructed game log matches the official NFL.com standings", result="pass",
          url="https://www.nfl.com/standings/",
-         how="tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."),
+         how="tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 150 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."),
+    dict(check="Week 10 completed slate matches the official Week 10 schedule page (T46, 2026-11-18)", result="pass",
+         url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         how="All 14 Week 10 finals were read off the official page and compared with the game log; 13 were missing and were transcribed. tools/reverify_2026_11_18.py then required the completed log to reproduce the independently transcribed official standings for all 32 clubs before writing the refreshed file: 486 checks, 0 failures. The 130 standings cells that moved are audited in research/verification/standings-refresh-2026-11-18.csv."),
     dict(check="Every game row carries a working official NFL.com game URL", result="pass",
          url="https://www.nfl.com/schedules/2026/",
          how="Each row's URL is checked against the official /games/<away>-at-<home>-<season>-reg-<week> pattern, and the Week 5 and Week 10 links were opened directly and confirmed to show the same scores."),
@@ -735,4 +773,39 @@ VERIFICATION = [
     dict(check="Weeks 12-18 of the schedule", result="flag",
          url="https://www.nfl.com/schedules/2026/by-week/week-11",
          how="NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."),
+
+    dict(id="F-58", item="The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46)", type="Irregularity", kind="warn", status="resolved",
+         detail=("Read live on 2026-11-18, the official Week 10 schedule page shows all 14 finals played (Nov 12-16), while the committed game log held only the Nov 12 Thursday game. "
+                 "The official standings had therefore moved for 28 of 32 clubs, and every number derived from them - the power ratings, the walk-forward evaluation (105 games), the leaderboard, "
+                 "the luck panel and the Week 11 lines - described a season that no longer existed. Cause: no scheduled ingest of completed results; the last refresh ran on 2026-11-14."),
+         why=("This is the failure mode the brief calls out most often: a static snapshot presented as current. It was not a data-entry error but an evidence-freshness error, and it made a correct model look "
+              "measurably worse than it was (S1's improvement read 8.31% on 105 games and reads 9.49% on 118). Cleared by: the 13 finals transcribed from the official page, the standings rebuilt from the proved log, "
+              "130 changed cells audited in research/verification/standings-refresh-2026-11-18.csv, and every derived number regenerated. Record: research/verification/official-reverify-2026-11-18.md."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"),
+
+    dict(id="F-59", item="The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46)", type="Irregularity", kind="warn", status="resolved",
+         detail=("site/check.py's JavaScript smoke test asserted that the standings page renders exactly 137 game rows. When the 13 remaining Week 10 finals were added, the gate failed with 'expected 137 game rows in the DOM, found 150'. "
+                 "A gate that must be hand-edited to accept new official results punishes freshness and will be edited carelessly under time pressure."),
+         why=("Structural, not cosmetic: the same pattern can hide a genuinely missing row behind a literal. The expectation now reads the row count from data/games-2026.csv and still proves the week filter renders every row. "
+              "Cleared by: the rewrite plus a full tools/validate.py pass."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/site/check.py"),
+
+    dict(id="F-60", item="Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)", type="Irregularity", kind="warn", status="irregularity",
+         detail=("The committed venue set (data/venues-wk11-2026.csv) says RELIANT STADIUM for Colts at Texans and ARROWHEAD STADIUM for Cardinals at Chiefs. The official Week 11 schedule page names NRG Stadium and "
+                 "'GEHA Field at Arrowhead Stadium' in its ticket and hotel links for the same two fixtures. Both are in-use names for the same buildings, so this is a naming question, not a venue error."),
+         why=("The requirement is that the venue of every fixture be transcribed from the official game centre. That transcription has not been re-done for these two clubs, and the official game-centre page itself "
+              "was not read for the stadium block this session. Not edited: an unverified rename is worse than a recorded difference. Clears when the Game Info block of both official game pages is read and the "
+              "dataset is updated with that reading."),
+         official_url="https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"),
+
+    dict(id="F-61", item="The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)", type="Limitation", kind="warn", status="limitation",
+         detail=("Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. "
+                 "A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it."),
+         why=("The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository "
+              "holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series."),
+         official_url="https://www.nfl.com/injuries/league/2026/reg11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"),
 ]

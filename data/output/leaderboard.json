@@ -9,19 +9,19 @@
    "decay": "none"
   },
   "metrics": {
-   "n": 105,
-   "spread_mae": 9.259948771,
-   "spread_rmse": 12.49792205,
-   "total_mae": 11.447769698,
-   "total_rmse": 13.908931891,
-   "direction_accuracy": 0.657142857
+   "n": 118,
+   "spread_mae": 9.484389411,
+   "spread_rmse": 12.684684095,
+   "total_mae": 11.226630634,
+   "total_rmse": 13.830380903,
+   "direction_accuracy": 0.669491525
   },
-  "improvement_abs": 0.839600792,
-  "improvement_pct": 0.083132499,
-  "ci_low": -0.210639064,
-  "ci_high": 1.82207858,
-  "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.075960662,
+  "improvement_abs": 0.994023336,
+  "improvement_pct": 0.094863923,
+  "ci_low": -7.044e-05,
+  "ci_high": 1.940098656,
+  "weekly_positive_share": 0.75,
+  "calibration_max_gap": 0.071305083,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -33,19 +33,19 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.211, 1.822]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.000, 1.940]."
    },
    "G5 stability": {
     "pass_": true,
-    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+    "note": "Improvement positive in 75% of evaluated weeks (minimum 60%)."
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.076 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.071 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": true,
@@ -54,9 +54,9 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 51.5,
+  "reward": 59.0,
   "signal": {
-   "score": 0.0831,
+   "score": 0.0949,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
   },
   "staking": {
@@ -74,19 +74,19 @@
    "shrinkage_k": 0
   },
   "metrics": {
-   "n": 105,
-   "spread_mae": 9.294807777,
-   "spread_rmse": 12.50620577,
-   "total_mae": 11.568361796,
-   "total_rmse": 14.034701769,
-   "direction_accuracy": 0.647619048
+   "n": 118,
+   "spread_mae": 9.592248916,
+   "spread_rmse": 12.809843185,
+   "total_mae": 11.340737912,
+   "total_rmse": 13.949330476,
+   "direction_accuracy": 0.652542373
   },
-  "improvement_abs": 0.804741786,
-  "improvement_pct": 0.079680958,
-  "ci_low": -0.234555826,
-  "ci_high": 1.824891907,
-  "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.065269752,
+  "improvement_abs": 0.886163831,
+  "improvement_pct": 0.084570426,
+  "ci_low": -0.165198941,
+  "ci_high": 1.901979635,
+  "weekly_positive_share": 0.75,
+  "calibration_max_gap": 0.062263399,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -98,19 +98,19 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.235, 1.825]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.165, 1.902]."
    },
    "G5 stability": {
     "pass_": true,
-    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+    "note": "Improvement positive in 75% of evaluated weeks (minimum 60%)."
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.065 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.062 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": true,
@@ -119,9 +119,9 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 50.7,
+  "reward": 54.6,
   "signal": {
-   "score": 0.0797,
+   "score": 0.0846,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
   },
   "staking": {
@@ -139,19 +139,19 @@
    "decay": 0.65
   },
   "metrics": {
-   "n": 105,
-   "spread_mae": 9.389789344,
-   "spread_rmse": 12.595566768,
-   "total_mae": 11.215598523,
-   "total_rmse": 13.669622225,
-   "direction_accuracy": 0.628571429
+   "n": 118,
+   "spread_mae": 9.571255811,
+   "spread_rmse": 12.75408285,
+   "total_mae": 10.820517936,
+   "total_rmse": 13.446862272,
+   "direction_accuracy": 0.63559322
   },
-  "improvement_abs": 0.709760219,
-  "improvement_pct": 0.070276423,
-  "ci_low": -0.518581297,
-  "ci_high": 1.892842147,
-  "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.073525498,
+  "improvement_abs": 0.907156936,
+  "improvement_pct": 0.086573888,
+  "ci_low": -0.248444945,
+  "ci_high": 2.069250928,
+  "weekly_positive_share": 0.75,
+  "calibration_max_gap": 0.089079818,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -163,19 +163,19 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.519, 1.893]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.248, 2.069]."
    },
    "G5 stability": {
     "pass_": true,
-    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+    "note": "Improvement positive in 75% of evaluated weeks (minimum 60%)."
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.074 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.089 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": true,
@@ -184,9 +184,9 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 45.3,
+  "reward": 53.4,
   "signal": {
-   "score": 0.0703,
+   "score": 0.0866,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
   },
   "staking": {
@@ -204,19 +204,19 @@
    "decay": "none (median)"
   },
   "metrics": {
-   "n": 105,
-   "spread_mae": 9.494123257,
-   "spread_rmse": 12.687891002,
-   "total_mae": 11.170168337,
-   "total_rmse": 13.597730095,
-   "direction_accuracy": 0.60952381
+   "n": 118,
+   "spread_mae": 9.786601026,
+   "spread_rmse": 12.979964679,
+   "total_mae": 10.929612434,
+   "total_rmse": 13.540912451,
+   "direction_accuracy": 0.610169492
   },
-  "improvement_abs": 0.605426306,
-  "improvement_pct": 0.059945872,
-  "ci_low": -0.213092878,
-  "ci_high": 1.447944422,
-  "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.058573667,
+  "improvement_abs": 0.691811721,
+  "improvement_pct": 0.066022568,
+  "ci_low": -0.064487915,
+  "ci_high": 1.447851823,
+  "weekly_positive_share": 0.75,
+  "calibration_max_gap": 0.064711458,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -228,19 +228,19 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.213, 1.448]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.064, 1.448]."
    },
    "G5 stability": {
     "pass_": true,
-    "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+    "note": "Improvement positive in 75% of evaluated weeks (minimum 60%)."
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.059 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.065 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": true,
@@ -249,9 +249,9 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 41.3,
+  "reward": 45.1,
   "signal": {
-   "score": 0.0599,
+   "score": 0.066,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
   },
   "staking": {
@@ -269,19 +269,19 @@
    "decay": 0.65
   },
   "metrics": {
-   "n": 105,
-   "spread_mae": 9.765430806,
-   "spread_rmse": 12.819538986,
-   "total_mae": 11.033104868,
-   "total_rmse": 13.523094767,
-   "direction_accuracy": 0.571428571
+   "n": 118,
+   "spread_mae": 10.102871531,
+   "spread_rmse": 13.149910272,
+   "total_mae": 10.715604148,
+   "total_rmse": 13.412869993,
+   "direction_accuracy": 0.584745763
   },
-  "improvement_abs": 0.334118757,
-  "improvement_pct": 0.03308254,
-  "ci_low": -0.448981597,
-  "ci_high": 1.099072331,
+  "improvement_abs": 0.375541216,
+  "improvement_pct": 0.035839514,
+  "ci_low": -0.299026256,
+  "ci_high": 1.0649872,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.064834291,
+  "calibration_max_gap": 0.061293502,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -293,11 +293,11 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.449, 1.099]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.299, 1.065]."
    },
    "G5 stability": {
     "pass_": true,
@@ -305,7 +305,7 @@
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.065 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.061 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": true,
@@ -314,9 +314,9 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 27.4,
+  "reward": 29.1,
   "signal": {
-   "score": 0.0331,
+   "score": 0.0358,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
   },
   "staking": {
@@ -334,19 +334,19 @@
    "decay": 0.8
   },
   "metrics": {
-   "n": 105,
-   "spread_mae": 9.833476478,
-   "spread_rmse": 12.859686383,
-   "total_mae": 11.063830058,
-   "total_rmse": 13.597454362,
-   "direction_accuracy": 0.571428571
+   "n": 118,
+   "spread_mae": 10.172035763,
+   "spread_rmse": 13.201437836,
+   "total_mae": 10.775720375,
+   "total_rmse": 13.510611016,
+   "direction_accuracy": 0.56779661
   },
-  "improvement_abs": 0.266073085,
-  "improvement_pct": 0.026345045,
-  "ci_low": -0.480984396,
-  "ci_high": 0.970525185,
+  "improvement_abs": 0.306376984,
+  "improvement_pct": 0.029238873,
+  "ci_low": -0.344718565,
+  "ci_high": 0.953704635,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.072662229,
+  "calibration_max_gap": 0.069925483,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -358,11 +358,11 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.481, 0.971]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.345, 0.954]."
    },
    "G5 stability": {
     "pass_": true,
@@ -370,7 +370,7 @@
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.073 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.070 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": true,
@@ -379,9 +379,9 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 23.4,
+  "reward": 25.0,
   "signal": {
-   "score": 0.0263,
+   "score": 0.0292,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
   },
   "staking": {
@@ -398,19 +398,19 @@
    "blend": "S3/S6 50-50"
   },
   "metrics": {
-   "n": 105,
-   "spread_mae": 9.913816816,
-   "spread_rmse": 12.952528045,
-   "total_mae": 11.029370467,
-   "total_rmse": 13.548594344,
-   "direction_accuracy": 0.552380952
+   "n": 118,
+   "spread_mae": 10.266483837,
+   "spread_rmse": 13.309700364,
+   "total_mae": 10.713866866,
+   "total_rmse": 13.449701682,
+   "direction_accuracy": 0.550847458
   },
-  "improvement_abs": 0.185732747,
-  "improvement_pct": 0.018390201,
-  "ci_low": -0.573191231,
-  "ci_high": 0.927754048,
+  "improvement_abs": 0.21192891,
+  "improvement_pct": 0.020225287,
+  "ci_low": -0.451020184,
+  "ci_high": 0.869679156,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.075842247,
+  "calibration_max_gap": 0.070873473,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -422,11 +422,11 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.573, 0.928]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.451, 0.870]."
    },
    "G5 stability": {
     "pass_": true,
@@ -434,7 +434,7 @@
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.076 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.071 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": true,
@@ -443,9 +443,9 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 19.1,
+  "reward": 20.5,
   "signal": {
-   "score": 0.0184,
+   "score": 0.0202,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
   },
   "staking": {
@@ -463,19 +463,19 @@
    "decay": 0.45
   },
   "metrics": {
-   "n": 105,
-   "spread_mae": 10.075512224,
-   "spread_rmse": 13.101649878,
-   "total_mae": 11.036476311,
-   "total_rmse": 13.588435817,
-   "direction_accuracy": 0.495238095
+   "n": 118,
+   "spread_mae": 10.441939253,
+   "spread_rmse": 13.485723441,
+   "total_mae": 10.721775564,
+   "total_rmse": 13.500576592,
+   "direction_accuracy": 0.491525424
   },
-  "improvement_abs": 0.024037339,
-  "improvement_pct": 0.002380041,
-  "ci_low": -0.750545355,
-  "ci_high": 0.758905909,
+  "improvement_abs": 0.036473494,
+  "improvement_pct": 0.003480822,
+  "ci_low": -0.633805916,
+  "ci_high": 0.686885679,
   "weekly_positive_share": 0.625,
-  "calibration_max_gap": 0.06941482,
+  "calibration_max_gap": 0.070705469,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -487,11 +487,11 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.751, 0.759]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.634, 0.687]."
    },
    "G5 stability": {
     "pass_": true,
@@ -499,7 +499,7 @@
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.069 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.071 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": true,
@@ -508,9 +508,9 @@
   },
   "gates_passed": 6,
   "eligible": false,
-  "reward": 11.7,
+  "reward": 12.1,
   "signal": {
-   "score": 0.0024,
+   "score": 0.0035,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
   },
   "staking": {
@@ -525,19 +525,19 @@
   "family": "Benchmark",
   "params": {},
   "metrics": {
-   "n": 105,
-   "spread_mae": 10.099549563,
-   "spread_rmse": 12.779069477,
-   "total_mae": 11.121755669,
-   "total_rmse": 13.429794344,
-   "direction_accuracy": 0.428571429
+   "n": 118,
+   "spread_mae": 10.478412747,
+   "spread_rmse": 13.219459447,
+   "total_mae": 10.861956066,
+   "total_rmse": 13.428026843,
+   "direction_accuracy": 0.457627119
   },
   "improvement_abs": 0.0,
   "improvement_pct": 0.0,
   "ci_low": 0.0,
   "ci_high": 0.0,
   "weekly_positive_share": 0.0,
-  "calibration_max_gap": 0.052665238,
+  "calibration_max_gap": 0.057401412,
   "gates": {
    "G1 data integrity": {
     "pass_": true,
@@ -549,7 +549,7 @@
    },
    "G3 minimum sample": {
     "pass_": true,
-    "note": "105 evaluated games (minimum 40)."
+    "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
     "pass_": false,
@@ -561,7 +561,7 @@
    },
    "G6 calibration": {
     "pass_": true,
-    "note": "Largest gap between predicted and observed cover rate: 0.053 (tolerance 0.12)."
+    "note": "Largest gap between predicted and observed cover rate: 0.057 (tolerance 0.12)."
    },
    "G7 not the benchmark": {
     "pass_": false,
@@ -570,7 +570,7 @@
   },
   "gates_passed": 4,
   "eligible": false,
-  "reward": 5.6,
+  "reward": 5.2,
   "signal": {
    "score": 0.0,
    "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."

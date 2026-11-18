@@ -115,6 +115,22 @@ def expected_injury_rows():
         return sum(1 for _ in csv.DictReader(fh))
 
 
+def expected_game_rows():
+    """The number of completed games the published log holds, read from the source CSV.
+
+    T46: this used to be the literal 137, which made a completed week fail the gate.
+    A gate that has to be edited to accept new official results is a gate that
+    punishes freshness, so the expectation now follows the data and the smoke test
+    still proves the window filter renders every row.
+    """
+    import csv
+    path = os.path.join(ROOT, "data", "games-2026.csv")
+    if not os.path.exists(path):
+        return None
+    with open(path, newline="", encoding="utf-8") as fh:
+        return sum(1 for _ in csv.DictReader(fh))
+
+
 def cells_of(html):
     """Rows as lists of plain-text cells."""
     rows = []
@@ -276,9 +292,13 @@ def main():
                 if out[page].get("error"):
                     problems.append("%s: javascript error: %s" % (page, out[page]["error"]))
             games_filter = out.get("standings.html", {}).get("filters", {})
-            if games_filter.get("games_rows") != 137:
-                problems.append("week filter: expected 137 game rows in the DOM, found %s"
-                                % games_filter.get("games_rows"))
+            # Read the expectation from the data instead of hard-coding a count, so a
+            # completed week (T46 added the 13 remaining Week 10 finals) does not break
+            # the gate for doing the right thing. The window filter is still exercised.
+            expected_games = expected_game_rows()
+            if games_filter.get("games_rows") != expected_games:
+                problems.append("week filter: expected %d game rows in the DOM, found %s"
+                                % (expected_games, games_filter.get("games_rows")))
             inj_filter = out.get("availability.html", {}).get("filters", {})
             expected_inj = expected_injury_rows()
             if inj_filter.get("injury_rows") != expected_inj:

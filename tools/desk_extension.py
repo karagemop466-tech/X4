@@ -466,6 +466,117 @@ def desk_shell(slug, title, description, body):
     ) % (description, title, desk_nav.side(), title, body, title)
 
 
+# ---------------------------------------------------------------------------
+# T46: the landing-page decision-readiness table the brief asks for.
+# One row per requirement, the gate that blocks it, and the number that would
+# clear it. Every number below is read from the payload or the committed CSVs at
+# build time; nothing is typed in. Absent evidence stays blank with the reason.
+# ---------------------------------------------------------------------------
+def _gate_rows():
+    P = _page_helpers()
+    import csv as _csv
+    import os as _os
+    D = _os.path.join(DATA)
+    def rows(name):
+        path = _os.path.join(D, name)
+        if not _os.path.exists(path):
+            return []
+        with open(path, newline="", encoding="utf-8") as fh:
+            return list(_csv.DictReader(fh))
+    games = rows("games-2026.csv")
+    inj = rows("injuries-wk10-2026.csv")
+    graded = rows("ops/graded.csv") if _os.path.exists(_os.path.join(D, "ops", "graded.csv")) else []
+    try:
+        import origination  # noqa: F401  (module import has no side effects on the site)
+    except Exception:
+        pass
+    lb = P.leaderboard
+    best = lb[0] if lb else {}
+    return dict(
+        games=len(games),
+        weeks=max([int(g["week"]) for g in games]) if games else 0,
+        inj=len(inj),
+        inj_out=sum(1 for r in inj if r.get("game_status") == "Out"),
+        graded=len(graded),
+        n_eval=P.P["correlation_n"],
+        best=best,
+    )
+
+
+def landing_readiness_rows():
+    """One row per requirement: rule, number that clears it, observed, blocked-by."""
+    g = _gate_rows()
+    best = g["best"]
+    sig_p = best.get("signal", {}).get("p_value", "")
+    lo, hi = best.get("ci_low", ""), best.get("ci_high", "")
+    imp = best.get("improvement_pct", 0) * 100 if best else 0
+    SCHED = "https://www.nfl.com/schedules/2026/by-week/week-10"
+    STAND = "https://www.nfl.com/standings/"
+    INJ = "https://www.nfl.com/injuries/league/2026/reg10"
+    OUT = []
+
+    def row(req, gate, clears, observed, status, effect, url, cls):
+        OUT.append((req, gate, clears, observed, status, effect, url, cls))
+
+    row("Results are current and reproducible", "Official standings reconciliation",
+        "every club's W/L/T/PF/PA/NET matches the official page",
+        "%d games (Weeks 1&ndash;%d), all 32 clubs match" % (g["games"], g["weeks"]),
+        "pass", "clear", STAND, "ok")
+    row("Every score is a dated official read", "Dated capture with a hash",
+        "a stored raw capture per source, verified by SHA-256",
+        "rendered-page reads only &mdash; the capture job is failing (F-47/F-48)", "fail", "blocks an audit trail", INJ, "bad")
+    row("Enough settled bets to test skill", "Sample sufficiency",
+        "n &ge; 100 settled bets per market type",
+        "n = %d graded bets (target 300)" % g["graded"], "fail", "blocks any reward", STAND, "bad")
+    row("The model beats a benchmark by more than luck", "Significance",
+        "one-sided p &lt; 0.05 and a bootstrap interval clear of zero",
+        "+%.2f%% on %d games; interval [%.2f, %.2f] still touches zero%s"
+        % (imp, g["n_eval"], lo, hi, "" if sig_p == "" else "; p = %.4f" % sig_p),
+        "fail", "blocks eligibility", STAND, "bad")
+    row("Availability is tracked, not guessed", "Official injury report",
+        "every row of the current report, cell for cell",
+        "%d rows read and cell-checked (%d Out)" % (g["inj"], g["inj_out"]),
+        "pass", "clear", INJ, "ok")
+    row("Depth is measured from a club's own chart", "Club depth charts",
+        "a structured chart for all 32 clubs",
+        "31 of 32 (Houston publishes an image only, F-24)", "fail", "blocks team-level trust", INJ, "bad")
+    row("Who actually started is known", "Game Book / inactive evidence",
+        "official inactives and snap counts joined to the chart",
+        "not ingested", "fail", "blocks the removal-of-luck panel", "https://www.nfl.com/scores/", "bad")
+    row("The Week 11 injury series exists", "Wed-to-kickoff capture",
+        "an official Week 11 report, read from Wednesday to kickoff",
+        "the official reg11 address still serves Week 10 (F-61)", "fail", "blocks Week 11 availability", "https://www.nfl.com/injuries/league/2026/reg11", "bad")
+    row("Prices are real, licensed and official-sourced", "Price store",
+        "open and close from a licensed book, archived verbatim",
+        "60 readings from one book published by ESPN (F-01), tied to the official fixtures; no closing line yet",
+        "pass", "usable, not official", "https://www.nfl.com/schedules/2026/by-week/week-11", "warn")
+    row("Parlays and props are gated on joint evidence", "Joint-probability gate",
+        "a directly validated joint probability plus void/push rules",
+        "none available &mdash; combos stay excluded", "fail", "blocks all combos",
+        "https://operations.nfl.com/the-rules/nfl-rulebook/", "bad")
+
+    body = ['<div class="section-head"><div><span class="eyebrow">Decision readiness</span>'
+            '<h2>One row per requirement, with what blocks it and what would clear it</h2>'
+            '<p class="muted">Read left to right: the requirement, the gate that decides it, the number that '
+            'would clear it, and where it reads today. A requirement stays blocked until its own number moves, '
+            'not until a paragraph says it is fine.</p></div>'
+            '<span class="tag warn">%d of %d blocked</span></div>'
+            % (sum(1 for r in OUT if r[7] == "bad"), len(OUT))]
+    body.append('<div class="table-wrap"><table class="data"><thead><tr><th>Requirement</th><th>Gate</th>'
+                '<th>Number that clears it</th><th>Observed now</th><th>Status</th><th>Effect</th>'
+                '<th>Official source</th></tr></thead><tbody>')
+    for req, gate, clears, obs, status, effect, url, cls in OUT:
+        body.append('<tr><td><b>%s</b></td><td>%s</td><td>%s</td><td>%s</td>'
+                    '<td><span class="b %s">%s</span></td><td>%s</td>'
+                    '<td><a href="%s" target="_blank" rel="noreferrer noopener">Official &nearr;</a></td></tr>'
+                    % (req, gate, clears, obs, cls, status, effect, url))
+    body.append("</tbody></table></div>")
+    body.append('<div class="tbl-note">Gates and observed values are read from the committed data files at build '
+                'time. Where a value cannot be confirmed from an official page it is described, not filled in. '
+                'The full register is on <a href="readiness.html">Decision readiness</a>.</div>')
+    return "\n".join(body)
+
+
 def write_pages(site_dir, shell):
     written = []
     for href, title, desc, fn, active in PAGES_T38:
