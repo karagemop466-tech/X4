@@ -2652,3 +2652,11 @@ PR [#92](https://github.com/karagemop466-tech/X4/pull/92) — `arena/5534e2ba-x4
   the 13-row venue table with its per-fixture links. `teams.html` carries the corrected delta note.
 - **Post-merge follow-up:** one stale cross-reference inside that verification page still named the old flag number
   (F-62); corrected to F-71 and republished. Recorded here rather than silently amended.
+
+### T53 closeout: PR #106 merge and Pages deploy record (session `arena/92faad64-x4`, 2026-11-18)
+
+- **PR [#106](https://github.com/karagemop466-tech/X4/pull/106)** (`T53: independent verification sweep (0 data drift), board reconciliation, T48-collision renumber`) merged to `main` at **2026-11-18T04:00:48Z** as commit `c4c7d0f`, after the `desk` check passed. Merge required three union passes because `main` was advancing during the window (PRs #92/#98–#104); every conflict was resolved by keeping **both** sides, and the one real conflict block the final auto-merge left (my T53 log vs the 5534e2ba T48-venue log, both added at the same end-of-file position) was caught by the line-start marker check and repaired as a union before the merge landed — both logs are on `main` in full.
+- **CI on `main` at the merge commit:** Desk validation run [44234345609](https://github.com/karagemop466-tech/X4/actions/runs/44234345609) **success**; Publish NFL Decision Lab run [44234345590](https://github.com/karagemop466-tech/X4/actions/runs/44234345590) **success** (build + deploy).
+- **GitHub Pages API:** `status: built` (subsequent build for the newer `main` tip `645d823` was `building` at check time — later sessions' merges, not this PR).
+- **Live verification by page fetch:** `https://karagemop466-tech.github.io/X4/research/verification/independent-sweep-2026-11-18-92faad64.md` serves the T53 sweep register (V1–V9 verdicts, D-1/D-2, B-1–B-6) — the deployed site carries this session's deliverable.
+- Final gate states on the session tree: `tools/verify.py` 486 checks PASS; `tools/validate.py` VALIDATION PASSED; `tools/check_site.py` PASS (every desk row source-linked); no real conflict markers in `COORDINATION.md` or its mirror (line-start grep clean).
