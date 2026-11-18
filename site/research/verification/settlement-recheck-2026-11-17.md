@@ -8,10 +8,11 @@ Official scores: every game's `official_url` is an NFL.com game-center page (for
 
 | Basis | Settled bets (n, non-push) | Won | Lost | Push | Units at stake 1 | ROI |
 |---|---|---|---|---|---|---|
-| As recorded in `graded.csv` | 12 | 8 | 4 | 0 | +2.082 | +17.351% |
-| Re-settled here (spread-aware) | 12 | 9 | 3 | 0 | +4.035 | +33.621% |
+| Current `graded.csv` (after the fix in 915bf42) | 12 | 9 | 3 | 0 | +4.035 | +33.621% |
+| Re-settled here from the official score and closing line (spread-aware) | 12 | 9 | 3 | 0 | +4.035 | +33.621% |
+| Static reference: pre-fix `graded.csv` (commit fb8a6cb, before the fix) | 12 | 8 | 4 | 0 | +2.082 | +17.351% |
 
-Bets whose recorded outcome changes on re-settlement: **1 of 12**.
+Bets whose current recorded outcome differs from the re-settlement: **0 of 12**.
 
 | Event | Week | Fixture | Score | Market | Bet | Close line | Price | Recorded | Re-settled | Official |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -21,7 +22,7 @@ Bets whose recorded outcome changes on re-settlement: **1 of 12**.
 | 401873038 | 9 | CIN at ATL | CIN 34 - ATL 17 | side | away | -3 | -120 | won | won | [NFL.com](https://www.nfl.com/games/bengals-at-falcons-2026-reg-9) |
 | 401873038 | 9 | CIN at ATL | CIN 34 - ATL 17 | total | under | 52.5 | -115 | won | won | [NFL.com](https://www.nfl.com/games/bengals-at-falcons-2026-reg-9) |
 | 401873038 | 9 | CIN at ATL | CIN 34 - ATL 17 | moneyline | away | - | -180 | won | won | [NFL.com](https://www.nfl.com/games/bengals-at-falcons-2026-reg-9) |
-| 401873039 | 9 | CLE at NO | CLE 22 - NO 23 | side | away | 4.5 | -105 | lost | won | [NFL.com](https://www.nfl.com/games/browns-at-saints-2026-reg-9) |
+| 401873039 | 9 | CLE at NO | CLE 22 - NO 23 | side | away | 4.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/browns-at-saints-2026-reg-9) |
 | 401873039 | 9 | CLE at NO | CLE 22 - NO 23 | total | over | 43.5 | -110 | won | won | [NFL.com](https://www.nfl.com/games/browns-at-saints-2026-reg-9) |
 | 401873039 | 9 | CLE at NO | CLE 22 - NO 23 | moneyline | away | - | +190 | lost | lost | [NFL.com](https://www.nfl.com/games/browns-at-saints-2026-reg-9) |
 | 401873052 | 10 | WAS at NYG | WAS 24 - NYG 21 | side | home | -1.5 | -110 | lost | lost | [NFL.com](https://www.nfl.com/games/commanders-at-giants-2026-reg-10) |
@@ -41,8 +42,8 @@ Each of the four games was read on 2026-11-17 from its NFL.com game-center page 
 
 ## Reading the table
 
-- A side bet is settled against the selected team's own closing line. The recorded file settled side bets on the straight-up winner (defect I-1, `tools/origination.py` lines 575-578). The re-settled column is the spread-aware result.
+- A side bet is settled against the selected team's own closing line. Before the fix in 915bf42 (branch `arena/2b9267f0-x4`, board row T42), `tools/origination.py` settled side bets on the straight-up winner (the defect in F-49). The static reference row above is the pre-fix record.
 - Totals and moneylines are settled the same way in both bases, so any change is a side bet.
 - Recorded prices are checked against the captured close prices (`price_matches_close`). Any mismatch is reported in the CSV, not corrected.
-- The recorded graded file is not overwritten. The recorded and re-settled figures are both shown.
+- The current recorded file is the corrected one. Its pre-fix version is kept in git history (commit fb8a6cb); this report does not rewrite it.
 - n = 12 bets over 4 games. No ROI here is evidence of skill; a cluster interval would span zero. The re-settlement corrects a settlement error. It does not change the verdict on the signal.

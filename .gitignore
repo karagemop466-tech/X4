@@ -4,3 +4,6 @@ node_modules/
 .DS_Store
 .retrieval/
 .scratch/
+
+# Raw official-page captures are never committed (public repository; brief: raw data stays private).
+data/captures/**/*.gz
