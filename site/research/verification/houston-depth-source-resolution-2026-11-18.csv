@@ -1,0 +1,6 @@
+candidate,url,what_it_publishes,verdict,used_by_this_task,retrieved
+Houston Texans official depth-chart page,https://www.houstontexans.com/team/depth-chart,"Chart renders as a single bitmap image; no table markup, no ordered text",no structured chart,no,2026-11-18
+NFL.com club depth-chart address,https://www.nfl.com/teams/houston-texans,"nfl.com/teams/<club>/depth-chart returns HTTP 404 for every club; the NFL publishes no structured depth chart",no structured chart,no,2026-11-18
+NFL GSIS (nflgsis.com),https://www.nflgsis.com/,"Official league data site (named official in the verification policy); publishes no depth-chart ordinal feed",no structured chart,no,2026-11-18
+Third-party Houston depth sources (ESPN, PFN, Statz, StatRankings),https://www.espn.com/nfl/team/depth/_/name/hou,"Structured depth tables exist, but all are non-official aggregators; rejected by the verification policy",non-official,no,2026-11-18
+Official NFL Game Book (Week 10 HOU at CLE),https://static.www.nfl.com/image/upload/v1794829724/gamecenter/ab583279-4feb-11f1-abca-2c54536568a9.pdf,"Authorized structured source: Lineups (actual starters) + Playtime Percentage (per-player snaps / snap share); reuse-gated (raw rows private, indices published)",authorized,yes,2026-11-18
