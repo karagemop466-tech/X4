@@ -2109,4 +2109,50 @@ https://www.nfl.com/games/colts-at-texans-2026-reg-11
 F-58 and F-59 are resolved by this session. F-60 (venue naming for Houston and Kansas City) and F-61 (no official
 Week 11 report yet) stay open and are on the Flagged-for-Review path with their sources. Not touched: the capture
 pipeline (`tools/capture_official.py`, `.github/workflows/capture.yml` — PR #62, arena/7db594d1-x4) still failing per
-F-47/F-48/F-56; that is why this record says **rendered-page reads, not hash-verified captures**.
+F-47/F-48/F-56; that is why this record says **rendered-page reads, not hash-verified captures**.| T47 | **T47 - Snapshot-badge freshness on the published desk pages** (session `arena/f85790f5-x4`, claimed 2026-11-18): the tree was re-verified against official NFL.com on 2026-11-18, but 25 of 26 desk pages still advertised `Snapshot 2026-11-14` and both generating tools still stamped that date, so the site understated its own freshness by a week of results. This task re-stamps the generators first (`tools/desk_nav.py`, `tools/desk_extension.py`), re-dates the pages in the root tree and the `site/` publish mirror, and adds a `tools/check_site.py` gate that fails the build when any page advertises a snapshot date older than `CURRENT_SNAPSHOT`, demonstrated to bite by re-introducing the label. No data values are changed and no other session's files are touched. | done | arena/f85790f5-x4 | `tools/desk_nav.py`, `tools/desk_extension.py`, `tools/check_site.py`, the 25 desk pages + their `site/` mirrors, `COORDINATION.md` + `site/COORDINATION.md` |
+
+## Session log — arena/f85790f5-x4 (T47: snapshot-badge freshness, 2026-11-18)
+
+### Task-ID collision, recorded rather than hidden
+This branch claimed **T46** at `5d5101dd` and pushed the claim (`fe5e9c1`), before `main` carried session
+`arena/bca9fb72-x4`'s claim of the same task (PR #79, later PRs #80-#84). Because an unpushed or unmerged
+claim is invisible on the board, neither side made an error, and neither claim was discarded: PR #79/#84 keeps
+T46 and this branch's work is renumbered **T47**. Both sessions independently closed the same underlying defect
+(the tree was one week stale: 13 Week 10 finals missing, 105 -> 118 evaluation games), and the two results agree
+exactly - 150 games, 486 standings checks, S1 spread MAE 9.484, improvement +0.994 with bootstrap/Bonferroni CI
+[-0.0001, +1.9401], paired sign 78/118, 24 settled bets at +15.414 units. That agreement is independent
+corroboration of the numbers now on `main`, not duplicated work: `main`'s data and tooling are taken as
+authoritative here and this session adds no competing data files.
+
+### What this session changed on top of `main`
+- **Defect found on `main` (not in the merged work but in its published surface):** 25 of the 26 desk pages
+  still advertised `<small>Snapshot 2026-11-14 · no live feed</small>` in the sidebar, and both generators that
+  emit it (`tools/desk_nav.py:53`, `tools/desk_extension.py:460`) still stamped `2026-11-14`. The site therefore
+  told a reader its data was four days and one full week of results older than the tables behind it. Fixed at
+  the source (generators) first, then across the pages, in both the root tree and the `site/` publish mirror.
+- **New gate, so the label cannot rot again:** `tools/check_site.py` now fails if any desk page advertises a
+  `Snapshot YYYY-MM-DD` older than `CURRENT_SNAPSHOT` (currently `2026-11-18`). The gate was demonstrated to bite
+  rather than assumed: re-introducing the stale label on `luck.html` produced 22 findings across the tree and
+  removing it produced a clean run. During that test an off-by-one in the first draft of the check was found -
+  it read the loop's last page instead of the current one, so it could never have failed - and was corrected.
+
+### Verification at the tip
+- `tools/validate.py` = **VALIDATION PASSED** (20 regenerated pages, every data row source-linked, root mirror
+  byte-identical, determinism green).
+- `tools/check_site.py` = **PASS** (26 desk pages, 1,046 rows, 28 mirrored files, 2,519 links, 0 unsourced rows)
+  including the new freshness gate; re-checked after a full `tools/pages.py` rebuild to prove the fixed
+  generators do not re-emit the old date.
+- `tools/verify.py` = **PASS**, 486 checks, 150 games, 32 clubs reproduce the official NFL.com totals exactly.
+
+### Irregularities carried, not fixed
+- F-59 (this session's): per-week injury URLs (`/injuries/league/2026/regN`) print the newest week in the page
+  `<title>` while the body shows the week actually requested; `reg9` is headed "WEEK 9" (fixtures Nov 5-8) but
+  titles as Week 10. Any capture that trusts the title can be mislabelled by one week. Source read 2026-11-18.
+- F-60 (venue naming) and F-61 (no official Week 11 injury report yet) from the merged session remain open.
+- Not attempted here: the capture pipeline failures (F-47/F-48/F-56, PR #62) and the settlement re-check
+  (PR #39) belong to other sessions and were left untouched.
+
+### Merge record
+PR for this branch is opened against `main` and merged without waiting for approval, per the standing brief;
+the PR link and merge result are recorded in the pull request itself and in the follow-up commit on this
+branch if the merge fast-forwards before that note can be added.
