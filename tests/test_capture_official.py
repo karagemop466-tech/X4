@@ -14,10 +14,12 @@ class CaptureOfficialTests(unittest.TestCase):
         self.root = self.temp.name
         self.capture_dir = os.path.join(self.root, "data", "captures")
         self.manifest = os.path.join(self.capture_dir, "manifest.jsonl")
+        self.raw_dir = os.path.join(self.root, "private-raw-store")
         self.patches = [
             mock.patch.object(capture, "ROOT", self.root),
             mock.patch.object(capture, "CAP_DIR", self.capture_dir),
             mock.patch.object(capture, "MANIFEST", self.manifest),
+            mock.patch.object(capture, "RAW_DIR", None),   # default: raw bytes are not retained
         ]
         for patcher in self.patches:
             patcher.start()
@@ -85,8 +87,8 @@ class CaptureOfficialTests(unittest.TestCase):
     def test_freshness_rejects_stale_valid_capture_and_accepts_complete_fresh_set(self):
         now = dt.datetime(2026, 11, 17, 12, 0, 0)
         def entry(kind, stamp):
-            return {"kind": kind, "fetched_utc": stamp, "http_status": 200,
-                    "schema_ok": True, "file": "data/captures/" + kind.replace("/", "_") + ".gz"}
+            return {"kind": kind, "fetched_utc": stamp, "http_status": 200, "schema_ok": True,
+                    "sha256": capture.sha256(kind.encode())}
 
         entries = [entry("injuries", "2026-11-17T11:00:00Z"),
                    entry("depth/ARI", "2026-11-17T10:00:00Z")]
@@ -103,6 +105,89 @@ class CaptureOfficialTests(unittest.TestCase):
                                 True, {}, [first, other])
         self.assertEqual(changed["previous_sha256"], first["sha256"])
 
+
+class InjurySchemaTests(unittest.TestCase):
+    """Schema markers, tested on synthetic markup and on one immutable real capture."""
+
+    def test_relative_and_absolute_player_links_are_both_counted(self):
+        head = b"Injuries - WEEK 10 " + b"Practice Status Game Status " * 28
+        ok, detail = capture.schema_injuries(head + b'<a href="/players/a/">' * 130 + b'<a href="https://www.nfl.com/players/b/">' * 130)
+        self.assertTrue(ok)
+        self.assertEqual(detail["player_links"], 260)
+        ok, detail = capture.schema_injuries(head + b'<a href="/teams/x/">' * 300)
+        self.assertFalse(ok)
+        self.assertEqual(detail["player_links"], 0)
+
+    def test_pinned_real_week10_capture_passes_the_schema(self):
+        # Runs only where the owner's private raw store is configured (X4_CAPTURE_RAW_DIR).
+        # Raw official bytes are never committed, so a plain checkout skips this test.
+        raw_dir = os.environ.get("X4_CAPTURE_RAW_DIR")
+        path = os.path.join(raw_dir or "", "injuries", "20261118T034010Z_1d896816da9a.html.gz")
+        if not raw_dir or not os.path.exists(path):
+            self.skipTest("pinned private capture not configured in this environment")
+        import gzip
+        with gzip.open(path, "rb") as f:
+            raw = f.read()
+        ok, detail = capture.schema_injuries(raw)
+        self.assertTrue(ok, detail)
+        self.assertEqual(detail["week"], "10")
+        self.assertEqual(detail["practice_status_headers"], 28)
+        self.assertEqual(detail["player_links"], 347)  # the 347 body rows of the official Week 10 report
+
+
+class RawBytePolicyTests(unittest.TestCase):
+    """Raw official bytes are kept only in a private store outside the repository."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.root = self.temp.name
+        self.capture_dir = os.path.join(self.root, "data", "captures")
+        self.raw_dir = os.path.join(self.root, "..private-raw-store")
+        self.patches = [
+            mock.patch.object(capture, "ROOT", self.root),
+            mock.patch.object(capture, "CAP_DIR", self.capture_dir),
+            mock.patch.object(capture, "MANIFEST", os.path.join(self.capture_dir, "manifest.jsonl")),
+        ]
+        for patcher in self.patches:
+            patcher.start()
+
+    def tearDown(self):
+        for patcher in reversed(self.patches):
+            patcher.stop()
+        self.temp.cleanup()
+
+    def test_default_keeps_hash_and_metadata_but_no_raw_bytes(self):
+        with mock.patch.object(capture, "RAW_DIR", None):
+            entry = capture.store("injuries", capture.INJURY_URL, b"official-bytes", 200, True, {}, [])
+        self.assertEqual(entry["sha256"], capture.sha256(b"official-bytes"))
+        self.assertFalse(entry["raw_retained"])
+        self.assertNotIn("file", entry)
+        self.assertFalse(os.path.exists(self.capture_dir))  # nothing written under the repository
+
+    def test_private_store_receives_bytes_outside_the_repository(self):
+        with mock.patch.object(capture, "RAW_DIR", self.raw_dir):
+            entry = capture.store("depth/ARI", "https://club.example/depth", b"chart", 200, True, {}, [])
+            self.assertTrue(entry["raw_retained"])
+            self.assertEqual(entry["raw_store"], "private")
+            self.assertTrue(os.path.exists(os.path.join(self.raw_dir, entry["file"])))
+            self.assertFalse(os.path.exists(self.capture_dir))
+            self.assertEqual(capture.verify(), 0)
+
+    def test_hash_only_entries_are_counted_not_failed(self):
+        os.makedirs(self.capture_dir, exist_ok=True)
+        with open(os.path.join(self.capture_dir, "manifest.jsonl"), "w", encoding="utf-8") as f:
+            f.write('{"kind": "injuries", "sha256": "%s", "schema_ok": true, "http_status": 200, '
+                    '"fetched_utc": "2026-11-18T03:40:10Z"}\n' % capture.sha256(b"x"))
+            f.write('{"kind": "depth/ARI", "error": "offline", "schema_ok": false}\n')
+        self.assertEqual(capture.verify(), 0)
+
+    def test_referenced_but_absent_legacy_file_is_reported_not_failed(self):
+        os.makedirs(self.capture_dir, exist_ok=True)
+        with open(os.path.join(self.capture_dir, "manifest.jsonl"), "w", encoding="utf-8") as f:
+            f.write('{"kind": "injuries", "sha256": "%s", "schema_ok": true, "http_status": 200, '
+                    '"fetched_utc": "2026-11-18T03:39:04Z", "file": "data/captures/injuries/x.html.gz"}\n'
+                    % capture.sha256(b"x"))
+        self.assertEqual(capture.verify(), 0)
 
 if __name__ == "__main__":
     unittest.main()
