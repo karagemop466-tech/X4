@@ -747,6 +747,8 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
                  "tools/capture_official.py fetch() passes every URL straight to urllib.request.Request, which raises ValueError "
                  "('unknown url type: ...') for an empty URL, and ValueError is not in the caught (URLError, OSError, TimeoutError) tuple. "
                  "HOU sorts 11th of the 32 club targets, which fits an 8-second abort and rules out 33 sequential 60-second timeouts. "
+                 "REPAIRED 2026-11-18 on this branch: a blank/invalid URL is now skipped loudly (stderr note, manifest line, non-zero exit) "
+                 "so one missing club page no longer discards the other 31 targets; the scheduled workflow still needs to run green to confirm. "
                  "The log text itself could not be retrieved (the Actions log blob returns EOF), so the conclusion is drawn from the step "
                  "outcome, the duration and the code path, and is labelled as such."),
          why=("Until this is fixed no multi-day availability history can exist, which blocks every capture-dependent requirement in the "

@@ -151,6 +151,19 @@ def fetch(kind):
     failed = False
     for label, url, schema in targets:
         kind_name = label
+        if not isinstance(url, str) or not url.startswith(("http://", "https://")):
+            # A club whose official page is not a usable URL (e.g. the Texans publish their
+            # depth chart as an image, so depth.CHART_URL stores the empty string) must not
+            # abort the whole capture: urllib.request.Request raises ValueError, which the
+            # except clause below does not catch, and every later target is lost. Skip it
+            # loudly instead — manifest line, stderr note, non-zero exit — and keep capturing
+            # the other clubs.
+            print("FETCH SKIPPED %s: no usable URL (%r)" % (label, url), file=sys.stderr)
+            append_manifest({"kind": kind_name, "url": url or "", "fetched_utc": iso(utc_now()),
+                             "http_status": None, "error": "no usable URL in source register",
+                             "schema_ok": False})
+            failed = True
+            continue
         try:
             status, raw = http_get(url)
         except (urllib.error.URLError, OSError, TimeoutError) as exc:

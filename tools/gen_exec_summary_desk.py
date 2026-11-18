@@ -62,6 +62,13 @@ standings = read(os.path.join(DATA, "standings-2026-11-18.csv"))
 inj = read(os.path.join(DATA, "injuries-wk10-2026.csv"))
 depth = read(os.path.join(DATA, "depth-wk11-2026.csv"))
 sched = [r for r in read(os.path.join(DATA, "schedule-wk11-2026.csv")) if r["week"] == "11"]
+# Neutral-site exclusion: data/games-2026.csv carries no neutral flag, so the set is joined
+# from the official international register (data/international-2026.csv) on (week, away, home).
+neutral_keys = {
+    (r["week"], r["away"], r["home"])
+    for r in read(os.path.join(DATA, "international-2026.csv"))
+    if r["week"] != "11"  # only the weeks the corpus covers matter here
+}
 fair = read(os.path.join(OPS, "fair_market_difference.csv"))
 snaps = read(os.path.join(OPS, "price_snapshots.csv"))
 graded = read(os.path.join(OPS, "graded.csv"))
@@ -99,10 +106,22 @@ weeks = sorted({int(g["week"]) for g in corpus})
 totals = [int(g["away_pts"]) + int(g["home_pts"]) for g in corpus]
 mean_total = statistics.mean(totals)
 sd_total = statistics.stdev(totals)
-home_m = [int(g["home_pts"]) - int(g["away_pts"]) for g in corpus if g.get("neutral", "0") != "1"]
+home_m = [
+    int(g["home_pts"]) - int(g["away_pts"])
+    for g in corpus
+    if (g["week"], g["away"], g["home"]) not in neutral_keys
+]
+n_neutral_excluded = len(corpus) - len(home_m)
+assert n_neutral_excluded == 4, n_neutral_excluded  # HOU@JAX w6, PIT@NO w7, CIN@ATL w9, NE@DET w10
 mean_home = statistics.mean(home_m)
 se_home = statistics.stdev(home_m) / len(home_m) ** 0.5
 ci_lo, ci_hi = mean_home - 1.96 * se_home, mean_home + 1.96 * se_home
+
+# Weeks 6-9 window (the line lab's fitting window), non-neutral only — shown beside the
+# full-corpus figure so the reader can see how window-sensitive the constant is (F-59).
+wk69 = [g for g in corpus if g["week"] in ("6", "7", "8", "9") and
+        (g["week"], g["away"], g["home"]) not in neutral_keys]
+wk69_home = statistics.mean(int(g["home_pts"]) - int(g["away_pts"]) for g in wk69)
 
 n_out = sum(1 for r in inj if r["game_status"] == "Out")
 n_q = sum(1 for r in inj if r["game_status"] == "Questionable")
@@ -210,10 +229,13 @@ kv.append(("Score integrity",
            % (fields - mismatch, fields, RETRIEVED, sum_pf, mismatch,
               a(NFL + "/standings/", "Official standings"))))
 kv.append(("Scoring environment",
-           "Mean combined score <b>%.1f &plusmn; %.1f</b> over the verified corpus; home edge <b>%+.1f</b> points, "
-           "95%% CI [%+.1f, %+.1f] excluding neutral-site games &mdash; the interval contains zero, so no home "
-           "edge is assumed. %s"
-           % (mean_total, sd_total, mean_home, ci_lo, ci_hi, a(SITE_URL + "correlations.html", "Measured values"))))
+           "Mean combined score <b>%.1f &plusmn; %.1f</b> over the verified corpus; home margin <b>%+.1f</b> points "
+           "on <b>n = %d of %d</b> games (the %d international fixtures &mdash; HOU&#8209;JAX W6, PIT&#8209;NO W7, "
+           "CIN&#8209;ATL W9, NE&#8209;DET W10 &mdash; excluded, per the official schedule), 95%% CI [%+.1f, %+.1f]: "
+           "the interval contains zero, so no home edge is assumed. Weeks&nbsp;6&ndash;9 alone, the window the line "
+           "lab's h is fitted on, give %+.2f on n&nbsp;=&nbsp;54 (F-59 records the window sensitivity). %s"
+           % (mean_total, sd_total, mean_home, len(home_m), len(corpus), n_neutral_excluded,
+              ci_lo, ci_hi, wk69_home, a(SITE_URL + "correlations.html", "Measured values"))))
 kv.append(("Availability",
            "<b>%d</b> official injury rows across <b>%d</b> clubs for Week 10: %d Out, %d Doubtful, %d "
            "Questionable. A blank game status is kept blank. %s"

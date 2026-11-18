@@ -57,6 +57,13 @@ def a(url, label):
 games_base = read(os.path.join(DATA, "games-2026.csv"))
 wk10 = read(os.path.join(DATA, "week10-slate-2026.csv"))
 corpus = [g for g in games_base if g["week"] != "10"] + wk10
+# Neutral-site exclusion: the games CSVs carry no neutral flag, so the set is joined from the
+# official international register (data/international-2026.csv) on (week, away, home).
+neutral_keys = {
+    (r["week"], r["away"], r["home"])
+    for r in read(os.path.join(DATA, "international-2026.csv"))
+    if r["week"] != "11"
+}
 standings = read(os.path.join(DATA, "standings-2026-11-18.csv"))
 inj = read(os.path.join(DATA, "injuries-wk10-2026.csv"))
 depth = read(os.path.join(DATA, "depth-wk11-2026.csv"))
@@ -104,9 +111,14 @@ mean_total = statistics.mean(totals)
 sd_total = statistics.stdev(totals)
 mean_margin = statistics.mean(margins)
 
-# home edge, excluding neutral-site games
-home_margins = [int(g["home_pts"]) - int(g["away_pts"]) for g in corpus if g.get("neutral", "0") != "1"]
-neutral_n = sum(1 for g in corpus if g.get("neutral", "0") == "1")
+# home edge, excluding neutral-site games (joined from data/international-2026.csv)
+home_margins = [
+    int(g["home_pts"]) - int(g["away_pts"])
+    for g in corpus
+    if (g["week"], g["away"], g["home"]) not in neutral_keys
+]
+neutral_n = len(corpus) - len(home_margins)
+assert neutral_n == 4, neutral_n  # HOU@JAX w6, PIT@NO w7, CIN@ATL w9, NE@DET w10
 mean_home = statistics.mean(home_margins)
 se_home = statistics.stdev(home_margins) / (len(home_margins) ** 0.5)
 ci_home = (mean_home - 1.96 * se_home, mean_home + 1.96 * se_home)
