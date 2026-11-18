@@ -93,6 +93,10 @@ for it in ranked:
             esc(it["evidence"]), esc(it["cost"]), esc(it["blocks_if_skipped"]),
             it["id"], it["id"]))
 
+def official_src(url, label="Official"):
+    return '<a href="%s" target="_blank" rel="noreferrer noopener">%s &nearr;</a>' % (url, label)
+
+
 # ------------------------------------------------------------------ tables
 table_rows = []
 for it in ranked:
@@ -100,6 +104,10 @@ for it in ranked:
         ['<b>#%d</b>' % it["rank"], '<b>%s</b><br><span class="muted">%s</span>' % (esc(it["title"]), it["id"]),
          esc(it["category"])] + score_cells(it) +
         ['<a href="#%s">review &darr;</a>' % it["id"] + " \u00b7 " +
+         # T46: every workbench row is an owner decision about this project's own
+         # method, so the official reference beside it is the official data the
+         # proposal would act on (nfl.com), and the scores cite their own artifact.
+         official_src("https://www.nfl.com/standings/", "NFL.com") + " \u00b7 " +
          repo_blob("tools/workbench.json", "scores")])
 
 cat_rows = []

@@ -118,7 +118,7 @@ se_home = statistics.stdev(home_m) / len(home_m) ** 0.5
 ci_lo, ci_hi = mean_home - 1.96 * se_home, mean_home + 1.96 * se_home
 
 # Weeks 6-9 window (the line lab's fitting window), non-neutral only — shown beside the
-# full-corpus figure so the reader can see how window-sensitive the constant is (F-59).
+# full-corpus figure so the reader can see how window-sensitive the constant is (F-63).
 wk69 = [g for g in corpus if g["week"] in ("6", "7", "8", "9") and
         (g["week"], g["away"], g["home"]) not in neutral_keys]
 wk69_home = statistics.mean(int(g["home_pts"]) - int(g["away_pts"]) for g in wk69)
@@ -233,7 +233,7 @@ kv.append(("Scoring environment",
            "on <b>n = %d of %d</b> games (the %d international fixtures &mdash; HOU&#8209;JAX W6, PIT&#8209;NO W7, "
            "CIN&#8209;ATL W9, NE&#8209;DET W10 &mdash; excluded, per the official schedule), 95%% CI [%+.1f, %+.1f]: "
            "the interval contains zero, so no home edge is assumed. Weeks&nbsp;6&ndash;9 alone, the window the line "
-           "lab's h is fitted on, give %+.2f on n&nbsp;=&nbsp;54 (F-59 records the window sensitivity). %s"
+           "lab's h is fitted on, give %+.2f on n&nbsp;=&nbsp;54 (F-63 records the window sensitivity). %s"
            % (mean_total, sd_total, mean_home, len(home_m), len(corpus), n_neutral_excluded,
               ci_lo, ci_hi, wk69_home, a(SITE_URL + "correlations.html", "Measured values"))))
 kv.append(("Availability",
