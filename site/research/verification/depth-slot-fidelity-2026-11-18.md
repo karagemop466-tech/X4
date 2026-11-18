@@ -84,11 +84,35 @@ The brief's two examples were checked name by name against the live charts:
 | WAS | Tress Way (P, H) | **no** |
 | WAS | Drew Stevens (K) | **no** |
 
-Ten of the 21 spot-checked players are missing entirely. That is a second, separate defect
-from the shared-cell one: the committed Washington sheet is a **different edition** of the
-chart (it carries Terry McLaurin, Dyami Brown, Jaylin Lane, Javon Kinlaw, Jacory
-Croskey-Merritt and Daron Payne, none of whom are on the live chart today), and it drops
-every second and third player in a row as well as all special-teams rows.
+Ten of that ad-hoc 21-name list are missing, but three of those were my errors rather than
+the dataset's (two players are genuinely on other rows, and one is a special-teams-only
+entry). The controlled sample below is the number to quote.
+
+## Controlled sample: four clubs' offence charts, cell by cell
+
+Live tables read on 2026-11-18 for Seattle, Cleveland, Baltimore and Washington were
+transcribed cell by cell and joined to the committed dataset by name (accent- and
+punctuation-insensitive):
+
+| Club | Live offence players | Absent from the dataset | Shared rank-1 cells | Represented as shared |
+|---|---|---|---|---|
+| SEA | 27 | 0 | 1 (WR: Kupp + Shaheed) | **0** |
+| CLE | 25 | 0 | 0 | &mdash; |
+| BAL | 26 | 1 (Chuma Edoga) | 0 | &mdash; |
+| WAS | 25 | 3 (Van Jefferson, Lucas Patrick, Robert Henry Jr.) | 0 | &mdash; |
+| **Total** | **103** | **4** | **1** | **0** |
+
+Two further findings from the same pass:
+
+- **No special-teams row is stored at all.** The position rows present in the dataset are
+  offensive and defensive only (`WR`, `RB`, `QB`, `CB2`, `DT3`, `ILB`, ... — 64 distinct
+  values, none of them `P`, `K`, `LS`, `H`, `PR` or `KR`), while every live chart read here
+  publishes a Special Teams section.
+- **The gap between fixtures and datasets is real on both sides.** Washington's committed
+  sheet carries Terry McLaurin, Dyami Brown, Jaylin Lane, Javon Kinlaw, Jacory
+  Croskey-Merritt and Daron Payne, none of whom are on the live chart today, *and* it lacks
+  three players who are. The committed sheet is therefore a different edition of the chart --
+  the brief's own point that depth must be versioned against the last official roster event.
 
 ## Why this matters for the brief's requirement
 

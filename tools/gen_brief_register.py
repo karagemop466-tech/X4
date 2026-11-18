@@ -202,11 +202,13 @@ req_rows = [
      link("https://www.nfl.com/injuries/", "Official injury report"), "Decision readiness G2"],
     ["Represent shared and empty depth slots faithfully",
      "defect found", "%d transcribed rows across %d club/unit/position columns; <b>%d columns hold a single "
-                     "player and %d cells hold more than one</b>, so every co-starter a club prints becomes a "
-                     "starter plus a backup. %d of %d columns are a clean 1..n list, which is the signature of "
-                     "the collapse. A second, separate defect: 10 of 21 spot-checked players on the live "
-                     "Washington chart are absent from the dataset entirely"
-                     % (len(depth_rows), len(_cols), _solo, _shared_cells, _clean, len(_cols)),
+                     "player and <b>no cell holds more than one</b>, so every co-starter a club prints is stored as a starter "
+                     "plus a backup; all %d of %d columns are a clean 1..n list, the signature of the collapse. "
+                     "No special-teams row (P, K, LS, H, PR, KR) is stored at all. An independent live sample of "
+                     "four clubs' offence charts (103 players) found 4 players absent from the dataset, and the "
+                     "one shared rank-1 cell in that sample (Seahawks WR: Cooper Kupp + Rashid Shaheed) is "
+                     "stored as depth 1 and 2"
+                     % (len(depth_rows), len(_cols), _solo, _clean, len(_cols)),
      link("https://www.commanders.com/team/depth-chart", "Live WAS chart"),
      link("https://karagemop466-tech.github.io/X4/research/verification/depth-slot-fidelity-2026-11-18.md",
           "Full measurement")],
@@ -344,9 +346,9 @@ irr_rows = [
      pill("flagged", "warn")],
     ["I-E", "The depth dataset collapses shared rank-1 cells and has lost players",
      "%d rows, %d columns, %d single-player columns, %d shared cells &mdash; every co-starter a club prints is "
-     "stored as a starter plus a backup. Live spot check: Cooper Kupp and Rashid Shaheed share the Seahawks' "
-     "rank-1 WR cell on the official chart but are stored at depth 1 and 2; 10 of 21 Washington players on the "
-     "live chart are absent from the dataset"
+     "stored as a starter plus a backup. Live sample of four clubs' offence charts (103 players, read 2026-11-18): "
+     "the one shared rank-1 cell (Seahawks WR, Cooper Kupp + Rashid Shaheed) is stored as depth 1 and 2; 4 of "
+     "the 103 players are absent from the dataset entirely; no special-teams row is stored at any club"
      % (len(depth_rows), len(_cols), _solo, _shared_cells),
      link("https://www.seahawks.com/team/depth-chart", "Live SEA chart"),
      pill("defect, flagged", "bad")],
