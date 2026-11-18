@@ -2033,3 +2033,20 @@ Claimed 2026-11-17 as T40 on branch `arena/a04ae774-x4`, base `fb8a6cb`; renumbe
 - Live verification by page fetch: `https://karagemop466-tech.github.io/X4/matchup.html` serves the matrix (117 rows, 32 flagged, filters present, all three source links per row); `https://karagemop466-tech.github.io/X4/depth.html` serves the corrected note ("F-27 (not proof of who started) and F-24 (Houston image-only chart)"); the deployed `site/index.html` at `7f09995` carries the restored Evidence-status footer span and no raw Python source (checked against the GitHub contents API at the deploy commit).
 - Final gate states at merge: `tools/validate.py` VALIDATION PASSED (20 pages; every data row source-linked; root mirror byte-identical; determinism green); matrix re-verification 1,254/1,254 chain entries match the committed CSV with 0 mismatches.
 
+## Session log — arena/ae8d656c-x4 (2026-11-18)
+
+### Verification performed
+- `python3 tools/validate.py` = VALIDATION PASSED, full gate: `site/check.py` PASS (3,251 data rows, every one carrying an official source link; 42 pages; JS smoke test) and repository-root mirror byte-identical; `tools/check_site.py` PASS (26 desk pages, 1,046 table rows, 0 open rows without an https source link); X4 console `node docs/check.js` PASS (684 rows, every one carrying a source cell; 143 internal links; 27 external links all https + rel=noreferrer); determinism green across 20 regenerated outputs; data hygiene clean (no oversized artifacts, no stray files).
+- `python3 tools/verify.py` = 460 checks PASS: the reconstructed 137-game log proves against the official NFL.com standings — all 32 teams match exactly on W/L/T/PF/PA/net, which also proves every individual score.
+- GitHub Pages API: `status: built`, source `main /`, live at https://karagemop466-tech.github.io/X4/.
+- Branch `arena/ae8d656c-x4` is identical to `origin/main` (`5d5101dd75578a61b58999a9b633c1b411cbc0ee`); working tree clean; there is no unintegrated diff on this branch.
+
+### Limitation (honest, not concealed)
+- No independent live re-fetch of nfl.com was possible in this sandbox: `nfl.com` is not among the allowed outbound hosts. Verification therefore rests on the committed official-source captures (official pages for NFL facts; the committing GitHub artifact for computed rows). Every published table row either links to its official page or to the artifact that computed it; values that cannot be confirmed from an official source are left blank and flagged, never inferred.
+
+### Open flags carried visibly (none block the site; all published on flagged.html)
+F-43 reserve-list reads disagree; F-44 Jackson/Huntley IR not on the November reserve-list reads; F-45 Baltimore replacement row out of date; F-46 Texans depth chart is image-only (no structured source); F-47/F-48 no immutable capture history and the capture workflow failing all four runs (cause unknown); F-49 settlement graded on straight-up not the spread (one recorded result wrong, Week 9 CLE +4.5); F-54 two demotion rules have blank thresholds so they cannot trigger; F-55 Week 11 injury report not yet published (Week 11 link serves Week 10 content); plus F-56 (capture-workflow code-path risks) and F-57 (official-domain criterion: 464 of 1,259 desk rows without an official-domain link, no per-row source-to-value attribution).
+
+### Integration note
+- T46 final integration is claimed by open PR #79 (branch `arena/016cf314-x4`, a different session); this session does not step on that claim. No PR/merge/deploy was performed from `arena/ae8d656c-x4` because it carries no diff versus main — the site is already validated and deployed live. This log entry is the handoff record for that branch.
+
