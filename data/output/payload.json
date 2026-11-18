@@ -13434,10 +13434,10 @@
   },
   {
    "id": "F-70",
-   "item": "Two Week 11 venue cells are stale against the game centre the dataset names as their own source",
+   "item": "Two Week 11 venue cells carry the venue's short name, and the dataset is a faithful transcription of the page that prints it",
    "type": "Unverified data",
-   "kind": "warn",
-   "status": "open",
+   "kind": "info",
+   "status": "limitation",
    "detail": "data/venues-wk11-2026.csv carries stadium=RELIANT STADIUM for IND at HOU and stadium=ARROWHEAD STADIUM for ARI at KC, with venue_source = 'NFL.com game centre, Game Info block' on both rows. Both game centres were re-read on 2026-11-18 and both still print those exact strings: the Colts at Texans Game Info block reads StadiumSTADIUMRELIANT STADIUM, and the Cardinals at Chiefs block reads StadiumSTADIUMARROWHEAD STADIUM.",
    "why": "F-60 framed this as a mismatch between the dataset and the official page. Re-reading both pages shows the dataset is a faithful transcription of its stated source and the mismatch claim was wrong: the short names are what the official page prints. The cell is still not the venue's present corporate name, but correcting it would introduce a value no cited source supports, which the publication policy forbids. The row stays as transcribed, and the difference is recorded here with both links so the reader can see both surfaces. F-60 remains the pointer; this entry is the verification result.",
    "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
@@ -14142,7 +14142,7 @@
    "type": "Limitation",
    "kind": "warn",
    "status": "limitation",
-   "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it.",
+   "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. Re-read ~04:10 UTC 2026-11-18 (T54 sweep): the league reg11 page still serves Week 10, and the official game-centre page for Colts at Texans now carries Week 11 practice designations for both clubs in its injury module (e.g. J. Carlies and S. Gardner 'Did not participate' for IND; A. Al-Shaair DNP, R. Blankenship/T. Dell/B. Fisher 'Full participation' for HOU), while Cardinals at Chiefs shows 'no active injuries at this time' for both clubs. The league-level Week 11 page is still the gate for publishing a full dataset; game-centre-only practice statuses are not captured as data here.",
    "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
@@ -14699,6 +14699,18 @@
    "result": "flag",
    "url": "https://www.nfl.com/schedules/2026/by-week/week-11",
    "how": "NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."
+  },
+  {
+   "check": "Official standings re-read live after the PR #90 merge and compared with the committed standings (T54, 2026-11-18 ~04:05 UTC)",
+   "result": "pass",
+   "url": "https://www.nfl.com/standings/",
+   "how": "All 32 clubs' W-L-T, PCT, PF, PA and NET were re-read from the official standings page through the page-fetch tool and compared with data/standings-wk10-2026.csv: 0 differences. This is an independent second re-read on the same day as T46's (V3), after two more PRs merged."
+  },
+  {
+   "check": "The Week 11 venue rows' cited Game Info blocks re-read live (T54, 2026-11-18 ~04:08 UTC)",
+   "result": "pass",
+   "url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
+   "how": "Both Game Info blocks were read live: Colts at Texans prints RELIANT STADIUM and Cardinals at Chiefs prints ARROWHEAD STADIUM - exactly the committed values, so no venue cell changed. This session's independent reading (research/verification/live-sync-2026-11-18.csv, B5) agrees with the resolution now published on main (F-60, resolved by PR #92 with the same reading and research/verification/venue-gameinfo-2026-11-18.md), which is kept as the flag row; the NRG/GEHA readings come from the schedule page's ticket/hotel widgets."
   }
  ],
  "qb_changes": [
