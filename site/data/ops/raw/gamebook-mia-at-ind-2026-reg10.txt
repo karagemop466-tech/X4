@@ -1,0 +1,103 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829723/gamecenter/ab789365-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/dolphins-at-colts-2026-reg-10
+Game       : Miami Dolphins at Indianapolis Colts, 2026 REG 10,
+             Sunday 11/15/2026, Lucas Oil Stadium, Indianapolis, IN.
+             Final MIA 22 - IND 24.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows published.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : Lucas Oil Stadium
+City       : Indianapolis, IN
+Start Time : 1:03 PM EST
+Game Weather: Cloudy
+Temp       : 48 F (8.9 C)   Humidity: 61%   Wind: N 6 mph
+Surface/Roof: Retractable Roof - Closed on Field Turf
+Outdoor Weather: Cloudy, 48 degr. Wind North at 6 mph, Wind Chill: 45
+Referee    : Willard, Don (58)
+Paid Attendance: 64,235
+Game Time  : 3:13
+
+---- Lineups (actual starters) ------------------------------------------------
+Miami Dolphins
+  Offense
+    WR   7   C.Douglas
+    LT   52  P.Paul
+    LG   74  K.Proctor
+    C    60  A.Meyer
+    RG   71  J.Savaiinaea
+    RT   73  A.Jackson
+    TE   85  G.Dulcich
+    FB   34  D.Herman
+    WR   6   M.Washington
+    QB   14  K.McCord
+    RB   0   O.Gordon
+  Defense
+    DE   9   J.Uche
+    DL   94  J.Phillips
+    DL   78  K.Grant
+    DE   44  C.Robinson
+    ILB  10  J.Rodriguez
+    ILB  20  J.Brooks
+    CB   3   C.Johnson
+    CB   8   J.Brents
+    S    16  M.Taaffe
+    S    11  D.Trader
+    S    19  K.Louis
+Indianapolis Colts
+  Offense
+    WR   80  D.Burks
+    WR   13  L.Treadwell
+    TE   84  T.Warren
+    LT   79  B.Raimann
+    LG   62  J.Farmer
+    C    60  T.Bortolini
+    RG   68  D.Tucker
+    RT   71  M.Goncalves
+    WR   6   A.Gould
+    QB   17  D.Jones
+    RB   28  J.Taylor
+  Defense
+    DE   98  A.Key
+    DT   74  K.Givens
+    DT   90  G.Stewart
+    DT   95  A.Adebawore
+    DE   97  L.Latu
+    LB   50  B.Boettcher
+    LB   53  C.Allen
+    CB   1   A.Gardner
+    CB   7   C.Ward
+    S    25  A.Haulcy
+    S    0   C.Bynum
+
+---- Substitutions (entered the game) -----------------------------------------
+Miami Dolphins
+  WR 1 J.Tolbert, CB 4 J.Marshall, RB 5 J.Wright, WR 21 K.Coleman,
+  S 23 Z.Anderson, S 25 J.Wood, RB 30 K.Allen, K 31 Z.Gonzalez, CB 32 J.Simpson,
+  ILB 40 W.Gay, ILB 42 J.Woodard, LB 45 S.Heyward, LS 46 T.Addington,
+  P 48 B.Pinion, DE 58 J.Kromah, DE 59 R.McGraw, G/T 62 J.Kingston,
+  T 79 C.Godrick, TE 83 S.Traore, WR 88 J.Reagor, TE 89 W.Kacmarek,
+  DE 90 M.Herring, DL 93 Z.Biggers, DL 97 K.Cooper
+Indianapolis Colts
+  K 3 S.Shrader, P 8 R.Sanchez, WR 12 N.Westbrook-Ikhine, WR 16 A.Dulin,
+  RB 20 S.McGowan, RB 21 D.Giddens, CB 27 J.Walley, S 30 H.Wohler,
+  CB 33 K.Harris, CB 34 K.Gushiken, S 38 J.Owens, LB 44 T.Chambers,
+  LB 47 W.Weeks, LS 48 J.Bobenmoyer, TE 49 P.Brown, DE 52 G.Gumbs,
+  DE 55 C.Curry, LB 58 A.Ajiake, C 63 S.Van Pran-Granger, T 67 L.Tenuta,
+  TE 85 A.Ogletree, DE 91 J.Tuimoloau, DT 93 T.Smith
+
+---- Did Not Play -------------------------------------------------------------
+Miami Dolphins
+  QB 15 B.Cook, G 64 C.Haynes
+Indianapolis Colts
+  QB 5 A.Richardson, WR 9 Q.Watkins, T 73 C.Heck
+
+---- Not Active (official inactive list) --------------------------------------
+Miami Dolphins
+  WR 18 C.Bell, CB 24 M.Dial, C 55 A.Brewer, G/T 77 C.Wallace, TE 80 J.Joly,
+  WR 86 J.Wayne
+Indianapolis Colts
+  3QB 15 R.Leonard, LS 46 L.Rhodes, LB 57 J.Carlies, T 75 J.Travis,
+  TE 86 W.Mallory, DT 94 J.Tillery

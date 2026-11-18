@@ -1,0 +1,103 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794916121/gamecenter/ab78ad5a-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/chargers-at-ravens-2026-reg-10
+Game       : Los Angeles Chargers at Baltimore Ravens, 2026 REG 10,
+             Monday 11/16/2026, M&T Bank Stadium, Baltimore, MD.
+             Final LAC 23 - BAL 20.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows are
+             published. See data/ops/raw/README.md.
+
+---- Game day header ----------------------------------------------------------
+Date       : Monday, 11/16/2026
+Stadium    : M&T Bank Stadium
+City       : Baltimore, MD
+Start Time : 8:16 PM EST
+Game Weather: Clear
+Temp       : 49 F (9.4 C)   Humidity: 58%   Wind: NW 2 mph
+Surface/Roof: Open Stadium on Natural Grass
+Outdoor Weather: Clear
+Referee    : Hill, Adrian (29)
+Paid Attendance: 69,679
+Game Time  : 3:07
+
+---- Lineups (actual starters) ------------------------------------------------
+Los Angeles Chargers
+  Offense
+    WR   1   Q.Johnston
+    WR   9   T.Harris
+    TE   88  C.Kolar
+    LT   76  J.Alt
+    LG   65  L.Taylor
+    C    66  J.Slaughter
+    RG   69  C.Strange
+    RT   77  T.Burke
+    QB   10  J.Herbert
+    FB   44  S.Matlock
+    RB   8   O.Hampton
+  Defense
+    OLB  45  T.Tupilotu
+    DL   93  T.Tart
+    DL   94  D.Tomlinson
+    OLB  52  K.Mack
+    LB   53  D.Phillips
+    LB   0   D.Henley
+    DB   2   E.Molden
+    CB   26  D.Jackson
+    CB   4   T.Still
+    CB   20  C.Hart
+    S    23  T.Jefferson
+Baltimore Ravens
+  Offense
+    WR   4   Z.Flowers
+    TE   85  J.Cuevas
+    LT   79  R.Stanley
+    LG   74  J.Simpson
+    C    64  C.Jurgens
+    RG   71  O.Ioane
+    RT   70  R.Rosengarten
+    WR   6   J.Lane
+    WR   7   R.Bateman
+    QB   11  J.Brissett
+    RB   22  D.Henry
+  Defense
+    OLB  91  T.Hendrickson
+    DL   96  B.Washington
+    DL   98  T.Jones
+    DL   92  N.Madubuike
+    OLB  15  M.Green
+    ILB  32  T.Simpson
+    ILB  0   R.Smith
+    CB   2   N.Wiggins
+    CB   44  M.Humphrey
+    S    24  M.Starks
+    S    14  K.Hamilton
+
+---- Substitutions (entered the game) -----------------------------------------
+Los Angeles Chargers
+  LB 6 D.Perryman, K 11 C.Dicker, WR 12 D.Davis, P 16 J.Scott, S 22 G.Smith,
+  CB 24 R.Shelley, S 27 R.Mickens, RB 28 K.Vidal, DB 33 D.Leonard,
+  RB 34 K.Mitchell, LB 43 T.Dye, LS 47 J.Harris, OLB 50 C.Murphy, LB 58 M.Wax,
+  G 74 K.Awosika, WR 82 T.Wease, TE 83 D.Njoku, WR 84 K.Lambert-Smith,
+  TE 86 O.Gadsden, OLB 90 A.Mesidor, DL 91 N.Barrett, DL 96 M.Adams,
+  DL 99 J.Caldwell
+Baltimore Ravens   [printed by the conversion after the scoring-summary table;
+                    the last entry is truncated by the conversion — FLAGGED]
+  CB 3 C.Awuzie, OLB 9 Z.Young, WR 10 L.Wester, WR 17 C.Moore, S 25 K.Wallace,
+  RB 26 R.Ali, CB 27 T.Tampa, P 30 R.Eckley, K 35 R.Patterson,
+  ILB 49 J.Higgins, T 62 C.Edoga, T 76 C.Vinson, WR 81 D.Walker,
+  TE 87 N.Vannett, TE 88 M.Hibner, TE 89 M.Andrews, DL 93 C.Campbell, NT 94 (truncated)
+
+---- Did Not Play -------------------------------------------------------------
+Los Angeles Chargers
+  QB 7 D.Uiagalelei, C 60 J.Spomer, G 73 A.Harkey
+Baltimore Ravens
+  QB 12 J.Fagnano, OL 58 R.Neuzil
+
+---- Not Active (official inactive list) --------------------------------------
+Los Angeles Chargers
+  WR 15 L.McConkey, S 32 K.Williamson, CB 37 I.Waxter, OLB 48 B.Dupree,
+  WR 89 B.Thompson, DL 92 J.Eboigbe
+Baltimore Ravens
+  WR 13 E.Sarratt, 3QB 18 K.Slovis, S 21 J.Hawkins, CB 29 C.Rivers,
+  G/T 51 E.Jones, DL 90 A.Peebles

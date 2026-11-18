@@ -1,0 +1,108 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829726/gamecenter/ab78a43c-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/seahawks-at-raiders-2026-reg-10
+Game       : Seattle Seahawks at Las Vegas Raiders, 2026 REG 10,
+             Sunday 11/15/2026, Allegiant Stadium, Las Vegas, NV.
+             Final SEA 21 - LV 13.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows published.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : Allegiant Stadium
+City       : Las Vegas, NV
+Start Time : 1:05 PM PST
+Game Weather: Cloudy
+Temp       : 65 F (18.3 C)   Humidity: 40%   Wind: NE 6 mph
+Surface/Roof: Closed Stadium on Natural Grass
+Outdoor Weather: Cloudy
+Referee    : Vinovich, Bill (52)
+Paid Attendance: 62,624
+Game Time  : 2:52
+
+---- Lineups (actual starters) ------------------------------------------------
+Seattle Seahawks
+  Offense
+    WR   11  J.Smith-Njigba
+    WR   10  C.Kupp
+    TE   81  E.Saubert
+    LT   74  J.Jones
+    LG   76  G.Zabel
+    C    61  J.Sundell
+    RG   75  A.Bradford
+    RT   72  A.Lucas
+    TE   88  A.Barner
+    QB   2   D.Lock
+    RB   26  Z.Charbonnet
+  Defense
+    DE   91  B.Murphy
+    DE   90  J.Reed
+    LB   0   D.Lawrence
+    LB   58  D.Hall
+    LB   32  D.Thomas
+    LB   13  E.Jones
+    CB   21  D.Witherspoon
+    CB   29  J.Jobe
+    S    3   N.Emmanwori
+    S    39  T.Okada
+    S    20  J.Love
+Las Vegas Raiders
+  Offense
+    TE   89  B.Bowers
+    LT   74  K.Miller
+    LG   70  S.Burford
+    C    65  T.Linderbaum
+    RG   66  T.Zuhn
+    RT   71  D.Glaze
+    TE   87  M.Mayer
+    WR   1   T.Tucker
+    QB   15  F.Mendoza
+    FB   34  C.Heyward
+    RB   2   A.Jeanty
+  Defense
+    DE   95  K.Paye
+    DT   94  F.Fatukasi
+    DT   69  A.Butler
+    DE   98  M.Crosby
+    LB   17  N.Dean
+    LB   7   Q.Walker
+    CB   35  H.Masses
+    CB   3   T.Johnson
+    CB   5   E.Stokes
+    S    11  J.Chinn
+    S    31  T.Stukes
+
+---- Substitutions (entered the game) -----------------------------------------
+NOT TRANSCRIBABLE FOR THIS GAME — FLAGGED. The conversion split both clubs'
+substitution lists into four fragments and interleaved them across the top of
+the document and the bottom of the scoring-summary page, with several entries
+truncated mid-name (e.g. "RB 36", "LB 52"). The fragments are preserved below
+verbatim but are NOT assigned to a club and are NOT used to decide whether a
+player played.
+  fragment 1 (top of document, after the "Substitutions" heading):
+    RB 4 M.Washington, P 6 A.Cole, WR 9 J.Nailor, K 14 M.Gay, WR 18 J.Bech, S
+  fragment 2 (inside the lineup table):
+    ... P.O'Connell, LB 56 D.Fowler, LB 57 C.O'Toole, T 68 B.Hart,
+    G 70 B.Stephens, WR 85 I.Charles, TE 89 N.Kallerup, DE 94 M.Morris,
+    NT 95 B.Pili, DT 98 R.Mills   ||   C.Lindenberg, G/C 58 J.Powers-Johnson,
+    T 60 C.Grant, G 76 C.Rogers, TE 80 I.Thomas, WR 81 D.Young, WR 82 C.White,
+    TE 84 C.Runyon, DT 91 T.Keenan, DT 92 J.Pegues, DT 97 T.Hemingway
+  fragment 3 (after the scoring-summary table):
+    16 T.Diggs, WR 22 R.Shaheed, S 24 R.Thomas, CB 28 N.Pritchett, RB 36
+    20 I.Pola-Mao, RB 23 D.Laube, CB 25 D.Luter, CB 26 D.Porter, CB 28 J.McCoy,
+    G.Holani, FB 38 B.Russell, LS 41 C.Stoll, LB 44 C.Surratt, LB 48 T.Knight,
+    LB 52 LB 44 T.Eichenberg, LS 47 A.Ward, LB 50 S.Olubi, DE 51 M.Koonce, LB 55
+
+---- Did Not Play -------------------------------------------------------------
+Seattle Seahawks
+  QB 6 J.Milroe, C 55 O.Oluwatimi
+Las Vegas Raiders
+  QB 12 A.O'Connell
+
+---- Not Active (official inactive list) --------------------------------------
+Seattle Seahawks
+  QB 14 S.Darnold, RB 23 E.Wilson, CB 27 A.Smith, G 53 Q.Nelson, T 67 C.Cross,
+  NT 97 D.Eastern, DT 99 L.Williams
+Las Vegas Raiders
+  WR 10 D.Thornton, WR 19 M.Benson, S 27 T.McCollum, S 43 D.Johnson,
+  G 77 B.Cabeldue, DT 99 T.Booker

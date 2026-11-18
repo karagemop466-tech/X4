@@ -1,0 +1,103 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829721/gamecenter/ab788967-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/vikings-at-packers-2026-reg-10
+Game       : Minnesota Vikings at Green Bay Packers, 2026 REG 10,
+             Sunday 11/15/2026, Lambeau Field, Green Bay, WI.
+             Final MIN 30 - GB 10.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows published.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : Lambeau Field
+City       : Green Bay, WI
+Start Time : 12:02 PM CST
+Game Weather: Sunny
+Temp       : 45 F (7.2 C)   Humidity: 51%   Wind: NW 5 mph   Wind Chill: 42
+Surface/Roof: Open Stadium on Natural Grass
+Outdoor Weather: (none printed)
+Referee    : Blakeman, Clete (34)
+Paid Attendance: 78,332
+Game Time  : 2:57
+
+---- Lineups (actual starters) ------------------------------------------------
+Minnesota Vikings
+  Offense
+    TE   85  B.Yurosek
+    LT   71  C.Darrisaw
+    LG   60  J.Huber
+    C    64  B.Brandel
+    RG   76  W.Fries
+    RT   75  B.O'Neill
+    WR   18  J.Jefferson
+    WR   13  T.Felton
+    QB   8   K.Cousins
+    RB   33  A.Jones
+    FB   45  M.Bredeson
+  Defense
+    OLB  15  D.Turner
+    DL   95  C.Banks
+    DL   50  L.Rodriguez
+    DL   61  J.Redmond
+    OLB  43  A.Van Ginkel
+    LB   0   I.Pace
+    LB   55  E.Wilson
+    CB   2   I.Rodgers
+    CB   7   B.Murphy
+    S    26  J.Jackson
+    S    44  J.Metellus
+Green Bay Packers
+  Offense
+    WR   0   M.Golden
+    LT   77  J.Morgan
+    LG   72  L.Tomlinson
+    C    73  J.Williams
+    RG   79  T.Glover
+    RT   71  A.Belton
+    TE   85  T.Kraft
+    WR   9   C.Watson
+    TE   86  M.Redman
+    QB   10  J.Love
+    RB   30  C.Brooks
+  Defense
+    EDGE 90  L.Van Ness
+    DT   94  K.Brooks
+    DT   95  D.Wyatt
+    DT   55  C.McClellan
+    EDGE 99  B.Sorrell
+    LB   58  I.McDuffie
+    LB   59  T.Hopper
+    CB   2   B.Cisse
+    CB   25  K.Nixon
+    S    29  X.McKinney
+    S    33  E.Williams
+
+---- Substitutions (entered the game) -----------------------------------------
+Minnesota Vikings
+  WR 4 M.Price, CB 5 Z.Vaughn, S 6 Jak.Thomas, K 16 W.Reichard, OLB 17 K.Van Noy,
+  P 19 B.Thorson, CB 20 C.Demmings, S 22 H.Smith, CB 23 J.Pierre, S 24 J.Ward,
+  RB 27 J.Mason, S 29 Jac.Thomas, RB 31 D.Dallas, OLB 32 C.Chambliss,
+  LB 41 J.Golday, LS 42 A.DePaola, TE 48 D.Culp, C 65 M.Jurgens,
+  T 72 R.Van Demark, T 78 C.Tiernan, WR 82 J.Jones, TE 86 G.Bartholomew,
+  DL 97 D.Orange, OLB 98 B.Richter, DL 99 E.Williams
+Green Bay Packers   [displaced by the conversion; one entry lost its number —
+                     "DE J.Sturdivant" prints with no jersey number. FLAGGED]
+  QB 6 T.Taylor, S 7 J.Bullard, WR 16 B.Melton, TE 18 J.Smith, P 19 D.Whelan,
+  CB 21 B.St-Juste, WR 23 S.Moore, CB 24 C.Valentine, RB 26 K.Johnson,
+  S 27 K.Oladapo, K 28 T.Smack, LB 31 N.Niemann, RB 32 M.Lloyd, CB 36 K.Hadden,
+  LS 42 M.Orzech, TE 49 D.Dabney, DE 51 D.Dennis-Sutton, LB 54 K.Welch,
+  DE (no number printed) J.Sturdivant, DT 93 A.Campbell, DT 97 J.Riley
+
+---- Did Not Play -------------------------------------------------------------
+Minnesota Vikings
+  QB 11 C.Wentz
+Green Bay Packers
+  C/G 52 J.Burton
+
+---- Not Active (official inactive list) --------------------------------------
+Minnesota Vikings
+  QB 1 K.Murray, WR 3 J.Addison, 3QB 12 M.Broser, WR 14 J.Jennings,
+  LB 51 B.Cashman, TE 87 T.Hockenson, DL 90 T.Ingram-Dawkins
+Green Bay Packers
+  RB 8 J.Jacobs, RB 22 P.Strong, LB 44 Z.Franklin, G/T 67 D.Jennings,
+  G 70 K.Zeitler, C/G 75 S.Rhyan
