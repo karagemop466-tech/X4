@@ -2026,3 +2026,9 @@ Claimed 2026-11-17 as T40 on branch `arena/a04ae774-x4`, base `fb8a6cb`; renumbe
 3. **Observed, not edited:** the committed depth snapshot (retrieved 2026-11-14) holds two GB players the live chart no longer lists (both transactioned 14 Nov). GB is on bye in Week 11, so no matrix row is affected; recorded as a freshness caveat on the page rather than silently editing the pinned dataset.
 4. **Owned elsewhere, untouched:** scheduled `capture.yml` failures (F-43/F-47/F-48, arena/7db594d1-x4 durability work), F-57 official-domain criterion, the settlement and flag work of arena/c30d278a-x4 and arena/d15ce403-x4.
 
+### Merge and deploy record (T45)
+- PR [#77](https://github.com/karagemop466-tech/X4/pull/77) (branch `arena/9ffa88ad-x4`) merged 2026-11-18 01:44:44 UTC as `7f099954e87785bf906935812a0390e5e6e9bb30` after the `desk` CI check passed (both runs SUCCESS, merge state CLEAN).
+- Pages workflow run [44218135648](https://github.com/karagemop466-tech/X4/actions/runs/44218135648) completed build and deploy successfully (38s). GitHub Pages API: `status: built`, source `main /`, latest build commit `7f099954e87785bf906935812a0390e5e6e9bb30` at 2026-11-18 01:45:18 UTC.
+- Live verification by page fetch: `https://karagemop466-tech.github.io/X4/matchup.html` serves the matrix (117 rows, 32 flagged, filters present, all three source links per row); `https://karagemop466-tech.github.io/X4/depth.html` serves the corrected note ("F-27 (not proof of who started) and F-24 (Houston image-only chart)"); the deployed `site/index.html` at `7f09995` carries the restored Evidence-status footer span and no raw Python source (checked against the GitHub contents API at the deploy commit).
+- Final gate states at merge: `tools/validate.py` VALIDATION PASSED (20 pages; every data row source-linked; root mirror byte-identical; determinism green); matrix re-verification 1,254/1,254 chain entries match the committed CSV with 0 mismatches.
+
