@@ -2106,6 +2106,33 @@ https://www.nfl.com/games/colts-at-texans-2026-reg-11
 - Conflict handling: the rebase onto `origin/main` (`5173a01`) conflicted only in `site/COORDINATION.md`; **both sessions' text was preserved** (unioned, zero conflict markers in the tree) and the root `COORDINATION.md` was re-mirrored from it. No other session's data or code was discarded.
 - Final gate states at merge: `tools/reverify_2026_11_18.py` 486 checks 0 failures; `tools/verify.py` 486 checks PASS (150 games, 32 clubs); `tools/validate.py` **VALIDATION PASSED** (site gate every data row source-linked, root mirror byte-identical, determinism green, console gate PASS, desk checker 0 open rows).
 
+### Follow-up after the first deploy (same session, same task)
+
+Checking the **live** site rather than the tree caught two things worth recording, because both are failure modes
+that a green local gate cannot see:
+
+1. **A section that was never in the tree.** The "Closing suggestions 2026-11-18" block on `suggestions.html` was
+   reported as delivered in a commit message while the commit contained no change to the file (a path-limited
+   `git add` staged nothing, and `git status` was clean afterwards because the edit had already been reverted by
+   the pipeline). Found by fetching `https://karagemop466-tech.github.io/X4/suggestions.html` and grepping it.
+   **Root cause:** `suggestions.html` is *generated* by `tools/pages.py`, so hand-editing the output is discarded by
+   the next build — including the build inside `tools/validate.py`. The section now lives in the
+   `SUGGESTIONS_BODY` template, survives regeneration, and is verified on the deployed page.
+2. **A stale provenance notice.** The executive-summary "Current evidence notice" still told the reader the page was
+   a superseded 2026-11-14 snapshot and pointed only at the 15 November review, even though the counts below it had
+   just been refreshed. Rewritten to the 2026-11-18 read, with the three limits that survive (capture job failing,
+   no Week 11 report, two venue-name differences) and both records linked.
+
+Merges: PR [#87](https://github.com/karagemop466-tech/X4/pull/87) (workbench official-source links) and
+PR [#88](https://github.com/karagemop466-tech/X4/pull/88) (the suggestions section, in the generator) both passed
+`desk` and merged; Pages rebuilt (`built`) after each. The venue-reference request below stays open and is logged
+as a Request, not an edit, because `data/venues-wk11-2026.csv` is another session's scope.
+
+### Request (do not edit; other session's scope)
+| Target | Owner / scope | Request | Why |
+|---|---|---|---|
+| `data/venues-wk11-2026.csv` | T38 venue work (`arena/31354751-x4` created the file; nobody holds an open claim on it today) | Re-read the **Game Info** block of https://www.nfl.com/games/colts-at-texans-2026-reg-11 and https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11 and update the two stadium names if the official page disagrees with the committed values ("RELIANT STADIUM" vs "NRG Stadium"; "ARROWHEAD STADIUM" vs "GEHA Field at Arrowhead Stadium") | F-60 is open. T46 flagged the difference instead of renaming it, because an unverified rename is worse than a recorded difference. The venue dataset is not in T46's declared file scope. |
+
 ### Irregularities (published, none blocking)
 F-58 and F-59 are resolved by this session. F-60 (venue naming for Houston and Kansas City) and F-61 (no official
 Week 11 report yet) stay open and are on the Flagged-for-Review path with their sources. Not touched: the capture
