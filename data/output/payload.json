@@ -13747,7 +13747,7 @@
    "kind": "warn",
    "status": "limitation",
    "detail": "On 2026-11-17, https://www.nfl.com/injuries/league/2026/reg11 returned the Week 10 report, titled 'Official NFL Injury Report for Players - Week 10 of the 2026 Season', and its address resolved to /reg10. No Week 11 designation exists in any official source read, so none is published. The silent fall-back is the same pattern as F-09 for the schedule links.",
-   "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash.",
+   "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash. Re-checked 2026-11-18 03:55 UTC (T46 sweep): the reg11 address still serves the Week 10 report (title 'Week 10 of the 2026 Season', resolves to /reg10); state unchanged.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
   },
@@ -13758,7 +13758,7 @@
    "kind": "warn",
    "status": "irregularity",
    "detail": "The T40 audit (research/audits/capture-workflow-health-2026-11-17.md) confirmed two code-path risks that survive even after the failing runs recorded in F-47 and F-48 are fixed. (1) A partial success is lost: tools/capture_official.py fetch --kind all can store one source's capture and write its manifest line before exiting non-zero on another source, and the workflow's later verify/freshness/commit steps have no if: always() condition, so the partial capture dies with the runner. (2) Freshness is global: freshness() takes the newest fetched_utc over every manifest entry and does not require schema_ok or a stored file per source, so one fresh error entry could make the whole store look current. The run-log download returned EOF for two independent sessions (arena/bdf71572-x4 and arena/550d7436-x4), so the fetch failure's cause stays unknown and is not guessed at here.",
-   "why": "These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs.",
+   "why": "These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs. Update 2026-11-18: both code-path risks are fixed by the capture hardening integrated at T46 (per-source failure records persisted before the run fails; per-source freshness against schema-valid HTTP 200 captures; the empty Houston chart URL no longer raises ValueError - five offline unit tests), but a successful scheduled run and the historical failure cause are still required to clear this entry.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/audits/capture-workflow-health-2026-11-17.md"
   },
@@ -13772,6 +13772,39 @@
    "why": "This does not contradict the F-39 closure, which used the any-https criterion the checker has always published: every row now carries a link, and computed rows honestly cite the artifact that produced them instead of borrowing an official URL that does not support the value. What remains open is real: (1) an allowlisted official-domain gate as a separate, stricter check, (2) source-to-value attribution per row, and (3) a semantic check that a link supports the value beside it. Until those land, a row whose only link is a repository artifact must be read as the artifact's output, not as an official NFL fact.",
    "official_url": "https://www.nfl.com/standings/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/site/research/verification/official-row-source-coverage-2026-11-17.csv"
+  },
+  {
+   "id": "F-58",
+   "item": "Week 10 results after the registration snapshot are verified and staged, not in the corpus: corpus expansion is a registered follow-up (T46 sweep)",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The 13 Week 10 games played on 15-16 November 2026 are verified from the official Week 10 schedule page and staged in research/verification/week10-results-staged-2026-11-18.csv (14 rows including the one already in the corpus), each row carrying its official nfl.com game URL. Adding them to the committed snapshot reproduces the live official standings exactly for all 32 teams on W/L/T/PF/PA (0 mismatches), so every staged score is cross-checked against the league's own aggregates. The corpus (data/games-2026.csv, 137 games) is deliberately NOT edited: the registered data-split states that the published walk-forward expansion on Weeks 3-10 stands as recorded at registration, and ingesting 13 games would move every registered evaluation number (F-07's 105 out-of-sample games becomes 118) inside the live Week 11 registration window.",
+   "why": "Ingesting results is a requirement of the programme, but expanding a corpus mid-registration without a dated registration would rewrite registered evidence. Clears when: F-59 pins the first-published model lines, a dated corpus-expansion registration is committed (the commit hash is the registration), and the staged file is ingested in one reviewed change. The standings delta (26 of 32 teams have a game the snapshot lacks) is tabled in research/verification/standings-delta-2026-11-18.csv.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
+  },
+  {
+   "id": "F-59",
+   "item": "The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "tools/build.py rewrites data/price-snapshots.csv on every build from the current game log (the Week 11 lines block), and stamps each row 'captured_at: 2026-11-14 (build)'. The file's own comment says the opening fair line is the first published model line, but nothing pins it: any change to the input data silently rewrites every recorded opening line, destroying the forecast record that 'record forecasts before kickoff' requires and making closing-line value unmeasurable. Found line by line during the 2026-11-18 T46 sweep while assessing whether the staged Week 10 results could be ingested.",
+   "why": "A price-snapshot store exists to preserve what was published when. An append-only store (as data/ops/price_snapshots.csv is for market prices - 'a re-ingest must never silently replace a reading') is the pattern; the model-line store does not follow it yet. This blocks the F-58 corpus expansion and any CLV computation. Clears when: the opening rows are written once and never rewritten (append-only with a recorded clock time), and a regression test fails the build if a rebuild changes an existing opening row.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
+  },
+  {
+   "id": "F-60",
+   "item": "Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The capture pipeline (tools/capture_official.py, .github/workflows/capture.yml) stores raw injury-report and club depth-page bytes under data/captures/ in this repository. GitHub reports the repository public, so those raw pages are public repository content, while the brief's data-layer split requires raw row-level data to sit in a private store until the terms are read. The published site is not affected: the Pages artifact is site/ only and never serves data/. Raised as a privacy request by the capture-hardening session (arena/7db594d1-x4) and surfaced here for the owner's decision.",
+   "why": "No private store exists in this environment, and the brief also requires immutable multi-day raw captures with retained hashes, so both requirements cannot be met at once today. The repo's own register treats missing captures as the irregularity (F-47), so captures run while the question stays visible. Clears when the owner chooses: keep the repository public and accept raw pages as repository content, or make the repository private, or move data/captures to an authorized external store with a terms/retention decision recorded.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
   }
  ],
  "replacement_depth": [
