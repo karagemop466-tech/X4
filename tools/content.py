@@ -10,7 +10,7 @@ Nothing here is a placeholder for data that exists.
 # ------------------------------------------------------------------ information requirements
 QUESTIONS = [
     dict(q="What decision are we actually trying to make?",
-         know="The repository now holds a verified game log (137 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
+         know="The repository now holds a verified game log of all 150 completed 2026 games through the end of Week 10, the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
          missing="The market definition (point spread, total, player prop, or a proprietary rating), the decision horizon (single game, week, or season) and whether the output is informational analytics, a paper-trading competition, or a wagering product.",
          blocks="Reward design, data budget, legal scope, and which of the strategies on the Strategy Lab page is even relevant.",
          close="Write a one-page charter naming the market, the horizon, the decision owner and what 'success' means, then re-score every suggestion against it.",
@@ -38,7 +38,7 @@ QUESTIONS = [
          url="https://www.nfl.com/news/ravens-lamar-jackson-right-thumb-out-6-9-weeks-expects-to-return-this-season"),
 
     dict(q="How many games are enough to call a strategy skilful rather than lucky?",
-         know="105 out-of-sample games are available (Weeks 3-10). The best strategy improves point-spread MAE over the league-constant benchmark, but its Bonferroni-adjusted bootstrap interval still contains zero, so no strategy passes the significance gate.",
+         know="118 out-of-sample games are available (Weeks 3-10 complete). The best strategy improves point-spread MAE over the league-constant benchmark by 9.5%, but its Bonferroni-adjusted bootstrap interval still contains zero, so no strategy passes the significance gate.",
          missing="More seasons of official history, and a pre-registered minimum sample size for the reward contest.",
          blocks="Awarding rewards, declaring a winner, or claiming an edge.",
          close="Pre-register the sample size and the metric now, then keep scoring prospective predictions so the evidence accrues on a published timeline.",
@@ -167,7 +167,7 @@ SUGGESTIONS = [
          decision="Whether the leaderboard is frozen for a season or updated continuously."),
 
     dict(priority="P0", priority_class="p0", area="Validation", title="S-15 - Decide whether the significance gate measures mean error or paired win rate",
-         body="The same 105 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.21, +1.82] points and contains zero, so every strategy fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 68 of 105 games (64.8%), exact binomial p = 0.0016, which would clear the Bonferroni threshold of 0.00625. Both statistics are computed from the same predictions and both are correct.",
+         body="The same 118 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.00, +1.94] points: its upper bound has moved clear of zero after Week 10 completed, but its lower bound still touches it, so every strategy still fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 78 of 118 games (66.1%), exact one-sided binomial p = 0.00030, which would clear the Bonferroni threshold of 0.00625 (0.05 / 8 strategies). Both statistics are computed from the same predictions and both are correct.",
          why="The gate currently asks 'is the average improvement distinguishable from zero'. The blowouts dominate that average, and no team-rate model can price a blowout. The sign test asks 'how often is this model better head-to-head', which is the question a staker and a reviewer both actually care about. Choosing one over the other changes whether the leaderboard can ever promote anything - and choosing it now, after seeing that one answer passes, is exactly what a pre-registered gate is supposed to prevent unless the choice is made in the open and recorded before the next evaluation window.",
          verify="Both statistics are published together on gates.html; the gate definition is committed before the next evaluation window; after 50 prospective locked games the two agree or the divergence is explained.",
          effort="Low", impact="Very high",
@@ -249,7 +249,7 @@ FLAGS = [
          url="https://www.nfl.com/injuries/"),
 
     dict(id="F-07", item="No strategy has passed all seven validation gates", type="Result", kind="warn", status="limitation",
-         detail="Across 105 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval that still contains zero.",
+         detail="Across 118 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval whose lower bound still reaches zero (-0.0001 points), so it does not clear the gate.",
          why="This is the gate doing its job. A leaderboard that ranked strategies by point estimate alone would have declared a winner that the evidence does not support.",
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://www.nfl.com/schedules/2026/by-week/week-10"),
@@ -704,7 +704,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
 VERIFICATION = [
     dict(check="Reconstructed game log matches the official NFL.com standings", result="pass",
          url="https://www.nfl.com/standings/",
-         how="tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."),
+         how="tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 150 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."),
     dict(check="Every game row carries a working official NFL.com game URL", result="pass",
          url="https://www.nfl.com/schedules/2026/",
          how="Each row's URL is checked against the official /games/<away>-at-<home>-<season>-reg-<week> pattern, and the Week 5 and Week 10 links were opened directly and confirmed to show the same scores."),

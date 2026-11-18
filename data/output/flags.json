@@ -71,7 +71,7 @@
   "type": "Result",
   "kind": "warn",
   "status": "limitation",
-  "detail": "Across 105 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval that still contains zero.",
+  "detail": "Across 118 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval whose lower bound still reaches zero (-0.0001 points), so it does not clear the gate.",
   "why": "This is the gate doing its job. A leaderboard that ranked strategies by point estimate alone would have declared a winner that the evidence does not support.",
   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
   "url": "https://www.nfl.com/schedules/2026/by-week/week-10"

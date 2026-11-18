@@ -40,7 +40,7 @@
    "key": "side",
    "label": "Spread / side",
    "order": 1,
-   "why": "Originated first: the spread is the market with the deepest public data (every final score), the smallest variance per game, and the only market whose error this desk can measure against 105 out-of-sample games. It is the market a team-form model is best equipped to price."
+   "why": "Originated first: the spread is the market with the deepest public data (every final score), the smallest variance per game, and the only market whose error this desk can measure against 118 out-of-sample games. It is the market a team-form model is best equipped to price."
   },
   {
    "key": "total",

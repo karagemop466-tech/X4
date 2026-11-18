@@ -3,7 +3,7 @@
   "check": "Reconstructed game log matches the official NFL.com standings",
   "result": "pass",
   "url": "https://www.nfl.com/standings/",
-  "how": "tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."
+  "how": "tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 150 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."
  },
  {
   "check": "Every game row carries a working official NFL.com game URL",
