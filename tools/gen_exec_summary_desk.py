@@ -170,10 +170,12 @@ decisions = [
      "Prices are labelled non-official on every page and never presented as an NFL fact; the rights decision "
      "is the owner's and is listed as an open flag.",
      a(SITE_URL + "flags.html", "Flagged for review"), a(NFL + "/", "NFL.com")],
-    ["Should the failing capture workflow be repaired or replaced?",
-     "Multi-day availability history is impossible while every scheduled run fails.",
-     "The cause is published (an empty Houston depth-chart URL raising an uncaught ValueError). The repair is "
-     "one guard plus a caught exception, and it is a code change in another session's file scope.",
+    ["Is the repaired capture workflow running green again?",
+     "Multi-day availability history is impossible while the scheduled capture fails.",
+     "The cause was published (an empty Houston depth-chart URL raising an uncaught ValueError) and the repair is "
+     "committed on 2026-11-18: a blank or invalid URL is now skipped loudly (stderr note, manifest line, non-zero exit) "
+     "instead of aborting the run. What closes it is evidence, not code: four consecutive scheduled runs with a stored "
+     "capture per source per day.",
      a("https://github.com/karagemop466-tech/X4/actions/runs/44175196682", "Failing run"),
      a(SITE_URL + "research/verification/capture-workflow-logs-2026-11-18.md", "Diagnosis")],
 ]

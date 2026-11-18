@@ -2254,3 +2254,10 @@ assigned to its four new flags. Resolved without discarding their work:
 - **Verification performed:** `python3 tools/validate.py` PASSED on the tree before and after the change (baseline 12 s, no tree drift); `tools/test_escrow.py` 18/18; every escrow row carries an entry source link and an official game link (the IND-HOU and KC-ARI game links were re-read on 2026-11-18; the other Week 11 links are the 2026-11-15 stamp).
 - **Irregularities (for review, none blocks the merge):** E1 to E7 above. Also noted: the desk sidebar still reads 'Snapshot 2026-11-14 · no live feed', which is a shared-shell label outside this session's scope.
 - **Not done, and why:** (1) the weather overlay (blocked on official coordinates and roof sources); (2) integrating the escrow into the shared nav and landing directory (integration-owned, requested); (3) the brief's wider items were already covered by earlier merged sessions and are not re-built here.
+
+### Merge and deploy record — PR #90 (2026-11-18)
+
+- **PR**: [#90](https://github.com/karagemop466-tech/X4/pull/90) — "T46: brief-completion audit — computed executive summaries, depth-audit page, line-by-line repo review, capture repair". One conflict at creation (main had moved again: PRs #86/#88/#89); resolved on the branch, re-validated, CI success (run 44231879537).
+- **Merge**: merged to `main` without approval as commit `20a7665fe2c294c954bc5d0595c581771b8ceab5` at 2026-11-18T03:39:52Z.
+- **CI on main**: Desk validation run 44231998338 success; Publish NFL Decision Lab run 44231998316 success.
+- **Pages**: build for commit `20a7665` completed 03:40:27Z, `status: built`. Live verification by page fetch: `depth-audit.html` serves the 31-club audit; `executive-summary.html` serves the computed page — home margin **−0.5, n = 146 of 150, CI [−2.7, +1.6]**, 65 flags / 47 open. (One un-busted fetch first returned a CDN-cached pre-merge copy; confirmed with a cache-busting fetch against the built commit.)
