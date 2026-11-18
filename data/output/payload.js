@@ -13456,7 +13456,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/build.py"
   },
   {
-   "id": "F-71",
+   "id": "F-66",
    "item": "Stale numbers survive in generated prose because prose is not on the gate",
    "type": "Irregularity",
    "kind": "warn",
@@ -13467,7 +13467,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"
   },
   {
-   "id": "F-72",
+   "id": "F-67",
    "item": "Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided",
    "type": "Method",
    "kind": "warn",
