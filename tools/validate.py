@@ -51,6 +51,8 @@ STEPS = [
     ("originate lines and grade them", [PY, os.path.join(ROOT, "tools", "origination.py")]),
     ("build the replacement-depth ledger", [PY, os.path.join(ROOT, "tools", "depth_ledger.py")]),
     ("build the origination pages", [PY, os.path.join(ROOT, "tools", "ops.py")]),
+    ("self-test the two-stage escrow (T48)", [PY, os.path.join(ROOT, "tools", "test_escrow.py")]),
+    ("build the two-stage escrow page (T48)", [PY, os.path.join(ROOT, "tools", "gen_escrow.py")]),
     ("write the research findings", [PY, os.path.join(ROOT, "tools", "research.py")]),
     ("sync root copies", [PY, os.path.join(ROOT, "tools", "sync.py")]),
     ("check site", [PY, os.path.join(ROOT, "site", "check.py")]),
