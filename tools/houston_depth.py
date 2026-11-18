@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""T46: Authorized-source resolution of the Houston depth-chart gap (S5 / F-24).
+"""T47: Authorized-source resolution of the Houston depth-chart gap (S5 / F-24).
 
 WHY THIS EXISTS
 ---------------

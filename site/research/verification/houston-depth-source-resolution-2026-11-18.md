@@ -1,6 +1,6 @@
-# Houston depth-chart gap — authorized-source resolution (T46, 2026-11-18)
+# Houston depth-chart gap — authorized-source resolution (T47, 2026-11-18)
 
-Task: T46 (session `arena/a2e2f988-x4`). Closes the actionable part of gate **S5**
+Task: T47 (session `arena/a2e2f988-x4`). Closes the actionable part of gate **S5**
 ("depth charts for all 32 clubs") and refines flag **F-24** for the Houston Texans.
 
 ## The gap
