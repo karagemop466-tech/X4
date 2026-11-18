@@ -140,15 +140,17 @@ the registration window.
 Consequences for the register (see the T49 board row):
 
 - This session's staged-results flag is **not** registered — superseded by their F-58.
-- The §2/F-59 snapshot-pinning finding is registered as **F-62**, now with a confirmed
+- The §2/F-59 snapshot-pinning finding is registered as **F-66** (renumbered twice as other sessions took the ID), now with a confirmed
   incident: the ingest rebuilt `data/price-snapshots.csv` and **25 of 39 opening rows
   changed value while still stamped `2026-11-14 (build)`** — the first-published
   Week 11 model lines were silently overwritten, exactly the failure the finding
   predicted. The pre-ingest values are recoverable from git history and should be
   restored as the dated record once the store is append-only.
-- The privacy request is registered as **F-63** (their F-60 is the venue-naming flag).
+- The privacy request is registered as **F-67** (flag IDs F-58..F-65 were taken by parallel sessions during the merge window).
 - A duplicated F-58..F-61 block inside the VERIFICATION list in `tools/content.py`
   (present on main, found line by line) is removed in this pass.
+
+A third parallel session (`arena/ad5e4c3d-x4`) meanwhile registered F-62..F-65 and repaired the same empty-URL capture defect independently; both repairs merged. The `b543623` merge commit on main also carried git conflict markers in COORDINATION.md, resolved in this pass by keeping both sides.
 
 Counts in §1 ("26 of 32 teams") and §2 ("13 games") describe the state at the time of
 the read (03:05–04:00 UTC), before the parallel ingest; they match the parallel

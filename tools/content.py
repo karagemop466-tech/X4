@@ -735,7 +735,66 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/injuries/league/2026/reg11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"),
 
-    dict(id="F-62", item="The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it", type="Irregularity", kind="bad", status="open",
+    # ---- T46 (session arena/ad5e4c3d-x4), 2026-11-18: found by re-deriving published numbers (renumbered from F-58..F-61 to avoid clashing with the flags merged from arena/bca9fb72-x4)
+    # ---- T46 (session arena/ad5e4c3d-x4), 2026-11-18: found by re-deriving published numbers ---
+    dict(id="F-62", item="The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54",
+         type="Irregularity", kind="bad", status="open",
+         detail=("tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', "
+                 "which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in "
+                 "research/computed_stats.json ({n: 54, r: -0.3224, ci95: [-0.5432, -0.0598]}). The generated signals table prints "
+                 "54 correctly. The executive-summary row and the correlations page attach 57 - the size of the input file - to the "
+                 "same r. The three neutral-site games dropped (HOU at JAX week 6, PIT at NO week 7, CIN at ATL week 9) are not named "
+                 "in the row label either. The value and interval are correct; the n beside them is not."),
+         why=("The brief requires every correlation to be published with its n. Printing the file count instead of the observation count "
+              "makes a result computed on 54 games look like one computed on 57, which is the exact substitution the requirement exists "
+              "to prevent."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-6",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"),
+
+    dict(id="F-63", item="One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist",
+         type="Irregularity", kind="warn", status="open",
+         detail=("research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which re-derives "
+                 "exactly from research/data/games_weeks6-9_2026.csv. The executive summary publishes it as +0.1 and the line-lab model "
+                 "text as h = +0.07: the same quantity at two roundings. Separately, the window is weeks 6-9 only. Re-deriving on the full "
+                 "verified corpus (weeks 1-10, neutral-site games excluded) gives n = 67 and a mean of -1.49, the opposite sign to the +0.07 "
+                 "the line lab adds to every Week 11 spread."),
+         why=("A model constant that flips sign when four more weeks of official results are included is not a measured edge yet; it is a "
+              "window-dependent number. Publishing it as 'measured' without the window and the wider result is the overclaim."),
+         official_url="https://www.nfl.com/schedules/2026/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"),
+
+    dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent",
+         type="Unverified data", kind="bad", status="open",
+         detail=("data/depth-wk11-2026.csv holds 1,558 rows across 705 club/unit/position columns, of which 76 name a single player and "
+                 "0 cells hold more than one player. Every club chart read this session publishes at least one shared or empty cell "
+                 "(Seattle WR cell 1 lists Cooper Kupp and Rashid Shaheed together; Washington WR cell 2 is empty), and the dataset stores "
+                 "the Seattle pair at depth 1 and 2. No special-teams row (P, K, H, LS, PR, KR) exists in the dataset, although every live "
+                 "chart read publishes a special-teams section. A four-club live sample of offence charts (SEA, CLE, BAL, WAS; 103 players) "
+                 "found 4 players absent from the dataset and the one shared rank-1 cell not represented."),
+         why=("The brief's deficiency signal is 'a backup replaced a starter'. With co-starters stored as starter-plus-backup, the dataset "
+              "would report a deficiency at a position where both men start, and a missing player cannot be reported absent at all. The "
+              "depth-audit page quantifies this per club rather than disclaiming it in prose."),
+         official_url="https://www.seahawks.com/team/depth-chart",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"),
+
+    dict(id="F-65", item="Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError",
+         type="Irregularity", kind="bad", status="open",
+         detail=("Four scheduled runs (2026-11-16 06:40, 2026-11-16 22:13, 2026-11-17 08:00, 2026-11-17 21:00) all fail at step 4, "
+                 "'Fetch, schema-check and store the official pages', within 8 seconds, and steps 5-7 are skipped, so no capture and no "
+                 "manifest line was ever stored. tools/depth.py sets the Houston chart URL to the empty string; "
+                 "tools/capture_official.py fetch() passes every URL straight to urllib.request.Request, which raises ValueError "
+                 "('unknown url type: ...') for an empty URL, and ValueError is not in the caught (URLError, OSError, TimeoutError) tuple. "
+                 "HOU sorts 11th of the 32 club targets, which fits an 8-second abort and rules out 33 sequential 60-second timeouts. "
+                 "REPAIRED 2026-11-18 on this branch: a blank/invalid URL is now skipped loudly (stderr note, manifest line, non-zero exit) "
+                 "so one missing club page no longer discards the other 31 targets; the scheduled workflow still needs to run green to confirm. "
+                 "The log text itself could not be retrieved (the Actions log blob returns EOF), so the conclusion is drawn from the step "
+                 "outcome, the duration and the code path, and is labelled as such."),
+         why=("Until this is fixed no multi-day availability history can exist, which blocks every capture-dependent requirement in the "
+              "brief: replayable practice designations, inactive lists, and the designation-reliability study."),
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/actions/runs/44175196682"),
+
+    dict(id="F-66", item="The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it", type="Irregularity", kind="bad", status="open",
          detail=("tools/build.py rewrites data/price-snapshots.csv on every build from the current game log (the Week 11 lines block), and stamps each row 'captured_at: 2026-11-14 (build)'. "
                  "The file's own comment says the opening fair line is the first published model line, but nothing pins it. Found line by line during the 2026-11-18 T49 sweep while assessing a corpus ingest; "
                  "the defect then materialized for real: the Week 10 ingest (F-58) rebuilt the file and 25 of the 39 opening rows changed value while still carrying the '2026-11-14 (build)' stamp, "
@@ -745,7 +804,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "and a regression test fails the build if a rebuild changes an existing opening row. The first-published Week 11 lines should then be restored from git history as the dated record."),
          official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"),
-    dict(id="F-63", item="Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data", type="Limitation", kind="warn", status="open",
+    dict(id="F-67", item="Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data", type="Limitation", kind="warn", status="open",
          detail=("The capture pipeline (tools/capture_official.py, .github/workflows/capture.yml) stores raw injury-report and club depth-page bytes under data/captures/ in this repository. "
                  "GitHub reports the repository public, so those raw pages are public repository content, while the brief's data-layer split requires raw row-level data to sit in a private store until the terms are read. "
                  "The published site is not affected: the Pages artifact is site/ only and never serves data/. Raised as a privacy request by the capture-hardening session (arena/7db594d1-x4) and surfaced here for the owner's decision."),

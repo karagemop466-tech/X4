@@ -106,7 +106,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-46 | Re-confirmed on 2026-11-17: the Texans depth chart is an image only, labelled 'Unofficial Depth Chart', so no structured source exists for the Texans row |
 | F-47 | No immutable multi-day availability capture history exists on this branch: data/captures/ is absent, and the capture workflow runs from the default branch |
 | F-48 | The official-capture workflow has failed on all four of its runs on main, so no capture has been stored |
-| F-49 | Side bets were settled on the straight-up winner, not on the spread: one recorded result was wrong (Week 9, CLE +4.5). Fixed on main |
+| F-49 | Side bets were settled on the straight-up winner, not on the spread: one recorded result is wrong (Week 9, CLE +4.5) |
 | F-50 | An earlier count of six graded mismatches was wrong: the independent re-check reproduces one |
 | F-51 | Official Week 10 'Out' players missing from their club's depth file (I-3): the same players as F-25, re-read where stated |
 | F-52 | The depth file dates five club charts, not one: an earlier note said only the Packers' (I-5) |
@@ -119,8 +119,10 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-59 | The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46) |
 | F-60 | Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) |
 | F-61 | The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55) |
-| F-62 | The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it |
-| F-63 | Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data |
+| F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 |
+| F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist |
+| F-64 | The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent |
+| F-65 | Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError |
 
 ## What is deliberately absent
 
