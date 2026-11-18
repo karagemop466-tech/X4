@@ -10,6 +10,10 @@ name: Official capture (injury report and club depth pages)
 # recovery instead of leaving no record of repeated failures.
 
 on:
+  # TEMPORARY (T48 live test on this branch only; removed before merge): the token cannot
+  # dispatch workflows (HTTP 403), so a push to the working branch starts one live run.
+  push:
+    branches: [arena/dad920d9-x4]
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
