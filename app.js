@@ -6,9 +6,10 @@
  *
  *   1. a week filter on the game log
  *   2. team and status filters on the full injury report
+ *   3. game, group and deficiency filters on the matchup matrix
  *
- * Both work by hiding rows that carry a data attribute. If JavaScript is off,
- * the page still shows every row - just unfiltered.
+ * All three work by hiding rows that carry a data attribute. If JavaScript is
+ * off, the page still shows every row - just unfiltered.
  */
 (function () {
   "use strict";
@@ -68,10 +69,42 @@
     apply();
   }
 
+  function setupMatchupFilters() {
+    var gameSel = document.getElementById("mx-game");
+    var axisSel = document.getElementById("mx-axis");
+    var showSel = document.getElementById("mx-show");
+    if (!gameSel && !axisSel && !showSel) return;
+    var rows = rowsFor("mx-rows");
+    var count = document.getElementById("mx-count");
+
+    function apply() {
+      var g = gameSel ? gameSel.value : "";
+      var a = axisSel ? axisSel.value : "";
+      var s = showSel ? showSel.value : "";
+      var shown = 0;
+      rows.forEach(function (tr) {
+        var okG = !g || tr.getAttribute("data-game") === g;
+        var okA = !a || tr.getAttribute("data-axis") === a;
+        var okS = !s || tr.getAttribute("data-def") === s;
+        var match = okG && okA && okS;
+        tr.style.display = match ? "" : "none";
+        if (match) shown++;
+      });
+      if (count) {
+        count.textContent = shown + (shown === 1 ? " row shown" : " rows shown");
+      }
+    }
+    if (gameSel) gameSel.addEventListener("change", apply);
+    if (axisSel) axisSel.addEventListener("change", apply);
+    if (showSel) showSel.addEventListener("change", apply);
+    apply();
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     try {
       setupWeekFilter();
       setupInjuryFilters();
+      setupMatchupFilters();
     } catch (e) {
       var b = document.getElementById("render-error");
       if (b) { b.style.display = "block"; b.textContent = "Filter error: " + e.message; }

@@ -51,6 +51,7 @@ NAV = [
     ("strategies.html", "Strategy lab"),
     ("availability.html", "Injuries & depth"),
     ("depth.html", "Depth & deficiency"),
+    ("matchup.html", "Matchup matrix"),
     ("teams.html", "Per-team view"),
     ("luck.html", "Removal of luck"),
     ("readiness.html", "Decision readiness"),
@@ -97,6 +98,8 @@ DIRECTORY = [
          "The full official Week 10 injury report, a unit-level roll-up, and the starter changes the league confirmed."),
         ("depth.html", "Depth &amp; deficiency",
          "All {n_depth_rows} depth positions transcribed from the {n_depth_clubs} clubs that publish an ordered chart, joined to the official injury report: who is out, who replaces him, and where no replacement is named."),
+        ("matchup.html", "Matchup matrix",
+         "Every Week 11 fixture's trench, coverage, backers, tight-end and safety groups with both sides' listed depth chains, the official game status on each player, and a flag wherever a listed starter is ruled out."),
         ("injuries.html", "Availability",
          "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
         ("replacements.html", "Availability &amp; depth",
@@ -1739,26 +1742,7 @@ def shell(slug, title, description, body, active):
   <div class="inner">
     <span>FOURTH DOWN RESEARCH &middot; NFL decision support</span>
     <span>Official sources: nfl.com/standings &middot; nfl.com/injuries &middot; nfl.com/schedules &middot; operations.nfl.com &middot; ftc.gov</span>
-    ("Line origination desk", [
-        ("origination.html", "Line origination",
-         "The origination desk: side first, then total, then moneyline, with the fair line, the market line and the difference kept apart."),
-        ("price-store.html", "Price store",
-         "The operations price store: opening and current numbers for every market we originate, and the closing snapshot that is deliberately empty."),
-        ("signal-vs-staking.html", "Signal vs staking",
-         "The leaderboard split: a strategy's signal is scored without seeing a stake, so a lucky staking run cannot mask a bad signal."),
-        ("correlations.html", "Correlations",
-         "Correlations computed only from officially sourced numbers, each published with its n and its confidence interval."),
-        ("replacements.html", "Availability &amp; depth",
-         "Replacement depth, as far as the official record goes."),
-        ("method-lab.html", "Method lab",
-         "The method behind every number: pre-registration, walk-forward evaluation, the gates and the anti-luck protocol."),
-        ("ops-review.html", "Review gate",
-         "The review gate for this layer's own suggestions."),
-        ("verification.html", "Verification",
-         "A page whose claims are re-derived from the raw artifacts, so the page can contradict itself."),
-        ("requirements-closure.html", "Requirement closure",
-         "Every brief requirement with its closure state and the evidence page for it."),
-    ]),
+    <span>Evidence status: verified official data + labelled model estimates + captured non-official prices (DraftKings via ESPN) &middot; not betting advice</span>
   </div>
 </footer>
 <script src="app.js"></script>
@@ -2311,7 +2295,7 @@ PAGES.append(("depth.html", "Depth &amp; deficiency",
 </section>
 
 <section style="margin-top:26px">
-  <div class="note warn"><b>What this page does not claim.</b> A published depth chart is not proof of who took the first snap. Nothing here records snap counts or official game books, so the score above measures <i>listed</i> availability before kickoff, not realised participation. Houston publishes its chart only as an image, so it contributes no rows and its five ruled-out players appear in the unmatched table. Both limits are on the <a href="flags.html">Flagged for review</a> page as F-18 and F-21.</div>
+  <div class="note warn"><b>What this page does not claim.</b> A published depth chart is not proof of who took the first snap. Nothing here records snap counts or official game books, so the score above measures <i>listed</i> availability before kickoff, not realised participation. Houston publishes its chart only as an image, so it contributes no rows and its five ruled-out players appear in the unmatched table. Both limits are on the <a href="flags.html">Flagged for review</a> page as F-27 (not proof of who started) and F-24 (Houston image-only chart).</div>
 </section>
 
 <section style="margin-top:26px">
@@ -2380,6 +2364,9 @@ def main():
     # T38 extension pages (tools/desk_extension.py): luck, readiness, per-team view
     import desk_extension
     written += desk_extension.write_pages(SITE, shell)
+    # T45 matchup deficiency matrix (tools/matchup_page.py)
+    import matchup_page
+    written += matchup_page.write_pages(SITE, shell)
     print("wrote %d pages: %s" % (len(written), ", ".join(written)))
 
 
