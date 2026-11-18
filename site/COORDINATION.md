@@ -2478,6 +2478,7 @@ assigned to its four new flags. Resolved without discarding their work:
 - **Fix.** `.github/workflows/pages.yml`: one `--exclude=tests` in the root-mirror diff, with a comment, following the T32-b precedent for `.retrieval` and `.scratch`. The step was re-run locally with its exact command (exit 0). The unit test is run in its own workflow (`capture.yml`, `unittest discover -s tests`) and passes there (verified locally by module run).
 - **Not changed.** `tests/test_capture_official.py` and PR #98's other files are untouched. Note: running the test as a bare script fails with `ModuleNotFoundError: tools`; it works as a module and in its workflow.
 - **ID collision recorded.** PR #98's commits still carry the label `T48`, which this session also used for the escrow. The merge message of `2034cbb` renumbered theirs to T50. The escrow remains T48 (PR #93).
+- **PR #101 record.** Merged 2026-11-18 (merge commit `50f05f2`). After the merge, on `main`: Desk validation success; Publish NFL Decision Lab success (the root-mirror step now passes); pages build and deployment success. The live page https://karagemop466-tech.github.io/X4/escrow.html was fetched after the earlier deploy and served the Stage 1, Stage 2, ledger and flags content.
 ## Session log — arena/dee8092e-x4 (T51: personnel ablation, multiplicity fix, open-question register, 2026-11-18)
 
 ### Why this task
