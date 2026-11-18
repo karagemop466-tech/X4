@@ -2097,6 +2097,14 @@ https://www.nfl.com/standings/ · https://www.nfl.com/injuries/league/2026/reg10
 https://www.nfl.com/injuries/league/2026/reg11 (still Week 10) · https://www.nfl.com/games/patriots-at-lions-2026-reg-10 ·
 https://www.nfl.com/games/colts-at-texans-2026-reg-11
 
+### Merge and deploy record (T46)
+- PR [#84](https://github.com/karagemop466-tech/X4/pull/84) (branch `arena/bca9fb72-x4`) merged 2026-11-18 03:22:24 UTC as `4f1d1162322c3ef859972975a5526c874d9fd30d` after the `desk` CI check passed (merge state CLEAN).
+- Workflows on `main` at that commit: **Desk validation** run [44229961951](https://github.com/karagemop466-tech/X4/actions/runs/44229961951) success; **Publish NFL Decision Lab** run [44229961809](https://github.com/karagemop466-tech/X4/actions/runs/44229961809) success (build + deploy).
+- GitHub Pages API: `status: built`, source `main /`, latest build commit `4f1d116`.
+- Live verification by page fetch of https://karagemop466-tech.github.io/X4/ : 150 games verified, 32 teams, 347 injury rows / 70 Out, 9 strategies, **0 eligible**, best improvement **9.5%**, standings line "Through Week 10 (last game played 16 Nov 2026) … Los Angeles Chargers are 1–8", and the "NFL.com · re-read 18 Nov 2026" tag — i.e. the deployed site is the refreshed one, not the stale snapshot.
+- Conflict handling: the rebase onto `origin/main` (`5173a01`) conflicted only in `site/COORDINATION.md`; **both sessions' text was preserved** (unioned, zero conflict markers in the tree) and the root `COORDINATION.md` was re-mirrored from it. No other session's data or code was discarded.
+- Final gate states at merge: `tools/reverify_2026_11_18.py` 486 checks 0 failures; `tools/verify.py` 486 checks PASS (150 games, 32 clubs); `tools/validate.py` **VALIDATION PASSED** (site gate every data row source-linked, root mirror byte-identical, determinism green, console gate PASS, desk checker 0 open rows).
+
 ### Irregularities (published, none blocking)
 F-58 and F-59 are resolved by this session. F-60 (venue naming for Houston and Kansas City) and F-61 (no official
 Week 11 report yet) stay open and are on the Flagged-for-Review path with their sources. Not touched: the capture
