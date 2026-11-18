@@ -601,25 +601,29 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
     # logged in COORDINATION.md (I-1 to I-8), each re-checked against its source
     # before it was registered. Official pages read on 2026-11-17 with the
     # page-fetch tool; the captured figures are in research/verification/.
-    dict(id="F-49", item="Side bets were settled on the straight-up winner, not on the spread: one recorded result is wrong (Week 9, CLE +4.5)", type="Irregularity", kind="bad", status="open",
-         detail=("tools/origination.py (lines 575-578) settles a side bet by comparing the straight-up margin with the pick, not with the selected team's closing line. "
-                 "Week 9, Browns at Saints (ESPN event 401873039; official NFL.com final: CLE 22 - NO 23, overtime): the recorded Browns +4.5 side bet at -105 is graded lost. "
-                 "Against its own closing line it covers (margin -1, plus 4.5, equals +3.5) and is won. "
-                 "Across the 12 graded bets the recorded record is 8-4, +2.082 units, +17.351% ROI; re-settled it is 9-3, +4.035 units, +33.621% ROI. Only one of the 12 outcomes changes. "
-                 "The corrected figure is on luck.html. signal-vs-staking.html still shows the uncorrected 2.082 units and 17.351% ROI per bet, with no note that a settlement error changes it."),
-         why=("This is a settlement error, not a change of rule, so it is corrected rather than argued. The recorded graded file is not edited, so the original record stays auditable. "
-              "n = 12 bets over four games: neither ROI is evidence of skill, and a cluster interval would span zero. "
-              "Requested for the integration owner: label the uncorrected figure as superseded on signal-vs-staking.html, or re-grade and republish with a dated note. "
-              "Not changed in this session, because the graded file and the page generator belong to the origination build. "
-              "Reproducible: tools/settlement_recheck.py re-settles all 12 bets from the committed files, without reusing luck.py."),
+    dict(id="F-49", item="Side bets were settled on the straight-up winner, not on the spread: one recorded result was wrong (Week 9, CLE +4.5). Fixed on main", type="Correction", kind="warn", status="resolved",
+         detail=("Before the fix (code at commit fb8a6cb, lines 575-578 of the then tools/origination.py), a side bet was graded by comparing the straight-up margin with the pick, "
+                 "ignoring the selected team's closing line. Week 9, Browns at Saints (ESPN event 401873039): against its own closing line Cleveland (margin -1, plus 4.5) covers and the "
+                 "bet is won, but the recorded row said lost. Official NFL.com final re-read live on 2026-11-18: CLE 22 - NO 23, overtime (see official_url). "
+                 "Fixed on main in PR #63 (commit 915bf42): settlement now grades the official margin plus the recorded home handicap, with an exact tie as a push, and three regression "
+                 "tests were added (tools/test_origination.py, run by the publication gate). The recorded row now says won. "
+                 "Re-verified 2026-11-18 by this session: tools/settlement_recheck.py on the current tree reports 24 settled bets (Weeks 9-10), 0 changed outcomes, recorded = re-settled; "
+                 "the published signal-vs-staking.html shows +15.414 units and +64.224% ROI per bet on n=24 and luck.html shows the same 15.41 units - the old claim that an uncorrected "
+                 "figure was still published is no longer true. The pre-fix row survives in git history at fb8a6cb, so the original record stays auditable."),
+         why=("This is a settlement error, not a change of rule, so it is corrected rather than argued. "
+              "Caveats that still stand: n = 24 bets over eight games - neither ROI is evidence of skill, a game-cluster interval would span zero, and the prices are one book's "
+              "(DraftKings as published by ESPN, third-party, see F-01), not official lines. Reproducible: tools/settlement_recheck.py re-settles every bet from the committed files "
+              "without reusing tools/luck.py, and tools/test_origination.py pins the rule."),
          official_url="https://www.nfl.com/games/browns-at-saints-2026-reg-9",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"),
 
-    dict(id="F-50", item="An earlier count of six graded mismatches was wrong: the independent re-check reproduces one", type="Irregularity", kind="warn", status="resolved",
+    dict(id="F-50", item="An earlier count of six graded mismatches was wrong: the independent re-check reproduces one (none after the F-49 fix)", type="Irregularity", kind="warn", status="resolved",
          detail=("A previous session's board note reported six mismatches between the graded log and an official re-settlement. That count came from a bug in its first check. "
-                 "Re-running the check on the recorded closing lines gives one mismatch, the bet in F-49. data/output/luck.json lists exactly that one entry."),
+                 "Re-running the check on the recorded closing lines gave one mismatch - the bet in F-49 - and data/output/luck.json listed exactly that one entry "
+                 "(pre-fix reference: 2.0821 units / 17.351% recorded, 4.0345 units / 33.621% re-settled over 12 bets, all from commit fb8a6cb). "
+                 "Since the F-49 fix (PR #63), luck.json was regenerated on 2026-11-18: its mismatches list is empty and tools/settlement_recheck.py reports changed: 0 across 24 settled bets."),
          why=("The six-mismatch count appeared only in the coordination log, not on a published page, so no published figure needed changing. It is recorded here so the correction is visible. "
-              "tools/settlement_recheck.py re-derives all 12 bets without tools/luck.py and reproduces luck.json exactly: 2.0821 units and 17.351% recorded; 4.0345 units and 33.621% re-settled."),
+              "The stale luck.json was a generated artifact the gate never re-ran (tools/luck.py main() is not a validate step); it is now regenerated and matches the recheck."),
          official_url="https://www.nfl.com/games/browns-at-saints-2026-reg-9",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"),
 
@@ -690,7 +694,8 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
                  "re-measured on the current tree (1,259 rows on 26 desk pages, after the F-39 closure added delta/luck/readiness/teams and the "
                  "artifact links), the count is 464 rows with no official-domain link, concentrated on workbench (111), price-store (78) and "
                  "programme (58) - mostly rows whose evidence is this project's own committed artifact (a GitHub blob of the exact CSV or script) "
-                 "rather than an official NFL page. Audit record: site/research/verification/official-row-source-coverage-2026-11-17.csv."),
+                 "rather than an official NFL page. Audit record: research/audits/official-row-source-coverage-2026-11-17.md with its row-level CSV at "
+                 "research/verification/official-row-source-coverage-2026-11-17.csv (published mirror: site/research/verification/official-row-source-coverage-2026-11-17.csv)."),
          why=("This does not contradict the F-39 closure, which used the any-https criterion the checker has always published: every row now "
               "carries a link, and computed rows honestly cite the artifact that produced them instead of borrowing an official URL that does "
               "not support the value. What remains open is real: (1) an allowlisted official-domain gate as a separate, stricter check, (2) "
