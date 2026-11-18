@@ -52,6 +52,7 @@ NAV = [
     ("availability.html", "Injuries & depth"),
     ("depth.html", "Depth & deficiency"),
     ("matchup.html", "Matchup matrix"),
+    ("houston-depth.html", "Houston depth"),
     ("teams.html", "Per-team view"),
     ("luck.html", "Removal of luck"),
     ("readiness.html", "Decision readiness"),
@@ -100,6 +101,8 @@ DIRECTORY = [
          "All {n_depth_rows} depth positions transcribed from the {n_depth_clubs} clubs that publish an ordered chart, joined to the official injury report: who is out, who replaces him, and where no replacement is named."),
         ("matchup.html", "Matchup matrix",
          "Every Week 11 fixture's trench, coverage, backers, tight-end and safety groups with both sides' listed depth chains, the official game status on each player, and a flag wherever a listed starter is ruled out."),
+        ("houston-depth.html", "Houston depth (authorized source)",
+         "Houston publishes no structured depth chart (image only, F-24). Resolved from the official NFL Game Book: actual starters and per-player snap counts, published as derived playing-time depth indices with the Game Center and PDF links."),
         ("injuries.html", "Availability",
          "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
         ("replacements.html", "Availability &amp; depth",
@@ -2400,6 +2403,9 @@ def main():
     # T45 matchup deficiency matrix (tools/matchup_page.py)
     import matchup_page
     written += matchup_page.write_pages(SITE, shell)
+    # T46 Houston depth-chart gap resolution (tools/houston_depth.py)
+    import houston_depth
+    written += houston_depth.write_pages(SITE, shell)
     print("wrote %d pages: %s" % (len(written), ", ".join(written)))
 
 
