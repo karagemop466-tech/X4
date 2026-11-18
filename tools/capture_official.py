@@ -12,12 +12,21 @@ exact bytes it came from.
 
 WHAT IT WRITES
 --------------
-  data/captures/<kind>/<UTC stamp>_<sha12>.html.gz   raw bytes, gzip-compressed
-  data/captures/manifest.jsonl                       append-only, one line per run
+  data/captures/manifest.jsonl                       append-only, one line per read: URL,
+                                                     UTC fetch time, HTTP status, bytes,
+                                                     SHA-256, schema result, changed flag
 
-A new file is written only when the bytes differ from the previous capture of the
-same page. Every run, changed or not, appends a manifest line, so freshness can be
-read from the manifest even when nothing moved.
+RAW BYTES ARE NOT COMMITTED
+---------------------------
+The official pages are third-party copyrighted HTML, and this repository is public. The brief
+requires raw row-level data to stay in a private store until the terms are read, so raw bytes
+are written ONLY when the environment variable X4_CAPTURE_RAW_DIR names a directory outside this
+repository (the owner's private store). The workflow does not set it, and data/captures/**/*.gz is
+git-ignored as a second guard. The manifest keeps every hash, so a later private copy can be
+checked against the committed record.
+
+Every run, changed or not, appends a manifest line, so freshness can be read even when nothing
+moved. A new raw file is written only when the bytes differ from the previous capture of the page.
 
 COMMANDS
 --------
@@ -65,8 +74,11 @@ TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(TOOLS_DIR)
 CAP_DIR = os.path.join(ROOT, "data", "captures")
 MANIFEST = os.path.join(CAP_DIR, "manifest.jsonl")
+# Private raw-byte store, OUTSIDE the repository. Unset = raw bytes are not retained.
+RAW_DIR = os.environ.get("X4_CAPTURE_RAW_DIR") or None
 UA = "Mozilla/5.0 (compatible; X4-capture/1.0; +https://github.com/karagemop466-tech/X4)"
 INJURY_URL = "https://www.nfl.com/injuries/"
+PLAYER_LINK = re.compile(r'href="(?:https://(?:www\.)?nfl\.com)?/players/[^"]+"', re.I)
 
 
 def expected_kinds(kind="all"):
@@ -123,7 +135,10 @@ def schema_injuries(raw):
     heading = re.search(r"Injuries\s*-\s*WEEK\s*(\d+)", text, re.I)
     practice = len(re.findall(r"Practice Status", text))
     game = len(re.findall(r"Game Status", text))
-    players = len(re.findall(r"nfl\.com/players/", text))
+    # The raw HTML uses relative hrefs (href="/players/<slug>/"); the absolute
+    # form only appears in the rendered markdown. Both are accepted. Verified
+    # against the stored 2026-11-18 capture: 0 absolute, 348 relative matches.
+    players = len(PLAYER_LINK.findall(text))
     detail = {"week": heading.group(1) if heading else None,
               "practice_status_headers": practice, "game_status_headers": game,
               "player_links": players}
@@ -139,22 +154,30 @@ def schema_depth(raw):
 
 
 def store(kind, url, raw, status, schema_ok, detail, previous):
+    """Record one read. The manifest entry is always returned; raw bytes are written only to
+    RAW_DIR (a private store outside the repository) and only when that is configured."""
     now = utc_now()
     digest = sha256(raw)
-    same_kind = [e for e in previous if e.get("kind") == kind and e.get("file")]
+    same_kind = [e for e in previous if e.get("kind") == kind and e.get("sha256")]
     last = same_kind[-1] if same_kind else None
+    changed = not (last and last["sha256"] == digest)
     base = {"kind": kind, "url": url, "fetched_utc": iso(now), "http_status": status,
-            "bytes": len(raw), "sha256": digest, "schema_ok": schema_ok, "schema": detail}
-    if same_kind and same_kind[-1]["sha256"] == digest:
-        base.update({"file": same_kind[-1]["file"], "changed": False})
+            "bytes": len(raw), "sha256": digest, "schema_ok": schema_ok, "schema": detail,
+            "changed": changed, "previous_sha256": last["sha256"] if last else None,
+            "raw_retained": False}
+    if not changed:
+        if last and last.get("file"):
+            base.update({"file": last["file"], "raw_store": last.get("raw_store"),
+                         "raw_retained": bool(last.get("raw_retained"))})
         return base
-    folder = os.path.join(CAP_DIR, kind)
+    if RAW_DIR is None:
+        return base
+    folder = os.path.join(RAW_DIR, kind)
     os.makedirs(folder, exist_ok=True)
     name = "%s_%s.html.gz" % (now.strftime("%Y%m%dT%H%M%SZ"), digest[:12])
-    rel = os.path.relpath(os.path.join(folder, name), ROOT)
-    with open(os.path.join(ROOT, rel), "wb") as f:
+    with open(os.path.join(folder, name), "wb") as f:
         f.write(gzip.compress(raw, mtime=0))
-    base.update({"file": rel, "changed": True, "previous_sha256": last["sha256"] if last else None})
+    base.update({"file": os.path.join(kind, name), "raw_retained": True, "raw_store": "private"})
     return base
 
 
@@ -195,25 +218,35 @@ def fetch(kind):
     return 2 if failed else 0
 
 
+def raw_path(entry):
+    """Where a retained raw file lives. Entries written by the earlier design (bytes committed
+    under data/captures) resolve against the repository root; new ones against RAW_DIR."""
+    if entry.get("raw_store") == "private":
+        return os.path.join(RAW_DIR, entry["file"]) if RAW_DIR else None
+    return os.path.join(ROOT, entry["file"])
+
+
 def verify():
-    bad = 0
-    checked = 0
+    bad = retained = hash_only = absent = 0
     for e in read_manifest():
+        if not e.get("sha256"):
+            continue            # fetch error line: nothing was read, nothing to hash
         f = e.get("file")
         if not f:
+            hash_only += 1      # hash recorded; raw bytes not retained (policy)
             continue
-        checked += 1
-        path = os.path.join(ROOT, f)
-        if not os.path.exists(path):
-            print("MISSING %s" % f)
-            bad += 1
+        path = raw_path(e)
+        if path is None or not os.path.exists(path):
+            absent += 1         # referenced raw file is not in this checkout
             continue
+        retained += 1
         with gzip.open(path, "rb") as g:
             raw = g.read()
         if sha256(raw) != e["sha256"]:
             print("HASH MISMATCH %s" % f)
             bad += 1
-    print("verified %d stored captures; %d failure(s)" % (checked, bad))
+    print("verified %d retained raw capture(s); %d hash-only entr(ies) (raw not retained by policy); "
+          "%d referenced file(s) not present here; %d failure(s)" % (retained, hash_only, absent, bad))
     return 1 if bad else 0
 
 
@@ -230,7 +263,7 @@ def freshness(max_hours, expected=None, entries=None, now=None):
     latest = {}
     for entry in entries:
         if (entry.get("kind") not in expected or entry.get("error")
-                or not entry.get("schema_ok") or not entry.get("file")
+                or not entry.get("schema_ok") or not entry.get("sha256")
                 or entry.get("http_status") != 200):
             continue
         try:
