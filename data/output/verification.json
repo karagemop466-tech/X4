@@ -72,47 +72,15 @@
   "how": "NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."
  },
  {
-  "id": "F-58",
-  "item": "The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46)",
-  "type": "Irregularity",
-  "kind": "warn",
-  "status": "resolved",
-  "detail": "Read live on 2026-11-18, the official Week 10 schedule page shows all 14 finals played (Nov 12-16), while the committed game log held only the Nov 12 Thursday game. The official standings had therefore moved for 28 of 32 clubs, and every number derived from them - the power ratings, the walk-forward evaluation (105 games), the leaderboard, the luck panel and the Week 11 lines - described a season that no longer existed. Cause: no scheduled ingest of completed results; the last refresh ran on 2026-11-14.",
-  "why": "This is the failure mode the brief calls out most often: a static snapshot presented as current. It was not a data-entry error but an evidence-freshness error, and it made a correct model look measurably worse than it was (S1's improvement read 8.31% on 105 games and reads 9.49% on 118). Cleared by: the 13 finals transcribed from the official page, the standings rebuilt from the proved log, 130 changed cells audited in research/verification/standings-refresh-2026-11-18.csv, and every derived number regenerated. Record: research/verification/official-reverify-2026-11-18.md.",
-  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
+  "check": "Official standings re-read live after the PR #90 merge and compared with the committed standings (T54, 2026-11-18 ~04:05 UTC)",
+  "result": "pass",
+  "url": "https://www.nfl.com/standings/",
+  "how": "All 32 clubs' W-L-T, PCT, PF, PA and NET were re-read from the official standings page through the page-fetch tool and compared with data/standings-wk10-2026.csv: 0 differences. This is an independent second re-read on the same day as T46's (V3), after two more PRs merged."
  },
  {
-  "id": "F-59",
-  "item": "The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46)",
-  "type": "Irregularity",
-  "kind": "warn",
-  "status": "resolved",
-  "detail": "site/check.py's JavaScript smoke test asserted that the standings page renders exactly 137 game rows. When the 13 remaining Week 10 finals were added, the gate failed with 'expected 137 game rows in the DOM, found 150'. A gate that must be hand-edited to accept new official results punishes freshness and will be edited carelessly under time pressure.",
-  "why": "Structural, not cosmetic: the same pattern can hide a genuinely missing row behind a literal. The expectation now reads the row count from data/games-2026.csv and still proves the week filter renders every row. Cleared by: the rewrite plus a full tools/validate.py pass.",
-  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/site/check.py"
- },
- {
-  "id": "F-60",
-  "item": "Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)",
-  "type": "Irregularity",
-  "kind": "warn",
-  "status": "resolved",
-  "detail": "Resolved 2026-11-18 (T49 + T51). The official Game Info block - the source the brief requires for venue transcription - was read for both named fixtures (T49) and then for all 13 Week 11 fixtures (T51): it reads RELIANT STADIUM (Colts at Texans) and ARROWHEAD STADIUM (Cardinals at Chiefs), which match data/venues-wk11-2026.csv exactly, and the other 11 rows matched their game centres too, so no venue value changed. The strings NRG Stadium and 'GEHA Field at Arrowhead Stadium' appear on the official schedule page only inside ticket and hotel-search links for the same buildings.",
-  "why": "A naming variance between two official page types, not a data error: the game centre - the required transcription source - and the committed file agree. Cleared by reading the Game Info block of both official game pages (T49) and re-reading the remaining 11 Week 11 rows (T51): 13 of 13 match, every row now stamped 2026-11-18. Record: research/verification/week11-venues-2026-11-18.md.",
-  "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/week11-venues-2026-11-18.md"
- },
- {
-  "id": "F-61",
-  "item": "The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)",
-  "type": "Limitation",
-  "kind": "warn",
-  "status": "limitation",
-  "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it.",
-  "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series.",
-  "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
+  "check": "The Week 11 venue rows' cited Game Info blocks re-read live (T54, 2026-11-18 ~04:08 UTC)",
+  "result": "pass",
+  "url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
+  "how": "Both Game Info blocks were read live: Colts at Texans prints RELIANT STADIUM and Cardinals at Chiefs prints ARROWHEAD STADIUM - exactly the committed values, so no venue cell changed. This session's independent reading (research/verification/live-sync-2026-11-18.csv, B5) agrees with the resolution now published on main (F-60, resolved by PR #92 with the same reading and research/verification/venue-gameinfo-2026-11-18.md), which is kept as the flag row; the NRG/GEHA readings come from the schedule page's ticket/hotel widgets."
  }
 ]
