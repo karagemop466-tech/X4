@@ -8,11 +8,10 @@ Official scores: every game's `official_url` is an NFL.com game-center page (for
 
 | Basis | Settled bets (n, non-push) | Won | Lost | Push | Units at stake 1 | ROI |
 |---|---|---|---|---|---|---|
-| Current `graded.csv` (after the fix in 915bf42) | 12 | 9 | 3 | 0 | +4.035 | +33.621% |
-| Re-settled here from the official score and closing line (spread-aware) | 12 | 9 | 3 | 0 | +4.035 | +33.621% |
-| Static reference: pre-fix `graded.csv` (commit fb8a6cb, before the fix) | 12 | 8 | 4 | 0 | +2.082 | +17.351% |
+| As recorded in `graded.csv` | 24 | 21 | 3 | 0 | +15.414 | +64.224% |
+| Re-settled here (spread-aware) | 24 | 21 | 3 | 0 | +15.414 | +64.224% |
 
-Bets whose current recorded outcome differs from the re-settlement: **0 of 12**.
+Bets whose recorded outcome changes on re-settlement: **0 of 24**.
 
 | Event | Week | Fixture | Score | Market | Bet | Close line | Price | Recorded | Re-settled | Official |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -28,6 +27,18 @@ Bets whose current recorded outcome differs from the re-settlement: **0 of 12**.
 | 401873052 | 10 | WAS at NYG | WAS 24 - NYG 21 | side | home | -1.5 | -110 | lost | lost | [NFL.com](https://www.nfl.com/games/commanders-at-giants-2026-reg-10) |
 | 401873052 | 10 | WAS at NYG | WAS 24 - NYG 21 | total | over | 40.5 | -112 | won | won | [NFL.com](https://www.nfl.com/games/commanders-at-giants-2026-reg-10) |
 | 401873052 | 10 | WAS at NYG | WAS 24 - NYG 21 | moneyline | home | - | -125 | lost | lost | [NFL.com](https://www.nfl.com/games/commanders-at-giants-2026-reg-10) |
+| 401873053 | 10 | NE at DET | NE 10 - DET 35 | side | home | -2.5 | -118 | won | won | [NFL.com](https://www.nfl.com/games/patriots-at-lions-2026-reg-10) |
+| 401873053 | 10 | NE at DET | NE 10 - DET 35 | total | under | 49.5 | -108 | won | won | [NFL.com](https://www.nfl.com/games/patriots-at-lions-2026-reg-10) |
+| 401873053 | 10 | NE at DET | NE 10 - DET 35 | moneyline | home | - | -148 | won | won | [NFL.com](https://www.nfl.com/games/patriots-at-lions-2026-reg-10) |
+| 401873054 | 10 | BUF at NYJ | BUF 31 - NYJ 12 | side | away | -8.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/bills-at-jets-2026-reg-10) |
+| 401873054 | 10 | BUF at NYJ | BUF 31 - NYJ 12 | total | under | 50.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/bills-at-jets-2026-reg-10) |
+| 401873054 | 10 | BUF at NYJ | BUF 31 - NYJ 12 | moneyline | away | - | -425 | won | won | [NFL.com](https://www.nfl.com/games/bills-at-jets-2026-reg-10) |
+| 401873055 | 10 | CAR at NO | CAR 20 - NO 17 | side | away | 2.5 | -115 | won | won | [NFL.com](https://www.nfl.com/games/panthers-at-saints-2026-reg-10) |
+| 401873055 | 10 | CAR at NO | CAR 20 - NO 17 | total | under | 48.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/panthers-at-saints-2026-reg-10) |
+| 401873055 | 10 | CAR at NO | CAR 20 - NO 17 | moneyline | away | - | +114 | won | won | [NFL.com](https://www.nfl.com/games/panthers-at-saints-2026-reg-10) |
+| 401873056 | 10 | HOU at CLE | HOU 24 - CLE 27 | side | home | 4.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/texans-at-browns-2026-reg-10) |
+| 401873056 | 10 | HOU at CLE | HOU 24 - CLE 27 | total | over | 40.5 | -108 | won | won | [NFL.com](https://www.nfl.com/games/texans-at-browns-2026-reg-10) |
+| 401873056 | 10 | HOU at CLE | HOU 24 - CLE 27 | moneyline | home | - | +195 | won | won | [NFL.com](https://www.nfl.com/games/texans-at-browns-2026-reg-10) |
 
 ## Official score check
 
@@ -42,8 +53,8 @@ Each of the four games was read on 2026-11-17 from its NFL.com game-center page 
 
 ## Reading the table
 
-- A side bet is settled against the selected team's own closing line. Before the fix in 915bf42 (branch `arena/2b9267f0-x4`, board row T42), `tools/origination.py` settled side bets on the straight-up winner (the defect in F-49). The static reference row above is the pre-fix record.
+- A side bet is settled against the selected team's own closing line. The recorded file settled side bets on the straight-up winner (defect I-1, `tools/origination.py` lines 575-578). The re-settled column is the spread-aware result.
 - Totals and moneylines are settled the same way in both bases, so any change is a side bet.
 - Recorded prices are checked against the captured close prices (`price_matches_close`). Any mismatch is reported in the CSV, not corrected.
-- The current recorded file is the corrected one. Its pre-fix version is kept in git history (commit fb8a6cb); this report does not rewrite it.
+- The recorded graded file is not overwritten. The recorded and re-settled figures are both shown.
 - n = 12 bets over 4 games. No ROI here is evidence of skill; a cluster interval would span zero. The re-settlement corrects a settlement error. It does not change the verdict on the signal.
