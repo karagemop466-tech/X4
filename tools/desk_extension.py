@@ -457,7 +457,7 @@ def desk_shell(slug, title, description, body):
         '%s'
         '<main>'
         '<header class="topbar"><div><span class="eyebrow">DECISION DESK</span>'
-        '<h1>%s</h1></div><span class="status-pill"><i></i> Snapshot 2026-11-14</span></header>'
+        '<h1>%s</h1></div><span class="status-pill"><i></i> Snapshot 2026-11-18</span></header>'
         '%s'
         '<footer><span>FOURTH DOWN RESEARCH &middot; %s</span>'
         '<span><a href="index.html">&larr; Back to overview</a> &middot; '

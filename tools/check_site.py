@@ -49,6 +49,7 @@ class Page(HTMLParser):
         self._row_text = []      # visible text per data row, parallel to _rows
         self._in_data_table = 0
         self._in_tbody = False
+        self.snapshot_labels = set()   # every "Snapshot YYYY-MM-DD" the page advertises
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -110,6 +111,15 @@ def write_row_gaps(path):
             w.writerow([page, row, text, "no https source link - open, see flag F-39"])
 
 
+CURRENT_SNAPSHOT = "2026-11-18"   # the date of the official data the tree is built from
+
+
+def snapshot_labels(path) -> set:
+    """Every 'Snapshot YYYY-MM-DD' a page advertises, so a stale label can be gated."""
+    import re as _re
+    return set(_re.findall(r"Snapshot (\d{4}-\d{2}-\d{2})", path.read_text(encoding="utf-8")))
+
+
 def main() -> int:
     pages = [ROOT / n for n in DESK_PAGES]
     errors = []
@@ -152,6 +162,13 @@ def main() -> int:
                         errors.append(f"{name}: broken anchor {href} (target lacks #{frag})")
             elif frag and frag not in p.ids:
                 errors.append(f"{name}: broken anchor #{frag}")
+        # freshness label: a desk page must not advertise a snapshot date that the
+        # build has moved past. This is how 25 pages came to carry "Snapshot 2026-11-14"
+        # for four days after the data was re-verified, so it is now a gate.
+        for label in snapshot_labels(ROOT / name):
+            if label < CURRENT_SNAPSHOT:
+                errors.append(f"{name}: advertises Snapshot {label}, older than the current "
+                              f"data snapshot {CURRENT_SNAPSHOT}")
         # nav consistency
         nav = {h for h in p.nav}
         if nav != NAV_HREFS:
