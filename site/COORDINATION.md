@@ -2184,3 +2184,19 @@ CI "Desk validation" success on every push (latest run 44229503361 and successor
 **Open, not blocking:** F-62's n=57 label lives in the docs/console executive summary row
 text owned by the docs session (logged above as a request); the depth.py collapse fix and the
 Houston structured-source decision stay with their owning sessions.
+
+### Merge conflict during this session's push (2026-11-18)
+
+While pushing the final T46 state, `origin/main` had moved: session `arena/bca9fb72-x4` had
+merged its own new flags **F-58..F-61** (via PRs #84/#85/#87) — the same IDs this session had
+assigned to its four new flags. Resolved without discarding their work:
+
+- Their four flags and all their regenerated artifacts were kept as merged on `main`.
+- This session's four flags were **renumbered F-58..F-61 → F-62..F-65** (content: the n=57-vs-54
+  correlation label, the home-edge window sensitivity, the depth shared-slot representation, the
+  capture-run root cause), and every cross-reference (the executive summaries' F-63 citation, the
+  COORDINATION session log) was updated to the new IDs.
+- `COORDINATION.md` merged additively: their irregularities paragraph and this session's log both
+  retained. Generated artifacts were resolved by taking `main`'s versions and regenerating from
+  the merged sources; `tools/validate.py` — VALIDATION PASSED after the merge; CI success on both
+  post-merge pushes (runs 44231108772, 44231517468).
