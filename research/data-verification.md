@@ -115,6 +115,10 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
 | F-56 | Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit) |
 | F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
+| F-58 | The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46) |
+| F-59 | The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46) |
+| F-60 | Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) |
+| F-61 | The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55) |
 
 ## What is deliberately absent
 

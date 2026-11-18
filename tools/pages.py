@@ -1010,7 +1010,9 @@ def params_table():
 
 def verification_table():
     rows = []
-    for r in verification:
+    # T46: `verification` is the payload's copy and now also carries the flag register
+    # (both live under the payload key list); the log rows are the ones with a "check".
+    for r in [x for x in verification if "check" in x]:
         rows.append([esc(r["check"]),
                      badge(r["result"], "ok" if r["result"] == "pass"
                            else ("warn" if r["result"] == "flag" else "no")),
