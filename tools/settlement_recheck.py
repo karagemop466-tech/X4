@@ -188,12 +188,13 @@ def main():
     lines.append("")
     lines.append("| Basis | Settled bets (n, non-push) | Won | Lost | Push | Units at stake 1 | ROI |")
     lines.append("|---|---|---|---|---|---|---|")
-    lines.append("| As recorded in `graded.csv` | %d | %d | %d | %d | %+.3f | %s |" % (
+    lines.append("| Current `graded.csv` (after the fix in 915bf42) | %d | %d | %d | %d | %+.3f | %s |" % (
         rec["n"], rec["wins"], rec["losses"], rec["pushes"], rec["units"], fmt_roi(rec["roi"])))
-    lines.append("| Re-settled here (spread-aware) | %d | %d | %d | %d | %+.3f | %s |" % (
+    lines.append("| Re-settled here from the official score and closing line (spread-aware) | %d | %d | %d | %d | %+.3f | %s |" % (
         res_s["n"], res_s["wins"], res_s["losses"], res_s["pushes"], res_s["units"], fmt_roi(res_s["roi"])))
+    lines.append("| Static reference: pre-fix `graded.csv` (commit fb8a6cb, before the fix) | 12 | 8 | 4 | 0 | +2.082 | +17.351% |")
     lines.append("")
-    lines.append("Bets whose recorded outcome changes on re-settlement: **%d of %d**." % (
+    lines.append("Bets whose current recorded outcome differs from the re-settlement: **%d of %d**." % (
         len(changed), len(rows)))
     lines.append("")
     lines.append("| Event | Week | Fixture | Score | Market | Bet | Close line | Price | Recorded | Re-settled | Official |")
@@ -218,13 +219,14 @@ def main():
     lines.append("")
     lines.append("## Reading the table")
     lines.append("")
-    lines.append("- A side bet is settled against the selected team's own closing line. The recorded "
-                 "file settled side bets on the straight-up winner (defect I-1, `tools/origination.py` "
-                 "lines 575-578). The re-settled column is the spread-aware result.")
+    lines.append("- A side bet is settled against the selected team's own closing line. Before the fix in "
+                 "915bf42 (branch `arena/2b9267f0-x4`, board row T42), `tools/origination.py` settled side bets on "
+                 "the straight-up winner (the defect in F-49). The static reference row above is the pre-fix record.")
     lines.append("- Totals and moneylines are settled the same way in both bases, so any change is a side bet.")
     lines.append("- Recorded prices are checked against the captured close prices (`price_matches_close`). "
                  "Any mismatch is reported in the CSV, not corrected.")
-    lines.append("- The recorded graded file is not overwritten. The recorded and re-settled figures are both shown.")
+    lines.append("- The current recorded file is the corrected one. Its pre-fix version is kept in git history "
+                 "(commit fb8a6cb); this report does not rewrite it.")
     lines.append("- n = 12 bets over 4 games. No ROI here is evidence of skill; a cluster interval would "
                  "span zero. The re-settlement corrects a settlement error. It does not change the verdict on the signal.")
     lines.append("")

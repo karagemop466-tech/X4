@@ -47,6 +47,7 @@ STEPS = [
     ("build the console executive summary", [PY, os.path.join(ROOT, "tools", "gen_exec_summary.py")]),
     ("originate the markets and the price store", [PY, os.path.join(ROOT, "tools", "fetch.py"), "plan"]),
     ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),
+    ("fail if the gate run mutated the committed data tree", [PY, os.path.join(ROOT, "tools", "validate.py"), "--gate-clean"]),
     ("build the official depth charts", [PY, os.path.join(ROOT, "tools", "depth.py")]),
     ("test origination settlement rules", [PY, os.path.join(ROOT, "tools", "test_origination.py")]),
     ("originate lines and grade them", [PY, os.path.join(ROOT, "tools", "origination.py")]),
@@ -194,5 +195,37 @@ def main():
     return 0
 
 
+def gate_clean():
+    """A publication gate run must leave every committed dataset unchanged.
+
+    tools/fetch.py ingest rebuilds the data/ops CSVs from the committed raw
+    bodies. When its output matches what is already committed the tree is
+    unchanged (the normal case). When it would differ, this guard fails loudly
+    and names the files: a gate run must never silently append or rewrite rows
+    (request logged by arena/e6ee28a8-x4: "Gate runs should not mutate
+    datasets"). The diff is left visible on purpose so it can be reviewed and
+    either committed as an explicit data change or reverted - a failing gate
+    restores nothing and hides nothing."""
+    changed = []
+    diff = subprocess.run(["git", "diff", "--name-only", "--", "data/"],
+                          cwd=ROOT, capture_output=True, text=True)
+    changed += [line for line in diff.stdout.splitlines() if line.strip()]
+    untracked = subprocess.run(["git", "ls-files", "--others", "--exclude-standard", "--", "data/"],
+                               cwd=ROOT, capture_output=True, text=True)
+    changed += [line for line in untracked.stdout.splitlines() if line.strip()]
+    if not changed:
+        print("  - the gate run left every committed dataset unchanged")
+        return 0
+    print("VALIDATION FAILED: the gate run changed the data tree:")
+    for rel in changed:
+        print("  changed: %s" % rel)
+    print("Run 'python3 tools/fetch.py ingest' (and the other data steps) explicitly, review the")
+    print("diff, and commit it as a deliberate data change - or revert it. A publication gate")
+    print("run must never mutate a dataset silently.")
+    return 1
+
+
 if __name__ == "__main__":
+    if sys.argv[1:] == ["--gate-clean"]:
+        sys.exit(gate_clean())
     sys.exit(main())

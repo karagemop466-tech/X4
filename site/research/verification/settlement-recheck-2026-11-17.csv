@@ -5,7 +5,7 @@ event_id,week,fixture,official_score,official_url,market,bet,close_line,close_pr
 401873038,9,CIN at ATL,CIN 34 - ATL 17,https://www.nfl.com/games/bengals-at-falcons-2026-reg-9,side,away,-3,-120,-120,yes,won,0.8333,won,0.8333,no,away -3 close; margin for away +17; cover +14
 401873038,9,CIN at ATL,CIN 34 - ATL 17,https://www.nfl.com/games/bengals-at-falcons-2026-reg-9,total,under,52.5,-115,-115,yes,won,0.8696,won,0.8696,no,under 52.5 close; official total 51
 401873038,9,CIN at ATL,CIN 34 - ATL 17,https://www.nfl.com/games/bengals-at-falcons-2026-reg-9,moneyline,away,,-180,-180,yes,won,0.5556,won,0.5556,no,away moneyline; official 34-17
-401873039,9,CLE at NO,CLE 22 - NO 23,https://www.nfl.com/games/browns-at-saints-2026-reg-9,side,away,4.5,-105,-105,yes,lost,-1.0000,won,0.9524,yes,away +4.5 close; margin for away -1; cover +3.5
+401873039,9,CLE at NO,CLE 22 - NO 23,https://www.nfl.com/games/browns-at-saints-2026-reg-9,side,away,4.5,-105,-105,yes,won,0.9524,won,0.9524,no,away +4.5 close; margin for away -1; cover +3.5
 401873039,9,CLE at NO,CLE 22 - NO 23,https://www.nfl.com/games/browns-at-saints-2026-reg-9,total,over,43.5,-110,-110,yes,won,0.9091,won,0.9091,no,over 43.5 close; official total 45
 401873039,9,CLE at NO,CLE 22 - NO 23,https://www.nfl.com/games/browns-at-saints-2026-reg-9,moneyline,away,,+190,+190,yes,lost,-1.0000,lost,-1.0000,no,away moneyline; official 22-23
 401873052,10,WAS at NYG,WAS 24 - NYG 21,https://www.nfl.com/games/commanders-at-giants-2026-reg-10,side,home,-1.5,-110,-110,yes,lost,-1.0000,lost,-1.0000,no,home -1.5 close; margin for home -3; cover -4.5
