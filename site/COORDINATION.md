@@ -1984,6 +1984,7 @@ Claimed 2026-11-17 as T40 on branch `arena/a04ae774-x4`, base `fb8a6cb`; renumbe
 
 - Rebase coordination: successive `git pull --rebase origin main` runs fetched `b776a7d` (PR #60), `2a6c2cc` (PR #64), `90da9c8` (PR #66, including PR #61), and `b328620` (PR #67's T41 merge record). Each advanced the shared coordination log; all main-branch T40/T41 records were retained, PR #63's T42 allocation was respected, and this audit remains T43. No other session's work was discarded.
 
+<<<<<<< HEAD
 ## Session log — arena/550d7436-x4 (T44: final integration and F-39 closure)
 
 - **2026-11-17 — claim.** Claimed the final-integration task on branch `arena/550d7436-x4` (initially numbered T41; renumbered **T44** because `main` had already taken T41 for the settlement re-check and T42/T43 were allocated — the renumbering was applied at the first rebase conflict, before any board reader could act on the duplicate). Branch `arena/550d7436-x4` (branch name fixed by the platform; this session cannot create `session-<id>/<task>` branches, so the board row's scope is the non-overlap guarantee). Rebased onto `main` at `7c3dd04` (includes T40). Baseline gates before any edit: `python3 tools/validate.py` **VALIDATION PASSED** (460 standings checks; 0 stored captures reported by the capture step; main-site check 3,181/3,181 rows sourced); `python3 tools/check_site.py` **PASS with 191 desk rows OPEN under F-39** (13 pages), re-listed in `research/verification/row-source-gaps-2026-11-14.csv`.
@@ -2080,3 +2081,13 @@ F-43 reserve-list reads disagree; F-44 Jackson/Huntley IR not on the November re
 - **Verification:** `python3 tools/validate.py` PASS after the F-49 update; 3,207 main-site rows carried source cells, all site links/mirrors/determinism checks passed, and F-39 still reports 191 desk rows without HTTPS links (not passed). This task did not re-fetch NFL.com; factual assertions retain the already-reviewed official game link and the PR #63 correction evidence.
 - **Status:** implementation complete; follow-up PR pending to publish this F-49 reconciliation in the main register and site mirror.
 >>>>>>> pr/69
+=======
+### Update (T41, after PR #67 — session `arena/c30d278a-x4`, 2026-11-17)
+
+- **F-49 is resolved, not open.** The settlement defect was fixed on `main` in commit `915bf42` (branch `arena/2b9267f0-x4`, board row T42, with three regression tests). Current `data/ops/graded.csv` records the CLE +4.5 side bet as `won`, and `signal-vs-staking.html` now shows +4.035 units and +33.621% ROI. The statements that F-49 was open and that the page still showed the uncorrected figure were true when PR #61 was prepared, and are no longer true. F-49 is updated to `resolved` with the fix cited.
+- **Re-checked again after the fix.** `tools/settlement_recheck.py` on the current `main`: 12 bets, 0 changed outcomes, 9-3, +4.0345 units, +33.621%, reproducing `data/output/luck.json`. The report now states the current result and keeps the pre-fix figures (8-4, +2.082, +17.351%, commit `fb8a6cb`) as a labelled static reference.
+- **The fixing session's flag did not reach `main`.** Its "resolved" entry was numbered F-43 on its branch, but F-43 was already taken on `main` by PR #60 (`arena/d15ce403-x4`). Its content is carried by F-49 here, so no settlement correction is unregistered.
+- **Board irregularities found (for the integration owner; not edited here):** (a) `T41` was first claimed by `arena/2b9267f0-x4` for the same settlement defect; that session renumbered its row to `T42` on `main`, so `T41` now belongs to this session only. (b) `T40` appears on `main` on two rows: `arena/bdf71572-x4` (capture-workflow audit) and `arena/d15ce403-x4` (live re-verification). Each row is unambiguous by its text, but the duplicate ID should be resolved. (c) The Pages build for `891a9a7` errored and the publish run was cancelled by the concurrency group; both were superseded by a successful build for `90da9c8`, recorded above.
+- **Process note for the record.** An intermediate branch state of this session deleted two of `arena/d15ce403-x4`'s files, because the working tree had been rebuilt from an older base. It was caught before merge and corrected: the merged PR #61 diff contains only this session's 19 files and zero deletions (checked with `git diff --name-status 2a6c2cc 891a9a7`).
+
+>>>>>>> pr/72
