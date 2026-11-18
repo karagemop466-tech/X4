@@ -13456,7 +13456,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/build.py"
   },
   {
-   "id": "F-66",
+   "id": "F-71",
    "item": "Stale numbers survive in generated prose because prose is not on the gate",
    "type": "Irregularity",
    "kind": "warn",
@@ -13467,7 +13467,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"
   },
   {
-   "id": "F-67",
+   "id": "F-72",
    "item": "Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided",
    "type": "Method",
    "kind": "warn",
@@ -13901,10 +13901,10 @@ window.X4 = {
    "type": "Irregularity",
    "kind": "bad",
    "status": "resolved",
-   "detail": "The per-row source check in tools/check_site.py recorded each link in the page-level list but never attached it to its table row, so every row was tested as empty and the check passed without testing anything. Found by the source-provenance audit (arena/5092bd99-x4) and fixed at T31 integration. With the check reading row links, 191 desk-table rows on 13 pages had no https link; they were listed one by one in research/verification/row-source-gaps-2026-11-14.csv. They were decision and requirement text, rubric weights, simulation output, programme status, or computed statistics whose inputs were not linked row by row. None of them was a sourced official value that the page presented as confirmed. A second gap of the same kind was in the price store: 26 spread and total points in the 2026W11-OPEN snapshot of data/market-prices.csv had no source link (their note reads 'points only'); the moneyline rows of that snapshot are all linked.",
+   "detail": "The per-row source check in tools/check_site.py recorded each link in the page-level list but never attached it to its table row, so every row was tested as empty and the check passed without testing anything. Found by the source-provenance audit (arena/5092bd99-x4) and fixed at T31 integration. With the check reading row links, 191 desk-table rows on 13 pages had no https link; they were listed one by one in research/verification/row-source-gaps-2026-11-14.csv. They were decision and requirement text, rubric weights, simulation output, programme status, or computed statistics whose inputs were not linked row by row. None of them was a sourced official value that the page presented as confirmed. A second gap of the same kind was in the price store: 26 spread and total points in the 2026W11-OPEN snapshot of data/market-prices.csv had no source link (their note reads 'points only'); the moneyline rows of that snapshot are all linked. A row-level follow-up (T43, arena/a04ae774-x4, 2026-11-17) re-audited the same 1,045 rows under the stricter allowlisted-official-domain test: 366 rows carry no allowlisted official-domain link (175 have non-official HTTPS only, 191 have no HTTPS at all), 624 rows are official-host-only, and 55 rows mix an allowlisted link with a non-official HTTPS link without cell-level source attribution, so an NFL fixture link in such a row does not support a third-party odds value beside it. The wider inventory is research/audits/official-row-source-coverage-2026-11-17.md with its row-level records in research/verification/official-row-source-coverage-2026-11-17.csv; the 191 figure above is the narrower no-HTTPS count from research/verification/row-source-gaps-2026-11-14.csv and both are kept.",
    "why": "RESOLVED on 2026-11-17 (T41, session arena/550d7436-x4) by line-by-line closure, not by weakening the gate: every one of the 1,045 desk-table rows on 22 pages now carries an https source link, and the checker re-run reports 0 rows without one. NFL-fact rows link to the official NFL page; computed and programme rows cite the committed artifact that produced the value (GitHub blob of the exact CSV/script); blank decision rows cite the official page checked plus the flag. Two honest limits remain, and neither is closed by this fix: (1) the checker verifies link presence, not that a link supports the exact value beside it \u2014 a per-value semantic source gate is still open work; (2) the 26 'points only' price rows keep their recorded gap and stay unverified rather than gaining a link that does not support the value. Any reader should still treat a computed row as the artifact's output, not as an official NFL fact.",
    "official_url": "https://www.nfl.com/standings/",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/check_site.py"
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/audits/official-row-source-coverage-2026-11-17.md"
   },
   {
    "id": "F-40",
