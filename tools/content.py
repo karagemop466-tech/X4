@@ -736,7 +736,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
 
     # ---- T46 (session arena/ad5e4c3d-x4), 2026-11-18: found by re-deriving published numbers (renumbered from F-58..F-61 to avoid clashing with the flags merged from arena/bca9fb72-x4)
     # ---- T46 (session arena/ad5e4c3d-x4), 2026-11-18: found by re-deriving published numbers ---
-    dict(id="F-58", item="The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54",
+    dict(id="F-62", item="The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54",
          type="Irregularity", kind="bad", status="open",
          detail=("tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', "
                  "which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in "
@@ -750,7 +750,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/schedules/2026/by-week/week-6",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"),
 
-    dict(id="F-59", item="One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist",
+    dict(id="F-63", item="One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist",
          type="Irregularity", kind="warn", status="open",
          detail=("research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which re-derives "
                  "exactly from research/data/games_weeks6-9_2026.csv. The executive summary publishes it as +0.1 and the line-lab model "
@@ -762,7 +762,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/schedules/2026/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"),
 
-    dict(id="F-60", item="The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent",
+    dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent",
          type="Unverified data", kind="bad", status="open",
          detail=("data/depth-wk11-2026.csv holds 1,558 rows across 705 club/unit/position columns, of which 76 name a single player and "
                  "0 cells hold more than one player. Every club chart read this session publishes at least one shared or empty cell "
@@ -776,7 +776,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.seahawks.com/team/depth-chart",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"),
 
-    dict(id="F-61", item="Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError",
+    dict(id="F-65", item="Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError",
          type="Irregularity", kind="bad", status="open",
          detail=("Four scheduled runs (2026-11-16 06:40, 2026-11-16 22:13, 2026-11-17 08:00, 2026-11-17 21:00) all fail at step 4, "
                  "'Fetch, schema-check and store the official pages', within 8 seconds, and steps 5-7 are skipped, so no capture and no "

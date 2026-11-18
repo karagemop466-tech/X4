@@ -14093,7 +14093,7 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
   },
   {
-   "id": "F-58",
+   "id": "F-62",
    "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54",
    "type": "Irregularity",
    "kind": "bad",
@@ -14104,7 +14104,7 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
   },
   {
-   "id": "F-59",
+   "id": "F-63",
    "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist",
    "type": "Irregularity",
    "kind": "warn",
@@ -14115,7 +14115,7 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
   },
   {
-   "id": "F-60",
+   "id": "F-64",
    "item": "The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent",
    "type": "Unverified data",
    "kind": "bad",
@@ -14126,7 +14126,7 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"
   },
   {
-   "id": "F-61",
+   "id": "F-65",
    "item": "Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError",
    "type": "Irregularity",
    "kind": "bad",
