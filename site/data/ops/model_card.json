@@ -74,49 +74,49 @@
  "prior_games": 4.0,
  "ratings": {
   "ARI": {
-   "def": 28.333,
-   "diff": -5.923,
-   "diff_raw": -8.556,
-   "gp": 9.0,
-   "off": 19.778,
-   "total": 23.718,
-   "total_raw": 24.056
+   "def": 28.9,
+   "diff": -7.5,
+   "diff_raw": -10.5,
+   "gp": 10.0,
+   "off": 18.4,
+   "total": 23.486,
+   "total_raw": 23.65
   },
   "ATL": {
-   "def": 24.778,
-   "diff": -2.692,
-   "diff_raw": -3.889,
-   "gp": 9.0,
-   "off": 20.889,
-   "total": 22.872,
-   "total_raw": 22.833
+   "def": 25.8,
+   "diff": -4.071,
+   "diff_raw": -5.7,
+   "gp": 10.0,
+   "off": 20.1,
+   "total": 22.986,
+   "total_raw": 22.95
   },
   "BAL": {
-   "def": 26.222,
-   "diff": -3.615,
-   "diff_raw": -5.222,
-   "gp": 9.0,
-   "off": 21.0,
-   "total": 23.411,
-   "total_raw": 23.611
+   "def": 25.9,
+   "diff": -3.571,
+   "diff_raw": -5.0,
+   "gp": 10.0,
+   "off": 20.9,
+   "total": 23.308,
+   "total_raw": 23.4
   },
   "BUF": {
-   "def": 23.375,
-   "diff": 5.75,
-   "diff_raw": 8.625,
-   "gp": 8.0,
-   "off": 32.0,
-   "total": 26.112,
-   "total_raw": 27.688
+   "def": 22.111,
+   "diff": 6.769,
+   "diff_raw": 9.778,
+   "gp": 9.0,
+   "off": 31.889,
+   "total": 25.793,
+   "total_raw": 27.0
   },
   "CAR": {
-   "def": 27.375,
-   "diff": -1.667,
-   "diff_raw": -2.5,
-   "gp": 8.0,
-   "off": 24.875,
-   "total": 25.07,
-   "total_raw": 26.125
+   "def": 26.222,
+   "diff": -1.308,
+   "diff_raw": -1.889,
+   "gp": 9.0,
+   "off": 24.333,
+   "total": 24.601,
+   "total_raw": 25.278
   },
   "CHI": {
    "def": 20.444,
@@ -124,35 +124,35 @@
    "diff_raw": 6.333,
    "gp": 9.0,
    "off": 26.778,
-   "total": 23.411,
+   "total": 23.447,
    "total_raw": 23.611
   },
   "CIN": {
-   "def": 21.875,
-   "diff": 5.417,
-   "diff_raw": 8.125,
-   "gp": 8.0,
-   "off": 30.0,
-   "total": 24.945,
-   "total_raw": 25.938
+   "def": 21.444,
+   "diff": 6.538,
+   "diff_raw": 9.444,
+   "gp": 9.0,
+   "off": 30.889,
+   "total": 25.216,
+   "total_raw": 26.167
   },
   "CLE": {
-   "def": 21.778,
-   "diff": -2.692,
-   "diff_raw": -3.889,
-   "gp": 9.0,
-   "off": 17.889,
-   "total": 20.795,
-   "total_raw": 19.833
+   "def": 22.0,
+   "diff": -2.286,
+   "diff_raw": -3.2,
+   "gp": 10.0,
+   "off": 18.8,
+   "total": 21.165,
+   "total_raw": 20.4
   },
   "DAL": {
-   "def": 26.222,
-   "diff": 0.769,
-   "diff_raw": 1.111,
-   "gp": 9.0,
-   "off": 27.333,
-   "total": 25.603,
-   "total_raw": 26.778
+   "def": 28.2,
+   "diff": 0.286,
+   "diff_raw": 0.4,
+   "gp": 10.0,
+   "off": 28.6,
+   "total": 26.879,
+   "total_raw": 28.4
   },
   "DEN": {
    "def": 20.667,
@@ -160,125 +160,125 @@
    "diff_raw": 1.333,
    "gp": 9.0,
    "off": 22.0,
-   "total": 21.834,
+   "total": 21.87,
    "total_raw": 21.333
   },
   "DET": {
-   "def": 23.625,
-   "diff": 2.75,
-   "diff_raw": 4.125,
-   "gp": 8.0,
-   "off": 27.75,
-   "total": 24.778,
-   "total_raw": 25.688
+   "def": 22.111,
+   "diff": 4.462,
+   "diff_raw": 6.444,
+   "gp": 9.0,
+   "off": 28.556,
+   "total": 24.639,
+   "total_raw": 25.333
   },
   "GB": {
-   "def": 21.222,
-   "diff": 1.923,
-   "diff_raw": 2.778,
-   "gp": 9.0,
-   "off": 24.0,
-   "total": 22.718,
-   "total_raw": 22.611
+   "def": 22.1,
+   "diff": 0.357,
+   "diff_raw": 0.5,
+   "gp": 10.0,
+   "off": 22.6,
+   "total": 22.558,
+   "total_raw": 22.35
   },
   "HOU": {
-   "def": 24.0,
-   "diff": 1.417,
-   "diff_raw": 2.125,
-   "gp": 8.0,
-   "off": 26.125,
-   "total": 24.362,
-   "total_raw": 25.062
+   "def": 24.333,
+   "diff": 1.077,
+   "diff_raw": 1.556,
+   "gp": 9.0,
+   "off": 25.889,
+   "total": 24.485,
+   "total_raw": 25.111
   },
   "IND": {
-   "def": 27.667,
-   "diff": -5.0,
-   "diff_raw": -7.222,
-   "gp": 9.0,
-   "off": 20.444,
-   "total": 23.718,
-   "total_raw": 24.056
+   "def": 27.1,
+   "diff": -4.5,
+   "diff_raw": -6.3,
+   "gp": 10.0,
+   "off": 20.8,
+   "total": 23.7,
+   "total_raw": 23.95
   },
   "JAX": {
-   "def": 15.125,
-   "diff": 9.0,
-   "diff_raw": 13.5,
-   "gp": 8.0,
-   "off": 28.625,
-   "total": 22.237,
-   "total_raw": 21.875
+   "def": 16.0,
+   "diff": 9.615,
+   "diff_raw": 13.889,
+   "gp": 9.0,
+   "off": 29.889,
+   "total": 22.985,
+   "total_raw": 22.944
   },
   "KC": {
-   "def": 17.875,
-   "diff": 4.917,
-   "diff_raw": 7.375,
-   "gp": 8.0,
-   "off": 25.25,
-   "total": 22.028,
-   "total_raw": 21.562
+   "def": 17.333,
+   "diff": 6.231,
+   "diff_raw": 9.0,
+   "gp": 9.0,
+   "off": 26.333,
+   "total": 22.216,
+   "total_raw": 21.833
   },
   "LAC": {
-   "def": 27.375,
-   "diff": -8.167,
-   "diff_raw": -12.25,
-   "gp": 8.0,
-   "off": 15.125,
-   "total": 21.82,
-   "total_raw": 21.25
+   "def": 26.556,
+   "diff": -7.308,
+   "diff_raw": -10.556,
+   "gp": 9.0,
+   "off": 16.0,
+   "total": 21.831,
+   "total_raw": 21.278
   },
   "LAR": {
-   "def": 20.111,
-   "diff": 2.538,
-   "diff_raw": 3.667,
-   "gp": 9.0,
-   "off": 23.778,
-   "total": 22.257,
-   "total_raw": 21.944
+   "def": 18.7,
+   "diff": 4.357,
+   "diff_raw": 6.1,
+   "gp": 10.0,
+   "off": 24.8,
+   "total": 22.129,
+   "total_raw": 21.75
   },
   "LV": {
-   "def": 29.778,
-   "diff": -2.308,
-   "diff_raw": -3.333,
-   "gp": 9.0,
-   "off": 26.444,
-   "total": 26.526,
-   "total_raw": 28.111
+   "def": 28.9,
+   "diff": -2.714,
+   "diff_raw": -3.8,
+   "gp": 10.0,
+   "off": 25.1,
+   "total": 25.879,
+   "total_raw": 27.0
   },
   "MIA": {
-   "def": 25.0,
-   "diff": -6.167,
-   "diff_raw": -9.25,
-   "gp": 8.0,
-   "off": 15.75,
-   "total": 21.237,
-   "total_raw": 20.375
+   "def": 24.889,
+   "diff": -5.846,
+   "diff_raw": -8.444,
+   "gp": 9.0,
+   "off": 16.444,
+   "total": 21.408,
+   "total_raw": 20.667
   },
   "MIN": {
-   "def": 14.5,
-   "diff": 2.5,
-   "diff_raw": 3.75,
-   "gp": 8.0,
-   "off": 18.25,
-   "total": 18.57,
-   "total_raw": 16.375
+   "def": 14.0,
+   "diff": 3.846,
+   "diff_raw": 5.556,
+   "gp": 9.0,
+   "off": 19.556,
+   "total": 18.716,
+   "total_raw": 16.778
   },
   "NE": {
-   "def": 23.0,
-   "diff": 0.308,
-   "diff_raw": 0.444,
-   "gp": 9.0,
-   "off": 23.444,
-   "total": 23.141,
-   "total_raw": 23.222
+   "def": 24.2,
+   "diff": -1.5,
+   "diff_raw": -2.1,
+   "gp": 10.0,
+   "off": 22.1,
+   "total": 23.129,
+   "total_raw": 23.15
   },
   "NO": {
-   "def": 27.0,
-   "diff": -2.583,
-   "diff_raw": -3.875,
-   "gp": 8.0,
-   "off": 23.125,
-   "total": 24.362,
-   "total_raw": 25.062
+   "def": 26.222,
+   "diff": -2.615,
+   "diff_raw": -3.778,
+   "gp": 9.0,
+   "off": 22.444,
+   "total": 23.947,
+   "total_raw": 24.333
   },
   "NYG": {
    "def": 21.778,
@@ -286,17 +286,17 @@
    "diff_raw": 0.778,
    "gp": 9.0,
    "off": 22.556,
-   "total": 22.411,
+   "total": 22.447,
    "total_raw": 22.167
   },
   "NYJ": {
-   "def": 24.778,
-   "diff": -3.154,
-   "diff_raw": -4.556,
-   "gp": 9.0,
-   "off": 20.222,
-   "total": 22.641,
-   "total_raw": 22.5
+   "def": 25.4,
+   "diff": -4.286,
+   "diff_raw": -6.0,
+   "gp": 10.0,
+   "off": 19.4,
+   "total": 22.593,
+   "total_raw": 22.4
   },
   "PHI": {
    "def": 24.556,
@@ -304,35 +304,35 @@
    "diff_raw": -8.111,
    "gp": 9.0,
    "off": 16.444,
-   "total": 21.257,
+   "total": 21.293,
    "total_raw": 20.5
   },
   "PIT": {
-   "def": 18.0,
-   "diff": 3.0,
-   "diff_raw": 4.5,
-   "gp": 8.0,
-   "off": 22.5,
-   "total": 21.153,
-   "total_raw": 20.25
+   "def": 20.222,
+   "diff": 1.231,
+   "diff_raw": 1.778,
+   "gp": 9.0,
+   "off": 22.0,
+   "total": 21.716,
+   "total_raw": 21.111
   },
   "SEA": {
-   "def": 18.0,
-   "diff": 3.077,
-   "diff_raw": 4.444,
-   "gp": 9.0,
-   "off": 22.444,
-   "total": 21.065,
-   "total_raw": 20.222
+   "def": 17.5,
+   "diff": 3.429,
+   "diff_raw": 4.8,
+   "gp": 10.0,
+   "off": 22.3,
+   "total": 20.808,
+   "total_raw": 19.9
   },
   "SF": {
-   "def": 19.5,
-   "diff": 6.583,
-   "diff_raw": 9.875,
-   "gp": 8.0,
-   "off": 29.375,
-   "total": 23.945,
-   "total_raw": 24.438
+   "def": 21.778,
+   "diff": 6.538,
+   "diff_raw": 9.444,
+   "gp": 9.0,
+   "off": 31.222,
+   "total": 25.447,
+   "total_raw": 26.5
   },
   "TB": {
    "def": 19.778,
@@ -340,17 +340,17 @@
    "diff_raw": 2.667,
    "gp": 9.0,
    "off": 22.444,
-   "total": 21.68,
+   "total": 21.716,
    "total_raw": 21.111
   },
   "TEN": {
-   "def": 24.875,
-   "diff": -4.583,
-   "diff_raw": -6.875,
-   "gp": 8.0,
-   "off": 18.0,
-   "total": 21.945,
-   "total_raw": 21.438
+   "def": 26.556,
+   "diff": -5.538,
+   "diff_raw": -8.0,
+   "gp": 9.0,
+   "off": 18.556,
+   "total": 22.716,
+   "total_raw": 22.556
   },
   "WAS": {
    "def": 24.778,
@@ -358,7 +358,7 @@
    "diff_raw": -3.0,
    "gp": 9.0,
    "off": 21.778,
-   "total": 23.18,
+   "total": 23.216,
    "total_raw": 23.278
   }
  },

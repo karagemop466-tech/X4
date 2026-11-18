@@ -23,7 +23,7 @@ Neither of those pages backs a published value. Instead, every reconstructed sco
 
 ## What the verification checks
 
-`tools/verify.py` - 460 assertions, exit code 1 on any failure:
+`tools/verify.py` - 486 assertions, exit code 1 on any failure:
 
 - every game row's URL matches the official `/games/<away>-at-<home>-2026-reg-<week>` pattern
 - every team's wins, losses and ties match the official standings
@@ -115,6 +115,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
 | F-56 | Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit) |
 | F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
+| F-58 | The published game log and standings snapshot were jointly stale: 13 of 14 Week-10 games were missing, and the verification pair agreed with itself (T46 integrity repair, arena/2d57231a-x4) |
+| F-59 | S1 now clears G1-G7 on the repaired corpus (post-hoc), but every strategy stays ineligible until the pre-registered Week-11 shadow window is graded (T46, arena/2d57231a-x4) |
 
 ## What is deliberately absent
 

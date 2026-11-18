@@ -1,7 +1,7 @@
 [
  {
   "q": "What decision are we actually trying to make?",
-  "know": "The repository now holds a verified game log (137 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
+  "know": "The repository now holds a verified game log (150 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
   "missing": "The market definition (point spread, total, player prop, or a proprietary rating), the decision horizon (single game, week, or season) and whether the output is informational analytics, a paper-trading competition, or a wagering product.",
   "blocks": "Reward design, data budget, legal scope, and which of the strategies on the Strategy Lab page is even relevant.",
   "close": "Write a one-page charter naming the market, the horizon, the decision owner and what 'success' means, then re-score every suggestion against it.",

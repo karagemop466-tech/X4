@@ -497,8 +497,11 @@ def signal_and_staking(leaderboard):
         staking = 100.0 * pnl / (bets * STAKING_POLICY["unit"])
 
         # ---- demotion gate ----
-        # A strategy is Live only with every gate passed. Otherwise it stays on
-        # paper - which is where all nine of them are today.
+        # A strategy is Live only with every gate passed, including G8 (the
+        # pre-registered shadow period). Otherwise it stays on paper. On the
+        # corrected corpus S1 passes G1-G7 but G8 cannot open until the
+        # registered Week 11 forward window is played and graded, so all nine
+        # strategies are paper today and must remain so.
         state = "live" if passed == total_gates else "paper"
         reasons = []
         if not sig_ok:
@@ -616,8 +619,12 @@ def self_check():
             problems.append("%s staking ROI %.1f%% exceeds the maximum a flat 1-unit "
                             "-110 book can return (%.1f%%)"
                             % (r["id"], r["staking"], best_possible))
-        if r["state"] == "live":
-            problems.append("%s is marked Live, but no strategy has passed every gate" % r["id"])
+        # The invariant is: Live only with every gate passed (including G8, the
+        # pre-registered shadow period). A strategy that has passed every gate
+        # may be Live; one that has not may never be.
+        if r["state"] == "live" and r["gates_passed"] < r["gates_total"]:
+            problems.append("%s is marked Live on %d/%d gates; Live requires every "
+                            "gate passed" % (r["id"], r["gates_passed"], r["gates_total"]))
         if not (0 <= r["signal"] <= 100):
             problems.append("%s signal score %.2f outside 0-100" % (r["id"], r["signal"]))
     ranks_sig = sorted(r["rank_signal"] for r in lb)

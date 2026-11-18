@@ -105,6 +105,21 @@ class RowParser(HTMLParser):
             self._cell.append(data)
 
 
+def expected_game_rows():
+    """The number of completed-game rows the game log holds, read from the source CSV.
+
+    Derived rather than pinned: the log grows every week, and a hard-coded count
+    fails the moment an official score is ingested (as it did on 2026-11-18 when
+    the Week 10 games were added).
+    """
+    import csv
+    path = os.path.join(ROOT, "data", "games-2026.csv")
+    if not os.path.exists(path):
+        return None
+    with open(path, newline="", encoding="utf-8") as fh:
+        return sum(1 for _ in csv.DictReader(fh))
+
+
 def expected_injury_rows():
     """The number of injury rows the published dataset holds, read from the source CSV."""
     import csv
@@ -276,9 +291,10 @@ def main():
                 if out[page].get("error"):
                     problems.append("%s: javascript error: %s" % (page, out[page]["error"]))
             games_filter = out.get("standings.html", {}).get("filters", {})
-            if games_filter.get("games_rows") != 137:
-                problems.append("week filter: expected 137 game rows in the DOM, found %s"
-                                % games_filter.get("games_rows"))
+            expected_games = expected_game_rows()
+            if expected_games is not None and games_filter.get("games_rows") != expected_games:
+                problems.append("week filter: expected %d game rows in the DOM, found %s"
+                                % (expected_games, games_filter.get("games_rows")))
             inj_filter = out.get("availability.html", {}).get("filters", {})
             expected_inj = expected_injury_rows()
             if inj_filter.get("injury_rows") != expected_inj:

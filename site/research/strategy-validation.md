@@ -1,6 +1,6 @@
 # Strategy validation and the leaderboard
 
-Produced by `tools/build.py` over 105 out-of-sample games (Weeks 3-10 of the 2026 season). Underlying results: <https://www.nfl.com/schedules/2026/> and <https://www.nfl.com/standings/>.
+Produced by `tools/build.py` over 118 out-of-sample games (Weeks 3-10 of the 2026 season). Underlying results: <https://www.nfl.com/schedules/2026/> and <https://www.nfl.com/standings/>.
 
 ## The seven gates
 
@@ -20,19 +20,19 @@ A strategy only earns reward points if it clears every gate. The gates are desig
 
 | Rank | ID | Strategy | Spread MAE | Total MAE | Direction | Improvement | 95% CI | Weeks improved | Calib. gap | Gates | Eligible | Points |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | S1 | Simple mean, opponent-adjusted | 9.26 | 11.45 | 65.7% | 8.31% | -0.21 to 1.82 | 62% | 0.076 | 6/7 | no | 51.50 |
-| 2 | S8 | Last 5 games window | 9.29 | 11.57 | 64.8% | 7.97% | -0.23 to 1.82 | 62% | 0.065 | 6/7 | no | 50.70 |
-| 3 | S2 | Exponentially weighted | 9.39 | 11.22 | 62.9% | 7.03% | -0.52 to 1.89 | 62% | 0.074 | 6/7 | no | 45.30 |
-| 4 | S5 | Median + shrinkage | 9.49 | 11.17 | 61.0% | 5.99% | -0.21 to 1.45 | 62% | 0.059 | 6/7 | no | 41.30 |
-| 5 | S3 | EW + shrinkage | 9.77 | 11.03 | 57.1% | 3.31% | -0.45 to 1.10 | 62% | 0.065 | 6/7 | no | 27.40 |
-| 6 | S4 | Fast EW + heavy shrinkage | 9.83 | 11.06 | 57.1% | 2.63% | -0.48 to 0.97 | 62% | 0.073 | 6/7 | no | 23.40 |
-| 7 | S7 | Blend S3 and S6 | 9.91 | 11.03 | 55.2% | 1.84% | -0.57 to 0.93 | 62% | 0.076 | 6/7 | no | 19.10 |
-| 8 | S6 | Slow EW + heavy shrinkage | 10.08 | 11.04 | 49.5% | 0.24% | -0.75 to 0.76 | 62% | 0.069 | 6/7 | no | 11.70 |
-| 9 | S0 | League constant | 10.10 | 11.12 | 42.9% | baseline | 0.00 to 0.00 | 0% | 0.053 | 4/7 | no | 5.60 |
+| 1 | S1 | Simple mean, opponent-adjusted | 9.48 | 11.23 | 66.9% | 9.49% | 0.03 to 1.97 | 75% | 0.071 | 7/7 | no | 59.00 |
+| 2 | S8 | Last 5 games window | 9.59 | 11.34 | 65.3% | 8.46% | -0.12 to 1.91 | 75% | 0.062 | 6/7 | no | 54.60 |
+| 3 | S2 | Exponentially weighted | 9.57 | 10.82 | 63.6% | 8.66% | -0.24 to 2.09 | 75% | 0.089 | 6/7 | no | 53.40 |
+| 4 | S5 | Median + shrinkage | 9.79 | 10.93 | 61.0% | 6.60% | -0.05 to 1.46 | 75% | 0.065 | 6/7 | no | 45.10 |
+| 5 | S3 | EW + shrinkage | 10.10 | 10.72 | 58.5% | 3.58% | -0.31 to 1.08 | 62% | 0.061 | 6/7 | no | 29.10 |
+| 6 | S4 | Fast EW + heavy shrinkage | 10.17 | 10.78 | 56.8% | 2.92% | -0.34 to 0.97 | 62% | 0.070 | 6/7 | no | 25.00 |
+| 7 | S7 | Blend S3 and S6 | 10.27 | 10.71 | 55.1% | 2.02% | -0.45 to 0.88 | 62% | 0.071 | 6/7 | no | 20.50 |
+| 8 | S6 | Slow EW + heavy shrinkage | 10.44 | 10.72 | 49.2% | 0.35% | -0.63 to 0.70 | 62% | 0.071 | 6/7 | no | 12.10 |
+| 9 | S0 | League constant | 10.48 | 10.86 | 45.8% | baseline | 0.00 to 0.00 | 0% | 0.057 | 4/7 | no | 5.20 |
 
 ## The headline result
 
-**No strategy is eligible..** The best strategy improves point-spread MAE over the league-constant benchmark by about 8 percent, but the Bonferroni-adjusted bootstrap interval for that improvement still contains zero. In plain terms: the improvement is not yet distinguishable from the luck that a sample of this size produces on its own.
+**No strategy is eligible..** The best strategy improves point-spread MAE over the league-constant benchmark by about 9 percent, but the Bonferroni-adjusted bootstrap interval for that improvement still contains zero. In plain terms: the improvement is not yet distinguishable from the luck that a sample of this size produces on its own.
 
 That is the correct finding, not a failure of the analysis. A leaderboard that ranked by point estimate would have crowned a winner the evidence does not support. The points column is therefore provisional for every row, and the eligible column is empty.
 
@@ -40,8 +40,8 @@ That is the correct finding, not a failure of the analysis. A leaderboard that r
 
 Four reasons, and the first is the one that matters most:
 
-1. **Ten weeks is a short sample.** 105 evaluated games cannot separate a 8 percent improvement from noise. The remedy is more games and more seasons - which means archiving point-in-time data going forward rather than reconstructing it.
-2. **The benchmark is strong.** The league-constant benchmark scores a 42.9% direction accuracy, which is close to a coin flip with a small home-field tilt. Beating a weak baseline is easy; beating this one is not.
+1. **Ten weeks is a short sample.** 118 evaluated games cannot separate a 9 percent improvement from noise. The remedy is more games and more seasons - which means archiving point-in-time data going forward rather than reconstructing it.
+2. **The benchmark is strong.** The league-constant benchmark scores a 45.8% direction accuracy, which is close to a coin flip with a small home-field tilt. Beating a weak baseline is easy; beating this one is not.
 3. **The strategies are not independent.** Several are the same signal with different smoothing. Treating them as nine competitors inflates the apparent amount of evidence - see `correlation-and-luck.md`.
 4. **The comparison is a paired test on a noisy quantity.** The bootstrap resamples games, not strategies, and the per-game spread error has a standard deviation of roughly ten points. An improvement of under one point per game cannot clear that noise with this many samples.
 
@@ -61,15 +61,15 @@ Four reasons, and the first is the one that matters most:
 
 | Strategy | Gates passed | Failing gates |
 |---|---|---|
-| S1 | 6/7 | G4 significance |
-| S8 | 6/7 | G4 significance |
-| S2 | 6/7 | G4 significance |
-| S5 | 6/7 | G4 significance |
-| S3 | 6/7 | G4 significance |
-| S4 | 6/7 | G4 significance |
-| S7 | 6/7 | G4 significance |
-| S6 | 6/7 | G4 significance |
-| S0 | 4/7 | G4 significance, G5 stability, G7 not the benchmark |
+| S1 | 7/7 | G8 shadow period |
+| S8 | 6/7 | G4 significance, G8 shadow period |
+| S2 | 6/7 | G4 significance, G8 shadow period |
+| S5 | 6/7 | G4 significance, G8 shadow period |
+| S3 | 6/7 | G4 significance, G8 shadow period |
+| S4 | 6/7 | G4 significance, G8 shadow period |
+| S7 | 6/7 | G4 significance, G8 shadow period |
+| S6 | 6/7 | G4 significance, G8 shadow period |
+| S0 | 4/7 | G4 significance, G5 stability, G7 not the benchmark, G8 shadow period |
 
 ## Weekly stability
 
@@ -82,7 +82,7 @@ Four reasons, and the first is the one that matters most:
 | Week 7 | 0.17 | 0.21 | 0.07 | 0.10 | 0.33 | 0.37 | 0.32 | 0.31 | 0.00 |
 | Week 8 | 1.53 | 1.39 | 2.44 | 0.75 | 1.32 | 1.11 | 1.14 | 0.96 | 0.00 |
 | Week 9 | 2.84 | 2.70 | 3.38 | 2.24 | 1.25 | 1.02 | 0.80 | 0.36 | 0.00 |
-| Week 10 | -1.18 | -1.04 | -1.04 | -1.68 | 0.36 | 0.38 | 0.56 | 0.76 | 0.00 |
+| Week 10 | 2.00 | 1.36 | 2.25 | 1.17 | 0.68 | 0.61 | 0.43 | 0.18 | 0.00 |
 
 Positive means the strategy beat the league-constant benchmark that week. A strategy that is positive in only a handful of weeks is describing one good run, not an edge.
 
@@ -90,51 +90,51 @@ Positive means the strategy beat the league-constant benchmark that week. A stra
 
 | Strategy | Offset | Model probability | Observed rate | Games | Within tolerance |
 |---|---|---|---|---|---|
-| S1 | -6 pts | 62.6% | 61.8% | 89 | yes |
-| S1 | -3 pts | 54.2% | 61.8% | 89 | yes |
-| S1 | +0 pts | 45.6% | 49.4% | 89 | yes |
-| S1 | +3 pts | 37.3% | 39.3% | 89 | yes |
-| S1 | +6 pts | 29.4% | 34.8% | 89 | yes |
-| S8 | -6 pts | 62.5% | 61.8% | 89 | yes |
-| S8 | -3 pts | 54.1% | 60.7% | 89 | yes |
-| S8 | +0 pts | 45.6% | 49.4% | 89 | yes |
-| S8 | +3 pts | 37.3% | 42.7% | 89 | yes |
-| S8 | +6 pts | 29.5% | 36.0% | 89 | yes |
-| S2 | -6 pts | 61.9% | 65.2% | 89 | yes |
-| S2 | -3 pts | 53.3% | 60.7% | 89 | yes |
-| S2 | +0 pts | 44.6% | 48.3% | 89 | yes |
-| S2 | +3 pts | 36.0% | 41.6% | 89 | yes |
-| S2 | +6 pts | 28.2% | 33.7% | 89 | yes |
-| S5 | -6 pts | 63.3% | 64.0% | 89 | yes |
-| S5 | -3 pts | 54.8% | 60.7% | 89 | yes |
-| S5 | +0 pts | 46.1% | 46.1% | 89 | yes |
-| S5 | +3 pts | 37.5% | 39.3% | 89 | yes |
-| S5 | +6 pts | 29.5% | 34.8% | 89 | yes |
-| S3 | -6 pts | 62.8% | 64.0% | 89 | yes |
-| S3 | -3 pts | 54.2% | 60.7% | 89 | yes |
-| S3 | +0 pts | 45.4% | 51.7% | 89 | yes |
-| S3 | +3 pts | 36.7% | 39.3% | 89 | yes |
-| S3 | +6 pts | 28.8% | 34.8% | 89 | yes |
-| S4 | -6 pts | 62.9% | 64.0% | 89 | yes |
-| S4 | -3 pts | 54.3% | 60.7% | 89 | yes |
-| S4 | +0 pts | 45.5% | 52.8% | 89 | yes |
-| S4 | +3 pts | 37.0% | 39.3% | 89 | yes |
-| S4 | +6 pts | 29.0% | 34.8% | 89 | yes |
-| S7 | -6 pts | 62.8% | 64.0% | 89 | yes |
-| S7 | -3 pts | 54.2% | 61.8% | 89 | yes |
-| S7 | +0 pts | 45.4% | 50.6% | 89 | yes |
-| S7 | +3 pts | 36.8% | 39.3% | 89 | yes |
-| S7 | +6 pts | 28.9% | 34.8% | 89 | yes |
-| S6 | -6 pts | 62.8% | 64.0% | 89 | yes |
-| S6 | -3 pts | 54.2% | 60.7% | 89 | yes |
-| S6 | +0 pts | 45.5% | 50.6% | 89 | yes |
-| S6 | +3 pts | 37.0% | 40.4% | 89 | yes |
-| S6 | +6 pts | 29.0% | 36.0% | 89 | yes |
-| S0 | -6 pts | 63.5% | 62.9% | 89 | yes |
-| S0 | -3 pts | 54.6% | 59.6% | 89 | yes |
-| S0 | +0 pts | 45.5% | 48.3% | 89 | yes |
-| S0 | +3 pts | 36.6% | 41.6% | 89 | yes |
-| S0 | +6 pts | 28.4% | 33.7% | 89 | yes |
+| S1 | -6 pts | 63.0% | 63.7% | 102 | yes |
+| S1 | -3 pts | 54.6% | 61.8% | 102 | yes |
+| S1 | +0 pts | 46.1% | 50.0% | 102 | yes |
+| S1 | +3 pts | 37.7% | 39.2% | 102 | yes |
+| S1 | +6 pts | 29.8% | 34.3% | 102 | yes |
+| S8 | -6 pts | 62.9% | 63.7% | 102 | yes |
+| S8 | -3 pts | 54.6% | 60.8% | 102 | yes |
+| S8 | +0 pts | 46.0% | 50.0% | 102 | yes |
+| S8 | +3 pts | 37.7% | 43.1% | 102 | yes |
+| S8 | +6 pts | 29.9% | 33.3% | 102 | yes |
+| S2 | -6 pts | 62.4% | 67.6% | 102 | yes |
+| S2 | -3 pts | 53.8% | 62.7% | 102 | yes |
+| S2 | +0 pts | 45.1% | 48.0% | 102 | yes |
+| S2 | +3 pts | 36.6% | 42.2% | 102 | yes |
+| S2 | +6 pts | 28.6% | 32.4% | 102 | yes |
+| S5 | -6 pts | 63.8% | 64.7% | 102 | yes |
+| S5 | -3 pts | 55.3% | 61.8% | 102 | yes |
+| S5 | +0 pts | 46.5% | 48.0% | 102 | yes |
+| S5 | +3 pts | 38.0% | 38.2% | 102 | yes |
+| S5 | +6 pts | 29.9% | 33.3% | 102 | yes |
+| S3 | -6 pts | 63.3% | 66.7% | 102 | yes |
+| S3 | -3 pts | 54.7% | 60.8% | 102 | yes |
+| S3 | +0 pts | 45.8% | 51.0% | 102 | yes |
+| S3 | +3 pts | 37.2% | 39.2% | 102 | yes |
+| S3 | +6 pts | 29.2% | 33.3% | 102 | yes |
+| S4 | -6 pts | 63.3% | 66.7% | 102 | yes |
+| S4 | -3 pts | 54.8% | 61.8% | 102 | yes |
+| S4 | +0 pts | 46.0% | 52.0% | 102 | yes |
+| S4 | +3 pts | 37.4% | 39.2% | 102 | yes |
+| S4 | +6 pts | 29.4% | 33.3% | 102 | yes |
+| S7 | -6 pts | 63.2% | 66.7% | 102 | yes |
+| S7 | -3 pts | 54.7% | 61.8% | 102 | yes |
+| S7 | +0 pts | 45.9% | 50.0% | 102 | yes |
+| S7 | +3 pts | 37.3% | 38.2% | 102 | yes |
+| S7 | +6 pts | 29.3% | 33.3% | 102 | yes |
+| S6 | -6 pts | 63.2% | 66.7% | 102 | yes |
+| S6 | -3 pts | 54.7% | 61.8% | 102 | yes |
+| S6 | +0 pts | 46.0% | 50.0% | 102 | yes |
+| S6 | +3 pts | 37.4% | 39.2% | 102 | yes |
+| S6 | +6 pts | 29.4% | 34.3% | 102 | yes |
+| S0 | -6 pts | 63.9% | 65.7% | 102 | yes |
+| S0 | -3 pts | 55.0% | 60.8% | 102 | yes |
+| S0 | +0 pts | 46.0% | 48.0% | 102 | yes |
+| S0 | +3 pts | 37.1% | 40.2% | 102 | yes |
+| S0 | +6 pts | 28.9% | 32.4% | 102 | yes |
 
 Every strategy passes calibration comfortably. That is worth stating plainly: the forecasts are not systematically overconfident, which means the failure to clear the significance gate is a sample-size problem and not a badly-calibrated model.
 

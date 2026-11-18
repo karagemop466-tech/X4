@@ -10,7 +10,7 @@ Nothing here is a placeholder for data that exists.
 # ------------------------------------------------------------------ information requirements
 QUESTIONS = [
     dict(q="What decision are we actually trying to make?",
-         know="The repository now holds a verified game log (137 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
+         know="The repository now holds a verified game log (150 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
          missing="The market definition (point spread, total, player prop, or a proprietary rating), the decision horizon (single game, week, or season) and whether the output is informational analytics, a paper-trading competition, or a wagering product.",
          blocks="Reward design, data budget, legal scope, and which of the strategies on the Strategy Lab page is even relevant.",
          close="Write a one-page charter naming the market, the horizon, the decision owner and what 'success' means, then re-score every suggestion against it.",
@@ -698,13 +698,48 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "whose only link is a repository artifact must be read as the artifact's output, not as an official NFL fact."),
          official_url="https://www.nfl.com/standings/",
          url="https://github.com/karagemop466-tech/X4/blob/main/site/research/verification/official-row-source-coverage-2026-11-17.csv"),
+
+    dict(id="F-58", item="The published game log and standings snapshot were jointly stale: 13 of 14 Week-10 games were missing, and the verification pair agreed with itself (T46 integrity repair, arena/2d57231a-x4)", type="Irregularity", kind="warn", status="irregularity",
+         detail=("On 2026-11-18 the official NFL.com Week-10 results and standings pages were re-read line by line against the committed corpus. "
+                 "data/games-2026.csv held 137 rows through Week 9 plus only the Thursday WAS@NYG game of Week 10; 13 completed Week-10 games "
+                 "(NE@DET, KC@ATL, HOU@CLE, MIN@GB, MIA@IND, CAR@NO, BUF@NYJ, JAX@TEN, LAR@ARI, SEA@LV, SF@DAL, PIT@CIN, LAC@BAL) were absent, and "
+                 "data/standings-wk10-2026.csv held the pre-Week-10 standings rather than the post-Week-10 official table. The gap survived every "
+                 "earlier check for a structural reason worth recording: tools/verify.py reconciles the game log against that same standings file, "
+                 "so a stale log and a stale standings snapshot agree with each other and both checks pass. A self-consistent pair is not a verified "
+                 "pair; only re-reading the external official page finds this class of drift. The exact reconciliation (32 of 32 clubs: official "
+                 "W/L/T/PF/PA = committed log + exactly the 13 missing games, with one W/L flip per affected club) is recorded in the T46 row of "
+                 "COORDINATION.md. The log is now 150 games and tools/verify.py passes 486 assertions against the corrected official standings."),
+         why=("Flagged rather than silently fixed because the correction changes published conclusions (see F-59) and because the self-verification "
+              "blind spot is a property of the verification design, not of this one data entry. Clears when: verify.py (or a successor check) pins "
+              "the standings snapshot to an external retrieval timestamp and re-fetches or hash-pins the official standings page independently of "
+              "the game log, so a jointly stale pair can no longer pass."),
+         official_url="https://www.nfl.com/standings/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"),
+
+    dict(id="F-59", item="S1 now clears G1-G7 on the repaired corpus (post-hoc), but every strategy stays ineligible until the pre-registered Week-11 shadow window is graded (T46, arena/2d57231a-x4)", type="Irregularity", kind="warn", status="irregularity",
+         detail=("Rebuilding the walk-forward evaluation on the corrected 150-game corpus (weeks 3-10, n=118) flips the headline conclusion: S1 "
+                 "(simple opponent-adjusted mean) now shows +9.49% spread-MAE improvement over the S0 benchmark with a Bonferroni-adjusted 95% "
+                 "bootstrap CI of [+0.03, +1.97] points, so its significance gate G4 passes where it previously failed. The other eight strategies "
+                 "remain 6 of 7 on the backtest gates. This is a post-hoc result: the 13 games it rests on were ingested on 2026-11-18, after "
+                 "research/preregistration/wk11-forward-v1.md froze the corpus and the sample window, and the pre-registration requires forwards "
+                 "to be registered before their holdout opens. The leaderboard therefore now carries an explicit G8 shadow-period gate (a further "
+                 "pre-registered segment, actually graded), which no historical backtest can satisfy: S1 is 7 of 8, marked ineligible and paper, "
+                 "and the reward for the 7 backtest gates is published as provisional. data/ops/gates.csv G8 (\"a further pre-registered segment "
+                 "with no gate regression\") is the same gate on the market-store side and reads fail for all nine strategies."),
+         why=("Published as a post-hoc integrity repair, not as a performance result: the number is real and reproducible, but the corpus changed "
+              "after registration, so it cannot be claimed as pre-registered skill. The gate is kept honest rather than relaxed: G8 demands the "
+              "registered Week-11 forward window be played and graded with no gate regression before any strategy may be marked Live. Clears when: "
+              "the Week-11 forward sample settles under the existing pre-registration and the gates are re-evaluated on it - or the owner explicitly "
+              "re-registers a revised protocol before that window opens."),
+         official_url="https://www.nfl.com/standings/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"),
 ]
 
 # ------------------------------------------------------------------ verification log
 VERIFICATION = [
     dict(check="Reconstructed game log matches the official NFL.com standings", result="pass",
          url="https://www.nfl.com/standings/",
-         how="tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."),
+         how="tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 150 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."),
     dict(check="Every game row carries a working official NFL.com game URL", result="pass",
          url="https://www.nfl.com/schedules/2026/",
          how="Each row's URL is checked against the official /games/<away>-at-<home>-<season>-reg-<week> pattern, and the Week 5 and Week 10 links were opened directly and confirmed to show the same scores."),

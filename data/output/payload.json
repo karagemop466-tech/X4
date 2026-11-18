@@ -25,7 +25,7 @@
    "alpha": 0.05,
    "eval_first_week": 3
   },
-  "eval_games": 105,
+  "eval_games": 118,
   "eval_weeks": [
    3,
    10
@@ -36,14 +36,14 @@
   {
    "abbr": "BUF",
    "team": "Buffalo Bills",
-   "w": 7,
+   "w": 8,
    "l": 1,
    "t": 0,
-   "pct": 0.875,
-   "pf": 256,
-   "pa": 187,
-   "net_pts": 69,
-   "gp": 8,
+   "pct": 0.889,
+   "pf": 287,
+   "pa": 199,
+   "net_pts": 88,
+   "gp": 9,
    "team_name": "Buffalo Bills",
    "division": "AFC East",
    "conference": "AFC",
@@ -53,13 +53,13 @@
    "abbr": "NE",
    "team": "New England Patriots",
    "w": 5,
-   "l": 4,
+   "l": 5,
    "t": 0,
-   "pct": 0.556,
-   "pf": 211,
-   "pa": 207,
-   "net_pts": 4,
-   "gp": 9,
+   "pct": 0.5,
+   "pf": 221,
+   "pa": 242,
+   "net_pts": -21,
+   "gp": 10,
    "team_name": "New England Patriots",
    "division": "AFC East",
    "conference": "AFC",
@@ -69,13 +69,13 @@
    "abbr": "NYJ",
    "team": "New York Jets",
    "w": 2,
-   "l": 7,
+   "l": 8,
    "t": 0,
-   "pct": 0.222,
-   "pf": 182,
-   "pa": 223,
-   "net_pts": -41,
-   "gp": 9,
+   "pct": 0.2,
+   "pf": 194,
+   "pa": 254,
+   "net_pts": -60,
+   "gp": 10,
    "team_name": "New York Jets",
    "division": "AFC East",
    "conference": "AFC",
@@ -85,61 +85,61 @@
    "abbr": "MIA",
    "team": "Miami Dolphins",
    "w": 1,
-   "l": 7,
+   "l": 8,
    "t": 0,
-   "pct": 0.125,
-   "pf": 126,
-   "pa": 200,
-   "net_pts": -74,
-   "gp": 8,
+   "pct": 0.111,
+   "pf": 148,
+   "pa": 224,
+   "net_pts": -76,
+   "gp": 9,
    "team_name": "Miami Dolphins",
    "division": "AFC East",
    "conference": "AFC",
    "url": "https://www.nfl.com/teams/miami-dolphins/"
   },
   {
-   "abbr": "PIT",
-   "team": "Pittsburgh Steelers",
-   "w": 6,
-   "l": 2,
-   "t": 0,
-   "pct": 0.75,
-   "pf": 180,
-   "pa": 144,
-   "net_pts": 36,
-   "gp": 8,
-   "team_name": "Pittsburgh Steelers",
-   "division": "AFC North",
-   "conference": "AFC",
-   "url": "https://www.nfl.com/teams/pittsburgh-steelers/"
-  },
-  {
    "abbr": "CIN",
    "team": "Cincinnati Bengals",
-   "w": 6,
+   "w": 7,
    "l": 2,
    "t": 0,
-   "pct": 0.75,
-   "pf": 240,
-   "pa": 175,
-   "net_pts": 65,
-   "gp": 8,
+   "pct": 0.778,
+   "pf": 278,
+   "pa": 193,
+   "net_pts": 85,
+   "gp": 9,
    "team_name": "Cincinnati Bengals",
    "division": "AFC North",
    "conference": "AFC",
    "url": "https://www.nfl.com/teams/cincinnati-bengals/"
   },
   {
+   "abbr": "PIT",
+   "team": "Pittsburgh Steelers",
+   "w": 6,
+   "l": 3,
+   "t": 0,
+   "pct": 0.667,
+   "pf": 198,
+   "pa": 182,
+   "net_pts": 16,
+   "gp": 9,
+   "team_name": "Pittsburgh Steelers",
+   "division": "AFC North",
+   "conference": "AFC",
+   "url": "https://www.nfl.com/teams/pittsburgh-steelers/"
+  },
+  {
    "abbr": "CLE",
    "team": "Cleveland Browns",
-   "w": 5,
+   "w": 6,
    "l": 4,
    "t": 0,
-   "pct": 0.556,
-   "pf": 161,
-   "pa": 196,
-   "net_pts": -35,
-   "gp": 9,
+   "pct": 0.6,
+   "pf": 188,
+   "pa": 220,
+   "net_pts": -32,
+   "gp": 10,
    "team_name": "Cleveland Browns",
    "division": "AFC North",
    "conference": "AFC",
@@ -149,13 +149,13 @@
    "abbr": "BAL",
    "team": "Baltimore Ravens",
    "w": 4,
-   "l": 5,
+   "l": 6,
    "t": 0,
-   "pct": 0.444,
-   "pf": 189,
-   "pa": 236,
-   "net_pts": -47,
-   "gp": 9,
+   "pct": 0.4,
+   "pf": 209,
+   "pa": 259,
+   "net_pts": -50,
+   "gp": 10,
    "team_name": "Baltimore Ravens",
    "division": "AFC North",
    "conference": "AFC",
@@ -164,14 +164,14 @@
   {
    "abbr": "JAX",
    "team": "Jacksonville Jaguars",
-   "w": 6,
+   "w": 7,
    "l": 2,
    "t": 0,
-   "pct": 0.75,
-   "pf": 229,
-   "pa": 121,
-   "net_pts": 108,
-   "gp": 8,
+   "pct": 0.778,
+   "pf": 269,
+   "pa": 144,
+   "net_pts": 125,
+   "gp": 9,
    "team_name": "Jacksonville Jaguars",
    "division": "AFC South",
    "conference": "AFC",
@@ -181,13 +181,13 @@
    "abbr": "HOU",
    "team": "Houston Texans",
    "w": 3,
-   "l": 5,
+   "l": 6,
    "t": 0,
-   "pct": 0.375,
-   "pf": 209,
-   "pa": 192,
-   "net_pts": 17,
-   "gp": 8,
+   "pct": 0.333,
+   "pf": 233,
+   "pa": 219,
+   "net_pts": 14,
+   "gp": 9,
    "team_name": "Houston Texans",
    "division": "AFC South",
    "conference": "AFC",
@@ -196,14 +196,14 @@
   {
    "abbr": "IND",
    "team": "Indianapolis Colts",
-   "w": 2,
+   "w": 3,
    "l": 7,
    "t": 0,
-   "pct": 0.222,
-   "pf": 184,
-   "pa": 249,
-   "net_pts": -65,
-   "gp": 9,
+   "pct": 0.3,
+   "pf": 208,
+   "pa": 271,
+   "net_pts": -63,
+   "gp": 10,
    "team_name": "Indianapolis Colts",
    "division": "AFC South",
    "conference": "AFC",
@@ -213,17 +213,33 @@
    "abbr": "TEN",
    "team": "Tennessee Titans",
    "w": 1,
-   "l": 7,
+   "l": 8,
    "t": 0,
-   "pct": 0.125,
-   "pf": 144,
-   "pa": 199,
-   "net_pts": -55,
-   "gp": 8,
+   "pct": 0.111,
+   "pf": 167,
+   "pa": 239,
+   "net_pts": -72,
+   "gp": 9,
    "team_name": "Tennessee Titans",
    "division": "AFC South",
    "conference": "AFC",
    "url": "https://www.nfl.com/teams/tennessee-titans/"
+  },
+  {
+   "abbr": "KC",
+   "team": "Kansas City Chiefs",
+   "w": 7,
+   "l": 2,
+   "t": 0,
+   "pct": 0.778,
+   "pf": 237,
+   "pa": 156,
+   "net_pts": 81,
+   "gp": 9,
+   "team_name": "Kansas City Chiefs",
+   "division": "AFC West",
+   "conference": "AFC",
+   "url": "https://www.nfl.com/teams/kansas-city-chiefs/"
   },
   {
    "abbr": "DEN",
@@ -242,32 +258,16 @@
    "url": "https://www.nfl.com/teams/denver-broncos/"
   },
   {
-   "abbr": "KC",
-   "team": "Kansas City Chiefs",
-   "w": 6,
-   "l": 2,
-   "t": 0,
-   "pct": 0.75,
-   "pf": 202,
-   "pa": 143,
-   "net_pts": 59,
-   "gp": 8,
-   "team_name": "Kansas City Chiefs",
-   "division": "AFC West",
-   "conference": "AFC",
-   "url": "https://www.nfl.com/teams/kansas-city-chiefs/"
-  },
-  {
    "abbr": "LV",
    "team": "Las Vegas Raiders",
    "w": 4,
-   "l": 5,
+   "l": 6,
    "t": 0,
-   "pct": 0.444,
-   "pf": 238,
-   "pa": 268,
-   "net_pts": -30,
-   "gp": 9,
+   "pct": 0.4,
+   "pf": 251,
+   "pa": 289,
+   "net_pts": -38,
+   "gp": 10,
    "team_name": "Las Vegas Raiders",
    "division": "AFC West",
    "conference": "AFC",
@@ -276,14 +276,14 @@
   {
    "abbr": "LAC",
    "team": "Los Angeles Chargers",
-   "w": 0,
+   "w": 1,
    "l": 8,
    "t": 0,
-   "pct": 0.0,
-   "pf": 121,
-   "pa": 219,
-   "net_pts": -98,
-   "gp": 8,
+   "pct": 0.111,
+   "pf": 144,
+   "pa": 239,
+   "net_pts": -95,
+   "gp": 9,
    "team_name": "Los Angeles Chargers",
    "division": "AFC West",
    "conference": "AFC",
@@ -309,13 +309,13 @@
    "abbr": "DAL",
    "team": "Dallas Cowboys",
    "w": 4,
-   "l": 5,
+   "l": 6,
    "t": 0,
-   "pct": 0.444,
-   "pf": 246,
-   "pa": 236,
-   "net_pts": 10,
-   "gp": 9,
+   "pct": 0.4,
+   "pf": 286,
+   "pa": 282,
+   "net_pts": 4,
+   "gp": 10,
    "team_name": "Dallas Cowboys",
    "division": "NFC East",
    "conference": "NFC",
@@ -354,6 +354,38 @@
    "url": "https://www.nfl.com/teams/philadelphia-eagles/"
   },
   {
+   "abbr": "DET",
+   "team": "Detroit Lions",
+   "w": 7,
+   "l": 2,
+   "t": 0,
+   "pct": 0.778,
+   "pf": 257,
+   "pa": 199,
+   "net_pts": 58,
+   "gp": 9,
+   "team_name": "Detroit Lions",
+   "division": "NFC North",
+   "conference": "NFC",
+   "url": "https://www.nfl.com/teams/detroit-lions/"
+  },
+  {
+   "abbr": "MIN",
+   "team": "Minnesota Vikings",
+   "w": 7,
+   "l": 2,
+   "t": 0,
+   "pct": 0.778,
+   "pf": 176,
+   "pa": 126,
+   "net_pts": 50,
+   "gp": 9,
+   "team_name": "Minnesota Vikings",
+   "division": "NFC North",
+   "conference": "NFC",
+   "url": "https://www.nfl.com/teams/minnesota-vikings/"
+  },
+  {
    "abbr": "CHI",
    "team": "Chicago Bears",
    "w": 7,
@@ -370,48 +402,16 @@
    "url": "https://www.nfl.com/teams/chicago-bears/"
   },
   {
-   "abbr": "DET",
-   "team": "Detroit Lions",
-   "w": 6,
-   "l": 2,
-   "t": 0,
-   "pct": 0.75,
-   "pf": 222,
-   "pa": 189,
-   "net_pts": 33,
-   "gp": 8,
-   "team_name": "Detroit Lions",
-   "division": "NFC North",
-   "conference": "NFC",
-   "url": "https://www.nfl.com/teams/detroit-lions/"
-  },
-  {
-   "abbr": "MIN",
-   "team": "Minnesota Vikings",
-   "w": 6,
-   "l": 2,
-   "t": 0,
-   "pct": 0.75,
-   "pf": 146,
-   "pa": 116,
-   "net_pts": 30,
-   "gp": 8,
-   "team_name": "Minnesota Vikings",
-   "division": "NFC North",
-   "conference": "NFC",
-   "url": "https://www.nfl.com/teams/minnesota-vikings/"
-  },
-  {
    "abbr": "GB",
    "team": "Green Bay Packers",
    "w": 6,
-   "l": 3,
+   "l": 4,
    "t": 0,
-   "pct": 0.667,
-   "pf": 216,
-   "pa": 191,
-   "net_pts": 25,
-   "gp": 9,
+   "pct": 0.6,
+   "pf": 226,
+   "pa": 221,
+   "net_pts": 5,
+   "gp": 10,
    "team_name": "Green Bay Packers",
    "division": "NFC North",
    "conference": "NFC",
@@ -420,34 +420,18 @@
   {
    "abbr": "CAR",
    "team": "Carolina Panthers",
-   "w": 3,
+   "w": 4,
    "l": 5,
    "t": 0,
-   "pct": 0.375,
-   "pf": 199,
-   "pa": 219,
-   "net_pts": -20,
-   "gp": 8,
+   "pct": 0.444,
+   "pf": 219,
+   "pa": 236,
+   "net_pts": -17,
+   "gp": 9,
    "team_name": "Carolina Panthers",
    "division": "NFC South",
    "conference": "NFC",
    "url": "https://www.nfl.com/teams/carolina-panthers/"
-  },
-  {
-   "abbr": "NO",
-   "team": "New Orleans Saints",
-   "w": 3,
-   "l": 5,
-   "t": 0,
-   "pct": 0.375,
-   "pf": 185,
-   "pa": 216,
-   "net_pts": -31,
-   "gp": 8,
-   "team_name": "New Orleans Saints",
-   "division": "NFC South",
-   "conference": "NFC",
-   "url": "https://www.nfl.com/teams/new-orleans-saints/"
   },
   {
    "abbr": "TB",
@@ -466,16 +450,32 @@
    "url": "https://www.nfl.com/teams/tampa-bay-buccaneers/"
   },
   {
-   "abbr": "ATL",
-   "team": "Atlanta Falcons",
+   "abbr": "NO",
+   "team": "New Orleans Saints",
    "w": 3,
    "l": 6,
    "t": 0,
    "pct": 0.333,
-   "pf": 188,
-   "pa": 223,
-   "net_pts": -35,
+   "pf": 202,
+   "pa": 236,
+   "net_pts": -34,
    "gp": 9,
+   "team_name": "New Orleans Saints",
+   "division": "NFC South",
+   "conference": "NFC",
+   "url": "https://www.nfl.com/teams/new-orleans-saints/"
+  },
+  {
+   "abbr": "ATL",
+   "team": "Atlanta Falcons",
+   "w": 3,
+   "l": 7,
+   "t": 0,
+   "pct": 0.3,
+   "pf": 201,
+   "pa": 258,
+   "net_pts": -57,
+   "gp": 10,
    "team_name": "Atlanta Falcons",
    "division": "NFC South",
    "conference": "NFC",
@@ -484,14 +484,14 @@
   {
    "abbr": "SF",
    "team": "San Francisco 49ers",
-   "w": 7,
+   "w": 8,
    "l": 1,
    "t": 0,
-   "pct": 0.875,
-   "pf": 235,
-   "pa": 156,
-   "net_pts": 79,
-   "gp": 8,
+   "pct": 0.889,
+   "pf": 281,
+   "pa": 196,
+   "net_pts": 85,
+   "gp": 9,
    "team_name": "San Francisco 49ers",
    "division": "NFC West",
    "conference": "NFC",
@@ -500,14 +500,14 @@
   {
    "abbr": "SEA",
    "team": "Seattle Seahawks",
-   "w": 5,
+   "w": 6,
    "l": 4,
    "t": 0,
-   "pct": 0.556,
-   "pf": 202,
-   "pa": 162,
-   "net_pts": 40,
-   "gp": 9,
+   "pct": 0.6,
+   "pf": 223,
+   "pa": 175,
+   "net_pts": 48,
+   "gp": 10,
    "team_name": "Seattle Seahawks",
    "division": "NFC West",
    "conference": "NFC",
@@ -516,14 +516,14 @@
   {
    "abbr": "LAR",
    "team": "Los Angeles Rams",
-   "w": 5,
+   "w": 6,
    "l": 4,
    "t": 0,
-   "pct": 0.556,
-   "pf": 214,
-   "pa": 181,
-   "net_pts": 33,
-   "gp": 9,
+   "pct": 0.6,
+   "pf": 248,
+   "pa": 187,
+   "net_pts": 61,
+   "gp": 10,
    "team_name": "Los Angeles Rams",
    "division": "NFC West",
    "conference": "NFC",
@@ -533,13 +533,13 @@
    "abbr": "ARI",
    "team": "Arizona Cardinals",
    "w": 3,
-   "l": 6,
+   "l": 7,
    "t": 0,
-   "pct": 0.333,
-   "pf": 178,
-   "pa": 255,
-   "net_pts": -77,
-   "gp": 9,
+   "pct": 0.3,
+   "pf": 184,
+   "pa": 289,
+   "net_pts": -105,
+   "gp": 10,
    "team_name": "Arizona Cardinals",
    "division": "NFC West",
    "conference": "NFC",
@@ -548,79 +548,54 @@
  ],
  "power": [
   {
-   "abbr": "JAX",
-   "team": "Jacksonville Jaguars",
-   "division": "AFC South",
-   "conference": "AFC",
-   "w": 6,
-   "l": 2,
-   "t": 0,
-   "gp": 8,
-   "pct": 0.75,
-   "pf": 229,
-   "pa": 121,
-   "net_pts": 108,
-   "pf_pg": 28.625,
-   "pa_pg": 15.125,
-   "net_pg": 13.5,
-   "home_pf_pg": 32.2,
-   "away_pf_pg": 22.666666667,
-   "home_pa_pg": 14.8,
-   "away_pa_pg": 15.666666667,
-   "adj_pf": 26.003694346,
-   "adj_pa": 20.175201633,
-   "adj_net": 5.828492712,
-   "url": "https://www.nfl.com/teams/jacksonville-jaguars/"
-  },
-  {
-   "abbr": "GB",
-   "team": "Green Bay Packers",
-   "division": "NFC North",
-   "conference": "NFC",
-   "w": 6,
-   "l": 3,
-   "t": 0,
-   "gp": 9,
-   "pct": 0.667,
-   "pf": 216,
-   "pa": 191,
-   "net_pts": 25,
-   "pf_pg": 24.0,
-   "pa_pg": 21.222222222,
-   "net_pg": 2.777777778,
-   "home_pf_pg": 23.75,
-   "away_pf_pg": 24.2,
-   "home_pa_pg": 18.5,
-   "away_pa_pg": 23.4,
-   "adj_pf": 26.441323965,
-   "adj_pa": 21.588836874,
-   "adj_net": 4.852487092,
-   "url": "https://www.nfl.com/teams/green-bay-packers/"
-  },
-  {
    "abbr": "BUF",
    "team": "Buffalo Bills",
    "division": "AFC East",
    "conference": "AFC",
-   "w": 7,
+   "w": 8,
    "l": 1,
    "t": 0,
-   "gp": 8,
-   "pct": 0.875,
-   "pf": 256,
-   "pa": 187,
-   "net_pts": 69,
-   "pf_pg": 32.0,
-   "pa_pg": 23.375,
-   "net_pg": 8.625,
+   "gp": 9,
+   "pct": 0.889,
+   "pf": 287,
+   "pa": 199,
+   "net_pts": 88,
+   "pf_pg": 31.888888889,
+   "pa_pg": 22.111111111,
+   "net_pg": 9.777777778,
    "home_pf_pg": 31.75,
-   "away_pf_pg": 32.25,
+   "away_pf_pg": 32.0,
    "home_pa_pg": 21.5,
-   "away_pa_pg": 25.25,
-   "adj_pf": 25.192400756,
-   "adj_pa": 20.504106052,
-   "adj_net": 4.688294703,
+   "away_pa_pg": 22.6,
+   "adj_pf": 25.786760835,
+   "adj_pa": 20.283992421,
+   "adj_net": 5.502768414,
    "url": "https://www.nfl.com/teams/buffalo-bills/"
+  },
+  {
+   "abbr": "CIN",
+   "team": "Cincinnati Bengals",
+   "division": "AFC North",
+   "conference": "AFC",
+   "w": 7,
+   "l": 2,
+   "t": 0,
+   "gp": 9,
+   "pct": 0.778,
+   "pf": 278,
+   "pa": 193,
+   "net_pts": 85,
+   "pf_pg": 30.888888889,
+   "pa_pg": 21.444444444,
+   "net_pg": 9.444444444,
+   "home_pf_pg": 32.75,
+   "away_pf_pg": 29.4,
+   "home_pa_pg": 25.75,
+   "away_pa_pg": 18.0,
+   "adj_pf": 28.651846589,
+   "adj_pa": 23.174860778,
+   "adj_net": 5.476985811,
+   "url": "https://www.nfl.com/teams/cincinnati-bengals/"
   },
   {
    "abbr": "DEN",
@@ -642,35 +617,35 @@
    "away_pf_pg": 20.6,
    "home_pa_pg": 19.25,
    "away_pa_pg": 21.8,
-   "adj_pf": 25.604275352,
-   "adj_pa": 20.963854129,
-   "adj_net": 4.640421222,
+   "adj_pf": 25.928402136,
+   "adj_pa": 20.581499432,
+   "adj_net": 5.346902704,
    "url": "https://www.nfl.com/teams/denver-broncos/"
   },
   {
-   "abbr": "CIN",
-   "team": "Cincinnati Bengals",
-   "division": "AFC North",
+   "abbr": "JAX",
+   "team": "Jacksonville Jaguars",
+   "division": "AFC South",
    "conference": "AFC",
-   "w": 6,
+   "w": 7,
    "l": 2,
    "t": 0,
-   "gp": 8,
-   "pct": 0.75,
-   "pf": 240,
-   "pa": 175,
-   "net_pts": 65,
-   "pf_pg": 30.0,
-   "pa_pg": 21.875,
-   "net_pg": 8.125,
-   "home_pf_pg": 31.0,
-   "away_pf_pg": 29.4,
-   "home_pa_pg": 28.333333333,
-   "away_pa_pg": 18.0,
-   "adj_pf": 28.28433583,
-   "adj_pa": 23.730851835,
-   "adj_net": 4.553483995,
-   "url": "https://www.nfl.com/teams/cincinnati-bengals/"
+   "gp": 9,
+   "pct": 0.778,
+   "pf": 269,
+   "pa": 144,
+   "net_pts": 125,
+   "pf_pg": 29.888888889,
+   "pa_pg": 16.0,
+   "net_pg": 13.888888889,
+   "home_pf_pg": 32.2,
+   "away_pf_pg": 27.0,
+   "home_pa_pg": 14.8,
+   "away_pa_pg": 17.5,
+   "adj_pf": 26.989273252,
+   "adj_pa": 21.97783532,
+   "adj_net": 5.011437932,
+   "url": "https://www.nfl.com/teams/jacksonville-jaguars/"
   },
   {
    "abbr": "TB",
@@ -692,10 +667,85 @@
    "away_pf_pg": 29.5,
    "home_pa_pg": 17.8,
    "away_pa_pg": 22.25,
-   "adj_pf": 24.48094912,
-   "adj_pa": 19.973139226,
-   "adj_net": 4.507809894,
+   "adj_pf": 24.195508002,
+   "adj_pa": 20.031833911,
+   "adj_net": 4.163674091,
    "url": "https://www.nfl.com/teams/tampa-bay-buccaneers/"
+  },
+  {
+   "abbr": "LAR",
+   "team": "Los Angeles Rams",
+   "division": "NFC West",
+   "conference": "NFC",
+   "w": 6,
+   "l": 4,
+   "t": 0,
+   "gp": 10,
+   "pct": 0.6,
+   "pf": 248,
+   "pa": 187,
+   "net_pts": 61,
+   "pf_pg": 24.8,
+   "pa_pg": 18.7,
+   "net_pg": 6.1,
+   "home_pf_pg": 21.8,
+   "away_pf_pg": 27.8,
+   "home_pa_pg": 19.4,
+   "away_pa_pg": 18.0,
+   "adj_pf": 23.1132436,
+   "adj_pa": 19.405500376,
+   "adj_net": 3.707743225,
+   "url": "https://www.nfl.com/teams/los-angeles-rams/"
+  },
+  {
+   "abbr": "DET",
+   "team": "Detroit Lions",
+   "division": "NFC North",
+   "conference": "NFC",
+   "w": 7,
+   "l": 2,
+   "t": 0,
+   "gp": 9,
+   "pct": 0.778,
+   "pf": 257,
+   "pa": 199,
+   "net_pts": 58,
+   "pf_pg": 28.555555556,
+   "pa_pg": 22.111111111,
+   "net_pg": 6.444444444,
+   "home_pf_pg": 27.2,
+   "away_pf_pg": 30.25,
+   "home_pa_pg": 19.2,
+   "away_pa_pg": 25.75,
+   "adj_pf": 24.164872247,
+   "adj_pa": 20.498607902,
+   "adj_net": 3.666264345,
+   "url": "https://www.nfl.com/teams/detroit-lions/"
+  },
+  {
+   "abbr": "MIN",
+   "team": "Minnesota Vikings",
+   "division": "NFC North",
+   "conference": "NFC",
+   "w": 7,
+   "l": 2,
+   "t": 0,
+   "gp": 9,
+   "pct": 0.778,
+   "pf": 176,
+   "pa": 126,
+   "net_pts": 50,
+   "pf_pg": 19.555555556,
+   "pa_pg": 14.0,
+   "net_pg": 5.555555556,
+   "home_pf_pg": 19.0,
+   "away_pf_pg": 20.0,
+   "home_pa_pg": 16.25,
+   "away_pa_pg": 12.2,
+   "adj_pf": 21.599560436,
+   "adj_pa": 18.885107679,
+   "adj_net": 2.714452757,
+   "url": "https://www.nfl.com/teams/minnesota-vikings/"
   },
   {
    "abbr": "HOU",
@@ -703,49 +753,49 @@
    "division": "AFC South",
    "conference": "AFC",
    "w": 3,
-   "l": 5,
+   "l": 6,
    "t": 0,
-   "gp": 8,
-   "pct": 0.375,
-   "pf": 209,
-   "pa": 192,
-   "net_pts": 17,
-   "pf_pg": 26.125,
-   "pa_pg": 24.0,
-   "net_pg": 2.125,
+   "gp": 9,
+   "pct": 0.333,
+   "pf": 233,
+   "pa": 219,
+   "net_pts": 14,
+   "pf_pg": 25.888888889,
+   "pa_pg": 24.333333333,
+   "net_pg": 1.555555556,
    "home_pf_pg": 22.0,
-   "away_pf_pg": 30.25,
+   "away_pf_pg": 29.0,
    "home_pa_pg": 29.25,
-   "away_pa_pg": 18.75,
-   "adj_pf": 26.070136362,
-   "adj_pa": 21.882319842,
-   "adj_net": 4.18781652,
+   "away_pa_pg": 20.4,
+   "adj_pf": 25.116345682,
+   "adj_pa": 22.624107361,
+   "adj_net": 2.492238321,
    "url": "https://www.nfl.com/teams/houston-texans/"
   },
   {
-   "abbr": "PIT",
-   "team": "Pittsburgh Steelers",
-   "division": "AFC North",
+   "abbr": "KC",
+   "team": "Kansas City Chiefs",
+   "division": "AFC West",
    "conference": "AFC",
-   "w": 6,
+   "w": 7,
    "l": 2,
    "t": 0,
-   "gp": 8,
-   "pct": 0.75,
-   "pf": 180,
-   "pa": 144,
-   "net_pts": 36,
-   "pf_pg": 22.5,
-   "pa_pg": 18.0,
-   "net_pg": 4.5,
-   "home_pf_pg": 27.75,
-   "away_pf_pg": 17.25,
-   "home_pa_pg": 17.0,
-   "away_pa_pg": 19.0,
-   "adj_pf": 22.933793654,
-   "adj_pa": 19.936966158,
-   "adj_net": 2.996827496,
-   "url": "https://www.nfl.com/teams/pittsburgh-steelers/"
+   "gp": 9,
+   "pct": 0.778,
+   "pf": 237,
+   "pa": 156,
+   "net_pts": 81,
+   "pf_pg": 26.333333333,
+   "pa_pg": 17.333333333,
+   "net_pg": 9.0,
+   "home_pf_pg": 30.25,
+   "away_pf_pg": 23.2,
+   "home_pa_pg": 14.5,
+   "away_pa_pg": 19.6,
+   "adj_pf": 24.338330264,
+   "adj_pa": 22.795222232,
+   "adj_net": 1.543108033,
+   "url": "https://www.nfl.com/teams/kansas-city-chiefs/"
   },
   {
    "abbr": "CHI",
@@ -767,134 +817,84 @@
    "away_pf_pg": 32.75,
    "home_pa_pg": 15.2,
    "away_pa_pg": 27.0,
-   "adj_pf": 25.984968311,
-   "adj_pa": 23.935271959,
-   "adj_net": 2.049696352,
+   "adj_pf": 25.996132131,
+   "adj_pa": 24.535941953,
+   "adj_net": 1.460190179,
    "url": "https://www.nfl.com/teams/chicago-bears/"
-  },
-  {
-   "abbr": "LAR",
-   "team": "Los Angeles Rams",
-   "division": "NFC West",
-   "conference": "NFC",
-   "w": 5,
-   "l": 4,
-   "t": 0,
-   "gp": 9,
-   "pct": 0.556,
-   "pf": 214,
-   "pa": 181,
-   "net_pts": 33,
-   "pf_pg": 23.777777778,
-   "pa_pg": 20.111111111,
-   "net_pg": 3.666666667,
-   "home_pf_pg": 21.8,
-   "away_pf_pg": 26.25,
-   "home_pa_pg": 19.4,
-   "away_pa_pg": 21.0,
-   "adj_pf": 21.893944616,
-   "adj_pa": 20.257177511,
-   "adj_net": 1.636767105,
-   "url": "https://www.nfl.com/teams/los-angeles-rams/"
-  },
-  {
-   "abbr": "DET",
-   "team": "Detroit Lions",
-   "division": "NFC North",
-   "conference": "NFC",
-   "w": 6,
-   "l": 2,
-   "t": 0,
-   "gp": 8,
-   "pct": 0.75,
-   "pf": 222,
-   "pa": 189,
-   "net_pts": 33,
-   "pf_pg": 27.75,
-   "pa_pg": 23.625,
-   "net_pg": 4.125,
-   "home_pf_pg": 25.25,
-   "away_pf_pg": 30.25,
-   "home_pa_pg": 21.5,
-   "away_pa_pg": 25.75,
-   "adj_pf": 22.081836782,
-   "adj_pa": 20.898552308,
-   "adj_net": 1.183284474,
-   "url": "https://www.nfl.com/teams/detroit-lions/"
   },
   {
    "abbr": "SF",
    "team": "San Francisco 49ers",
    "division": "NFC West",
    "conference": "NFC",
-   "w": 7,
+   "w": 8,
    "l": 1,
    "t": 0,
-   "gp": 8,
-   "pct": 0.875,
-   "pf": 235,
-   "pa": 156,
-   "net_pts": 79,
-   "pf_pg": 29.375,
-   "pa_pg": 19.5,
-   "net_pg": 9.875,
+   "gp": 9,
+   "pct": 0.889,
+   "pf": 281,
+   "pa": 196,
+   "net_pts": 85,
+   "pf_pg": 31.222222222,
+   "pa_pg": 21.777777778,
+   "net_pg": 9.444444444,
    "home_pf_pg": 31.2,
-   "away_pf_pg": 26.333333333,
+   "away_pf_pg": 31.25,
    "home_pa_pg": 18.2,
-   "away_pa_pg": 21.666666667,
-   "adj_pf": 24.711646776,
-   "adj_pa": 23.542187056,
-   "adj_net": 1.16945972,
+   "away_pa_pg": 26.25,
+   "adj_pf": 26.996592331,
+   "adj_pa": 25.94469469,
+   "adj_net": 1.051897641,
    "url": "https://www.nfl.com/teams/san-francisco-49ers/"
   },
   {
-   "abbr": "NE",
-   "team": "New England Patriots",
-   "division": "AFC East",
-   "conference": "AFC",
-   "w": 5,
+   "abbr": "GB",
+   "team": "Green Bay Packers",
+   "division": "NFC North",
+   "conference": "NFC",
+   "w": 6,
    "l": 4,
    "t": 0,
-   "gp": 9,
-   "pct": 0.556,
-   "pf": 211,
-   "pa": 207,
-   "net_pts": 4,
-   "pf_pg": 23.444444444,
-   "pa_pg": 23.0,
-   "net_pg": 0.444444444,
-   "home_pf_pg": 29.5,
-   "away_pf_pg": 18.6,
-   "home_pa_pg": 21.0,
-   "away_pa_pg": 24.6,
-   "adj_pf": 25.465620537,
-   "adj_pa": 24.592075945,
-   "adj_net": 0.873544592,
-   "url": "https://www.nfl.com/teams/new-england-patriots/"
+   "gp": 10,
+   "pct": 0.6,
+   "pf": 226,
+   "pa": 221,
+   "net_pts": 5,
+   "pf_pg": 22.6,
+   "pa_pg": 22.1,
+   "net_pg": 0.5,
+   "home_pf_pg": 21.0,
+   "away_pf_pg": 24.2,
+   "home_pa_pg": 20.8,
+   "away_pa_pg": 23.4,
+   "adj_pf": 24.290940117,
+   "adj_pa": 23.491878787,
+   "adj_net": 0.79906133,
+   "url": "https://www.nfl.com/teams/green-bay-packers/"
   },
   {
    "abbr": "SEA",
    "team": "Seattle Seahawks",
    "division": "NFC West",
    "conference": "NFC",
-   "w": 5,
+   "w": 6,
    "l": 4,
    "t": 0,
-   "gp": 9,
-   "pct": 0.556,
-   "pf": 202,
-   "pa": 162,
-   "net_pts": 40,
-   "pf_pg": 22.444444444,
-   "pa_pg": 18.0,
-   "net_pg": 4.444444444,
+   "gp": 10,
+   "pct": 0.6,
+   "pf": 223,
+   "pa": 175,
+   "net_pts": 48,
+   "pf_pg": 22.3,
+   "pa_pg": 17.5,
+   "net_pg": 4.8,
    "home_pf_pg": 21.0,
-   "away_pf_pg": 25.333333333,
+   "away_pf_pg": 24.25,
    "home_pa_pg": 17.5,
-   "away_pa_pg": 19.0,
-   "adj_pf": 20.939195581,
-   "adj_pa": 20.142002242,
-   "adj_net": 0.797193339,
+   "away_pa_pg": 17.5,
+   "adj_pf": 20.526652508,
+   "adj_pa": 19.767227363,
+   "adj_net": 0.759425144,
    "url": "https://www.nfl.com/teams/seattle-seahawks/"
   },
   {
@@ -903,23 +903,23 @@
    "division": "AFC East",
    "conference": "AFC",
    "w": 1,
-   "l": 7,
+   "l": 8,
    "t": 0,
-   "gp": 8,
-   "pct": 0.125,
-   "pf": 126,
-   "pa": 200,
-   "net_pts": -74,
-   "pf_pg": 15.75,
-   "pa_pg": 25.0,
-   "net_pg": -9.25,
+   "gp": 9,
+   "pct": 0.111,
+   "pf": 148,
+   "pa": 224,
+   "net_pts": -76,
+   "pf_pg": 16.444444444,
+   "pa_pg": 24.888888889,
+   "net_pg": -8.444444444,
    "home_pf_pg": 15.5,
-   "away_pf_pg": 16.0,
+   "away_pf_pg": 17.2,
    "home_pa_pg": 24.5,
-   "away_pa_pg": 25.5,
-   "adj_pf": 21.219378788,
-   "adj_pa": 20.767414633,
-   "adj_net": 0.451964155,
+   "away_pa_pg": 25.2,
+   "adj_pf": 21.656511493,
+   "adj_pa": 21.33531434,
+   "adj_net": 0.321197153,
    "url": "https://www.nfl.com/teams/miami-dolphins/"
   },
   {
@@ -942,85 +942,85 @@
    "away_pf_pg": 20.75,
    "home_pa_pg": 23.6,
    "away_pa_pg": 26.25,
-   "adj_pf": 22.467171115,
-   "adj_pa": 22.59112618,
-   "adj_net": -0.123955066,
+   "adj_pf": 22.455186787,
+   "adj_pa": 22.293648026,
+   "adj_net": 0.161538762,
    "url": "https://www.nfl.com/teams/washington-commanders/"
   },
   {
-   "abbr": "KC",
-   "team": "Kansas City Chiefs",
-   "division": "AFC West",
+   "abbr": "PIT",
+   "team": "Pittsburgh Steelers",
+   "division": "AFC North",
    "conference": "AFC",
    "w": 6,
-   "l": 2,
-   "t": 0,
-   "gp": 8,
-   "pct": 0.75,
-   "pf": 202,
-   "pa": 143,
-   "net_pts": 59,
-   "pf_pg": 25.25,
-   "pa_pg": 17.875,
-   "net_pg": 7.375,
-   "home_pf_pg": 30.25,
-   "away_pf_pg": 20.25,
-   "home_pa_pg": 14.5,
-   "away_pa_pg": 21.25,
-   "adj_pf": 22.646207769,
-   "adj_pa": 23.225987584,
-   "adj_net": -0.579779814,
-   "url": "https://www.nfl.com/teams/kansas-city-chiefs/"
-  },
-  {
-   "abbr": "ATL",
-   "team": "Atlanta Falcons",
-   "division": "NFC South",
-   "conference": "NFC",
-   "w": 3,
-   "l": 6,
+   "l": 3,
    "t": 0,
    "gp": 9,
-   "pct": 0.333,
-   "pf": 188,
-   "pa": 223,
-   "net_pts": -35,
-   "pf_pg": 20.888888889,
-   "pa_pg": 24.777777778,
-   "net_pg": -3.888888889,
-   "home_pf_pg": 19.0,
-   "away_pf_pg": 23.25,
-   "home_pa_pg": 29.8,
-   "away_pa_pg": 18.5,
-   "adj_pf": 21.165236084,
-   "adj_pa": 22.288378644,
-   "adj_net": -1.12314256,
-   "url": "https://www.nfl.com/teams/atlanta-falcons/"
+   "pct": 0.667,
+   "pf": 198,
+   "pa": 182,
+   "net_pts": 16,
+   "pf_pg": 22.0,
+   "pa_pg": 20.222222222,
+   "net_pg": 1.777777778,
+   "home_pf_pg": 27.75,
+   "away_pf_pg": 17.4,
+   "home_pa_pg": 17.0,
+   "away_pa_pg": 22.8,
+   "adj_pf": 22.348057044,
+   "adj_pa": 22.721533874,
+   "adj_net": -0.37347683,
+   "url": "https://www.nfl.com/teams/pittsburgh-steelers/"
   },
   {
-   "abbr": "MIN",
-   "team": "Minnesota Vikings",
-   "division": "NFC North",
-   "conference": "NFC",
+   "abbr": "CLE",
+   "team": "Cleveland Browns",
+   "division": "AFC North",
+   "conference": "AFC",
    "w": 6,
-   "l": 2,
+   "l": 4,
    "t": 0,
-   "gp": 8,
-   "pct": 0.75,
-   "pf": 146,
-   "pa": 116,
-   "net_pts": 30,
-   "pf_pg": 18.25,
-   "pa_pg": 14.5,
-   "net_pg": 3.75,
-   "home_pf_pg": 19.0,
-   "away_pf_pg": 17.5,
-   "home_pa_pg": 16.25,
-   "away_pa_pg": 12.75,
-   "adj_pf": 18.452876636,
-   "adj_pa": 19.604553914,
-   "adj_net": -1.151677278,
-   "url": "https://www.nfl.com/teams/minnesota-vikings/"
+   "gp": 10,
+   "pct": 0.6,
+   "pf": 188,
+   "pa": 220,
+   "net_pts": -32,
+   "pf_pg": 18.8,
+   "pa_pg": 22.0,
+   "net_pg": -3.2,
+   "home_pf_pg": 22.0,
+   "away_pf_pg": 16.666666667,
+   "home_pa_pg": 19.0,
+   "away_pa_pg": 24.0,
+   "adj_pf": 22.176533933,
+   "adj_pa": 23.318274244,
+   "adj_net": -1.141740311,
+   "url": "https://www.nfl.com/teams/cleveland-browns/"
+  },
+  {
+   "abbr": "CAR",
+   "team": "Carolina Panthers",
+   "division": "NFC South",
+   "conference": "NFC",
+   "w": 4,
+   "l": 5,
+   "t": 0,
+   "gp": 9,
+   "pct": 0.444,
+   "pf": 219,
+   "pa": 236,
+   "net_pts": -17,
+   "pf_pg": 24.333333333,
+   "pa_pg": 26.222222222,
+   "net_pg": -1.888888889,
+   "home_pf_pg": 25.75,
+   "away_pf_pg": 23.2,
+   "home_pa_pg": 38.5,
+   "away_pa_pg": 16.4,
+   "adj_pf": 22.501394105,
+   "adj_pa": 24.159042514,
+   "adj_net": -1.65764841,
+   "url": "https://www.nfl.com/teams/carolina-panthers/"
   },
   {
    "abbr": "NO",
@@ -1028,74 +1028,49 @@
    "division": "NFC South",
    "conference": "NFC",
    "w": 3,
-   "l": 5,
-   "t": 0,
-   "gp": 8,
-   "pct": 0.375,
-   "pf": 185,
-   "pa": 216,
-   "net_pts": -31,
-   "pf_pg": 23.125,
-   "pa_pg": 27.0,
-   "net_pg": -3.875,
-   "home_pf_pg": 19.4,
-   "away_pf_pg": 29.333333333,
-   "home_pa_pg": 28.2,
-   "away_pa_pg": 25.0,
-   "adj_pf": 22.567792634,
-   "adj_pa": 23.983186569,
-   "adj_net": -1.415393935,
-   "url": "https://www.nfl.com/teams/new-orleans-saints/"
-  },
-  {
-   "abbr": "ARI",
-   "team": "Arizona Cardinals",
-   "division": "NFC West",
-   "conference": "NFC",
-   "w": 3,
    "l": 6,
    "t": 0,
    "gp": 9,
    "pct": 0.333,
-   "pf": 178,
-   "pa": 255,
-   "net_pts": -77,
-   "pf_pg": 19.777777778,
-   "pa_pg": 28.333333333,
-   "net_pg": -8.555555556,
-   "home_pf_pg": 14.666666667,
-   "away_pf_pg": 22.333333333,
-   "home_pa_pg": 35.333333333,
-   "away_pa_pg": 24.833333333,
-   "adj_pf": 21.556657476,
-   "adj_pa": 23.189450953,
-   "adj_net": -1.632793477,
-   "url": "https://www.nfl.com/teams/arizona-cardinals/"
+   "pf": 202,
+   "pa": 236,
+   "net_pts": -34,
+   "pf_pg": 22.444444444,
+   "pa_pg": 26.222222222,
+   "net_pg": -3.777777778,
+   "home_pf_pg": 19.0,
+   "away_pf_pg": 29.333333333,
+   "home_pa_pg": 26.833333333,
+   "away_pa_pg": 25.0,
+   "adj_pf": 21.72186623,
+   "adj_pa": 23.380918796,
+   "adj_net": -1.659052566,
+   "url": "https://www.nfl.com/teams/new-orleans-saints/"
   },
   {
-   "abbr": "CLE",
-   "team": "Cleveland Browns",
-   "division": "AFC North",
+   "abbr": "IND",
+   "team": "Indianapolis Colts",
+   "division": "AFC South",
    "conference": "AFC",
-   "w": 5,
-   "l": 4,
+   "w": 3,
+   "l": 7,
    "t": 0,
-   "gp": 9,
-   "pct": 0.556,
-   "pf": 161,
-   "pa": 196,
-   "net_pts": -35,
-   "pf_pg": 17.888888889,
-   "pa_pg": 21.777777778,
-   "net_pg": -3.888888889,
-   "home_pf_pg": 20.333333333,
-   "away_pf_pg": 16.666666667,
-   "home_pa_pg": 17.333333333,
-   "away_pa_pg": 24.0,
-   "adj_pf": 21.354258635,
-   "adj_pa": 23.094471061,
-   "adj_net": -1.740212426,
-   "url": "https://www.nfl.com/teams/cleveland-browns/"
+   "gp": 10,
+   "pct": 0.3,
+   "pf": 208,
+   "pa": 271,
+   "net_pts": -63,
+   "pf_pg": 20.8,
+   "pa_pg": 27.1,
+   "net_pg": -6.3,
+   "home_pf_pg": 21.8,
+   "away_pf_pg": 19.8,
+   "home_pa_pg": 26.6,
+   "away_pa_pg": 27.6,
+   "adj_pf": 22.51803649,
+   "adj_pa": 24.470580338,
+   "adj_net": -1.952543848,
+   "url": "https://www.nfl.com/teams/indianapolis-colts/"
   },
   {
    "abbr": "DAL",
@@ -1103,24 +1078,74 @@
    "division": "NFC East",
    "conference": "NFC",
    "w": 4,
+   "l": 6,
+   "t": 0,
+   "gp": 10,
+   "pct": 0.4,
+   "pf": 286,
+   "pa": 282,
+   "net_pts": 4,
+   "pf_pg": 28.6,
+   "pa_pg": 28.2,
+   "net_pg": 0.4,
+   "home_pf_pg": 30.8,
+   "away_pf_pg": 26.4,
+   "home_pa_pg": 31.4,
+   "away_pa_pg": 25.0,
+   "adj_pf": 25.78855355,
+   "adj_pa": 27.905159131,
+   "adj_net": -2.116605581,
+   "url": "https://www.nfl.com/teams/dallas-cowboys/"
+  },
+  {
+   "abbr": "NE",
+   "team": "New England Patriots",
+   "division": "AFC East",
+   "conference": "AFC",
+   "w": 5,
    "l": 5,
    "t": 0,
+   "gp": 10,
+   "pct": 0.5,
+   "pf": 221,
+   "pa": 242,
+   "net_pts": -21,
+   "pf_pg": 22.1,
+   "pa_pg": 24.2,
+   "net_pg": -2.1,
+   "home_pf_pg": 29.5,
+   "away_pf_pg": 17.166666667,
+   "home_pa_pg": 21.0,
+   "away_pa_pg": 26.333333333,
+   "adj_pf": 23.074412111,
+   "adj_pa": 25.306020546,
+   "adj_net": -2.231608435,
+   "url": "https://www.nfl.com/teams/new-england-patriots/"
+  },
+  {
+   "abbr": "LAC",
+   "team": "Los Angeles Chargers",
+   "division": "AFC West",
+   "conference": "AFC",
+   "w": 1,
+   "l": 8,
+   "t": 0,
    "gp": 9,
-   "pct": 0.444,
-   "pf": 246,
-   "pa": 236,
-   "net_pts": 10,
-   "pf_pg": 27.333333333,
-   "pa_pg": 26.222222222,
-   "net_pg": 1.111111111,
-   "home_pf_pg": 28.5,
-   "away_pf_pg": 26.4,
-   "home_pa_pg": 27.75,
-   "away_pa_pg": 25.0,
-   "adj_pf": 23.642574408,
-   "adj_pa": 25.418847654,
-   "adj_net": -1.776273246,
-   "url": "https://www.nfl.com/teams/dallas-cowboys/"
+   "pct": 0.111,
+   "pf": 144,
+   "pa": 239,
+   "net_pts": -95,
+   "pf_pg": 16.0,
+   "pa_pg": 26.555555556,
+   "net_pg": -10.555555556,
+   "home_pf_pg": 16.75,
+   "away_pf_pg": 15.4,
+   "home_pa_pg": 29.75,
+   "away_pa_pg": 24.0,
+   "adj_pf": 21.422040947,
+   "adj_pa": 23.69743154,
+   "adj_net": -2.275390593,
+   "url": "https://www.nfl.com/teams/los-angeles-chargers/"
   },
   {
    "abbr": "NYG",
@@ -1142,60 +1167,60 @@
    "away_pf_pg": 19.75,
    "home_pa_pg": 21.8,
    "away_pa_pg": 21.75,
-   "adj_pf": 20.814063632,
-   "adj_pa": 23.207166212,
-   "adj_net": -2.39310258,
+   "adj_pf": 20.736338564,
+   "adj_pa": 23.331601638,
+   "adj_net": -2.595263074,
    "url": "https://www.nfl.com/teams/new-york-giants/"
   },
   {
-   "abbr": "CAR",
-   "team": "Carolina Panthers",
+   "abbr": "ATL",
+   "team": "Atlanta Falcons",
    "division": "NFC South",
    "conference": "NFC",
    "w": 3,
-   "l": 5,
-   "t": 0,
-   "gp": 8,
-   "pct": 0.375,
-   "pf": 199,
-   "pa": 219,
-   "net_pts": -20,
-   "pf_pg": 24.875,
-   "pa_pg": 27.375,
-   "net_pg": -2.5,
-   "home_pf_pg": 25.75,
-   "away_pf_pg": 24.0,
-   "home_pa_pg": 38.5,
-   "away_pa_pg": 16.25,
-   "adj_pf": 22.982843507,
-   "adj_pa": 25.455796207,
-   "adj_net": -2.4729527,
-   "url": "https://www.nfl.com/teams/carolina-panthers/"
-  },
-  {
-   "abbr": "IND",
-   "team": "Indianapolis Colts",
-   "division": "AFC South",
-   "conference": "AFC",
-   "w": 2,
    "l": 7,
    "t": 0,
-   "gp": 9,
-   "pct": 0.222,
-   "pf": 184,
-   "pa": 249,
-   "net_pts": -65,
-   "pf_pg": 20.444444444,
-   "pa_pg": 27.666666667,
-   "net_pg": -7.222222222,
-   "home_pf_pg": 21.25,
-   "away_pf_pg": 19.8,
-   "home_pa_pg": 27.75,
-   "away_pa_pg": 27.6,
-   "adj_pf": 22.287945953,
-   "adj_pa": 25.02879451,
-   "adj_net": -2.740848558,
-   "url": "https://www.nfl.com/teams/indianapolis-colts/"
+   "gp": 10,
+   "pct": 0.3,
+   "pf": 201,
+   "pa": 258,
+   "net_pts": -57,
+   "pf_pg": 20.1,
+   "pa_pg": 25.8,
+   "net_pg": -5.7,
+   "home_pf_pg": 18.0,
+   "away_pf_pg": 23.25,
+   "home_pa_pg": 30.666666667,
+   "away_pa_pg": 18.5,
+   "adj_pf": 20.960970388,
+   "adj_pa": 23.698291989,
+   "adj_net": -2.737321601,
+   "url": "https://www.nfl.com/teams/atlanta-falcons/"
+  },
+  {
+   "abbr": "LV",
+   "team": "Las Vegas Raiders",
+   "division": "AFC West",
+   "conference": "AFC",
+   "w": 4,
+   "l": 6,
+   "t": 0,
+   "gp": 10,
+   "pct": 0.4,
+   "pf": 251,
+   "pa": 289,
+   "net_pts": -38,
+   "pf_pg": 25.1,
+   "pa_pg": 28.9,
+   "net_pg": -3.8,
+   "home_pf_pg": 23.6,
+   "away_pf_pg": 26.6,
+   "home_pa_pg": 26.4,
+   "away_pa_pg": 31.4,
+   "adj_pf": 22.700955361,
+   "adj_pa": 25.737716983,
+   "adj_net": -3.036761623,
+   "url": "https://www.nfl.com/teams/las-vegas-raiders/"
   },
   {
    "abbr": "PHI",
@@ -1217,35 +1242,35 @@
    "away_pf_pg": 14.5,
    "home_pa_pg": 25.6,
    "away_pa_pg": 23.25,
-   "adj_pf": 19.233935962,
-   "adj_pa": 22.728992779,
-   "adj_net": -3.495056817,
+   "adj_pf": 19.200655338,
+   "adj_pa": 22.518243019,
+   "adj_net": -3.317587681,
    "url": "https://www.nfl.com/teams/philadelphia-eagles/"
   },
   {
-   "abbr": "LV",
-   "team": "Las Vegas Raiders",
-   "division": "AFC West",
-   "conference": "AFC",
-   "w": 4,
-   "l": 5,
+   "abbr": "ARI",
+   "team": "Arizona Cardinals",
+   "division": "NFC West",
+   "conference": "NFC",
+   "w": 3,
+   "l": 7,
    "t": 0,
-   "gp": 9,
-   "pct": 0.444,
-   "pf": 238,
-   "pa": 268,
-   "net_pts": -30,
-   "pf_pg": 26.444444444,
-   "pa_pg": 29.777777778,
-   "net_pg": -3.333333333,
-   "home_pf_pg": 26.25,
-   "away_pf_pg": 26.6,
-   "home_pa_pg": 27.75,
-   "away_pa_pg": 31.4,
-   "adj_pf": 23.617933364,
-   "adj_pa": 27.759680083,
-   "adj_net": -4.141746719,
-   "url": "https://www.nfl.com/teams/las-vegas-raiders/"
+   "gp": 10,
+   "pct": 0.3,
+   "pf": 184,
+   "pa": 289,
+   "net_pts": -105,
+   "pf_pg": 18.4,
+   "pa_pg": 28.9,
+   "net_pg": -10.5,
+   "home_pf_pg": 12.5,
+   "away_pf_pg": 22.333333333,
+   "home_pa_pg": 35.0,
+   "away_pa_pg": 24.833333333,
+   "adj_pf": 20.541567585,
+   "adj_pa": 24.003632906,
+   "adj_net": -3.462065321,
+   "url": "https://www.nfl.com/teams/arizona-cardinals/"
   },
   {
    "abbr": "TEN",
@@ -1253,49 +1278,24 @@
    "division": "AFC South",
    "conference": "AFC",
    "w": 1,
-   "l": 7,
-   "t": 0,
-   "gp": 8,
-   "pct": 0.125,
-   "pf": 144,
-   "pa": 199,
-   "net_pts": -55,
-   "pf_pg": 18.0,
-   "pa_pg": 24.875,
-   "net_pg": -6.875,
-   "home_pf_pg": 14.25,
-   "away_pf_pg": 21.75,
-   "home_pa_pg": 25.0,
-   "away_pa_pg": 24.75,
-   "adj_pf": 22.713578805,
-   "adj_pa": 27.224560204,
-   "adj_net": -4.510981399,
-   "url": "https://www.nfl.com/teams/tennessee-titans/"
-  },
-  {
-   "abbr": "LAC",
-   "team": "Los Angeles Chargers",
-   "division": "AFC West",
-   "conference": "AFC",
-   "w": 0,
    "l": 8,
    "t": 0,
-   "gp": 8,
-   "pct": 0.0,
-   "pf": 121,
-   "pa": 219,
-   "net_pts": -98,
-   "pf_pg": 15.125,
-   "pa_pg": 27.375,
-   "net_pg": -12.25,
-   "home_pf_pg": 16.75,
-   "away_pf_pg": 13.5,
-   "home_pa_pg": 29.75,
-   "away_pa_pg": 25.0,
-   "adj_pf": 20.085384924,
-   "adj_pa": 24.603022088,
-   "adj_net": -4.517637164,
-   "url": "https://www.nfl.com/teams/los-angeles-chargers/"
+   "gp": 9,
+   "pct": 0.111,
+   "pf": 167,
+   "pa": 239,
+   "net_pts": -72,
+   "pf_pg": 18.555555556,
+   "pa_pg": 26.555555556,
+   "net_pg": -8.0,
+   "home_pf_pg": 16.0,
+   "away_pf_pg": 21.75,
+   "home_pa_pg": 28.0,
+   "away_pa_pg": 24.75,
+   "adj_pf": 23.509645759,
+   "adj_pa": 27.802549844,
+   "adj_net": -4.292904085,
+   "url": "https://www.nfl.com/teams/tennessee-titans/"
   },
   {
    "abbr": "NYJ",
@@ -1303,23 +1303,23 @@
    "division": "AFC East",
    "conference": "AFC",
    "w": 2,
-   "l": 7,
+   "l": 8,
    "t": 0,
-   "gp": 9,
-   "pct": 0.222,
-   "pf": 182,
-   "pa": 223,
-   "net_pts": -41,
-   "pf_pg": 20.222222222,
-   "pa_pg": 24.777777778,
-   "net_pg": -4.555555556,
-   "home_pf_pg": 23.0,
+   "gp": 10,
+   "pct": 0.2,
+   "pf": 194,
+   "pa": 254,
+   "net_pts": -60,
+   "pf_pg": 19.4,
+   "pa_pg": 25.4,
+   "net_pg": -6.0,
+   "home_pf_pg": 20.8,
    "away_pf_pg": 18.0,
-   "home_pa_pg": 24.5,
+   "home_pa_pg": 25.8,
    "away_pa_pg": 25.0,
-   "adj_pf": 21.793143921,
-   "adj_pa": 26.473277358,
-   "adj_net": -4.680133437,
+   "adj_pf": 20.746232335,
+   "adj_pa": 25.749424956,
+   "adj_net": -5.003192621,
    "url": "https://www.nfl.com/teams/new-york-jets/"
   },
   {
@@ -1328,23 +1328,23 @@
    "division": "AFC North",
    "conference": "AFC",
    "w": 4,
-   "l": 5,
+   "l": 6,
    "t": 0,
-   "gp": 9,
-   "pct": 0.444,
-   "pf": 189,
-   "pa": 236,
-   "net_pts": -47,
-   "pf_pg": 21.0,
-   "pa_pg": 26.222222222,
-   "net_pg": -5.222222222,
-   "home_pf_pg": 16.0,
+   "gp": 10,
+   "pct": 0.4,
+   "pf": 209,
+   "pa": 259,
+   "net_pts": -50,
+   "pf_pg": 20.9,
+   "pa_pg": 25.9,
+   "net_pg": -5.0,
+   "home_pf_pg": 16.8,
    "away_pf_pg": 25.0,
-   "home_pa_pg": 27.5,
+   "home_pa_pg": 26.6,
    "away_pa_pg": 25.2,
-   "adj_pf": 18.365496867,
-   "adj_pa": 24.746561099,
-   "adj_net": -6.381064231,
+   "adj_pf": 18.930847301,
+   "adj_pa": 24.312146507,
+   "adj_net": -5.381299206,
    "url": "https://www.nfl.com/teams/baltimore-ravens/"
   }
  ],
@@ -2581,6 +2581,123 @@
    "home_pts": 21,
    "ot": "",
    "url": "https://www.nfl.com/games/commanders-at-giants-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "NE",
+   "home": "DET",
+   "away_pts": 10,
+   "home_pts": 35,
+   "ot": "",
+   "url": "https://www.nfl.com/games/patriots-at-lions-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "KC",
+   "home": "ATL",
+   "away_pts": 35,
+   "home_pts": 13,
+   "ot": "",
+   "url": "https://www.nfl.com/games/chiefs-at-falcons-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "HOU",
+   "home": "CLE",
+   "away_pts": 24,
+   "home_pts": 27,
+   "ot": "",
+   "url": "https://www.nfl.com/games/texans-at-browns-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "MIN",
+   "home": "GB",
+   "away_pts": 30,
+   "home_pts": 10,
+   "ot": "",
+   "url": "https://www.nfl.com/games/vikings-at-packers-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "MIA",
+   "home": "IND",
+   "away_pts": 22,
+   "home_pts": 24,
+   "ot": "",
+   "url": "https://www.nfl.com/games/dolphins-at-colts-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "CAR",
+   "home": "NO",
+   "away_pts": 20,
+   "home_pts": 17,
+   "ot": "",
+   "url": "https://www.nfl.com/games/panthers-at-saints-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "BUF",
+   "home": "NYJ",
+   "away_pts": 31,
+   "home_pts": 12,
+   "ot": "",
+   "url": "https://www.nfl.com/games/bills-at-jets-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "JAX",
+   "home": "TEN",
+   "away_pts": 40,
+   "home_pts": 23,
+   "ot": "",
+   "url": "https://www.nfl.com/games/jaguars-at-titans-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "LAR",
+   "home": "ARI",
+   "away_pts": 34,
+   "home_pts": 6,
+   "ot": "",
+   "url": "https://www.nfl.com/games/rams-at-cardinals-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "SEA",
+   "home": "LV",
+   "away_pts": 21,
+   "home_pts": 13,
+   "ot": "",
+   "url": "https://www.nfl.com/games/seahawks-at-raiders-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "SF",
+   "home": "DAL",
+   "away_pts": 46,
+   "home_pts": 40,
+   "ot": "",
+   "url": "https://www.nfl.com/games/49ers-at-cowboys-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "PIT",
+   "home": "CIN",
+   "away_pts": 18,
+   "home_pts": 38,
+   "ot": "",
+   "url": "https://www.nfl.com/games/steelers-at-bengals-2026-reg-10"
+  },
+  {
+   "week": 10,
+   "away": "LAC",
+   "home": "BAL",
+   "away_pts": 23,
+   "home_pts": 20,
+   "ot": "",
+   "url": "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10"
   }
  ],
  "schedule": [
@@ -2726,58 +2843,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 26.473114214,
-     "away": 22.418526685,
-     "spread": 4.054587529,
-     "total": 48.8916409
+     "home": 26.046975309,
+     "away": 22.686234568,
+     "spread": 3.360740741,
+     "total": 48.733209877
     },
     "S2": {
-     "home": 29.859680506,
-     "away": 20.582422115,
-     "spread": 9.277258391,
-     "total": 50.442102621
+     "home": 27.2408316,
+     "away": 22.324558424,
+     "spread": 4.916273176,
+     "total": 49.565390024
     },
     "S3": {
-     "home": 25.538516531,
-     "away": 22.096081802,
-     "spread": 3.442434729,
-     "total": 47.634598334
+     "home": 24.530129677,
+     "away": 22.834405259,
+     "spread": 1.695724418,
+     "total": 47.364534936
     },
     "S4": {
-     "home": 24.855960818,
-     "away": 22.296556934,
-     "spread": 2.559403885,
-     "total": 47.152517752
+     "home": 24.412021541,
+     "away": 22.712942271,
+     "spread": 1.69907927,
+     "total": 47.124963812
     },
     "S5": {
-     "home": 25.615695629,
-     "away": 23.337283314,
-     "spread": 2.278412316,
-     "total": 48.952978943
+     "home": 24.863739655,
+     "away": 24.34835911,
+     "spread": 0.515380545,
+     "total": 49.212098765
     },
     "S6": {
-     "home": 24.294624119,
-     "away": 22.703854768,
-     "spread": 1.590769351,
-     "total": 46.998478887
+     "home": 23.402428597,
+     "away": 23.229839718,
+     "spread": 0.172588879,
+     "total": 46.632268315
     },
     "S7": {
-     "home": 24.916570325,
-     "away": 22.399968285,
-     "spread": 2.51660204,
-     "total": 47.31653861
+     "home": 23.966279137,
+     "away": 23.032122489,
+     "spread": 0.934156648,
+     "total": 46.998401626
     },
     "S8": {
-     "home": 29.940571776,
-     "away": 21.834691809,
-     "spread": 8.105879968,
-     "total": 51.775263585
+     "home": 28.42,
+     "away": 21.195555556,
+     "spread": 7.224444444,
+     "total": 49.615555556
     }
    }
   },
@@ -2791,58 +2908,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 27.114703721,
-     "away": 20.230351531,
-     "spread": 6.88435219,
-     "total": 47.345055251
+     "home": 27.088024691,
+     "away": 20.141851852,
+     "spread": 6.94617284,
+     "total": 47.229876543
     },
     "S2": {
-     "home": 24.985372233,
-     "away": 16.888724376,
-     "spread": 8.096647857,
-     "total": 41.874096609
+     "home": 25.4734302,
+     "away": 17.363408904,
+     "spread": 8.110021296,
+     "total": 42.836839104
     },
     "S3": {
-     "home": 22.968958789,
-     "away": 20.872691325,
-     "spread": 2.096267464,
-     "total": 43.841650114
+     "home": 23.297704254,
+     "away": 21.23358529,
+     "spread": 2.064118964,
+     "total": 44.531289545
     },
     "S4": {
-     "home": 23.371351567,
-     "away": 21.619741107,
-     "spread": 1.751610459,
-     "total": 44.991092674
+     "home": 23.580489479,
+     "away": 21.73449753,
+     "spread": 1.845991949,
+     "total": 45.314987009
     },
     "S5": {
-     "home": 25.934655059,
-     "away": 22.487802869,
-     "spread": 3.44685219,
-     "total": 48.422457928
+     "home": 25.530417854,
+     "away": 22.503048433,
+     "spread": 3.027369421,
+     "total": 48.033466287
     },
     "S6": {
-     "home": 21.932423856,
-     "away": 21.811073423,
-     "spread": 0.121350433,
-     "total": 43.743497279
+     "home": 22.377683088,
+     "away": 22.494670439,
+     "spread": -0.11698735,
+     "total": 44.872353527
     },
     "S7": {
-     "home": 22.450691323,
-     "away": 21.341882374,
-     "spread": 1.108808949,
-     "total": 43.792573696
+     "home": 22.837693671,
+     "away": 21.864127864,
+     "spread": 0.973565807,
+     "total": 44.701821536
     },
     "S8": {
-     "home": 26.521127332,
-     "away": 20.801358475,
-     "spread": 5.719768856,
-     "total": 47.322485807
+     "home": 27.648888889,
+     "away": 19.738888889,
+     "spread": 7.91,
+     "total": 47.387777778
     }
    }
   },
@@ -2856,58 +2973,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 25.316478412,
-     "away": 24.204792117,
-     "spread": 1.111686295,
-     "total": 49.521270529
+     "home": 24.716234568,
+     "away": 23.681296296,
+     "spread": 1.034938272,
+     "total": 48.397530864
     },
     "S2": {
-     "home": 25.456697691,
-     "away": 20.427476979,
-     "spread": 5.029220713,
-     "total": 45.88417467
+     "home": 23.801083112,
+     "away": 19.839040889,
+     "spread": 3.962042223,
+     "total": 43.640124001
     },
     "S3": {
-     "home": 23.853753398,
-     "away": 21.921595442,
-     "spread": 1.932157955,
-     "total": 45.77534884
+     "home": 23.143436972,
+     "away": 21.808278241,
+     "spread": 1.335158731,
+     "total": 44.951715213
     },
     "S4": {
-     "home": 23.754884008,
-     "away": 22.45846438,
-     "spread": 1.296419628,
-     "total": 46.213348389
+     "home": 23.297011762,
+     "away": 22.305546881,
+     "spread": 0.991464881,
+     "total": 45.602558643
     },
     "S5": {
-     "home": 23.101153844,
-     "away": 21.927501737,
-     "spread": 1.173652107,
-     "total": 45.028655581
+     "home": 22.10857889,
+     "away": 22.574251119,
+     "spread": -0.465672229,
+     "total": 44.682830009
     },
     "S6": {
-     "home": 23.352633088,
-     "away": 22.293456286,
-     "spread": 1.059176803,
-     "total": 45.646089374
+     "home": 22.787102181,
+     "away": 22.413278783,
+     "spread": 0.373823398,
+     "total": 45.200380963
     },
     "S7": {
-     "home": 23.603193243,
-     "away": 22.107525864,
-     "spread": 1.495667379,
-     "total": 45.710719107
+     "home": 22.965269577,
+     "away": 22.110778512,
+     "spread": 0.854491065,
+     "total": 45.076048088
     },
     "S8": {
-     "home": 24.023905109,
-     "away": 21.913858475,
-     "spread": 2.110046634,
-     "total": 45.937763585
+     "home": 22.534444444,
+     "away": 20.935555556,
+     "spread": 1.598888889,
+     "total": 43.47
     }
    }
   },
@@ -2921,58 +3038,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 27.758704492,
-     "away": 22.753885481,
-     "spread": 5.004819011,
-     "total": 50.512589974
+     "home": 27.010246914,
+     "away": 22.772716049,
+     "spread": 4.237530864,
+     "total": 49.782962963
     },
     "S2": {
-     "home": 26.609666688,
-     "away": 22.303051432,
-     "spread": 4.306615256,
-     "total": 48.91271812
+     "home": 25.623603492,
+     "away": 21.94447021,
+     "spread": 3.679133282,
+     "total": 47.568073702
     },
     "S3": {
-     "home": 24.973128535,
-     "away": 23.262481202,
-     "spread": 1.710647333,
-     "total": 48.235609736
+     "home": 24.42519213,
+     "away": 23.392237425,
+     "spread": 1.032954706,
+     "total": 47.817429555
     },
     "S4": {
-     "home": 25.147186159,
-     "away": 23.297868483,
-     "spread": 1.849317676,
-     "total": 48.445054642
+     "home": 24.616028687,
+     "away": 23.487291872,
+     "spread": 1.128736815,
+     "total": 48.103320559
     },
     "S5": {
-     "home": 25.908230352,
-     "away": 24.28962929,
-     "spread": 1.618601062,
-     "total": 50.197859641
+     "home": 24.918452042,
+     "away": 24.698015195,
+     "spread": 0.220436847,
+     "total": 49.616467236
     },
     "S6": {
-     "home": 24.255902681,
-     "away": 23.634956924,
-     "spread": 0.620945758,
-     "total": 47.890859605
+     "home": 23.901398641,
+     "away": 23.906524991,
+     "spread": -0.005126349,
+     "total": 47.807923632
     },
     "S7": {
-     "home": 24.614515608,
-     "away": 23.448719063,
-     "spread": 1.165796545,
-     "total": 48.063234671
+     "home": 24.163295386,
+     "away": 23.649381208,
+     "spread": 0.513914178,
+     "total": 47.812676594
     },
     "S8": {
-     "home": 28.262793998,
-     "away": 23.865247364,
-     "spread": 4.397546634,
-     "total": 52.128041363
+     "home": 24.851111111,
+     "away": 23.563333333,
+     "spread": 1.287777778,
+     "total": 48.414444444
     }
    }
   },
@@ -2986,58 +3103,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 26.005907424,
-     "away": 22.231701839,
-     "spread": 3.774205585,
-     "total": 48.237609264
+     "home": 26.920740741,
+     "away": 23.982160494,
+     "spread": 2.938580247,
+     "total": 50.902901235
     },
     "S2": {
-     "home": 29.109738315,
-     "away": 25.509288102,
-     "spread": 3.600450213,
-     "total": 54.619026417
+     "home": 32.39199709,
+     "away": 29.222794707,
+     "spread": 3.169202383,
+     "total": 61.614791797
     },
     "S3": {
-     "home": 25.422618401,
-     "away": 24.077162135,
-     "spread": 1.345456266,
-     "total": 49.499780536
+     "home": 26.532218364,
+     "away": 25.970735778,
+     "spread": 0.561482585,
+     "total": 52.502954142
     },
     "S4": {
-     "home": 24.793177216,
-     "away": 23.441022449,
-     "spread": 1.352154767,
-     "total": 48.234199665
+     "home": 25.532156726,
+     "away": 25.020071812,
+     "spread": 0.512084914,
+     "total": 50.552228538
     },
     "S5": {
-     "home": 25.645283711,
-     "away": 22.120543938,
-     "spread": 3.524739773,
-     "total": 47.765827649
+     "home": 25.39043549,
+     "away": 23.660097002,
+     "spread": 1.730338489,
+     "total": 49.050532492
     },
     "S6": {
-     "home": 24.428680928,
-     "away": 23.903664021,
-     "spread": 0.525016907,
-     "total": 48.33234495
+     "home": 24.838842323,
+     "away": 25.205281379,
+     "spread": -0.366439055,
+     "total": 50.044123702
     },
     "S7": {
-     "home": 24.925649665,
-     "away": 23.990413078,
-     "spread": 0.935236586,
-     "total": 48.916062743
+     "home": 25.685530343,
+     "away": 25.588008578,
+     "spread": 0.097521765,
+     "total": 51.273538922
     },
     "S8": {
-     "home": 25.647516221,
-     "away": 23.605525142,
-     "spread": 2.041991079,
-     "total": 49.253041363
+     "home": 28.143333333,
+     "away": 27.105555556,
+     "spread": 1.037777778,
+     "total": 55.248888889
     }
    }
   },
@@ -3051,58 +3168,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 22.932508505,
-     "away": 23.980833784,
-     "spread": -1.048325279,
-     "total": 46.913342288
+     "home": 23.218888889,
+     "away": 23.528888889,
+     "spread": -0.31,
+     "total": 46.747777778
     },
     "S2": {
-     "home": 19.427812568,
-     "away": 20.954820898,
-     "spread": -1.52700833,
-     "total": 40.382633465
+     "home": 21.414901493,
+     "away": 20.155198456,
+     "spread": 1.259703037,
+     "total": 41.570099949
     },
     "S3": {
-     "home": 21.016539099,
-     "away": 22.700699619,
-     "spread": -1.68416052,
-     "total": 43.717238718
+     "home": 21.835019746,
+     "away": 22.610391285,
+     "spread": -0.77537154,
+     "total": 44.445411031
     },
     "S4": {
-     "home": 21.540534334,
-     "away": 23.259298446,
-     "spread": -1.718764112,
-     "total": 44.79983278
+     "home": 21.970690517,
+     "away": 23.160920836,
+     "spread": -1.190230319,
+     "total": 45.131611352
     },
     "S5": {
-     "home": 23.989085646,
-     "away": 22.381962207,
-     "spread": 1.607123439,
-     "total": 46.371047853
+     "home": 24.845042735,
+     "away": 22.197777778,
+     "spread": 2.647264957,
+     "total": 47.042820513
     },
     "S6": {
-     "home": 21.498267277,
-     "away": 23.04278408,
-     "spread": -1.544516803,
-     "total": 44.541051358
+     "home": 22.201353868,
+     "away": 23.297409788,
+     "spread": -1.096055919,
+     "total": 45.498763656
     },
     "S7": {
-     "home": 21.257403188,
-     "away": 22.87174185,
-     "spread": -1.614338662,
-     "total": 44.129145038
+     "home": 22.018186807,
+     "away": 22.953900537,
+     "spread": -0.93571373,
+     "total": 44.972087344
     },
     "S8": {
-     "home": 20.168349554,
-     "away": 23.023580697,
-     "spread": -2.855231144,
-     "total": 43.191930251
+     "home": 21.223333333,
+     "away": 21.141111111,
+     "spread": 0.082222222,
+     "total": 42.364444444
     }
    }
   },
@@ -3116,58 +3233,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 25.79738119,
-     "away": 20.671516654,
-     "spread": 5.125864535,
-     "total": 46.468897844
+     "home": 26.191234568,
+     "away": 20.301975309,
+     "spread": 5.889259259,
+     "total": 46.493209877
     },
     "S2": {
-     "home": 24.260558654,
-     "away": 18.949712231,
-     "spread": 5.310846424,
-     "total": 43.210270885
+     "home": 27.122075337,
+     "away": 16.835761955,
+     "spread": 10.286313381,
+     "total": 43.957837292
     },
     "S3": {
-     "home": 22.906880456,
-     "away": 22.402271435,
-     "spread": 0.504609021,
-     "total": 45.309151891
+     "home": 23.907648252,
+     "away": 21.931728242,
+     "spread": 1.97592001,
+     "total": 45.839376493
     },
     "S4": {
-     "home": 23.165288729,
-     "away": 22.786823281,
-     "spread": 0.378465448,
-     "total": 45.95211201
+     "home": 23.658756672,
+     "away": 22.578993513,
+     "spread": 1.079763159,
+     "total": 46.237750185
     },
     "S5": {
-     "home": 25.749257476,
-     "away": 21.806619437,
-     "spread": 3.94263804,
-     "total": 47.555876913
+     "home": 26.698963506,
+     "away": 20.746517433,
+     "spread": 5.952446072,
+     "total": 47.445480939
     },
     "S6": {
-     "home": 22.37654619,
-     "away": 23.365496372,
-     "spread": -0.988950182,
-     "total": 45.742042562
+     "home": 22.990025574,
+     "away": 23.471621434,
+     "spread": -0.48159586,
+     "total": 46.461647009
     },
     "S7": {
-     "home": 22.641713323,
-     "away": 22.883883903,
-     "spread": -0.24217058,
-     "total": 45.525597227
+     "home": 23.448836913,
+     "away": 22.701674838,
+     "spread": 0.747162075,
+     "total": 46.150511751
     },
     "S8": {
-     "home": 23.758627332,
-     "away": 19.884691809,
-     "spread": 3.873935523,
-     "total": 43.64331914
+     "home": 23.571111111,
+     "away": 18.483333333,
+     "spread": 5.087777778,
+     "total": 42.054444444
     }
    }
   },
@@ -3181,58 +3298,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 17.74741977,
-     "away": 22.798059864,
-     "spread": -5.050640094,
-     "total": 40.545479634
+     "home": 18.10654321,
+     "away": 22.781358025,
+     "spread": -4.674814815,
+     "total": 40.887901235
     },
     "S2": {
-     "home": 13.951275383,
-     "away": 23.721433685,
-     "spread": -9.770158301,
-     "total": 37.672709068
+     "home": 17.621075854,
+     "away": 22.862656154,
+     "spread": -5.241580299,
+     "total": 40.483732008
     },
     "S3": {
-     "home": 19.574502155,
-     "away": 22.842342122,
-     "spread": -3.267839967,
-     "total": 42.416844276
+     "home": 20.697761273,
+     "away": 22.696483365,
+     "spread": -1.998722092,
+     "total": 43.394244638
     },
     "S4": {
-     "home": 20.284793348,
-     "away": 22.808020254,
-     "spread": -2.523226906,
-     "total": 43.092813603
+     "home": 20.645656144,
+     "away": 22.83815596,
+     "spread": -2.192499816,
+     "total": 43.483812103
     },
     "S5": {
-     "home": 20.268740501,
-     "away": 23.270235296,
-     "spread": -3.001494795,
-     "total": 43.538975797
+     "home": 19.681415005,
+     "away": 23.219477683,
+     "spread": -3.538062678,
+     "total": 42.900892688
     },
     "S6": {
-     "home": 21.298100489,
-     "away": 22.40807111,
-     "spread": -1.109970621,
-     "total": 43.706171599
+     "home": 22.06593801,
+     "away": 22.4131696,
+     "spread": -0.347231591,
+     "total": 44.47910761
     },
     "S7": {
-     "home": 20.436301322,
-     "away": 22.625206616,
-     "spread": -2.188905294,
-     "total": 43.061507938
+     "home": 21.381849641,
+     "away": 22.554826483,
+     "spread": -1.172976841,
+     "total": 43.936676124
     },
     "S8": {
-     "home": 16.941960665,
-     "away": 24.154136253,
-     "spread": -7.212175588,
-     "total": 41.096096918
+     "home": 16.377777778,
+     "away": 23.87,
+     "spread": -7.492222222,
+     "total": 40.247777778
     }
    }
   },
@@ -3246,58 +3363,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 20.110749245,
-     "away": 22.872519741,
-     "spread": -2.761770495,
-     "total": 42.983268986
+     "home": 20.30308642,
+     "away": 22.696049383,
+     "spread": -2.392962963,
+     "total": 42.999135802
     },
     "S2": {
-     "home": 23.456379837,
-     "away": 24.917293624,
-     "spread": -1.460913787,
-     "total": 48.373673461
+     "home": 24.223739221,
+     "away": 22.054615402,
+     "spread": 2.169123819,
+     "total": 46.278354623
     },
     "S3": {
-     "home": 23.268382236,
-     "away": 23.20903191,
-     "spread": 0.059350326,
-     "total": 46.477414145
+     "home": 23.322399618,
+     "away": 22.485165271,
+     "spread": 0.837234348,
+     "total": 45.807564889
     },
     "S4": {
-     "home": 22.665569484,
-     "away": 22.794410577,
-     "spread": -0.128841093,
-     "total": 45.45998006
+     "home": 22.66262994,
+     "away": 22.675754466,
+     "spread": -0.013124526,
+     "total": 45.338384405
     },
     "S5": {
-     "home": 21.518287925,
-     "away": 21.343092609,
-     "spread": 0.175195317,
-     "total": 42.861380534
+     "home": 21.631328178,
+     "away": 21.301458418,
+     "spread": 0.32986976,
+     "total": 42.932786596
     },
     "S6": {
-     "home": 23.538659755,
-     "away": 22.788386988,
-     "spread": 0.750272767,
-     "total": 46.327046744
+     "home": 23.258413855,
+     "away": 22.403893625,
+     "spread": 0.854520229,
+     "total": 45.66230748
     },
     "S7": {
-     "home": 23.403520996,
-     "away": 22.998709449,
-     "spread": 0.404811547,
-     "total": 46.402230445
+     "home": 23.290406736,
+     "away": 22.444529448,
+     "spread": 0.845877288,
+     "total": 45.734936184
     },
     "S8": {
-     "home": 23.605849554,
-     "away": 24.168025142,
-     "spread": -0.562175588,
-     "total": 47.773874696
+     "home": 23.433333333,
+     "away": 23.004444444,
+     "spread": 0.428888889,
+     "total": 46.437777778
     }
    }
   },
@@ -3311,58 +3428,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 18.224271622,
-     "away": 25.304232704,
-     "spread": -7.079961082,
-     "total": 43.528504325
+     "home": 18.568888889,
+     "away": 26.09308642,
+     "spread": -7.524197531,
+     "total": 44.661975309
     },
     "S2": {
-     "home": 17.79492788,
-     "away": 26.868864659,
-     "spread": -9.073936779,
-     "total": 44.663792539
+     "home": 19.272395971,
+     "away": 28.407868587,
+     "spread": -9.135472616,
+     "total": 47.680264559
     },
     "S3": {
-     "home": 20.483683728,
-     "away": 24.616379184,
-     "spread": -4.132695456,
-     "total": 45.100062912
+     "home": 21.093753609,
+     "away": 25.423770778,
+     "spread": -4.33001717,
+     "total": 46.517524387
     },
     "S4": {
-     "home": 20.703599659,
-     "away": 24.341264005,
-     "spread": -3.637664346,
-     "total": 45.044863665
+     "home": 21.028540818,
+     "away": 25.059217908,
+     "spread": -4.03067709,
+     "total": 46.087758727
     },
     "S5": {
-     "home": 20.589075259,
-     "away": 26.436130358,
-     "spread": -5.847055099,
-     "total": 47.025205617
+     "home": 21.622393162,
+     "away": 27.091035138,
+     "spread": -5.468641975,
+     "total": 48.7134283
     },
     "S6": {
-     "home": 21.255001806,
-     "away": 23.895650096,
-     "spread": -2.64064829,
-     "total": 45.150651902
+     "home": 21.794004795,
+     "away": 24.45474946,
+     "spread": -2.660744666,
+     "total": 46.248754255
     },
     "S7": {
-     "home": 20.869342767,
-     "away": 24.25601464,
-     "spread": -3.386671873,
-     "total": 45.125357407
+     "home": 21.443879202,
+     "away": 24.939260119,
+     "spread": -3.495380918,
+     "total": 46.383139321
     },
     "S8": {
-     "home": 19.636405109,
-     "away": 26.013858475,
-     "spread": -6.377453366,
-     "total": 45.650263585
+     "home": 21.287777778,
+     "away": 27.862222222,
+     "spread": -6.574444444,
+     "total": 49.15
     }
    }
   },
@@ -3376,58 +3493,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 26.635633505,
-     "away": 23.053364648,
-     "spread": 3.582268856,
-     "total": 49.688998153
+     "home": 26.043209877,
+     "away": 22.788271605,
+     "spread": 3.254938272,
+     "total": 48.831481481
     },
     "S2": {
-     "home": 30.909007717,
-     "away": 22.079080177,
-     "spread": 8.82992754,
-     "total": 52.988087894
+     "home": 28.27065517,
+     "away": 20.369973337,
+     "spread": 7.900681834,
+     "total": 48.640628507
     },
     "S3": {
-     "home": 26.671028812,
-     "away": 22.301842652,
-     "spread": 4.369186161,
-     "total": 48.972871464
+     "home": 25.569726226,
+     "away": 21.904560729,
+     "spread": 3.665165497,
+     "total": 47.474286955
     },
     "S4": {
-     "home": 26.098896183,
-     "away": 22.436566806,
-     "spread": 3.662329378,
-     "total": 48.535462989
+     "home": 25.463522591,
+     "away": 22.315297557,
+     "spread": 3.148225035,
+     "total": 47.778820148
     },
     "S5": {
-     "home": 27.195930466,
-     "away": 23.177764174,
-     "spread": 4.018166292,
-     "total": 50.37369464
+     "home": 26.651671415,
+     "away": 23.485377832,
+     "spread": 3.166293583,
+     "total": 50.137049247
     },
     "S6": {
-     "home": 25.233619384,
-     "away": 22.30791439,
-     "spread": 2.925704995,
-     "total": 47.541533774
+     "home": 24.405112164,
+     "away": 22.274939486,
+     "spread": 2.130172678,
+     "total": 46.68005165
     },
     "S7": {
-     "home": 25.952324098,
-     "away": 22.304878521,
-     "spread": 3.647445578,
-     "total": 48.257202619
+     "home": 24.987419195,
+     "away": 22.089750108,
+     "spread": 2.897669087,
+     "total": 47.077169303
     },
     "S8": {
-     "home": 28.971127332,
-     "away": 22.647191809,
-     "spread": 6.323935523,
-     "total": 51.61831914
+     "home": 26.601111111,
+     "away": 23.154444444,
+     "spread": 3.446666667,
+     "total": 49.755555556
     }
    }
   },
@@ -3441,58 +3558,58 @@
    "international": "Mexico City",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 20.902898165,
-     "away": 19.285039031,
-     "spread": 1.617859134,
-     "total": 40.187937196
+     "home": 21.375061728,
+     "away": 21.430123457,
+     "spread": -0.055061728,
+     "total": 42.805185185
     },
     "S2": {
-     "home": 22.468035199,
-     "away": 17.593693102,
-     "spread": 4.874342097,
-     "total": 40.061728301
+     "home": 23.87395637,
+     "away": 24.314717245,
+     "spread": -0.440760875,
+     "total": 48.188673615
     },
     "S3": {
-     "home": 22.14715144,
-     "away": 21.008480751,
-     "spread": 1.138670689,
-     "total": 43.155632191
+     "home": 22.677516672,
+     "away": 24.035460896,
+     "spread": -1.357944224,
+     "total": 46.712977568
     },
     "S4": {
-     "home": 21.752288289,
-     "away": 21.378246777,
-     "spread": 0.374041512,
-     "total": 43.130535067
+     "home": 22.143501695,
+     "away": 23.389403972,
+     "spread": -1.245902277,
+     "total": 45.532905667
     },
     "S5": {
-     "home": 21.285349503,
-     "away": 18.896657036,
-     "spread": 2.388692468,
-     "total": 40.182006539
+     "home": 21.441386515,
+     "away": 19.287046534,
+     "spread": 2.154339981,
+     "total": 40.728433048
     },
     "S6": {
-     "home": 22.375350227,
-     "away": 22.014472798,
-     "spread": 0.360877428,
-     "total": 44.389823025
+     "home": 22.534928224,
+     "away": 24.435153215,
+     "spread": -1.900224992,
+     "total": 46.970081439
     },
     "S7": {
-     "home": 22.261250833,
-     "away": 21.511476775,
-     "spread": 0.749774059,
-     "total": 43.772727608
+     "home": 22.606222448,
+     "away": 24.235307056,
+     "spread": -1.629084608,
+     "total": 46.841529504
     },
     "S8": {
-     "home": 20.441960665,
-     "away": 17.048580697,
-     "spread": 3.393379968,
-     "total": 37.490541363
+     "home": 21.066666667,
+     "away": 21.787777778,
+     "spread": -0.721111111,
+     "total": 42.854444444
     }
    }
   },
@@ -3506,58 +3623,58 @@
    "international": "",
    "models": {
     "S0": {
-     "home": 22.948905109,
-     "away": 22.97080292,
-     "spread": -0.02189781,
-     "total": 45.919708029
+     "home": 22.813333333,
+     "away": 23.34,
+     "spread": -0.526666667,
+     "total": 46.153333333
     },
     "S1": {
-     "home": 22.474368072,
-     "away": 28.061080697,
-     "spread": -5.586712625,
-     "total": 50.53544877
+     "home": 21.970740741,
+     "away": 28.427654321,
+     "spread": -6.45691358,
+     "total": 50.398395062
     },
     "S2": {
-     "home": 22.342752016,
-     "away": 28.083527556,
-     "spread": -5.74077554,
-     "total": 50.426279571
+     "home": 21.287049122,
+     "away": 28.688358136,
+     "spread": -7.401309013,
+     "total": 49.975407258
     },
     "S3": {
-     "home": 23.08806257,
-     "away": 25.44867991,
-     "spread": -2.360617341,
-     "total": 48.53674248
+     "home": 22.551690449,
+     "away": 25.736080641,
+     "spread": -3.184390191,
+     "total": 48.28777109
     },
     "S4": {
-     "home": 23.111319364,
-     "away": 25.391160466,
-     "spread": -2.279841102,
-     "total": 48.50247983
+     "home": 22.682742249,
+     "away": 25.699333193,
+     "spread": -3.016590944,
+     "total": 48.382075441
     },
     "S5": {
-     "home": 23.288958034,
-     "away": 27.005478352,
-     "spread": -3.716520317,
-     "total": 50.294436386
+     "home": 22.690911681,
+     "away": 27.425603039,
+     "spread": -4.734691358,
+     "total": 50.11651472
     },
     "S6": {
-     "home": 23.34483628,
-     "away": 24.52745465,
-     "spread": -1.182618371,
-     "total": 47.87229093
+     "home": 22.956478731,
+     "away": 24.664294249,
+     "spread": -1.707815519,
+     "total": 47.62077298
     },
     "S7": {
-     "home": 23.216449425,
-     "away": 24.98806728,
-     "spread": -1.771617856,
-     "total": 48.204516705
+     "home": 22.75408459,
+     "away": 25.200187445,
+     "spread": -2.446102855,
+     "total": 47.954272035
     },
     "S8": {
-     "home": 23.750293998,
-     "away": 25.999969586,
-     "spread": -2.249675588,
-     "total": 49.750263585
+     "home": 23.754444444,
+     "away": 27.445555556,
+     "spread": -3.691111111,
+     "total": 51.2
     }
    }
   }
@@ -3661,19 +3778,19 @@
     "decay": "none"
    },
    "metrics": {
-    "n": 105,
-    "spread_mae": 9.259948771,
-    "spread_rmse": 12.49792205,
-    "total_mae": 11.447769698,
-    "total_rmse": 13.908931891,
-    "direction_accuracy": 0.657142857
+    "n": 118,
+    "spread_mae": 9.484389411,
+    "spread_rmse": 12.684684095,
+    "total_mae": 11.226630634,
+    "total_rmse": 13.830380903,
+    "direction_accuracy": 0.669491525
    },
-   "improvement_abs": 0.839600792,
-   "improvement_pct": 0.083132499,
-   "ci_low": -0.210639064,
-   "ci_high": 1.82207858,
-   "weekly_positive_share": 0.625,
-   "calibration_max_gap": 0.075960662,
+   "improvement_abs": 0.994023336,
+   "improvement_pct": 0.094863923,
+   "ci_low": 0.028806474,
+   "ci_high": 1.968112602,
+   "weekly_positive_share": 0.75,
+   "calibration_max_gap": 0.071305083,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -3685,30 +3802,34 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
-     "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.211, 1.822]."
+     "pass_": true,
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [0.029, 1.968]."
     },
     "G5 stability": {
      "pass_": true,
-     "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+     "note": "Improvement positive in 75% of evaluated weeks (minimum 60%)."
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.076 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.071 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
-   "gates_passed": 6,
+   "gates_passed": 7,
    "eligible": false,
-   "reward": 51.5,
+   "reward": 59.0,
    "signal": {
-    "score": 0.0831,
+    "score": 0.0949,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
    },
    "staking": {
@@ -3726,19 +3847,19 @@
     "shrinkage_k": 0
    },
    "metrics": {
-    "n": 105,
-    "spread_mae": 9.294807777,
-    "spread_rmse": 12.50620577,
-    "total_mae": 11.568361796,
-    "total_rmse": 14.034701769,
-    "direction_accuracy": 0.647619048
+    "n": 118,
+    "spread_mae": 9.592248916,
+    "spread_rmse": 12.809843185,
+    "total_mae": 11.340737912,
+    "total_rmse": 13.949330476,
+    "direction_accuracy": 0.652542373
    },
-   "improvement_abs": 0.804741786,
-   "improvement_pct": 0.079680958,
-   "ci_low": -0.234555826,
-   "ci_high": 1.824891907,
-   "weekly_positive_share": 0.625,
-   "calibration_max_gap": 0.065269752,
+   "improvement_abs": 0.886163831,
+   "improvement_pct": 0.084570426,
+   "ci_low": -0.119243435,
+   "ci_high": 1.905349554,
+   "weekly_positive_share": 0.75,
+   "calibration_max_gap": 0.062263399,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -3750,30 +3871,34 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.235, 1.825]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.119, 1.905]."
     },
     "G5 stability": {
      "pass_": true,
-     "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+     "note": "Improvement positive in 75% of evaluated weeks (minimum 60%)."
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.065 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.062 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
    "eligible": false,
-   "reward": 50.7,
+   "reward": 54.6,
    "signal": {
-    "score": 0.0797,
+    "score": 0.0846,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
    },
    "staking": {
@@ -3791,19 +3916,19 @@
     "decay": 0.65
    },
    "metrics": {
-    "n": 105,
-    "spread_mae": 9.389789344,
-    "spread_rmse": 12.595566768,
-    "total_mae": 11.215598523,
-    "total_rmse": 13.669622225,
-    "direction_accuracy": 0.628571429
+    "n": 118,
+    "spread_mae": 9.571255811,
+    "spread_rmse": 12.75408285,
+    "total_mae": 10.820517936,
+    "total_rmse": 13.446862272,
+    "direction_accuracy": 0.63559322
    },
-   "improvement_abs": 0.709760219,
-   "improvement_pct": 0.070276423,
-   "ci_low": -0.518581297,
-   "ci_high": 1.892842147,
-   "weekly_positive_share": 0.625,
-   "calibration_max_gap": 0.073525498,
+   "improvement_abs": 0.907156936,
+   "improvement_pct": 0.086573888,
+   "ci_low": -0.241142515,
+   "ci_high": 2.086752881,
+   "weekly_positive_share": 0.75,
+   "calibration_max_gap": 0.089079818,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -3815,30 +3940,34 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.519, 1.893]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.241, 2.087]."
     },
     "G5 stability": {
      "pass_": true,
-     "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+     "note": "Improvement positive in 75% of evaluated weeks (minimum 60%)."
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.074 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.089 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
    "eligible": false,
-   "reward": 45.3,
+   "reward": 53.4,
    "signal": {
-    "score": 0.0703,
+    "score": 0.0866,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
    },
    "staking": {
@@ -3856,19 +3985,19 @@
     "decay": "none (median)"
    },
    "metrics": {
-    "n": 105,
-    "spread_mae": 9.494123257,
-    "spread_rmse": 12.687891002,
-    "total_mae": 11.170168337,
-    "total_rmse": 13.597730095,
-    "direction_accuracy": 0.60952381
+    "n": 118,
+    "spread_mae": 9.786601026,
+    "spread_rmse": 12.979964679,
+    "total_mae": 10.929612434,
+    "total_rmse": 13.540912451,
+    "direction_accuracy": 0.610169492
    },
-   "improvement_abs": 0.605426306,
-   "improvement_pct": 0.059945872,
-   "ci_low": -0.213092878,
-   "ci_high": 1.447944422,
-   "weekly_positive_share": 0.625,
-   "calibration_max_gap": 0.058573667,
+   "improvement_abs": 0.691811721,
+   "improvement_pct": 0.066022568,
+   "ci_low": -0.049267769,
+   "ci_high": 1.455476381,
+   "weekly_positive_share": 0.75,
+   "calibration_max_gap": 0.064711458,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -3880,30 +4009,34 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.213, 1.448]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.049, 1.455]."
     },
     "G5 stability": {
      "pass_": true,
-     "note": "Improvement positive in 62% of evaluated weeks (minimum 60%)."
+     "note": "Improvement positive in 75% of evaluated weeks (minimum 60%)."
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.059 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.065 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
    "eligible": false,
-   "reward": 41.3,
+   "reward": 45.1,
    "signal": {
-    "score": 0.0599,
+    "score": 0.066,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
    },
    "staking": {
@@ -3921,19 +4054,19 @@
     "decay": 0.65
    },
    "metrics": {
-    "n": 105,
-    "spread_mae": 9.765430806,
-    "spread_rmse": 12.819538986,
-    "total_mae": 11.033104868,
-    "total_rmse": 13.523094767,
-    "direction_accuracy": 0.571428571
+    "n": 118,
+    "spread_mae": 10.102871531,
+    "spread_rmse": 13.149910272,
+    "total_mae": 10.715604148,
+    "total_rmse": 13.412869993,
+    "direction_accuracy": 0.584745763
    },
-   "improvement_abs": 0.334118757,
-   "improvement_pct": 0.03308254,
-   "ci_low": -0.448981597,
-   "ci_high": 1.099072331,
+   "improvement_abs": 0.375541216,
+   "improvement_pct": 0.035839514,
+   "ci_low": -0.309511051,
+   "ci_high": 1.08455534,
    "weekly_positive_share": 0.625,
-   "calibration_max_gap": 0.064834291,
+   "calibration_max_gap": 0.061293502,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -3945,11 +4078,11 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.449, 1.099]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.310, 1.085]."
     },
     "G5 stability": {
      "pass_": true,
@@ -3957,18 +4090,22 @@
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.065 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.061 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
    "eligible": false,
-   "reward": 27.4,
+   "reward": 29.1,
    "signal": {
-    "score": 0.0331,
+    "score": 0.0358,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
    },
    "staking": {
@@ -3986,19 +4123,19 @@
     "decay": 0.8
    },
    "metrics": {
-    "n": 105,
-    "spread_mae": 9.833476478,
-    "spread_rmse": 12.859686383,
-    "total_mae": 11.063830058,
-    "total_rmse": 13.597454362,
-    "direction_accuracy": 0.571428571
+    "n": 118,
+    "spread_mae": 10.172035763,
+    "spread_rmse": 13.201437836,
+    "total_mae": 10.775720375,
+    "total_rmse": 13.510611016,
+    "direction_accuracy": 0.56779661
    },
-   "improvement_abs": 0.266073085,
-   "improvement_pct": 0.026345045,
-   "ci_low": -0.480984396,
-   "ci_high": 0.970525185,
+   "improvement_abs": 0.306376984,
+   "improvement_pct": 0.029238873,
+   "ci_low": -0.337527825,
+   "ci_high": 0.966207183,
    "weekly_positive_share": 0.625,
-   "calibration_max_gap": 0.072662229,
+   "calibration_max_gap": 0.069925483,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -4010,11 +4147,11 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.481, 0.971]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.338, 0.966]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4022,18 +4159,22 @@
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.073 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.070 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
    "eligible": false,
-   "reward": 23.4,
+   "reward": 25.0,
    "signal": {
-    "score": 0.0263,
+    "score": 0.0292,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
    },
    "staking": {
@@ -4050,19 +4191,19 @@
     "blend": "S3/S6 50-50"
    },
    "metrics": {
-    "n": 105,
-    "spread_mae": 9.913816816,
-    "spread_rmse": 12.952528045,
-    "total_mae": 11.029370467,
-    "total_rmse": 13.548594344,
-    "direction_accuracy": 0.552380952
+    "n": 118,
+    "spread_mae": 10.266483837,
+    "spread_rmse": 13.309700364,
+    "total_mae": 10.713866866,
+    "total_rmse": 13.449701682,
+    "direction_accuracy": 0.550847458
    },
-   "improvement_abs": 0.185732747,
-   "improvement_pct": 0.018390201,
-   "ci_low": -0.573191231,
-   "ci_high": 0.927754048,
+   "improvement_abs": 0.21192891,
+   "improvement_pct": 0.020225287,
+   "ci_low": -0.446039201,
+   "ci_high": 0.884549336,
    "weekly_positive_share": 0.625,
-   "calibration_max_gap": 0.075842247,
+   "calibration_max_gap": 0.070873473,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -4074,11 +4215,11 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.573, 0.928]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.446, 0.885]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4086,18 +4227,22 @@
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.076 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.071 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
    "eligible": false,
-   "reward": 19.1,
+   "reward": 20.5,
    "signal": {
-    "score": 0.0184,
+    "score": 0.0202,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
    },
    "staking": {
@@ -4115,19 +4260,19 @@
     "decay": 0.45
    },
    "metrics": {
-    "n": 105,
-    "spread_mae": 10.075512224,
-    "spread_rmse": 13.101649878,
-    "total_mae": 11.036476311,
-    "total_rmse": 13.588435817,
-    "direction_accuracy": 0.495238095
+    "n": 118,
+    "spread_mae": 10.441939253,
+    "spread_rmse": 13.485723441,
+    "total_mae": 10.721775564,
+    "total_rmse": 13.500576592,
+    "direction_accuracy": 0.491525424
    },
-   "improvement_abs": 0.024037339,
-   "improvement_pct": 0.002380041,
-   "ci_low": -0.750545355,
-   "ci_high": 0.758905909,
+   "improvement_abs": 0.036473494,
+   "improvement_pct": 0.003480822,
+   "ci_low": -0.628393781,
+   "ci_high": 0.702183295,
    "weekly_positive_share": 0.625,
-   "calibration_max_gap": 0.06941482,
+   "calibration_max_gap": 0.070705469,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -4139,11 +4284,11 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.751, 0.759]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.628, 0.702]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4151,18 +4296,22 @@
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.069 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.071 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
    "eligible": false,
-   "reward": 11.7,
+   "reward": 12.1,
    "signal": {
-    "score": 0.0024,
+    "score": 0.0035,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
    },
    "staking": {
@@ -4177,19 +4326,19 @@
    "family": "Benchmark",
    "params": {},
    "metrics": {
-    "n": 105,
-    "spread_mae": 10.099549563,
-    "spread_rmse": 12.779069477,
-    "total_mae": 11.121755669,
-    "total_rmse": 13.429794344,
-    "direction_accuracy": 0.428571429
+    "n": 118,
+    "spread_mae": 10.478412747,
+    "spread_rmse": 13.219459447,
+    "total_mae": 10.861956066,
+    "total_rmse": 13.428026843,
+    "direction_accuracy": 0.457627119
    },
    "improvement_abs": 0.0,
    "improvement_pct": 0.0,
    "ci_low": 0.0,
    "ci_high": 0.0,
    "weekly_positive_share": 0.0,
-   "calibration_max_gap": 0.052665238,
+   "calibration_max_gap": 0.057401412,
    "gates": {
     "G1 data integrity": {
      "pass_": true,
@@ -4201,7 +4350,7 @@
     },
     "G3 minimum sample": {
      "pass_": true,
-     "note": "105 evaluated games (minimum 40)."
+     "note": "118 evaluated games (minimum 40)."
     },
     "G4 significance": {
      "pass_": false,
@@ -4213,16 +4362,20 @@
     },
     "G6 calibration": {
      "pass_": true,
-     "note": "Largest gap between predicted and observed cover rate: 0.053 (tolerance 0.12)."
+     "note": "Largest gap between predicted and observed cover rate: 0.057 (tolerance 0.12)."
     },
     "G7 not the benchmark": {
      "pass_": false,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 4,
    "eligible": false,
-   "reward": 5.6,
+   "reward": 5.2,
    "signal": {
     "score": 0.0,
     "basis": "out-of-sample spread-MAE improvement vs the league-constant benchmark, gates-based; computed from official NFL.com game results only."
@@ -4236,566 +4389,566 @@
  "correlation_error": {
   "S0": {
    "S0": 1.0,
-   "S1": 0.942580621,
-   "S2": 0.919927791,
-   "S3": 0.975029675,
-   "S4": 0.977459587,
-   "S5": 0.96895248,
-   "S6": 0.975944862,
-   "S7": 0.976100845,
-   "S8": 0.94271783
+   "S1": 0.945809245,
+   "S2": 0.919129887,
+   "S3": 0.97692095,
+   "S4": 0.979591823,
+   "S5": 0.970959194,
+   "S6": 0.978997272,
+   "S7": 0.978568705,
+   "S8": 0.943002287
   },
   "S1": {
-   "S0": 0.942580621,
+   "S0": 0.945809245,
    "S1": 1.0,
-   "S2": 0.982745799,
-   "S3": 0.96156144,
-   "S4": 0.958760195,
-   "S5": 0.974755483,
-   "S6": 0.94271457,
-   "S7": 0.952629661,
-   "S8": 0.997179551
+   "S2": 0.980545627,
+   "S3": 0.965162807,
+   "S4": 0.9628686,
+   "S5": 0.977500847,
+   "S6": 0.948200629,
+   "S7": 0.957160274,
+   "S8": 0.994548275
   },
   "S2": {
-   "S0": 0.919927791,
-   "S1": 0.982745799,
+   "S0": 0.919129887,
+   "S1": 0.980545627,
    "S2": 1.0,
-   "S3": 0.957893423,
-   "S4": 0.948679911,
-   "S5": 0.957549492,
-   "S6": 0.93644391,
-   "S7": 0.947643084,
-   "S8": 0.985155785
+   "S3": 0.958986783,
+   "S4": 0.94966613,
+   "S5": 0.957615719,
+   "S6": 0.937948485,
+   "S7": 0.948915902,
+   "S8": 0.98608375
   },
   "S3": {
-   "S0": 0.975029675,
-   "S1": 0.96156144,
-   "S2": 0.957893423,
+   "S0": 0.97692095,
+   "S1": 0.965162807,
+   "S2": 0.958986783,
    "S3": 1.0,
-   "S4": 0.999222422,
-   "S5": 0.990514907,
-   "S6": 0.997506444,
-   "S7": 0.999362797,
-   "S8": 0.964031503
+   "S4": 0.99920769,
+   "S5": 0.991133475,
+   "S6": 0.997561186,
+   "S7": 0.999374894,
+   "S8": 0.966813619
   },
   "S4": {
-   "S0": 0.977459587,
-   "S1": 0.958760195,
-   "S2": 0.948679911,
-   "S3": 0.999222422,
+   "S0": 0.979591823,
+   "S1": 0.9628686,
+   "S2": 0.94966613,
+   "S3": 0.99920769,
    "S4": 1.0,
-   "S5": 0.991470028,
-   "S6": 0.998244869,
-   "S7": 0.999351444,
-   "S8": 0.960438718
+   "S5": 0.992151863,
+   "S6": 0.998374581,
+   "S7": 0.9993954,
+   "S8": 0.962793726
   },
   "S5": {
-   "S0": 0.96895248,
-   "S1": 0.974755483,
-   "S2": 0.957549492,
-   "S3": 0.990514907,
-   "S4": 0.991470028,
+   "S0": 0.970959194,
+   "S1": 0.977500847,
+   "S2": 0.957615719,
+   "S3": 0.991133475,
+   "S4": 0.992151863,
    "S5": 1.0,
-   "S6": 0.984063586,
-   "S7": 0.98787017,
-   "S8": 0.973264569
+   "S6": 0.985354877,
+   "S7": 0.988811338,
+   "S8": 0.973462518
   },
   "S6": {
-   "S0": 0.975944862,
-   "S1": 0.94271457,
-   "S2": 0.93644391,
-   "S3": 0.997506444,
-   "S4": 0.998244869,
-   "S5": 0.984063586,
+   "S0": 0.978997272,
+   "S1": 0.948200629,
+   "S2": 0.937948485,
+   "S3": 0.997561186,
+   "S4": 0.998374581,
+   "S5": 0.985354877,
    "S6": 1.0,
-   "S7": 0.999389889,
-   "S8": 0.945489989
+   "S7": 0.99940514,
+   "S8": 0.949175271
   },
   "S7": {
-   "S0": 0.976100845,
-   "S1": 0.952629661,
-   "S2": 0.947643084,
-   "S3": 0.999362797,
-   "S4": 0.999351444,
-   "S5": 0.98787017,
-   "S6": 0.999389889,
+   "S0": 0.978568705,
+   "S1": 0.957160274,
+   "S2": 0.948915902,
+   "S3": 0.999374894,
+   "S4": 0.9993954,
+   "S5": 0.988811338,
+   "S6": 0.99940514,
    "S7": 1.0,
-   "S8": 0.955255698
+   "S8": 0.958469609
   },
   "S8": {
-   "S0": 0.94271783,
-   "S1": 0.997179551,
-   "S2": 0.985155785,
-   "S3": 0.964031503,
-   "S4": 0.960438718,
-   "S5": 0.973264569,
-   "S6": 0.945489989,
-   "S7": 0.955255698,
+   "S0": 0.943002287,
+   "S1": 0.994548275,
+   "S2": 0.98608375,
+   "S3": 0.966813619,
+   "S4": 0.962793726,
+   "S5": 0.973462518,
+   "S6": 0.949175271,
+   "S7": 0.958469609,
    "S8": 1.0
   }
  },
  "correlation_prediction": {
   "S0": {
    "S0": 1.0,
-   "S1": 0.004577497,
-   "S2": -0.158544035,
-   "S3": -0.100599874,
-   "S4": -0.051884363,
-   "S5": 0.021370681,
-   "S6": -0.058132932,
-   "S7": -0.080508069,
-   "S8": 0.000133977
+   "S1": 0.059292337,
+   "S2": -0.080605003,
+   "S3": -0.039533517,
+   "S4": 0.002619489,
+   "S5": 0.073021996,
+   "S6": -0.020403332,
+   "S7": -0.030598186,
+   "S8": 0.05906972
   },
   "S1": {
-   "S0": 0.004577497,
+   "S0": 0.059292337,
    "S1": 1.0,
-   "S2": 0.885017748,
-   "S3": 0.57188965,
-   "S4": 0.526656996,
-   "S5": 0.748527866,
-   "S6": 0.29259346,
-   "S7": 0.438406002,
-   "S8": 0.975837865
+   "S2": 0.876731458,
+   "S3": 0.602030968,
+   "S4": 0.562573889,
+   "S5": 0.772236991,
+   "S6": 0.321918174,
+   "S7": 0.471575368,
+   "S8": 0.953175994
   },
   "S2": {
-   "S0": -0.158544035,
-   "S1": 0.885017748,
+   "S0": -0.080605003,
+   "S1": 0.876731458,
    "S2": 1.0,
-   "S3": 0.686051624,
-   "S4": 0.578321252,
-   "S5": 0.677767593,
-   "S6": 0.415038396,
-   "S7": 0.558490602,
-   "S8": 0.90275908
+   "S3": 0.719935043,
+   "S4": 0.613311866,
+   "S5": 0.697040053,
+   "S6": 0.443372176,
+   "S7": 0.593189721,
+   "S8": 0.913818945
   },
   "S3": {
-   "S0": -0.100599874,
-   "S1": 0.57188965,
-   "S2": 0.686051624,
+   "S0": -0.039533517,
+   "S1": 0.602030968,
+   "S2": 0.719935043,
    "S3": 1.0,
-   "S4": 0.983660824,
-   "S5": 0.831531901,
-   "S6": 0.941407001,
-   "S7": 0.985177819,
-   "S8": 0.603711669
+   "S4": 0.982680384,
+   "S5": 0.835365034,
+   "S6": 0.936019765,
+   "S7": 0.984335502,
+   "S8": 0.649505195
   },
   "S4": {
-   "S0": -0.051884363,
-   "S1": 0.526656996,
-   "S2": 0.578321252,
-   "S3": 0.983660824,
+   "S0": 0.002619489,
+   "S1": 0.562573889,
+   "S2": 0.613311866,
+   "S3": 0.982680384,
    "S4": 1.0,
-   "S5": 0.847234006,
-   "S6": 0.957748721,
-   "S7": 0.98521535,
-   "S8": 0.548758272
+   "S5": 0.85321205,
+   "S6": 0.954401086,
+   "S7": 0.984616209,
+   "S8": 0.589942699
   },
   "S5": {
-   "S0": 0.021370681,
-   "S1": 0.748527866,
-   "S2": 0.677767593,
-   "S3": 0.831531901,
-   "S4": 0.847234006,
+   "S0": 0.073021996,
+   "S1": 0.772236991,
+   "S2": 0.697040053,
+   "S3": 0.835365034,
+   "S4": 0.85321205,
    "S5": 1.0,
-   "S6": 0.698038482,
-   "S7": 0.776092189,
-   "S8": 0.730061464
+   "S6": 0.699394895,
+   "S7": 0.780940028,
+   "S8": 0.739607328
   },
   "S6": {
-   "S0": -0.058132932,
-   "S1": 0.29259346,
-   "S2": 0.415038396,
-   "S3": 0.941407001,
-   "S4": 0.957748721,
-   "S5": 0.698038482,
+   "S0": -0.020403332,
+   "S1": 0.321918174,
+   "S2": 0.443372176,
+   "S3": 0.936019765,
+   "S4": 0.954401086,
+   "S5": 0.699394895,
    "S6": 1.0,
-   "S7": 0.985307766,
-   "S8": 0.32887084
+   "S7": 0.983407745,
+   "S8": 0.370568745
   },
   "S7": {
-   "S0": -0.080508069,
-   "S1": 0.438406002,
-   "S2": 0.558490602,
-   "S3": 0.985177819,
-   "S4": 0.98521535,
-   "S5": 0.776092189,
-   "S6": 0.985307766,
+   "S0": -0.030598186,
+   "S1": 0.471575368,
+   "S2": 0.593189721,
+   "S3": 0.984335502,
+   "S4": 0.984616209,
+   "S5": 0.780940028,
+   "S6": 0.983407745,
    "S7": 1.0,
-   "S8": 0.472970641
+   "S8": 0.520416785
   },
   "S8": {
-   "S0": 0.000133977,
-   "S1": 0.975837865,
-   "S2": 0.90275908,
-   "S3": 0.603711669,
-   "S4": 0.548758272,
-   "S5": 0.730061464,
-   "S6": 0.32887084,
-   "S7": 0.472970641,
+   "S0": 0.05906972,
+   "S1": 0.953175994,
+   "S2": 0.913818945,
+   "S3": 0.649505195,
+   "S4": 0.589942699,
+   "S5": 0.739607328,
+   "S6": 0.370568745,
+   "S7": 0.520416785,
    "S8": 1.0
   }
  },
- "correlation_n": 105,
+ "correlation_n": 118,
  "calibration": {
   "S0": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.634757194,
-     "observed": 0.629213483,
-     "n": 89,
-     "gap": 0.005543711
+     "predicted": 0.638515821,
+     "observed": 0.656862745,
+     "n": 102,
+     "gap": 0.018346925
     },
     {
      "delta": -3,
-     "predicted": 0.546134442,
-     "observed": 0.595505618,
-     "n": 89,
-     "gap": 0.049371176
+     "predicted": 0.550441725,
+     "observed": 0.607843137,
+     "n": 102,
+     "gap": 0.057401412
     },
     {
      "delta": 0,
-     "predicted": 0.455142964,
-     "observed": 0.483146067,
-     "n": 89,
-     "gap": 0.028003103
+     "predicted": 0.459809868,
+     "observed": 0.480392157,
+     "n": 102,
+     "gap": 0.020582289
     },
     {
      "delta": 3,
-     "predicted": 0.366460408,
-     "observed": 0.415730337,
-     "n": 89,
-     "gap": 0.04926993
+     "predicted": 0.371243943,
+     "observed": 0.401960784,
+     "n": 102,
+     "gap": 0.030716841
     },
     {
      "delta": 6,
-     "predicted": 0.284413414,
-     "observed": 0.337078652,
-     "n": 89,
-     "gap": 0.052665238
+     "predicted": 0.289053983,
+     "observed": 0.323529412,
+     "n": 102,
+     "gap": 0.034475428
     }
    ],
-   "max_gap": 0.052665238
+   "max_gap": 0.057401412
   },
   "S1": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.625760968,
-     "observed": 0.617977528,
-     "n": 89,
-     "gap": 0.00778344
+     "predicted": 0.629835024,
+     "observed": 0.637254902,
+     "n": 102,
+     "gap": 0.007419878
     },
     {
      "delta": -3,
-     "predicted": 0.542016866,
-     "observed": 0.617977528,
-     "n": 89,
-     "gap": 0.075960662
+     "predicted": 0.546341976,
+     "observed": 0.617647059,
+     "n": 102,
+     "gap": 0.071305083
     },
     {
      "delta": 0,
-     "predicted": 0.456312853,
-     "observed": 0.494382022,
-     "n": 89,
-     "gap": 0.03806917
+     "predicted": 0.46070293,
+     "observed": 0.5,
+     "n": 102,
+     "gap": 0.03929707
     },
     {
      "delta": 3,
-     "predicted": 0.372574346,
-     "observed": 0.393258427,
-     "n": 89,
-     "gap": 0.020684081
+     "predicted": 0.37683256,
+     "observed": 0.392156863,
+     "n": 102,
+     "gap": 0.015324303
     },
     {
      "delta": 6,
-     "predicted": 0.29446376,
-     "observed": 0.348314607,
-     "n": 89,
-     "gap": 0.053850846
+     "predicted": 0.298408827,
+     "observed": 0.343137255,
+     "n": 102,
+     "gap": 0.044728427
     }
    ],
-   "max_gap": 0.075960662
+   "max_gap": 0.071305083
   },
   "S2": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.619248267,
-     "observed": 0.651685393,
-     "n": 89,
-     "gap": 0.032437127
+     "predicted": 0.624061028,
+     "observed": 0.676470588,
+     "n": 102,
+     "gap": 0.052409561
     },
     {
      "delta": -3,
-     "predicted": 0.533216075,
-     "observed": 0.606741573,
-     "n": 89,
-     "gap": 0.073525498
+     "predicted": 0.538371163,
+     "observed": 0.62745098,
+     "n": 102,
+     "gap": 0.089079818
     },
     {
      "delta": 0,
-     "predicted": 0.445540092,
-     "observed": 0.483146067,
-     "n": 89,
-     "gap": 0.037605975
+     "predicted": 0.450808673,
+     "observed": 0.480392157,
+     "n": 102,
+     "gap": 0.029583484
     },
     {
      "delta": 3,
-     "predicted": 0.360422635,
-     "observed": 0.415730337,
-     "n": 89,
-     "gap": 0.055307702
+     "predicted": 0.365557569,
+     "observed": 0.421568627,
+     "n": 102,
+     "gap": 0.056011058
     },
     {
      "delta": 6,
-     "predicted": 0.281708205,
-     "observed": 0.337078652,
-     "n": 89,
-     "gap": 0.055370447
+     "predicted": 0.286478643,
+     "observed": 0.323529412,
+     "n": 102,
+     "gap": 0.037050769
     }
    ],
-   "max_gap": 0.073525498
+   "max_gap": 0.089079818
   },
   "S3": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.628187943,
-     "observed": 0.640449438,
-     "n": 89,
-     "gap": 0.012261495
+     "predicted": 0.632522924,
+     "observed": 0.666666667,
+     "n": 102,
+     "gap": 0.034143743
     },
     {
      "delta": -3,
-     "predicted": 0.541907282,
-     "observed": 0.606741573,
-     "n": 89,
-     "gap": 0.064834291
+     "predicted": 0.546549636,
+     "observed": 0.607843137,
+     "n": 102,
+     "gap": 0.061293502
     },
     {
      "delta": 0,
-     "predicted": 0.453566869,
-     "observed": 0.516853933,
-     "n": 89,
-     "gap": 0.063287064
+     "predicted": 0.458304219,
+     "observed": 0.509803922,
+     "n": 102,
+     "gap": 0.051499702
     },
     {
      "delta": 3,
-     "predicted": 0.367450203,
-     "observed": 0.393258427,
-     "n": 89,
-     "gap": 0.025808224
+     "predicted": 0.372056008,
+     "observed": 0.392156863,
+     "n": 102,
+     "gap": 0.020100855
     },
     {
      "delta": 6,
-     "predicted": 0.287525848,
-     "observed": 0.348314607,
-     "n": 89,
-     "gap": 0.060788759
+     "predicted": 0.291791449,
+     "observed": 0.333333333,
+     "n": 102,
+     "gap": 0.041541885
     }
    ],
-   "max_gap": 0.064834291
+   "max_gap": 0.061293502
   },
   "S4": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.62894142,
-     "observed": 0.640449438,
-     "n": 89,
-     "gap": 0.011508018
+     "predicted": 0.633137766,
+     "observed": 0.666666667,
+     "n": 102,
+     "gap": 0.033528901
     },
     {
      "delta": -3,
-     "predicted": 0.54323288,
-     "observed": 0.606741573,
-     "n": 89,
-     "gap": 0.063508693
+     "predicted": 0.547721576,
+     "observed": 0.617647059,
+     "n": 102,
+     "gap": 0.069925483
     },
     {
      "delta": 0,
-     "predicted": 0.455427659,
-     "observed": 0.528089888,
-     "n": 89,
-     "gap": 0.072662229
+     "predicted": 0.460005511,
+     "observed": 0.519607843,
+     "n": 102,
+     "gap": 0.059602332
     },
     {
      "delta": 3,
-     "predicted": 0.369732115,
-     "observed": 0.393258427,
-     "n": 89,
-     "gap": 0.023526312
+     "predicted": 0.3741828,
+     "observed": 0.392156863,
+     "n": 102,
+     "gap": 0.017974063
     },
     {
      "delta": 6,
-     "predicted": 0.290057322,
-     "observed": 0.348314607,
-     "n": 89,
-     "gap": 0.058257285
+     "predicted": 0.294181627,
+     "observed": 0.333333333,
+     "n": 102,
+     "gap": 0.039151706
     }
    ],
-   "max_gap": 0.072662229
+   "max_gap": 0.069925483
   },
   "S5": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.633429702,
-     "observed": 0.640449438,
-     "n": 89,
-     "gap": 0.007019736
+     "predicted": 0.6378996,
+     "observed": 0.647058824,
+     "n": 102,
+     "gap": 0.009159224
     },
     {
      "delta": -3,
-     "predicted": 0.548167906,
-     "observed": 0.606741573,
-     "n": 89,
-     "gap": 0.058573667
+     "predicted": 0.552935601,
+     "observed": 0.617647059,
+     "n": 102,
+     "gap": 0.064711458
     },
     {
      "delta": 0,
-     "predicted": 0.460577023,
-     "observed": 0.460674157,
-     "n": 89,
-     "gap": 9.7135e-05
+     "predicted": 0.465427634,
+     "observed": 0.480392157,
+     "n": 102,
+     "gap": 0.014964522
     },
     {
      "delta": 3,
-     "predicted": 0.374833881,
-     "observed": 0.393258427,
-     "n": 89,
-     "gap": 0.018424546
+     "predicted": 0.379540199,
+     "observed": 0.382352941,
+     "n": 102,
+     "gap": 0.002812742
     },
     {
      "delta": 6,
-     "predicted": 0.294859062,
-     "observed": 0.348314607,
-     "n": 89,
-     "gap": 0.053455545
+     "predicted": 0.299213036,
+     "observed": 0.333333333,
+     "n": 102,
+     "gap": 0.034120297
     }
    ],
-   "max_gap": 0.058573667
+   "max_gap": 0.064711458
   },
   "S6": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.627736192,
-     "observed": 0.640449438,
-     "n": 89,
-     "gap": 0.012713246
+     "predicted": 0.632115595,
+     "observed": 0.666666667,
+     "n": 102,
+     "gap": 0.034551072
     },
     {
      "delta": -3,
-     "predicted": 0.542311231,
-     "observed": 0.606741573,
-     "n": 89,
-     "gap": 0.064430342
+     "predicted": 0.546941589,
+     "observed": 0.617647059,
+     "n": 102,
+     "gap": 0.070705469
     },
     {
      "delta": 0,
-     "predicted": 0.454846943,
-     "observed": 0.505617978,
-     "n": 89,
-     "gap": 0.050771034
+     "predicted": 0.459516021,
+     "observed": 0.5,
+     "n": 102,
+     "gap": 0.040483979
     },
     {
      "delta": 3,
-     "predicted": 0.369500597,
-     "observed": 0.404494382,
-     "n": 89,
-     "gap": 0.034993785
+     "predicted": 0.373990265,
+     "observed": 0.392156863,
+     "n": 102,
+     "gap": 0.018166598
     },
     {
      "delta": 6,
-     "predicted": 0.290135742,
-     "observed": 0.359550562,
-     "n": 89,
-     "gap": 0.06941482
+     "predicted": 0.294252118,
+     "observed": 0.343137255,
+     "n": 102,
+     "gap": 0.048885137
     }
    ],
-   "max_gap": 0.06941482
+   "max_gap": 0.070705469
   },
   "S7": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.628034391,
-     "observed": 0.640449438,
-     "n": 89,
-     "gap": 0.012415047
+     "predicted": 0.632392646,
+     "observed": 0.666666667,
+     "n": 102,
+     "gap": 0.03427402
     },
     {
      "delta": -3,
-     "predicted": 0.542135281,
-     "observed": 0.617977528,
-     "n": 89,
-     "gap": 0.075842247
+     "predicted": 0.546773586,
+     "observed": 0.617647059,
+     "n": 102,
+     "gap": 0.070873473
     },
     {
      "delta": 0,
-     "predicted": 0.454183024,
-     "observed": 0.505617978,
-     "n": 89,
-     "gap": 0.051434954
+     "predicted": 0.458888798,
+     "observed": 0.5,
+     "n": 102,
+     "gap": 0.041111202
     },
     {
      "delta": 3,
-     "predicted": 0.368404748,
-     "observed": 0.393258427,
-     "n": 89,
-     "gap": 0.024853679
+     "predicted": 0.372955325,
+     "observed": 0.382352941,
+     "n": 102,
+     "gap": 0.009397616
     },
     {
      "delta": 6,
-     "predicted": 0.288722584,
-     "observed": 0.348314607,
-     "n": 89,
-     "gap": 0.059592022
+     "predicted": 0.292916373,
+     "observed": 0.333333333,
+     "n": 102,
+     "gap": 0.040416961
     }
    ],
-   "max_gap": 0.075842247
+   "max_gap": 0.070873473
   },
   "S8": {
    "rows": [
     {
      "delta": -6,
-     "predicted": 0.625014744,
-     "observed": 0.617977528,
-     "n": 89,
-     "gap": 0.007037216
+     "predicted": 0.628825628,
+     "observed": 0.637254902,
+     "n": 102,
+     "gap": 0.008429274
     },
     {
      "delta": -3,
-     "predicted": 0.541471821,
-     "observed": 0.606741573,
-     "n": 89,
-     "gap": 0.065269752
+     "predicted": 0.545579738,
+     "observed": 0.607843137,
+     "n": 102,
+     "gap": 0.062263399
     },
     {
      "delta": 0,
-     "predicted": 0.456011443,
-     "observed": 0.494382022,
-     "n": 89,
-     "gap": 0.038370579
+     "predicted": 0.460244883,
+     "observed": 0.5,
+     "n": 102,
+     "gap": 0.039755117
     },
     {
      "delta": 3,
-     "predicted": 0.372525093,
-     "observed": 0.426966292,
-     "n": 89,
-     "gap": 0.054441199
+     "predicted": 0.376693931,
+     "observed": 0.431372549,
+     "n": 102,
+     "gap": 0.054678618
     },
     {
      "delta": 6,
-     "predicted": 0.29464084,
-     "observed": 0.359550562,
-     "n": 89,
-     "gap": 0.064909722
+     "predicted": 0.298561779,
+     "observed": 0.333333333,
+     "n": 102,
+     "gap": 0.034771554
     }
    ],
-   "max_gap": 0.065269752
+   "max_gap": 0.062263399
   }
  },
  "weekly": {
@@ -4821,9 +4974,9 @@
     0.173420379,
     1.534276806,
     2.841411565,
-    -1.177083333
+    1.997113371
    ],
-   "positive_share": 0.625
+   "positive_share": 0.75
   },
   "S2": {
    "per_week": [
@@ -4834,9 +4987,9 @@
     0.065613225,
     2.437679597,
     3.382293633,
-    -1.038782074
+    2.248636666
    ],
-   "positive_share": 0.625
+   "positive_share": 0.75
   },
   "S3": {
    "per_week": [
@@ -4847,7 +5000,7 @@
     0.33161685,
     1.318287904,
     1.245693779,
-    0.357412616
+    0.684914763
    ],
    "positive_share": 0.625
   },
@@ -4860,7 +5013,7 @@
     0.374169181,
     1.107948842,
     1.018177891,
-    0.377753353
+    0.613754539
    ],
    "positive_share": 0.625
   },
@@ -4873,9 +5026,9 @@
     0.101198157,
     0.74906777,
     2.236944936,
-    -1.677083333
+    1.170495544
    ],
-   "positive_share": 0.625
+   "positive_share": 0.75
   },
   "S6": {
    "per_week": [
@@ -4886,7 +5039,7 @@
     0.308849114,
     0.955173732,
     0.357191928,
-    0.758079828
+    0.181287964
    ],
    "positive_share": 0.625
   },
@@ -4899,7 +5052,7 @@
     0.320232982,
     1.136730818,
     0.801442854,
-    0.557746222
+    0.433101363
    ],
    "positive_share": 0.625
   },
@@ -4912,9 +5065,9 @@
     0.205483871,
     1.386394558,
     2.696190476,
-    -1.0375
+    1.359424603
    ],
-   "positive_share": 0.625
+   "positive_share": 0.75
   }
  },
  "price_snapshots": [
@@ -4926,7 +5079,7 @@
    "home": "HOU",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": 3.4,
+   "fair_line": 1.7,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
@@ -4940,7 +5093,7 @@
    "home": "HOU",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 47.6,
+   "fair_line": 47.4,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
@@ -4968,7 +5121,7 @@
    "home": "BUF",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 43.8,
+   "fair_line": 44.5,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/dolphins-at-bills-2026-reg-11",
@@ -4982,7 +5135,7 @@
    "home": "CAR",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": 1.9,
+   "fair_line": 1.3,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11",
@@ -4996,7 +5149,7 @@
    "home": "CAR",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 45.8,
+   "fair_line": 45.0,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11",
@@ -5010,7 +5163,7 @@
    "home": "CHI",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": 1.7,
+   "fair_line": 1.0,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/saints-at-bears-2026-reg-11",
@@ -5024,7 +5177,7 @@
    "home": "CHI",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 48.2,
+   "fair_line": 47.8,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/saints-at-bears-2026-reg-11",
@@ -5038,7 +5191,7 @@
    "home": "DAL",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": 1.3,
+   "fair_line": 0.6,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/titans-at-cowboys-2026-reg-11",
@@ -5052,7 +5205,7 @@
    "home": "DAL",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 49.5,
+   "fair_line": 52.5,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/titans-at-cowboys-2026-reg-11",
@@ -5066,7 +5219,7 @@
    "home": "DET",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": -1.7,
+   "fair_line": -0.8,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11",
@@ -5080,7 +5233,7 @@
    "home": "DET",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 43.7,
+   "fair_line": 44.4,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11",
@@ -5094,7 +5247,7 @@
    "home": "KC",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": 0.5,
+   "fair_line": 2.0,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
@@ -5108,7 +5261,7 @@
    "home": "KC",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 45.3,
+   "fair_line": 45.8,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
@@ -5122,7 +5275,7 @@
    "home": "PHI",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": -3.3,
+   "fair_line": -2.0,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11",
@@ -5136,7 +5289,7 @@
    "home": "PHI",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 42.4,
+   "fair_line": 43.4,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11",
@@ -5150,7 +5303,7 @@
    "home": "LAC",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": 0.1,
+   "fair_line": 0.8,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/jets-at-chargers-2026-reg-11",
@@ -5164,7 +5317,7 @@
    "home": "LAC",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 46.5,
+   "fair_line": 45.8,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/jets-at-chargers-2026-reg-11",
@@ -5178,7 +5331,7 @@
    "home": "NYG",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": -4.1,
+   "fair_line": -4.3,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/jaguars-at-giants-2026-reg-11",
@@ -5192,7 +5345,7 @@
    "home": "NYG",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 45.1,
+   "fair_line": 46.5,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/jaguars-at-giants-2026-reg-11",
@@ -5206,7 +5359,7 @@
    "home": "DEN",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": 4.4,
+   "fair_line": 3.7,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/raiders-at-broncos-2026-reg-11",
@@ -5220,7 +5373,7 @@
    "home": "DEN",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 49.0,
+   "fair_line": 47.5,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/raiders-at-broncos-2026-reg-11",
@@ -5234,7 +5387,7 @@
    "home": "SF",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": 1.1,
+   "fair_line": -1.4,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11",
@@ -5248,7 +5401,7 @@
    "home": "SF",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 43.2,
+   "fair_line": 46.7,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11",
@@ -5262,7 +5415,7 @@
    "home": "WAS",
    "market_type": "spread",
    "snapshot_kind": "opening",
-   "fair_line": -2.4,
+   "fair_line": -3.2,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/bengals-at-commanders-2026-reg-11",
@@ -5276,7 +5429,7 @@
    "home": "WAS",
    "market_type": "total",
    "snapshot_kind": "opening",
-   "fair_line": 48.5,
+   "fair_line": 48.3,
    "closing_fair_line": "",
    "captured_at": "2026-11-14 (build)",
    "source_url": "https://www.nfl.com/games/bengals-at-commanders-2026-reg-11",
@@ -6926,6 +7079,162 @@
    "ot": "",
    "result_source": "NFL.com game page",
    "official_url": "https://www.nfl.com/games/commanders-at-giants-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/patriots-at-lions-2026-reg-10",
+   "week": 10,
+   "away": "NE",
+   "home": "DET",
+   "away_pts": 10,
+   "home_pts": 35,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/patriots-at-lions-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/chiefs-at-falcons-2026-reg-10",
+   "week": 10,
+   "away": "KC",
+   "home": "ATL",
+   "away_pts": 35,
+   "home_pts": 13,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/chiefs-at-falcons-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/texans-at-browns-2026-reg-10",
+   "week": 10,
+   "away": "HOU",
+   "home": "CLE",
+   "away_pts": 24,
+   "home_pts": 27,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/texans-at-browns-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/vikings-at-packers-2026-reg-10",
+   "week": 10,
+   "away": "MIN",
+   "home": "GB",
+   "away_pts": 30,
+   "home_pts": 10,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/vikings-at-packers-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/dolphins-at-colts-2026-reg-10",
+   "week": 10,
+   "away": "MIA",
+   "home": "IND",
+   "away_pts": 22,
+   "home_pts": 24,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/dolphins-at-colts-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/panthers-at-saints-2026-reg-10",
+   "week": 10,
+   "away": "CAR",
+   "home": "NO",
+   "away_pts": 20,
+   "home_pts": 17,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/panthers-at-saints-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/bills-at-jets-2026-reg-10",
+   "week": 10,
+   "away": "BUF",
+   "home": "NYJ",
+   "away_pts": 31,
+   "home_pts": 12,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/bills-at-jets-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/jaguars-at-titans-2026-reg-10",
+   "week": 10,
+   "away": "JAX",
+   "home": "TEN",
+   "away_pts": 40,
+   "home_pts": 23,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/jaguars-at-titans-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/rams-at-cardinals-2026-reg-10",
+   "week": 10,
+   "away": "LAR",
+   "home": "ARI",
+   "away_pts": 34,
+   "home_pts": 6,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/rams-at-cardinals-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/seahawks-at-raiders-2026-reg-10",
+   "week": 10,
+   "away": "SEA",
+   "home": "LV",
+   "away_pts": 21,
+   "home_pts": 13,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/seahawks-at-raiders-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/49ers-at-cowboys-2026-reg-10",
+   "week": 10,
+   "away": "SF",
+   "home": "DAL",
+   "away_pts": 46,
+   "home_pts": 40,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/49ers-at-cowboys-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/steelers-at-bengals-2026-reg-10",
+   "week": 10,
+   "away": "PIT",
+   "home": "CIN",
+   "away_pts": 18,
+   "home_pts": 38,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/steelers-at-bengals-2026-reg-10",
+   "verified": "yes"
+  },
+  {
+   "game_url": "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10",
+   "week": 10,
+   "away": "LAC",
+   "home": "BAL",
+   "away_pts": 23,
+   "home_pts": 20,
+   "ot": "",
+   "result_source": "NFL.com game page",
+   "official_url": "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10",
    "verified": "yes"
   }
  ],
@@ -13772,6 +14081,28 @@
    "why": "This does not contradict the F-39 closure, which used the any-https criterion the checker has always published: every row now carries a link, and computed rows honestly cite the artifact that produced them instead of borrowing an official URL that does not support the value. What remains open is real: (1) an allowlisted official-domain gate as a separate, stricter check, (2) source-to-value attribution per row, and (3) a semantic check that a link supports the value beside it. Until those land, a row whose only link is a repository artifact must be read as the artifact's output, not as an official NFL fact.",
    "official_url": "https://www.nfl.com/standings/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/site/research/verification/official-row-source-coverage-2026-11-17.csv"
+  },
+  {
+   "id": "F-58",
+   "item": "The published game log and standings snapshot were jointly stale: 13 of 14 Week-10 games were missing, and the verification pair agreed with itself (T46 integrity repair, arena/2d57231a-x4)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "On 2026-11-18 the official NFL.com Week-10 results and standings pages were re-read line by line against the committed corpus. data/games-2026.csv held 137 rows through Week 9 plus only the Thursday WAS@NYG game of Week 10; 13 completed Week-10 games (NE@DET, KC@ATL, HOU@CLE, MIN@GB, MIA@IND, CAR@NO, BUF@NYJ, JAX@TEN, LAR@ARI, SEA@LV, SF@DAL, PIT@CIN, LAC@BAL) were absent, and data/standings-wk10-2026.csv held the pre-Week-10 standings rather than the post-Week-10 official table. The gap survived every earlier check for a structural reason worth recording: tools/verify.py reconciles the game log against that same standings file, so a stale log and a stale standings snapshot agree with each other and both checks pass. A self-consistent pair is not a verified pair; only re-reading the external official page finds this class of drift. The exact reconciliation (32 of 32 clubs: official W/L/T/PF/PA = committed log + exactly the 13 missing games, with one W/L flip per affected club) is recorded in the T46 row of COORDINATION.md. The log is now 150 games and tools/verify.py passes 486 assertions against the corrected official standings.",
+   "why": "Flagged rather than silently fixed because the correction changes published conclusions (see F-59) and because the self-verification blind spot is a property of the verification design, not of this one data entry. Clears when: verify.py (or a successor check) pins the standings snapshot to an external retrieval timestamp and re-fetches or hash-pins the official standings page independently of the game log, so a jointly stale pair can no longer pass.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"
+  },
+  {
+   "id": "F-59",
+   "item": "S1 now clears G1-G7 on the repaired corpus (post-hoc), but every strategy stays ineligible until the pre-registered Week-11 shadow window is graded (T46, arena/2d57231a-x4)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "Rebuilding the walk-forward evaluation on the corrected 150-game corpus (weeks 3-10, n=118) flips the headline conclusion: S1 (simple opponent-adjusted mean) now shows +9.49% spread-MAE improvement over the S0 benchmark with a Bonferroni-adjusted 95% bootstrap CI of [+0.03, +1.97] points, so its significance gate G4 passes where it previously failed. The other eight strategies remain 6 of 7 on the backtest gates. This is a post-hoc result: the 13 games it rests on were ingested on 2026-11-18, after research/preregistration/wk11-forward-v1.md froze the corpus and the sample window, and the pre-registration requires forwards to be registered before their holdout opens. The leaderboard therefore now carries an explicit G8 shadow-period gate (a further pre-registered segment, actually graded), which no historical backtest can satisfy: S1 is 7 of 8, marked ineligible and paper, and the reward for the 7 backtest gates is published as provisional. data/ops/gates.csv G8 (\"a further pre-registered segment with no gate regression\") is the same gate on the market-store side and reads fail for all nine strategies.",
+   "why": "Published as a post-hoc integrity repair, not as a performance result: the number is real and reproducible, but the corpus changed after registration, so it cannot be claimed as pre-registered skill. The gate is kept honest rather than relaxed: G8 demands the registered Week-11 forward window be played and graded with no gate regression before any strategy may be marked Live. Clears when: the Week-11 forward sample settles under the existing pre-registration and the gates are re-evaluated on it - or the owner explicitly re-registers a revised protocol before that window opens.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
   }
  ],
  "replacement_depth": [
@@ -13849,7 +14180,7 @@
  "questions": [
   {
    "q": "What decision are we actually trying to make?",
-   "know": "The repository now holds a verified game log (137 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
+   "know": "The repository now holds a verified game log (150 completed 2026 games), the official NFL.com standings for all 32 teams, the official Week 10 injury report and the official Week 11 schedule with kickoff times, networks and bye teams.",
    "missing": "The market definition (point spread, total, player prop, or a proprietary rating), the decision horizon (single game, week, or season) and whether the output is informational analytics, a paper-trading competition, or a wagering product.",
    "blocks": "Reward design, data budget, legal scope, and which of the strategies on the Strategy Lab page is even relevant.",
    "close": "Write a one-page charter naming the market, the horizon, the decision owner and what 'success' means, then re-score every suggestion against it.",
@@ -14159,7 +14490,7 @@
    "check": "Reconstructed game log matches the official NFL.com standings",
    "result": "pass",
    "url": "https://www.nfl.com/standings/",
-   "how": "tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."
+   "how": "tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 150 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."
   },
   {
    "check": "Every game row carries a working official NFL.com game URL",
@@ -14354,76 +14685,76 @@
  ],
  "metrics": {
   "S0": {
-   "n": 105,
-   "spread_mae": 10.099549563,
-   "spread_rmse": 12.779069477,
-   "total_mae": 11.121755669,
-   "total_rmse": 13.429794344,
-   "direction_accuracy": 0.428571429
+   "n": 118,
+   "spread_mae": 10.478412747,
+   "spread_rmse": 13.219459447,
+   "total_mae": 10.861956066,
+   "total_rmse": 13.428026843,
+   "direction_accuracy": 0.457627119
   },
   "S1": {
-   "n": 105,
-   "spread_mae": 9.259948771,
-   "spread_rmse": 12.49792205,
-   "total_mae": 11.447769698,
-   "total_rmse": 13.908931891,
-   "direction_accuracy": 0.657142857
+   "n": 118,
+   "spread_mae": 9.484389411,
+   "spread_rmse": 12.684684095,
+   "total_mae": 11.226630634,
+   "total_rmse": 13.830380903,
+   "direction_accuracy": 0.669491525
   },
   "S2": {
-   "n": 105,
-   "spread_mae": 9.389789344,
-   "spread_rmse": 12.595566768,
-   "total_mae": 11.215598523,
-   "total_rmse": 13.669622225,
-   "direction_accuracy": 0.628571429
+   "n": 118,
+   "spread_mae": 9.571255811,
+   "spread_rmse": 12.75408285,
+   "total_mae": 10.820517936,
+   "total_rmse": 13.446862272,
+   "direction_accuracy": 0.63559322
   },
   "S3": {
-   "n": 105,
-   "spread_mae": 9.765430806,
-   "spread_rmse": 12.819538986,
-   "total_mae": 11.033104868,
-   "total_rmse": 13.523094767,
-   "direction_accuracy": 0.571428571
+   "n": 118,
+   "spread_mae": 10.102871531,
+   "spread_rmse": 13.149910272,
+   "total_mae": 10.715604148,
+   "total_rmse": 13.412869993,
+   "direction_accuracy": 0.584745763
   },
   "S4": {
-   "n": 105,
-   "spread_mae": 9.833476478,
-   "spread_rmse": 12.859686383,
-   "total_mae": 11.063830058,
-   "total_rmse": 13.597454362,
-   "direction_accuracy": 0.571428571
+   "n": 118,
+   "spread_mae": 10.172035763,
+   "spread_rmse": 13.201437836,
+   "total_mae": 10.775720375,
+   "total_rmse": 13.510611016,
+   "direction_accuracy": 0.56779661
   },
   "S5": {
-   "n": 105,
-   "spread_mae": 9.494123257,
-   "spread_rmse": 12.687891002,
-   "total_mae": 11.170168337,
-   "total_rmse": 13.597730095,
-   "direction_accuracy": 0.60952381
+   "n": 118,
+   "spread_mae": 9.786601026,
+   "spread_rmse": 12.979964679,
+   "total_mae": 10.929612434,
+   "total_rmse": 13.540912451,
+   "direction_accuracy": 0.610169492
   },
   "S6": {
-   "n": 105,
-   "spread_mae": 10.075512224,
-   "spread_rmse": 13.101649878,
-   "total_mae": 11.036476311,
-   "total_rmse": 13.588435817,
-   "direction_accuracy": 0.495238095
+   "n": 118,
+   "spread_mae": 10.441939253,
+   "spread_rmse": 13.485723441,
+   "total_mae": 10.721775564,
+   "total_rmse": 13.500576592,
+   "direction_accuracy": 0.491525424
   },
   "S7": {
-   "n": 105,
-   "spread_mae": 9.913816816,
-   "spread_rmse": 12.952528045,
-   "total_mae": 11.029370467,
-   "total_rmse": 13.548594344,
-   "direction_accuracy": 0.552380952
+   "n": 118,
+   "spread_mae": 10.266483837,
+   "spread_rmse": 13.309700364,
+   "total_mae": 10.713866866,
+   "total_rmse": 13.449701682,
+   "direction_accuracy": 0.550847458
   },
   "S8": {
-   "n": 105,
-   "spread_mae": 9.294807777,
-   "spread_rmse": 12.50620577,
-   "total_mae": 11.568361796,
-   "total_rmse": 14.034701769,
-   "direction_accuracy": 0.647619048
+   "n": 118,
+   "spread_mae": 9.592248916,
+   "spread_rmse": 12.809843185,
+   "total_mae": 11.340737912,
+   "total_rmse": 13.949330476,
+   "direction_accuracy": 0.652542373
   }
  },
  "teams": [
