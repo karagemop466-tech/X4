@@ -1,0 +1,111 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829722/gamecenter/ab789ac9-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/bills-at-jets-2026-reg-10
+Game       : Buffalo Bills at New York Jets, 2026 REG 10, Sunday 11/15/2026,
+             MetLife Stadium, East Rutherford, NJ. Final BUF 31 - NYJ 12.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : "NFL Copyright (c) 2026 by The National Football League. All rights
+              reserved. This summary and play-by-play is for the express purpose of
+              assisting media in their coverage of the game; any other use of this
+              material is prohibited without the written permission of the National
+              Football League."  -> stored privately; only DERIVED rows are published.
+
+NOTE ON THE PARSE: the PDF renders the two clubs side by side in a 12-column
+table. In the markdown conversion the Buffalo column is column 0 and the
+Jets column is column 4. Empty cells are dropped, so each row below is mapped
+back to its club by the column it appeared in. Where a section printed no
+players for a club, that is recorded as "(none printed)" and never inferred.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : MetLife Stadium
+City       : East Rutherford, NJ
+Start Time : 1:03 PM EST
+Game Weather: Sunny, Cool, with Crisp Autumn Wind
+Temp       : 49 F (9.4 C)   Humidity: 54%   Wind: NW 11 mph
+Surface/Roof: Open Stadium on Field Turf
+Outdoor Weather: Sunny, Cool, with Crisp Wind, Wind Chill: 44
+Referee    : Torbert, Ronald (62)
+Paid Attendance: 82,953
+Game Time  : 3:04
+
+---- Lineups (actual starters) ------------------------------------------------
+Buffalo Bills
+  Offense
+    TE   88  D.Knox
+    LT   73  D.Dawkins
+    LG   70  A.Anderson
+    C    66  C.McGovern
+    RG   64  O.Torrence
+    RT   79  S.Brown
+    WR   0   K.Coleman
+    TE   86  D.Kincaid
+    WR   2   D.Moore
+    QB   17  J.Allen
+    RB   4   J.Cook
+  Defense
+    OLB  15  G.Rousseau
+    DL   91  E.Oliver
+    DL   96  D.Walker
+    DL   94  L.Jackson
+    OLB  9   B.Chubb
+    ILB  8   T.Bernard
+    CB   23  D.Alford
+    CB   21  D.Igbinosun
+    CB   47  C.Benford
+    S    24  C.Bishop
+    S    22  A.Hooker
+New York Jets
+  Offense
+    WR   5   G.Wilson
+    LT   74  O.Fashanu
+    LG   64  D.Parham
+    C    71  J.Myers
+    RG   66  J.Tippmann
+    RT   70  A.Membou
+    TE   85  M.Taylor
+    WR   11  O.Cooper
+    TE   16  K.Sadiq
+    QB   7   G.Smith
+    RB   20  B.Hall
+  Defense
+    DE   52  K.Enagbare
+    DL   91  J.Briggs
+    DL   95  D.Jackson
+    DL   97  H.Phillips
+    DE   31  D.Bailey
+    LB   44  J.Sherwood
+    LB   56  D.Davis
+    CB   21  B.Stephens
+    CB   1   A.Thomas
+    S    6   D.Belton
+    S    29  M.Fitzpatrick
+
+---- Substitutions (entered the game) -----------------------------------------
+Buffalo Bills
+  CB 1 M.Hairston, S 3 D.Hamlin, RB 7 R.Davis, WR 10 K.Shakir, QB 11 K.Allen,
+  WR 13 S.Bell, K 16 T.Bass, WR 19 G.Dortch, RB 26 T.Johnson, DB 28 S.Franklin,
+  DB 37 J.Hancock, P 39 T.Doman, ILB 42 D.Williams, ILB 44 J.Andreessen,
+  LB 52 K.Elarms-Orr, C 53 L.Cushenberry, OLB 55 M.Hoecht, OLB 56 J.Solomon,
+  G/C 63 A.Corbett, T/G 68 T.Grable, LS 69 R.Ferguson, TE 83 K.Latu,
+  TE 85 J.Hawes, DL 90 D.Carter, DL 98 T.Sanders, OLB 99 T.Parker
+New York Jets
+  RB 0 B.Allen, RB 3 K.Nwangwu, DE 9 W.McDonald, QB 10 C.Klubnik,
+  P 14 A.McNamara, WR 15 A.Mitchell, WR 18 I.Williams, K 19 J.Sanders,
+  CB 23 D.Ponds, DB 26 N.Wright, DB 27 M.Moore, RB 32 I.Davis, S 34 V.Payne,
+  CB 37 Q.Stiggers, LS 42 T.Hennessy, DE 46 J.Ossai, FB 47 A.Beck,
+  LB 48 J.Keller, LB 50 T.Reeder, OL 67 J.Meredith, OL 79 C.Okorafor,
+  WR 84 M.McClain, TE 89 J.Ruckert, DL 96 J.Heflin, DL 98 P.Page
+
+---- Did Not Play -------------------------------------------------------------
+Buffalo Bills
+  T 76 B.Freeland
+New York Jets
+  (none printed)
+
+---- Not Active (official inactive list) --------------------------------------
+Buffalo Bills
+  QB 6 S.Buechele, S 29 J.Kilgore, OLB 51 M.Danna, G 60 A.Reed-Adams,
+  T/G 74 J.Bowry, DL 97 G.Gaines
+New York Jets
+  DB 2 J.Brownlee, WR 17 T.Patrick, LB 49 T.Wallace, TE 86 J.Woods, DE 92 N.Lynn

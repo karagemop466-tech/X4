@@ -1,0 +1,111 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829721/gamecenter/ab789769-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/panthers-at-saints-2026-reg-10
+Game       : Carolina Panthers at New Orleans Saints, 2026 REG 10,
+             Sunday 11/15/2026, Caesars Superdome, New Orleans, LA.
+             Final CAR 20 - NO 17.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows are
+             published. See data/ops/raw/README.md.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : Caesars Superdome
+City       : New Orleans, LA
+Start Time : 12:02 PM CST
+Game Weather: (none printed — the header prints the enclosure line only)
+Temp       : (none printed)
+Surface/Roof: Closed Stadium on Field Turf
+Outdoor Weather: (none printed)
+Referee    : Heydt, Duane (42)
+Paid Attendance: 70,019
+Game Time  : 3:09
+
+---- Lineups (actual starters) ------------------------------------------------
+Carolina Panthers
+  Offense
+    TE   88  D.Waller
+    LT   63  R.Walker
+    LG   68  D.Lewis
+    C    77  L.Fortner
+    RG   50  R.Hunt
+    RT   57  M.Freeling
+    TE   82  T.Tremble
+    WR   18  J.Coker
+    WR   4   T.McMillan
+    QB   9   B.Young
+    RB   30  C.Hubbard
+  Defense
+    OLB  91  P.Jones
+    DT   98  T.Wharton
+    DT   95  D.Brown
+    OLB  5   J.Phillips
+    LB   33  T.Dodson
+    LB   55  D.Lloyd
+    CB   26  C.Smith-Wade
+    CB   35  M.Wilson
+    S    20  Z.Wheatley
+    S    7   T.Moehrig
+    S    21  N.Scott
+New Orleans Saints
+  Offense
+    TE   83  J.Johnson
+    TE   87  N.Fant
+    LT   71  K.Banks
+    LG   76  D.Edwards
+    C    51  C.Ruiz
+    RG   65  J.Wright
+    RT   72  A.Richards
+    WR   14  D.Vele
+    WR   12  C.Olave
+    QB   6   T.Though
+    RB   3   T.Etienne
+  Defense
+    DE   99  C.Young
+    DL   93  N.Shepherd
+    DL   91  V.Broughton
+    DE   96  C.Granderson
+    LB   55  K.Elliss
+    LB   20  P.Werner
+    CB   22  M.Emerson
+    CB   1   K.McKinstry
+    S    23  J.Blackmon
+    S    21  J.Reid
+    S    7   J.Sanker
+
+NAME-TEXTLAYER NOTE (verified, not inferred): the Lineups cell for the Saints'
+starting quarterback is rendered "T.Though" in the PDF text layer, while the
+same Game Book's Scoring Plays section renders the same player "T.Shough".
+Both strings are recorded verbatim here; the published row uses the Scoring
+Plays spelling and carries this note.
+
+---- Substitutions (entered the game) -----------------------------------------
+Carolina Panthers
+  OLB 3 P.Umanmielen, P 6 S.Martin, K 10 R.Fitzgerald, WR 13 J.Metchie,
+  WR 17 X.Legette, S 22 L.Ransom, RB 23 T.Etienne, S 27 I.Simmons,
+  CB 31 C.Thornton, RB 34 A.Tyus, CB 36 M.DeWalt, OLB 39 N.Hampton,
+  LS 44 J.Jansen, LB 46 J.Kuwatch, OLB 52 T.Gipson, LB 54 B.Martin-Scott,
+  G 65 T.Simpkins, T 67 C.Bullock, T 73 S.Forsythe, TE 81 F.Franks,
+  TE 84 M.Evans, WR 87 B.Tremayne, DT 92 L.Hunter, DT 94 A.Hall, DT 97 B.Brown
+New Orleans Saints
+  WR 0 J.Tyson, TE 4 O.Delp, P 17 R.Wright, WR 18 B.Lance, WR/RS 19 B.Brown,
+  CB 25 D.Richardson, LB 28 D.Stutsman, CB 29 Q.Riley, RB 30 A.Estime,
+  DB 31 J.Howden, DE 33 A.Jennings, DB 36 L.Styles, K 39 C.Smyth,
+  RB 41 A.Kamara, LB 44 I.Stalbird, LS 49 Z.Wood, DL 50 C.Wooden,
+  LB 58 C.Rumph, G 66 W.Sherman, T 73 E.Kilty, T 74 M.Murphy, DE 94 C.Jordan,
+  DL 95 J.Ridgeway, DL 97 K.Boyd, DE 98 T.Wilson
+
+---- Unlabelled post-substitution blocks (LABEL NOT PRESERVED — FLAGGED) ------
+The PDF text conversion for this game dropped the "Did Not Play" and
+"Not Active" section headers. Two blocks of non-starters remain, in the
+Game Book's fixed section order (Lineups -> Substitutions -> Did Not Play ->
+Not Active). Their LABELS ARE NOT PRINTED in the capture, so they are stored
+here verbatim and are NOT used to decide whether a player played. Flagged.
+Carolina Panthers (block A, after Panthers substitutions)
+  TE 0 J.Sanders, 3QB 16 H.King, CB 24 W.Lee, RB 28 A.Dillon, LB 58 B.Okereke,
+  C 75 S.Hecht, DT 93 T.Edwards
+New Orleans Saints (block A, after Saints substitutions)
+  3QB 11 Z.Wilson, S 42 M.Reid, RB 43 C.Donaldson, LB 53 J.Ford, T 75 T.Fuaga,
+  C 78 E.McCoy
+New Orleans Saints / Carolina Panthers (block B)
+  (none printed in this conversion)

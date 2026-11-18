@@ -1,0 +1,104 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829722/gamecenter/ab582f5b-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/chiefs-at-falcons-2026-reg-10
+Game       : Kansas City Chiefs at Atlanta Falcons, 2026 REG 10,
+             Sunday 11/15/2026, Mercedes-Benz Stadium, Atlanta, GA.
+             Final KC 35 - ATL 13.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows are
+             published. See data/ops/raw/README.md.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : Mercedes-Benz Stadium
+City       : Atlanta, GA
+Start Time : 1:02 PM EST
+Game Weather: (none printed)
+Temp       : (none printed)
+Surface/Roof: Retractable Roof - Closed on Field Turf
+Outdoor Weather: (none printed)
+Referee    : Eck, Alan (76)
+Paid Attendance: 72,045
+Game Time  : (not printed in this conversion)
+
+---- Lineups (actual starters) ------------------------------------------------
+Kansas City Chiefs
+  Offense
+    WR   1   X.Worthy
+    TE   87  T.Kelce
+    LT   70  K.Benson
+    LG   76  K.Suamataia
+    C    52  C.Humphrey
+    RG   65  Tr.Smith
+    RT   73  J.Ezeudu
+    TE   83  N.Gray
+    WR   4   R.Rice
+    RB   10  E.Johnson
+    QB   15  P.Mahomes
+  Defense
+    DE   56  G.Karlaftis
+    NT   92  K.Tonga
+    DT   95  C.Jones
+    DE   91  F.Anudike-Uzomah
+    LB   43  J.Cochrane
+    LB   23  D.Tranquill
+    LB   32  N.Bolton
+    DB   27  C.Conner
+    DB   20  N.Williams
+    CB   5   M.Delane
+    S    17  A.Gilman
+Atlanta Falcons
+  Offense
+    WR   4   J.Dotson
+    TE   8   K.Pitts
+    LT   70  J.Matthews
+    LG   65  M.Bergeron
+    C    62  C.Levin
+    RG   63  C.Lindstrom
+    RT   71  J.Taylor
+    TE   89  C.Woerner
+    WR   5   D.London
+    QB   9   M.Penix
+    RB   7   B.Robinson
+  Defense
+    DL   54  B.Dorlus
+    DL   92  M.Smith
+    DT   95  G.Dexter
+    DE   99  C.Thomas
+    LB   53  K.Daniels
+    LB   42  J.Woods
+    DB   29  S.Brown
+    CB   24  A.Terrell
+    CB   26  C.Henderson
+    S    23  D.Hellams
+    S    31  X.Watts
+
+---- Substitutions (entered the game) -----------------------------------------
+Kansas City Chiefs
+  QB 6 J.Fields, K 7 H.Butker, CB 8 K.Fulton, WR 11 J.Royals, WR 12 J.Downs,
+  WR 13 C.Allen, P 14 M.Araiza, DB 21 J.Hicks, DB 22 J.Canady, S 29 X.Nwankpa,
+  CB 30 C.Roland-Wallace, LB 31 J.Bassa, RB 35 N.Carter, LS 41 J.Winchester,
+  LB 44 C.McDonald, DE 51 R.Thomas, T 61 D.Pounds, OL 64 H.Nourzad,
+  OL 66 M.Caliendo, WR 82 J.De Jesus, WR 85 A.Armstrong, TE 88 J.Briningstool,
+  TE 89 J.Wiley, DT 94 B.Eason, DT 96 M.Harris, DE 97 A.Gillotte
+Atlanta Falcons
+  WR 14 O.Zaccheaus, P 16 J.Bailey, WR 19 C.Blair, CB 21 M.Hughes,
+  LB 22 Y.Abdullah, RB 25 K.Herbert, DE 27 J.Pearce, CB 28 M.Ford,
+  CB 33 B.Bowman, S 34 J.Robinson, K 39 J.Moody, LB 43 T.Quinn, LB 45 C.Harris,
+  DE 47 C.Snowden, LS 49 L.McCullough, DE 55 Z.Smith, LB 56 H.Perkins,
+  OL 68 K.Hinton, G 74 A.Vorhees, T 75 E.Onianwa, TE 81 A.Hooper, TE 87 N.Muse,
+  WR 88 B.Collins, DL 94 L.London, DL 96 Z.Harrison
+
+---- Did Not Play -------------------------------------------------------------
+Kansas City Chiefs
+  RB 9 K.Walker, 3QB 19 G.Nussmeier, RB 34 J.Ott, CB 39 M.Smith,
+  FB 47 B.VanSumeren, OL 77 J.Moore, DL 99 P.Woods
+Atlanta Falcons
+  QB 1 T.Tagovailoa
+
+---- Not Active (official inactive list) --------------------------------------
+Atlanta Falcons
+  ILB 0 D.Deablo, CB 12 Av.Terrell, 3QB 13 A.Dalton, WR 17 Z.Branch,
+  QB 18 J.Strand, CB 37 R.Longerbeam, T 73 C.Williams
+Kansas City Chiefs
+  (none printed in this conversion — FLAGGED as an incomplete capture)

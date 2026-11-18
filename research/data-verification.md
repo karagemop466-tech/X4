@@ -133,6 +133,13 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-71 | The decision-readiness 'what would change our mind' table published hard-coded numbers that contradicted the gate table directly above it |
 | F-72 | The teams page called the Week 10 injury report a level with 'no second dated snapshot', while the second capture and its published delta exist |
 | F-73 | The venue requirement was verified for 11 of 13 Week 11 fixtures; the other two carried an open naming question (F-60) |
+| F-76 | Two official sources name the Munich venue differently: the Game Book says Allianz Arena, the game centre says FC Bayern Munich Stadium |
+| F-77 | The Cleveland starting defence is absent from the Houston-at-Cleveland Game Book conversion |
+| F-78 | The Carolina-at-New Orleans Game Book lost the Did Not Play and Not Active section headers |
+| F-79 | The Seattle-at-Las Vegas substitution lists are interleaved and truncated by the conversion and could not be transcribed |
+| F-80 | The Steelers-at-Bengals Game Book prints a referee who cannot have worked that game |
+| F-81 | 37 of 171 Week 10 designations are unresolved because the player does not appear in his own Game Book at all |
+| F-82 | 56 rows on the Game Book operations and glossary pages are exempt from the every-row-has-a-source rule |
 
 ## What is deliberately absent
 

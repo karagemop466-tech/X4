@@ -1,0 +1,106 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829724/gamecenter/ab78a748-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/49ers-at-cowboys-2026-reg-10
+Game       : San Francisco 49ers at Dallas Cowboys, 2026 REG 10,
+             Sunday 11/15/2026, AT&T Stadium, Arlington, TX.
+             Final SF 46 - DAL 40.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows published.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : AT&T Stadium
+City       : Arlington, TX
+Start Time : 3:25 PM CST
+Game Weather: Rainy
+Temp       : 49 F (9.4 C)   Humidity: 86%   Wind: NE 3 mph   Wind Chill: 49
+Surface/Roof: Retractable Roof - Closed on Field Turf
+Outdoor Weather: (none printed)
+Referee    : Hussey, John (35)
+Paid Attendance: 90,763
+Game Time  : (not printed in this conversion)
+
+---- Lineups (actual starters) ------------------------------------------------
+San Francisco 49ers
+  Offense
+    WR   19  D.Samuel
+    FB   44  K.Juszczyk
+    TE   85  G.Kittle
+    LT   71  T.Williams
+    LG   75  C.Colby
+    C    64  J.Brendel
+    RG   77  D.Puni
+    RT   68  C.McKivitz
+    WR   17  J.Watkins
+    QB   13  B.Purdy
+    RB   23  C.McCaffrey
+  Defense
+    DL   97  N.Bosa
+    DL   99  D.Buckner
+    DL   92  O.Odighizuwa
+    DL   56  K.White
+    LB   57  D.Greenlaw
+    LB   54  F.Warner
+    DB   2   D.Lenoir
+    CB   20  U.Stout
+    CB   0   R.Green
+    S    27  J.Brown
+    S    6   M.Mustapha
+Dallas Cowboys
+  Offense
+    WR   88  C.Lamb
+    WR   19  R.Flournoy
+    LT   60  T.Guyton
+    LG   73  T.Smith
+    C    56  C.Beebe
+    RG   52  T.Booker
+    RT   78  T.Steele
+    TE   89  B.Spann-Ford
+    WR   3   G.Pickens
+    QB   4   D.Prescott
+    RB   33  J.Williams
+  Defense
+    OLB  40  (name not printed in this conversion)
+    DT   92  (name not printed in this conversion)
+    DT   97  (name not printed in this conversion)
+    OLB  7   (name not printed in this conversion)
+    LB   53  (name not printed in this conversion)
+    LB   50  (name not printed in this conversion)
+    DB   13  (name not printed in this conversion)
+    CB   25  (name not printed in this conversion)
+    CB   26  (name not printed in this conversion)
+    S    14  (name not printed in this conversion)
+    S    24  (name not printed in this conversion)
+DALLAS DEFENCE NOTE: the conversion preserved the eleven jersey numbers and
+positions of the Dallas starting defence but dropped every name cell. The
+numbers are published; the names are blank and flagged.
+
+---- Substitutions (entered the game) -----------------------------------------
+San Francisco 49ers
+  WR 3 K.Allen, WR 4 J.Cowing, TE 9 B.Willis, WR 11 D.Robinson, P 15 C.Waitman,
+  K 18 E.Pineiro, S 24 A.Davis, RB 26 K.Black, CB 28 E.Prysock, RB 29 J.James,
+  DB 33 S.Neal, S 36 M.Sigle, LS 46 J.Weeks, DL 47 K.Kareem, LB 49 G.Wallow,
+  LB 51 L.Gifford, LB 53 J.Dugger, DL 55 S.Valdez, OL 58 J.Patterson,
+  OL 74 C.Willis, OL 76 V.Lowe, TE 89 L.Farrell, DL 94 R.Height,
+  DL 96 J.Thompson, DL 98 M.Williams
+Dallas Cowboys
+  LB 0 D.Overshown, CB 2 C.Durant, P 5 B.Anger, WR 9 K.Turpin, S 11 A.Clark,
+  K 17 B.Aubrey, CB 23 A.Speed, CB 28 S.Revel, FB 30 H.Luepke, OL B 35 J.Barron,
+  LB 55 J.Barham, G 66 T.Bass, T 67 D.Shelton, T 77 B.Jones, WR 80 C.Brown,
+  TE 84 J.Mitchell, TE 86 L.Schoonmaker, DT 90 J.Bullard, DT 91 O.Ogbonna,
+  DT 93 E.Garcia, DT 99 L.Overton
+Unplaced fragment (top of document) — not assigned to a club, FLAGGED:
+  M.Liufau, RB 37 I.Abanikanda, OLB 41 J.Houston, LS 44 T.Sieg, LB 45
+
+---- Did Not Play -------------------------------------------------------------
+San Francisco 49ers
+  QB 10 M.Jones
+Dallas Cowboys
+  QB 16 S.Howell
+
+---- Not Active (official inactive list) --------------------------------------
+San Francisco 49ers
+  WR 5 M.Evans, 3QB 14 K.Rourke, LB 48 T.Bethune, OL 69 E.Cruz, WR 84 B.Cooks
+Dallas Cowboys
+  S 1 P.Locke, OL B 6 D.Ezeiruaku, CB 15 D.Kendrick, WR 18 J.Mingo,
+  S 43 J.Thomas, T 65 A.Cornelius, TE 87 J.Ferguson

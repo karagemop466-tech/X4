@@ -34,7 +34,8 @@ PAGES = ["index.html", "market.html", "standings.html", "lines.html", "price-sna
          "results.html", "strategies.html", "availability.html", "depth.html",
          "questions.html", "suggestions.html", "flags.html", "methodology.html",
          "markets.html", "gates.html", "matchup.html", "houston-depth.html",
-         "personnel-ablation.html"]
+         "personnel-ablation.html", "gamebook.html", "gamebook-ops.html",
+         "glossary.html"]
 ASSETS = ["styles.css", "app.js"]
 # Matched case-insensitively as substrings EXCEPT where a real word contains the
 # marker: "Fagnano" (the Ravens' third-string QB, named by nfl.com) contains
@@ -71,6 +72,7 @@ class RowParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.tables = []
+        self.doc_tables = []
         self._depth = 0
         self._row = None
         self._cell = None
@@ -80,7 +82,14 @@ class RowParser(HTMLParser):
         if tag == "table":
             self._depth += 1
             if self._depth == 1:
+                # A table whose opening tag carries class="doc" is documentation -
+                # a pipeline description, a file inventory, a glossary - rather
+                # than data. Its rows make no claim about the world that an
+                # official source could back, so it is exempt from the source
+                # rule and counted separately instead of being silently skipped.
+                cls = dict(attrs).get("class", "") or ""
                 self.tables.append([])
+                self.doc_tables.append("doc" in cls.split())
         elif tag == "tr" and self._depth >= 1 and self.tables:
             self._row = []
             self._row_has_td = False
@@ -149,6 +158,7 @@ def main():
     total_rows = 0
     sourced_rows = 0
     total_tables = 0
+    doc_rows = 0
     pages = {}
 
     for page in PAGES:
@@ -211,6 +221,11 @@ def main():
         parser.feed(html)
         total_tables += len(parser.tables)
         for t_i, rows in enumerate(parser.tables):
+            if parser.doc_tables[t_i]:
+                for r_i, (row, has_td) in enumerate(rows):
+                    if has_td:
+                        doc_rows += 1
+                continue
             for r_i, (row, has_td) in enumerate(rows):
                 if not has_td:
                     continue
@@ -309,6 +324,8 @@ def main():
     print("pages checked: %d" % checked_pages)
     print("tables checked: %d" % total_tables)
     print("data rows checked: %d (with an official source link: %d)" % (total_rows, sourced_rows))
+    print("documentation rows exempt from the source rule: %d (pipeline, inventory and glossary "
+          "tables - they assert nothing an official source could back)" % doc_rows)
     print("every published page's local links resolved: %d pages" % link_pages_checked)
     print("numeric consistency checked: %d team rows" % checked_rows)
     if problems:

@@ -1,0 +1,105 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829722/gamecenter/ab789e15-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/jaguars-at-titans-2026-reg-10
+Game       : Jacksonville Jaguars at Tennessee Titans, 2026 REG 10,
+             Sunday 11/15/2026, Nissan Stadium, Nashville, TN.
+             Final JAX 40 - TEN 23.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows are
+             published. See data/ops/raw/README.md.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : Nissan Stadium
+City       : Nashville, TN
+Start Time : 12:02 PM CST
+Game Weather: Sunny
+Temp       : 50 F (10.0 C)   Humidity: 39%   Wind: NE 4 mph
+Surface/Roof: Open Stadium on Field Turf
+Outdoor Weather: Sunny, Wind Chill: 49
+Referee    : Anderson, Barry (20)
+Paid Attendance: 61,239
+Game Time  : 3:10
+
+---- Lineups (actual starters) ------------------------------------------------
+Jacksonville Jaguars
+  Offense
+    WR   3   J.Meyers
+    TE   85  B.Strange
+    LT   72  W.Little
+    LG   75  E.Pregnon
+    C    73  R.Hainsey
+    RG   76  E.Cleveland
+    RT   70  C.Van Lanen
+    WR   11  P.Washington
+    WR   7   Bri.Thomas
+    QB   16  T.Lawrence
+    RB   33  B.Tuten
+  Defense
+    DE   41  J.Hines-Allen
+    DT   91  A.Armstead
+    DT   93  M.Dickerson
+    DE   44  T.Walker
+    LB   23  F.Oluokun
+    LB   51  V.Miller
+    CB   12  T.Hunter
+    CB   1   M.Brown
+    S    26  K.Merriweather
+    S    6   A.Johnson
+    S    25  R.Lane
+Tennessee Titans
+  Offense
+    TE   82  D.Bellinger
+    TE   84  G.Helm
+    WR   17  C.Dike
+    LT   75  D.Moore
+    LG   76  C.Zavala
+    C    51  A.Schlottmann
+    RG   70  A.Mafi
+    RT   55  J.Latham
+    WR   5   E.Ayomanor
+    QB   1   C.Ward
+    RB   20  T.Pollard
+  Defense
+    DE   57  J.Martin
+    DL   91  J.Franklin-Myers
+    DT   90  S.Thomas
+    DE   11  J.Johnson
+    LB   33  C.Gray
+    LB   54  D.Mausi
+    CB   25  Jo.Williams
+    CB   24  A.Taylor
+    CB   18  C.Flott
+    S    29  T.Adams
+    S    23  K.Winston
+
+---- Substitutions (entered the game) -----------------------------------------
+Jacksonville Jaguars
+  CB 2 J.Lewis, CB 4 Jar.Jones, RB 5 L.Allen, P 9 L.Cooke, WR 19 J.Cameron,
+  RB 20 A.Abdullah, S 22 J.Huskey, RB 24 C.Rodriguez, LB 31 J.Tavai,
+  LB 35 J.Mcleod, CB 36 Jay.Jones, K 39 C.Little, LS 46 R.Matiscik,
+  LB 47 D.Gardeck, LB 50 B.Combs, DE 57 Bry.Thomas, OL 60 J.Monheim,
+  OL 64 W.Milum, OL 68 D.Faalele, TE 80 Q.Morris, TE 87 N.Boerkircher,
+  TE 88 T.Koziol, DE 92 D.Striggow, DT 94 D.Godchaux, DT 99 R.Orhorhoro
+Tennessee Titans   [printed by the conversion after the scoring-summary table,
+                    under no header; it is the only unassigned block and every
+                    player in it is a Titans player]
+  WR 0 C.Ridley, RB 2 T.Spears, WR 4 W.Robinson, K 6 J.Slye, DE 7 O.Oladejo,
+  P 13 T.Morstead, DE 15 K.Faulk, CB 21 M.Robinson, CB 26 M.Harris,
+  S 28 I.Oliver, RB 36 J.Chestnut, S 38 T.Burgess, LB 40 D.Hampton,
+  LB 44 M.Diabate, LS 46 M.Cox, DE 56 T.Jones, T 59 J.Hudson, G 71 G.Dellinger,
+  C 79 P.Coogan, TE 86 K.Granson, WR 87 X.Restrepo, TE 88 D.Martin-Robinson,
+  DT 93 N.Stackhouse, DT 94 T.Horne, DT 99 J.Laulu
+
+---- Did Not Play -------------------------------------------------------------
+Jacksonville Jaguars
+  QB 10 Q.Ewers
+Tennessee Titans
+  QB 10 M.Trubisky
+
+---- Not Active (official inactive list) --------------------------------------
+Jacksonville Jaguars
+  S 0 J.Bates, WR 18 C.Williams, DT 90 J.Davis, DE 97 W.Williams, DT 98 A.Regis
+Tennessee Titans
+  WR 14 C.Tate, RB 32 N.Singleton, CB 42 J.Jones, LB 50 C.Barton, LB 53 A.Hill,
+  T 78 B.Crenshaw-Dickson, DT 96 J.Marshall

@@ -958,6 +958,67 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "'state' cell is a faithful transcription - that page publishes no US state - and is named here rather than filled with a guess."),
          official_url="https://www.nfl.com/games/colts-at-texans-2026-reg-11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/venue-gameinfo-2026-11-18.md"),
+
+    dict(id="F-76", item="Two official sources name the Munich venue differently: the Game Book says Allianz Arena, the game centre says FC Bayern Munich Stadium", type="Irregularity", kind="warn", status="irregularity",
+         detail=("Read 2026-11-18 for Patriots at Lions (2026 REG 10). The official Game Book header prints 'Allianz Arena, Munich, Germany'. The official game-centre page for the same fixture prints Location 'MUNICH' "
+                 "and Stadium 'FC BAYERN MUNICH STADIUM'. Both strings are transcribed into data/venue-surface-wk10-2026.csv and onto the Game books page; neither is treated as the corrected name."),
+         why=("The requirement is that the venue be transcribed from the official game centre. Doing that silently would have overwritten the Game Book's own string, and doing the reverse would have overwritten the "
+              "game centre's. A venue name is an input to any stadium/roof/weather overlay, so the disagreement has to be visible to whoever builds that overlay. Not edited, not reconciled."),
+         official_url="https://www.nfl.com/games/patriots-at-lions-2026-reg-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/venue-surface-wk10-2026.csv"),
+
+    dict(id="F-77", item="The Cleveland starting defence is absent from the Houston-at-Cleveland Game Book conversion", type="Limitation", kind="warn", status="limitation",
+         detail=("The Game Book's Lineups table for that game converted with three of its four columns intact: Houston offence, Houston defence, Cleveland offence. The Cleveland defence column is empty in all eleven rows. "
+                 "605 of the expected 616 starter rows for Week 10 are published; the 11 Cleveland defensive starters are blank and carry the flag."),
+         why=("Re-running the PDF conversion produced the same loss, so it is a property of this document's conversion rather than a one-off read error. The eleven jersey numbers are not published either, because a number "
+              "without a name is a guess waiting to be joined to the wrong player. Clears when the club's own game notes or a re-issued Game Book supplies the column."),
+         official_url="https://www.nfl.com/games/texans-at-browns-2026-reg-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/actual-starters-wk10-2026.csv"),
+
+    dict(id="F-78", item="The Carolina-at-New Orleans Game Book lost the Did Not Play and Not Active section headers", type="Limitation", kind="warn", status="limitation",
+         detail=("Four blocks of non-starters survive in the conversion, but only the first two carry a printed label (the two Substitutions lists). Under the Game Book's fixed section order the two unlabelled blocks would be "
+                 "Did Not Play and Not Active, but that order is a template inference, not a printed label, so the blocks are stored in the private capture and are NOT used to decide whether a player played. "
+                 "Nine Carolina and New Orleans designations are therefore unresolved and are counted as unresolved, not as either outcome."),
+         why=("The brief's rule is that a value that cannot be confirmed from an official source stays blank and flagged. Labelling the blocks by template order would be an inference presented as a fact, and it would move "
+              "players into the calibration denominator on the strength of a guess. Leaving them out makes n smaller and the interval wider, which is the honest direction to be wrong in."),
+         official_url="https://www.nfl.com/games/panthers-at-saints-2026-reg-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/designation-outcomes-wk10-2026.csv"),
+
+    dict(id="F-79", item="The Seattle-at-Las Vegas substitution lists are interleaved and truncated by the conversion and could not be transcribed", type="Limitation", kind="warn", status="limitation",
+         detail=("The conversion split both clubs' substitution lists into four fragments scattered across the top of the document, the Lineups table and the foot of the scoring-summary page, with entries cut mid-name "
+                 "('RB 36', 'LB 52'). The Did Not Play and Not Active lists for both clubs converted cleanly and are published. Because a non-starter who entered the game can only be identified from the substitution list, "
+                 "Seattle and Las Vegas non-starters cannot be classified as played and are unresolved."),
+         why=("Publishing a fragment would attach players to the wrong club. The cost is real: two clubs' backup-level Questionable players drop out of the calibration sample. That is recorded in n and in the unresolved "
+              "count rather than hidden by a lower coverage claim. Clears when the Game Book is re-converted with a layout-preserving parser."),
+         official_url="https://www.nfl.com/games/seahawks-at-raiders-2026-reg-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/ops/raw/gamebook-sea-at-lv-2026-reg10.txt"),
+
+    dict(id="F-80", item="The Steelers-at-Bengals Game Book prints a referee who cannot have worked that game", type="Irregularity", kind="warn", status="irregularity",
+         detail=("The PIT@CIN Game Book (kickoff 8:22 PM EST, Sunday 11/15/2026) prints Referee 'Willard, Don (58)'. The Miami-at-Indianapolis Game Book for the same Sunday, kicking off 1:03 PM EST, prints the same referee. "
+                 "One referee cannot work two simultaneous games. The rest of the two officiating crews differ, so it is the referee cell that is wrong, not the whole block."),
+         why=("The referee field is not needed for any published number, so the cheap fix would have been to publish it and let an analyst trip over it later. It is transcribed into the private capture with the contradiction "
+              "recorded and is excluded from the published venue register. Not corrected to a name that was not printed."),
+         official_url="https://www.nfl.com/games/steelers-at-bengals-2026-reg-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/ops/raw/gamebook-pit-at-cin-2026-reg10.txt"),
+
+    dict(id="F-81", item="37 of 171 Week 10 designations are unresolved because the player does not appear in his own Game Book at all", type="Limitation", kind="warn", status="limitation",
+         detail=("Every Game Book prints exactly four player lists: Lineups, Substitutions, Did Not Play, Not Active. A player on injured reserve or another reserve list appears in none of them, so an official 'Out' "
+                 "designation for such a player has no game-book row to join to. Kerby Joseph (DET, Out), Micah Parsons (GB, Out), TreVeyon Henderson (NE, Out) and Peter Skoronski (TEN, Out) are examples in this week. "
+                 "They are counted as unresolved and excluded from the play-rate denominator, never counted as 'did not play'."),
+         why=("This is precisely the failure the brief names: 'capture the reserve list so not listed never means available'. Treating absence from a game book as a game-day inactive would inflate n and bias the play rate "
+              "downward. The calibration is published with n and the unresolved count side by side so the reader can see how large the unmeasured group is."),
+         official_url="https://www.nfl.com/injuries/league/2026/reg10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/designation-reliability-wk10-2026.csv"),
+
+    dict(id="F-82", item="56 rows on the Game Book operations and glossary pages are exempt from the every-row-has-a-source rule", type="Limitation", kind="warn", status="limitation",
+         detail=("The publication gate requires every data row to carry an official source link. The pipeline, private-artefact, reuse-gate and glossary tables describe this repository's own process and vocabulary - "
+                 "a pipeline stage, a file path, the definition of a Wilson interval - so there is no official source that could back them. Their tables are marked class='doc' and the gate now counts them aloud "
+                 "(56 rows) instead of either failing or skipping them silently."),
+         why=("The alternative was to attach an official link to a row it does not support, which would make the coverage number meaningless - the gate's whole value is that every data row points at a real source. "
+              "A silent skip would have been worse than a declared exemption, so the count is printed on every run. If a documentation row ever starts asserting a fact about the world, the class should be removed "
+              "and the row should carry its source."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/site/check.py"),
 ]
 
 # ------------------------------------------------------------------ verification log

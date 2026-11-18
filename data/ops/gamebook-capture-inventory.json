@@ -1,0 +1,77 @@
+{
+ "gamebook-buf-at-nyj-2026-reg10.txt": {
+  "bytes": 4312,
+  "sha256": "b289deba0ddca03a685e492f08a95a1a7f9c6b0a9a6bb11a8d2d390698ec3411",
+  "stamp": "2026-11-18T03:47:51Z"
+ },
+ "gamebook-car-at-no-2026-reg10.txt": {
+  "bytes": 4388,
+  "sha256": "7b1ea184c4c35da101316619944231277060c181eaf88719a987ef50260a2ff0",
+  "stamp": "2026-11-18T03:49:42Z"
+ },
+ "gamebook-hou-at-cle-2026-reg10.txt": {
+  "bytes": 4369,
+  "sha256": "a9acbb8c8b417147afab7ca5f02a9a99c8656acb93d5fb2c73d1f1f9ea9db2ad",
+  "stamp": "2026-11-18T00:00:00Z"
+ },
+ "gamebook-hou-at-cle-full-2026-reg10.txt": {
+  "bytes": 4002,
+  "sha256": "c4f2df5870633d11095c7999ba8cffdaf43d2fcb775b2d03a82a291b84cbdfb9",
+  "stamp": "2026-11-18T03:58:18Z"
+ },
+ "gamebook-jax-at-ten-2026-reg10.txt": {
+  "bytes": 3868,
+  "sha256": "d9991b2cfe593d3ba8feaaa02b55b46b6a9e2e4b873f204fc2797851c16e49b6",
+  "stamp": "2026-11-18T03:50:06Z"
+ },
+ "gamebook-kc-at-atl-2026-reg10.txt": {
+  "bytes": 3767,
+  "sha256": "4293675f6848269f7281683f0e859981c1da4e4943b03fe8b61ad24784af09db",
+  "stamp": "2026-11-18T03:51:49Z"
+ },
+ "gamebook-lac-at-bal-2026-reg10.txt": {
+  "bytes": 3678,
+  "sha256": "9f6fcbe052ca5edb881af672459f43e4d9b5baa1e7e10aee3a3777ee5dcca9e4",
+  "stamp": "2026-11-18T03:51:49Z"
+ },
+ "gamebook-lar-at-ari-2026-reg10.txt": {
+  "bytes": 3625,
+  "sha256": "9031f05ba5702258c47475a42928ef022133e0fbc86b6f5c80e823ed88e7be4e",
+  "stamp": "2026-11-18T03:53:26Z"
+ },
+ "gamebook-mia-at-ind-2026-reg10.txt": {
+  "bytes": 3634,
+  "sha256": "b5cd2535aa1f968aa4bb2af46c0e2ae6880cd04ae1259b02fd78eef17ecfdb31",
+  "stamp": "2026-11-18T03:53:26Z"
+ },
+ "gamebook-min-at-gb-2026-reg10.txt": {
+  "bytes": 3731,
+  "sha256": "b23fd813c6a6ad71b561218ad6a98883265d438445c637562ae57df7001e1a4e",
+  "stamp": "2026-11-18T03:54:55Z"
+ },
+ "gamebook-ne-at-det-2026-reg10.txt": {
+  "bytes": 4620,
+  "sha256": "460caa2f111bbb9d3394fe08a370824fe7b12a1f8e598ecf7fa2e3723ead6551",
+  "stamp": "2026-11-18T03:57:42Z"
+ },
+ "gamebook-pit-at-cin-2026-reg10.txt": {
+  "bytes": 4265,
+  "sha256": "48e12e87714abcd7cd4d5f52e0ed097606dd892ee3dab1d7ff193d8988f9174b",
+  "stamp": "2026-11-18T03:54:55Z"
+ },
+ "gamebook-sea-at-lv-2026-reg10.txt": {
+  "bytes": 4045,
+  "sha256": "2d7911293e2ccccbb3003dd8dd33a597c0b842e6dd78238f2f4c6d6136cab37c",
+  "stamp": "2026-11-18T03:56:36Z"
+ },
+ "gamebook-sf-at-dal-2026-reg10.txt": {
+  "bytes": 4195,
+  "sha256": "fc0a31d510ce4b6c21ef823aab9fb7d47848342e19d54bc352056751cf95aae4",
+  "stamp": "2026-11-18T03:56:36Z"
+ },
+ "gamebook-was-at-nyg-2026-reg10.txt": {
+  "bytes": 3639,
+  "sha256": "721c0ab4cb466b9c31ef12685a3d0fd17aed51a37890a556c9cb64559b3d0489",
+  "stamp": "2026-11-18T03:57:42Z"
+ }
+}

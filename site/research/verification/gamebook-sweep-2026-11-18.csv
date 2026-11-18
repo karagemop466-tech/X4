@@ -1,0 +1,23 @@
+check,value,detail
+games captured,14,all 14 official Week 10 games
+venue rows,14,one per game
+actual starter rows,605,Lineups section
+inactive/dnp rows,196,Not Active + Did Not Play
+designated players joined,171,official Week 10 report rows carrying a game status
+play rate Out,0.0,"n=50, 95% Wilson [0.0, 0.0713]"
+play rate Doubtful,0.1667,"n=6, 95% Wilson [0.0301, 0.5635]"
+play rate Questionable,0.7821,"n=78, 95% Wilson [0.6784, 0.8592]"
+capture was-at-nyg,721c0ab4cb466b9c31ef12685a3d0fd17aed51a37890a556c9cb64559b3d0489,complete
+capture hou-at-cle-full,c4f2df5870633d11095c7999ba8cffdaf43d2fcb775b2d03a82a291b84cbdfb9,Cleveland Browns Defense: (not printed in this conversion — blank and flagged)
+capture buf-at-nyj,b289deba0ddca03a685e492f08a95a1a7f9c6b0a9a6bb11a8d2d390698ec3411,complete
+capture car-at-no,7b1ea184c4c35da101316619944231277060c181eaf88719a987ef50260a2ff0,Did Not Play section not printed; Not Active section not printed
+capture jax-at-ten,d9991b2cfe593d3ba8feaaa02b55b46b6a9e2e4b873f204fc2797851c16e49b6,complete
+capture kc-at-atl,4293675f6848269f7281683f0e859981c1da4e4943b03fe8b61ad24784af09db,complete
+capture lar-at-ari,9031f05ba5702258c47475a42928ef022133e0fbc86b6f5c80e823ed88e7be4e,complete
+capture mia-at-ind,b5cd2535aa1f968aa4bb2af46c0e2ae6880cd04ae1259b02fd78eef17ecfdb31,complete
+capture min-at-gb,b23fd813c6a6ad71b561218ad6a98883265d438445c637562ae57df7001e1a4e,complete
+capture ne-at-det,460caa2f111bbb9d3394fe08a370824fe7b12a1f8e598ecf7fa2e3723ead6551,complete
+capture pit-at-cin,48e12e87714abcd7cd4d5f52e0ed097606dd892ee3dab1d7ff193d8988f9174b,complete
+capture sea-at-lv,2d7911293e2ccccbb3003dd8dd33a597c0b842e6dd78238f2f4c6d6136cab37c,substitutions not transcribable
+capture sf-at-dal,fc0a31d510ce4b6c21ef823aab9fb7d47848342e19d54bc352056751cf95aae4,1 unassigned substitution fragment(s)
+capture lac-at-bal,9f6fcbe052ca5edb881af672459f43e4d9b5baa1e7e10aee3a3777ee5dcca9e4,complete

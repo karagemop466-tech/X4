@@ -54,6 +54,8 @@ NAV = [
     ("depth-audit.html", "Depth audit"),
     ("matchup.html", "Matchup matrix"),
     ("houston-depth.html", "Houston depth"),
+    ("gamebook.html", "Game books"),
+    ("gamebook-ops.html", "Game Book ops"),
     ("personnel-ablation.html", "Personnel ablation"),
     ("teams.html", "Per-team view"),
     ("luck.html", "Removal of luck"),
@@ -110,6 +112,10 @@ DIRECTORY = [
          "Houston publishes no structured depth chart (image only, F-24). Resolved from the official NFL Game Book: actual starters and per-player snap counts, published as derived playing-time depth indices with the Game Center and PDF links."),
         ("personnel-ablation.html", "Personnel ablation",
          "Injury and personnel ablations instead of fixed penalties: the measured points-per-designation contrast on the official Week 10 report, published with n and 95% intervals, plus the identifiability gate that blocks the feature."),
+        ("gamebook.html", "Game books (Week 10)",
+         "All 14 official NFL Game Books for Week 10 read into one register: actual starters, the official inactive and did-not-play lists, the venue / surface / roof row for every game, and the first empirical calibration of what Out, Doubtful and Questionable actually meant - with the 37 players no game book could resolve left blank and flagged rather than counted either way."),
+        ("gamebook-ops.html", "Game Book operations (private layer)",
+         "The layer underneath those datasets: 15 verbatim captures with their SHA-256 and UTC stamps, the seven-stage parse, the five derived datasets, and the reuse gate that separates what is stored as evidence from what is published."),
         ("injuries.html", "Availability",
          "Player-linked injury rows and the starter-to-second-string deficiency pipeline for both units."),
         ("replacements.html", "Availability &amp; depth",
@@ -188,6 +194,8 @@ DIRECTORY = [
     ("Method &amp; sources", [
         ("methodology.html", "Methodology",
          "Every model parameter, every gate, and the protocol that keeps luck out of the leaderboard."),
+        ("glossary.html", "Glossary",
+         "Every term this desk uses in a technical sense, what it means here, and the page where it is in force."),
         ("sources.html", "Sources",
          "The full source register: which official page each number came from, and when it was retrieved."),
         ("repo-review.html", "Repo review",
@@ -2428,6 +2436,15 @@ def main():
     # T46 Houston depth-chart gap resolution (tools/houston_depth.py)
     import houston_depth
     written += houston_depth.write_pages(SITE, shell)
+    # T57 official Game Book sweep (tools/gamebook_sweep.py)
+    import gamebook_sweep
+    written += gamebook_sweep.write_pages(SITE, shell)
+    # T57 private Game Book operations layer (tools/gamebook_ops.py)
+    import gamebook_ops
+    written += gamebook_ops.write_pages(SITE, shell)
+    # T57 glossary of technical terms (tools/glossary.py)
+    import glossary
+    written += glossary.write_pages(SITE, shell)
     # T48 personnel / availability ablation (tools/personnel_ablation.py)
     import personnel_ablation
     written += personnel_ablation.write_pages(SITE, shell)
