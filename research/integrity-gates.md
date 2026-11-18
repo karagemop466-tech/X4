@@ -66,13 +66,13 @@ cross-check available.
 
 ## 2. The verified results feed
 
-`research/data/results_2026.csv`: **137 games**, Weeks 1–10, each with both scores, an
+`research/data/results_2026.csv`: **150 games**, Weeks 1–10 complete, each with both scores, an
 overtime flag, a status and the official NFL.com game URL.
 
 The feed is not merely collected, it is **proved**. Wins, losses, ties, points for,
 points allowed and net points are recomputed from the feed for all 32 clubs and compared
 field by field with the official standings table: **192 fields, zero mismatches**. A
-single transposed score anywhere in 137 games would break at least two of those fields.
+single transposed score anywhere in 150 games would break at least two of those fields.
 
 This is the prerequisite for ROI. A backtest without a settled-results feed can report
 error metrics and nothing else, because it has nothing to settle against. The existing

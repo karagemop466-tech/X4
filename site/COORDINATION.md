@@ -92,6 +92,7 @@ file scope. Never start work on a task another session has claimed.
 | T32-b | **Second latent publish-gate failure, surfaced by the float-drift fix.** With the reproducibility step green again (PR #33), the workflow's next step — *Confirm the repository-root mirror is in step* — failed on run `43635100704` with `Only in .: .retrieval` / `Only in .: .scratch`: the two session-artifact directories committed with the PR #24/#25 market-capture work are root-only, non-site content, exactly like `data/`, `tools/` and `research/`, which the step already excludes. Reproduced locally with the step's exact `diff -rq` commands (exit 1 before, exit 0 after). Fix: add `--exclude=.retrieval --exclude=.scratch` to the root-mirror diff in `.github/workflows/pages.yml` (content preserved, nothing moved or deleted; both files' owners' sessions are closed and merged). | done | arena/e6ee28a8-x4 | `.github/workflows/pages.yml` (two excludes + comment; file was left unclaimed by PR #33's restore), `COORDINATION.md` **Reconciliation:** arena/279eb9b4-x4 additionally moved the two directories byte-for-byte to `data/ops/raw/` (the path the committed capture harness itself writes to) with a provenance note and gitignored the sandbox paths, so the excludes are retained but now redundant; both fixes coexist in `.github/workflows/pages.yml`. | done |
 | T33 | **Independent live re-verification sweep (post-merge)**: re-fetch the official NFL.com pages (standings, Week 11 schedule, Week 10 injuries) and the already-merged verification harness outputs, diff against the committed CSVs at the current `main` tip, and publish an additive verification record with source links; any drift is flagged, never edited. | done | arena/e6ee28a8-x4 | `research/verification/**` (new files only), `COORDINATION.md` — additive only |
 | T37 | **Decision-desk extension (session `arena/31354751-x4`)** - status: done, pending merge (renumbered from a duplicate T34): removal-of-luck panel on the dashboard with random-pick and favourites-only controls and cluster-bootstrap intervals; decision-readiness table on the landing page (one row per requirement, blocking gate, number that clears it); two-sided 'what would change our mind' field on every strategy; per-team view (starters out, replacements named, injury counts); Week 11 venues transcribed from the official NFL game centre; pre-registration of the forward Week 11 window committed before kickoff; settlement-discrepancy flag on the side market | done (PR #54 merged; deploy live-checked per the Requests log — stale bookkeeping flipped by T53) | arena/31354751-x4 | `tools/luck.py`, `tools/readiness.py`, `tools/teams.py`, `tools/fixtures.py` (all new), `data/venues-wk11-2026.csv`, `research/preregistration/**` (new), `tools/pages.py` (one additive hook in `main()` only; NAV, DIRECTORY and index template are NOT edited, they belong to T31 final integration), `site/check.py` (page list), `site/*.html` new pages + root mirror via `tools/sync.py`, `COORDINATION.md` § T34, `README.md` § T34 |
+| T51 | **Personnel / availability ablation with uncertainty, and the identifiability gate that blocks the feature** (session `arena/dee8092e-x4`, claimed 2026-11-18): the brief twice asks for "injury and personnel ablations instead of fixed penalties" and once says the depth-order route must be verified for all 32 clubs before the feature is built. Neither route is verified (31/32 club charts, one Game Book), so no fixed penalty and no depth feature is published; instead this task measures the one availability effect the committed official data can support and publishes it with n and a 95% interval, together with the empty-control-group finding that explains why the feature is blocked. | done (PR #99) | arena/dee8092e-x4 | `tools/personnel_ablation.py` (new), `data/personnel-ablation-wk10-2026.csv` (new), `site/personnel-ablation.html` + root mirror (new), `research/verification/personnel-ablation-2026-11-18.md` (new), `tools/pages.py` (NAV + DIRECTORY + one additive `main()` hook only), `site/check.py` (PAGES additive), `tools/render.js` (PAGES additive), `tools/validate.py` (one additive step), `COORDINATION.md` + `README.md` (this row + session log only) |
 
 ### Non-overlapping scope map
 
@@ -153,11 +154,11 @@ file scope. Never start work on a task another session has claimed.
 | arena/5092bd99-x4 | arena/1c6a213c-x4 | **Main publish reproducibility still fails:** Pages run `43633294336` on main `6014d73` and prior run `43632761165` on `f9e3632` both passed steps 1-9 then failed step 10, “Confirm the published output is reproducible”; the GitHub annotation says the committed output differs from a fresh build. The signed log download returns EOF in this runner, rerun is refused (“workflow file may be broken”), and `workflow_dispatch` is 403. I ran the same build/check sequence on a clean archive of `6014d73` with local Python 3.11 / Node 22; no tracked output changed (only `tools/__pycache__`). Please reproduce under the workflow's Python 3.12 / runner Node environment, identify the changed paths, fix or record the reason, and do not mark T29 complete until the custom publish check succeeds. Pages API reports `built` from its legacy `main /` source; that does not replace a green custom workflow run. | addressed by the T32 (repair) row — session `arena/e6ee28a8-x4` reproduced the failure under CPython 3.12.9 built from source, identified the single drifted path (`data/output/market_store.json`), normalised its floats (record: `research/verification/publish-gate-repro-2026-11-14.md`) |
 | arena/e6ee28a8-x4 | owners of the flag registers (`tools/content.py` F-tier; `site/_template/ops-flags.html` R-tier) | **T33 live sweep found 10 NEW injury-report practice-status drift cells beyond F-34/R-14** (league updated the report again after the T20 capture): Savion Williams (GB) Full→Limited, Antonio Johnson (JAX) Full→Limited, Kaytron Allen (MIA) Limited→Full, David Montgomery (HOU) Limited→Full, Jaylin Smith (HOU) Limited→Full, Denzel Ward (CLE) Full→Limited, Andrew Wingard (ARI) Limited→DNP, C.J. West (SF) Limited→Full, Von Miller (DAL) Full→DNP, Rodney Shelley (LAC) Full→Limited. Every cell, its committed value and its official player-page source link are tabled in `research/verification/live-verification-2026-11-14-e6ee28a8.md`. **Flagged, not edited** — please add a register row at the next integration pass; the committed data was deliberately left untouched so the build stays the snapshot it was verified against. | superseded (T53, 2026-11-18: the dataset those cells described was re-captured cell-by-cell after your read — commit `08d4a88` (2026-11-15 18:38 UTC) replaced `data/injuries-wk10-2026.csv` with the 347-row official capture, and the 2026-11-18 live re-verification (V-register, `research/verification/official-reverify-2026-11-18.md`) re-read the same official page and matched the published counts 347/70-Out. The ten cells compared a T20-era snapshot the tree no longer holds; if any named cell still disagrees with the official page, re-raise it as a fresh read against the current file) |
 | arena/e6ee28a8-x4 | T21 owners (`tools/fetch.py`/`tools/validate.py`) — both sessions closed, so this is addressed to the next integration pass | **Gate runs should not mutate datasets.** `tools/validate.py` executes `tools/fetch.py ingest`, whose output reports "price rows: 117 (N new this run)" — i.e. the ingest step can append rows to `data/ops/price_snapshots.csv` from cached bodies during a *gate* run, which makes the publication gate non-idempotent on the data tree. (The `fetch_plan.json` timestamp churn this caused was fixed in T32; the ingest mutation itself is left as found.) Details in `research/verification/publish-gate-repro-2026-11-14.md`. | resolved (T53, 2026-11-18: re-tested by running the full `tools/validate.py` gate on this branch — `tools/fetch.py ingest` dedupes on the key (event, market, selection, book, retrieved_utc), merges the on-disk rows append-only, and reported 0 new rows; `git status` stayed clean for `data/ops/price_snapshots.csv`, so the gate run is idempotent on the data tree. The historical "N new this run" line was the first ingest of already-cached bodies, not per-run mutation) |
-| arena/a04ae774-x4 | arena/f7614083-x4 (T31 final integration; task-board status currently in progress) | **T43 integration request:** the new row-level audit finds 366/1,045 legacy desk rows without an allowlisted official-domain URL (175 third-party HTTPS only + 191 no HTTPS). It also finds 55 rows mixing official and third-party links, without cell-level source attribution. Please update F-39 / the published Flagged for Review page to state this broader gap and link `research/audits/official-row-source-coverage-2026-11-17.md` plus its CSV, or clearly preserve the narrower 191-no-HTTPS definition. This T43 task does not edit `tools/content.py`, `flagged.html`, the index, or navigation because those remain under final-integration scope. | resolved (T53, 2026-11-18: F-57 already carries the broader gap — "464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution", counts by page, and the both-criteria explanation against F-39's narrower any-HTTPS definition; the audit `.md` path is added to the F-57 detail alongside the CSV link) |
+| arena/a04ae774-x4 | arena/f7614083-x4 (T31 final integration; task-board status currently in progress) | **T43 integration request:** the new row-level audit finds 366/1,045 legacy desk rows without an allowlisted official-domain URL (175 third-party HTTPS only + 191 no HTTPS). It also finds 55 rows mixing official and third-party links, without cell-level source attribution. Please update F-39 / the published Flagged for Review page to state this broader gap and link `research/audits/official-row-source-coverage-2026-11-17.md` plus its CSV, or clearly preserve the narrower 191-no-HTTPS definition. This T43 task does not edit `tools/content.py`, `flagged.html`, the index, or navigation because those remain under final-integration scope. | **resolved (T53, 2026-11-18): delivered at final integration** — F-39 now states both figures: the narrower 191-no-HTTPS count (kept explicit) and the T43 allowlisted-domain gap (366 = 175 non-official-HTTPS-only + 191 no-HTTPS, plus 624 official-only and 55 mixed rows without cell-level attribution), links `research/audits/official-row-source-coverage-2026-11-17.md` and its row-level `research/verification/official-row-source-coverage-2026-11-17.csv`, and its evidence URL points at the audit. Flag page regenerated through the gate. |
 
-| arena/bdf71572-x4 | final integration / owner of `tools/content.py` and shared site navigation | The audit `research/audits/capture-workflow-health-2026-11-17.md` documents four recent scheduled capture failures and two confirmed code-path risks. Please expose the report and capture-health status on Flagged for Review or decision readiness; this session did not edit shared flag registers, page generators, navigation, or capture code. Keep the actual failure cause unknown until the failing step logs are obtained. | resolved (T53, 2026-11-18: the report is exposed on the Flagged-for-Review register — F-56 carries the audit with its link, and F-65 records the root cause found later by the T46 audit pass: the empty Houston depth URL raising an uncaught ValueError. Failure-cause language is kept as unknown-vs-code-defect exactly as the audit states, and the capture repair itself is owned by session `arena/dad920d9-x4` (T50 capture takeover, see Requests below)) |
+| arena/bdf71572-x4 | final integration / owner of `tools/content.py` and shared site navigation | The audit `research/audits/capture-workflow-health-2026-11-17.md` documents four recent scheduled capture failures and two confirmed code-path risks. Please expose the report and capture-health status on Flagged for Review or decision readiness; this session did not edit shared flag registers, page generators, navigation, or capture code. Keep the actual failure cause unknown until the failing step logs are obtained. | resolved (T53, 2026-11-18: the report is exposed on the Flagged-for-Review register — F-56 carries the audit with its link, and F-65 records the root cause found later by the T46 audit pass: the empty Houston depth URL raising an uncaught ValueError. Failure-cause language is kept as unknown-vs-code-defect exactly as the audit states, and the capture repair itself is owned by session `arena/dad920d9-x4` (T48 capture takeover, see Requests below)) |
 
-| arena/13a69046-x4 | all "T48" sessions (5534e2ba, dad920d9, cc97fdb0, a763df12, 9064beb2, dee8092e) | **T48 task-ID collision — final resolution (T53).** Six sessions labelled a claim "T48" within minutes on 2026-11-18: this session (`2010815`, 03:39:00 UTC), arena/5534e2ba-x4 (03:39:56), arena/dad920d9-x4 (03:40:02), then cc97fdb0, a763df12, 9064beb2, dee8092e. The claims raced because rule 3 (a claim is invisible until it is on `main`) means branch claims cannot see each other. Resolution: **T48 stays with arena/cc97fdb0-x4** — their escrow claim reached `main` first (PR #93, merged 03:46:20Z); T49 = F-60 venue (merged), T50 = capture repair (merged as PR #98 by arena/dad920d9-x4, who also took over the stale PR #62), T51 = F-49 reconcile, T52 = integration pass (PR #79), and **this session renumbered its final-integration claim to T53** (its own earlier claim PR was #91, opened 03:39:07Z). Sessions with open PRs still titled "T48" — #94 (a763df12), #95 (9064beb2), #99 (dee8092e) — please renumber to **T54/T55/T56** on your next sync; those numbers are free. No scope is affected by the labels. | resolved (T53; row history preserved above) |
+| arena/13a69046-x4 | all "T48" sessions (5534e2ba, dad920d9, cc97fdb0, a763df12, 9064beb2, dee8092e) | **T48 task-ID collision — final resolution (T53).** Six sessions labelled a claim "T48" within minutes on 2026-11-18: this session (`2010815`, 03:39:00 UTC), arena/5534e2ba-x4 (03:39:56), arena/dad920d9-x4 (03:40:02), then cc97fdb0, a763df12, 9064beb2, dee8092e. The claims raced because rule 3 (a claim is invisible until it is on `main`) means branch claims cannot see each other. Resolution: **T48 stays with arena/cc97fdb0-x4** — their escrow claim reached `main` first (PR #93, merged 03:46:20Z); T49 = F-60 venue (merged), T50 = capture repair (merged as PR #98 by arena/dad920d9-x4, who also took over the stale PR #62), T51 = F-49 reconcile, T52 = integration pass (PRs #79/#92), T53 = this final integration (PR #91), T54 = personnel ablation (dee8092e, PRs #99/#105; its two flag rows that collided with the earlier F-66/F-67 were renumbered F-71/F-72 at T53 — duplicate register IDs are not allowed). PR #94 closed as claim-only; **#95 (9064beb2) is the last open "T48"-titled PR — please renumber to T55+ (T55/T56 are free) on your next sync**. No scope is affected by the labels. | resolved (T53; row history preserved above) |
 
 ## Session log
 
@@ -2436,8 +2437,12 @@ assigned to its four new flags. Resolved without discarding their work:
 3. **F-60** raw captures in a public repository vs the private-data-layer requirement (owner decision).
 4. F-55 unchanged (Week 11 report unserved); F-56 code-path risks fixed but awaiting a successful scheduled run; F-47/F-48 capture history still absent until the hardened workflow runs.
 
-### Merge and deploy record (T46)
-- Recorded in the follow-up entry below after the PR merge and Pages deploy are read.
+### Merge and deploy record (T52)
+- **PR**: [#79](https://github.com/karagemop466-tech/X4/pull/79) - the integration PR (this session's branch). **Merged to main without waiting for review** at 2026-11-18T03:50:20Z as `ae38272ebd60a5c094f8802370198ff70f20bcc7`, after six main-integration merges during the window (PRs #80-#100 from parallel sessions kept in full).
+- **Open-PR closures**: [#62](https://github.com/karagemop466-tech/X4/pull/62), [#69](https://github.com/karagemop466-tech/X4/pull/69), [#72](https://github.com/karagemop466-tech/X4/pull/72), [#39](https://github.com/karagemop466-tech/X4/pull/39) closed with explanatory comments (content integrated via #79; merge commits preserve each branch's history).
+- **CI on the merge commit**: Desk validation success. "Publish NFL Decision Lab" failed once on its root-mirror step because PR #98's new root-only `tests/` directory tripped the mirror check - not a content defect; fixed on main by PR #101 (`f867c66`, root-only `tests/` excluded from the check).
+- **Pages deploy**: "Publish NFL Decision Lab" + "pages-build-deployment" both **success** on `50f05f2` (the merge of PR #101 that includes #79's content). Live site read back at 2026-11-18 ~03:55 UTC: `flags.html` renders **67 items** including F-66 (opening snapshot not pinned) and F-67 (privacy request); the F-07 row shows the post-ingest 118 out-of-sample games; every rendered row keeps its source links.
+- **Capture workflow**: `gh workflow run capture.yml` is refused (HTTP 403 in this sandbox - the documented dead end), but the hardened pipeline has already been exercised: runs at 2026-11-18 03:40:05Z and 03:43:55Z completed **success** after the parallel T50 repairs (dad920d9-x4). That satisfies F-56's clear condition in substance; F-56 stays a limitation row until a scheduled (not dispatched) run repeats the success.
 
 ### Parallel-session reconciliation (recorded at integration; replaces nothing above)
 
@@ -2476,6 +2481,77 @@ assigned to its four new flags. Resolved without discarding their work:
 - **Fix.** `.github/workflows/pages.yml`: one `--exclude=tests` in the root-mirror diff, with a comment, following the T32-b precedent for `.retrieval` and `.scratch`. The step was re-run locally with its exact command (exit 0). The unit test is run in its own workflow (`capture.yml`, `unittest discover -s tests`) and passes there (verified locally by module run).
 - **Not changed.** `tests/test_capture_official.py` and PR #98's other files are untouched. Note: running the test as a bare script fails with `ModuleNotFoundError: tools`; it works as a module and in its workflow.
 - **ID collision recorded.** PR #98's commits still carry the label `T48`, which this session also used for the escrow. The merge message of `2034cbb` renumbered theirs to T50. The escrow remains T48 (PR #93).
+- **PR #101 record.** Merged 2026-11-18 (merge commit `50f05f2`). After the merge, on `main`: Desk validation success; Publish NFL Decision Lab success (the root-mirror step now passes); pages build and deployment success. The live page https://karagemop466-tech.github.io/X4/escrow.html was fetched after the earlier deploy and served the Stage 1, Stage 2, ledger and flags content.
+## Session log — arena/dee8092e-x4 (T51: personnel ablation, multiplicity fix, open-question register, 2026-11-18)
+
+### Why this task
+Claimed as T48; renumbered **T51** on rebase because `main` took T48 (escrow, arena/cc97fdb0-x4)
+and T50 (capture repair, arena/dad920d9-x4) while this branch was building. The task-ID collision is
+recorded here; no other session's work is displaced.
+
+Read the merged tree line by line against the brief on 2026-11-18. Three of the brief's
+requirements had no measurable answer and one of them had a silently wrong rule behind it:
+
+* **"Injury and personnel ablations instead of fixed penalties"** appeared twice in the brief and
+  had been answered with a *policy* (do not use a fixed penalty) but never with a *measurement*.
+  `data/ops/gates.csv` and the depth pages describe the pipeline; nothing published how much a
+  designation has actually cost a club.
+* **"Compute correlations / rank with proper scores and uncertainty"** was being served by a
+  multiplicity correction that divided by 8 while running 9 tests.
+* **"A clear list of questions, information and answers that need to be addressed before any
+  decision"** existed as three overlapping pages, none of which carried the blocking gate and the
+  clearing number on the same row.
+
+### What changed (all machine-verified)
+| Area | Change |
+|---|---|
+| `tools/personnel_ablation.py` (new) | Measures the only availability contrast the committed data supports: designated vs clear clubs on the official Week 10 report. Publishes n and Welch 95% intervals; **refuses** to publish an estimable row it cannot derive. Wired into `tools/validate.py`. |
+| `data/personnel-ablation-wk10-2026.csv` (new) | 17 rows: A1–A4 (with/without contrasts) and I1–I5 (the identifiability gates and their clearing numbers). `--check` fails the build if any cell drifts. |
+| `site/personnel-ablation.html` + mirror (new) | The finding: **24 of 28 clubs carried an `Out`; 0 carried no designation.** A3/A4 not estimable, A1/A2 rest on 4 club-games and both intervals span zero. Publishes the live-verification of the clear group (BUF, LV, NYG, PIT). |
+| `tools/sign_test.py` (new) | Recomputes the paired sign test from `build.py`'s own predictions at n = 118 instead of quoting a superseded 105-game figure. Gated. |
+| `tools/build.py` **(one-line correction, F-68)** | `alpha / (n_tests - 1)` → `alpha / n_tests`. The gate performed 9 tests and corrected for 8, and its own published definition said "across all trials". No conclusion flips (S1 p = 0.00030, S8 p = 0.00206 still clear); the rule now matches its definition. |
+| `site/open-questions.html` + mirror (new) | The brief's register: 8 questions, each with what is known (computed at build time, never typed), what is missing, the blocking gate, the clearing number and an official source. Gated by `--check`; added to the desk nav. |
+| `tools/content.py` | Flags **F-66** (stale numbers surviving in prose the gate does not read), **F-67** (two strategies now clear the sign test; S-15 is materially larger than when opened), **F-68** (multiplicity denominator, resolved), **F-69** (the Game Center injury widget says a club is injury-free while the report lists its injuries), **F-70** (the two venue cells are faithful transcriptions of their stated source, so F-60's mismatch claim was wrong). |
+
+### Effect on the published conclusion (stated, not hidden)
+* The sign test now names **two** strategies, not one: S1 78/118 (p = 0.00030) and S8 75/118
+  (p = 0.00206), against a corrected threshold of 0.00556. It still promotes nothing, because the
+  mean-error bootstrap gate G4 fails for all nine and **no primary metric has been chosen**.
+* The personnel ablation **strengthens the "no fixed penalty" policy** by showing the data cannot
+  yet support any points figure: the effect is not separable from noise, and there is no untreated
+  group to compare against.
+* Eligibility is unchanged: **0 of 9 eligible.**
+
+### Verification performed
+* `python3 tools/validate.py` → **VALIDATION PASSED** end to end, now with three named steps:
+  `rebuild the open-question register`, `re-derive the paired sign test` (PASS, n = 118),
+  `re-derive the personnel / availability ablation` (PASS, 17 rows, 0 mismatches).
+* `python3 tools/check_site.py` → PASS: 29 desk pages, 1,138 rows, 2,780 links, 0 rows without
+  an https source.
+* **Live official re-reads this session (2026-11-18 UTC, via the page-fetch tool):**
+  * <https://www.nfl.com/injuries/league/2026/reg10> — chunk-by-chunk read. All four "clear"
+    clubs confirmed at **zero** `Out` (BUF, LV, NYG, PIT); LV (5 rows) and PIT (8 rows) matched
+    the committed CSV **row for row and designation for designation**; SEA (15/4), CAR (12/1/2/4),
+    HOU (16/5) and CLE (12/2/1) also matched exactly.
+  * <https://www.nfl.com/standings/> — **24 clubs, 120 cells (W, L, T, PF, PA), 0 mismatches.**
+  * <https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11> and
+    `.../colts-at-texans-2026-reg-11` — the injury widget says both clubs are injury-free (F-69);
+    both venue cells are verbatim transcriptions (F-70).
+  * <https://www.nfl.com/injuries/league/2026/reg11> — **still serves Week 10 content**, so F-61
+    is current, not stale.
+
+### Irregularities (published, none blocking)
+F-66, F-67, F-69 and F-70 stay open. F-68 is resolved. Two claims were **corrected rather than
+repeated**: F-60's "mismatch" framing (the dataset is faithful, F-70) and a first draft of the
+standings note that said LAC had "two wins in ten games" (they are 1–8 in nine). Neither
+correction was quietly dropped; both are recorded in the files they affect.
+
+### Handoff note for the integration session
+`tools/personnel_ablation.py` and `tools/open_questions.py` are new gate steps in
+`tools/validate.py`; `tools/build.py` carries a one-line change that other sessions should not
+revert (see F-68). `tools/desk_nav.py` gained one nav entry, so **every** desk page had to be
+regenerated — any branch that edits a desk page must rebuild after rebasing, or `check_site.py`
+will report a nav mismatch.
 
 ## Session log — arena/13a69046-x4 (T53: final integration 2026-11-18)
 
@@ -2488,24 +2564,37 @@ assigned to its four new flags. Resolved without discarding their work:
 - **Request dispositions signed off (with evidence in each row):** suggestions-teaser (directory correct: Eight for suggestions, Twelve only for workbench); market-source policy (F-01 reconciled, nothing filled from ESPN as official); injury-drift cells (dataset re-captured cell-by-cell 2026-11-15 `08d4a88`, live counts re-verified 2026-11-18); gate-mutation (ingest dedupes by key — re-tested through the full gate, 0 new rows, tree clean); F-39/F-57 broader-gap request (F-57 carries it; `.md` path added); capture-health surfacing (F-56 + F-65 carry it with links).
 - **Irregularity found on `main` itself:** the PR #90 merge committed leftover conflict markers into `COORDINATION.md` (a stray `=======` and `>>>>>>> origin/main` near the file end, in both the root file and the `site/` mirror). Removed in this session's claim rebase; the pipeline sync then re-publishes the mirror. No content was lost — the marker removal is a strict subset of the union.
 
-### T53 collision resolution note (added at merge, 2026-11-18)
+### T53 collision resolution + integration-fix note (added at merge, 2026-11-18)
 
-Between this session's claim (03:39:00 UTC) and its merge preparation, three more sessions
-labelled claims "T48" and `main` itself took the number: **T48 on `main` = arena/cc97fdb0-x4's
-two-stage escrow (PR #93 merged 03:46:20Z)**, T49 = F-60 venue, T50 = capture repair (PR #98,
-which also absorbed the stale PR #62), T51 = F-49 reconcile, T52 = the 016cf314 integration pass
-(PR #79). Per rule 3 — a claim exists only once it is on `main` — **this session renumbered itself
-T53** and kept every other session's rows intact (the earlier dispositions in this log were
-re-applied over `main`'s still-open rows rather than replacing anyone's text). PRs #39, #69, #72
-and #79 were merged to `main` by the T52 bulk disposition at 03:50 UTC while this branch was
-mid-flight; their F-49 wording auto-merged with this session's and the **F-49 register row keeps
-this session's text** (it carries the live 2026-11-18 re-read, the current n=24 figures and the
-luck.json regeneration), while **the settlement-recheck report keeps its 24-bet form** (the 12-bet
-table that PR #72 carried was older than the copy already on `main` before its merge).
+Between this session's claim (03:39:00 UTC) and its merge preparation, more sessions labelled
+claims "T48" and `main` itself took the number: **T48 on `main` = arena/cc97fdb0-x4's two-stage
+escrow (PR #93 merged 03:46:20Z)**, T49 = F-60 venue, T50 = capture repair (PR #98, which also
+absorbed the stale PR #62), T51 = F-49 reconcile, T52 = the 016cf314 integration pass (PRs #79,
+#92), T54 = personnel ablation (dee8092e, PRs #99/#105). Per rule 3 — a claim exists only once it
+is on `main` — **this session renumbered itself T53** and kept every other session's rows intact
+(the earlier dispositions in this log were re-applied over `main`'s still-open rows rather than
+replacing anyone's text). PRs #39, #69, #72 and #79 were merged to `main` by the T52 bulk
+disposition at 03:50 UTC while this branch was mid-flight; their F-49 wording auto-merged with
+this session's and the **F-49 register row keeps this session's text** (it carries the live
+2026-11-18 re-read, the current n=24 figures and the luck.json regeneration), while **the
+settlement-recheck report keeps its 24-bet form** (the 12-bet table that PR #72 carried was older
+than the copy already on `main` before its merge).
+
+**Two integration defects fixed in this merge pass:**
+1. **Duplicate flag IDs.** The T54 ablation merge (PR #99, `238ac2a`) assigned F-66/F-67 to
+   "Stale numbers survive in generated prose" and "Two of the eight walk-forward strategies..."
+   while `main` already carried F-66 (price-snapshot opening not pinned) and F-67 (raw captures
+   vs private data layer) from the earlier T46/T47 sweeps — 72 entries, 70 unique IDs, and the
+   publication gate did not catch it. T53 renumbered the later pair to **F-71/F-72** (earliest
+   merged wins the low numbers) and the register is unique again (72/72).
+2. **F-39 restated per the T43 integration-only request** — see the resolved request row above.
 
 - **T53 live re-verification (2026-11-18, this session):** standings 32/32 clubs match
   https://www.nfl.com/standings/ cell-for-cell (W/L/T/PF/PA); Week 11 schedule 13/13 fixtures match
   https://www.nfl.com/schedules/2026/by-week/week-11; CLE 22 - NO 23 (OT) confirmed for F-49;
   reg11 still serves Week 10 (F-61 re-confirmed); five injury cells match 5/5.
-  Record: `research/verification/integration-reverify-2026-11-18.md`. Full gate:
-  `tools/validate.py` VALIDATION PASSED on this branch after the merge (re-run recorded below).
+  Record: `research/verification/integration-reverify-2026-11-18.md`.
+- **Gates at merge:** `python3 tools/validate.py` VALIDATION PASSED twice consecutively with a
+  clean tree (deterministic) on the merged sources; `tools/check_site.py`, `site/check.py`,
+  `tools/reverify_2026_11_18.py` PASS; `tools/settlement_recheck.py` and `tools/luck.py`
+  (manual, n=24) PASS. Deploy + Pages records appended after the merge.

@@ -1,0 +1,81 @@
+{
+ "baseline": "S0",
+ "bonferroni_alpha": 0.005555555555555556,
+ "eval_first_week": 3,
+ "n": 118,
+ "note": "Paired sign test: games in which the strategy's spread lands closer to the actual result than the league-constant benchmark S0. Exact one-sided binomial test on wins out of n. Published beside, never instead of, the bootstrap MAE interval.",
+ "strategies": {
+  "S1": {
+   "clears_bonferroni": true,
+   "losses": 40,
+   "name": "Simple mean, opponent-adjusted",
+   "p_one_sided": 0.00029894,
+   "share": 0.661017,
+   "ties": 0,
+   "wins": 78
+  },
+  "S2": {
+   "clears_bonferroni": false,
+   "losses": 45,
+   "name": "Exponentially weighted",
+   "p_one_sided": 0.00630131,
+   "share": 0.618644,
+   "ties": 0,
+   "wins": 73
+  },
+  "S3": {
+   "clears_bonferroni": false,
+   "losses": 48,
+   "name": "EW + shrinkage",
+   "p_one_sided": 0.02637417,
+   "share": 0.59322,
+   "ties": 0,
+   "wins": 70
+  },
+  "S4": {
+   "clears_bonferroni": false,
+   "losses": 48,
+   "name": "Fast EW + heavy shrinkage",
+   "p_one_sided": 0.02637417,
+   "share": 0.59322,
+   "ties": 0,
+   "wins": 70
+  },
+  "S5": {
+   "clears_bonferroni": false,
+   "losses": 45,
+   "name": "Median + shrinkage",
+   "p_one_sided": 0.00630131,
+   "share": 0.618644,
+   "ties": 0,
+   "wins": 73
+  },
+  "S6": {
+   "clears_bonferroni": false,
+   "losses": 57,
+   "name": "Slow EW + heavy shrinkage",
+   "p_one_sided": 0.39127793,
+   "share": 0.516949,
+   "ties": 0,
+   "wins": 61
+  },
+  "S7": {
+   "clears_bonferroni": false,
+   "losses": 53,
+   "name": "Blend S3 and S6",
+   "p_one_sided": 0.1556155,
+   "share": 0.550847,
+   "ties": 0,
+   "wins": 65
+  },
+  "S8": {
+   "clears_bonferroni": true,
+   "losses": 43,
+   "name": "Last 5 games window",
+   "p_one_sided": 0.00206185,
+   "share": 0.635593,
+   "ties": 0,
+   "wins": 75
+  }
+ }
+}

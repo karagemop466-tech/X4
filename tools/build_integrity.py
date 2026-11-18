@@ -13,7 +13,7 @@ Inputs (all committed, all source-linked)
 Outputs
   research/data/price_snapshots_long.csv        every (game, market, phase, side) price
   research/data/market_movement.csv             open -> current -> close, per market
-  research/data/results_2026.csv                verified results feed (137 games)
+  research/data/results_2026.csv                verified results feed (one row per completed game in data/games-2026.csv)
   research/data/results_graded_week10.csv       each model's paper bets, settled
   research/data/correlation_n.csv               every correlation with its n
   research/data/market_origination_wk11.csv     our line | market | difference | bucket

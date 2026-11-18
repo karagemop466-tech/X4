@@ -485,7 +485,14 @@ def percentile(xs, p):
 
 n_tests = len(STRATEGIES)
 alpha = PARAMS["alpha"]
-alpha_adj = alpha / max(1, n_tests - 1)   # Bonferroni over the non-benchmark strategies
+# T48 correction: the bootstrap interval is computed for the benchmark S0 as well
+# (see the loop above, which runs for every key in STRATEGIES including S0), and every
+# one of those intervals is a test. Dividing by n_tests - 1 therefore granted exactly
+# one more correction than the procedure performs. The documented gate -- "Bonferroni-
+# adjusted p < 0.05 across ALL trials", and S-15's published "0.05 / 8 strategies" for
+# nine strategies -- divides by the number of tests actually run. That is the stricter
+# and the documented correction, so it is the one applied.
+alpha_adj = alpha / max(1, n_tests)   # Bonferroni over every interval computed
 
 # ---- weekly stability ----------------------------------------------------------------
 weeks = sorted({x["week"] for x in preds[baseline]})
