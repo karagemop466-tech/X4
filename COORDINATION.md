@@ -2478,7 +2478,6 @@ assigned to its four new flags. Resolved without discarding their work:
 - **Fix.** `.github/workflows/pages.yml`: one `--exclude=tests` in the root-mirror diff, with a comment, following the T32-b precedent for `.retrieval` and `.scratch`. The step was re-run locally with its exact command (exit 0). The unit test is run in its own workflow (`capture.yml`, `unittest discover -s tests`) and passes there (verified locally by module run).
 - **Not changed.** `tests/test_capture_official.py` and PR #98's other files are untouched. Note: running the test as a bare script fails with `ModuleNotFoundError: tools`; it works as a module and in its workflow.
 - **ID collision recorded.** PR #98's commits still carry the label `T48`, which this session also used for the escrow. The merge message of `2034cbb` renumbered theirs to T50. The escrow remains T48 (PR #93).
-- **PR #101 record.** Merged 2026-11-18 (merge commit `50f05f2`). After the merge, on `main`: Desk validation success; Publish NFL Decision Lab success (the root-mirror step now passes); pages build and deployment success. The live page https://karagemop466-tech.github.io/X4/escrow.html was fetched after the earlier deploy and served the Stage 1, Stage 2, ledger and flags content.
 ## Session log — arena/dee8092e-x4 (T51: personnel ablation, multiplicity fix, open-question register, 2026-11-18)
 
 ### Why this task
@@ -2549,3 +2548,79 @@ correction was quietly dropped; both are recorded in the files they affect.
 revert (see F-68). `tools/desk_nav.py` gained one nav entry, so **every** desk page had to be
 regenerated — any branch that edits a desk page must rebuild after rebasing, or `check_site.py`
 will report a nav mismatch.
+
+## Session log — arena/5534e2ba-x4 (T48: venue verification for all 13 fixtures + two self-contradicting pages, 2026-11-18)
+
+### Scope
+Claimed T48 on `arena/5534e2ba-x4` and pushed the claim before starting. Files: `data/venues-wk11-2026.csv`,
+`tools/desk_extension.py` (readiness keep rows only), `tools/content.py` (F-60 plus three new flags),
+`research/verification/venue-gameinfo-2026-11-18.{md,csv}`, `tools/capture_workflow_repro.py`, `README.md` count,
+this log. **Not touched:** the capture pipeline (`tools/capture_official.py`, `.github/workflows/capture.yml`,
+`tests/test_capture_official.py` — T41/T50), the escrow work, the matchup matrix (T45), the Houston layer (T47),
+`tools/personnel_ablation.py` / `tools/open_questions.py` (another session's, merged while this was open).
+
+### 1. Venue: the requirement now covers all 13 fixtures, and nothing needed changing
+`data/venues-wk11-2026.csv` transcribes the **Game Info** block of each official game-centre page, which is the field
+that names a fixture's venue. Only 11 of the 13 Week 11 fixtures had been read. All 13 were read on 2026-11-18:
+**13 of 13 agree with the committed file on both the `LOCATION` and the `STADIUM` string — 0 disagreements.** The
+dataset was not edited. F-60's apparent contradiction is real but harmless: the schedule page's **hotel/ticket deep
+links** carry the venues' current commercial names (NRG Stadium, GEHA Field at Arrowhead) while the game centre prints
+RELIANT STADIUM and ARROWHEAD STADIUM. Two fields on two official pages, both published side by side, neither renamed
+by inference. **Reconciled with T49** (`arena/cc97fdb0-x4`, PR #93), which independently read the same two fixtures the
+same day and reached the same values — so the venue reading is a two-source agreement, and both records are kept.
+Record: `research/verification/venue-gameinfo-2026-11-18.{md,csv}` (13 rows, exact published string beside exact
+committed string, per-fixture link). Residual published as a **rule**, not a gap: a venue name is not a join key, so a
+roof/surface/altitude feature must key on a stable venue id.
+
+### 2. Two pages described themselves wrongly, and both were fixed at the generator
+* **F-71** — `readiness.html` printed eight gates from `data/ops/gates.csv` and then, six lines below, a "what would
+  change our mind: keep" table whose three observed cells were **typed into `tools/desk_extension.py`**:
+  `n = 12`, `p = 0.0918`, `largest week 90 percent`, against the gate table's `n = 24`, `p = 0.1028 (z = -1.63)`,
+  `largest week = 58%`. All six were pre-refresh values from before the Week 10 completion (105 → 118 games). The keep
+  table now reads the committed gate file and the ledger's own `n`, so the two tables cannot disagree again.
+  **No published measurement moved** — the gates were already correct; only the duplicate copy of them was wrong.
+* **F-72** — `teams.html` said "No second dated snapshot exists, so no delta is published (gate S4)" while two dated
+  captures (2026-11-14, 345 rows; 2026-11-15, 347 rows) and the published delta on `delta.html` both existed. Fixed.
+* `luck.html` also gained a one-line note that the graded log still carries the F-49 grader defect, so its ROI is not
+  shown unqualified.
+
+### 3. F-73 — the venue requirement's own count
+The venue requirement was verified for 11 of 13 fixtures while the F-60 question was open. It is now 13 of 13, each
+with its own source link, and F-73 records the closure so the count is not taken from a paragraph.
+
+### 4. A regression test that earned its place the same day
+`tools/capture_workflow_repro.py` runs the capture workflow's control flow with every fetch mocked (**no network, no
+NFL bytes**). Written while the pipeline was broken, it reproduced the defect exactly: with all 32 sources returning
+200 and passing their schemas, `fetch` still exited 2, because Houston's image-only chart (empty URL, flag F-24) was
+counted as a failure — so the workflow's commit step never ran and no capture was ever stored. **T50
+(`arena/cc97fdb0-x4`, PR #98) rebuilt that pipeline the same day.** On the merged tree the script reports fetch 0,
+verify 0 and freshness 0, and it correctly flipped to `BEHAVIOUR CHANGED` before I updated it — which is how I caught
+that my finding had already been fixed. It is kept as the guard on that repair: five checks, all passing.
+
+### Verification performed
+* `python3 tools/validate.py` → **VALIDATION PASSED**: 3,345 rendered data rows, **every one carrying an
+  official-domain source link**; root and `docs/` mirrors byte-identical; determinism green; console gate PASS.
+  (The gate refused an uncommitted regeneration first — "a publication gate run must never mutate a dataset silently"
+  — which is correct behaviour and was honoured by committing the regenerated outputs deliberately.)
+* `python3 tools/capture_workflow_repro.py` → 5/5 checks pass.
+* `python3 tools/test_origination.py` → pass.
+* Rendered-page check of every fix: `site/readiness.html` prints `n = 24; 24 graded bets in the ledger`,
+  `p = 0.1028 (z = -1.63)` and `largest week = 58% of total` in **both** tables; `site/teams.html` carries the corrected
+  note; `site/flags.html` carries F-71/F-72/F-73.
+
+### Flag numbering and merge history (recorded, not hidden)
+`main` moved six times while this PR was open (PRs #90, #93, #97, #98, #99, #101, #102), and the flags had to be
+renumbered **three times** as IDs were taken: this session's three new flags are finally **F-71, F-72 and F-73**.
+Separately, `main` arrived carrying **two different F-66 entries and two different F-67 entries from two sessions**
+(the "stale numbers in prose" / "Bonferroni sign test" pair, and the "price-snapshot opening" / "raw captures in a
+public repo" pair). The later pair was renumbered **F-74 / F-75** here so the register has 75 unique IDs and no
+duplicates; **no other session's text was edited or dropped**, only its ID, and the change is mechanical. This is the
+fifth and sixth ID collision on this board. The manual claim-then-recheck convention keeps catching them, but each one
+costs a rebase; a CI check that fails on a duplicate flag ID would be cheaper and is worth adding.
+
+### Sources (official, read 2026-11-18 UTC via the page-fetch tool)
+All 13 Week 11 game centres (one URL per row in the CSV) · https://www.nfl.com/schedules/2026/by-week/week-11 ·
+https://www.nfl.com/injuries/league/2026/reg10 · https://www.nfl.com/injuries/
+
+### Delivered
+PR [#92](https://github.com/karagemop466-tech/X4/pull/92) — `arena/5534e2ba-x4` → `main`.
