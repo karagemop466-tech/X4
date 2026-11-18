@@ -232,9 +232,12 @@ def readiness_page():
                  src(NFL_WEEK10_INJURY, "NFL.com injury report")])
     rows.append([esc("S5"), esc("Depth charts for all 32 clubs"),
                  esc("A structured official chart for every club"),
-                 esc("31 of 32 clubs have a chart in data; Houston is an image, not transcribed"),
-                 badge("fail", "bad"), badge("blocks team trust", "bad"),
-                 src("https://www.nfl.com/injuries/league/2026/reg10", "NFL.com injury report")])
+                 esc("31 of 32 clubs have a chart in data; Houston is an image, not transcribed. "
+                     "Starter/playing-time axis resolved for Houston from the official Game Book "
+                     "(houston-depth.html); the ordinal 2nd/3rd/4th-string chain stays blank (F-24)"),
+                 badge("fail", "bad"), badge("blocks team trust (ordinal chain)", "bad"),
+                 "%s %s" % (src("https://www.nfl.com/injuries/league/2026/reg10", "NFL.com injury report"),
+                            src("houston-depth.html", "Houston resolution"))])
     readiness = table(
         [("Gate", 0), ("Requirement", 0), ("Rule", 0), ("Observed", 0), ("Status", 0),
          ("Effect", 0), ("Source", 0)], rows,

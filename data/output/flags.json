@@ -270,7 +270,7 @@
   "kind": "no",
   "status": "unverified",
   "detail": "houstontexans.com/team/depth-chart renders its chart as a single bitmap image with no table markup and no ordered text, so no Houston depth position can be transcribed from it. Houston is the only club of the 32 with no rows on the Depth & deficiency page.",
-  "why": "The five Houston players the official NFL injury report rules Out or Doubtful for Week 10 (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) therefore have no published depth position on this site. Reading a rank off a picture would be an eyeball inference, so those cells are blank and the five names are listed as unmatched instead.",
+  "why": "The five Houston players the official NFL injury report rules Out or Doubtful for Week 10 (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) therefore have no published depth position on this site. Reading a rank off a picture would be an eyeball inference, so those cells are blank and the five names are listed as unmatched instead. T47 (2026-11-18) resolved the starter axis from an authorized source: the official NFL Game Book for Houston's Week 10 game at Cleveland yields actual starters and per-player snap counts, published as derived playing-time depth indices on houston-depth.html (raw Game Book rows stored privately under data/ops/raw/ per the T38 reuse gate). The ordinal 2nd/3rd/4th-string chain remains unavailable from any authorized structured source and stays blank.",
   "official_url": "https://www.houstontexans.com/team/depth-chart",
   "url": "https://www.houstontexans.com/team/depth-chart"
  },
