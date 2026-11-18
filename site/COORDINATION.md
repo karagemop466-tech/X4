@@ -2128,6 +2128,11 @@ PR [#88](https://github.com/karagemop466-tech/X4/pull/88) (the suggestions secti
 `desk` and merged; Pages rebuilt (`built`) after each. The venue-reference request below stays open and is logged
 as a Request, not an edit, because `data/venues-wk11-2026.csv` is another session's scope.
 
+### Request (do not edit; other session's scope)
+| Target | Owner / scope | Request | Why |
+|---|---|---|---|
+| `data/venues-wk11-2026.csv` | T38 venue work (`arena/31354751-x4` created the file; nobody holds an open claim on it today) | Re-read the **Game Info** block of https://www.nfl.com/games/colts-at-texans-2026-reg-11 and https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11 and update the two stadium names if the official page disagrees with the committed values ("RELIANT STADIUM" vs "NRG Stadium"; "ARROWHEAD STADIUM" vs "GEHA Field at Arrowhead Stadium") | F-60 is open. T46 flagged the difference instead of renaming it, because an unverified rename is worse than a recorded difference. The venue dataset is not in T46's declared file scope. |
+
 ### Irregularities (published, none blocking)
 F-58 and F-59 are resolved by this session. F-60 (venue naming for Houston and Kansas City) and F-61 (no official
 Week 11 report yet) stay open and are on the Flagged-for-Review path with their sources. Not touched: the capture
