@@ -8,10 +8,10 @@ Official scores: every game's `official_url` is an NFL.com game-center page (for
 
 | Basis | Settled bets (n, non-push) | Won | Lost | Push | Units at stake 1 | ROI |
 |---|---|---|---|---|---|---|
-| As recorded in `graded.csv` | 12 | 8 | 4 | 0 | +2.082 | +17.351% |
-| Re-settled here (spread-aware) | 12 | 9 | 3 | 0 | +4.035 | +33.621% |
+| As recorded in `graded.csv` | 24 | 21 | 3 | 0 | +15.414 | +64.224% |
+| Re-settled here (spread-aware) | 24 | 21 | 3 | 0 | +15.414 | +64.224% |
 
-Bets whose recorded outcome changes on re-settlement: **1 of 12**.
+Bets whose recorded outcome changes on re-settlement: **0 of 24**.
 
 | Event | Week | Fixture | Score | Market | Bet | Close line | Price | Recorded | Re-settled | Official |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -21,12 +21,24 @@ Bets whose recorded outcome changes on re-settlement: **1 of 12**.
 | 401873038 | 9 | CIN at ATL | CIN 34 - ATL 17 | side | away | -3 | -120 | won | won | [NFL.com](https://www.nfl.com/games/bengals-at-falcons-2026-reg-9) |
 | 401873038 | 9 | CIN at ATL | CIN 34 - ATL 17 | total | under | 52.5 | -115 | won | won | [NFL.com](https://www.nfl.com/games/bengals-at-falcons-2026-reg-9) |
 | 401873038 | 9 | CIN at ATL | CIN 34 - ATL 17 | moneyline | away | - | -180 | won | won | [NFL.com](https://www.nfl.com/games/bengals-at-falcons-2026-reg-9) |
-| 401873039 | 9 | CLE at NO | CLE 22 - NO 23 | side | away | 4.5 | -105 | lost | won | [NFL.com](https://www.nfl.com/games/browns-at-saints-2026-reg-9) |
+| 401873039 | 9 | CLE at NO | CLE 22 - NO 23 | side | away | 4.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/browns-at-saints-2026-reg-9) |
 | 401873039 | 9 | CLE at NO | CLE 22 - NO 23 | total | over | 43.5 | -110 | won | won | [NFL.com](https://www.nfl.com/games/browns-at-saints-2026-reg-9) |
 | 401873039 | 9 | CLE at NO | CLE 22 - NO 23 | moneyline | away | - | +190 | lost | lost | [NFL.com](https://www.nfl.com/games/browns-at-saints-2026-reg-9) |
 | 401873052 | 10 | WAS at NYG | WAS 24 - NYG 21 | side | home | -1.5 | -110 | lost | lost | [NFL.com](https://www.nfl.com/games/commanders-at-giants-2026-reg-10) |
 | 401873052 | 10 | WAS at NYG | WAS 24 - NYG 21 | total | over | 40.5 | -112 | won | won | [NFL.com](https://www.nfl.com/games/commanders-at-giants-2026-reg-10) |
 | 401873052 | 10 | WAS at NYG | WAS 24 - NYG 21 | moneyline | home | - | -125 | lost | lost | [NFL.com](https://www.nfl.com/games/commanders-at-giants-2026-reg-10) |
+| 401873053 | 10 | NE at DET | NE 10 - DET 35 | side | home | -2.5 | -118 | won | won | [NFL.com](https://www.nfl.com/games/patriots-at-lions-2026-reg-10) |
+| 401873053 | 10 | NE at DET | NE 10 - DET 35 | total | under | 49.5 | -108 | won | won | [NFL.com](https://www.nfl.com/games/patriots-at-lions-2026-reg-10) |
+| 401873053 | 10 | NE at DET | NE 10 - DET 35 | moneyline | home | - | -148 | won | won | [NFL.com](https://www.nfl.com/games/patriots-at-lions-2026-reg-10) |
+| 401873054 | 10 | BUF at NYJ | BUF 31 - NYJ 12 | side | away | -8.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/bills-at-jets-2026-reg-10) |
+| 401873054 | 10 | BUF at NYJ | BUF 31 - NYJ 12 | total | under | 50.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/bills-at-jets-2026-reg-10) |
+| 401873054 | 10 | BUF at NYJ | BUF 31 - NYJ 12 | moneyline | away | - | -425 | won | won | [NFL.com](https://www.nfl.com/games/bills-at-jets-2026-reg-10) |
+| 401873055 | 10 | CAR at NO | CAR 20 - NO 17 | side | away | 2.5 | -115 | won | won | [NFL.com](https://www.nfl.com/games/panthers-at-saints-2026-reg-10) |
+| 401873055 | 10 | CAR at NO | CAR 20 - NO 17 | total | under | 48.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/panthers-at-saints-2026-reg-10) |
+| 401873055 | 10 | CAR at NO | CAR 20 - NO 17 | moneyline | away | - | +114 | won | won | [NFL.com](https://www.nfl.com/games/panthers-at-saints-2026-reg-10) |
+| 401873056 | 10 | HOU at CLE | HOU 24 - CLE 27 | side | home | 4.5 | -105 | won | won | [NFL.com](https://www.nfl.com/games/texans-at-browns-2026-reg-10) |
+| 401873056 | 10 | HOU at CLE | HOU 24 - CLE 27 | total | over | 40.5 | -108 | won | won | [NFL.com](https://www.nfl.com/games/texans-at-browns-2026-reg-10) |
+| 401873056 | 10 | HOU at CLE | HOU 24 - CLE 27 | moneyline | home | - | +195 | won | won | [NFL.com](https://www.nfl.com/games/texans-at-browns-2026-reg-10) |
 
 ## Official score check
 
