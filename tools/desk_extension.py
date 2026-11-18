@@ -185,7 +185,8 @@ def luck_page():
         "<section><div class=\"section-head\"><div><span class=\"eyebrow\">Removal of luck</span>"
         "<h2>Could our staking record have appeared by chance?</h2>"
         "<p class=\"muted\">Controls, a game-cluster interval and the settlement check. "
-        "Sample: %d bets, %d games, weeks 9 and 10 only.</p></div></div>"
+        "Sample: %d bets, %d games, weeks 9 and 10 only (grader defect F-49: the graded "
+        "log still applies side bets to the straight-up winner).</p></div></div>"
         "<div class=\"card\">%s</div></section>"
         "<section><div class=\"card\"><span class=\"eyebrow\">Controls</span>%s</div></section>"
         "<section><div class=\"card\"><span class=\"eyebrow\">Gate G2 by market</span>%s</div></section>"
@@ -244,10 +245,22 @@ def readiness_page():
         "Blocking items must clear before any settlement, ROI or strategy claim is published. "
         "Gates are read from data/ops/gates.csv unchanged. Rows S1 to S5 are added by this extension.")
 
+    # T48 / F-68: these three "observed" cells used to be typed in. They contradicted
+    # the gate table directly above them, which reads the same three measurements from
+    # data/ops/gates.csv (n = 12 vs n = 24, p = 0.0918 vs p = 0.1028, 90 percent vs 58
+    # percent). A page that disagrees with itself is a verification failure, so each
+    # value below is now read from the committed gate file, and n from the same ledger
+    # the gate table uses. Nothing is typed in; a missing gate prints blank.
+    gate_obs = {g["gate"]: g["observed"] for g in gates}
+
+    def _obs(gate_id, fallback):
+        return gate_obs.get(gate_id, "").strip() or fallback
+
     keep = [
-        ["G2 sample", "at least 100 settled bets per market type", "n = 12 in total"],
-        ["G5 significance", "one-sided p below 0.05 on the skill score", "p = 0.0918"],
-        ["G7 stability", "no single week above 50 percent of the skill statistic", "largest week 90 percent"],
+        ["G2 sample", "at least 100 settled bets per market type",
+         "%s; %d graded bets in the ledger" % (_obs("G2", "not recorded"), z["n_bets"])],
+        ["G5 significance", "one-sided p below 0.05 on the skill score", _obs("G5", "not recorded")],
+        ["G7 stability", "no single week above 50 percent of the skill statistic", _obs("G7", "not recorded")],
     ]
     dem_rows = []
     for d in dem:
@@ -303,8 +316,9 @@ def teams_page():
          ("Depth starters listed Out or Doubtful", 0), ("Depth-2 replacement named", 0),
          ("Official Out, not in depth file", 0), ("Depth chart", 0), ("Injury report", 0)],
         rows,
-        "Injury counts are the Week-10 official report as a LEVEL, not a change. No second "
-        "dated snapshot exists, so no delta is published (gate S4). Starters are depth-1 rows "
+        "Injury counts are the Week-10 official report as a LEVEL, not a change. A second "
+        "dated snapshot does exist, and the published delta between the two is on "
+        "delta.html (gate S4); this table is still a level, not that delta. Starters are depth-1 rows "
         "of the Week-11 depth file whose status came from the Week-10 report. A blank in "
         "'depth chart' means the club chart is not in structured form and is not transcribed. "
         "Houston has no chart rows; its five Out players cannot be joined and are listed as "

@@ -253,7 +253,7 @@ FLAGS = [
          official_url="https://www.nfl.com/standings/",
          url="https://github.com/karagemop466-tech/X4/blob/main/tools/build.py"),
 
-    dict(id="F-71", item="Stale numbers survive in generated prose because prose is not on the gate",
+    dict(id="F-66", item="Stale numbers survive in generated prose because prose is not on the gate",
          type="Irregularity", kind="warn", status="open",
          detail=("A line-by-line read on 2026-11-18 found numeric claims that described a corpus that no "
                  "longer exists, in places the publication gate does not read: tools/workbench.json "
@@ -274,7 +274,7 @@ FLAGS = [
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"),
 
-    dict(id="F-72", item="Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided",
+    dict(id="F-67", item="Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided",
          type="Method", kind="warn", status="open",
          detail=("tools/sign_test.py, added 2026-11-18, recomputes the paired sign test on the current corpus "
                  "(n = 118 evaluated games) instead of quoting a superseded 105-game figure. At n = 118 the result "
@@ -823,12 +823,13 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://github.com/karagemop466-tech/X4/blob/main/site/check.py"),
 
-    dict(id="F-60", item="Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)", type="Irregularity", kind="warn", status="irregularity",
+    dict(id="F-60", item="Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) - resolved: both spellings are official and both are published", type="Irregularity", kind="warn", status="resolved",
          detail=("The committed venue set (data/venues-wk11-2026.csv) says RELIANT STADIUM for Colts at Texans and ARROWHEAD STADIUM for Cardinals at Chiefs. The official Week 11 schedule page names NRG Stadium and "
                  "'GEHA Field at Arrowhead Stadium' in its ticket and hotel links for the same two fixtures. Both are in-use names for the same buildings, so this is a naming question, not a venue error."),
-         why=("The requirement is that the venue of every fixture be transcribed from the official game centre. That transcription has not been re-done for these two clubs, and the official game-centre page itself "
-              "was not read for the stadium block this session. Not edited: an unverified rename is worse than a recorded difference. Clears when the Game Info block of both official game pages is read and the "
-              "dataset is updated with that reading."),
+         why=("The Game Info block of both official game pages has now been read (T48, 2026-11-18): Colts at Texans prints RELIANT STADIUM and Cardinals at Chiefs prints ARROWHEAD STADIUM, exactly as committed, "
+              "and the same reading was made independently by T49 the same day. Both spellings are therefore official and both are published: the game-centre field is what this dataset transcribes, and the "
+              "schedule page's hotel/ticket deep links carry the venues' current commercial names. Renaming by inference stays forbidden, so the dataset is unchanged. Record: "
+              "research/verification/venue-gameinfo-2026-11-18.{md,csv}. The residual is a modelling rule, not a data gap: a venue name is not a join key, so any roof/surface/altitude feature must key on a stable venue id."),
          official_url="https://www.nfl.com/games/colts-at-texans-2026-reg-11",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"),
 
@@ -899,7 +900,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/actions/runs/44175196682"),
 
-    dict(id="F-66", item="The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it", type="Irregularity", kind="bad", status="open",
+    dict(id="F-74", item="The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it", type="Irregularity", kind="bad", status="open",
          detail=("tools/build.py rewrites data/price-snapshots.csv on every build from the current game log (the Week 11 lines block), and stamps each row 'captured_at: 2026-11-14 (build)'. "
                  "The file's own comment says the opening fair line is the first published model line, but nothing pins it. Found line by line during the 2026-11-18 T49 sweep while assessing a corpus ingest; "
                  "the defect then materialized for real: the Week 10 ingest (F-58) rebuilt the file and 25 of the 39 opening rows changed value while still carrying the '2026-11-14 (build)' stamp, "
@@ -909,7 +910,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "and a regression test fails the build if a rebuild changes an existing opening row. The first-published Week 11 lines should then be restored from git history as the dated record."),
          official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"),
-    dict(id="F-67", item="Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data", type="Limitation", kind="warn", status="open",
+    dict(id="F-75", item="Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data", type="Limitation", kind="warn", status="open",
          detail=("The capture pipeline (tools/capture_official.py, .github/workflows/capture.yml) stores raw injury-report and club depth-page bytes under data/captures/ in this repository. "
                  "GitHub reports the repository public, so those raw pages are public repository content, while the brief's data-layer split requires raw row-level data to sit in a private store until the terms are read. "
                  "The published site is not affected: the Pages artifact is site/ only and never serves data/. Raised as a privacy request by the capture-hardening session (arena/7db594d1-x4) and surfaced here for the owner's decision."),
@@ -919,6 +920,44 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"),
 
+    dict(id="F-71", item="The decision-readiness 'what would change our mind' table published hard-coded numbers that contradicted the gate table directly above it", type="Irregularity", kind="bad", status="resolved",
+         detail=("readiness.html prints the eight gates from data/ops/gates.csv and then, immediately below, a keep table whose three 'observed now' cells were typed into "
+                 "tools/desk_extension.py: n = 12 in total, p = 0.0918, largest week 90 percent. The gate table on the same page reads n = 24, p = 0.1028 (z = -1.63) and "
+                 "largest week = 58% from the committed file. All six figures were pre-refresh values carried over from before the Week 10 completion took the sample from "
+                 "105 to 118 games; the n = 12 is older still, from the four-game luck sample. A reader was shown two different answers to the same question, six lines apart, "
+                 "with the un-updated number in the table that is supposed to state the keep condition."),
+         why=("This is the failure the brief's own rule targets: a value that cannot be traced to a committed source is exactly the value that goes stale. The gate table is "
+              "built from the file; the keep table was typed, so nothing regenerated it. FIXED 2026-11-18 in tools/desk_extension.py::readiness_page(): all three cells are now "
+              "read from data/ops/gates.csv, and the n from the same ledger the gate table uses, so the two tables cannot disagree again. No published measurement moved: the "
+              "gates were already correct, only the duplicate copy of them was wrong."),
+         official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/tools/desk_extension.py"),
+
+    dict(id="F-72", item="The teams page called the Week 10 injury report a level with 'no second dated snapshot', while the second capture and its published delta exist", type="Irregularity", kind="warn", status="resolved",
+         detail=("The teams.html table note read 'Injury counts are the Week-10 official report as a LEVEL, not a change. No second dated snapshot exists, so no delta is "
+                 "published (gate S4)'. Two dated official captures of the same Week 10 report exist (2026-11-14, 345 rows; 2026-11-15, 347 rows), tools/injury_delta.py "
+                 "publishes the cell-level diff between them, delta.html carries it, and readiness.html's own S4 row records the same two snapshots. The note was written "
+                 "before the second capture and was never regenerated."),
+         why=("The statement is the kind that quietly excuses a missing feature, and it was contradicted by two other pages of the same site. FIXED 2026-11-18: the note now "
+              "says a second snapshot exists and points at the published delta, while still stating correctly that this particular table is a level and not that delta."),
+         official_url="https://www.nfl.com/injuries/league/2026/reg10",
+         url="https://github.com/karagemop466-tech/X4/blob/main/tools/injury_delta.py"),
+
+    dict(id="F-73", item="The venue requirement was verified for 11 of 13 Week 11 fixtures; the other two carried an open naming question (F-60)", type="Irregularity", kind="warn", status="resolved",
+         detail=("data/venues-wk11-2026.csv transcribes the Game Info block of each official game-centre page - the field that names a fixture's venue - but it had only "
+                 "been read for 11 of the 13 Week 11 fixtures. The two named in F-60 (Colts at Texans, Cardinals at Chiefs) still carried a 2026-11-15 stamp and an open "
+                 "question about the schedule page's different spelling. Read 2026-11-18: all 13 fixtures were re-read from their own game-centre Game Info block, and 13 of "
+                 "13 agree with the committed file on both the city and the stadium string - 0 disagreements. The two F-60 fixtures print RELIANT STADIUM and ARROWHEAD "
+                 "STADIUM, exactly as committed, so the schedule page's NRG Stadium and GEHA Field at Arrowhead are a second, official spelling in a different field "
+                 "(the hotel/ticket deep link), not a contradiction of the venue field."),
+         why=("The requirement is that every fixture's venue be transcribed from the official game centre. It now has been, for all 13, and the dataset was not edited "
+              "because there was nothing to change - renaming by inference stays forbidden. An independent session (T49, arena/cc97fdb0-x4) re-read the same two fixtures "
+              "the same day and reached the same values, so this is a two-source agreement. Both spellings are published side by side in "
+              "research/verification/venue-gameinfo-2026-11-18.{md,csv}. The residual is a modelling rule, not a data gap: a venue name is not a join key, because two "
+              "official pages spell the same building differently, so any roof/surface/altitude feature must key on a stable venue id. The Mexico City fixture's blank "
+              "'state' cell is a faithful transcription - that page publishes no US state - and is named here rather than filled with a guess."),
+         official_url="https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/venue-gameinfo-2026-11-18.md"),
 ]
 
 # ------------------------------------------------------------------ verification log
