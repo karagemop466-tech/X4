@@ -52,4 +52,4 @@ def side():
             '<div class="side-label">WORKSPACE</div><nav>' +
             "".join('<a href="%s">%s</a>' % (h, l) for h, l in NAV) +
             '</nav><div class="side-bottom"><span class="pulse"></span> Research mode '
-            '<small>Snapshot 2026-11-14 \u00b7 no live feed</small></div></aside>')
+            '<small>Snapshot 2026-11-18 \u00b7 no live feed</small></div></aside>')
