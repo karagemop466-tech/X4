@@ -200,6 +200,40 @@ SUGGESTION_FRAMEWORK = [
 
 # ------------------------------------------------------------------ flagged register
 FLAGS = [
+    dict(id="F-69", item="The Game Center injury widget says a club is injury-free while the official report lists that club's injuries",
+         type="Irregularity", kind="bad", status="open",
+         detail=("On 2026-11-18 the official Game Center for Cardinals at Chiefs (Week 11) rendered the panel "
+                 "\"Cardinals have no active injuries at this time\" and \"Chiefs have no active injuries at this "
+                 "time\". The official Week 10 report at nfl.com/injuries/league/2026/reg10 lists ARI with 15 rows "
+                 "and 3 Out designations, and KC with 13 rows and 3 Out designations, three days earlier. The panel "
+                 "is therefore not a substitute for the report, and the two official league surfaces disagree for "
+                 "the same clubs. Note the likely explanation, published as a hypothesis and not as a finding: the "
+                 "widget appears to read the week that has not been played yet (Week 11 has no published report, "
+                 "F-61) rather than the week just completed, so it renders an empty set as 'no active injuries'."),
+         why=("This is the failure mode the brief names most often - an absence of data presented as a clean bill of "
+              "health. Any model or page that read this panel would understate a club's missing players for exactly "
+              "the clubs that are most injured, and it would do so silently, with an official URL beside it. The "
+              "site's policy already forbids treating 'not listed' as 'available' (see the reserve-list flag), and "
+              "this is the same rule applied to a second official surface."),
+         official_url="https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
+         url="https://www.nfl.com/injuries/league/2026/reg10"),
+
+    dict(id="F-70", item="Two Week 11 venue cells are stale against the game centre the dataset names as their own source",
+         type="Unverified data", kind="warn", status="open",
+         detail=("data/venues-wk11-2026.csv carries stadium=RELIANT STADIUM for IND at HOU and stadium=ARROWHEAD "
+                 "STADIUM for ARI at KC, with venue_source = 'NFL.com game centre, Game Info block' on both rows. "
+                 "Both game centres were re-read on 2026-11-18 and both still print those exact strings: the Colts at "
+                 "Texans Game Info block reads StadiumSTADIUMRELIANT STADIUM, and the Cardinals at Chiefs block reads "
+                 "StadiumSTADIUMARROWHEAD STADIUM."),
+         why=("F-60 framed this as a mismatch between the dataset and the official page. Re-reading both pages shows "
+              "the dataset is a faithful transcription of its stated source and the mismatch claim was wrong: the "
+              "short names are what the official page prints. The cell is still not the venue's present corporate "
+              "name, but correcting it would introduce a value no cited source supports, which the publication "
+              "policy forbids. The row stays as transcribed, and the difference is recorded here with both links so "
+              "the reader can see both surfaces. F-60 remains the pointer; this entry is the verification result."),
+         official_url="https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"),
+
     dict(id="F-68", item="The multiplicity correction divided by 8 while performing 9 tests",
          type="Irregularity", kind="warn", status="resolved",
          detail=("tools/build.py computed the Bonferroni threshold as alpha / (n_tests - 1), i.e. 0.05 / 8 = "

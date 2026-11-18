@@ -58,6 +58,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 
 | ID | Irregularity |
 |---|---|
+| F-69 | The Game Center injury widget says a club is injury-free while the official report lists that club's injuries |
+| F-70 | Two Week 11 venue cells are stale against the game centre the dataset names as their own source |
 | F-68 | The multiplicity correction divided by 8 while performing 9 tests |
 | F-66 | Stale numbers survive in generated prose because prose is not on the gate |
 | F-67 | Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided |
