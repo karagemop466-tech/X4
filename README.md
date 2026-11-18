@@ -10,7 +10,7 @@ questions to suggestions.
 
 | Path | What it holds |
 |---|---|
-| `data/` | The verified source data: 137 official games (the registered corpus; the 13 remaining Week 10 games are verified and staged under F-58), the official standings for all 32 teams, the official Week 10 injury report, the official Week 11 schedule, and league-confirmed starter changes |
+| `data/` | The verified source data: 150 official games through a complete Week 10, the official standings for all 32 teams, the official Week 10 injury report, the official Week 11 schedule, and league-confirmed starter changes |
 | `research/data/injury-report-delta-wk10.csv` | The first published **what-changed delta**: every cell that moved between the 2026-11-14 and 2026-11-15 official captures of the same Week 10 report (2 players added, 32 cells changed on 16 players) |
 | `data/output/` | Machine-readable copies of every number the site publishes (`payload.json`, `payload.js` and one file per table), regenerated on each build |
 | `research/` | The written findings: model lines, correlations and luck control, strategy validation, injuries and depth, depth-chart acquisition, data verification, and the sources register |
@@ -28,9 +28,10 @@ it answers, so nothing has to be guessed at.
 | Category | Pages |
 |---|---|
 | Overview & decisions | `executive-summary.html` · `questions.html` (decision checklist) · `decisions.html` (30-question Q&A) · `requirements.html` (40-item inventory) |
-| Verified data | `standings.html` (32 clubs, 137 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (347 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) · `replacements.html` (desk: the replacement chains, side by side) · `markets.html` (the price-snapshot store) · `results.html` (the verified results feed) |
+| Verified data | `standings.html` (32 clubs, 150 games) · `data.html` (desk: 32 + 14 + 13 + 57 rows) · `availability.html` (347 injury rows) · `depth.html` (1,558 depth positions from 31 official club charts, joined to the injury report) · `houston-depth.html` (Houston: no structured chart, so starter/playing-time depth derived from the official Game Book; F-24) · `injuries.html` (desk: 22 player rows + the deficiency pipeline) · `replacements.html` (desk: the replacement chains, side by side) · `markets.html` (the price-snapshot store) · `results.html` (the verified results feed) |
+
 | Model & strategies | `lines.html` (13 Week-11 model lines, fair / market / difference as three columns) · `market.html` (the captured-price archive: 29 games, 87 price rows, skill and staking boards) · `price-snapshots.html` · `strategies.html` (leaderboard, 7 gates, correlation matrix) · `gates.html` (signal vs staking, the demotion gate) · `signals.html` (desk: 13 lines, 10 signals, 8 gates, 4 correlations) · `leaderboard.html` (singles / parlays / props) · `origination.html` + `price-store.html` + `signal-vs-staking.html` + `correlations.html` + `method-lab.html` (the origination layer) |
-| Review & flags | `suggestions.html` (8 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `workbench.html` (12 proposals on one documented rubric, ranked) · `programme.html` (the eight integrity gates) · `flags.html` (main register, 60 entries; F-43 to F-57 added 2026-11-17, F-58 to F-60 added 2026-11-18) · `flagged.html` (desk register, 13 blanks + 14 irregularities) · `ops-review.html` · `verification.html` · `requirements-closure.html` (ten of twelve requirements closed) · `delta.html` (the injury report as a delta between dated captures) |
+| Review & flags | `suggestions.html` (8 proposals) · `review.html` (desk: 18 proposals with Accept / Hold / Reject) · `workbench.html` (12 proposals on one documented rubric, ranked) · `programme.html` (the eight integrity gates) · `flags.html` (main register, 61 entries; F-43 to F-57 added 2026-11-17, F-58 to F-61 added 2026-11-18) · `flagged.html` (desk register, 13 blanks + 14 irregularities) · `ops-review.html` · `verification.html` · `requirements-closure.html` (ten of twelve requirements closed) · `delta.html` (the injury report as a delta between dated captures) |
 | Method & sources | `methodology.html` · `sources.html` (the source register) · `repo-review.html` (line-by-line repository review) |
 | Second build | The **X4 Console** at `/console/` - 15 pages, built independently, reaching the same two structural conclusions |
 
@@ -135,11 +136,14 @@ build step and no server.
 
 The game log was reconstructed and then **proved** against the official NFL.com standings:
 all 32 teams match on wins, losses, ties, points for, points allowed and net points,
-which also proves every individual score. Nine strategies were then scored on 105
-out-of-sample games under a walk-forward protocol with no look-ahead. The best strategy
-beats a league-constant benchmark by about eight percent on point-spread error, and it is
-well calibrated - but its Bonferroni-adjusted bootstrap interval still contains zero, so
-**no strategy passes every validation gate and none is eligible for reward**. The
+which also proves every individual score. Week 10 was then completed from the official
+Week 10 schedule page on 2026-11-18 (all 14 finals; the log went from 137 to 150 games and
+the standings were rebuilt from the proved log, with all 130 changed cells audited). Nine
+strategies were then scored on **118** out-of-sample games under a walk-forward protocol
+with no look-ahead. The best strategy beats a league-constant benchmark by 9.5% on
+point-spread error, and it is well calibrated - but its Bonferroni-adjusted bootstrap
+interval still reaches zero (lower bound -0.0001 points), so **no strategy passes every
+validation gate and none is eligible for reward**. The
 correlation matrix shows that four of the nine strategies (S3, S4, S6 and S7, minimum
 pairwise prediction correlation 0.94) are effectively one signal, so they cannot be
 counted as four independent pieces of evidence. Model lines for all 13 official
@@ -181,7 +185,10 @@ consolidated depth chart and `nfl.com/teams/<club>/depth-chart` 404s, but **each
 its own chart on its own official website as a table whose column position is the depth
 position**. 31 of the 32 clubs publish a machine-readable ordered chart; all 1,558 positions are
 transcribed with a link to the page each came from, and joined by name to the official NFL.com
-Week 10 injury report.
+Week 10 injury report. The exception is Houston, which publishes its chart only as an image
+(no authorized structured chart exists). For Houston the starter axis is resolved from an
+authorized source instead — the official NFL Game Book (actual starters + per-player snap
+counts), published as derived playing-time depth indices on `houston-depth.html` (flag F-24).
 
 | Measure | Week 10 |
 |---|---|
@@ -379,7 +386,7 @@ them mirrored. No existing `site/` file was modified.
 |---|---|
 | `executive-summary.html` | Decision-maker summary: verified state, top decisions, findings, blanks |
 | `requirements.html` | All 40 brief requirements mapped to deliverables, status and verification |
-| `data.html` | Standings (32), Week 10 slate, Week 11 schedule **with the market snapshot**, 57 results - every row linked |
+| `data.html` | Standings (32), Week 10 schedule, Week 11 schedule **with the market snapshot**, 150 results - every row linked |
 | `signals.html` | 13 originated baseline lines vs market, 10 candidate signals, 8 validation gates, **4 correlation values with 95% CIs**, skill-vs-luck protocol |
 | `leaderboard.html` | Singles/parlays/props divisions, scoring formula, anti-gaming rules, reward phases (amounts blank + flagged) |
 | `injuries.html` | 21 official player-linked injury rows + the starter-to-2nd/3rd/4th-string deficiency specification (offense and defense) |

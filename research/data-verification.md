@@ -106,7 +106,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-46 | Re-confirmed on 2026-11-17: the Texans depth chart is an image only, labelled 'Unofficial Depth Chart', so no structured source exists for the Texans row |
 | F-47 | No immutable multi-day availability capture history exists on this branch: data/captures/ is absent, and the capture workflow runs from the default branch |
 | F-48 | The official-capture workflow has failed on all four of its runs on main, so no capture has been stored |
-| F-49 | Side bets were settled on the straight-up winner, not on the spread: one recorded result was wrong (Week 9, CLE +4.5). Fixed on main |
+| F-49 | Side bets were settled on the straight-up winner, not on the spread: one recorded result is wrong (Week 9, CLE +4.5) |
 | F-50 | An earlier count of six graded mismatches was wrong: the independent re-check reproduces one |
 | F-51 | Official Week 10 'Out' players missing from their club's depth file (I-3): the same players as F-25, re-read where stated |
 | F-52 | The depth file dates five club charts, not one: an earlier note said only the Packers' (I-5) |
@@ -115,9 +115,10 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
 | F-56 | Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit) |
 | F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
-| F-58 | Week 10 results after the registration snapshot are verified and staged, not in the corpus: corpus expansion is a registered follow-up (T46 sweep) |
-| F-59 | The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned |
-| F-60 | Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data |
+| F-58 | The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46) |
+| F-59 | The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46) |
+| F-60 | Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) |
+| F-61 | The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55) |
 
 ## What is deliberately absent
 

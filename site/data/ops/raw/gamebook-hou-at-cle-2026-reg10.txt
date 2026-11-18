@@ -1,0 +1,108 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829724/gamecenter/ab583279-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/texans-at-browns-2026-reg-10
+Game       : Houston Texans at Cleveland Browns, 2026 REG 10, Sunday 11/15/2026,
+              Huntington Bank Field, Cleveland, OH. Final HOU 24 - CLE 27.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed in full).
+Copyright  : "NFL Copyright (c) 2026 by The National Football League. All rights
+              reserved. This summary and play-by-play is for the express purpose of
+              assisting media in their coverage of the game; any other use of this
+              material is prohibited without the written permission of the National
+              Football League."  -> stored privately; only DERIVED indices are published.
+
+The sections below are transcribed VERBATIM from the PDF for the Houston Texans
+(the visiting club). Cleveland sections and the play-by-play are omitted from this
+Houston-scoped capture; the full PDF is linked above for manual review.
+
+---- Lineups (actual starters) -------------------------------------------------
+Houston Texans
+  Offense
+    WR  12  N.Collins
+    LT  79  A.Ersery
+    LG  64  F.Nwaiwu
+    C   63  E.Brown
+    RG  69  E.Ingram
+    RT  77  T.Brown
+    TE  86  D.Schultz
+    WR  14  K.Boutte
+    WR  19  X.Hutchinson
+    QB   7  C.Stroud
+    RB   4  W.Marks
+  Defense
+    DE  90  J.Clowney
+    DT  72  T.Togiai
+    DT  98  S.Rankins
+    DE  51  W.Anderson
+    CB  24  D.Stingley
+    CB   3  K.Lassiter
+    LB  35  J.Hansen
+    LB  39  H.To'oTo'o
+    S    2  C.Bullock
+    S    5  J.Pitre
+    S   29  M.Stewart
+
+---- Substitutions (entered the game) ----------------------------------------
+Houston Texans
+  WR 1 T.Dell, S 6 R.Blankenship, TE 8 C.Stover, CB 11 T.Smith, K 15 K.Fairbairn,
+  S 20 J.Ingram, RB 21 E.Demercado, RB 23 D.Ogunbowale, S 27 K.Ramsey, LB 30 W.Woodaz,
+  LB 33 J.Hummel, P 38 K.Kroeger, LS 40 A.Brinkman, LB 49 C.Muma, T 57 B.Fisher,
+  C 60 J.Andrews, T 78 N.Thomas, TE 83 M.Klein, TE 87 F.Moreau, WR 88 N.Remigio,
+  DT 91 N.Jones, DT 93 K.McDonald, DE 94 D.Robinson, DT 96 L.Hall
+
+---- Did Not Play -------------------------------------------------------------
+Houston Texans
+  QB 10 D.Mills, T 71 B.Smith
+
+---- Not Active (official inactive list) -------------------------------------
+Houston Texans
+  LB 0 A.Al-Shaair, TE 9 B.Jordan, WR 18 M.Harrison, RB 32 D.Montgomery,
+  DE 55 D.Hunter, C/G 66 K.Rutledge, G 75 W.Teller
+
+---- Playtime Percentage (per-player snaps / %) ------------------------------
+Houston Texans   (Offense | Defense | Special Teams)
+  A.Ersery     T   67 100%  |   | 4 12%
+  E.Ingram     G   67 100%  |   | 4 12%
+  F.Nwaiwu     G   67 100%  |   | 4 12%
+  T.Brown      T   67 100%  |   | 4 12%
+  E.Brown      C/G 67 100%  |   |
+  C.Stroud     QB  67 100%  |   |
+  N.Collins    WR  57 85%   |   |
+  X.Hutchinson WR  51 76%   |   |
+  K.Boutte     WR  47 70%   |   |
+  D.Schultz    TE  44 66%   |   |
+  T.Dell       WR  33 49%   |   |
+  W.Marks      RB  30 45%   |   |
+  F.Moreau     TE  22 33%   |   | 14 42%
+  E.Demercado  RB  22 33%   |   |
+  D.Ogunbowale RB  15 22%   |   | 14 42%
+  M.Klein      TE  8 12%    |   | 9
+  B.Fisher     T   6 9%     |   | 4 12%
+  H.To'oTo'o   LB   | 68 100% | 6 18%
+  D.Stingley   CB   | 68 100% | 3 9%
+  K.Lassiter   CB   | 68 100% | 3 9%
+  J.Pitre      S    | 68 100% |
+  C.Bullock    S    | 68 100% |
+  J.Hansen     LB   | 66 97%  | 9 27%
+  M.Stewart    S    | 65 96%  | 8 24%
+  W.Anderson   DE   | 54 79%  | 8 24%
+  J.Clowney    DE   | 52 76%  | 2 6%
+  S.Rankins    DT   | 45 66%  | 2 6%
+  T.Togiai     DT   | 44 65%  | 2 6%
+  L.Hall       DT   | 28 41%  | 6 18%
+  D.Robinson   DE   | 22 32%  | 22 67%
+  N.Jones      DT   | 15 22%  | 6 18%
+  K.McDonald   DT   | 14 21%  | 6 18%
+  R.Blankenship S   | 2 3%   | 12 36%
+  J.Ingram     S    | 1 1%   | 23 70%
+  T.Smith      CB   |   | 29 88%
+  W.Woodaz     LB   |   | 29 88%
+  J.Hummel     LB   |   | 21 64%
+  K.Ramsey     S    |   | 20 61%
+  C.Muma       LB   |   | 20 61%
+  C.Stover     TE   |   | 19 58%
+  A.Brinkman   LS   |   | 11 33%
+  N.Remigio    WR   |   | 11 33%
+  K.Kroeger    P    |   | 11 33%
+  K.Fairbairn  K    |   | 9 27%
+  N.Thomas     T    |   | 4 12%
+  J.Andrews    C    | 4 12%  |   |

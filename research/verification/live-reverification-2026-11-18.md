@@ -122,3 +122,34 @@ never a silent append). Both paths tested.
   are read; surfaced for the owner's decision (the Pages artifact publishes only
   `site/`, never `data/`).
 - **F-55** — re-checked 2026-11-18: unchanged (Week 11 report not served).
+
+---
+
+## Integration addendum (2026-11-18, after merging `origin/main`)
+
+While this report was being written, the parallel session `arena/bca9fb72-x4` (its own
+T46 claim, PRs #84/#85/#87/#88) completed the same Week 10 slate from the same official
+schedule page and **ingested the 13 finals into the corpus** (150 games), with its own
+audit trail (`research/verification/standings-refresh-2026-11-18.csv`, 130 changed
+cells) and flags F-58 to F-61. Its F-58 records the effect on the published evaluation
+numbers (105 → 118 out-of-sample games). Nothing above is retracted: the staged file
+and its 0-mismatch arithmetic proof remain an **independent verification of the same
+13 finals**, and §2's policy reasoning records why this session did not ingest inside
+the registration window.
+
+Consequences for the register (see the T49 board row):
+
+- This session's staged-results flag is **not** registered — superseded by their F-58.
+- The §2/F-59 snapshot-pinning finding is registered as **F-62**, now with a confirmed
+  incident: the ingest rebuilt `data/price-snapshots.csv` and **25 of 39 opening rows
+  changed value while still stamped `2026-11-14 (build)`** — the first-published
+  Week 11 model lines were silently overwritten, exactly the failure the finding
+  predicted. The pre-ingest values are recoverable from git history and should be
+  restored as the dated record once the store is append-only.
+- The privacy request is registered as **F-63** (their F-60 is the venue-naming flag).
+- A duplicated F-58..F-61 block inside the VERIFICATION list in `tools/content.py`
+  (present on main, found line by line) is removed in this pass.
+
+Counts in §1 ("26 of 32 teams") and §2 ("13 games") describe the state at the time of
+the read (03:05–04:00 UTC), before the parallel ingest; they match the parallel
+session's independent findings.

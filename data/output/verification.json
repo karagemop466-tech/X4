@@ -3,7 +3,13 @@
   "check": "Reconstructed game log matches the official NFL.com standings",
   "result": "pass",
   "url": "https://www.nfl.com/standings/",
-  "how": "tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 137 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."
+  "how": "tools/verify.py rebuilds wins, losses, ties, points for, points allowed, net points and winning percentage for all 32 teams from 150 games and compares them to the official NFL.com standings totals. Every value matched exactly, which also proves every individual score."
+ },
+ {
+  "check": "Week 10 completed slate matches the official Week 10 schedule page (T46, 2026-11-18)",
+  "result": "pass",
+  "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "how": "All 14 Week 10 finals were read off the official page and compared with the game log; 13 were missing and were transcribed. tools/reverify_2026_11_18.py then required the completed log to reproduce the independently transcribed official standings for all 32 clubs before writing the refreshed file: 486 checks, 0 failures. The 130 standings cells that moved are audited in research/verification/standings-refresh-2026-11-18.csv."
  },
  {
   "check": "Every game row carries a working official NFL.com game URL",

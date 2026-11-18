@@ -59,7 +59,7 @@ ORIGINATION_ORDER = [
     ("side", "Spread / side", 1,
      "Originated first: the spread is the market with the deepest public data "
      "(every final score), the smallest variance per game, and the only market "
-     "whose error this desk can measure against 105 out-of-sample games. It is "
+     "whose error this desk can measure against 118 out-of-sample games. It is "
      "the market a team-form model is best equipped to price."),
     ("total", "Total (over/under)", 2,
      "Originated second: the total depends on pace and on both scoring rates, "
