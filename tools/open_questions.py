@@ -123,9 +123,9 @@ def register(c):
         ("OQ-02", "Has any price been taken at the moment a stake would be placed?",
          "%d archived price rows across %d games; %d carry a closing number; the CLV ledger "
          "has %d rows." % (c["price_rows"], c["price_games"], c["price_close"], c["clv_rows"]),
-         "A stake-time capture. Every price on the site was read after the fact, so CLV "
-         "cannot be computed for any bet, and the ledger is empty by design rather than by "
-         "omission.",
+         "A stake-time capture. The archive records a closing number, not a price taken at "
+         "the moment a stake would have been placed, so CLV cannot be computed for any bet "
+         "and the ledger is empty by design rather than by omission.",
          "G7 (closing-line value) and demotion rules D1/D5",
          "%d CLV ledger row with a stake-time price and a matching close"
          % max(c["clv_rows"] + 1, 1),
@@ -168,8 +168,8 @@ def register(c):
         ("OQ-07", "Can results, ratings and ROI be computed on the full season?",
          "%d games in the log across %d weeks; the results feed holds %d rows and reconciles "
          "to the official standings." % (c["games"], c["weeks"], c["feed_rows"]),
-         "Weeks 11-18, and enough settled bets to satisfy the sample gate. %d bets are graded "
-         "%d so far." % (c["graded"], c["graded"]),
+         "%d paper bets are graded so far (nine strategies x one settled game); Weeks 11-18 "
+         "plus enough further settled bets to satisfy the sample gate." % c["graded"],
          "G2 (sample sufficiency, n >= 100)",
          "100 settled bets per market type, settled against the verified feed",
          REPO + "data/results-feed.csv", "results feed"),
