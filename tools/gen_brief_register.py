@@ -167,6 +167,17 @@ n_quest = sum(1 for r in inj if r["game_status"] == "Questionable")
 n_blank = sum(1 for r in inj if not r["game_status"])
 n_clubs = len({r["team"] for r in inj})
 
+# ------------------------------------------------- depth slot fidelity (measured)
+depth_rows = read(os.path.join(DATA, "depth-wk11-2026.csv"))
+from collections import defaultdict as _dd
+_cols = _dd(list)
+for _r in depth_rows:
+    _cols[(_r["team"], _r["unit"], _r["position_row"])].append(int(_r["depth"]))
+_solo = sum(1 for v in _cols.values() if len(v) == 1)
+_shared_cells = sum(1 for v in _cols.values() if len(v) > 1)
+_clean = sum(1 for v in _cols.values() if sorted(v) == list(range(1, len(v) + 1)))
+_dense = "".join("1" if _r["depth"] != "" else "0" for _r in depth_rows)
+
 # ---------------------------------------------------------------- coverage table
 covered = ["Q01-Q05", "Q06-Q14", "Q15-Q17", "Q18-Q30", "Q31-Q40"]
 req_rows = [
@@ -189,9 +200,19 @@ req_rows = [
     ["Make injury ablations instead of fixed points penalties",
      "blocked", "needs several seasons of verified availability joined to results; one week of availability exists",
      link("https://www.nfl.com/injuries/", "Official injury report"), "Decision readiness G2"],
+    ["Represent shared and empty depth slots faithfully",
+     "defect found", "%d transcribed rows across %d club/unit/position columns; <b>%d columns hold a single "
+                     "player and %d cells hold more than one</b>, so every co-starter a club prints becomes a "
+                     "starter plus a backup. %d of %d columns are a clean 1..n list, which is the signature of "
+                     "the collapse. A second, separate defect: 10 of 21 spot-checked players on the live "
+                     "Washington chart are absent from the dataset entirely"
+                     % (len(depth_rows), len(_cols), _solo, _shared_cells, _clean, len(_cols)),
+     link("https://www.commanders.com/team/depth-chart", "Live WAS chart"),
+     link("https://karagemop466-tech.github.io/X4/research/verification/depth-slot-fidelity-2026-11-18.md",
+          "Full measurement")],
     ["Model depth from playing time, not jersey order",
-     "partial", "1,558 depth positions are transcribed from the clubs' own charts (a real published rank); "
-                "no official snap count exists in the repository, so playing time cannot yet be measured",
+     "blocked", "no official snap count exists in the repository, so playing time cannot be measured; the "
+                "depth dataset it would replace carries the fidelity defect above",
      link(SITE_URL + "depth.html", "Depth &amp; deficiency"), "Flag F-05"],
 ]
 
@@ -228,8 +249,9 @@ body.append('<article class="card hero-stat"><span class="k">Standings fields re
 body.append('<article class="card hero-stat"><span class="k">Week 11 fixtures with context</span>'
             '<div class="v">%d</div><div class="n">Date, kickoff, network and venue, each from the official schedule</div></article>'
             % len(ctx_rows))
-body.append('<article class="card hero-stat"><span class="k">Availability requirements blocked</span>'
-            '<div class="v">4</div><div class="n">Named missing inputs, listed below with no invented number</div></article>')
+body.append('<article class="card hero-stat"><span class="k">Depth columns holding one player</span>'
+            '<div class="v">%d of %d</div><div class="n">A shared rank-1 cell cannot be expressed; see the '
+            'fidelity finding below</div></article>' % (_solo, len(_cols)))
 body.append('</div>')
 
 # ---- R1 corpus
@@ -320,6 +342,14 @@ irr_rows = [
      "raising <code>ValueError</code> outside the caught exceptions &mdash; raised as a flag, not fixed here",
      link("https://github.com/karagemop466-tech/X4/actions/runs/44175196682", "Failing run log"),
      pill("flagged", "warn")],
+    ["I-E", "The depth dataset collapses shared rank-1 cells and has lost players",
+     "%d rows, %d columns, %d single-player columns, %d shared cells &mdash; every co-starter a club prints is "
+     "stored as a starter plus a backup. Live spot check: Cooper Kupp and Rashid Shaheed share the Seahawks' "
+     "rank-1 WR cell on the official chart but are stored at depth 1 and 2; 10 of 21 Washington players on the "
+     "live chart are absent from the dataset"
+     % (len(depth_rows), len(_cols), _solo, _shared_cells),
+     link("https://www.seahawks.com/team/depth-chart", "Live SEA chart"),
+     pill("defect, flagged", "bad")],
     ["I-D", "No Week 11 weekly injury report exists to join to the Week 11 fixtures",
      "The Week 11 report address serves the Week 10 report (verified 2026-11-18), so the fixture-context table "
      "carries no status column rather than a stale one. Practice participation for Week 11 <i>is</i> published, "
