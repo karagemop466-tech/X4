@@ -42,6 +42,9 @@ STEPS = [
     ("build the suggestion workbench page", [PY, os.path.join(ROOT, "tools", "gen_workbench.py")]),
     ("build the desk data tables", [PY, os.path.join(ROOT, "tools", "gen_data_html.py")]),
     ("build the desk signals tables", [PY, os.path.join(ROOT, "tools", "gen_strategies_html.py")]),
+    ("build the brief register page", [PY, os.path.join(ROOT, "tools", "gen_brief_register.py")]),
+    ("build the desk executive summary", [PY, os.path.join(ROOT, "tools", "gen_exec_summary_desk.py")]),
+    ("build the console executive summary", [PY, os.path.join(ROOT, "tools", "gen_exec_summary.py")]),
     ("originate the markets and the price store", [PY, os.path.join(ROOT, "tools", "fetch.py"), "plan"]),
     ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),
     ("build the official depth charts", [PY, os.path.join(ROOT, "tools", "depth.py")]),
@@ -49,6 +52,8 @@ STEPS = [
     ("originate lines and grade them", [PY, os.path.join(ROOT, "tools", "origination.py")]),
     ("build the replacement-depth ledger", [PY, os.path.join(ROOT, "tools", "depth_ledger.py")]),
     ("build the origination pages", [PY, os.path.join(ROOT, "tools", "ops.py")]),
+    ("self-test the two-stage escrow (T48)", [PY, os.path.join(ROOT, "tools", "test_escrow.py")]),
+    ("build the two-stage escrow page (T48)", [PY, os.path.join(ROOT, "tools", "gen_escrow.py")]),
     ("write the research findings", [PY, os.path.join(ROOT, "tools", "research.py")]),
     ("sync root copies", [PY, os.path.join(ROOT, "tools", "sync.py")]),
     ("check site", [PY, os.path.join(ROOT, "site", "check.py")]),
@@ -81,7 +86,9 @@ def main():
                 "data/market-snapshots-2026.csv",
                 "site/programme.html", "programme.html", "site/workbench.html", "workbench.html",
                 "research/data/integrity_summary.json",
-                "site/data.html", "data.html", "site/signals.html", "signals.html"):
+                "site/data.html", "data.html", "site/signals.html", "signals.html",
+                "site/brief-register.html", "brief-register.html",
+                "site/executive-summary.html", "executive-summary.html"):
         path = os.path.join(ROOT, rel)
         if os.path.exists(path):
             before[rel] = open(path, "rb").read()
