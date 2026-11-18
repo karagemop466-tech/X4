@@ -58,6 +58,11 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 
 | ID | Irregularity |
 |---|---|
+| F-69 | The Game Center injury widget says a club is injury-free while the official report lists that club's injuries |
+| F-70 | Two Week 11 venue cells are stale against the game centre the dataset names as their own source |
+| F-68 | The multiplicity correction divided by 8 while performing 9 tests |
+| F-66 | Stale numbers survive in generated prose because prose is not on the gate |
+| F-67 | Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided |
 | F-01 | Official market betting lines |
 | F-02 | Depth-chart string: starter, 2nd, 3rd, 4th |
 | F-03 | Players on injured reserve, PUP and NFI |
@@ -106,7 +111,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-46 | Re-confirmed on 2026-11-17: the Texans depth chart is an image only, labelled 'Unofficial Depth Chart', so no structured source exists for the Texans row |
 | F-47 | No immutable multi-day availability capture history exists on this branch: data/captures/ is absent, and the capture workflow runs from the default branch |
 | F-48 | The official-capture workflow has failed on all four of its runs on main, so no capture has been stored |
-| F-49 | Side bets were settled on the straight-up winner, not on the spread: one recorded result is wrong (Week 9, CLE +4.5) |
+| F-49 | Side bets were settled on the straight-up winner, not on the spread: one recorded result was wrong (Week 9, CLE +4.5). Fixed on main |
 | F-50 | An earlier count of six graded mismatches was wrong: the independent re-check reproduces one |
 | F-51 | Official Week 10 'Out' players missing from their club's depth file (I-3): the same players as F-25, re-read where stated |
 | F-52 | The depth file dates five club charts, not one: an earlier note said only the Packers' (I-5) |
@@ -117,14 +122,19 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
 | F-58 | The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46) |
 | F-59 | The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46) |
-| F-60 | Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) |
+| F-60 | Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) - resolved: both spellings are official and both are published |
 | F-61 | The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55) |
 | F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 |
 | F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist |
 | F-64 | The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent |
 | F-65 | Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError |
-| F-66 | The game log and the standings snapshot are a self-verification pair: tools/verify.py cannot detect them going stale together (T46 structural finding, arena/2d57231a-x4) |
-| F-67 | The post-corpus-completion strategy result is post-hoc and its significance verdict is not order-robust; G8 keeps every strategy ineligible until the Week-11 forward window is graded (T46, arena/2d57231a-x4) |
+| F-74 | The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it |
+| F-75 | Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data |
+| F-71 | The decision-readiness 'what would change our mind' table published hard-coded numbers that contradicted the gate table directly above it |
+| F-72 | The teams page called the Week 10 injury report a level with 'no second dated snapshot', while the second capture and its published delta exist |
+| F-73 | The venue requirement was verified for 11 of 13 Week 11 fixtures; the other two carried an open naming question (F-60) |
+| F-76 | The game log and the standings snapshot are a self-verification pair: tools/verify.py cannot detect them going stale together (T46 structural finding, arena/2d57231a-x4) |
+| F-77 | The post-corpus-completion strategy result is post-hoc and its significance verdict is not order-robust; G8 keeps every strategy ineligible until the Week-11 forward window is graded (T46, arena/2d57231a-x4) |
 
 ## What is deliberately absent
 

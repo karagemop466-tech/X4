@@ -25,6 +25,7 @@ const PAGES = [
   ["luck.html", "luck"], ["readiness.html", "readiness"], ["teams.html", "teams"],
   ["delta.html", "delta"], ["matchup.html", "matchup"],
   ["houston-depth.html", "houston-depth"],
+  ["personnel-ablation.html", "personnel-ablation"],
   ["questions.html", "questions"], ["suggestions.html", "suggestions"],
   ["flags.html", "flags"], ["methodology.html", "methodology"],
   ["markets.html", "markets"], ["results.html", "results"], ["gates.html", "gates"],

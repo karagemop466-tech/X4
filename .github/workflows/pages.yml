@@ -70,10 +70,16 @@ jobs:
           # "Only in .: .retrieval / .scratch" (run 43635100704), a latent
           # failure that was masked until the float-drift repair above made
           # the reproducibility step pass.
+          # Follow-up to PR #98 (2026-11-18, arena/cc97fdb0-x4): PR #98 added a root-only
+          # tests/ directory (unit tests, not site content). Like data/, tools/ and
+          # research/ it is repository content, so it is excluded from the mirror
+          # check. Without this exclude run 44233046041 failed with "Only in .: tests"
+          # and skipped the deploy job.
           diff -rq --exclude=check.py --exclude=site --exclude=console --exclude=docs \
             --exclude=data --exclude=tools --exclude=research --exclude=.git \
             --exclude=.github --exclude=README.md --exclude=COORDINATION.md \
             --exclude=.gitignore --exclude=.retrieval --exclude=.scratch \
+            --exclude=tests \
             site .
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

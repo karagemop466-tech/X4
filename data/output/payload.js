@@ -33,7 +33,7 @@ window.X4 = {
    3,
    10
   ],
-  "bonferroni_alpha": 0.00625
+  "bonferroni_alpha": 0.005555556
  },
  "standings": [
   {
@@ -3790,8 +3790,8 @@ window.X4 = {
    },
    "improvement_abs": 0.994023336,
    "improvement_pct": 0.094863923,
-   "ci_low": -7.044e-05,
-   "ci_high": 1.940098656,
+   "ci_low": -0.013856739,
+   "ci_high": 1.965711661,
    "weekly_positive_share": 0.75,
    "calibration_max_gap": 0.071305083,
    "gates": {
@@ -3809,7 +3809,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.000, 1.940]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.014, 1.966]."
     },
     "G5 stability": {
      "pass_": true,
@@ -3859,8 +3859,8 @@ window.X4 = {
    },
    "improvement_abs": 0.886163831,
    "improvement_pct": 0.084570426,
-   "ci_low": -0.165198941,
-   "ci_high": 1.901979635,
+   "ci_low": -0.172696418,
+   "ci_high": 1.905017188,
    "weekly_positive_share": 0.75,
    "calibration_max_gap": 0.062263399,
    "gates": {
@@ -3878,7 +3878,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.165, 1.902]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.173, 1.905]."
     },
     "G5 stability": {
      "pass_": true,
@@ -3928,8 +3928,8 @@ window.X4 = {
    },
    "improvement_abs": 0.907156936,
    "improvement_pct": 0.086573888,
-   "ci_low": -0.248444945,
-   "ci_high": 2.069250928,
+   "ci_low": -0.267086747,
+   "ci_high": 2.084844511,
    "weekly_positive_share": 0.75,
    "calibration_max_gap": 0.089079818,
    "gates": {
@@ -3947,7 +3947,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.248, 2.069]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.267, 2.085]."
     },
     "G5 stability": {
      "pass_": true,
@@ -3997,8 +3997,8 @@ window.X4 = {
    },
    "improvement_abs": 0.691811721,
    "improvement_pct": 0.066022568,
-   "ci_low": -0.064487915,
-   "ci_high": 1.447851823,
+   "ci_low": -0.077161018,
+   "ci_high": 1.454310479,
    "weekly_positive_share": 0.75,
    "calibration_max_gap": 0.064711458,
    "gates": {
@@ -4016,7 +4016,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.064, 1.448]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.077, 1.454]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4066,8 +4066,8 @@ window.X4 = {
    },
    "improvement_abs": 0.375541216,
    "improvement_pct": 0.035839514,
-   "ci_low": -0.299026256,
-   "ci_high": 1.0649872,
+   "ci_low": -0.318285511,
+   "ci_high": 1.073775776,
    "weekly_positive_share": 0.625,
    "calibration_max_gap": 0.061293502,
    "gates": {
@@ -4085,7 +4085,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.299, 1.065]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.318, 1.074]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4135,8 +4135,8 @@ window.X4 = {
    },
    "improvement_abs": 0.306376984,
    "improvement_pct": 0.029238873,
-   "ci_low": -0.344718565,
-   "ci_high": 0.953704635,
+   "ci_low": -0.352844709,
+   "ci_high": 0.964935956,
    "weekly_positive_share": 0.625,
    "calibration_max_gap": 0.069925483,
    "gates": {
@@ -4154,7 +4154,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.345, 0.954]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.353, 0.965]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4203,8 +4203,8 @@ window.X4 = {
    },
    "improvement_abs": 0.21192891,
    "improvement_pct": 0.020225287,
-   "ci_low": -0.451020184,
-   "ci_high": 0.869679156,
+   "ci_low": -0.466429572,
+   "ci_high": 0.881262144,
    "weekly_positive_share": 0.625,
    "calibration_max_gap": 0.070873473,
    "gates": {
@@ -4222,7 +4222,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.451, 0.870]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.466, 0.881]."
     },
     "G5 stability": {
      "pass_": true,
@@ -4272,8 +4272,8 @@ window.X4 = {
    },
    "improvement_abs": 0.036473494,
    "improvement_pct": 0.003480822,
-   "ci_low": -0.633805916,
-   "ci_high": 0.686885679,
+   "ci_low": -0.650604364,
+   "ci_high": 0.702124089,
    "weekly_positive_share": 0.625,
    "calibration_max_gap": 0.070705469,
    "gates": {
@@ -4291,7 +4291,7 @@ window.X4 = {
     },
     "G4 significance": {
      "pass_": false,
-     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.634, 0.687]."
+     "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.651, 0.702]."
     },
     "G5 stability": {
      "pass_": true,
@@ -13459,6 +13459,61 @@ window.X4 = {
  ],
  "flags": [
   {
+   "id": "F-69",
+   "item": "The Game Center injury widget says a club is injury-free while the official report lists that club's injuries",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "On 2026-11-18 the official Game Center for Cardinals at Chiefs (Week 11) rendered the panel \"Cardinals have no active injuries at this time\" and \"Chiefs have no active injuries at this time\". The official Week 10 report at nfl.com/injuries/league/2026/reg10 lists ARI with 15 rows and 3 Out designations, and KC with 13 rows and 3 Out designations, three days earlier. The panel is therefore not a substitute for the report, and the two official league surfaces disagree for the same clubs. Note the likely explanation, published as a hypothesis and not as a finding: the widget appears to read the week that has not been played yet (Week 11 has no published report, F-61) rather than the week just completed, so it renders an empty set as 'no active injuries'.",
+   "why": "This is the failure mode the brief names most often - an absence of data presented as a clean bill of health. Any model or page that read this panel would understate a club's missing players for exactly the clubs that are most injured, and it would do so silently, with an official URL beside it. The site's policy already forbids treating 'not listed' as 'available' (see the reserve-list flag), and this is the same rule applied to a second official surface.",
+   "official_url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
+   "url": "https://www.nfl.com/injuries/league/2026/reg10"
+  },
+  {
+   "id": "F-70",
+   "item": "Two Week 11 venue cells are stale against the game centre the dataset names as their own source",
+   "type": "Unverified data",
+   "kind": "warn",
+   "status": "open",
+   "detail": "data/venues-wk11-2026.csv carries stadium=RELIANT STADIUM for IND at HOU and stadium=ARROWHEAD STADIUM for ARI at KC, with venue_source = 'NFL.com game centre, Game Info block' on both rows. Both game centres were re-read on 2026-11-18 and both still print those exact strings: the Colts at Texans Game Info block reads StadiumSTADIUMRELIANT STADIUM, and the Cardinals at Chiefs block reads StadiumSTADIUMARROWHEAD STADIUM.",
+   "why": "F-60 framed this as a mismatch between the dataset and the official page. Re-reading both pages shows the dataset is a faithful transcription of its stated source and the mismatch claim was wrong: the short names are what the official page prints. The cell is still not the venue's present corporate name, but correcting it would introduce a value no cited source supports, which the publication policy forbids. The row stays as transcribed, and the difference is recorded here with both links so the reader can see both surfaces. F-60 remains the pointer; this entry is the verification result.",
+   "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"
+  },
+  {
+   "id": "F-68",
+   "item": "The multiplicity correction divided by 8 while performing 9 tests",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "tools/build.py computed the Bonferroni threshold as alpha / (n_tests - 1), i.e. 0.05 / 8 = 0.00625, on the assumption that the benchmark S0 was excluded. It is not: the bootstrap loop runs over every key in STRATEGIES, S0 included, so nine intervals are computed and nine comparisons are made against one threshold. The gate's own published definition is \"Bonferroni-adjusted p < 0.05 across all trials\", and the review page's S-15 text already described the denominator as 0.05 / 8 strategies for nine strategies - that is, the site published a rule it did not apply. Corrected in T48 to alpha / n_tests = 0.00556.",
+   "why": "A multiplicity correction that is one test too lenient is exactly the failure the correction exists to prevent: it makes each of the nine results look more significant than the family of nine tests permits. The correction was material: at 0.00625 two strategies (S1 at p = 0.00630 was not one of them, but the threshold decided S2 and S5's status at the margin) sat closer to the line than they do at 0.00556. After the correction S1 (p = 0.00030) and S8 (p = 0.00206) still clear, so no published conclusion flips - but the rule now matches its own definition, and that is the point.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/build.py"
+  },
+  {
+   "id": "F-66",
+   "item": "Stale numbers survive in generated prose because prose is not on the gate",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "open",
+   "detail": "A line-by-line read on 2026-11-18 found numeric claims that described a corpus that no longer exists, in places the publication gate does not read: tools/workbench.json (\"results_2026.csv: 137 games\" and \"1,224\" settled bets) rendered onto workbench.html; tools/build_integrity.py's docstring (\"verified results feed (137 games)\"); research/decision-register.md and research/integrity-gates.md (\"137 games\", one of which also said \"Weeks 1-10\" while holding 137 of the 150 games in that range); and research/price-store.md (\"68 of 105 games (64.8%), exact binomial p = 0.0016\", a sign-test result on a superseded corpus, now 78 of 118 at p = 0.00030). Every one of these was correct when written and became wrong when the Week 10 finals were ingested. The pattern, not any single number, is the finding: a count typed into prose or into a checker is a future false statement, and F-59 was the same defect one level up.",
+   "why": "The site's central claim is that every published number is reproducible from the committed data. A stale number in a JSON evidence string or a research note defeats that claim just as surely as a stale number in a table, and it is harder to notice because no checker reads prose. The workbench example is the worst of them: it told a reviewer the results feed covers 137 games while the feed on the same site held 150.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"
+  },
+  {
+   "id": "F-67",
+   "item": "Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided",
+   "type": "Method",
+   "kind": "warn",
+   "status": "open",
+   "detail": "tools/sign_test.py, added 2026-11-18, recomputes the paired sign test on the current corpus (n = 118 evaluated games) instead of quoting a superseded 105-game figure. At n = 118 the result has changed shape, not just size: S1 beats the league-constant benchmark in 78 of 118 games (66.1%, exact one-sided p = 0.00030) and S8 in 75 of 118 (63.6%, p = 0.00206). Against the Bonferroni threshold of 0.05 / 9 = 0.00556 (corrected in T48: the gate had divided by 8 while performing 9 tests), BOTH clear, where the previously published figure named only S1. Meanwhile the mean-error bootstrap gate G4 still fails for every strategy, with its lower bound touching zero. The two statistics are computed from the same predictions and both are correct.",
+   "why": "This is question S-15 on the review page, and it is now materially larger than when it was opened: it is no longer 'one strategy passes one test', it is 'two strategies pass one test while all nine fail the other'. Choosing the primary metric now, after seeing which one passes and by how much, is the exact failure pre-registration exists to prevent. The honest action is to publish both, promote nothing, and require the owner to fix the primary metric in writing before the next evaluation window opens - which is what the site does.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/output/sign_test.json"
+  },
+  {
    "id": "F-01",
    "item": "Official market betting lines",
    "type": "Unverified data",
@@ -13988,14 +14043,14 @@ window.X4 = {
   },
   {
    "id": "F-49",
-   "item": "Side bets were settled on the straight-up winner, not on the spread: one recorded result is wrong (Week 9, CLE +4.5)",
+   "item": "Side bets were settled on the straight-up winner, not on the spread: one recorded result was wrong (Week 9, CLE +4.5). Fixed on main",
    "type": "Irregularity",
-   "kind": "bad",
-   "status": "open",
-   "detail": "tools/origination.py (lines 575-578) settles a side bet by comparing the straight-up margin with the pick, not with the selected team's closing line. Week 9, Browns at Saints (ESPN event 401873039; official NFL.com final: CLE 22 - NO 23, overtime): the recorded Browns +4.5 side bet at -105 is graded lost. Against its own closing line it covers (margin -1, plus 4.5, equals +3.5) and is won. Across the 12 graded bets the recorded record is 8-4, +2.082 units, +17.351% ROI; re-settled it is 9-3, +4.035 units, +33.621% ROI. Only one of the 12 outcomes changes. The corrected figure is on luck.html. signal-vs-staking.html still shows the uncorrected 2.082 units and 17.351% ROI per bet, with no note that a settlement error changes it.",
-   "why": "This is a settlement error, not a change of rule, so it is corrected rather than argued. The recorded graded file is not edited, so the original record stays auditable. n = 12 bets over four games: neither ROI is evidence of skill, and a cluster interval would span zero. Requested for the integration owner: label the uncorrected figure as superseded on signal-vs-staking.html, or re-grade and republish with a dated note. Not changed in this session, because the graded file and the page generator belong to the origination build. Reproducible: tools/settlement_recheck.py re-settles all 12 bets from the committed files, without reusing luck.py.",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "Before the fix, tools/origination.py (lines 575-578 of the base commit fb8a6cb) settled a side bet by comparing the straight-up margin with the pick, not with the selected team's closing line. Week 9, Browns at Saints (ESPN event 401873039; official NFL.com final CLE 22 - NO 23, overtime): the recorded Browns +4.5 side bet at -105 was graded lost. Against its own closing line it covers (margin -1, plus 4.5, equals +3.5) and is won. Across the 12 graded bets the record was 8-4, +2.082 units, +17.351% ROI before the fix; re-settled it is 9-3, +4.035 units, +33.621% ROI. Only one outcome changed. The historical re-settlement comparison remains archived at research/verification/settlement-recheck-2026-11-17.md. The closing price came from ESPN-published DraftKings odds, a third-party price source, not an official NFL line.",
+   "why": "Fixed on main in commit 915bf42 (branch arena/2b9267f0-x4, board row T42, PR #63): settlement now grades the home margin plus the home handicap, with an exact tie as a push. The recorded row was corrected by that fix. The pre-fix file remains in git history at commit fb8a6cb. Re-checked on 2026-11-17 by tools/settlement_recheck.py: the current graded.csv gives 0 changed outcomes and reproduces 9-3, +4.0345 units, +33.621% ROI, which matches data/output/luck.json. The fixing session's own flag, numbered F-43 on its branch, did not reach main because F-43 was already taken by PR #60; this entry carries its content. Regression coverage is in tools/test_origination.py (three tests) and runs in tools/validate.py; the signal statistic remains -3.566 points (p=0.0918), only 2/8 gates pass, and no strategy is eligible. Caveat that still stands: prices are one book's (ESPN-published DraftKings), and n = 12 over four games, so the ROI is not evidence of skill.",
    "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"
+   "url": "https://github.com/karagemop466-tech/X4/pull/63"
   },
   {
    "id": "F-50",
@@ -14059,7 +14114,7 @@ window.X4 = {
    "kind": "warn",
    "status": "limitation",
    "detail": "On 2026-11-17, https://www.nfl.com/injuries/league/2026/reg11 returned the Week 10 report, titled 'Official NFL Injury Report for Players - Week 10 of the 2026 Season', and its address resolved to /reg10. No Week 11 designation exists in any official source read, so none is published. The silent fall-back is the same pattern as F-09 for the schedule links.",
-   "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash.",
+   "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash. Re-checked 2026-11-18 03:55 UTC (T46 sweep): the reg11 address still serves the Week 10 report (title 'Week 10 of the 2026 Season', resolves to /reg10); state unchanged.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
   },
@@ -14070,7 +14125,7 @@ window.X4 = {
    "kind": "warn",
    "status": "irregularity",
    "detail": "The T40 audit (research/audits/capture-workflow-health-2026-11-17.md) confirmed two code-path risks that survive even after the failing runs recorded in F-47 and F-48 are fixed. (1) A partial success is lost: tools/capture_official.py fetch --kind all can store one source's capture and write its manifest line before exiting non-zero on another source, and the workflow's later verify/freshness/commit steps have no if: always() condition, so the partial capture dies with the runner. (2) Freshness is global: freshness() takes the newest fetched_utc over every manifest entry and does not require schema_ok or a stored file per source, so one fresh error entry could make the whole store look current. The run-log download returned EOF for two independent sessions (arena/bdf71572-x4 and arena/550d7436-x4), so the fetch failure's cause stays unknown and is not guessed at here.",
-   "why": "These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs.",
+   "why": "These are design findings, not a diagnosis of the current failures. They matter because fixing only the fetch error would still leave a store that can lose good data silently. Clears when: a scheduled run stores a capture and manifest, hash verification passes, freshness is evaluated per source, and the failing-fetch cause is identified from the run logs. Update 2026-11-18: both code-path risks are fixed by the capture hardening integrated at T46 (per-source failure records persisted before the run fails; per-source freshness against schema-valid HTTP 200 captures; the empty Houston chart URL no longer raises ValueError - five offline unit tests), but a successful scheduled run and the historical failure cause are still required to clear this entry.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/audits/capture-workflow-health-2026-11-17.md"
   },
@@ -14109,12 +14164,12 @@ window.X4 = {
   },
   {
    "id": "F-60",
-   "item": "Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)",
+   "item": "Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) - resolved: both spellings are official and both are published",
    "type": "Irregularity",
    "kind": "warn",
-   "status": "irregularity",
+   "status": "resolved",
    "detail": "The committed venue set (data/venues-wk11-2026.csv) says RELIANT STADIUM for Colts at Texans and ARROWHEAD STADIUM for Cardinals at Chiefs. The official Week 11 schedule page names NRG Stadium and 'GEHA Field at Arrowhead Stadium' in its ticket and hotel links for the same two fixtures. Both are in-use names for the same buildings, so this is a naming question, not a venue error.",
-   "why": "The requirement is that the venue of every fixture be transcribed from the official game centre. That transcription has not been re-done for these two clubs, and the official game-centre page itself was not read for the stadium block this session. Not edited: an unverified rename is worse than a recorded difference. Clears when the Game Info block of both official game pages is read and the dataset is updated with that reading.",
+   "why": "The Game Info block of both official game pages has now been read (T48, 2026-11-18): Colts at Texans prints RELIANT STADIUM and Cardinals at Chiefs prints ARROWHEAD STADIUM, exactly as committed, and the same reading was made independently by T49 the same day. Both spellings are therefore official and both are published: the game-centre field is what this dataset transcribes, and the schedule page's hotel/ticket deep links carry the venues' current commercial names. Renaming by inference stays forbidden, so the dataset is unchanged. Record: research/verification/venue-gameinfo-2026-11-18.{md,csv}. The residual is a modelling rule, not a data gap: a venue name is not a join key, so any roof/surface/altitude feature must key on a stable venue id.",
    "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"
   },
@@ -14174,7 +14229,62 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/actions/runs/44175196682"
   },
   {
-   "id": "F-66",
+   "id": "F-74",
+   "item": "The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "tools/build.py rewrites data/price-snapshots.csv on every build from the current game log (the Week 11 lines block), and stamps each row 'captured_at: 2026-11-14 (build)'. The file's own comment says the opening fair line is the first published model line, but nothing pins it. Found line by line during the 2026-11-18 T49 sweep while assessing a corpus ingest; the defect then materialized for real: the Week 10 ingest (F-58) rebuilt the file and 25 of the 39 opening rows changed value while still carrying the '2026-11-14 (build)' stamp, so the recorded Week 11 opening forecasts are no longer the ones first published. The pre-ingest values remain recoverable from git history at the pre-2026-11-18 commits.",
+   "why": "A price-snapshot store exists to preserve what was published when. An append-only store (as data/ops/price_snapshots.csv is for market prices - 'a re-ingest must never silently replace a reading') is the pattern; the model-line store does not follow it yet. Until it does, no rebuild can be trusted to leave a forecast record intact, and closing-line value cannot be measured against the true opening. Clears when: the opening rows are written once and never rewritten (append-only with a recorded clock time), and a regression test fails the build if a rebuild changes an existing opening row. The first-published Week 11 lines should then be restored from git history as the dated record.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
+  },
+  {
+   "id": "F-75",
+   "item": "Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The capture pipeline (tools/capture_official.py, .github/workflows/capture.yml) stores raw injury-report and club depth-page bytes under data/captures/ in this repository. GitHub reports the repository public, so those raw pages are public repository content, while the brief's data-layer split requires raw row-level data to sit in a private store until the terms are read. The published site is not affected: the Pages artifact is site/ only and never serves data/. Raised as a privacy request by the capture-hardening session (arena/7db594d1-x4) and surfaced here for the owner's decision.",
+   "why": "No private store exists in this environment, and the brief also requires immutable multi-day raw captures with retained hashes, so both requirements cannot be met at once today. The repo's own register treats missing captures as the irregularity (F-47), so captures run while the question stays visible. Clears when the owner chooses: keep the repository public and accept raw pages as repository content, or make the repository private, or move data/captures to an authorized external store with a terms/retention decision recorded.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
+  },
+  {
+   "id": "F-71",
+   "item": "The decision-readiness 'what would change our mind' table published hard-coded numbers that contradicted the gate table directly above it",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "resolved",
+   "detail": "readiness.html prints the eight gates from data/ops/gates.csv and then, immediately below, a keep table whose three 'observed now' cells were typed into tools/desk_extension.py: n = 12 in total, p = 0.0918, largest week 90 percent. The gate table on the same page reads n = 24, p = 0.1028 (z = -1.63) and largest week = 58% from the committed file. All six figures were pre-refresh values carried over from before the Week 10 completion took the sample from 105 to 118 games; the n = 12 is older still, from the four-game luck sample. A reader was shown two different answers to the same question, six lines apart, with the un-updated number in the table that is supposed to state the keep condition.",
+   "why": "This is the failure the brief's own rule targets: a value that cannot be traced to a committed source is exactly the value that goes stale. The gate table is built from the file; the keep table was typed, so nothing regenerated it. FIXED 2026-11-18 in tools/desk_extension.py::readiness_page(): all three cells are now read from data/ops/gates.csv, and the n from the same ledger the gate table uses, so the two tables cannot disagree again. No published measurement moved: the gates were already correct, only the duplicate copy of them was wrong.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/desk_extension.py"
+  },
+  {
+   "id": "F-72",
+   "item": "The teams page called the Week 10 injury report a level with 'no second dated snapshot', while the second capture and its published delta exist",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "The teams.html table note read 'Injury counts are the Week-10 official report as a LEVEL, not a change. No second dated snapshot exists, so no delta is published (gate S4)'. Two dated official captures of the same Week 10 report exist (2026-11-14, 345 rows; 2026-11-15, 347 rows), tools/injury_delta.py publishes the cell-level diff between them, delta.html carries it, and readiness.html's own S4 row records the same two snapshots. The note was written before the second capture and was never regenerated.",
+   "why": "The statement is the kind that quietly excuses a missing feature, and it was contradicted by two other pages of the same site. FIXED 2026-11-18: the note now says a second snapshot exists and points at the published delta, while still stating correctly that this particular table is a level and not that delta.",
+   "official_url": "https://www.nfl.com/injuries/league/2026/reg10",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/injury_delta.py"
+  },
+  {
+   "id": "F-73",
+   "item": "The venue requirement was verified for 11 of 13 Week 11 fixtures; the other two carried an open naming question (F-60)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "data/venues-wk11-2026.csv transcribes the Game Info block of each official game-centre page - the field that names a fixture's venue - but it had only been read for 11 of the 13 Week 11 fixtures. The two named in F-60 (Colts at Texans, Cardinals at Chiefs) still carried a 2026-11-15 stamp and an open question about the schedule page's different spelling. Read 2026-11-18: all 13 fixtures were re-read from their own game-centre Game Info block, and 13 of 13 agree with the committed file on both the city and the stadium string - 0 disagreements. The two F-60 fixtures print RELIANT STADIUM and ARROWHEAD STADIUM, exactly as committed, so the schedule page's NRG Stadium and GEHA Field at Arrowhead are a second, official spelling in a different field (the hotel/ticket deep link), not a contradiction of the venue field.",
+   "why": "The requirement is that every fixture's venue be transcribed from the official game centre. It now has been, for all 13, and the dataset was not edited because there was nothing to change - renaming by inference stays forbidden. An independent session (T49, arena/cc97fdb0-x4) re-read the same two fixtures the same day and reached the same values, so this is a two-source agreement. Both spellings are published side by side in research/verification/venue-gameinfo-2026-11-18.{md,csv}. The residual is a modelling rule, not a data gap: a venue name is not a join key, because two official pages spell the same building differently, so any roof/surface/altitude feature must key on a stable venue id. The Mexico City fixture's blank 'state' cell is a faithful transcription - that page publishes no US state - and is named here rather than filled with a guess.",
+   "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/venue-gameinfo-2026-11-18.md"
+  },
+  {
+   "id": "F-76",
    "item": "The game log and the standings snapshot are a self-verification pair: tools/verify.py cannot detect them going stale together (T46 structural finding, arena/2d57231a-x4)",
    "type": "Irregularity",
    "kind": "warn",
@@ -14185,7 +14295,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/audit_score_staleness.py"
   },
   {
-   "id": "F-67",
+   "id": "F-77",
    "item": "The post-corpus-completion strategy result is post-hoc and its significance verdict is not order-robust; G8 keeps every strategy ineligible until the Week-11 forward window is graded (T46, arena/2d57231a-x4)",
    "type": "Irregularity",
    "kind": "warn",
@@ -14500,7 +14610,7 @@ window.X4 = {
    "priority_class": "p0",
    "area": "Validation",
    "title": "S-15 - Decide whether the significance gate measures mean error or paired win rate",
-   "body": "The same 118 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.00, +1.94] points: its upper bound has moved clear of zero after Week 10 completed, but its lower bound still touches it, so every strategy still fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 78 of 118 games (66.1%), exact one-sided binomial p = 0.00030, which would clear the Bonferroni threshold of 0.00625 (0.05 / 8 strategies). Both statistics are computed from the same predictions and both are correct.",
+   "body": "The same 118 out-of-sample games give two different answers. On the bootstrap of the mean absolute-error improvement, the 95% Bonferroni-adjusted interval is [-0.00, +1.94] points: its upper bound has moved clear of zero after Week 10 completed, but its lower bound still touches it, so every strategy still fails G4. On a paired sign test, S1's spread lands closer to the truth than the league-constant benchmark in 78 of 118 games (66.1%), exact one-sided binomial p = 0.00030, and S8 (last-5-games) in 75 of 118 (63.6%), p = 0.00206. BOTH clear the Bonferroni threshold of 0.00556 (0.05 / 9 strategies, corrected in T48 from 0.05 / 8) &mdash; two strategies, not one, which is a materially different question from the one this entry was opened to decide. Both statistics are computed from the same predictions and both are correct. Every number here is regenerated by tools/sign_test.py and gated by the publication check; none is typed.",
    "why": "The gate currently asks 'is the average improvement distinguishable from zero'. The blowouts dominate that average, and no team-rate model can price a blowout. The sign test asks 'how often is this model better head-to-head', which is the question a staker and a reviewer both actually care about. Choosing one over the other changes whether the leaderboard can ever promote anything - and choosing it now, after seeing that one answer passes, is exactly what a pre-registered gate is supposed to prevent unless the choice is made in the open and recorded before the next evaluation window.",
    "verify": "Both statistics are published together on gates.html; the gate definition is committed before the next evaluation window; after 50 prospective locked games the two agree or the divergence is explained.",
    "effort": "Low",
@@ -14648,50 +14758,6 @@ window.X4 = {
    "result": "flag",
    "url": "https://www.nfl.com/schedules/2026/by-week/week-11",
    "how": "NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."
-  },
-  {
-   "id": "F-58",
-   "item": "The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46)",
-   "type": "Irregularity",
-   "kind": "warn",
-   "status": "resolved",
-   "detail": "Read live on 2026-11-18, the official Week 10 schedule page shows all 14 finals played (Nov 12-16), while the committed game log held only the Nov 12 Thursday game. The official standings had therefore moved for 28 of 32 clubs, and every number derived from them - the power ratings, the walk-forward evaluation (105 games), the leaderboard, the luck panel and the Week 11 lines - described a season that no longer existed. Cause: no scheduled ingest of completed results; the last refresh ran on 2026-11-14.",
-   "why": "This is the failure mode the brief calls out most often: a static snapshot presented as current. It was not a data-entry error but an evidence-freshness error, and it made a correct model look measurably worse than it was (S1's improvement read 8.31% on 105 games and reads 9.49% on 118). Cleared by: the 13 finals transcribed from the official page, the standings rebuilt from the proved log, 130 changed cells audited in research/verification/standings-refresh-2026-11-18.csv, and every derived number regenerated. Record: research/verification/official-reverify-2026-11-18.md.",
-   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
-  },
-  {
-   "id": "F-59",
-   "item": "The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46)",
-   "type": "Irregularity",
-   "kind": "warn",
-   "status": "resolved",
-   "detail": "site/check.py's JavaScript smoke test asserted that the standings page renders exactly 137 game rows. When the 13 remaining Week 10 finals were added, the gate failed with 'expected 137 game rows in the DOM, found 150'. A gate that must be hand-edited to accept new official results punishes freshness and will be edited carelessly under time pressure.",
-   "why": "Structural, not cosmetic: the same pattern can hide a genuinely missing row behind a literal. The expectation now reads the row count from data/games-2026.csv and still proves the week filter renders every row. Cleared by: the rewrite plus a full tools/validate.py pass.",
-   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/site/check.py"
-  },
-  {
-   "id": "F-60",
-   "item": "Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)",
-   "type": "Irregularity",
-   "kind": "warn",
-   "status": "irregularity",
-   "detail": "The committed venue set (data/venues-wk11-2026.csv) says RELIANT STADIUM for Colts at Texans and ARROWHEAD STADIUM for Cardinals at Chiefs. The official Week 11 schedule page names NRG Stadium and 'GEHA Field at Arrowhead Stadium' in its ticket and hotel links for the same two fixtures. Both are in-use names for the same buildings, so this is a naming question, not a venue error.",
-   "why": "The requirement is that the venue of every fixture be transcribed from the official game centre. That transcription has not been re-done for these two clubs, and the official game-centre page itself was not read for the stadium block this session. Not edited: an unverified rename is worse than a recorded difference. Clears when the Game Info block of both official game pages is read and the dataset is updated with that reading.",
-   "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"
-  },
-  {
-   "id": "F-61",
-   "item": "The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)",
-   "type": "Limitation",
-   "kind": "warn",
-   "status": "limitation",
-   "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it.",
-   "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series.",
-   "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
   }
  ],
  "qb_changes": [
