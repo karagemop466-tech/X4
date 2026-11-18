@@ -1,0 +1,14 @@
+week,away,home,official_location,official_stadium,committed_city,committed_stadium,city_agrees,stadium_agrees,page_section,source_game_centre,retrieved
+11,IND,HOU,"HOUSTON, TX",RELIANT STADIUM,HOUSTON,RELIANT STADIUM,yes,yes,Game Info > Stadium,https://www.nfl.com/games/colts-at-texans-2026-reg-11,2026-11-18
+11,MIA,BUF,"ORCHARD PARK, NY",HIGHMARK STADIUM,ORCHARD PARK,HIGHMARK STADIUM,yes,yes,Game Info > Stadium,https://www.nfl.com/games/dolphins-at-bills-2026-reg-11,2026-11-18
+11,BAL,CAR,"CHARLOTTE, NC",BANK OF AMERICA STADIUM,CHARLOTTE,BANK OF AMERICA STADIUM,yes,yes,Game Info > Stadium,https://www.nfl.com/games/ravens-at-panthers-2026-reg-11,2026-11-18
+11,NO,CHI,"CHICAGO, IL",SOLDIER FIELD,CHICAGO,SOLDIER FIELD,yes,yes,Game Info > Stadium,https://www.nfl.com/games/saints-at-bears-2026-reg-11,2026-11-18
+11,TEN,DAL,"ARLINGTON, TX",AT&T STADIUM,ARLINGTON,AT&T STADIUM,yes,yes,Game Info > Stadium,https://www.nfl.com/games/titans-at-cowboys-2026-reg-11,2026-11-18
+11,TB,DET,"DETROIT, MI",FORD FIELD,DETROIT,FORD FIELD,yes,yes,Game Info > Stadium,https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11,2026-11-18
+11,ARI,KC,"KANSAS CITY, MO",ARROWHEAD STADIUM,KANSAS CITY,ARROWHEAD STADIUM,yes,yes,Game Info > Stadium,https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11,2026-11-18
+11,PIT,PHI,"PHILADELPHIA, PA",LINCOLN FINANCIAL FIELD,PHILADELPHIA,LINCOLN FINANCIAL FIELD,yes,yes,Game Info > Stadium,https://www.nfl.com/games/steelers-at-eagles-2026-reg-11,2026-11-18
+11,NYJ,LAC,"INGLEWOOD, CA",SOFI STADIUM,INGLEWOOD,SOFI STADIUM,yes,yes,Game Info > Stadium,https://www.nfl.com/games/jets-at-chargers-2026-reg-11,2026-11-18
+11,JAX,NYG,"EAST RUTHERFORD, NJ",METLIFE STADIUM,EAST RUTHERFORD,METLIFE STADIUM,yes,yes,Game Info > Stadium,https://www.nfl.com/games/jaguars-at-giants-2026-reg-11,2026-11-18
+11,LV,DEN,"DENVER, CO",EMPOWER FIELD AT MILE HIGH,DENVER,EMPOWER FIELD AT MILE HIGH,yes,yes,Game Info > Stadium,https://www.nfl.com/games/raiders-at-broncos-2026-reg-11,2026-11-18
+11,MIN,SF,MEXICO CITY,ESTADIO BANORTE,MEXICO CITY,ESTADIO BANORTE,yes,yes,Game Info > Stadium,https://www.nfl.com/games/vikings-at-49ers-2026-reg-11,2026-11-18
+11,CIN,WAS,"LANDOVER, MD",NORTHWEST STADIUM,LANDOVER,NORTHWEST STADIUM,yes,yes,Game Info > Stadium,https://www.nfl.com/games/bengals-at-commanders-2026-reg-11,2026-11-18
