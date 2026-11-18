@@ -13676,14 +13676,14 @@
   },
   {
    "id": "F-49",
-   "item": "Side bets were settled on the straight-up winner, not on the spread: one recorded result is wrong (Week 9, CLE +4.5)",
-   "type": "Irregularity",
-   "kind": "bad",
-   "status": "open",
-   "detail": "tools/origination.py (lines 575-578) settles a side bet by comparing the straight-up margin with the pick, not with the selected team's closing line. Week 9, Browns at Saints (ESPN event 401873039; official NFL.com final: CLE 22 - NO 23, overtime): the recorded Browns +4.5 side bet at -105 is graded lost. Against its own closing line it covers (margin -1, plus 4.5, equals +3.5) and is won. Across the 12 graded bets the recorded record is 8-4, +2.082 units, +17.351% ROI; re-settled it is 9-3, +4.035 units, +33.621% ROI. Only one of the 12 outcomes changes. The corrected figure is on luck.html. signal-vs-staking.html still shows the uncorrected 2.082 units and 17.351% ROI per bet, with no note that a settlement error changes it.",
-   "why": "This is a settlement error, not a change of rule, so it is corrected rather than argued. The recorded graded file is not edited, so the original record stays auditable. n = 12 bets over four games: neither ROI is evidence of skill, and a cluster interval would span zero. Requested for the integration owner: label the uncorrected figure as superseded on signal-vs-staking.html, or re-grade and republish with a dated note. Not changed in this session, because the graded file and the page generator belong to the origination build. Reproducible: tools/settlement_recheck.py re-settles all 12 bets from the committed files, without reusing luck.py.",
+   "item": "Settlement bug corrected: spread outcomes now use the closing line, not the straight-up winner",
+   "type": "Correction",
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "The former `tools/origination.py` code graded side markets on the game winner and ignored the selected spread. For Week 9 Browns at Saints (event 401873039), Cleveland lost 22-23 but covered +4.5; the old graded row incorrectly said lost. T42 corrected the settlement logic and the published row now says won. The historical re-settlement comparison remains archived at research/verification/settlement-recheck-2026-11-17.md. The closing price came from ESPN-published DraftKings odds, a third-party price source, not an official NFL line.",
+   "why": "Resolved in PR #63: settlement now evaluates the official score margin plus the recorded home handicap and handles exact pushes. The corrected small sample is 9-3, +4.035 units / 33.621% paper ROI over 12 markets; the signal statistic remains -3.566 points (p=0.0918), only 2/8 gates pass, and no strategy is eligible. The ROI is not a skill or profit claim. Regression coverage is in tools/test_origination.py and runs in tools/validate.py.",
    "official_url": "https://www.nfl.com/games/browns-at-saints-2026-reg-9",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/settlement-recheck-2026-11-17.md"
+   "url": "https://github.com/karagemop466-tech/X4/pull/63"
   },
   {
    "id": "F-50",
