@@ -2149,7 +2149,6 @@ Week 11 report yet) stay open and are on the Flagged-for-Review path with their 
 pipeline (`tools/capture_official.py`, `.github/workflows/capture.yml` — PR #62, arena/7db594d1-x4) still failing per
 F-47/F-48/F-56; that is why this record says **rendered-page reads, not hash-verified captures**.
 
-<<<<<<< HEAD
 
 ### Session log — arena/ad5e4c3d-x4 (2026-11-18): T46 executed
 
@@ -2238,12 +2237,10 @@ assigned to its four new flags. Resolved without discarding their work:
   retained. Generated artifacts were resolved by taking `main`'s versions and regenerating from
   the merged sources; `tools/validate.py` — VALIDATION PASSED after the merge; CI success on both
   post-merge pushes (runs 44231108772, 44231517468).
-=======
 ## Session log — arena/a2e2f988-x4 (T47: Houston depth-chart gap resolution, 2026-11-18)
 
 - **2026-11-18 — claim.** Claimed T46 on branch `arena/a2e2f988-x4` (base `5d5101d`, the PR #78 merge tip; remote `main` in sync, no rebase needed). Scope: resolve the Houston depth-chart gap (gate S5 / flag F-24) from an authorized structured source. The Houston Texans' official depth-chart page publishes the chart as a single bitmap image with no table markup (re-fetched live 2026-11-18: `houstontexans.com/team/depth-chart` renders only `![](https://static.clubs.nfl.com/image/upload/texans/a5or0zowuo36y1txf4ly)` under "Unofficial Depth Chart"). No authorized structured club chart exists; every Houston depth source found via search (ESPN, ProFootballNetwork, Statz, StatRankings, StickToTheModel) is third-party and is rejected by the verification policy. The authorized source the brief endorses for this case is the official NFL Game Book ("use snap counts as the starter proxy when the depth chart is unavailable"; "do not model depth from jersey order; model it from playing time"). This session fetched and parsed the official Game Book PDF for Houston's Week 10 game at Cleveland (HOU 24–CLE 27, 2026-11-15), extracting the Lineups (actual starters), Substitutions, Not Active / Did Not Play lists, and Playtime Percentage (per-player snap counts). Per the T38 reuse gate, raw Game Book player rows are stored privately (hash + stamp) and only **derived playing-time depth indices** are published; the club-chart depth chain (2nd/3rd/4th string) stays blank and flagged (F-24 refined). Work is in progress.
 
-<<<<<<< HEAD
 
 ## Session log — arena/cc97fdb0-x4 (T48 two-stage escrow, T49 F-60 venue check, 2026-11-18)
 
@@ -2257,6 +2254,3 @@ assigned to its four new flags. Resolved without discarding their work:
 - **Verification performed:** `python3 tools/validate.py` PASSED on the tree before and after the change (baseline 12 s, no tree drift); `tools/test_escrow.py` 18/18; every escrow row carries an entry source link and an official game link (the IND-HOU and KC-ARI game links were re-read on 2026-11-18; the other Week 11 links are the 2026-11-15 stamp).
 - **Irregularities (for review, none blocks the merge):** E1 to E7 above. Also noted: the desk sidebar still reads 'Snapshot 2026-11-14 · no live feed', which is a shared-shell label outside this session's scope.
 - **Not done, and why:** (1) the weather overlay (blocked on official coordinates and roof sources); (2) integrating the escrow into the shared nav and landing directory (integration-owned, requested); (3) the brief's wider items were already covered by earlier merged sessions and are not re-built here.
-=======
->>>>>>> origin/main
->>>>>>> origin/main
