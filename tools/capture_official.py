@@ -23,14 +23,16 @@ COMMANDS
 --------
   fetch   [--kind injuries|depth|all]   fetch, check the schema, store, append
   verify                                recompute every stored hash; fail on any mismatch
-  freshness --max-hours N               fail if the newest manifest line is older than N hours
+  freshness --max-hours N [--kind all|depth|injuries]
+                                         fail unless every expected source has a recent
+                                         successful, schema-valid capture
 
 EXIT STATUS
 -----------
   0  success
-  1  verification or freshness failure (hash mismatch, stale capture)
+  1  verification or freshness failure (hash mismatch, missing or stale valid capture)
   2  fetch or schema failure - the page changed shape or could not be read; the
-     workflow fails so the failure is visible rather than a silent gap
+     workflow preserves the failure record before marking the run failed
 
 SOURCES
 -------
@@ -59,11 +61,29 @@ import sys
 import urllib.error
 import urllib.request
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(TOOLS_DIR)
 CAP_DIR = os.path.join(ROOT, "data", "captures")
 MANIFEST = os.path.join(CAP_DIR, "manifest.jsonl")
 UA = "Mozilla/5.0 (compatible; X4-capture/1.0; +https://github.com/karagemop466-tech/X4)"
 INJURY_URL = "https://www.nfl.com/injuries/"
+
+
+def expected_kinds(kind="all"):
+    """Names of structured sources that this run can actually capture.
+
+    Houston's official chart is intentionally represented by an empty URL in
+    tools/depth.py because it is published as an image. Do not pass that empty
+    value to urllib or pretend the club has a structured capture source.
+    """
+    targets = []
+    if kind in ("injuries", "all"):
+        targets.append("injuries")
+    if kind in ("depth", "all"):
+        sys.path.insert(0, TOOLS_DIR)
+        import depth as depth_module
+        targets.extend("depth/" + club for club, url in sorted(depth_module.CHART_URL.items()) if url)
+    return targets
 
 
 def utc_now():
@@ -121,10 +141,10 @@ def schema_depth(raw):
 def store(kind, url, raw, status, schema_ok, detail, previous):
     now = utc_now()
     digest = sha256(raw)
-    last = previous[-1] if previous else None
+    same_kind = [e for e in previous if e.get("kind") == kind and e.get("file")]
+    last = same_kind[-1] if same_kind else None
     base = {"kind": kind, "url": url, "fetched_utc": iso(now), "http_status": status,
             "bytes": len(raw), "sha256": digest, "schema_ok": schema_ok, "schema": detail}
-    same_kind = [e for e in previous if e.get("kind") == kind and e.get("file")]
     if same_kind and same_kind[-1]["sha256"] == digest:
         base.update({"file": same_kind[-1]["file"], "changed": False})
         return base
@@ -144,19 +164,23 @@ def fetch(kind):
     if kind in ("injuries", "all"):
         targets.append(("injuries", INJURY_URL, schema_injuries))
     if kind in ("depth", "all"):
-        sys.path.insert(0, os.path.join(ROOT, "tools"))
+        sys.path.insert(0, TOOLS_DIR)
         import depth as depth_module  # CHART_URL: each club's official depth-chart page
         for club in sorted(depth_module.CHART_URL):
-            targets.append(("depth/" + club, depth_module.CHART_URL[club], schema_depth))
+            url = depth_module.CHART_URL[club]
+            if url:  # no structured source is registered for image-only Houston
+                targets.append(("depth/" + club, url, schema_depth))
     failed = False
     for label, url, schema in targets:
         kind_name = label
         try:
             status, raw = http_get(url)
-        except (urllib.error.URLError, OSError, TimeoutError) as exc:
+        except (urllib.error.URLError, OSError, TimeoutError, ValueError) as exc:
             print("FETCH FAILED %s %s: %s" % (label, url, exc))
-            append_manifest({"kind": kind_name, "url": url, "fetched_utc": iso(utc_now()),
-                             "http_status": None, "error": str(exc), "schema_ok": False})
+            entry = {"kind": kind_name, "url": url, "fetched_utc": iso(utc_now()),
+                     "http_status": None, "error": str(exc), "schema_ok": False}
+            append_manifest(entry)
+            previous.append(entry)
             failed = True
             continue
         ok, detail = schema(raw)
@@ -193,15 +217,45 @@ def verify():
     return 1 if bad else 0
 
 
-def freshness(max_hours):
-    entries = read_manifest()
-    if not entries:
-        print("no captures recorded yet")
+def freshness(max_hours, expected=None, entries=None, now=None):
+    """Require a recent, schema-valid capture for every expected source.
+
+    Error records and schema failures are useful audit evidence, but never count
+    as successful freshness. `expected` and `entries` are injectable for offline
+    tests; normal CLI use checks injuries plus all structured club charts.
+    """
+    entries = read_manifest() if entries is None else entries
+    expected = expected_kinds() if expected is None else list(expected)
+    now = now or utc_now().replace(tzinfo=None)
+    latest = {}
+    for entry in entries:
+        if (entry.get("kind") not in expected or entry.get("error")
+                or not entry.get("schema_ok") or not entry.get("file")
+                or entry.get("http_status") != 200):
+            continue
+        try:
+            stamp = dt.datetime.strptime(entry["fetched_utc"], "%Y-%m-%dT%H:%M:%SZ")
+        except (KeyError, TypeError, ValueError):
+            continue
+        if entry["kind"] not in latest or stamp > latest[entry["kind"]]:
+            latest[entry["kind"]] = stamp
+
+    failures = []
+    for source in expected:
+        stamp = latest.get(source)
+        if stamp is None:
+            print("MISSING valid capture: %s" % source)
+            failures.append(source)
+            continue
+        age = (now - stamp).total_seconds() / 3600.0
+        print("%-12s %s (%.1f hours ago); limit %.1f" % (source, iso(stamp.replace(tzinfo=dt.timezone.utc)), age, max_hours))
+        if age < 0 or age > max_hours:
+            failures.append(source)
+    if failures:
+        print("freshness failed for %d of %d expected sources" % (len(failures), len(expected)))
         return 1
-    newest = max(dt.datetime.strptime(e["fetched_utc"], "%Y-%m-%dT%H:%M:%SZ") for e in entries)
-    age = (utc_now().replace(tzinfo=None) - newest).total_seconds() / 3600.0
-    print("newest capture %s (%.1f hours ago); limit %.1f" % (iso(newest.replace(tzinfo=dt.timezone.utc)), age, max_hours))
-    return 0 if age <= max_hours else 1
+    print("freshness passed for all %d expected sources" % len(expected))
+    return 0
 
 
 def main(argv=None):
@@ -212,12 +266,13 @@ def main(argv=None):
     sub.add_parser("verify")
     p = sub.add_parser("freshness")
     p.add_argument("--max-hours", type=float, default=30.0)
+    p.add_argument("--kind", default="all", choices=["injuries", "depth", "all"])
     args = ap.parse_args(argv)
     if args.cmd == "fetch":
         return fetch(args.kind)
     if args.cmd == "verify":
         return verify()
-    return freshness(args.max_hours)
+    return freshness(args.max_hours, expected=expected_kinds(args.kind))
 
 
 if __name__ == "__main__":
