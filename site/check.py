@@ -30,35 +30,7 @@ from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repository root
 SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT, "site")
-PAGES = ["index.html", "market.html", "standings.html", "lines.html", "price-snapshots.html",
-         "results.html", "strategies.html", "availability.html", "depth.html",
-         "questions.html", "suggestions.html", "flags.html", "methodology.html",
-         "markets.html", "gates.html", "matchup.html", "houston-depth.html",
-         "personnel-ablation.html"]
-ASSETS = ["styles.css", "app.js"]
-# Matched case-insensitively as substrings EXCEPT where a real word contains the
-# marker: "Fagnano" (the Ravens' third-string QB, named by nfl.com) contains
-# "nan", and a bare substring test on NaN fails the build on a real surname.
-PLACEHOLDERS = ["TODO", "FIXME", "lorem ipsum", "undefined;"]
-PLACEHOLDER_RE = __import__("re").compile(r"\bNaN\b")
-
-LINK = re.compile(r"<(?:a|link)\b[^>]*?href=\"([^\"]+)\"[^>]*>", re.I)
-EXTERNAL = re.compile(r"<a\b[^>]*?href=\"(https?://[^\"]+)\"[^>]*>", re.I)
-# Official source domains. nfl.com and its operations/legal subdomains, the
-# federal trade commission (for the gambling-advertising rules), and the 32
-# clubs' own official websites. A club site is included only as a literal
-# domain in this closed list - never a wildcard - because the clubs are the
-# authority on their own rosters and depth charts and nothing else.
-CLUB_DOMAINS = [
-    "azcardinals.com", "atlantafalcons.com", "baltimoreravens.com", "buffalobills.com",
-    "panthers.com", "chicagobears.com", "bengals.com", "clevelandbrowns.com",
-    "dallascowboys.com", "denverbroncos.com", "detroitlions.com", "packers.com",
-    "houstontexans.com", "colts.com", "jaguars.com", "chiefs.com", "chargers.com",
-    "therams.com", "raiders.com", "miamidolphins.com", "vikings.com", "patriots.com",
-    "neworleanssaints.com", "giants.com", "newyorkjets.com", "philadelphiaeagles.com",
-    "steelers.com", "seahawks.com", "49ers.com", "buccaneers.com",
-    "tennesseetitans.com", "commanders.com",
-]
+PAGES = ["index.html", "market.html", "standings.html", "lines.html", "price-snapshots.html", "results.html", "strategies.html", "availability.html", "depth.html", "questions.html", "suggestions.html", "flags.html", "methodology.html", "markets.html", "gates.html", "matchup.html", "houston-depth.html", "personnel-ablation.html", "gamebook.html", "gamebook-ops.html", "glossary.html"]
 OFFICIAL = re.compile(
     r"<a\b[^>]*href=\"https://(?:www\.)?(?:nfl\.com|operations\.nfl\.com|nflgsis\.com|ftc\.gov|"
     + "|".join(re.escape(d) for d in CLUB_DOMAINS) + r")/[^\"]*\"",
@@ -71,6 +43,7 @@ class RowParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.tables = []
+        self.doc_tables = []
         self._depth = 0
         self._row = None
         self._cell = None
@@ -80,7 +53,14 @@ class RowParser(HTMLParser):
         if tag == "table":
             self._depth += 1
             if self._depth == 1:
+                # A table whose opening tag carries class="doc" is documentation -
+                # a pipeline description, a file inventory, a glossary - rather
+                # than data. Its rows make no claim about the world that an
+                # official source could back, so it is exempt from the source
+                # rule and counted separately instead of being silently skipped.
+                cls = dict(attrs).get("class", "") or ""
                 self.tables.append([])
+                self.doc_tables.append("doc" in cls.split())
         elif tag == "tr" and self._depth >= 1 and self.tables:
             self._row = []
             self._row_has_td = False
@@ -149,6 +129,7 @@ def main():
     total_rows = 0
     sourced_rows = 0
     total_tables = 0
+    doc_rows = 0
     pages = {}
 
     for page in PAGES:
@@ -211,6 +192,11 @@ def main():
         parser.feed(html)
         total_tables += len(parser.tables)
         for t_i, rows in enumerate(parser.tables):
+            if parser.doc_tables[t_i]:
+                for r_i, (row, has_td) in enumerate(rows):
+                    if has_td:
+                        doc_rows += 1
+                continue
             for r_i, (row, has_td) in enumerate(rows):
                 if not has_td:
                     continue
@@ -309,6 +295,8 @@ def main():
     print("pages checked: %d" % checked_pages)
     print("tables checked: %d" % total_tables)
     print("data rows checked: %d (with an official source link: %d)" % (total_rows, sourced_rows))
+    print("documentation rows exempt from the source rule: %d (pipeline, inventory and glossary "
+          "tables - they assert nothing an official source could back)" % doc_rows)
     print("every published page's local links resolved: %d pages" % link_pages_checked)
     print("numeric consistency checked: %d team rows" % checked_rows)
     if problems:

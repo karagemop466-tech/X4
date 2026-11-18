@@ -1,0 +1,103 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794854921/gamecenter/ab78a133-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/rams-at-cardinals-2026-reg-10
+Game       : Los Angeles Rams at Arizona Cardinals, 2026 REG 10,
+             Sunday 11/15/2026, State Farm Stadium, Glendale, AZ.
+             Final LAR 34 - ARI 6.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows published.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : State Farm Stadium
+City       : Glendale, AZ
+Start Time : 2:05 PM MST
+Game Weather: Sunny
+Temp       : 75 F (23.9 C)   Humidity: 44%   Wind: E 3 mph
+Surface/Roof: Retractable Roof - Open on Natural Grass
+Outdoor Weather: (none printed)
+Referee    : Clark, Land (130)
+Paid Attendance: 60,926
+Game Time  : 2:45
+
+---- Lineups (actual starters) ------------------------------------------------
+Los Angeles Rams
+  Offense
+    WR   4   K.Mumpfield
+    LT   77  A.Jackson
+    LG   50  B.Limmer
+    C    65  C.Shelton
+    RG   69  K.Dotson
+    RT   71  W.McClendon
+    WR   14  X.Smith
+    WR   6   C.Daniels
+    QB   9   M.Stafford
+    RB   24  B.Corum
+    RB   23  K.Williams
+  Defense
+    OLB  95  M.Garrett
+    DE   99  A.Donald
+    DE   90  T.Davis
+    DE   55  B.Fiske
+    OLB  0   B.Young
+    ILB  48  O.Speights
+    ILB  53  N.Landman
+    CB   30  J.Wallace
+    CB   22  T.McDuffie
+    S    37  Q.Lake
+    S    3   K.Curl
+Arizona Cardinals
+  Offense
+    WR   80  S.Fehoko
+    TE   84  E.Higgins
+    TE   89  H.Long
+    LT   78  J.Fryar
+    LG   73  I.Seumalo
+    C    58  H.Conner
+    RG   74  I.Adams
+    RT   65  E.Wilkinson
+    TE   85  T.McBride
+    QB   19  C.Beck
+    RB   22  T.Allgeier
+  Defense
+    OLB  10  J.Sweat
+    DT   97  W.Nolen
+    DT   55  D.Stills
+    OLB  25  Z.Collins
+    ILB  50  J.Gibbons
+    ILB  1   Ma.Wilson
+    CB   35  K.King
+    CB   29  D.Burke
+    CB   13  K.Clark
+    S    28  A.Wingard
+    S    3   B.Baker
+
+---- Substitutions (entered the game) -----------------------------------------
+Los Angeles Rams
+  CB 1 E.Forbes, S 2 J.McCollough, S 5 K.Kinchens, WR 8 T.Atwell,
+  OLB 10 J.Stewart, K 16 J.Karty, K 19 B.McManus, RB 20 R.Rivers,
+  CB 21 C.Lampkin, CB 26 D.Williams, P 42 E.Evans, LS 43 J.McQuade,
+  ILB 44 G.Stuard, OLB 47 W.Bailey, DE 52 L.Murchison, ILB 56 S.Dolac,
+  NT 57 T.Hamilton, OL 63 D.McMahon, OL 66 B.Murray, OL 68 D.Quessenberry,
+  WR 81 B.Presley, TE 84 C.Parkinson, TE 86 M.Klare, TE 87 D.Allen, TE 89 T.Higbee
+Arizona Cardinals
+  ILB 0 C.Simon, OLB 5 B.Browning, WR 7 Z.Jones, P 12 B.Gillikin,
+  CB 16 M.Melton, RB 20 Z.Knight, CB 21 G.Williams, RB 26 E.Hull,
+  S 36 K.Crawford, K 38 C.Ryland, S 42 D.Taylor-Demerson, ILB 43 K.Sharar,
+  TE 47 T.Quitoriano, DL 51 R.Lopez, OLB 52 J.Burch, DL 56 D.Robinson,
+  LS 59 C.Kreiter, OL 64 K.Eguakun, OL 79 J.Wills, WR 81 D.Duvernay,
+  WR 82 R.Virgil, WR 83 H.Wallace, DL 91 L.Collier, DL 95 A.Billings
+
+---- Did Not Play -------------------------------------------------------------
+Los Angeles Rams
+  QB 13 S.Bennett
+Arizona Cardinals
+  QB 9 J.Johnson, OL 76 A.Reese
+
+---- Not Active (official inactive list) --------------------------------------
+Los Angeles Rams
+  3QB 15 T.Simpson, S 36 M.Pulley, LS 49 J.Cardona, OLB 59 D.Peterson,
+  OL 73 S.Avila, OL 79 K.Trost, OLB 94 D.Johnson
+Arizona Cardinals
+  3QB 18 J.Aguilar, CB 24 S.Thomas, OLB 54 E.Leota, OL 66 J.Williams,
+  OL 71 J.Gaines, OL 72 H.Froholdt

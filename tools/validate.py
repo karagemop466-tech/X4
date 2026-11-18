@@ -48,6 +48,8 @@ STEPS = [
     ("originate the markets and the price store", [PY, os.path.join(ROOT, "tools", "fetch.py"), "plan"]),
     ("ingest the cached bodies", [PY, os.path.join(ROOT, "tools", "fetch.py"), "ingest"]),
     ("fail if the gate run mutated the committed data tree", [PY, os.path.join(ROOT, "tools", "validate.py"), "--gate-clean"]),
+    ("check the official Game Book sweep (Week 10)",
+     [PY, os.path.join(ROOT, "tools", "gamebook_sweep.py"), "--check"]),
     ("build the official depth charts", [PY, os.path.join(ROOT, "tools", "depth.py")]),
     ("rebuild the open-question register", [PY, os.path.join(ROOT, "tools", "open_questions.py")]),
     ("re-derive the paired sign test on the walk-forward corpus",

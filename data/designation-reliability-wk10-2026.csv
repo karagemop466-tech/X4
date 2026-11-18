@@ -1,0 +1,4 @@
+designation,n_resolved,n_played,play_rate,ci95_low,ci95_high,n_unresolved,interval,source
+Out,50,0,0.0,0.0,0.0713,20,"Wilson score, 95%",https://www.nfl.com/injuries/league/2026/reg10
+Doubtful,6,1,0.1667,0.0301,0.5635,5,"Wilson score, 95%",https://www.nfl.com/injuries/league/2026/reg10
+Questionable,78,61,0.7821,0.6784,0.8592,12,"Wilson score, 95%",https://www.nfl.com/injuries/league/2026/reg10

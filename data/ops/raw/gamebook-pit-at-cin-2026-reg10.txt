@@ -1,0 +1,111 @@
+RAW CAPTURE — official NFL Game Book (Game Summary / Game Center PDF)
+Source URL : https://static.www.nfl.com/image/upload/v1794829727/gamecenter/ab78aa48-4feb-11f1-abca-2c54536568a9.pdf
+Game Center: https://www.nfl.com/games/steelers-at-bengals-2026-reg-10
+Game       : Pittsburgh Steelers at Cincinnati Bengals, 2026 REG 10,
+             Sunday 11/15/2026, Paycor Stadium, Cincinnati, OH.
+             Final PIT 18 - CIN 38.
+Fetched    : 2026-11-18 (UTC) via the platform page-fetch tool (PDF parsed).
+Copyright  : NFL Copyright (c) 2026 — stored privately; only DERIVED rows published.
+
+---- Game day header ----------------------------------------------------------
+Date       : Sunday, 11/15/2026
+Stadium    : Paycor Stadium
+City       : Cincinnati, OH
+Start Time : 8:22 PM EST
+Game Weather: Partly Cloudy
+Temp       : 42 F (5.6 C)   Humidity: 78%   Wind: NE 2 mph
+Surface/Roof: Open Stadium on Field Turf
+Outdoor Weather: (none printed)
+Referee    : printed as "Willard, Don (58)" — the SAME referee string that the
+             Miami-at-Indianapolis Game Book prints for a game kicking off seven
+             hours earlier the same day. One referee cannot work both games, so
+             this field is CONTRADICTORY and is NOT published. Flagged.
+Paid Attendance: 66,860
+Game Time  : 3:02
+
+COLUMN NOTE: the conversion labels the lineup header row "Pittsburgh Steelers
+Offense | Cincinnati Bengals Defense". The rows are in fact four pairs —
+PIT offense, PIT defense, CIN offense, CIN defense — and each player is
+assigned to his club by identity, not by the mislabelled header.
+
+---- Lineups (actual starters) ------------------------------------------------
+Pittsburgh Steelers
+  Offense
+    WR   4   D.Metcalf
+    LT   76  T.Fautanu
+    LG   66  M.McCormick
+    C    54  Z.Frazier
+    RG   67  B.Hoffman
+    RT   71  M.Iheanachor
+    TE   80  D.Washington
+    TE   88  P.Freiermuth
+    WR   17  G.Bernard
+    QB   8   A.Rodgers
+    RB   30  J.Warren
+  Defense
+    LB   56  A.Highsmith
+    DT   97  C.Heyward
+    DT   95  K.Benton
+    LB   90  T.Watt
+    LB   41  P.Wilson
+    LB   6   P.Queen
+    CB   35  J.Dean
+    CB   22  A.Samuel
+    CB   5   J.Ramsey
+    S    28  R.Spears-Jennings
+    S    3   J.Brisker
+Cincinnati Bengals
+  Offense
+    WR   1   J.Chase
+    LOT  75  O.Brown
+    LG   63  D.Fairchild
+    C    64  T.Karras
+    RG   66  D.Risner
+    ROT  71  A.Mims
+    TE   88  M.Gesicki
+    WR   81  D.Meyers
+    WR   5   T.Higgins
+    QB   9   J.Burrow
+    HB   30  C.Brown
+  Defense
+    LDE  99  M.Murphy
+    DT   93  J.Allen
+    NT   97  D.Lawrence
+    DT   92  B.Hill
+    RDE  53  B.Mafe
+    LB   49  B.Carter
+    LB   44  D.Knight
+    CB   23  D.Hill
+    CB   0   D.Turner
+    S    6   B.Cook
+    S    27  J.Battle
+
+---- Substitutions (entered the game) -----------------------------------------
+Pittsburgh Steelers
+  QB 2 M.Rudolph, K 9 C.Boswell, WR 10 K.Wetjen, RB 13 R.Dowdle,
+  WR 15 B.Skowronek, P 19 C.Johnston, RB 21 T.Homer, CB 23 D.Everette,
+  CB 26 B.Echols, RB 31 L.Nichols, LB 33 J.Sawyer, FB 37 R.Nowakowski,
+  DB 40 D.Slaughter, LB 44 C.Bruener, LS 46 C.Kuntz, LB 51 N.Herbig,
+  LB 55 C.Holcomb, T 60 D.Cook, C 62 R.McCollum, OL 74 S.Anderson,
+  TE 85 R.Tonyan, WR 87 B.Smith, DL 92 K.Jobity, DL 94 Y.Black, DE 96 G.Rubio,
+  DT 99 D.Harmon
+Cincinnati Bengals   [displaced by the conversion; list truncated after
+                      "DT 90 K.Jenkins," so the final entry is incomplete. FLAGGED]
+  K 2 E.McPherson, P 8 R.Rehkow, QB 16 J.Flacco, CB 20 T.Davis, S 22 R.Yeast,
+  HB 25 T.Brooks, CB 28 J.Newton, HB 34 S.Perine, S 37 P.Jules, CB 38 D.Ivey,
+  LB 42 O.Burks, LB 43 J.Giles-Harris, LB 45 J.Kiser, LS 46 W.Wagner, DE 52
+  C.Johnson, G 69 J.Bayer, T 73 J.Foster, G 74 J.Rivers, WR 82 M.Tinsley,
+  TE 84 J.Endries, TE 85 C.Grandy, WR 86 C.Young, TE 89 D.Sample, DT 90 K.Jenkins
+
+---- Did Not Play -------------------------------------------------------------
+Pittsburgh Steelers
+  (none printed)
+Cincinnati Bengals
+  (none printed)
+
+---- Not Active (official inactive list) --------------------------------------
+Pittsburgh Steelers
+  QB 16 D.Allar, 3QB 18 W.Howard, S 25 D.Elliott, CB 27 S.Murphy-Bunting,
+  RB/WR 29 E.Heidenreich
+Cincinnati Bengals
+  S 29 K.Dugger, C 65 C.Lew, T 77 M.Hinton, DT 96 L.Robinson
