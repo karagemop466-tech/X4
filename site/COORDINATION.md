@@ -2892,3 +2892,23 @@ socket to nfl.com)
   rebase), from T55/T56 (taken via PR #91), and from T57/T58 (T57 taken via PR #114 before the merge). Every
   in-repository reference in this task's files (pages notes, escrow E1 text, this log, the venue record) was
   renumbered to the final IDs; main's own T55/T56/T57 rows and references were left untouched.
+
+### Merge and deploy record (T58/T59, 2026-11-18)
+- **PR [#104](https://github.com/karagemop466-tech/X4/pull/104) merged** at 2026-11-18T04:49:34Z, merge
+  commit `b8751be` (self-merge after all gates passed; title updated to the final T58/T59 IDs).
+- **CI on `main` after the merge, all green:** Desk validation run `44239989672` (success),
+  Publish NFL Decision Lab run `44239989666` (success), Pages build/deployment run `44239988254` (success).
+- **Pages verified live** at https://karagemop466-tech.github.io/X4/ :
+  `strategies.html` serves "Leaderboard (rewards) — forward samples only" (n = 0, official Week 11 schedule
+  source row) above "Backtest development board — never ranked for rewards" with the (T58) note, and
+  `escrow.html` serves E1 as **RESOLVED 2026-11-18 (T58)** — the E1 fix and the T59 venue record are on the
+  published site.
+- **Task-ID collision history for this claim (three renumbers, recorded):** claimed as T50/T51
+  (both taken on `main` at the first rebase → T55/T56), then T55/T56 taken via PR #91 (→ T57/T58),
+  then T57 taken via PR #114 (→ final **T58/T59**). Every reference in this task's files was renumbered to
+  the final IDs; main's own T55/T56/T57 rows and the T57 Game Book comments in `tools/pages.py` were left
+  untouched. **Incident recorded:** during the second rebase a nested-conflict slip committed conflict
+  markers into `COORDINATION.md` and its mirror twice; both were repaired before the merge with a
+  line-by-line union that preserved every line of `origin/main` (asserted in the repair script), the two
+  duplicated heading/PR-note blocks removed, and `git grep '^<<<<<<< '` clean across all tracked files —
+  the same failure mode two earlier sessions logged, caught and fixed here in-session.
