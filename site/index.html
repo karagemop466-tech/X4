@@ -52,8 +52,9 @@
   <p style="margin-top:12px"><a class="btn" href="flags.html">See every flag &rarr;</a></p>
 </section>
 
+
+
 <section>
-  <div class="section-head"><div><span class="eyebrow">Decision readiness</span><h2>What must be true before any claim is published</h2><p class="muted">One row per requirement: the gate that blocks it and the number that would clear it. A claim stays unpublished until every row it depends on reads clear.</p></div><span class="tag warn">6 of 8 gates blocking</span></div>
   <div class="section-head"><div><span class="eyebrow">Decision readiness</span><h2>One row per requirement, with what blocks it and what would clear it</h2><p class="muted">Read left to right: the requirement, the gate that decides it, the number that would clear it, and where it reads today. A requirement stays blocked until its own number moves, not until a paragraph says it is fine.</p></div><span class="tag warn">7 of 10 blocked</span></div>
 <div class="table-wrap"><table class="data"><thead><tr><th>Requirement</th><th>Gate</th><th>Number that clears it</th><th>Observed now</th><th>Status</th><th>Effect</th><th>Official source</th></tr></thead><tbody>
 <tr><td><b>Results are current and reproducible</b></td><td>Official standings reconciliation</td><td>every club's W/L/T/PF/PA/NET matches the official page</td><td>150 games (Weeks 1&ndash;10), all 32 clubs match</td><td><span class="b ok">pass</span></td><td>clear</td><td><a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer noopener">Official &nearr;</a></td></tr>
@@ -67,7 +68,8 @@
 <tr><td><b>Prices are real, licensed and official-sourced</b></td><td>Price store</td><td>open and close from a licensed book, archived verbatim</td><td>60 readings from one book published by ESPN (F-01), tied to the official fixtures; no closing line yet</td><td><span class="b warn">pass</span></td><td>usable, not official</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noreferrer noopener">Official &nearr;</a></td></tr>
 <tr><td><b>Parlays and props are gated on joint evidence</b></td><td>Joint-probability gate</td><td>a directly validated joint probability plus void/push rules</td><td>none available &mdash; combos stay excluded</td><td><span class="b bad">fail</span></td><td>blocks all combos</td><td><a href="https://operations.nfl.com/the-rules/nfl-rulebook/" target="_blank" rel="noreferrer noopener">Official &nearr;</a></td></tr>
 </tbody></table></div>
-<div class="tbl-note">Gates and observed values are read from the committed data files at build time. Where a value cannot be confirmed from an official page it is described, not filled in. The full register is on <a href="readiness.html">Decision readiness</a>.</div></section>
+<div class="tbl-note">Gates and observed values are read from the committed data files at build time. Where a value cannot be confirmed from an official page it is described, not filled in. The full register is on <a href="readiness.html">Decision readiness</a>.</div>
+</section>
 
 <section>
   <div class="section-head"><div><span class="eyebrow">Where to go next</span><h2>The desk</h2></div></div>

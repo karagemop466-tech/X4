@@ -1820,10 +1820,10 @@ PAGES.append(("index.html", "NFL Decision Desk",
   <p style="margin-top:12px"><a class="btn" href="flags.html">See every flag &rarr;</a></p>
 </section>
 
+
+
 <section>
-  <div class="section-head"><div><span class="eyebrow">Decision readiness</span><h2>What must be true before any claim is published</h2><p class="muted">One row per requirement: the gate that blocks it and the number that would clear it. A claim stays unpublished until every row it depends on reads clear.</p></div><span class="tag warn">%(n_block)s of %(n_gates)s gates blocking</span></div>
-  %(readiness)s
-  <p style="margin-top:12px"><a class="btn" href="readiness.html">Open the full decision-readiness register &rarr;</a></p>
+  <div id="readiness-preview"></div>
 </section>
 
 <section>
@@ -1843,9 +1843,6 @@ PAGES.append(("index.html", "NFL Decision Desk",
            nstrat=len(leaderboard), lbpreview=leaderboard_preview_table(),
            flagpreview=flags_table(limit=6),
            n_questions=spell(N_QUESTIONS),
-           readiness=readiness_preview_table(),
-           n_gates=readiness_counts()[0],
-           n_block=readiness_counts()[1],
            directory="__DIRECTORY__"), "index.html"))
 
 # --- standings ---
@@ -2407,10 +2404,9 @@ def main():
     import desk_extension as _dx
     with open(os.path.join(SITE, "index.html"), encoding="utf-8") as fh:
         _h = fh.read()
-    _start = _h.find('<div id="readiness-preview">')
-    _end = _h.find('</section>', _start)
-    if _start > 0 and _end > 0:
-        _h = _h[:_start] + _dx.landing_readiness_rows() + _h[_end:]
+    _mark = '<div id="readiness-preview"></div>'
+    if _mark in _h:
+        _h = _h.replace(_mark, _dx.landing_readiness_rows(), 1)
         with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as fh:
             fh.write(_h)
     # T45 matchup deficiency matrix (tools/matchup_page.py)
