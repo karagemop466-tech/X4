@@ -334,7 +334,9 @@ def teams_page():
         [("Game", 0), ("Kickoff", 0), ("Network", 0), ("Location", 0), ("Stadium", 0), ("Source", 0)],
         vrows,
         "Week 11 venues transcribed from the NFL.com game centre 'Game Info' block (fetched "
-        "2026-11-15). The Week-11 injury report is not yet published: each game centre reads "
+        "2026-11-15; every row re-verified against its own official game centre on 2026-11-18 - "
+        "13 of 13 match, see research/verification/week11-venues-2026-11-18.md). The Week-11 "
+        "injury report is not yet published: each game centre reads "
         "'not available at this time', so no Week-11 status is shown.")
 
     body = (
