@@ -36,6 +36,8 @@ NAV = [
     ("programme.html", "◫ &nbsp;Integrity &amp; programme"),
     ("readiness.html", "⚑ &nbsp;Decision readiness"),
     ("delta.html", "⚙ &nbsp;What changed"),
+    ("brief-register.html", "⊞ &nbsp;Brief register"),
+    ("depth-audit.html", "⊘ &nbsp;Depth audit"),
     ("flagged.html", "⚑ &nbsp;Flagged for review"),
     ("repo-review.html", "§ &nbsp;Repo review"),
     ("sources.html", "↗ &nbsp;Sources"),
