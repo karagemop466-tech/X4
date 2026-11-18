@@ -2433,8 +2433,12 @@ assigned to its four new flags. Resolved without discarding their work:
 3. **F-60** raw captures in a public repository vs the private-data-layer requirement (owner decision).
 4. F-55 unchanged (Week 11 report unserved); F-56 code-path risks fixed but awaiting a successful scheduled run; F-47/F-48 capture history still absent until the hardened workflow runs.
 
-### Merge and deploy record (T46)
-- Recorded in the follow-up entry below after the PR merge and Pages deploy are read.
+### Merge and deploy record (T52)
+- **PR**: [#79](https://github.com/karagemop466-tech/X4/pull/79) - the integration PR (this session's branch). **Merged to main without waiting for review** at 2026-11-18T03:50:20Z as `ae38272ebd60a5c094f8802370198ff70f20bcc7`, after six main-integration merges during the window (PRs #80-#100 from parallel sessions kept in full).
+- **Open-PR closures**: [#62](https://github.com/karagemop466-tech/X4/pull/62), [#69](https://github.com/karagemop466-tech/X4/pull/69), [#72](https://github.com/karagemop466-tech/X4/pull/72), [#39](https://github.com/karagemop466-tech/X4/pull/39) closed with explanatory comments (content integrated via #79; merge commits preserve each branch's history).
+- **CI on the merge commit**: Desk validation success. "Publish NFL Decision Lab" failed once on its root-mirror step because PR #98's new root-only `tests/` directory tripped the mirror check - not a content defect; fixed on main by PR #101 (`f867c66`, root-only `tests/` excluded from the check).
+- **Pages deploy**: "Publish NFL Decision Lab" + "pages-build-deployment" both **success** on `50f05f2` (the merge of PR #101 that includes #79's content). Live site read back at 2026-11-18 ~03:55 UTC: `flags.html` renders **67 items** including F-66 (opening snapshot not pinned) and F-67 (privacy request); the F-07 row shows the post-ingest 118 out-of-sample games; every rendered row keeps its source links.
+- **Capture workflow**: `gh workflow run capture.yml` is refused (HTTP 403 in this sandbox - the documented dead end), but the hardened pipeline has already been exercised: runs at 2026-11-18 03:40:05Z and 03:43:55Z completed **success** after the parallel T50 repairs (dad920d9-x4). That satisfies F-56's clear condition in substance; F-56 stays a limitation row until a scheduled (not dispatched) run repeats the success.
 
 ### Parallel-session reconciliation (recorded at integration; replaces nothing above)
 
