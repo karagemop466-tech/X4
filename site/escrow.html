@@ -91,14 +91,14 @@
 </tbody></table></div>
 </section>
 
-<section class="section" id="flags"><div class="section-head"><div><span class="eyebrow">FLAGGED FOR REVIEW</span><h2>Irregularities found while building this page</h2><p class="muted">Each entry is recorded for review and blocks nothing. None is fixed here, because each belongs to another scope.</p></div></div>
+<section class="section" id="flags"><div class="section-head"><div><span class="eyebrow">FLAGGED FOR REVIEW</span><h2>Irregularities found while building this page</h2><p class="muted">Each entry is recorded for review and blocks nothing. E1 was fixed in its own scope (T58, 2026-11-18); the rest belong to other scopes.</p></div></div>
 <div class="table-wrap"><table class="data"><thead><tr>
 <th>#</th>
 <th>Irregularity</th>
 <th>Where</th>
 <th>Source</th>
 </tr></thead><tbody>
-<tr><td>E1</td><td>The walk-forward (backtest) numbers for strategies S1 to S9 are on the leaderboard. The brief forbids backtest numbers on the leaderboard.</td><td>strategies.html, section 'Leaderboard and rewards' (walk-forward, weeks 3-10, n = 118)</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/output/leaderboard.json" target="_blank" rel="noreferrer">data/output/leaderboard.json ↗</a></td></tr>
+<tr><td>E1</td><td>RESOLVED 2026-11-18 (T58): the walk-forward (backtest) numbers for strategies S1 to S9 were ranked on the site under a 'Leaderboard and rewards' heading. The brief forbids backtest numbers on the leaderboard. The Strategy lab page now has a forward-only rewards leaderboard (empty at n = 0 forward settled markets, with the number that would open it) and the walk-forward table sits under a 'Backtest development board - never ranked for rewards' heading; the landing-page preview is relabelled the same way.</td><td>strategies.html (forward leaderboard + backtest board); index.html preview relabelled</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/output/leaderboard.json" target="_blank" rel="noreferrer">data/output/leaderboard.json ↗</a></td></tr>
 <tr><td>E2</td><td>Week 11 'close' values are current prices at capture (close_kind = current_as_close), so Week 11 has no closing number and no CLV.</td><td>data/ops/fair_market_difference.csv</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/ops/fair_market_difference.csv" target="_blank" rel="noreferrer">fair_market_difference.csv ↗</a></td></tr>
 <tr><td>E3</td><td>The origination code grades side bets against the closing line, but a closing line cannot exist before kickoff. The forward rule therefore applies the pick to the entry (opening) line. This is an interpretation of the registration, not a change to it, and is flagged for review.</td><td>tools/origination.py vs research/preregistration/wk11-forward-v1.md</td><td><a href="https://github.com/karagemop466-tech/X4/blob/8a3320092abe75aeafdbb0b1cdc586b37b93cbfb/research/preregistration/wk11-forward-v1.md" target="_blank" rel="noreferrer">pre-registration at 8a33200 ↗</a></td></tr>
 <tr><td>E4</td><td>Only 2 of 13 Week 11 fixtures have an originated market, so the forward window is thin.</td><td>data/ops/event_identity.csv</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noreferrer">NFL.com Week 11 schedule ↗</a></td></tr>

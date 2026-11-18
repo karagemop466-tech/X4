@@ -1,0 +1,14 @@
+fixture,gameinfo_location,gameinfo_stadium,csv_location,csv_stadium,verdict,official_url,retrieved
+colts-at-texans,"HOUSTON, TX",RELIANT STADIUM,"HOUSTON, TX",RELIANT STADIUM,match (T49),https://www.nfl.com/games/colts-at-texans-2026-reg-11,2026-11-18
+dolphins-at-bills,"ORCHARD PARK, NY",HIGHMARK STADIUM,"ORCHARD PARK, NY",HIGHMARK STADIUM,match,https://www.nfl.com/games/dolphins-at-bills-2026-reg-11,2026-11-18
+ravens-at-panthers,"CHARLOTTE, NC",BANK OF AMERICA STADIUM,"CHARLOTTE, NC",BANK OF AMERICA STADIUM,match,https://www.nfl.com/games/ravens-at-panthers-2026-reg-11,2026-11-18
+saints-at-bears,"CHICAGO, IL",SOLDIER FIELD,"CHICAGO, IL",SOLDIER FIELD,match,https://www.nfl.com/games/saints-at-bears-2026-reg-11,2026-11-18
+titans-at-cowboys,"ARLINGTON, TX",AT&T STADIUM,"ARLINGTON, TX",AT&T STADIUM,match,https://www.nfl.com/games/titans-at-cowboys-2026-reg-11,2026-11-18
+buccaneers-at-lions,"DETROIT, MI",FORD FIELD,"DETROIT, MI",FORD FIELD,match,https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11,2026-11-18
+cardinals-at-chiefs,"KANSAS CITY, MO",ARROWHEAD STADIUM,"KANSAS CITY, MO",ARROWHEAD STADIUM,match (T49),https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11,2026-11-18
+steelers-at-eagles,"PHILADELPHIA, PA",LINCOLN FINANCIAL FIELD,"PHILADELPHIA, PA",LINCOLN FINANCIAL FIELD,match,https://www.nfl.com/games/steelers-at-eagles-2026-reg-11,2026-11-18
+jets-at-chargers,"INGLEWOOD, CA",SOFI STADIUM,"INGLEWOOD, CA",SOFI STADIUM,match,https://www.nfl.com/games/jets-at-chargers-2026-reg-11,2026-11-18
+jaguars-at-giants,"EAST RUTHERFORD, NJ",METLIFE STADIUM,"EAST RUTHERFORD, NJ",METLIFE STADIUM,match,https://www.nfl.com/games/jaguars-at-giants-2026-reg-11,2026-11-18
+raiders-at-broncos,"DENVER, CO",EMPOWER FIELD AT MILE HIGH,"DENVER, CO",EMPOWER FIELD AT MILE HIGH,match,https://www.nfl.com/games/raiders-at-broncos-2026-reg-11,2026-11-18
+vikings-at-49ers,MEXICO CITY,ESTADIO BANORTE,MEXICO CITY,ESTADIO BANORTE,match,https://www.nfl.com/games/vikings-at-49ers-2026-reg-11,2026-11-18
+bengals-at-commanders,"LANDOVER, MD",NORTHWEST STADIUM,"LANDOVER, MD",NORTHWEST STADIUM,match,https://www.nfl.com/games/bengals-at-commanders-2026-reg-11,2026-11-18
