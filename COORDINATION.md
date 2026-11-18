@@ -2624,3 +2624,17 @@ https://www.nfl.com/injuries/league/2026/reg10 · https://www.nfl.com/injuries/
 
 ### Delivered
 PR [#92](https://github.com/karagemop466-tech/X4/pull/92) — `arena/5534e2ba-x4` → `main`.
+
+### Merge and deploy record (T48, PR #92)
+- **PR**: [#92](https://github.com/karagemop466-tech/X4/pull/92) — merged to `main` **without waiting for approval** as
+  commit `9f76e3bb4b7ceba9f8df3c2ad0c7036e172d4fa2` at 2026-11-18T03:59:03Z (merge state CLEAN, `desk` check pass).
+- **CI on `main`**: Desk validation run 44234144629 **success**; Publish NFL Decision Lab run 44234144866 **success**;
+  `pages build and deployment` run 44234143966 **success**.
+- **GitHub Pages API**: `status: built`, source `main /`.
+- **Live verification by page fetch of the deployed site** (not assumed from CI):
+  `readiness.html` now prints `n = 24; 24 graded bets in the ledger`, `p = 0.1028 (z = -1.63)` and
+  `largest week = 58% of total` in **both** the gate table and the "what would change our mind" table — the
+  self-contradiction is gone on the live page. `research/verification/venue-gameinfo-2026-11-18.md` is live and serves
+  the 13-row venue table with its per-fixture links. `teams.html` carries the corrected delta note.
+- **Post-merge follow-up:** one stale cross-reference inside that verification page still named the old flag number
+  (F-62); corrected to F-71 and republished. Recorded here rather than silently amended.

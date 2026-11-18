@@ -80,6 +80,6 @@ differently. That is recorded as the residual below.
    values (`n = 12`, `p = 0.0918`, `largest week 90 percent`) that contradicted the gate
    table directly above it reading the same three measurements from
    `data/ops/gates.csv` (`n = 24`, `p = 0.1028`, `largest week = 58%`). The keep table now
-   reads the committed gate file. That is flag **F-62** and it is a page-generator fix,
+   reads the committed gate file. That is flag **F-71** and it is a page-generator fix,
    not a data change; no published measurement moved, the page's account of itself
    was made consistent with its own source.
