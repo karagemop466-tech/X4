@@ -56,6 +56,14 @@ WEEK = 10
 INJ_URL = "https://www.nfl.com/injuries/league/2026/reg10"
 SCHED_URL = "https://www.nfl.com/schedules/2026/by-week/week-10"
 
+# Clubs whose LIVE official Week 10 page was read row by row on 2026-11-18 to confirm the
+# "clear" group (no Out designation). Recorded in
+# research/verification/personnel-ablation-live-check-2026-11-18.md. The tool asserts that
+# every one of these really has zero Out rows in the committed CSV before quoting the list,
+# so the page cannot claim a club was verified and then publish it as designated.
+LIVE_VERIFIED_CLEAR = ["BUF", "LV", "NYG", "PIT"]
+LIVE_CHECK_DOC = ("research/verification/personnel-ablation-live-check-2026-11-18.md")
+
 COLUMNS = ["ablation", "metric", "definition", "group", "n_clubs", "mean_pts", "se",
            "ci95_low", "ci95_high", "diff_pts", "diff_ci95_low", "diff_ci95_high",
            "n_out_clubs", "n_doubtful_clubs", "n_no_designation_clubs",
@@ -139,6 +147,13 @@ def build_records():
     teams = {r["team"] for r in recs}
     if len(teams) != 28:
         raise SystemExit("expected 28 clubs in the 14 Week 10 games, found %d" % len(teams))
+    # every club named as live-verified "clear" must still have zero Out designations
+    for club in LIVE_VERIFIED_CLEAR:
+        if statuses.get(club, []).count("Out") != 0:
+            raise SystemExit("live-verified clear club %s now carries an Out in the committed "
+                             "CSV - the verification record no longer supports the group" % club)
+        if club not in teams:
+            raise SystemExit("live-verified club %s did not play in Week 10" % club)
     return recs, statuses
 
 
@@ -373,6 +388,21 @@ def page_body(rows, recs, statuses):
     h.append('<section class="section"><div class="section-head"><div>'
              '<span class="eyebrow">Ablation results</span><h2>The measurable part</h2>'
              '</div></div>' + t + '</div></section>')
+    h.append('<section class="section"><div class="section-head"><div>'
+             '<span class="eyebrow">Input verification</span>'
+             '<h2>All four &ldquo;clear&rdquo; clubs re-read from the live official page</h2>'
+             '</div></div>'
+             '<p>The whole comparison rests on four club-games. Rather than trust the committed '
+             'CSV, the official Week&nbsp;10 report was re-read row by row on 2026-11-18 and each '
+             'clear club was confirmed to carry <b>zero Out designations</b>: <b>'
+             + ", ".join(LIVE_VERIFIED_CLEAR) + '</b>. Three designated controls (SEA, CAR, HOU) '
+             'and CLE were re-read the same way and matched row for row, including every '
+             'designation. The tool asserts this before publishing the list, so the page cannot '
+             'claim a verification the data no longer supports.</p>'
+             '<p class="meta">' + src(INJ_URL, "Official Week 10 report, re-read 18 Nov 2026")
+             + ' &middot; <a href="https://github.com/karagemop466-tech/X4/blob/main/'
+             + LIVE_CHECK_DOC + '" target="_blank" rel="noreferrer noopener">Live check record '
+             '&nearr;</a></p></div></section>')
     h.append('<section class="section"><div class="section-head"><div>'
              '<span class="eyebrow">Identifiability gate</span>'
              '<h2>What is missing before a personnel <em>feature</em> can exist</h2>'

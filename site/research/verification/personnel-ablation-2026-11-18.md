@@ -112,6 +112,20 @@ which change how it must be read:
 | Sizing the *maximum* a personnel feature could plausibly move a Week-11 line | Claiming a depth-slot effect is "priced in" or "ignored" by the market |
 | Setting the sample the next capture must reach before a feature is trusted | Publishing any personnel-adjusted fair line |
 
+## 5a. Input verification (added after the first draft)
+
+Because the whole comparison rests on four club-games, the official Week 10 report was
+re-read from the **live** page on 2026-11-18 and every "clear" club was confirmed to carry
+zero `Out` designations: **BUF, LV, NYG, PIT**. Three designated controls (SEA, CAR, HOU) and
+CLE were re-read the same way and matched the committed CSV **row for row, including every
+designation**. The full record, with the named players checked, is
+`research/verification/personnel-ablation-live-check-2026-11-18.md`.
+
+`tools/personnel_ablation.py` now asserts that each of those four clubs still has zero `Out`
+rows before the page quotes them, so the page cannot publish a verification the data no
+longer supports. Note what this does and does not do: it verifies the **input**, not the
+finding. Both A1 and A2 intervals still span zero.
+
 ## 6. Reproduce
 
 ```bash
