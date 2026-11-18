@@ -823,7 +823,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
 
     dict(id="F-61", item="The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)", type="Limitation", kind="warn", status="limitation",
          detail=("Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. "
-                 "A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it."),
+                 "Re-read ~04:10 UTC 2026-11-18 (T54 sweep): the league reg11 page still serves Week 10, and the official game-centre page for Colts at Texans now carries Week 11 practice designations for both clubs in its injury module (e.g. J. Carlies and S. Gardner 'Did not participate' for IND; A. Al-Shaair DNP, R. Blankenship/T. Dell/B. Fisher 'Full participation' for HOU), while Cardinals at Chiefs shows 'no active injuries at this time' for both clubs. The league-level Week 11 page is still the gate for publishing a full dataset; game-centre-only practice statuses are not captured as data here."),
          why=("The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository "
               "holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series."),
          official_url="https://www.nfl.com/injuries/league/2026/reg11",
@@ -987,4 +987,10 @@ VERIFICATION = [
          url="https://www.nfl.com/schedules/2026/by-week/week-11",
          how="NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."),
 
+    dict(check="Official standings re-read live after the PR #90 merge and compared with the committed standings (T54, 2026-11-18 ~04:05 UTC)", result="pass",
+         url="https://www.nfl.com/standings/",
+         how="All 32 clubs' W-L-T, PCT, PF, PA and NET were re-read from the official standings page through the page-fetch tool and compared with data/standings-wk10-2026.csv: 0 differences. This is an independent second re-read on the same day as T46's (V3), after two more PRs merged."),
+    dict(check="The Week 11 venue rows' cited Game Info blocks re-read live (T54, 2026-11-18 ~04:08 UTC)", result="pass",
+         url="https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
+         how="Both Game Info blocks were read live: Colts at Texans prints RELIANT STADIUM and Cardinals at Chiefs prints ARROWHEAD STADIUM - exactly the committed values, so no venue cell changed. This session's independent reading (research/verification/live-sync-2026-11-18.csv, B5) agrees with the resolution now published on main (F-60, resolved by PR #92 with the same reading and research/verification/venue-gameinfo-2026-11-18.md), which is kept as the flag row; the NRG/GEHA readings come from the schedule page's ticket/hotel widgets."),
     ]

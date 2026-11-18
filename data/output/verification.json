@@ -70,5 +70,17 @@
   "result": "flag",
   "url": "https://www.nfl.com/schedules/2026/by-week/week-11",
   "how": "NFL lists several of those matchups as to-be-determined, so only the completed weeks and the official Week 11 schedule are published."
+ },
+ {
+  "check": "Official standings re-read live after the PR #90 merge and compared with the committed standings (T54, 2026-11-18 ~04:05 UTC)",
+  "result": "pass",
+  "url": "https://www.nfl.com/standings/",
+  "how": "All 32 clubs' W-L-T, PCT, PF, PA and NET were re-read from the official standings page through the page-fetch tool and compared with data/standings-wk10-2026.csv: 0 differences. This is an independent second re-read on the same day as T46's (V3), after two more PRs merged."
+ },
+ {
+  "check": "The Week 11 venue rows' cited Game Info blocks re-read live (T54, 2026-11-18 ~04:08 UTC)",
+  "result": "pass",
+  "url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
+  "how": "Both Game Info blocks were read live: Colts at Texans prints RELIANT STADIUM and Cardinals at Chiefs prints ARROWHEAD STADIUM - exactly the committed values, so no venue cell changed. This session's independent reading (research/verification/live-sync-2026-11-18.csv, B5) agrees with the resolution now published on main (F-60, resolved by PR #92 with the same reading and research/verification/venue-gameinfo-2026-11-18.md), which is kept as the flag row; the NRG/GEHA readings come from the schedule page's ticket/hotel widgets."
  }
 ]
