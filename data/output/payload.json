@@ -13434,10 +13434,10 @@
   },
   {
    "id": "F-70",
-   "item": "Two Week 11 venue cells are stale against the game centre the dataset names as their own source",
+   "item": "Two Week 11 venue cells carry the venue's short name, and the dataset is a faithful transcription of the page that prints it",
    "type": "Unverified data",
-   "kind": "warn",
-   "status": "open",
+   "kind": "info",
+   "status": "limitation",
    "detail": "data/venues-wk11-2026.csv carries stadium=RELIANT STADIUM for IND at HOU and stadium=ARROWHEAD STADIUM for ARI at KC, with venue_source = 'NFL.com game centre, Game Info block' on both rows. Both game centres were re-read on 2026-11-18 and both still print those exact strings: the Colts at Texans Game Info block reads StadiumSTADIUMRELIANT STADIUM, and the Cardinals at Chiefs block reads StadiumSTADIUMARROWHEAD STADIUM.",
    "why": "F-60 framed this as a mismatch between the dataset and the official page. Re-reading both pages shows the dataset is a faithful transcription of its stated source and the mismatch claim was wrong: the short names are what the official page prints. The cell is still not the venue's present corporate name, but correcting it would introduce a value no cited source supports, which the publication policy forbids. The row stays as transcribed, and the difference is recorded here with both links so the reader can see both surfaces. F-60 remains the pointer; this entry is the verification result.",
    "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",

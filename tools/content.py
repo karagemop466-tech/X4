@@ -218,8 +218,8 @@ FLAGS = [
          official_url="https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
          url="https://www.nfl.com/injuries/league/2026/reg10"),
 
-    dict(id="F-70", item="Two Week 11 venue cells are stale against the game centre the dataset names as their own source",
-         type="Unverified data", kind="warn", status="open",
+    dict(id="F-70", item="Two Week 11 venue cells carry the venue's short name, and the dataset is a faithful transcription of the page that prints it",
+         type="Unverified data", kind="info", status="limitation",
          detail=("data/venues-wk11-2026.csv carries stadium=RELIANT STADIUM for IND at HOU and stadium=ARROWHEAD "
                  "STADIUM for ARI at KC, with venue_source = 'NFL.com game centre, Game Info block' on both rows. "
                  "Both game centres were re-read on 2026-11-18 and both still print those exact strings: the Colts at "
