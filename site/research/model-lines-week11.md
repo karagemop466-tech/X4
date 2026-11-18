@@ -7,19 +7,19 @@ Every number below is a **model estimate** produced by `tools/build.py` from the
 
 | Away | Home | Date | Kickoff (ET) | TV | Spread range | Total range | S3 line | Market line | Source |
 |---|---|---|---|---|---|---|---|---|---|
-| IND | HOU | 2026-11-19 | 8:15 PM | PRIME | -0.02 to 9.28 | 45.92 to 51.78 | 3.44 / 47.63 | *(blank)* | [NFL.com](https://www.nfl.com/games/colts-at-texans-2026-reg-11) |
-| MIA | BUF | 2026-11-22 | 1:00 PM | CBS | -0.02 to 8.10 | 41.87 to 48.42 | 2.10 / 43.84 | *(blank)* | [NFL.com](https://www.nfl.com/games/dolphins-at-bills-2026-reg-11) |
-| BAL | CAR | 2026-11-22 | 1:00 PM | FOX | -0.02 to 5.03 | 45.03 to 49.52 | 1.93 / 45.78 | *(blank)* | [NFL.com](https://www.nfl.com/games/ravens-at-panthers-2026-reg-11) |
-| NO | CHI | 2026-11-22 | 1:00 PM | FOX | -0.02 to 5.00 | 45.92 to 52.13 | 1.71 / 48.24 | *(blank)* | [NFL.com](https://www.nfl.com/games/saints-at-bears-2026-reg-11) |
-| TEN | DAL | 2026-11-22 | 1:00 PM | FOX | -0.02 to 3.77 | 45.92 to 54.62 | 1.35 / 49.50 | *(blank)* | [NFL.com](https://www.nfl.com/games/titans-at-cowboys-2026-reg-11) |
-| TB | DET | 2026-11-22 | 1:00 PM | FOX | -2.86 to 1.61 | 40.38 to 46.91 | -1.68 / 43.72 | *(blank)* | [NFL.com](https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11) |
-| ARI | KC | 2026-11-22 | 1:00 PM | CBS | -0.99 to 5.31 | 43.21 to 47.56 | 0.50 / 45.31 | *(blank)* | [NFL.com](https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11) |
-| PIT | PHI | 2026-11-22 | 1:00 PM | CBS | -9.77 to -0.02 | 37.67 to 45.92 | -3.27 / 42.42 | *(blank)* | [NFL.com](https://www.nfl.com/games/steelers-at-eagles-2026-reg-11) |
-| NYJ | LAC | 2026-11-22 | 4:05 PM | FOX | -2.76 to 0.75 | 42.86 to 48.37 | 0.06 / 46.48 | *(blank)* | [NFL.com](https://www.nfl.com/games/jets-at-chargers-2026-reg-11) |
-| JAX | NYG | 2026-11-22 | 4:25 PM | CBS | -9.07 to -0.02 | 43.53 to 47.03 | -4.13 / 45.10 | *(blank)* | [NFL.com](https://www.nfl.com/games/jaguars-at-giants-2026-reg-11) |
-| LV | DEN | 2026-11-22 | 4:25 PM | CBS | -0.02 to 8.83 | 45.92 to 52.99 | 4.37 / 48.97 | *(blank)* | [NFL.com](https://www.nfl.com/games/raiders-at-broncos-2026-reg-11) |
-| MIN | SF | 2026-11-22 | 8:20 PM | NBC | -0.02 to 4.87 | 37.49 to 45.92 | 1.14 / 43.16 | *(blank)* | [NFL.com](https://www.nfl.com/games/vikings-at-49ers-2026-reg-11) |
-| CIN | WAS | 2026-11-23 | 8:15 PM | ESPN | -5.74 to -0.02 | 45.92 to 50.54 | -2.36 / 48.54 | *(blank)* | [NFL.com](https://www.nfl.com/games/bengals-at-commanders-2026-reg-11) |
+| IND | HOU | 2026-11-19 | 8:15 PM | PRIME | -0.53 to 7.22 | 46.15 to 49.62 | 1.70 / 47.36 | *(blank)* | [NFL.com](https://www.nfl.com/games/colts-at-texans-2026-reg-11) |
+| MIA | BUF | 2026-11-22 | 1:00 PM | CBS | -0.53 to 8.11 | 42.84 to 48.03 | 2.06 / 44.53 | *(blank)* | [NFL.com](https://www.nfl.com/games/dolphins-at-bills-2026-reg-11) |
+| BAL | CAR | 2026-11-22 | 1:00 PM | FOX | -0.53 to 3.96 | 43.47 to 48.40 | 1.34 / 44.95 | *(blank)* | [NFL.com](https://www.nfl.com/games/ravens-at-panthers-2026-reg-11) |
+| NO | CHI | 2026-11-22 | 1:00 PM | FOX | -0.53 to 4.24 | 46.15 to 49.78 | 1.03 / 47.82 | *(blank)* | [NFL.com](https://www.nfl.com/games/saints-at-bears-2026-reg-11) |
+| TEN | DAL | 2026-11-22 | 1:00 PM | FOX | -0.53 to 3.17 | 46.15 to 61.61 | 0.56 / 52.50 | *(blank)* | [NFL.com](https://www.nfl.com/games/titans-at-cowboys-2026-reg-11) |
+| TB | DET | 2026-11-22 | 1:00 PM | FOX | -1.19 to 2.65 | 41.57 to 47.04 | -0.78 / 44.45 | *(blank)* | [NFL.com](https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11) |
+| ARI | KC | 2026-11-22 | 1:00 PM | CBS | -0.53 to 10.29 | 42.05 to 47.45 | 1.98 / 45.84 | *(blank)* | [NFL.com](https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11) |
+| PIT | PHI | 2026-11-22 | 1:00 PM | CBS | -7.49 to -0.35 | 40.25 to 46.15 | -2.00 / 43.39 | *(blank)* | [NFL.com](https://www.nfl.com/games/steelers-at-eagles-2026-reg-11) |
+| NYJ | LAC | 2026-11-22 | 4:05 PM | FOX | -2.39 to 2.17 | 42.93 to 46.44 | 0.84 / 45.81 | *(blank)* | [NFL.com](https://www.nfl.com/games/jets-at-chargers-2026-reg-11) |
+| JAX | NYG | 2026-11-22 | 4:25 PM | CBS | -9.14 to -0.53 | 44.66 to 49.15 | -4.33 / 46.52 | *(blank)* | [NFL.com](https://www.nfl.com/games/jaguars-at-giants-2026-reg-11) |
+| LV | DEN | 2026-11-22 | 4:25 PM | CBS | -0.53 to 7.90 | 46.15 to 50.14 | 3.67 / 47.47 | *(blank)* | [NFL.com](https://www.nfl.com/games/raiders-at-broncos-2026-reg-11) |
+| MIN | SF | 2026-11-22 | 8:20 PM | NBC | -1.90 to 2.15 | 40.73 to 48.19 | -1.36 / 46.71 | *(blank)* | [NFL.com](https://www.nfl.com/games/vikings-at-49ers-2026-reg-11) |
+| CIN | WAS | 2026-11-23 | 8:15 PM | ESPN | -7.40 to -0.53 | 46.15 to 51.20 | -3.18 / 48.29 | *(blank)* | [NFL.com](https://www.nfl.com/games/bengals-at-commanders-2026-reg-11) |
 
 ## Reading the range
 
@@ -31,25 +31,25 @@ Opponent-adjusted rates: a team's points-for rate minus the average points allow
 
 | Rank | Team | Adj. points for | Adj. points allowed | Adj. margin | Official PF | Official PA | Source |
 |---|---|---|---|---|---|---|---|
-| 1 | JAX | 26.00 | 20.18 | 5.83 | 229 | 121 | [NFL.com](https://www.nfl.com/teams/jacksonville-jaguars/) |
-| 2 | GB | 26.44 | 21.59 | 4.85 | 216 | 191 | [NFL.com](https://www.nfl.com/teams/green-bay-packers/) |
-| 3 | BUF | 25.19 | 20.50 | 4.69 | 256 | 187 | [NFL.com](https://www.nfl.com/teams/buffalo-bills/) |
-| 4 | DEN | 25.60 | 20.96 | 4.64 | 198 | 186 | [NFL.com](https://www.nfl.com/teams/denver-broncos/) |
-| 5 | CIN | 28.28 | 23.73 | 4.55 | 240 | 175 | [NFL.com](https://www.nfl.com/teams/cincinnati-bengals/) |
-| 6 | TB | 24.48 | 19.97 | 4.51 | 202 | 178 | [NFL.com](https://www.nfl.com/teams/tampa-bay-buccaneers/) |
-| 7 | HOU | 26.07 | 21.88 | 4.19 | 209 | 192 | [NFL.com](https://www.nfl.com/teams/houston-texans/) |
-| 8 | PIT | 22.93 | 19.94 | 3.00 | 180 | 144 | [NFL.com](https://www.nfl.com/teams/pittsburgh-steelers/) |
+| 1 | BUF | 25.79 | 20.28 | 5.50 | 287 | 199 | [NFL.com](https://www.nfl.com/teams/buffalo-bills/) |
+| 2 | CIN | 28.65 | 23.17 | 5.48 | 278 | 193 | [NFL.com](https://www.nfl.com/teams/cincinnati-bengals/) |
+| 3 | DEN | 25.93 | 20.58 | 5.35 | 198 | 186 | [NFL.com](https://www.nfl.com/teams/denver-broncos/) |
+| 4 | JAX | 26.99 | 21.98 | 5.01 | 269 | 144 | [NFL.com](https://www.nfl.com/teams/jacksonville-jaguars/) |
+| 5 | TB | 24.20 | 20.03 | 4.16 | 202 | 178 | [NFL.com](https://www.nfl.com/teams/tampa-bay-buccaneers/) |
+| 6 | LAR | 23.11 | 19.41 | 3.71 | 248 | 187 | [NFL.com](https://www.nfl.com/teams/los-angeles-rams/) |
+| 7 | DET | 24.16 | 20.50 | 3.67 | 257 | 199 | [NFL.com](https://www.nfl.com/teams/detroit-lions/) |
+| 8 | MIN | 21.60 | 18.89 | 2.71 | 176 | 126 | [NFL.com](https://www.nfl.com/teams/minnesota-vikings/) |
 
 | Rank | Team | Adj. points for | Adj. points allowed | Adj. margin | Official PF | Official PA | Source |
 |---|---|---|---|---|---|---|---|
-| 25 | CAR | 22.98 | 25.46 | -2.47 | 199 | 219 | [NFL.com](https://www.nfl.com/teams/carolina-panthers/) |
-| 26 | IND | 22.29 | 25.03 | -2.74 | 184 | 249 | [NFL.com](https://www.nfl.com/teams/indianapolis-colts/) |
-| 27 | PHI | 19.23 | 22.73 | -3.50 | 148 | 221 | [NFL.com](https://www.nfl.com/teams/philadelphia-eagles/) |
-| 28 | LV | 23.62 | 27.76 | -4.14 | 238 | 268 | [NFL.com](https://www.nfl.com/teams/las-vegas-raiders/) |
-| 29 | TEN | 22.71 | 27.22 | -4.51 | 144 | 199 | [NFL.com](https://www.nfl.com/teams/tennessee-titans/) |
-| 30 | LAC | 20.09 | 24.60 | -4.52 | 121 | 219 | [NFL.com](https://www.nfl.com/teams/los-angeles-chargers/) |
-| 31 | NYJ | 21.79 | 26.47 | -4.68 | 182 | 223 | [NFL.com](https://www.nfl.com/teams/new-york-jets/) |
-| 32 | BAL | 18.37 | 24.75 | -6.38 | 189 | 236 | [NFL.com](https://www.nfl.com/teams/baltimore-ravens/) |
+| 25 | NYG | 20.74 | 23.33 | -2.60 | 203 | 196 | [NFL.com](https://www.nfl.com/teams/new-york-giants/) |
+| 26 | ATL | 20.96 | 23.70 | -2.74 | 201 | 258 | [NFL.com](https://www.nfl.com/teams/atlanta-falcons/) |
+| 27 | LV | 22.70 | 25.74 | -3.04 | 251 | 289 | [NFL.com](https://www.nfl.com/teams/las-vegas-raiders/) |
+| 28 | PHI | 19.20 | 22.52 | -3.32 | 148 | 221 | [NFL.com](https://www.nfl.com/teams/philadelphia-eagles/) |
+| 29 | ARI | 20.54 | 24.00 | -3.46 | 184 | 289 | [NFL.com](https://www.nfl.com/teams/arizona-cardinals/) |
+| 30 | TEN | 23.51 | 27.80 | -4.29 | 167 | 239 | [NFL.com](https://www.nfl.com/teams/tennessee-titans/) |
+| 31 | NYJ | 20.75 | 25.75 | -5.00 | 194 | 254 | [NFL.com](https://www.nfl.com/teams/new-york-jets/) |
+| 32 | BAL | 18.93 | 24.31 | -5.38 | 209 | 259 | [NFL.com](https://www.nfl.com/teams/baltimore-ravens/) |
 
 ## Why no line is presented as a recommendation
 
