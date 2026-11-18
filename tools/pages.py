@@ -594,16 +594,47 @@ def leaderboard_table():
             src(SRC_SEASON, "NFL.com results"),
         ])
     return wrap("lb", table(
-        [("Rank", 1), ("ID", 0), ("Strategy", 0), ("Spread MAE", 1),
+        [("Backtest order", 1), ("ID", 0), ("Strategy", 0), ("Spread MAE", 1),
          ("Signal (vs benchmark)", 1), ("Staking", 0),
          ("Gates", 0), ("Eligible", 0), ("Points", 1), ("Source", 0)], rows,
+        "Backtest development board (T50): these are walk-forward results over %d "
+        "evaluated games, not a leaderboard. The brief forbids backtest numbers from "
+        "ever appearing on the leaderboard, so these rows never rank for rewards - the "
+        "rewards leaderboard on this page shows forward, pre-registered samples only. "
         "Signal is the strategy's prediction skill: out-of-sample spread-MAE improvement "
-        "against the S0 league-constant benchmark, over %d games. Staking is bankroll / "
-        "position sizing and is blank because it needs a licensed odds feed - a lucky "
-        "staking run cannot mask a bad signal here (Flag F-19). Points are provisional: "
-        "bankable only by a strategy that passes all seven gates. Full gate-by-gate "
-        "evidence is in the Gate results section below."
-        % meta["eval_games"]))
+        "against the S0 league-constant benchmark. Staking is bankroll / position sizing "
+        "and is blank because it needs a licensed odds feed - a lucky staking run cannot "
+        "mask a bad signal here (Flag F-19). Points are provisional development figures "
+        "and cannot be banked. Full gate-by-gate evidence is in the Gate results section "
+        "below." % meta["eval_games"]))
+
+
+def forward_leaderboard_table():
+    """The rewards leaderboard: forward, pre-registered samples only.
+
+    The brief forbids backtest numbers from ever appearing on the leaderboard,
+    so this table stays empty until the registered forward window settles
+    (T50 / flag E1). It publishes the number that would open it instead of
+    borrowing the backtest's numbers.
+    """
+    rows = [[
+        blank("no rank"),
+        blank("&mdash;"),
+        "<b>No forward markets settled yet</b>",
+        num(0),
+        blank("not evaluable at n = 0"),
+        blank("none bankable"),
+        src("https://www.nfl.com/schedules/2026/by-week/week-11", "Official Week 11 schedule"),
+    ]]
+    return wrap("lb-forward", table(
+        [("Rank", 1), ("ID", 0), ("Strategy", 0), ("Forward score", 1),
+         ("Eligible", 0), ("Points", 1), ("Source", 0)], rows,
+        "This is the only leaderboard on the site: it ranks only forecasts registered "
+        "before kickoff (research/preregistration/wk11-forward-v1.md) and settled on "
+        "official results. n = 0 forward settled markets today, so there is nothing to "
+        "rank and no number is borrowed from the backtest. Reward eligibility still "
+        "requires every gate, including G2 (at least 100 settled bets per market type). "
+        "The walk-forward table below is development evidence and can never appear here."))
 
 
 def leaderboard_preview_table():
@@ -621,8 +652,10 @@ def leaderboard_preview_table():
     return wrap("lb-preview", table(
         [("#", 1), ("Strategy", 0), ("Spread MAE", 1), ("vs benchmark", 1),
          ("Gates", 0), ("Status", 0), ("Source", 0)], rows,
-        "Spread MAE is mean absolute error on the point spread, in points, over the "
-        "out-of-sample games. Full detail on the Strategy Lab page."))
+        "Backtest development board (T50): spread MAE is mean absolute error on the "
+        "point spread, in points, over the out-of-sample games. These rows are not a "
+        "leaderboard and never rank for rewards - the rewards leaderboard is "
+        "forward-only and empty at n = 0. Full detail on the Strategy Lab page."))
 
 
 def gates_table():
@@ -1816,7 +1849,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
 </section>
 
 <section>
-  <div class="section-head"><div><span class="eyebrow">Strategy leaderboard</span><h2>Every strategy must clear every gate</h2><p class="muted">Scored by out-of-sample spread accuracy, significance, stability and calibration. A strategy that cannot show its edge is separated from luck does not earn a reward, however good its recent record looks.</p></div><span class="tag">%(eligible)d of %(nstrat)d eligible</span></div>
+  <div class="section-head"><div><span class="eyebrow">Backtest development board</span><h2>Backtest results &mdash; the rewards leaderboard is forward-only</h2><p class="muted">Walk-forward backtest numbers (weeks 3&ndash;10, n = %(evalg)d) for development only. The brief forbids backtest numbers from ever appearing on the leaderboard: the rewards leaderboard ranks pre-registered forward forecasts only and is empty until the Week 11 window settles (n = 0). No strategy earns a reward however good its backtest looks.</p></div><span class="tag warn">backtest &middot; %(eligible)d of %(nstrat)d eligible</span></div>
   %(lbpreview)s
   <p style="margin-top:12px"><a class="btn" href="strategies.html">Open the Strategy Lab &rarr;</a></p>
 </section>
@@ -1857,7 +1890,8 @@ PAGES.append(("index.html", "NFL Decision Desk",
 
 %(directory)s
 """ % dict(ngames=len(games), kpis=kpi_cards(), facts=wk_facts(), eligible=eligible,
-           nstrat=len(leaderboard), lbpreview=leaderboard_preview_table(),
+           nstrat=len(leaderboard), evalg=meta["eval_games"],
+           lbpreview=leaderboard_preview_table(),
            flagpreview=flags_table(limit=6),
            n_questions=spell(N_QUESTIONS),
            readiness=readiness_preview_table(),
@@ -2061,11 +2095,16 @@ PAGES.append(("gates.html", "Gates & demotion",
 
 # --- strategies ---
 PAGES.append(("strategies.html", "Strategy lab",
-               "Strategy leaderboard with seven validation gates, error correlation matrix, "
-               "calibration check and weekly stability.",
+               "Forward-only rewards leaderboard, the walk-forward backtest board, seven "
+               "validation gates, error correlation matrix, calibration check and weekly stability.",
                """
-<div class="section-head"><div><span class="eyebrow">05 &middot; Strategy tournament</span><h2>Leaderboard and rewards</h2><p class="muted">Strategies are scored on out-of-sample accuracy, and a strategy only earns reward points if it clears every gate. The significance gate is what keeps a lucky streak out of the top of the table.</p></div><span class="tag">%(eligible)d of %(nstrat)d eligible</span></div>
+<div class="section-head"><div><span class="eyebrow">05 &middot; Strategy tournament</span><h2>Leaderboard (rewards) &mdash; forward samples only</h2><p class="muted">The only leaderboard on this site ranks forecasts that were registered before kickoff and settled on official results. Backtest numbers never appear here: the brief forbids them on the leaderboard, so a lucky walk-forward run cannot be mistaken for reward-eligible skill. The board opens when the pre-registered Week 11 window settles.</p></div><span class="tag">n = 0 forward settled</span></div>
+%(flb)s
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">Backtest development board</span><h2>Walk-forward backtest &mdash; never ranked for rewards</h2><p class="muted">Out-of-sample development results (weeks 3&ndash;10, n = %(evalg)d evaluated games) for the nine registered strategies. These numbers exist to improve the model; they are not a leaderboard, cannot earn points and cannot promote a strategy. Reward ranking happens only on the forward board above.</p></div><span class="tag warn">backtest</span></div>
 %(lb)s
+</section>
 
 <section style="margin-top:26px">
   <div class="section-head"><div><span class="eyebrow">Gate results</span><h2>Why each strategy is or is not eligible</h2><p class="muted">Seven gates, every strategy, with the evidence for each verdict.</p></div></div>
@@ -2093,11 +2132,13 @@ PAGES.append(("strategies.html", "Strategy lab",
   <div class="section-head"><div><span class="eyebrow">Risk control</span><h2>Demotion gate</h2><p class="muted">A live strategy that falls outside its own evidence is sent back to paper trading. The gate is a project design choice (no official source publishes one) and is published so it can be applied consistently.</p></div></div>
 %(demotion)s
 </section>
-""" % dict(lb=leaderboard_table(), gates=gates_table(),
+""" % dict(lb=leaderboard_table(), flb=forward_leaderboard_table(),
+           gates=gates_table(),
            corerr=corr_table(corr_err, "corr-err"),
            corrpred=corr_table(corr_pred, "corr-pred"),
            calib=calib_table(), weekly=weekly_table(),
            demotion=demotion_gate_panel(),
+           evalg=meta["eval_games"],
            eligible=eligible, nstrat=len(leaderboard)), "strategies.html"))
 
 # --- availability ---
