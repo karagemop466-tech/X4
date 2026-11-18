@@ -18,8 +18,8 @@
   },
   "improvement_abs": 0.994023336,
   "improvement_pct": 0.094863923,
-  "ci_low": 0.028806474,
-  "ci_high": 1.968112602,
+  "ci_low": -7.044e-05,
+  "ci_high": 1.940098656,
   "weekly_positive_share": 0.75,
   "calibration_max_gap": 0.071305083,
   "gates": {
@@ -36,8 +36,8 @@
     "note": "118 evaluated games (minimum 40)."
    },
    "G4 significance": {
-    "pass_": true,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [0.029, 1.968]."
+    "pass_": false,
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.000, 1.940]."
    },
    "G5 stability": {
     "pass_": true,
@@ -56,7 +56,7 @@
     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
-  "gates_passed": 7,
+  "gates_passed": 6,
   "eligible": false,
   "reward": 59.0,
   "signal": {
@@ -87,8 +87,8 @@
   },
   "improvement_abs": 0.886163831,
   "improvement_pct": 0.084570426,
-  "ci_low": -0.119243435,
-  "ci_high": 1.905349554,
+  "ci_low": -0.165198941,
+  "ci_high": 1.901979635,
   "weekly_positive_share": 0.75,
   "calibration_max_gap": 0.062263399,
   "gates": {
@@ -106,7 +106,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.119, 1.905]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.165, 1.902]."
    },
    "G5 stability": {
     "pass_": true,
@@ -156,8 +156,8 @@
   },
   "improvement_abs": 0.907156936,
   "improvement_pct": 0.086573888,
-  "ci_low": -0.241142515,
-  "ci_high": 2.086752881,
+  "ci_low": -0.248444945,
+  "ci_high": 2.069250928,
   "weekly_positive_share": 0.75,
   "calibration_max_gap": 0.089079818,
   "gates": {
@@ -175,7 +175,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.241, 2.087]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.248, 2.069]."
    },
    "G5 stability": {
     "pass_": true,
@@ -225,8 +225,8 @@
   },
   "improvement_abs": 0.691811721,
   "improvement_pct": 0.066022568,
-  "ci_low": -0.049267769,
-  "ci_high": 1.455476381,
+  "ci_low": -0.064487915,
+  "ci_high": 1.447851823,
   "weekly_positive_share": 0.75,
   "calibration_max_gap": 0.064711458,
   "gates": {
@@ -244,7 +244,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.049, 1.455]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.064, 1.448]."
    },
    "G5 stability": {
     "pass_": true,
@@ -294,8 +294,8 @@
   },
   "improvement_abs": 0.375541216,
   "improvement_pct": 0.035839514,
-  "ci_low": -0.309511051,
-  "ci_high": 1.08455534,
+  "ci_low": -0.299026256,
+  "ci_high": 1.0649872,
   "weekly_positive_share": 0.625,
   "calibration_max_gap": 0.061293502,
   "gates": {
@@ -313,7 +313,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.310, 1.085]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.299, 1.065]."
    },
    "G5 stability": {
     "pass_": true,
@@ -363,8 +363,8 @@
   },
   "improvement_abs": 0.306376984,
   "improvement_pct": 0.029238873,
-  "ci_low": -0.337527825,
-  "ci_high": 0.966207183,
+  "ci_low": -0.344718565,
+  "ci_high": 0.953704635,
   "weekly_positive_share": 0.625,
   "calibration_max_gap": 0.069925483,
   "gates": {
@@ -382,7 +382,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.338, 0.966]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.345, 0.954]."
    },
    "G5 stability": {
     "pass_": true,
@@ -431,8 +431,8 @@
   },
   "improvement_abs": 0.21192891,
   "improvement_pct": 0.020225287,
-  "ci_low": -0.446039201,
-  "ci_high": 0.884549336,
+  "ci_low": -0.451020184,
+  "ci_high": 0.869679156,
   "weekly_positive_share": 0.625,
   "calibration_max_gap": 0.070873473,
   "gates": {
@@ -450,7 +450,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.446, 0.885]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.451, 0.870]."
    },
    "G5 stability": {
     "pass_": true,
@@ -500,8 +500,8 @@
   },
   "improvement_abs": 0.036473494,
   "improvement_pct": 0.003480822,
-  "ci_low": -0.628393781,
-  "ci_high": 0.702183295,
+  "ci_low": -0.633805916,
+  "ci_high": 0.686885679,
   "weekly_positive_share": 0.625,
   "calibration_max_gap": 0.070705469,
   "gates": {
@@ -519,7 +519,7 @@
    },
    "G4 significance": {
     "pass_": false,
-    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.628, 0.702]."
+    "note": "95% Bonferroni-adjusted bootstrap CI for spread-MAE improvement: [-0.634, 0.687]."
    },
    "G5 stability": {
     "pass_": true,

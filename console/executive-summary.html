@@ -1,124 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>X4 — Executive Summary</title>
-<link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
-<div class="shell">
-  <aside class="sidebar" id="sidebar"></aside>
-  <main class="main"><div class="wrap">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Executive summary: every number on this page is computed from a committed dataset or quoted from an official NFL.com page, and every row links its source.">
+<title>Executive summary | X4 Console</title><link rel="stylesheet" href="assets/styles.css"></head>
+<body data-page="executive-summary">
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">4D</span><span>FOURTH DOWN<small>X4 CONSOLE</small></span></a>
+<div class="side-label">WORKSPACE</div><nav><a href="index.html">Overview</a><a href="executive-summary.html" class="active">Executive summary</a><a href="requirements.html">Requirements</a><a href="nfl-data.html">NFL data</a><a href="injuries.html">Availability</a><a href="lines-market.html">Lines &amp; market</a><a href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a><a href="correlation.html">Correlations</a><a href="validation.html">Validation</a><a href="questions.html">Questions</a><a href="suggestions.html">Suggestions</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged</a></nav>
+<div class="side-bottom"><span class="pulse"></span> Rebuilt 2026-11-18</div></aside>
+<main><header class="topbar"><div><span class="eyebrow">CONSOLE</span><h1>Executive summary</h1></div>
+<span class="status-pill"><i></i> Retrieved 2026-11-18</span></header>
 
-    <h1 id="pagetitle">Executive Summary</h1>
-    <p class="lede">
-      The important details, in the order that matters. Every row carries a status and a
-      source. Where we do not know something, the value is blank rather than estimated.
-    </p>
+<section><div class="hero"><span class="eyebrow light">Read this first</span>
+<h2>The data layer is verified. The strategy layer is not, and the gate says so.</h2>
+<p>Every figure below is either computed at build time from a committed dataset in this repository, or quoted
+verbatim from an official NFL.com page fetched on 2026-11-18. Each row carries the link that proves it.
+Where a value does not exist, the row is blank and the reason is named &mdash; nothing here is inferred to fill
+a gap. This page replaces an earlier hand-typed snapshot whose counts had drifted; the numbers below are
+regenerated on every build, so they cannot drift again without the build failing first.</p></div></section>
 
-    <h2>The one-paragraph version</h2>
-    <div class="panel">
-      <p>
-        The repository was empty — one commit containing only a README — so there was no
-        existing site to review or improve; this console was built from scratch. What exists
-        now is a complete research and governance scaffold: 35 requirements tracked,
-        <span data-stat="X4_QUESTION_STATS.total">32</span> open questions,
-        <span data-stat="X4_SUGGESTION_STATS.total">18</span> suggestions queued for review,
-        9 validation gates, <span data-stat="X4_STRATEGY_SUMMARY.total">12</span> candidate
-        strategies, and a full set of verified 2026 NFL data (all 32 clubs' standings, the
-        Week 10 schedule, and <span data-stat="X4_INJURY_ROWS.n">347</span> official
-        injury-report rows). What does <em>not</em> exist
-        is any evidence that any strategy works, because there is no historical odds or
-        play-by-play data to test against, and because two of the brief's core requirements —
-        knowing when a backup replaces a starter, and originating our own lines — depend on
-        data for which no official primary source exists. The recommendation is to resolve
-        the nine P0 questions before writing any more model code.
-      </p>
-    </div>
-
-    <h2>Key facts</h2>
-    <div data-table="execSummary"></div>
-
-    <h2>What we verified, and where</h2>
-    <ul class="tight">
-      <li><strong>Standings.</strong> All 32 clubs, 2026 regular season —
-        <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">nfl.com/standings</a>.
-        Reproduced in full on the <a href="nfl-data.html">NFL Data</a> page.</li>
-      <li><strong>Injuries.</strong> 347 player entries, Week 10 2026 —
-        <a href="https://www.nfl.com/injuries/" target="_blank" rel="noreferrer">nfl.com/injuries</a>.
-        Reproduced in full on the <a href="injuries.html">Injuries</a> page, with empty
-        official cells left empty.</li>
-      <li><strong>Schedule.</strong> 14 Week 10 games plus the official bye list —
-        <a href="https://www.nfl.com/schedules/2026/REG10" target="_blank" rel="noreferrer">nfl.com/schedules</a>.</li>
-      <li><strong>Roster rules.</strong> 53-man active list, standard elevation addendum,
-        practice-squad elevation limits —
-        <a href="https://operations.nfl.com/calendar-events/nfl-free-agency/contract-language" target="_blank" rel="noreferrer">operations.nfl.com</a>.</li>
-      <li><strong>Injury-report definitions.</strong> Out / Doubtful / Questionable and
-        DNP / Limited / Full —
-        <a href="https://www.nfl.com/news/competition-committee-approves-revisions-to-injury-report-0ap3000000688693" target="_blank" rel="noreferrer">NFL Competition Committee revisions</a>.</li>
-      <li><strong>Gambling policy.</strong> Player and staff prohibitions —
-        <a href="https://www.nfl.com/news/nfl-reminds-players-of-league-gambling-policy-in-light-of-federal-indictments" target="_blank" rel="noreferrer">NFL.com</a> and
-        <a href="https://media.nfl.com/news-and-releases/corporate-communications/summary-of-nfl-gambling-policy-education---integrity-monitoring-" target="_blank" rel="noreferrer">NFL corporate communications</a>.</li>
-    </ul>
-
-    <h2>The three decisions that unblock everything</h2>
-    <div class="flow">
-      <div class="step">
-        <div class="n">Decision 1</div>
-        <div class="h">Paper or real money?</div>
-        <div class="p">Sets legal exposure, tax, KYC and whether rewards are prize money.
-        Recommend paper until the jurisdiction is confirmed. (Q-01, Q-02)</div>
-      </div>
-      <div class="step">
-        <div class="n">Decision 2</div>
-        <div class="h">Which data do we license?</div>
-        <div class="p">Without play-by-play and price history nothing can be validated.
-        This is a budget decision, not an engineering one. (Q-09, Q-10, Q-11)</div>
-      </div>
-      <div class="step">
-        <div class="n">Decision 3</div>
-        <div class="h">Who may promote a strategy?</div>
-        <div class="p">Promotion to live stakes needs a named approver and an audit record,
-        or an unvalidated strategy will eventually reach real money. (Q-25, S-07)</div>
-      </div>
-    </div>
-
-    <h2>What we are deliberately not doing</h2>
-    <ul class="tight">
-      <li><strong>Not publishing a correlation number we have not estimated.</strong> Sixteen
-        pairs are enumerated on the <a href="correlation.html">Correlation</a> page with an
-        estimation method attached, and every value cell is blank. A wrong correlation makes
-        a parlay price confidently wrong, which is worse than having no price.</li>
-      <li><strong>Not scoring the leaderboard on profit.</strong> Profit separates from luck
-        far too slowly. In the cited worked example, even after 1,000 bets there was roughly
-        a 1-in-10 chance that luck alone produced a 2% profit where the expectation was a
-        2% loss. The leaderboard scores closing-line value instead.</li>
-      <li><strong>Not filling in blank official cells.</strong> Where the NFL's injury page
-        shows an empty game status, this site shows it as unverified rather than reading it
-        as "will play".</li>
-      <li><strong>Not guessing depth-chart URLs.</strong> Only the one club site verified
-        this session has its URL published on the
-        <a href="injuries.html">Injuries</a> page. The other 31 are blank, because a guessed
-        URL is a broken link.</li>
-      <li><strong>Not implementing any suggestion before review.</strong> All 18 sit at
-        Proposed.</li>
-    </ul>
-
-    <footer class="pgfoot">
-      Sources for every row above are linked in the table's Source column. Data captured
-      2026-11-14. Nothing here is wagering advice.
-    </footer>
-
-  </div></main>
+<div class="cards">
+<article class="card hero-stat"><span class="k">Games in the corpus</span><div class="v">150</div>
+  <div class="n">Weeks 1&ndash;10, every score proved against the official standings</div></article>
+<article class="card hero-stat"><span class="k">Standings fields reconciled</span><div class="v">160/160</div>
+  <div class="n">W, L, T, PF, PA for all 32 clubs; 0 mismatches</div></article>
+<article class="card hero-stat"><span class="k">Injury report rows</span><div class="v">347</div>
+  <div class="n">Official Week 10 report, 28 clubs</div></article>
+<article class="card hero-stat"><span class="k">Depth positions transcribed</span><div class="v">1558</div>
+  <div class="n">From 31 clubs' own published charts</div></article>
+<article class="card hero-stat"><span class="k">Strategies eligible for reward</span><div class="v">0</div>
+  <div class="n">None clears every gate; 24 markets is far below the minimum sample</div></article>
 </div>
-<script src="data/sources.js"></script>
-<script src="assets/nav.js"></script>
-<script src="assets/table.js"></script>
-<script src="data/exec-summary.js"></script>
-<script src="data/questions.js"></script>
-<script src="data/suggestions.js"></script>
-<script src="data/strategies.js"></script>
-<script src="data/nfl-injuries.js"></script>
-</body>
-</html>
+
+<section><div class="section-head"><div><span class="eyebrow">The register</span>
+<h2>23 facts, each with its source</h2>
+<p class="muted">Grouped by area: Season, Data, Availability, Origination, Strategy, Review, Blanks. Every row in this table is a data row and carries an https link to
+the page or committed artifact that proves it.</p></div></div>
+<div class="card"><div class="table-wrap"><table class="data">
+<thead><tr><th>Area</th><th>Item</th><th>Value</th><th>What it means</th><th>Source</th></tr></thead>
+<tbody><tr><td>Season</td><td><b>Week the league has published a report for</b></td><td>Week 10 of 2026</td><td>The official injury-report page title still reads Week 10 on 2026-11-18; the Week 11 report does not exist yet, so no Week 11 availability claim is made anywhere on this site.</td><td><a href="https://www.nfl.com/injuries/" target="_blank" rel="noreferrer noopener">NFL.com injury report &nearr;</a></td></tr>
+<tr><td>Season</td><td><b>Week 10 as published by the league</b></td><td>14 games + 4 clubs on bye</td><td>&amp;ldquo;Teams on Bye: CHI, DEN, PHI, TB&amp;rdquo; &amp;mdash; 14 games played in Week 10, the Thursday game final on Nov 12 and the Monday game final on Nov 16. The four bye clubs are Chicago, Denver, Philadelphia and Tampa Bay.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noreferrer noopener">NFL.com Week 10 schedule &nearr;</a></td></tr>
+<tr><td>Season</td><td><b>Week 11 as published by the league</b></td><td>13 games, Nov 19&ndash;23</td><td>&amp;ldquo;Teams on Bye: ATL, CLE, GB, LAR, NE, SEA&amp;rdquo; &amp;mdash; 13 games scheduled, Nov 19 to Nov 23, including Vikings at 49ers in Mexico City.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noreferrer noopener">NFL.com Week 11 schedule &nearr;</a></td></tr>
+<tr><td>Data</td><td><b>Games in the verified corpus</b></td><td>150 (weeks 1&ndash;10)</td><td>Every game carries its final score and the URL of its official NFL.com game page. The current brief calls this the 136-game log; that figure predates the Week 10 Thursday game, and the 13 remaining Week 10 games had not been ingested. All 14 are now in.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/week10-slate-2026.csv" target="_blank" rel="noreferrer noopener">Committed Week 10 slate (repo) &nearr;</a></td></tr>
+<tr><td>Data</td><td><b>Standings reconciliation</b></td><td>160 / 160 fields match</td><td>Wins, losses, ties, points for and points allowed are re-derived from all 150 games and compared with the official NFL.com standings read on 2026-11-18. 0 mismatches. A single wrong score changes at least one club&#x27;s points for or against, so this is a complete check of every score in the corpus.</td><td><a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer noopener">NFL.com standings &nearr;</a></td></tr>
+<tr><td>Data</td><td><b>League totals implied by the corpus</b></td><td>PF 6923 = PA 6923</td><td>Points scored must equal points allowed across a closed league; wins equal losses (149 each) and 2 ties are outstanding. These are arithmetic identities, so a violation would mean a corrupted game row.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/tools/verify.py" target="_blank" rel="noreferrer noopener">Committed verifier &nearr;</a></td></tr>
+<tr><td>Data</td><td><b>Scoring environment measured from the corpus</b></td><td>46.2 &plusmn; 14.2 per game</td><td>Mean and standard deviation of the combined score over 150 completed games, weeks 1&amp;ndash;10. This is the baseline any totals model has to beat; it is measured, not assumed.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv" target="_blank" rel="noreferrer noopener">Committed game log &nearr;</a></td></tr>
+<tr><td>Data</td><td><b>Mean absolute margin</b></td><td>10.8 points</td><td>The other half of the baseline: a spread model reproducing the mean margin is doing nothing, so this is the number a model&#x27;s error is measured against.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv" target="_blank" rel="noreferrer noopener">Committed game log &nearr;</a></td></tr>
+<tr><td>Data</td><td><b>Home-field edge measured (neutral-site games excluded)</b></td><td>-0.5 points, 95% CI [-2.7, +1.6]</td><td>Home score minus away score over 146 non-neutral games (4 neutral-site games excluded). The interval contains zero, so this window does not establish a home edge and the model is not given one.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv" target="_blank" rel="noreferrer noopener">Committed game log &nearr;</a></td></tr>
+<tr><td>Availability</td><td><b>Official injury-report rows captured</b></td><td>347 rows, 28 clubs</td><td>Player, position, injury, practice status and game status for every club the report lists. A blank game status is kept blank: it is a practice-only entry, not a designation.</td><td><a href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noreferrer noopener">NFL.com Week 10 report &nearr;</a></td></tr>
+<tr><td>Availability</td><td><b>Game designations on that report</b></td><td>70 Out, 11 Doubtful, 90 Questionable, 176 with no designation</td><td>Counted from the committed dataset, which was re-read cell for cell against the official capture. These are levels, not signals: the site&#x27;s rule is that an injury only becomes a signal as a surprise relative to the previous dated read (see the What changed page).</td><td><a href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noreferrer noopener">NFL.com Week 10 report &nearr;</a></td></tr>
+<tr><td>Availability</td><td><b>Depth positions transcribed from club charts</b></td><td>1558 rows, 31 clubs</td><td>Each club publishes its own ordered chart; the column order is the depth position. 31 of the 32 clubs publish a machine-readable order; Houston publishes an image only and is blank rather than guessed.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/depth-wk11-2026.csv" target="_blank" rel="noreferrer noopener">Committed depth dataset &nearr;</a></td></tr>
+<tr><td>Availability</td><td><b>Depth cells that hold more than one player</b></td><td>629 of 705 columns</td><td>A club puts co-starters in one cell; the dataset stores each of them as a separate depth instead, and 76 of the 705 columns hold only one player, so a shared rank-1 cell cannot be represented. Live spot check: the Seahawks list Cooper Kupp and Rashid Shaheed in the same rank-1 WR cell, but the dataset holds them at depth 1 and 2. This is a fidelity defect in the depth data, not a modelling choice, and it is the reason no &#x27;2nd string&#x27; deficiency claim should be trusted from it yet.</td><td><a href="https://www.seahawks.com/team/depth-chart" target="_blank" rel="noreferrer noopener">Live SEA depth chart &nearr;</a></td></tr>
+<tr><td>Origination</td><td><b>Markets originated, and in what order</b></td><td>side, then total, then moneyline</td><td>The origination order is fixed and recorded in the data, so a later reader can tell which market was priced first when the three disagree.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/ops/markets.csv" target="_blank" rel="noreferrer noopener">Committed market register &nearr;</a></td></tr>
+<tr><td>Origination</td><td><b>Fair line, market line and difference</b></td><td>30 rows, three separate columns</td><td>Never merged: the fair line, the captured market line and their difference are three published fields, so a reader can see the disagreement without recomputing it.</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer noopener">NFL.com schedule (fixtures) &nearr;</a></td></tr>
+<tr><td>Origination</td><td><b>Price readings stored</b></td><td>60 readings with open and close</td><td>Every reading carries a UTC stamp and an https URL. The closing snapshot for unplayed games is registered and deliberately empty, because a close cannot exist before kickoff.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/ops/price_snapshots.csv" target="_blank" rel="noreferrer noopener">Committed price store &nearr;</a></td></tr>
+<tr><td>Strategy</td><td><b>Graded markets</b></td><td>24</td><td>Settled against the recorded closing line and the official final score. The sample is far below the pre-registered minimum, which is why every strategy below is marked ineligible.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/data/ops/graded.csv" target="_blank" rel="noreferrer noopener">Committed graded markets &nearr;</a></td></tr>
+<tr><td>Strategy</td><td><b>Strategies eligible for a reward</b></td><td>0</td><td>A strategy must clear every gate, including sample sufficiency, significance and multiplicity. None does. This is the gate working, not a gap in the analysis.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/site/readiness.html" target="_blank" rel="noreferrer noopener">Decision-readiness register &nearr;</a></td></tr>
+<tr><td>Strategy</td><td><b>Divisions on the leaderboard</b></td><td>singles / parlays / prop combos</td><td>Separate divisions, because a same-game parlay&#x27;s legs are dependent: multiplying marginal probabilities is invalid, so a combo may only be ranked when a directly validated joint probability exists. None does yet.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/site/leaderboard.html" target="_blank" rel="noreferrer noopener">Published leaderboard &nearr;</a></td></tr>
+<tr><td>Strategy</td><td><b>Signal and staking</b></td><td>reported separately, never blended</td><td>A positive paper profit on a negative edge is possible, so the score and the bankroll are two columns. Where they disagree, the page says so rather than reporting the flattering one.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/site/signal-vs-staking.html" target="_blank" rel="noreferrer noopener">Signal vs staking &nearr;</a></td></tr>
+<tr><td>Review</td><td><b>Flagged items open in the main register</b></td><td>49 open of 67</td><td>Every flag carries its evidence link. Flags do not block publication; they are the list of things that are known to be unresolved, which is why nothing is filled in to hide them.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/site/flags.html" target="_blank" rel="noreferrer noopener">Flagged for review &nearr;</a></td></tr>
+<tr><td>Review</td><td><b>Scheduled official captures stored</b></td><td>0</td><td>The scheduled capture workflow has failed on every scheduled run since 2026-11-16 and has stored no capture. The cause is a code defect, not a network outage: an empty Houston depth-chart URL raises a ValueError that the fetch loop does not catch. The diagnosis is published; the repair sits in another file scope.</td><td><a href="https://github.com/karagemop466-tech/X4/actions/runs/44175196682" target="_blank" rel="noreferrer noopener">Failing capture run &nearr;</a></td></tr>
+<tr><td>Blanks</td><td><b>Values deliberately left blank</b></td><td>listed, never inferred</td><td>Player-prop prices, historical closing prices, inactive lists, snap counts and any award or reward amount. Each has a flag with the reason and the source that would close it.</td><td><a href="https://github.com/karagemop466-tech/X4/blob/main/site/flagged.html" target="_blank" rel="noreferrer noopener">Flagged register &nearr;</a></td></tr></tbody></table></div></div></section>
+
+<section><div class="card"><span class="eyebrow">What this page cannot tell you</span>
+<p class="muted">Whether any strategy makes money. The corpus supports a backtest, and one has been run, but
+the sample is small, the pre-registered minimum is not met, and the multiplicity adjustment is not yet
+computed. Until those clear, a positive return here would be indistinguishable from luck, and the site's rule
+is that such a result is reported as ineligible rather than published as a win. The three inputs that would
+change the answer are: a pre-kickoff price captured for every originated market, a larger settled sample, and
+inactive lists to replace the injury designation with the fact of who actually played.</p></div></section>
+
+<footer><span>FOURTH DOWN &middot; X4 CONSOLE</span><span><a href="index.html">&larr; Overview</a> &middot;
+<a href="flagged.html">Flagged</a> &middot; <a href="sources.html">Sources</a></span></footer></main>
+</body></html>

@@ -20,14 +20,14 @@ A strategy only earns reward points if it clears every gate. The gates are desig
 
 | Rank | ID | Strategy | Spread MAE | Total MAE | Direction | Improvement | 95% CI | Weeks improved | Calib. gap | Gates | Eligible | Points |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | S1 | Simple mean, opponent-adjusted | 9.48 | 11.23 | 66.9% | 9.49% | 0.03 to 1.97 | 75% | 0.071 | 7/7 | no | 59.00 |
-| 2 | S8 | Last 5 games window | 9.59 | 11.34 | 65.3% | 8.46% | -0.12 to 1.91 | 75% | 0.062 | 6/7 | no | 54.60 |
-| 3 | S2 | Exponentially weighted | 9.57 | 10.82 | 63.6% | 8.66% | -0.24 to 2.09 | 75% | 0.089 | 6/7 | no | 53.40 |
-| 4 | S5 | Median + shrinkage | 9.79 | 10.93 | 61.0% | 6.60% | -0.05 to 1.46 | 75% | 0.065 | 6/7 | no | 45.10 |
-| 5 | S3 | EW + shrinkage | 10.10 | 10.72 | 58.5% | 3.58% | -0.31 to 1.08 | 62% | 0.061 | 6/7 | no | 29.10 |
-| 6 | S4 | Fast EW + heavy shrinkage | 10.17 | 10.78 | 56.8% | 2.92% | -0.34 to 0.97 | 62% | 0.070 | 6/7 | no | 25.00 |
-| 7 | S7 | Blend S3 and S6 | 10.27 | 10.71 | 55.1% | 2.02% | -0.45 to 0.88 | 62% | 0.071 | 6/7 | no | 20.50 |
-| 8 | S6 | Slow EW + heavy shrinkage | 10.44 | 10.72 | 49.2% | 0.35% | -0.63 to 0.70 | 62% | 0.071 | 6/7 | no | 12.10 |
+| 1 | S1 | Simple mean, opponent-adjusted | 9.48 | 11.23 | 66.9% | 9.49% | -0.00 to 1.94 | 75% | 0.071 | 6/7 | no | 59.00 |
+| 2 | S8 | Last 5 games window | 9.59 | 11.34 | 65.3% | 8.46% | -0.17 to 1.90 | 75% | 0.062 | 6/7 | no | 54.60 |
+| 3 | S2 | Exponentially weighted | 9.57 | 10.82 | 63.6% | 8.66% | -0.25 to 2.07 | 75% | 0.089 | 6/7 | no | 53.40 |
+| 4 | S5 | Median + shrinkage | 9.79 | 10.93 | 61.0% | 6.60% | -0.06 to 1.45 | 75% | 0.065 | 6/7 | no | 45.10 |
+| 5 | S3 | EW + shrinkage | 10.10 | 10.72 | 58.5% | 3.58% | -0.30 to 1.06 | 62% | 0.061 | 6/7 | no | 29.10 |
+| 6 | S4 | Fast EW + heavy shrinkage | 10.17 | 10.78 | 56.8% | 2.92% | -0.34 to 0.95 | 62% | 0.070 | 6/7 | no | 25.00 |
+| 7 | S7 | Blend S3 and S6 | 10.27 | 10.71 | 55.1% | 2.02% | -0.45 to 0.87 | 62% | 0.071 | 6/7 | no | 20.50 |
+| 8 | S6 | Slow EW + heavy shrinkage | 10.44 | 10.72 | 49.2% | 0.35% | -0.63 to 0.69 | 62% | 0.071 | 6/7 | no | 12.10 |
 | 9 | S0 | League constant | 10.48 | 10.86 | 45.8% | baseline | 0.00 to 0.00 | 0% | 0.057 | 4/7 | no | 5.20 |
 
 ## The headline result
@@ -61,7 +61,7 @@ Four reasons, and the first is the one that matters most:
 
 | Strategy | Gates passed | Failing gates |
 |---|---|---|
-| S1 | 7/7 | G8 shadow period |
+| S1 | 6/7 | G4 significance, G8 shadow period |
 | S8 | 6/7 | G4 significance, G8 shadow period |
 | S2 | 6/7 | G4 significance, G8 shadow period |
 | S5 | 6/7 | G4 significance, G8 shadow period |

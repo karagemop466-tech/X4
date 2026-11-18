@@ -71,7 +71,7 @@
   "type": "Result",
   "kind": "warn",
   "status": "limitation",
-  "detail": "Across 105 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval that still contains zero.",
+  "detail": "Across 118 out-of-sample games the best strategy's improvement over the league-constant benchmark has a Bonferroni-adjusted bootstrap interval whose lower bound still reaches zero (-0.0001 points), so it does not clear the gate.",
   "why": "This is the gate doing its job. A leaderboard that ranked strategies by point estimate alone would have declared a winner that the evidence does not support.",
   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
   "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
@@ -270,7 +270,7 @@
   "kind": "no",
   "status": "unverified",
   "detail": "houstontexans.com/team/depth-chart renders its chart as a single bitmap image with no table markup and no ordered text, so no Houston depth position can be transcribed from it. Houston is the only club of the 32 with no rows on the Depth & deficiency page.",
-  "why": "The five Houston players the official NFL injury report rules Out or Doubtful for Week 10 (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) therefore have no published depth position on this site. Reading a rank off a picture would be an eyeball inference, so those cells are blank and the five names are listed as unmatched instead.",
+  "why": "The five Houston players the official NFL injury report rules Out or Doubtful for Week 10 (Azeez Al-Shaair, Marvin Harrison Jr., Danielle Hunter, Brevin Jordan, Keylan Rutledge) therefore have no published depth position on this site. Reading a rank off a picture would be an eyeball inference, so those cells are blank and the five names are listed as unmatched instead. T47 (2026-11-18) resolved the starter axis from an authorized source: the official NFL Game Book for Houston's Week 10 game at Cleveland yields actual starters and per-player snap counts, published as derived playing-time depth indices on houston-depth.html (raw Game Book rows stored privately under data/ops/raw/ per the T38 reuse gate). The ordinal 2nd/3rd/4th-string chain remains unavailable from any authorized structured source and stays blank.",
   "official_url": "https://www.houstontexans.com/team/depth-chart",
   "url": "https://www.houstontexans.com/team/depth-chart"
  },
@@ -628,23 +628,111 @@
  },
  {
   "id": "F-58",
-  "item": "The published game log and standings snapshot were jointly stale: 13 of 14 Week-10 games were missing, and the verification pair agreed with itself (T46 integrity repair, arena/2d57231a-x4)",
+  "item": "The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46)",
   "type": "Irregularity",
   "kind": "warn",
-  "status": "irregularity",
-  "detail": "On 2026-11-18 the official NFL.com Week-10 results and standings pages were re-read line by line against the committed corpus. data/games-2026.csv held 137 rows through Week 9 plus only the Thursday WAS@NYG game of Week 10; 13 completed Week-10 games (NE@DET, KC@ATL, HOU@CLE, MIN@GB, MIA@IND, CAR@NO, BUF@NYJ, JAX@TEN, LAR@ARI, SEA@LV, SF@DAL, PIT@CIN, LAC@BAL) were absent, and data/standings-wk10-2026.csv held the pre-Week-10 standings rather than the post-Week-10 official table. The gap survived every earlier check for a structural reason worth recording: tools/verify.py reconciles the game log against that same standings file, so a stale log and a stale standings snapshot agree with each other and both checks pass. A self-consistent pair is not a verified pair; only re-reading the external official page finds this class of drift. The exact reconciliation (32 of 32 clubs: official W/L/T/PF/PA = committed log + exactly the 13 missing games, with one W/L flip per affected club) is recorded in the T46 row of COORDINATION.md. The log is now 150 games and tools/verify.py passes 486 assertions against the corrected official standings.",
-  "why": "Flagged rather than silently fixed because the correction changes published conclusions (see F-59) and because the self-verification blind spot is a property of the verification design, not of this one data entry. Clears when: verify.py (or a successor check) pins the standings snapshot to an external retrieval timestamp and re-fetches or hash-pins the official standings page independently of the game log, so a jointly stale pair can no longer pass.",
-  "official_url": "https://www.nfl.com/standings/",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"
+  "status": "resolved",
+  "detail": "Read live on 2026-11-18, the official Week 10 schedule page shows all 14 finals played (Nov 12-16), while the committed game log held only the Nov 12 Thursday game. The official standings had therefore moved for 28 of 32 clubs, and every number derived from them - the power ratings, the walk-forward evaluation (105 games), the leaderboard, the luck panel and the Week 11 lines - described a season that no longer existed. Cause: no scheduled ingest of completed results; the last refresh ran on 2026-11-14.",
+  "why": "This is the failure mode the brief calls out most often: a static snapshot presented as current. It was not a data-entry error but an evidence-freshness error, and it made a correct model look measurably worse than it was (S1's improvement read 8.31% on 105 games and reads 9.49% on 118). Cleared by: the 13 finals transcribed from the official page, the standings rebuilt from the proved log, 130 changed cells audited in research/verification/standings-refresh-2026-11-18.csv, and every derived number regenerated. Record: research/verification/official-reverify-2026-11-18.md.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
  },
  {
   "id": "F-59",
-  "item": "S1 now clears G1-G7 on the repaired corpus (post-hoc), but every strategy stays ineligible until the pre-registered Week-11 shadow window is graded (T46, arena/2d57231a-x4)",
+  "item": "The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46)",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "resolved",
+  "detail": "site/check.py's JavaScript smoke test asserted that the standings page renders exactly 137 game rows. When the 13 remaining Week 10 finals were added, the gate failed with 'expected 137 game rows in the DOM, found 150'. A gate that must be hand-edited to accept new official results punishes freshness and will be edited carelessly under time pressure.",
+  "why": "Structural, not cosmetic: the same pattern can hide a genuinely missing row behind a literal. The expectation now reads the row count from data/games-2026.csv and still proves the week filter renders every row. Cleared by: the rewrite plus a full tools/validate.py pass.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/site/check.py"
+ },
+ {
+  "id": "F-60",
+  "item": "Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City)",
   "type": "Irregularity",
   "kind": "warn",
   "status": "irregularity",
-  "detail": "Rebuilding the walk-forward evaluation on the corrected 150-game corpus (weeks 3-10, n=118) flips the headline conclusion: S1 (simple opponent-adjusted mean) now shows +9.49% spread-MAE improvement over the S0 benchmark with a Bonferroni-adjusted 95% bootstrap CI of [+0.03, +1.97] points, so its significance gate G4 passes where it previously failed. The other eight strategies remain 6 of 7 on the backtest gates. This is a post-hoc result: the 13 games it rests on were ingested on 2026-11-18, after research/preregistration/wk11-forward-v1.md froze the corpus and the sample window, and the pre-registration requires forwards to be registered before their holdout opens. The leaderboard therefore now carries an explicit G8 shadow-period gate (a further pre-registered segment, actually graded), which no historical backtest can satisfy: S1 is 7 of 8, marked ineligible and paper, and the reward for the 7 backtest gates is published as provisional. data/ops/gates.csv G8 (\"a further pre-registered segment with no gate regression\") is the same gate on the market-store side and reads fail for all nine strategies.",
-  "why": "Published as a post-hoc integrity repair, not as a performance result: the number is real and reproducible, but the corpus changed after registration, so it cannot be claimed as pre-registered skill. The gate is kept honest rather than relaxed: G8 demands the registered Week-11 forward window be played and graded with no gate regression before any strategy may be marked Live. Clears when: the Week-11 forward sample settles under the existing pre-registration and the gates are re-evaluated on it - or the owner explicitly re-registers a revised protocol before that window opens.",
+  "detail": "The committed venue set (data/venues-wk11-2026.csv) says RELIANT STADIUM for Colts at Texans and ARROWHEAD STADIUM for Cardinals at Chiefs. The official Week 11 schedule page names NRG Stadium and 'GEHA Field at Arrowhead Stadium' in its ticket and hotel links for the same two fixtures. Both are in-use names for the same buildings, so this is a naming question, not a venue error.",
+  "why": "The requirement is that the venue of every fixture be transcribed from the official game centre. That transcription has not been re-done for these two clubs, and the official game-centre page itself was not read for the stadium block this session. Not edited: an unverified rename is worse than a recorded difference. Clears when the Game Info block of both official game pages is read and the dataset is updated with that reading.",
+  "official_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/data/venues-wk11-2026.csv"
+ },
+ {
+  "id": "F-61",
+  "item": "The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. A third-party aggregator displays a Wednesday 11/18 Week 11 practice report for the Colts/Texans game; no official NFL.com page carries it.",
+  "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series.",
+  "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
+ },
+ {
+  "id": "F-62",
+  "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54",
+  "type": "Irregularity",
+  "kind": "bad",
+  "status": "open",
+  "detail": "tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in research/computed_stats.json ({n: 54, r: -0.3224, ci95: [-0.5432, -0.0598]}). The generated signals table prints 54 correctly. The executive-summary row and the correlations page attach 57 - the size of the input file - to the same r. The three neutral-site games dropped (HOU at JAX week 6, PIT at NO week 7, CIN at ATL week 9) are not named in the row label either. The value and interval are correct; the n beside them is not.",
+  "why": "The brief requires every correlation to be published with its n. Printing the file count instead of the observation count makes a result computed on 54 games look like one computed on 57, which is the exact substitution the requirement exists to prevent.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-6",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
+ },
+ {
+  "id": "F-63",
+  "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "open",
+  "detail": "research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which re-derives exactly from research/data/games_weeks6-9_2026.csv. The executive summary publishes it as +0.1 and the line-lab model text as h = +0.07: the same quantity at two roundings. Separately, the window is weeks 6-9 only. Re-deriving on the full verified corpus (weeks 1-10, neutral-site games excluded) gives n = 67 and a mean of -1.49, the opposite sign to the +0.07 the line lab adds to every Week 11 spread.",
+  "why": "A model constant that flips sign when four more weeks of official results are included is not a measured edge yet; it is a window-dependent number. Publishing it as 'measured' without the window and the wider result is the overclaim.",
+  "official_url": "https://www.nfl.com/schedules/2026/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
+ },
+ {
+  "id": "F-64",
+  "item": "The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent",
+  "type": "Unverified data",
+  "kind": "bad",
+  "status": "open",
+  "detail": "data/depth-wk11-2026.csv holds 1,558 rows across 705 club/unit/position columns, of which 76 name a single player and 0 cells hold more than one player. Every club chart read this session publishes at least one shared or empty cell (Seattle WR cell 1 lists Cooper Kupp and Rashid Shaheed together; Washington WR cell 2 is empty), and the dataset stores the Seattle pair at depth 1 and 2. No special-teams row (P, K, H, LS, PR, KR) exists in the dataset, although every live chart read publishes a special-teams section. A four-club live sample of offence charts (SEA, CLE, BAL, WAS; 103 players) found 4 players absent from the dataset and the one shared rank-1 cell not represented.",
+  "why": "The brief's deficiency signal is 'a backup replaced a starter'. With co-starters stored as starter-plus-backup, the dataset would report a deficiency at a position where both men start, and a missing player cannot be reported absent at all. The depth-audit page quantifies this per club rather than disclaiming it in prose.",
+  "official_url": "https://www.seahawks.com/team/depth-chart",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"
+ },
+ {
+  "id": "F-65",
+  "item": "Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError",
+  "type": "Irregularity",
+  "kind": "bad",
+  "status": "open",
+  "detail": "Four scheduled runs (2026-11-16 06:40, 2026-11-16 22:13, 2026-11-17 08:00, 2026-11-17 21:00) all fail at step 4, 'Fetch, schema-check and store the official pages', within 8 seconds, and steps 5-7 are skipped, so no capture and no manifest line was ever stored. tools/depth.py sets the Houston chart URL to the empty string; tools/capture_official.py fetch() passes every URL straight to urllib.request.Request, which raises ValueError ('unknown url type: ...') for an empty URL, and ValueError is not in the caught (URLError, OSError, TimeoutError) tuple. HOU sorts 11th of the 32 club targets, which fits an 8-second abort and rules out 33 sequential 60-second timeouts. REPAIRED 2026-11-18 on this branch: a blank/invalid URL is now skipped loudly (stderr note, manifest line, non-zero exit) so one missing club page no longer discards the other 31 targets; the scheduled workflow still needs to run green to confirm. The log text itself could not be retrieved (the Actions log blob returns EOF), so the conclusion is drawn from the step outcome, the duration and the code path, and is labelled as such.",
+  "why": "Until this is fixed no multi-day availability history can exist, which blocks every capture-dependent requirement in the brief: replayable practice designations, inactive lists, and the designation-reliability study.",
+  "official_url": "https://www.nfl.com/injuries/",
+  "url": "https://github.com/karagemop466-tech/X4/actions/runs/44175196682"
+ },
+ {
+  "id": "F-66",
+  "item": "The game log and the standings snapshot are a self-verification pair: tools/verify.py cannot detect them going stale together (T46 structural finding, arena/2d57231a-x4)",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "The 2026-11-18 staleness event (flag F-58, resolved) survived every earlier check for a structural reason worth separating from the event itself: tools/verify.py reconciles data/games-2026.csv against data/standings-wk10-2026.csv, so when both drift together both checks pass. A self-consistent pair is not a verified pair. The exact reconciliation that proved the drift (official W/L/T/PF/PA = pre-repair log + exactly the 13 missing Week-10 games, 32 of 32 clubs, one W/L flip per club that played) is published row by row in research/audits/official-score-staleness-2026-11-18.csv and written up in research/audits/official-score-staleness-2026-11-18.md. tools/audit_score_staleness.py now cross-checks the log against an independent dated capture (research/verification/standings-live-2026-11-18.csv) and is proven to fail loudly on a stale log.",
+  "why": "Clears when the official standings page is pinned (retrieval timestamp + hash, or a scheduled re-fetch) independently of the game log inside the normal verification run, so a jointly stale pair can no longer pass. Until then, a green verify.py proves internal consistency only.",
+  "official_url": "https://www.nfl.com/standings/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/audit_score_staleness.py"
+ },
+ {
+  "id": "F-67",
+  "item": "The post-corpus-completion strategy result is post-hoc and its significance verdict is not order-robust; G8 keeps every strategy ineligible until the Week-11 forward window is graded (T46, arena/2d57231a-x4)",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "Rebuilt on the completed 150-game corpus (walk-forward Weeks 3-10, n=118), S1's spread-MAE improvement over the S0 benchmark reads +9.49%, and the Bonferroni-adjusted 95% bootstrap interval for it nearly touches zero and flips sign with the row ordering of the identical game set: [-0.00, +1.94] points on the published (sorted) log order, where G4 reads fail, versus [+0.03, +1.97] on the transcription order, where G4 reads pass. A verdict that changes with the arbitrary ordering of identical rows is not a verdict. Independently, the result is post-hoc: the 13 Week-10 games it rests on were ingested on 2026-11-18, after research/preregistration/wk11-forward-v1.md froze the corpus and window. The leaderboard therefore now evaluates an explicit G8 shadow-period gate (a further pre-registered segment, actually graded - the same gate data/ops/gates.csv G8 names), which no historical backtest can satisfy: every strategy is published ineligible and paper, with provisional reward only.",
+  "why": "Published so the +9.49% cannot be quoted as pre-registered skill. Clears when the registered Week-11 forward window is played and graded with no gate regression and the significance is re-evaluated on that untouched sample (a stable interval computed under a pre-registered row ordering), or the owner explicitly re-registers a revised protocol before that window opens.",
   "official_url": "https://www.nfl.com/standings/",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
  }

@@ -275,6 +275,11 @@ for g in games:
     g["away_pts"] = int(g["away_pts"])
     g["home_pts"] = int(g["home_pts"])
 
+# The date of the most recent official game in the log, read from the official weekly
+# schedule pages used to transcribe it (Week 10's last game was Monday 16 November 2026).
+DATA_AS_OF = "2026-11-18"
+LAST_GAME_DATE = "2026-11-16"
+
 games_by_week = {}
 for g in games:
     games_by_week.setdefault(g["week"], []).append(g)
@@ -863,9 +868,17 @@ os.makedirs(SITE, exist_ok=True)
 
 payload = {
     "meta": {
-        "generated": "2026-11-14 (UTC)",
+        # T46: the season state is derived from the log, not typed. The log is proved
+        # against the official NFL.com standings by tools/verify.py and, for the
+        # 2026-11-18 close-out, by tools/reverify_2026_11_18.py before this runs.
+        "generated": "%s (UTC)" % DATA_AS_OF,
         "season": 2026,
-        "as_of": "After the Nov 12, 2026 Thursday night game (Week 10 game 1); Week 10 Sunday games pending.",
+        "as_of": ("Week 10 complete: %d official finals (Weeks 1-%d), last played %s. "
+                  "Standings are the official NFL.com totals through that game. "
+                  "Week 11 has not kicked off." %
+                  (len(games), max(g["week"] for g in games), LAST_GAME_DATE)),
+        "log_games": len(games),
+        "log_through_week": max(g["week"] for g in games),
         "source_standings": "https://www.nfl.com/standings/",
         "source_injuries": "https://www.nfl.com/injuries/",
         "source_week11": "https://www.nfl.com/schedules/2026/by-week/week-11",

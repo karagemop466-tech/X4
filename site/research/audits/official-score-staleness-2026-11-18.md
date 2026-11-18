@@ -18,7 +18,7 @@ The committed corpus was jointly stale:
 
 ## Why earlier checks did not catch it
 
-`tools/verify.py` reconciles the game log against `data/standings-wk10-2026.csv` — the same stale pair. A stale log and a stale standings snapshot agree with each other, so all 460 (pre-repair) assertions passed. A self-consistent pair is not a verified pair; only re-reading the external official page finds this class of drift (recorded as **F-58**).
+`tools/verify.py` reconciles the game log against `data/standings-wk10-2026.csv` — the same stale pair. A stale log and a stale standings snapshot agree with each other, so all 460 (pre-repair) assertions passed. A self-consistent pair is not a verified pair; only re-reading the external official page finds this class of drift (recorded as **F-66**; renumbered from F-58 after the merge with the parallel sessions' flags).
 
 ## Exact reconciliation (the staleness proof)
 
@@ -31,14 +31,16 @@ For every club: **official W/L/T/PF/PA = pre-repair log + exactly the missing We
 - `data/ops/results.csv` — the same 13 games appended (138 → 151 lines incl. header).
 - `tools/verify.py` now passes **486 assertions** on 150 games, 32 teams: reconstructed scores reproduce every official W/L/T/PF/PA total exactly.
 
-## Consequence for the strategy leaderboard (published as post-hoc, see F-59)
+## Consequence for the strategy leaderboard (published as post-hoc, see F-67)
 
-The walk-forward evaluation (Weeks 3–10, n=118) on the corrected corpus changes the headline: **S1 now clears G1–G7** (spread MAE 9.484, +9.49% vs benchmark, Bonferroni-adjusted 95% CI [+0.03, +1.97]). This is a **post-hoc integrity repair, not a performance result** — the 13 games were ingested after `research/preregistration/wk11-forward-v1.md` froze the corpus. The leaderboard therefore now evaluates an explicit **G8 shadow-period gate** (a pre-registered segment, actually graded), which a historical backtest cannot satisfy: S1 is 7/8, marked ineligible and paper, and every strategy's reward is provisional. Nothing goes Live until the registered Week-11 forward window is played and graded.
+The walk-forward evaluation (Weeks 3–10, n=118) on the completed corpus shows S1 at **+9.49% spread-MAE improvement** over the S0 benchmark (spread MAE 9.484). The significance verdict is **not order-robust**: the deterministic bootstrap is a function of the row order of the identical game set, and the Bonferroni-adjusted 95% interval for the improvement nearly touches zero — [+0.03, +1.97] points on this audit's transcription order (G4 pass) versus [−0.00, +1.94] on the published sorted order (G4 fail). No significance claim is made. Independently, the result is **post-hoc**: the 13 games were ingested after `research/preregistration/wk11-forward-v1.md` froze the corpus. The leaderboard therefore evaluates an explicit **G8 shadow-period gate** (a pre-registered segment, actually graded), which a historical backtest cannot satisfy: S1 is published 6/8 (or 7/8 under the transcription order) and **ineligible** either way; every strategy is paper and reward is provisional until the registered Week-11 forward window is played and graded.
+
+> **Merge note (2026-11-18):** parallel sessions `arena/bca9fb72-x4` and `arena/ad5e4c3d-x4` independently performed the same Week-10 completion and merged it to `main` first. The merged corpus holds the same 150 game tuples as this register (proved set-equal at merge); `main`'s sorted row order is the published one. Their `tools/reverify_2026_11_18.py` + `research/verification/standings-refresh-2026-11-18.csv` record is complementary to this audit's register and capture. Flags: this audit's two flags were renumbered F-58/F-59 → **F-66/F-67** after the ID collision with the merged flags.
 
 ## Flags
 
-- **F-58** — jointly stale log/standings pair; the verification design (log vs the same pair) cannot detect it. Clears when the standings snapshot is pinned to an external retrieval with a timestamp/hash independent of the log.
-- **F-59** — S1's post-hoc G1–G7 pass on the repaired corpus is not a pre-registered result; eligibility stays closed behind G8 until the Week-11 forward window settles.
+- **F-66** — jointly stale log/standings pair; the verification design (log vs the same pair) cannot detect it. Clears when the standings snapshot is pinned to an external retrieval with a timestamp/hash independent of the log.
+- **F-67** — S1's post-hoc +9.49% improvement is not a pre-registered result, and its adjusted interval flips sign with row ordering of the identical game set; eligibility stays closed behind G8 until the Week-11 forward window settles.
 
 ## Audit tool
 

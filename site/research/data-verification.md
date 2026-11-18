@@ -115,8 +115,16 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
 | F-56 | Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit) |
 | F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
-| F-58 | The published game log and standings snapshot were jointly stale: 13 of 14 Week-10 games were missing, and the verification pair agreed with itself (T46 integrity repair, arena/2d57231a-x4) |
-| F-59 | S1 now clears G1-G7 on the repaired corpus (post-hoc), but every strategy stays ineligible until the pre-registered Week-11 shadow window is graded (T46, arena/2d57231a-x4) |
+| F-58 | The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46) |
+| F-59 | The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46) |
+| F-60 | Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) |
+| F-61 | The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55) |
+| F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 |
+| F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist |
+| F-64 | The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent |
+| F-65 | Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError |
+| F-66 | The game log and the standings snapshot are a self-verification pair: tools/verify.py cannot detect them going stale together (T46 structural finding, arena/2d57231a-x4) |
+| F-67 | The post-corpus-completion strategy result is post-hoc and its significance verdict is not order-robust; G8 keeps every strategy ineligible until the Week-11 forward window is graded (T46, arena/2d57231a-x4) |
 
 ## What is deliberately absent
 

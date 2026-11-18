@@ -64,22 +64,6 @@
   "url": "https://www.nfl.com/teams/miami-dolphins/"
  },
  {
-  "abbr": "CIN",
-  "team": "Cincinnati Bengals",
-  "w": 7,
-  "l": 2,
-  "t": 0,
-  "pct": 0.778,
-  "pf": 278,
-  "pa": 193,
-  "net_pts": 85,
-  "gp": 9,
-  "team_name": "Cincinnati Bengals",
-  "division": "AFC North",
-  "conference": "AFC",
-  "url": "https://www.nfl.com/teams/cincinnati-bengals/"
- },
- {
   "abbr": "PIT",
   "team": "Pittsburgh Steelers",
   "w": 6,
@@ -94,6 +78,22 @@
   "division": "AFC North",
   "conference": "AFC",
   "url": "https://www.nfl.com/teams/pittsburgh-steelers/"
+ },
+ {
+  "abbr": "CIN",
+  "team": "Cincinnati Bengals",
+  "w": 7,
+  "l": 2,
+  "t": 0,
+  "pct": 0.778,
+  "pf": 278,
+  "pa": 193,
+  "net_pts": 85,
+  "gp": 9,
+  "team_name": "Cincinnati Bengals",
+  "division": "AFC North",
+  "conference": "AFC",
+  "url": "https://www.nfl.com/teams/cincinnati-bengals/"
  },
  {
   "abbr": "CLE",
@@ -192,22 +192,6 @@
   "url": "https://www.nfl.com/teams/tennessee-titans/"
  },
  {
-  "abbr": "KC",
-  "team": "Kansas City Chiefs",
-  "w": 7,
-  "l": 2,
-  "t": 0,
-  "pct": 0.778,
-  "pf": 237,
-  "pa": 156,
-  "net_pts": 81,
-  "gp": 9,
-  "team_name": "Kansas City Chiefs",
-  "division": "AFC West",
-  "conference": "AFC",
-  "url": "https://www.nfl.com/teams/kansas-city-chiefs/"
- },
- {
   "abbr": "DEN",
   "team": "Denver Broncos",
   "w": 7,
@@ -222,6 +206,22 @@
   "division": "AFC West",
   "conference": "AFC",
   "url": "https://www.nfl.com/teams/denver-broncos/"
+ },
+ {
+  "abbr": "KC",
+  "team": "Kansas City Chiefs",
+  "w": 7,
+  "l": 2,
+  "t": 0,
+  "pct": 0.778,
+  "pf": 237,
+  "pa": 156,
+  "net_pts": 81,
+  "gp": 9,
+  "team_name": "Kansas City Chiefs",
+  "division": "AFC West",
+  "conference": "AFC",
+  "url": "https://www.nfl.com/teams/kansas-city-chiefs/"
  },
  {
   "abbr": "LV",
@@ -320,6 +320,22 @@
   "url": "https://www.nfl.com/teams/philadelphia-eagles/"
  },
  {
+  "abbr": "CHI",
+  "team": "Chicago Bears",
+  "w": 7,
+  "l": 2,
+  "t": 0,
+  "pct": 0.778,
+  "pf": 241,
+  "pa": 184,
+  "net_pts": 57,
+  "gp": 9,
+  "team_name": "Chicago Bears",
+  "division": "NFC North",
+  "conference": "NFC",
+  "url": "https://www.nfl.com/teams/chicago-bears/"
+ },
+ {
   "abbr": "DET",
   "team": "Detroit Lions",
   "w": 7,
@@ -350,22 +366,6 @@
   "division": "NFC North",
   "conference": "NFC",
   "url": "https://www.nfl.com/teams/minnesota-vikings/"
- },
- {
-  "abbr": "CHI",
-  "team": "Chicago Bears",
-  "w": 7,
-  "l": 2,
-  "t": 0,
-  "pct": 0.778,
-  "pf": 241,
-  "pa": 184,
-  "net_pts": 57,
-  "gp": 9,
-  "team_name": "Chicago Bears",
-  "division": "NFC North",
-  "conference": "NFC",
-  "url": "https://www.nfl.com/teams/chicago-bears/"
  },
  {
   "abbr": "GB",
@@ -400,22 +400,6 @@
   "url": "https://www.nfl.com/teams/carolina-panthers/"
  },
  {
-  "abbr": "TB",
-  "team": "Tampa Bay Buccaneers",
-  "w": 3,
-  "l": 6,
-  "t": 0,
-  "pct": 0.333,
-  "pf": 202,
-  "pa": 178,
-  "net_pts": 24,
-  "gp": 9,
-  "team_name": "Tampa Bay Buccaneers",
-  "division": "NFC South",
-  "conference": "NFC",
-  "url": "https://www.nfl.com/teams/tampa-bay-buccaneers/"
- },
- {
   "abbr": "NO",
   "team": "New Orleans Saints",
   "w": 3,
@@ -430,6 +414,22 @@
   "division": "NFC South",
   "conference": "NFC",
   "url": "https://www.nfl.com/teams/new-orleans-saints/"
+ },
+ {
+  "abbr": "TB",
+  "team": "Tampa Bay Buccaneers",
+  "w": 3,
+  "l": 6,
+  "t": 0,
+  "pct": 0.333,
+  "pf": 202,
+  "pa": 178,
+  "net_pts": 24,
+  "gp": 9,
+  "team_name": "Tampa Bay Buccaneers",
+  "division": "NFC South",
+  "conference": "NFC",
+  "url": "https://www.nfl.com/teams/tampa-bay-buccaneers/"
  },
  {
   "abbr": "ATL",
