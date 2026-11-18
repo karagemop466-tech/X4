@@ -1,4 +1,4 @@
-# Independent verification sweep — 2026-11-18 (session `arena/92faad64-x4`, T48)
+# Independent verification sweep — 2026-11-18 (session `arena/92faad64-x4`, T53 — claimed as T48, renumbered on merge; see COORDINATION.md)
 
 A fresh-session, line-by-line re-verification of the published claims against the official
 sources, run independently of the sessions that produced the data. Method: every verdict
