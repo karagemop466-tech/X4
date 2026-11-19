@@ -881,6 +881,14 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.seahawks.com/team/depth-chart",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"),
 
+    dict(id="F-87", item="Scheduled official captures have not run on their six-hourly schedule since 2026-11-18 20:37Z, and the 13-hour freshness limit can fail between irregular runs", type="Limitation", kind="warn", status="open",
+         detail=("The capture workflow (.github/workflows/capture.yml) is scheduled at 17 minutes past every sixth hour. The scheduled runs recorded on main are 2026-11-16 06:40Z, 2026-11-16 22:13Z, 2026-11-17 08:00Z, 2026-11-17 21:00Z, 2026-11-18 07:37Z and 2026-11-18 20:37Z. "
+                 "No scheduled run has started since 2026-11-18 20:37Z, although the 00:17Z and 06:17Z slots of 2026-11-19 have passed. The GitHub Actions scheduler is not guaranteed to fire on time. The workflow_dispatch trigger is not available from the sandbox token (HTTP 403), so no run was started manually from the repository tooling. "
+                 "The live run of 2026-11-19 07:11Z (run 44477705766, on the branch arena/27b5881c-x4) shows the gate passes when it runs; the scheduler gap is separate from that result."),
+         why=("A freshness limit of 13 hours with a schedule that can skip a slot means a valid read can age out and fail the gate with no code fault. A capture is stored only if its scheduled run starts. Gaps between the six recorded runs were 1.3 h, 13 h, 1.2 h, 9.4 h and 13 h, against a planned six-hour interval. "
+              "Clears when the owner chooses a cadence and a freshness limit that match the scheduler (for example, a limit of two slots, or a cadence the scheduler reliably honours), and scheduled runs are observed to fire on time across a full week."),
+         official_url="https://www.nfl.com/injuries/",
+         url="https://github.com/karagemop466-tech/X4/actions/workflows/capture.yml"),
     dict(id="F-86", item="The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main)",
          type="Irregularity", kind="bad", status="open",
          detail=("Evidence is the manifest, data/captures/manifest.jsonl, which records the schema counts of every read. The two injuries reads that failed the workflow were 2026-11-18 07:37:40Z and 20:37:55Z (HTTP 200, about 319 kB each): week 11, 2 'Practice Status' headers, 2 'Game Status' headers, 26 player links. "
