@@ -50,16 +50,26 @@ SOURCES
 
 NOTE ON VERIFICATION
 --------------------
-The schema check below is written against the markers the official report page
-carries (section headings, the "Practice Status" and "Game Status" columns, and one
-player link per row). It has not yet been run against the live HTML from inside
-this sandbox, which cannot reach nfl.com; the first scheduled run on GitHub's
-runners is the test, and a schema failure stops the run rather than storing an
-unchecked page.
+The schema check is written against the markers the official report page carries
+(the week heading, one "Practice Status" and one "Game Status" header per club table,
+and one player link per row). It is run on the live page by the scheduled workflow;
+the sandbox cannot reach nfl.com. A schema failure stops the run rather than storing
+an unchecked page.
+
+PARTIAL REPORTS (T60)
+---------------------
+The report is published game day by game day. A read taken before every game of the
+week is posted is a legitimate snapshot, so it is stored with coverage "partial"
+(games published / games on the official schedule for that week), not failed.
+Coverage "over" (more club tables than scheduled) and any structural break still fail.
+Freshness is about the capture time, so a partial but structurally valid read keeps the
+source fresh; downstream users must read the coverage field before treating a read as
+a complete week.
 
 Usage: python3 tools/capture_official.py fetch --kind all
 """
 import argparse
+import csv
 import datetime as dt
 import gzip
 import hashlib
@@ -129,20 +139,55 @@ def http_get(url):
         return r.status, r.read()
 
 
+def scheduled_games(week):
+    """Number of games the official schedule lists for a week, read from the committed copy of the
+    official schedule (data/schedule-wkN-2026.csv, transcribed from nfl.com/schedules). None when that
+    file does not exist, in which case coverage is recorded as unknown rather than guessed."""
+    if week is None:
+        return None
+    path = os.path.join(ROOT, "data", "schedule-wk%d-2026.csv" % int(week))
+    if not os.path.exists(path):
+        return None
+    with open(path, newline="", encoding="utf-8") as f:
+        return sum(1 for row in csv.DictReader(f) if (row.get("away") or "").strip())
+
+
 def schema_injuries(raw):
-    """Return (ok, detail). Markers the official report page must carry."""
+    """Return (ok, detail) for one read of the official injury report.
+
+    The report is published game day by game day, so an early read of a week can hold only some of
+    its games (2026-11-18: one game, 2 club tables, 26 player rows). A partial report is a legitimate
+    snapshot and is kept as one, so the schema is STRUCTURAL: one week heading, one practice-status and
+    one game-status header per club table, an even number of club tables, and at least one player row
+    per club table. Completeness is a separate field, coverage, computed against the official schedule
+    for that week: complete / partial / over (more tables than scheduled, which fails) / unknown.
+    A page with no player rows fails whatever its heading says."""
     text = raw.decode("utf-8", errors="replace")
     heading = re.search(r"Injuries\s*-\s*WEEK\s*(\d+)", text, re.I)
+    week = heading.group(1) if heading else None
     practice = len(re.findall(r"Practice Status", text))
     game = len(re.findall(r"Game Status", text))
     # The raw HTML uses relative hrefs (href="/players/<slug>/"); the absolute
     # form only appears in the rendered markdown. Both are accepted. Verified
     # against the stored 2026-11-18 capture: 0 absolute, 348 relative matches.
     players = len(PLAYER_LINK.findall(text))
-    detail = {"week": heading.group(1) if heading else None,
-              "practice_status_headers": practice, "game_status_headers": game,
-              "player_links": players}
-    ok = bool(heading) and practice >= 28 and game >= 28 and players >= 250
+    tables = practice
+    published = tables // 2 if tables % 2 == 0 else None
+    scheduled = scheduled_games(week)
+    if scheduled is None:
+        coverage = "unknown"
+    elif published == scheduled:
+        coverage = "complete"
+    elif published is not None and published < scheduled:
+        coverage = "partial"
+    else:
+        coverage = "over"
+    structural = (bool(heading) and tables >= 2 and tables % 2 == 0 and game == practice
+                  and players >= tables)
+    ok = structural and coverage != "over"
+    detail = {"week": week, "practice_status_headers": practice, "game_status_headers": game,
+              "player_links": players, "club_tables": tables, "games_published": published,
+              "games_scheduled": scheduled, "coverage": coverage}
     return ok, detail
 
 

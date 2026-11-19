@@ -109,6 +109,12 @@ def locate(entry):
     return path if os.path.exists(path) else None
 
 
+# The committed dataset below is the Week 10 report. A capture of another week (Week 11 reads
+# from 2026-11-18 onward) must never be diffed against it, so the newest capture is taken from
+# this week only.
+COMMITTED_WEEK = "10"
+
+
 def latest_valid_capture():
     best = None
     with open(MANIFEST, encoding="utf-8") as f:
@@ -116,7 +122,9 @@ def latest_valid_capture():
             if not line.strip():
                 continue
             e = json.loads(line)
-            if e.get("kind") == "injuries" and e.get("schema_ok") and e.get("file") and e.get("http_status") == 200:
+            if (e.get("kind") == "injuries" and e.get("schema_ok") and e.get("file")
+                    and e.get("http_status") == 200
+                    and (e.get("schema") or {}).get("week") == COMMITTED_WEEK):
                 best = e
     if best is None:
         raise SystemExit("no schema-valid injuries capture in the manifest")

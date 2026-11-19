@@ -191,3 +191,88 @@ class RawBytePolicyTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def _report(week, club_tables, links_per_table=12):
+    """Synthetic official-report markup: one heading, one practice and one game header per club table,
+    and player links. Shapes mirror the manifest counts recorded in data/captures/manifest.jsonl."""
+    parts = [b"Injuries - WEEK " + str(week).encode() + b"\n"]
+    for _ in range(club_tables):
+        parts.append(b"<th>Practice Status</th><th>Game Status</th>\n")
+        parts.append(b'<a href="/players/p/">' * links_per_table)
+    return b"".join(parts)
+
+
+class PartialReportSchemaTests(unittest.TestCase):
+    """T60: a legitimate partial report is a snapshot with a coverage field, not a schema failure."""
+
+    def test_week11_one_game_read_from_manifest_is_partial_and_valid(self):
+        # Manifest 2026-11-18T07:37:40Z and 20:37:55Z: week 11, 2 headers, 26 player links.
+        raw = _report(11, 2, links_per_table=13)
+        ok, detail = capture.schema_injuries(raw)
+        self.assertTrue(ok, detail)
+        self.assertEqual(detail["week"], "11")
+        self.assertEqual(detail["player_links"], 26)
+        self.assertEqual(detail["games_scheduled"], 13)   # data/schedule-wk11-2026.csv
+        self.assertEqual(detail["games_published"], 1)
+        self.assertEqual(detail["coverage"], "partial")
+
+    def test_week11_full_report_is_complete(self):
+        ok, detail = capture.schema_injuries(_report(11, 26))
+        self.assertTrue(ok, detail)
+        self.assertEqual(detail["coverage"], "complete")
+
+    def test_week10_full_report_is_complete_against_fourteen_scheduled_games(self):
+        ok, detail = capture.schema_injuries(_report(10, 28))
+        self.assertTrue(ok, detail)
+        self.assertEqual(detail["games_scheduled"], 14)
+        self.assertEqual(detail["coverage"], "complete")
+
+    def test_more_club_tables_than_scheduled_games_fails(self):
+        ok, detail = capture.schema_injuries(_report(11, 28))   # 14 games published for a 13-game week
+        self.assertFalse(ok)
+        self.assertEqual(detail["coverage"], "over")
+
+    def test_page_with_no_player_rows_fails_even_with_full_headers(self):
+        # Manifest 2026-11-18T03:39:04Z: week 10, 28 headers, 0 player links (unexplained; stays a failure).
+        raw = b"Injuries - WEEK 10 " + b"<th>Practice Status</th><th>Game Status</th>" * 28
+        ok, detail = capture.schema_injuries(raw)
+        self.assertFalse(ok)
+        self.assertEqual(detail["player_links"], 0)
+
+    def test_odd_or_unpaired_table_count_fails(self):
+        self.assertFalse(capture.schema_injuries(_report(11, 3))[0])
+        raw = _report(11, 2) + b"<th>Practice Status</th>"   # practice headers no longer equal game headers
+        self.assertFalse(capture.schema_injuries(raw)[0])
+
+    def test_missing_week_heading_fails(self):
+        raw = _report(11, 2).replace(b"Injuries - WEEK 11", b"Injuries")
+        ok, detail = capture.schema_injuries(raw)
+        self.assertFalse(ok)
+        self.assertIsNone(detail["week"])
+
+    def test_week_without_committed_schedule_has_unknown_coverage_not_a_guess(self):
+        ok, detail = capture.schema_injuries(_report(99, 2))
+        self.assertTrue(ok, detail)
+        self.assertIsNone(detail["games_scheduled"])
+        self.assertEqual(detail["coverage"], "unknown")
+
+
+class DeltaWeekFilterTests(unittest.TestCase):
+    """tools/capture_delta.py must never diff a Week 11 capture against the Week 10 dataset."""
+
+    def test_newest_valid_capture_is_restricted_to_the_committed_week(self):
+        import json
+        from tools import capture_delta as delta
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        manifest = os.path.join(temp.name, "manifest.jsonl")
+        week10 = {"kind": "injuries", "schema_ok": True, "file": "injuries/w10.html.gz", "http_status": 200,
+                  "schema": {"week": "10"}, "fetched_utc": "2026-11-18T03:40:10Z"}
+        week11 = dict(week10, file="injuries/w11.html.gz", schema={"week": "11"},
+                      fetched_utc="2026-11-18T20:37:55Z")
+        with open(manifest, "w", encoding="utf-8") as f:
+            for entry in (week10, week11):
+                f.write(json.dumps(entry) + "\n")
+        with mock.patch.object(delta, "MANIFEST", manifest):
+            self.assertEqual(delta.latest_valid_capture()["file"], "injuries/w10.html.gz")
