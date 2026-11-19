@@ -1,4 +1,4 @@
-# Dated schedule announcement beside the live schedule (T72)
+# Dated schedule announcement beside the live schedule (T73)
 
 Checked: 2026-11-19 (UTC). Session `arena/cd475bd1-x4`. Brief item: *"Publish the league's dated schedule announcement beside the live schedule page."*
 

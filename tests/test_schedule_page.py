@@ -1,4 +1,4 @@
-"""Offline tests for tools/schedule_page.py (T72). No network: they run on the committed data."""
+"""Offline tests for tools/schedule_page.py (T73). No network: they run on the committed data."""
 import copy
 import os
 import sys

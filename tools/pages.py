@@ -2543,7 +2543,7 @@ def main():
     # T48 personnel / availability ablation (tools/personnel_ablation.py)
     import personnel_ablation
     written += personnel_ablation.write_pages(SITE, shell)
-    # T72 dated official schedule announcement beside the live schedule (tools/schedule_page.py)
+    # T73 dated official schedule announcement beside the live schedule (tools/schedule_page.py)
     import schedule_page
     written += schedule_page.write_pages(SITE, shell)
     print("wrote %d pages: %s" % (len(written), ", ".join(written)))
