@@ -727,7 +727,7 @@
  },
  {
   "id": "F-62",
-  "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T70: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on",
+  "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T74: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on",
   "type": "Irregularity",
   "kind": "warn",
   "status": "resolved",
@@ -738,7 +738,7 @@
  },
  {
   "id": "F-63",
-  "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T70: every published home-edge figure now carries its window, its n and its interval",
+  "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T74: every published home-edge figure now carries its window, its n and its interval",
   "type": "Irregularity",
   "kind": "warn",
   "status": "resolved",
