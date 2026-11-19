@@ -1,6 +1,6 @@
-# Capture alerting and cadence evidence (T67)
+# Capture alerting and cadence evidence (T68)
 
-Session: `arena/6870a878-x4`, 2026-11-19 UTC. Board: `COORDINATION.md` row T67. Flags: F-88 (no alert channel), F-89 (cadence gap).
+Session: `arena/6870a878-x4`, 2026-11-19 UTC. Board: `COORDINATION.md` row T68. Flags: F-88 (no alert channel), F-89 (cadence gap).
 
 ## Question
 
@@ -16,7 +16,7 @@ The brief asks the capture system to "monitor freshness and alert on source/sche
 | No workflow raises an alert on a stale or failed capture | `.github/workflows/*.yml` on `main` at `06dcc0d`: no `issues`, `gh issue`, or notification step | `grep -rn "issue\|alert\|notify" .github/workflows/` returned nothing before this session |
 | The capture job runs every six hours | `.github/workflows/capture.yml`: `cron: "17 */6 * * *"` | read from the file |
 | Six injury reads span 27.9 hours, with gaps of 3.9 h, 13.0 h and 10.9 h | `data/captures/manifest.jsonl`, `kind == "injuries"` (six lines, distinct `fetched_utc`) | computed from the manifest; table below |
-| Scheduled runs on `main` | `gh run list --workflow capture.yml` | run IDs listed below |
+| Scheduled runs on `main` | `gh run list --workflow capture.yml` | run IDs listed below. The full run list (seven scheduled runs), the failure analysis and the freshness margin are in the T66 record `research/verification/capture-cadence-2026-11-19.md` (`arena/f138e625-x4`, merged to `main`), which this record does not repeat. |
 | Workflow dispatch is not available from the build sandbox | `gh workflow run capture.yml --ref main` returned HTTP 403 "Resource not accessible by integration" | command run 2026-11-19 19:30Z |
 | The Week 11 injury page is live, titled Week 11 | https://www.nfl.com/injuries/ (live read through the page-fetch tool, 2026-11-19 ~19:29Z) | read directly; the sandbox cannot reach nfl.com from bash |
 | GitHub notifications for scheduled workflows go to the workflow's creator, only if they have notifications enabled | https://docs.github.com/en/actions/concepts/workflows-and-actions/notifications-for-workflow-runs (read 2026-11-19) | read directly |
