@@ -142,6 +142,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-81 | 37 of 171 Week 10 designations are unresolved because the player does not appear in his own Game Book at all |
 | F-82 | 56 rows on the Game Book operations and glossary pages are exempt from the every-row-has-a-source rule |
 | F-83 | The scheduled official injury capture has failed its freshness gate on main since the Week 11 report went live: the Week 11 page does not pass the schema pinned to Week 10 |
+| F-85 | The publication gate passes while the injury capture is past its freshness limit: the Week 10 injury read is 27.2 hours old against a 13-hour limit, and the gate does not fail on it |
 
 ## What is deliberately absent
 
