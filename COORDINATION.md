@@ -3599,9 +3599,21 @@ All open flags are published on the Flagged-for-Review register and do not block
   additively). No log content is dropped. Flagged here for the next integration pass.
 
 ### Pull request and merge record (T76)
-- PR [#146](https://github.com/karagemop466-tech/X4/pull/146) (`arena/9c4553d7-x4` → `main`).
-  Merge commit, workflow runs and the live-site check are recorded in the follow-up record
-  entry below (same protocol as T69).
+- **PR [#146](https://github.com/karagemop466-tech/X4/pull/146)** (`arena/9c4553d7-x4` → `main`),
+  merged 2026-11-19T22:33:09Z as merge commit `79c518ace38ba09d8b2c5401b651a6d6ae204afd`
+  (plain merge). The PR `desk` check passed (run [44629595761](https://github.com/karagemop466-tech/X4/actions/runs/44629595761))
+  and mergeability was CLEAN at merge.
+- **Deploy on `79c518a`:** `Desk validation` run 44629696551 (success), `Publish NFL Decision
+  Lab` run [44629696548](https://github.com/karagemop466-tech/X4/actions/runs/44629696548)
+  (success), `pages build and deployment` run [44629695454](https://github.com/karagemop466-tech/X4/actions/runs/44629695454)
+  (success).
+- **Live checks after the deploy** (page-fetch tool, 2026-11-19):
+  [escrow.html](https://karagemop466-tech.github.io/X4/escrow.html) shows Stage 1 for all
+  three market types ("Every market now carries a probability ... since T76"), the G4 row
+  "probability output stored for all three markets since T76", register rows E5 RESOLVED and
+  E8 CORRECTED with source links; [origination.html](https://karagemop466-tech.github.io/X4/origination.html)
+  shows the "Probability outputs" model row and the "Model P (event) open → close" column
+  (JAX at BAL side 9.16% → 38.15%, matching the record's hand-checks).
 
 ## Session log — arena/f8191f1b-x4 (T77: dated NFL schedule announcement; originally claimed as T70, renumbered four times, 2026-11-19)
 
@@ -3673,6 +3685,7 @@ All open flags are published on the Flagged-for-Review register and do not block
 - PR #153 (`1f53f33`) added separate T74 corpus-statistics and T75 depth-slot tasks. This schedule task was T76 before PR #146 and is now T77. The T73 schedule page is complementary: this task's brief-register card records the May 8 announcement date and announced May 14, 8 p.m. ET release, distinct from the May 14 publication of the full schedule. Both implementations are retained.
 - PR #155 (`2fc4fee`) added the post-merge PR #153 closeout and the gates-page wording cleanup; it took no task ID, so T77 is the next available row.
 - PR #146 (`79c518a`) then merged the separate E5 probability-output task as T76. This schedule work is therefore T77; the E5 task row, code, data and log are preserved unchanged.
+- PR #156 (`7a40791`) recorded the PR #146 merge/deploy and live-site checks in the E5 session log; it took no task ID, so T77 remains the schedule task.
 - The two claim/scope commits (`4b16f55`, `e9f6b98`) on `origin/arena/f8191f1b-x4` are preserved in the branch merge ancestry (`b689241`); their duplicate earlier T70 row is superseded by the single expanded T77 row.
 - Merging `origin/main` at `798d36c` conflicted only in the root/site board; the merge at `3fc24a9` also conflicted in the shared verification note; pulls to `1f53f33`, `2fc4fee` and `79c518a` conflicted only in the root/site board. Each resolution retained upstream rows, code, published outputs and session logs, inserted this task under the next free ID, and regenerated the mirrors. The `brief-register.html` changes from PR #153, PR #155's `gates.html`/`tools/pages.py` edits, and PR #146's E5 outputs were retained.
 - The inherited main coordination file itself contained conflict markers around the PR #149 closeout and T74/T75 session log. This resolution kept the actual PR #149 record, the complete T73 log, and the T74/T75 log; the superseded pre-publication placeholder was removed. No other task implementation file was changed.
