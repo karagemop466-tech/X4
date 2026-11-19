@@ -958,6 +958,17 @@
  },
  {
   "id": "F-90",
+  "item": "The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "resolved",
+  "detail": "Checked on 2026-11-19 against the live NFL.com injury page (title: 'Official NFL Injury Report for Players - Week 11 of the 2026 Season'; league address /injuries/league/2026/reg11) and the committed capture manifest, whose newest schema-valid injury read (2026-11-19T20:43:30Z) is Week 11 with coverage 'partial' (12 of 13 games). The panel still said 'The Week 10 report lists 347 players'. The panel also said 'Kansas City Chiefs 7-2 leads the AFC West', 'Detroit Lions 7-2 leads the NFC North', although the official standings show Denver 7-2 and, in the NFC North, Chicago 7-2 and Minnesota 7-2. The leader was chosen by a net-points tie-break the official table does not use. Corrected in tools/pages.py: the injury card now reads the newest committed capture and labels the Week 10 counts as the last complete report; ties are printed as ties. The 32 club records in the committed standings match the live NFL.com standings, and the six bye clubs (Atlanta, Cleveland, Green Bay, LA Rams, New England, Seattle) match the Week 11 schedule. No Week 11 player row was added.",
+  "why": "A 'right now' panel that describes last week's report as current is the same failure the brief names most often: a stale state presented as present. A tie shown as a single leader invents an order the league has not given. Both were on the landing page, which is the first page most readers see.",
+  "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/landing-live-state-2026-11-19.md"
+ },
+ {
+  "id": "F-91",
   "item": "The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead",
   "type": "Irregularity",
   "kind": "bad",
@@ -968,7 +979,7 @@
   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/model-probabilities-2026-11-19.md"
  },
  {
-  "id": "F-91",
+  "id": "F-92",
   "item": "A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than",
   "type": "Limitation",
   "kind": "warn",
@@ -979,7 +990,7 @@
   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/ops/probability_scores.csv"
  },
  {
-  "id": "F-92",
+  "id": "F-93",
   "item": "The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11",
   "type": "Limitation",
   "kind": "warn",
@@ -990,7 +1001,7 @@
   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/international-2026.csv"
  },
  {
-  "id": "F-93",
+  "id": "F-94",
   "item": "Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price",
   "type": "Limitation",
   "kind": "warn",

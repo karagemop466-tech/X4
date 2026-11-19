@@ -1138,7 +1138,7 @@ dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, s
               "v1 published so the change can be judged rather than absorbed."),
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/international-2026.csv"),
-    dict(id="F-93", item="Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price", type="Limitation", kind="warn", status="open",
+    dict(id="F-94", item="Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price", type="Limitation", kind="warn", status="open",
          detail=("The price store records one row per event, market and selection, with the open numbers and the close "
                  "numbers in separate fields and a close_kind that says which it is. Of the eight settled events in the "
                  "graded corpus, four carry close_kind = 'close' (a true closing price) and four carry "
