@@ -5,9 +5,12 @@
  "clubs_without_chart": [
   "HOU"
  ],
- "depth_rows": 1558,
- "out_rows": 62,
- "starter_out_rows": 41,
+ "depth_rows": 1559,
+ "out_rows": 63,
+ "starter_out_rows": 42,
+ "shared_cells": 1,
+ "empty_cells": 1,
+ "shared_slots_one_out": [],
  "clubs": [
   {
    "team": "ARI",
@@ -593,16 +596,19 @@
    "has_chart": true,
    "chart_url": "https://www.commanders.com/team/depth-chart",
    "chart_date": "",
-   "off_depth_rows": 27,
-   "def_depth_rows": 23,
-   "off_out": 1,
+   "off_depth_rows": 26,
+   "def_depth_rows": 25,
+   "off_out": 2,
    "def_out": 0,
-   "off_starter_out": 0,
+   "off_starter_out": 1,
    "def_starter_out": 0,
    "out_names": [
+    "C Lucas Patrick (depth 1, Out)",
     "TE2 Colson Yankoff (depth 2, Out)"
    ],
-   "starter_out_names": []
+   "starter_out_names": [
+    "C Lucas Patrick (depth 1, Out)"
+   ]
   }
  ],
  "holes": [
@@ -624,15 +630,15 @@
   }
  ],
  "cascades": [],
- "unmatched": [
+ "empty_slots": [
   {
    "team": "WAS",
-   "player": "Lucas Patrick",
-   "pos": "C",
-   "status": "Out",
-   "injury": "Concussion",
-   "url": "https://www.nfl.com/players/lucas-patrick/"
-  },
+   "unit": "Offense",
+   "position": "WR3 (cell 2)",
+   "source": "https://www.commanders.com/team/depth-chart"
+  }
+ ],
+ "unmatched": [
   {
    "team": "DET",
    "player": "Kerby Joseph",
