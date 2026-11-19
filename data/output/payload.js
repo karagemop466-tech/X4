@@ -14165,7 +14165,7 @@ window.X4 = {
    "type": "Irregularity",
    "kind": "warn",
    "status": "resolved",
-   "detail": "The defect had two parts. (a) The same measured quantity was published at two roundings - +0.1 in the executive summary and +0.07 in the line-lab model text - with no window and no n beside either. (b) The window was weeks 6-9 (n = 54) while the verified corpus holds 150 games, and re-deriving the constant on the full corpus (neutral-site games excluded, n = 146) gives -0.5 points (-0.53 before rounding), the opposite sign to the +0.07 the line lab adds to every Week 11 spread. RE-VERIFIED 2026-11-19 (T71), line by line: both parts are now published honestly and in one place. The desk executive summary prints the corpus measurement (-0.5 points, 95% CI [-2.7, +1.6], n = 146 of 150, with the four international fixtures named and excluded per the official schedule) and the weeks 6-9 measurement (+0.07, n = 54, with the window named) side by side, and says that the interval contains zero, so no home edge is assumed. The strategy lab names the window its own home-edge strategy is fitted on ('Game results Wks 6-9'). There is no second rounding of the same number left on the site, and tools/check_published_stats.py re-derives both constants from the official game log and fails the build if either published figure or its n stops matching. What remains is a model caveat, not a publication defect, and it is recorded as such: a constant that changes sign with its window is a window-dependent number, and the pages now say which window produced the one they use. The origination layer carries the same caveat in F-92, where the neutral-site games inside the registered edge window are named.",
+   "detail": "The defect had two parts. (a) The same measured quantity was published at two roundings - +0.1 in the executive summary and +0.07 in the line-lab model text - with no window and no n beside either. (b) The window was weeks 6-9 (n = 54) while the verified corpus holds 150 games, and re-deriving the constant on the full corpus (neutral-site games excluded, n = 146) gives -0.5 points (-0.53 before rounding), the opposite sign to the +0.07 the line lab adds to every Week 11 spread. RE-VERIFIED 2026-11-19 (T71), line by line: both parts are now published honestly and in one place. The desk executive summary prints the corpus measurement (-0.5 points, 95% CI [-2.7, +1.6], n = 146 of 150, with the four international fixtures named and excluded per the official schedule) and the weeks 6-9 measurement (+0.07, n = 54, with the window named) side by side, and says that the interval contains zero, so no home edge is assumed. The strategy lab names the window its own home-edge strategy is fitted on ('Game results Wks 6-9'). There is no second rounding of the same number left on the site, and tools/check_published_stats.py re-derives both constants from the official game log and fails the build if either published figure or its n stops matching. What remains is a model caveat, not a publication defect, and it is recorded as such: a constant that changes sign with its window is a window-dependent number, and the pages now say which window produced the one they use. The origination layer carries the same caveat in F-95, where the neutral-site games inside the registered edge window are named.",
    "why": "A model constant that flips sign when four more weeks of official results are included is not a measured edge yet. Publishing it as 'measured' without the window, the n and the wider result is the overclaim; the number itself was always correctly computed.",
    "official_url": "https://www.nfl.com/schedules/2026/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/published-statistics-2026-11-19.csv"
@@ -14392,6 +14392,28 @@ window.X4 = {
   },
   {
    "id": "F-91",
+   "item": "Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The official 2026 schedule announcement (NFL media release, 14 May 2026) says: \"Specific dates, start times and networks for Week 18 matchups will be determined and announced following the conclusion of Week 17.\" The schedule page therefore publishes Week 18 as not yet assigned (data/schedule-announcement-2026.csv, row S13). No later official Week 18 page is in the repository, so no Week 18 fixture is listed.",
+   "why": "Any fixture-context or venue feature for Week 18 has no official input yet. Week 18 must be re-checked against NFL.com after Week 17 is complete.",
+   "official_url": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"
+  },
+  {
+   "id": "F-92",
+   "item": "The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027'",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The announcement says 'The regular season will conclude with Week 18 on Saturday, January 9, and Sunday, January 10.' That sentence gives no year. The schedule page dates those games 2027-01-09 (Saturday) and 2027-01-10 (Sunday). The year is not printed beside the date. It follows from the 2026 season and from the release's own date 'Saturday, January 2, 2027'; tools/schedule_page.py checks each weekday against the calendar.",
+   "why": "A date-keyed join (for example a schedule feed or a kickoff timestamp) must not assume the year without a published source. Reviewer: confirm the year against the NFL.com Week 18 page once it exists.",
+   "official_url": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"
+  },
+  {
+   "id": "F-93",
    "item": "The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead",
    "type": "Irregularity",
    "kind": "bad",
@@ -14402,7 +14424,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/model-probabilities-2026-11-19.md"
   },
   {
-   "id": "F-92",
+   "id": "F-94",
    "item": "A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than",
    "type": "Limitation",
    "kind": "warn",
@@ -14413,7 +14435,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/ops/probability_scores.csv"
   },
   {
-   "id": "F-93",
+   "id": "F-95",
    "item": "The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11",
    "type": "Limitation",
    "kind": "warn",
@@ -14424,7 +14446,7 @@ window.X4 = {
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/international-2026.csv"
   },
   {
-   "id": "F-94",
+   "id": "F-96",
    "item": "Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price",
    "type": "Limitation",
    "kind": "warn",

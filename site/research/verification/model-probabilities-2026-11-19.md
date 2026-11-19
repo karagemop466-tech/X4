@@ -124,14 +124,14 @@ probability of **the same event**, scored on the 24 settled markets:
 | Market | n | Model Brier | Market Brier | Skill | 95% game-cluster interval | Bonferroni p | State |
 |---|---|---|---|---|---|---|---|
 | side | 8 | 0.2095 | 0.2429 | +0.1378 | [−0.0956, +0.3602] | 0.3822 | fail (n < 30) |
-| total | 8 | 0.1734 | — | — | — | — | no market benchmark (F-92) |
+| total | 8 | 0.1734 | — | — | — | — | no market benchmark (F-94) |
 | moneyline | 8 | 0.2079 | 0.1973 | −0.0540 | [−0.5178, +0.2058] | 1.0000 | fail (n < 30) |
 
 The benchmark for the moneyline is the de-vigged captured price. The benchmark
 for the side is derived from that same price converted into a cover probability
 at the posted spread, and is labelled as derived on every row. A posted total
 carries no probability, so the total has a model Brier score and no market
-forecast to be better than; none is invented (F-92).
+forecast to be better than; none is invented (F-94).
 
 **Which price the benchmark is.** Of the eight settled events in the graded
 corpus, four carry `close_kind = close` (a true closing price) and four carry
@@ -143,7 +143,7 @@ label says so exactly rather than calling all eight a closing price:
 > rows, not a true close)
 
 and `data/ops/probability_scores.csv` carries the composition in its own
-`benchmark_rows` column (`close: 4; current_as_close: 4`). This is flag F-94.
+`benchmark_rows` column (`close: 4; current_as_close: 4`). This is flag F-96.
 The skill numbers are unchanged, and they are not evidence of skill either way.
 
 The interval is a game-cluster bootstrap: whole games are resampled, because a
@@ -194,13 +194,13 @@ committed files.
 
 ## What is still open
 
-* **F-92** — a total has no market benchmark, so it cannot enter a
+* **F-94** — a total has no market benchmark, so it cannot enter a
   benchmark-relative ranking until over/under prices are captured separately.
-* **F-93** — the registered home-edge estimator counts the three neutral-site
+* **F-95** — the registered home-edge estimator counts the three neutral-site
   games inside its window. The pre-registration fixes it for Week 11, so the
   change is a versioned model (v2) that has to be registered before a window
   opens.
-* **F-94** — half of the graded market benchmarks are a last-captured price
+* **F-96** — half of the graded market benchmarks are a last-captured price
   used as the close rather than a true closing price. The label is exact; what
   is missing is a capture that runs after kickoff.
 * The forward window still has no pre-kickoff entry price and no real close

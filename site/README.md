@@ -62,7 +62,7 @@ so nothing dated at or after kickoff can enter a line. The pre-registered Week 1
 is unchanged by that correction - its edge window [11-5, 11-2] is the registered weeks 6-9
 - and `tools/test_origination.py` holds both registered lines as fixed values. The graded
 corpus did change: before the correction it was priced with end-of-week-10 ratings, so it
-contained look-ahead (flag F-91).
+contained look-ahead (flag F-93).
 
 Every model output is a **probability plus its inputs** (T73, board request E5).
 `data/ops/model_outputs.csv` holds, for each of the 30 originated markets, the probability,

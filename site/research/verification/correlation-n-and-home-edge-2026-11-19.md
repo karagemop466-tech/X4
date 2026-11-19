@@ -1,6 +1,6 @@
 # Published correlations and home-edge constants — re-verification
 
-Session `arena/26eb97b1-x4`, 2026-11-19. Task T74 on the board.
+Session `arena/26eb97b1-x4`, 2026-11-19. Task T75 on the board.
 
 Two flags were still open on the board: **F-62** ("the margin-vs-total
 correlation is published with n = 57 on two pages while it is computed on
@@ -78,7 +78,7 @@ on (`Game results Wks 6–9`).
 What remains is a model caveat rather than a publication defect: a constant
 that changes sign with its window is a window-dependent number, and the pages
 now say which window produced the one they use. The origination layer carries
-the same caveat in **F-93**, where the three neutral-site games inside the
+the same caveat in **F-95**, where the three neutral-site games inside the
 registered edge window are named.
 
 ## Sources used

@@ -869,7 +869,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
                  "if either published figure or its n stops matching. "
                  "What remains is a model caveat, not a publication defect, and it is recorded as such: a constant that "
                  "changes sign with its window is a window-dependent number, and the pages now say which window produced "
-                 "the one they use. The origination layer carries the same caveat in F-92, where the neutral-site games "
+                 "the one they use. The origination layer carries the same caveat in F-95, where the neutral-site games "
                  "inside the registered edge window are named."),
          why=("A model constant that flips sign when four more weeks of official results are included is not a measured "
               "edge yet. Publishing it as 'measured' without the window, the n and the wider result is the overclaim; the "
@@ -1089,7 +1089,19 @@ dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, s
          why=("A 'right now' panel that describes last week's report as current is the same failure the brief names most often: a stale state presented as present. A tie shown as a single leader invents an order the league has not given. Both were on the landing page, which is the first page most readers see."),
          official_url="https://www.nfl.com/injuries/league/2026/reg11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/landing-live-state-2026-11-19.md"),
-    dict(id="F-91", item="The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead", type="Irregularity", kind="bad", status="resolved",
+dict(id="F-91", item="Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17", type="Limitation", kind="warn", status="open",
+         detail=("The official 2026 schedule announcement (NFL media release, 14 May 2026) says: \"Specific dates, start times and networks for Week 18 matchups will be determined and announced following the conclusion of Week 17.\" "
+                 "The schedule page therefore publishes Week 18 as not yet assigned (data/schedule-announcement-2026.csv, row S13). No later official Week 18 page is in the repository, so no Week 18 fixture is listed."),
+         why="Any fixture-context or venue feature for Week 18 has no official input yet. Week 18 must be re-checked against NFL.com after Week 17 is complete.",
+         official_url="https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"),
+    dict(id="F-92", item="The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027'", type="Irregularity", kind="warn", status="open",
+         detail=("The announcement says 'The regular season will conclude with Week 18 on Saturday, January 9, and Sunday, January 10.' That sentence gives no year. The schedule page dates those games 2027-01-09 (Saturday) and 2027-01-10 (Sunday). "
+                 "The year is not printed beside the date. It follows from the 2026 season and from the release's own date 'Saturday, January 2, 2027'; tools/schedule_page.py checks each weekday against the calendar."),
+         why="A date-keyed join (for example a schedule feed or a kickoff timestamp) must not assume the year without a published source. Reviewer: confirm the year against the NFL.com Week 18 page once it exists.",
+         official_url="https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"),
+    dict(id="F-93", item="The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead", type="Irregularity", kind="bad", status="resolved",
          detail=("tools/origination.py priced every event with the same ratings: data/standings-wk10-2026.csv, the standings "
                  "after Week 10. A Week 9 line therefore carried the results of the Week 9 game it was supposed to predict, and "
                  "the home edge was fitted on weeks 6-9, which includes the Week 9 games being graded. The published signal "
@@ -1112,7 +1124,7 @@ dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, s
               "so the correction is applied to the backtest corpus and proven not to touch Week 11."),
          official_url="https://www.nfl.com/schedules/2026/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/model-probabilities-2026-11-19.md"),
-    dict(id="F-92", item="A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than", type="Limitation", kind="warn", status="limitation",
+    dict(id="F-94", item="A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than", type="Limitation", kind="warn", status="limitation",
          detail=("The price store records a total as a line (for example 45.5) with an over and an under price at -110, and a "
                  "moneyline as two prices. The probability store therefore has a market benchmark for the moneyline (the "
                  "de-vigged captured price) and a derived one for the side (that same price converted into a cover probability "
@@ -1125,7 +1137,7 @@ dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, s
               "the honest answer is that the total has no market benchmark until over/under prices are captured separately."),
          official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/ops/probability_scores.csv"),
-    dict(id="F-93", item="The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11", type="Limitation", kind="warn", status="open",
+    dict(id="F-95", item="The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11", type="Limitation", kind="warn", status="open",
          detail=("The home edge is the mean home margin over the edge window, and a neutral-site game (the 2026 International "
                  "Games: HOU at JAX in week 6, PIT at NO in week 7, CIN at ATL in week 9, NE at DET in week 10) has no home "
                  "field to measure. The estimator therefore mixes them in: the Week 11 window (weeks 6-9) holds 57 games of which "
@@ -1138,7 +1150,7 @@ dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, s
               "v1 published so the change can be judged rather than absorbed."),
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/international-2026.csv"),
-    dict(id="F-94", item="Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price", type="Limitation", kind="warn", status="open",
+    dict(id="F-96", item="Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price", type="Limitation", kind="warn", status="open",
          detail=("The price store records one row per event, market and selection, with the open numbers and the close "
                  "numbers in separate fields and a close_kind that says which it is. Of the eight settled events in the "
                  "graded corpus, four carry close_kind = 'close' (a true closing price) and four carry "
