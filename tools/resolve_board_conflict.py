@@ -45,10 +45,7 @@ def resolve_board(path, new_ids):
         taken = {m.group(1) for l in head for m in [re.match(r"\| (T\d+) \|", l)] if m}
         for l in ours:
             m = re.match(r"\| (T\d+) \|", l)
-            if not m:
-                continue
-            old = m.group(1)
-            if old in taken:
+            if m and m.group(1) in taken:
                 nid = new_ids.pop(0)
                 taken.add(nid)
                 l = re.sub(r"^\| T\d+ \|", "| %s |" % nid, l, count=1)
