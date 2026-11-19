@@ -567,33 +567,23 @@ FLAGS = [
          official_url="https://www.nfl.com/schedules/2026/by-week/week-11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/data/price_capture_reconciliation.csv"),
 
-    dict(id="F-39", item="Desk rows without an official source link: the row-source gate was not reading row links", type="Irregularity", kind="bad", status="resolved",
-         detail=("The per-row source check in tools/check_site.py recorded each link in the page-level list but never attached it to its "
-                 "table row, so every row was tested as empty and the check passed without testing anything. Found by the source-provenance "
-                 "audit (arena/5092bd99-x4) and fixed at T31 integration. With the check reading row links, 191 desk-table rows on 13 pages "
-                 "had no https link; they were listed one by one in research/verification/row-source-gaps-2026-11-14.csv. They were "
-                 "decision and requirement text, rubric weights, simulation output, programme status, or computed statistics whose "
-                 "inputs were not linked row by row. None of them was a sourced official value that the page presented as confirmed. "
-                 "A second gap of the same kind was in the price store: 26 spread and total points in the 2026W11-OPEN snapshot of "
-                 "data/market-prices.csv had no source link (their note reads 'points only'); the moneyline rows of that snapshot are all linked. "
-                 "A row-level follow-up (T43, arena/a04ae774-x4, 2026-11-17) re-audited the same 1,045 rows under the stricter "
-                 "allowlisted-official-domain test: 366 rows carry no allowlisted official-domain link (175 have non-official HTTPS "
-                 "only, 191 have no HTTPS at all), 624 rows are official-host-only, and 55 rows mix an allowlisted link with a "
-                 "non-official HTTPS link without cell-level source attribution, so an NFL fixture link in such a row does not "
-                 "support a third-party odds value beside it. The wider inventory is "
-                 "research/audits/official-row-source-coverage-2026-11-17.md with its row-level records in "
-                 "research/verification/official-row-source-coverage-2026-11-17.csv; the 191 figure above is the narrower "
-                 "no-HTTPS count from research/verification/row-source-gaps-2026-11-14.csv and both are kept."),
-         why=("RESOLVED on 2026-11-17 (T41, session arena/550d7436-x4) by line-by-line closure, not by weakening the gate: every one of the "
-              "1,045 desk-table rows on 22 pages now carries an https source link, and the checker re-run reports 0 rows without one. "
-              "NFL-fact rows link to the official NFL page; computed and programme rows cite the committed artifact that produced the value "
-              "(GitHub blob of the exact CSV/script); blank decision rows cite the official page checked plus the flag. Two honest limits remain, "
-              "and neither is closed by this fix: (1) the checker verifies link presence, not that a link supports the exact value beside it — "
-              "a per-value semantic source gate is still open work; (2) the 26 'points only' price rows keep their recorded gap and stay "
-              "unverified rather than gaining a link that does not support the value. Any reader should still treat a computed row as the "
-              "artifact's output, not as an official NFL fact."),
+    dict(id="F-39", item="Official-source attribution is not established for every desk-table row", type="Irregularity", kind="bad", status="irregularity",
+         detail=("The original row-source check bug was fixed: current check_site.py does attach URLs to each row and detects missing HTTPS links. "
+                 "That is only a link-presence check, not the requested official-source or value-to-source verification. A new static audit of all "
+                 "29 current desk pages (1,138 data rows, 2026-11-19) finds 725 rows with allowlisted official-domain links only, 90 rows mixing "
+                 "official and non-official HTTPS links, 323 rows with non-official HTTPS links only, and 0 rows without HTTPS. The 413 rows "
+                 "containing non-official URLs must not be treated as having an official source for every value; even the 725 official-host-only "
+                 "rows have not been semantically checked by this audit. Official-host presence is not evidence that a linked page supports the "
+                 "specific adjacent number. The row-level inventory and method are in "
+                 "research/audits/official-row-source-coverage-current-2026-11-19.md and "
+                 "research/verification/official-row-source-coverage-current-2026-11-19.csv. Older T43 figures are a dated 22-page snapshot and "
+                 "are retained separately. Unsupported or mixed-provenance facts remain unverified until source-to-field review; do not invent links."),
+         why=("The HTTPS-presence defect is fixed, but the broader request that each data-bearing row be sourced to an official site is not cleared. "
+              "Keep this flag in review until a source-to-field audit establishes support for each official factual value, and third-party price or "
+              "project-derived rows are clearly separated and labeled. The current hostname audit is inventory only: it makes no live requests and "
+              "does not mark any row or value verified. The 2026-11-19 report is the current baseline; repeat it after page changes."),
          official_url="https://www.nfl.com/standings/",
-         url="https://github.com/karagemop466-tech/X4/blob/main/research/audits/official-row-source-coverage-2026-11-17.md"),
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/audits/official-row-source-coverage-current-2026-11-19.md"),
 
 dict(id="F-40", item="Ten further injury practice-status cells differ from the official report (reported, not yet independently re-checked)", type="Irregularity", kind="warn", status="resolved",
          detail=("A parallel session's full capture of the Week 10 injury page (345 of 345 rows) found twelve practice-status cells that "
@@ -1058,7 +1048,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
     dict(id="F-88", item="No alert channel existed for stale, missing or schema-failed official captures: a failed run only notified the workflow's creator (if notifications were enabled), and a run that never fired left no record", type="Irregularity", kind="warn", status="open",
          detail=("Audit of .github/workflows/: no workflow opened an issue, posted a comment, or otherwise recorded a freshness or schema failure. The capture job failed its final step by design, which GitHub reports as a failed run. GitHub's notification policy sends scheduled-workflow notifications to the user who created the workflow, and only if that user has notifications enabled (https://docs.github.com/en/actions/concepts/workflows-and-actions/notifications-for-workflow-runs). "
                  "The freshness gate (tools/capture_official.py freshness) was run only inside that job, with continue-on-error, so a stale source did not fail any other workflow. Source: the official injury report https://www.nfl.com/injuries/ is what the capture reads; the alert gap is in this repository's own workflows. "
-                 "Addressed on branch arena/6870a878-x4 (T68): tools/capture_alert.py reads the committed manifest, classifies every expected source as OK, PARTIAL, STALE, FAILED_LAST or MISSING, and exits non-zero on the last three. "
+                 "Addressed on branch arena/6870a878-x4 (T69): tools/capture_alert.py reads the committed manifest, classifies every expected source as OK, PARTIAL, STALE, FAILED_LAST or MISSING, and exits non-zero on the last three. "
                  ".github/workflows/capture-watchdog.yml runs it every three hours with issues: write as its only extra permission, keeps one open issue titled 'Official capture alert' while any source is failing, and closes it on recovery. "
                  "Verified offline: tests/test_capture_alert.py (16 tests) passes, and replaying the committed manifest at 2026-11-20T08:00Z returns 32 of 32 sources STALE, exit 1. The watchdog cannot be dispatched from the build sandbox (HTTP 403), so its first live run on main is the confirmation and is not yet claimed."),
          why=("Alerting is a second channel, not a fix for the cause. The watchdog makes a stale or failed capture visible within three hours, but it does not change the publication gate, which still passes while a source is stale (F-85 stays open and unchanged). Nothing in the capture or the schema was loosened."),

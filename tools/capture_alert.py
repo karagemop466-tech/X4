@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Freshness and schema watchdog for the official captures (T68).
+Freshness and schema watchdog for the official captures (T69).
 
 WHY THIS EXISTS
 ---------------

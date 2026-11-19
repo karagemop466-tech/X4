@@ -1,6 +1,6 @@
 name: Official capture watchdog
 
-# Freshness and schema alerting for the official captures (T68).
+# Freshness and schema alerting for the official captures (T69).
 #
 # The capture workflow ("Official capture (injury report and club depth pages)") records
 # every read in data/captures/manifest.jsonl, but before this workflow nothing turned a
