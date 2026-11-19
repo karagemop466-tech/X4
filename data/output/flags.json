@@ -958,16 +958,6 @@
  },
  {
   "id": "F-90",
-<<<<<<< HEAD
-  "item": "The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie",
-  "type": "Irregularity",
-  "kind": "warn",
-  "status": "resolved",
-  "detail": "Checked on 2026-11-19 against the live NFL.com injury page (title: 'Official NFL Injury Report for Players - Week 11 of the 2026 Season'; league address /injuries/league/2026/reg11) and the committed capture manifest, whose newest schema-valid injury read (2026-11-19T20:43:30Z) is Week 11 with coverage 'partial' (12 of 13 games). The panel still said 'The Week 10 report lists 347 players'. The panel also said 'Kansas City Chiefs 7-2 leads the AFC West', 'Detroit Lions 7-2 leads the NFC North', although the official standings show Denver 7-2 and, in the NFC North, Chicago 7-2 and Minnesota 7-2. The leader was chosen by a net-points tie-break the official table does not use. Corrected in tools/pages.py: the injury card now reads the newest committed capture and labels the Week 10 counts as the last complete report; ties are printed as ties. The 32 club records in the committed standings match the live NFL.com standings, and the six bye clubs (Atlanta, Cleveland, Green Bay, LA Rams, New England, Seattle) match the Week 11 schedule. No Week 11 player row was added.",
-  "why": "A 'right now' panel that describes last week's report as current is the same failure the brief names most often: a stale state presented as present. A tie shown as a single leader invents an order the league has not given. Both were on the landing page, which is the first page most readers see.",
-  "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/landing-live-state-2026-11-19.md"
-=======
   "item": "The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead",
   "type": "Irregularity",
   "kind": "bad",
@@ -998,6 +988,16 @@
   "why": "A constant that mixes neutral-site games into a home-field measurement is a smaller error than a look-ahead but it is still a constant that is not quite what its name says. The honest fix is a versioned model (v2) that excludes neutral-site games from the edge window, registered before a window opens, with the difference against v1 published so the change can be judged rather than absorbed.",
   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/international-2026.csv"
->>>>>>> a38afdf (T70: walk-forward origination, probability outputs, proper scores; T70 flags F-90/F-91/F-92)
+ },
+ {
+  "id": "F-93",
+  "item": "Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "open",
+  "detail": "The price store records one row per event, market and selection, with the open numbers and the close numbers in separate fields and a close_kind that says which it is. Of the eight settled events in the graded corpus, four carry close_kind = 'close' (a true closing price) and four carry close_kind = 'current_as_close' (the last price captured before the event, standing in for the close because the capture did not run after kickoff). The probability score therefore compares the model against the market on 8 rows of which 4 use a close proxy. The row label now says so exactly: 'de-vigged captured price (a last-captured price used as the close in 4 of 8 rows, not a true close)', and data/ops/probability_scores.csv carries the composition in its own benchmark_rows column. The skill numbers are unchanged and remain not evidence of skill either way (side +0.138 with a 95% interval of [-0.096, +0.360], moneyline -0.054).",
+  "why": "A benchmark is only a benchmark if it is the number the market actually offered. A close proxy is the market's last published price, which is a fair estimate of what a bettor would have faced, but calling it a closing price would overstate what was known. The label is exact; what is missing is a capture that runs after kickoff and records the real close, which is a request on the capture task.",
+  "official_url": "https://www.nfl.com/schedules/2026/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/data/ops/price_snapshots.csv"
  }
 ]
