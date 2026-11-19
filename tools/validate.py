@@ -27,6 +27,8 @@ STEPS = [
      [PY, os.path.join(ROOT, "tools", "capture_official.py"), "verify"]),
     ("test the official-capture gates offline (no network)",
      [PY, "-m", "unittest", "discover", "-s", os.path.join(ROOT, "tests"), "-p", "test_capture_official.py"]),
+    ("test the capture watchdog offline (T69, no network, no clock)",
+     [PY, "-m", "unittest", "discover", "-s", os.path.join(ROOT, "tests"), "-p", "test_capture_alert.py"]),
     ("build published numbers", [PY, os.path.join(ROOT, "tools", "build.py")]),
     ("check the price store, origination card and results feed",
      [PY, os.path.join(ROOT, "tools", "market_store.py")]),

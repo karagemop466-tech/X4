@@ -143,6 +143,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-82 | 56 rows on the Game Book operations and glossary pages are exempt from the every-row-has-a-source rule |
 | F-83 | The scheduled official injury capture has failed its freshness gate on main since the Week 11 report went live: the Week 11 page does not pass the schema pinned to Week 10 |
 | F-85 | The publication gate passes while the injury capture is past its freshness limit: the Week 10 injury read is 27.2 hours old against a 13-hour limit, and the gate does not fail on it |
+| F-88 | No alert channel existed for stale, missing or schema-failed official captures: a failed run only notified the workflow's creator (if notifications were enabled), and a run that never fired left no record |
+| F-89 | The scheduled official capture did not run on its six-hour cadence: the injury reads on record are 3.9, 13.0 and 10.9 hours apart, and no read has been recorded since 2026-11-19T07:33Z |
 
 ## What is deliberately absent
 
