@@ -14139,14 +14139,14 @@ window.X4 = {
   },
   {
    "id": "F-61",
-   "item": "[Superseded 2026-11-19, see F-83] The Week 11 official injury report still did not exist on 2026-11-18; the reg11 address served Week 10 content (confirms F-55)",
+   "item": "Week 11 injury-report capture is incomplete: the official report is now published, but the latest committed capture failed schema validation",
    "type": "Limitation",
    "kind": "warn",
    "status": "limitation",
-   "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. Re-read ~04:10 UTC 2026-11-18 (T54 sweep): the league reg11 page still serves Week 10, and the official game-centre page for Colts at Texans now carries Week 11 practice designations for both clubs in its injury module (e.g. J. Carlies and S. Gardner 'Did not participate' for IND; A. Al-Shaair DNP, R. Blankenship/T. Dell/B. Fisher 'Full participation' for HOU), while Cardinals at Chiefs shows 'no active injuries at this time' for both clubs. The league-level Week 11 page is still the gate for publishing a full dataset; game-centre-only practice statuses are not captured as data here.",
-   "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series.",
+   "detail": "Historical observation: on 2026-11-18 at ~04:10 UTC the official reg11 page still served Week 10 (T54); that statement was accurate at that time. Re-read the official Week 11 report on 2026-11-19: it now serves Week 11 rows, including the Thursday Colts-Texans report. The latest committed capture manifest entry remains 2026-11-18T20:37:55Z for https://www.nfl.com/injuries/ with week=11, 2 game-status headers, 2 practice-status headers, 26 player links, schema_ok=false, SHA-256 d005e2859a480ce0a96273f815ffc5a5eaa1cc49a039445c763378c606221010. The checked-in injury CSV remains Week 10; a partial/schema-invalid read is not a complete Week 11 dataset and is not published as one.",
+   "why": "The source-availability gap changed into a capture-completeness gap. Do not fall back to secondary data or treat missing rows as healthy. The staged publication cadence must be represented by an explicit schema/completeness rule, and raw evidence must be retained in the approved private store before a complete Week 11 snapshot is published.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/captures/manifest.jsonl"
   },
   {
    "id": "F-62",
@@ -14813,19 +14813,19 @@ window.X4 = {
    "how": "Both Game Info blocks were read live: Colts at Texans prints RELIANT STADIUM and Cardinals at Chiefs prints ARROWHEAD STADIUM - exactly the committed values, so no venue cell changed. This session's independent reading (research/verification/live-sync-2026-11-18.csv, B5) agrees with the resolution now published on main (F-60, resolved by PR #92 with the same reading and research/verification/venue-gameinfo-2026-11-18.md), which is kept as the flag row; the NRG/GEHA readings come from the schedule page's ticket/hotel widgets."
   },
   {
-   "check": "Standings: all 32 clubs re-read live and compared line by line (T61, 2026-11-19)",
+   "check": "Standings: all 32 clubs re-read live and compared line by line (T62, 2026-11-19)",
    "result": "pass",
    "url": "https://www.nfl.com/standings/",
    "how": "The 32 official rows (W, L, T, PF, PA, net points) were read from the live page and compared with data/standings-wk10-2026.csv: 32 of 32 match, and net points equal PF minus PA for every official row. Row-level register: research/verification/integration-live-2026-11-19.csv."
   },
   {
-   "check": "Week 10: all 14 final scores re-read live from the official schedule and compared with data/games-2026.csv (T61, 2026-11-19)",
+   "check": "Week 10: all 14 final scores re-read live from the official schedule and compared with data/games-2026.csv (T62, 2026-11-19)",
    "result": "pass",
    "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
    "how": "All 14 Week 10 finals on the live official schedule match the committed log, game by game, including the Los Angeles (LA) to LAR mapping. Each row links its official game page in the register."
   },
   {
-   "check": "Week 11 injury report: live official page against the committed capture pipeline (T61, 2026-11-19)",
+   "check": "Week 11 injury report: live official page against the committed capture pipeline (T62, 2026-11-19)",
    "result": "flag",
    "url": "https://www.nfl.com/injuries/",
    "how": "The live page is the Week 11 report. The scheduled capture has rejected its last two reads on the schema gate (week 11, 2 status headers, 26 player links), so the site still shows the Week 10 capture. Logged as F-83 (filed on main by arena/cd239f59-x4, T60) and extended by F-85 (the publication-gate gap); the parser fix is a request on the board."
