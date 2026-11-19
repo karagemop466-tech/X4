@@ -14072,12 +14072,12 @@
   },
   {
    "id": "F-55",
-   "item": "The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8)",
+   "item": "The Week 11 injury report was not published on 2026-11-17 and the Week 11 link then served Week 10 content (I-8); on 2026-11-19 the Week 11 report is live on NFL.com and this repository still holds only the Week 10 report",
    "type": "Limitation",
    "kind": "warn",
    "status": "limitation",
-   "detail": "On 2026-11-17, https://www.nfl.com/injuries/league/2026/reg11 returned the Week 10 report, titled 'Official NFL Injury Report for Players - Week 10 of the 2026 Season', and its address resolved to /reg10. No Week 11 designation exists in any official source read, so none is published. The silent fall-back is the same pattern as F-09 for the schedule links. Update 2026-11-19 (T60, see F-83): the reg11 address now serves the Week 11 report, so the publication status stated in this entry is superseded.",
-   "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash. Re-checked 2026-11-18 03:55 UTC (T46 sweep): the reg11 address still serves the Week 10 report (title 'Week 10 of the 2026 Season', resolves to /reg10); state unchanged.",
+   "detail": "On 2026-11-17, https://www.nfl.com/injuries/league/2026/reg11 returned the Week 10 report, titled 'Official NFL Injury Report for Players - Week 10 of the 2026 Season', and its address resolved to /reg10. No Week 11 designation exists in any official source read, so none is published. The silent fall-back is the same pattern as F-09 for the schedule links.",
+   "why": "Week 11 kicks off between 19 and 23 November (research/preregistration/wk11-forward-v1.md), so an absent Week 11 report is expected today, not a fault. The pre-registration forbids using any Week 11 designation before kickoff. Re-check the report after it is published, and capture it with its hash. Re-checked 2026-11-18 03:55 UTC (T46 sweep): the reg11 address still serves the Week 10 report (title 'Week 10 of the 2026 Season', resolves to /reg10); state unchanged. UPDATE 2026-11-19 (T60): this entry is superseded. The reg11 address now serves the Week 11 report (title 'Official NFL Injury Report for Players - Week 11 of the 2026 Season'), and the Week 11 game sections list Thursday's Colts at Texans first. The repository still holds only the Week 10 injury data; no Week 11 designation has been transcribed or inferred. The scheduled capture cannot yet store the Week 11 page as valid (see F-83).",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
   },
@@ -14143,7 +14143,7 @@
    "kind": "warn",
    "status": "limitation",
    "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. Re-read ~04:10 UTC 2026-11-18 (T54 sweep): the league reg11 page still serves Week 10, and the official game-centre page for Colts at Texans now carries Week 11 practice designations for both clubs in its injury module (e.g. J. Carlies and S. Gardner 'Did not participate' for IND; A. Al-Shaair DNP, R. Blankenship/T. Dell/B. Fisher 'Full participation' for HOU), while Cardinals at Chiefs shows 'no active injuries at this time' for both clubs. The league-level Week 11 page is still the gate for publishing a full dataset; game-centre-only practice statuses are not captured as data here.",
-   "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series. Update 2026-11-19 (T60, see F-83): this statement is superseded. The reg11 page now serves the Week 11 report (title 'Official NFL Injury Report for Players - Week 11 of the 2026 Season'), so the Week 11 report is published.",
+   "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series. Update 2026-11-19 (T61, see F-84): this statement is superseded. The reg11 page now serves the Week 11 report (title 'Official NFL Injury Report for Players - Week 11 of the 2026 Season'), so the Week 11 report is published.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
   },
@@ -14181,7 +14181,7 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"
   },
   {
-   "id": "F-83",
+   "id": "F-84",
    "item": "The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main)",
    "type": "Irregularity",
    "kind": "bad",
@@ -14333,6 +14333,17 @@
    "why": "The alternative was to attach an official link to a row it does not support, which would make the coverage number meaningless - the gate's whole value is that every data row points at a real source. A silent skip would have been worse than a declared exemption, so the count is printed on every run. If a documentation row ever starts asserting a fact about the world, the class should be removed and the row should carry its source.",
    "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/site/check.py"
+  },
+  {
+   "id": "F-83",
+   "item": "The scheduled official injury capture has failed its freshness gate on main since the Week 11 report went live: the Week 11 page does not pass the schema pinned to Week 10",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The capture workflow 'Official capture (injury report and club depth pages)' runs every six hours and on schedule. Its scheduled runs 44260352677 and 44393037693 on main failed at 'Fail after preserving capture diagnostics', after the freshness step had already failed. The manifest holds five injury reads. Two Week 11 reads (2026-11-18T07:37:40Z and 2026-11-18T20:37:55Z) return HTTP 200 but fail the schema: 2 'Practice Status' markers against a required 28, and 26 player links against a required 250. Reproduced locally with tools/capture_official.py freshness --kind injuries --max-hours 13: 'freshness failed for 1 of 1 expected sources', exit 1. The newest schema-valid injury capture is the Week 10 read of 2026-11-18T03:44:00Z.",
+   "why": "The gate behaved correctly: it refused to call a partial read a valid capture, and the last valid Week 10 read is kept on record. Nothing published on the site was changed by the failure. The cause is not yet confirmed. Raw page bytes are kept in a private store that is not configured in CI, and this sandbox cannot reach nfl.com, so the page structure cannot be inspected here. The likely explanation is that the Week 11 page renders its later game days differently from the Week 10 page. That is a hypothesis, not a finding. Options for review, none applied: (1) record the count of game sections in each raw read in the manifest, so the drift can be seen without retaining raw bytes; (2) rewrite the schema for the current NFL.com layout, verified against a live raw read; (3) keep the schema and accept that the report is stale until it is fixed. The schema must not be loosened to pass.",
+   "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/week11-injury-capture-2026-11-19.md"
   }
  ],
  "replacement_depth": [
