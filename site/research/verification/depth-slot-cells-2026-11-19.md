@@ -1,6 +1,6 @@
 # Depth slots as groups: shared cells and empty cells, stored as published
 
-**Session:** `arena/9fc78d2e-x4` (task T71) · **Date:** 2026-11-19 UTC
+**Session:** `arena/9fc78d2e-x4` (task T75) · **Date:** 2026-11-19 UTC
 **Scope:** `tools/depth.py` (transcription model, CSV, roll-up),
 `tools/pages.py` (the depth table body), `tools/desk_extension.py` (the per-team
 view), `tools/gen_depth_audit.py` (the fidelity panel), `data/depth-wk11-2026.csv`,

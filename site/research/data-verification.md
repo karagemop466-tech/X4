@@ -124,8 +124,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-59 | The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46) |
 | F-60 | Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) - resolved: both spellings are official and both are published |
 | F-61 | Week 11 injury-report capture is incomplete: the official report is now published, but the latest committed capture failed schema validation |
-| F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T70: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on |
-| F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T70: every published home-edge figure now carries its window, its n and its interval |
+| F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T74: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on |
+| F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T74: every published home-edge figure now carries its window, its n and its interval |
 | F-64 | The depth dataset could not represent a shared rank-1 cell or a printed empty cell (fixed for the model and for the two clubs the brief names; 29 clubs still carry the 2026-11-14 capture), stores no special-teams row, and 4 of 103 sampled live players are absent |
 | F-86 | The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main) |
 | F-65 | Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError |
