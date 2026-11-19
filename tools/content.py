@@ -266,7 +266,7 @@ FLAGS = [
                  "correct when written and became wrong when the Week 10 finals were ingested. The pattern, "
                  "not any single number, is the finding: a count typed into prose or into a checker is a "
                  "future false statement, and F-59 was the same defect one level up. "
-                 "Since (T70, 2026-11-19): every instance named above has been corrected - the workbench, the "
+                 "Since (T74, 2026-11-19): every instance named above has been corrected - the workbench, the "
                  "integrity-gates note and the decision register now say 150 games, and the price-store note quotes "
                  "78 of 118. One class is now on the gate: the corpus statistics (home margin, margin vs total, away "
                  "vs home, mean combined score, and the two standings correlations) are re-derived from the verified "
@@ -840,7 +840,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
 
     # ---- T46 (session arena/ad5e4c3d-x4), 2026-11-18: found by re-deriving published numbers (renumbered from F-58..F-61 to avoid clashing with the flags merged from arena/bca9fb72-x4)
     # ---- T46 (session arena/ad5e4c3d-x4), 2026-11-18: found by re-deriving published numbers ---
-    dict(id="F-62", item="The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T70: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on",
+    dict(id="F-62", item="The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T74: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on",
          type="Irregularity", kind="warn", status="resolved",
          detail=("Found: tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', "
                  "which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in "
@@ -848,7 +848,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
                  "54 correctly while other pages attached 57 - the size of the input file - to the same r. The value and interval "
                  "were correct; the n beside them was not, and the three neutral-site games dropped (HOU at JAX week 6, PIT at NO "
                  "week 7, CIN at ATL week 9) were not named in the row label. "
-                 "Fixed (T70, 2026-11-19): the published correlation and home-edge table is now built by tools/corpus_stats.py, which "
+                 "Fixed (T74, 2026-11-19): the published correlation and home-edge table is now built by tools/corpus_stats.py, which "
                  "recomputes every statistic from the complete verified corpus (data/games-2026.csv, 150 games, weeks 1-10) and "
                  "prints the window beside every value: margin vs total is r = -0.3224 on n = 54 in the frozen weeks 6-9 window and "
                  "r = -0.1433 on n = 146 over the whole corpus. The n is taken from the computed artifact, not typed, and "
@@ -860,12 +860,12 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/schedules/2026/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"),
 
-    dict(id="F-63", item="One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T70: every published home-edge figure now carries its window, its n and its interval",
+    dict(id="F-63", item="One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T74: every published home-edge figure now carries its window, its n and its interval",
          type="Irregularity", kind="warn", status="resolved",
          detail=("Found: research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which "
                  "re-derives exactly from research/data/games_weeks6-9_2026.csv, and the site published that one quantity at two "
                  "roundings (+0.1 in one place, +0.07 in another) on a weeks 6-9 window only. "
-                 "Fixed (T70, 2026-11-19): tools/corpus_stats.py recomputes the statistic from the complete verified corpus and "
+                 "Fixed (T74, 2026-11-19): tools/corpus_stats.py recomputes the statistic from the complete verified corpus and "
                  "publishes it once per declared window with n and a 95% interval - -0.70 on n = 73 (weeks 3-7), +8.79 on n = 14 (week 8), "
                  "-5.78 on n = 27 (weeks 9-10), -0.53 on n = 146 (weeks 1-10) and the frozen +0.07 on n = 54 (weeks 6-9). Every interval "
                  "contains zero, so the site states that no home edge is assumed. The executive summary and the line-lab text now name the "
@@ -885,7 +885,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
                  "the Seattle pair at depth 1 and 2. No special-teams row (P, K, H, LS, PR, KR) exists in the dataset, although every live "
                  "chart read publishes a special-teams section. A four-club live sample of offence charts (SEA, CLE, BAL, WAS; 103 players) "
                  "found 4 players absent from the dataset and the one shared rank-1 cell not represented. "
-                 "Fixed (T71, 2026-11-19): the transcription model now stores a CELL - one name, several names in one printed cell, or a "
+                 "Fixed (T75, 2026-11-19): the transcription model now stores a CELL - one name, several names in one printed cell, or a "
                  "printed but empty cell - and the file carries a slot_kind and a slot_size column. Seattle's first WR cell is stored as "
                  "the shared cell it is (Kupp 1, Shaheed 1, Charles 2) and Washington's third WR row carries an explicitly empty second "
                  "cell. The deficiency roll-up and the per-team view now run on cells, so a club that published co-starters is never "
@@ -1094,7 +1094,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-alerting-2026-11-19.md"),
 
     dict(id="F-92", item="The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows", type="Limitation", kind="warn", status="limitation",
-         detail=("Found by re-deriving the corpus statistics on the complete verified game log (T72, 2026-11-19). tools/origination.py "
+         detail=("Found by re-deriving the corpus statistics on the complete verified game log (T74, 2026-11-19). tools/origination.py "
                  "sets USE_HOME_EDGE = True and fits h on weeks 6-9 only (edge = home_edge(games, range(6, 10))), then adds that "
                  "constant to every Week 11 spread it originates. The same statistic, recomputed from the same official corpus "
                  "(data/games-2026.csv, 150 games, each row an official NFL.com game URL, reproducing every official standings "
@@ -1146,7 +1146,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
 
 # ------------------------------------------------------------------ verification log
 VERIFICATION = [
-    dict(check="Every published corpus statistic matches a fresh derivation from the official game log (T70, 2026-11-19)", result="pass",
+    dict(check="Every published corpus statistic matches a fresh derivation from the official game log (T74, 2026-11-19)", result="pass",
          url="https://www.nfl.com/schedules/2026/",
          how="tools/corpus_stats.py rebuilds the home margin, the margin-vs-total and away-vs-home correlations and the scoring means from data/games-2026.csv, one official NFL.com game URL per row, and fails loudly unless the corpus reproduces the official NFL.com standings for all 32 clubs (431 checks). The result is written to data/output/corpus_stats.json, re-derived and compared by tools/corpus_stats.py --check, and compared row by row against the rendered page by tools/corpus_stats.py --check-page. Both run inside tools/validate.py, so a published statistic that the artifact does not hold fails the build."),
     dict(check="Reconstructed game log matches the official NFL.com standings", result="pass",

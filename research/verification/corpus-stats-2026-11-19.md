@@ -1,6 +1,6 @@
 # Corpus statistics, the declared split, and n on every published value
 
-**Session:** `arena/9fc78d2e-x4` (task T70) · **Date:** 2026-11-19 UTC
+**Session:** `arena/9fc78d2e-x4` (task T74) · **Date:** 2026-11-19 UTC
 **Scope:** `tools/corpus_stats.py` (new), `data/output/corpus_stats.json` (new),
 `tools/pages.py` (correlation and home-edge table body), `tools/gen_exec_summary_desk.py`
 (the scoring-environment sentence), `tools/content.py` (F-62, F-63, F-66, F-90 and one
@@ -135,10 +135,10 @@ carry the same numbers because they all read the same artifact.
 Two new steps in `tools/validate.py`:
 
 ```
-("re-derive the corpus statistics and the declared split (T70)",
+("re-derive the corpus statistics and the declared split (T74)",
  [PY, "tools/corpus_stats.py", "--check"]),
 ...
-("check the published corpus statistics against the artifact (T70)",
+("check the published corpus statistics against the artifact (T74)",
  [PY, "tools/corpus_stats.py", "--check-page"]),
 ```
 
