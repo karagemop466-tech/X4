@@ -6,8 +6,10 @@ registration commit 8a3320092abe75aeafdbb0b1cdc586b37b93cbfb). Rows that existed
 registration are backtests and are never counted as forward evidence.
 
 Stage 1 - proper-score qualification (registered gates G1-G6):
-  Brier skill of the model's probability against the de-vigged market probability, moneyline only.
-  Side and total emit a line, not a probability, so no Brier score is defined for them; the page says so.
+  Brier skill of the model's probability against the de-vigged market probability, per market
+  type. Since T71 (E5) side and total also carry a probability output (home_covers / over_line
+  from the stored distribution and its inputs), so a proper score exists for all three markets;
+  rows without both probabilities are excluded, never filled.
   Game-cluster bootstrap (resampling by game, fixed seed) gives the 95% interval; a one-sided p
   is reported and Bonferroni-adjusted for the number of registered trials.
 Stage 2 - prospective escrow:
@@ -96,22 +98,50 @@ def load():
 
 
 def settle_forward(row, pick, price_row):
-    """Outcome of one forward bet from the official result recorded on the row (never inferred)."""
+    """Outcome of one forward bet from the official result recorded on the row (never inferred).
+
+    T71 (E8): side and total settle against the entry line from the raw official
+    result (result_margin / result_total) when it is recorded. The legacy path,
+    kept for synthetic and pre-T71 rows, settles on the `result` column, which
+    cannot see the line; that limitation is flagged on the register.
+    """
     if row["settled"] != "1" or not row["result"]:
         return "pending", ""
     res = row["result"]
     if res == "push":
         return "push", 0.0
+
+    def won_lost(won):
+        if not pick:
+            return "invalid", ""
+        if won:
+            price = (price_row or {}).get("open_price") or (price_row or {}).get("open_ml") or ""
+            try:
+                dec = (100.0 / -float(price) + 1.0) if float(price) < 0 else (float(price) / 100.0 + 1.0)
+            except (TypeError, ValueError):
+                return "won", ""
+            return "won", dec - 1.0
+        return "lost", -1.0
+
+    entry_line = row.get("market_open", "") or ""
+    rm, rt = row.get("result_margin", ""), row.get("result_total", "")
+    if row["market"] in ("side", "total") and entry_line and rm != "" and rt != "":
+        try:
+            if row["market"] == "side":
+                lm = float(str(entry_line).replace("\u2212", "-"))
+                spread = float(rm) + lm
+                if abs(spread) < 1e-9:
+                    return "push", 0.0
+                return won_lost((spread > 0) == (pick == "home"))
+            tl = float(entry_line)
+            if float(rt) == tl:
+                return "push", 0.0
+            return won_lost((float(rt) > tl) == (pick == "over"))
+        except ValueError:
+            pass
     if res not in ({"home", "away"} if row["market"] != "total" else {"over", "under"}):
         return "invalid", ""
-    if pick == res:
-        price = price_row.get("open_price") or price_row.get("open_ml") if price_row else ""
-        try:
-            dec = (100.0 / -float(price) + 1.0) if float(price) < 0 else (float(price) / 100.0 + 1.0)
-        except (TypeError, ValueError):
-            return "won", ""
-        return "won", dec - 1.0
-    return "lost", -1.0
+    return won_lost(pick == res)
 
 
 def build_ledger(fmd, price, urls):
@@ -155,6 +185,14 @@ def build_ledger(fmd, price, urls):
                     clv = (p_close - p_open) if pick == "home" else ((1 - p_close) - (1 - p_open))
         pr = price.get((r["event_id"], m, pick), {}) if pick else {}
         status, pnl = settle_forward(r, pick, pr)
+        if m == "side":
+            sel_a = price.get((r["event_id"], "side", "home"), {}).get("open_price", "")
+            sel_b = price.get((r["event_id"], "side", "away"), {}).get("open_price", "")
+        elif m == "total":
+            sel_a = price.get((r["event_id"], "total", "over"), {}).get("open_price", "")
+            sel_b = price.get((r["event_id"], "total", "under"), {}).get("open_price", "")
+        else:
+            sel_a, sel_b = entry_line, away_open_ml
         ledger.append({
             "event_id": r["event_id"], "week": r["week"], "away": r["away"], "home": r["home"],
             "market": m, "pick": pick, "entry_line": entry_line,
@@ -162,10 +200,16 @@ def build_ledger(fmd, price, urls):
             "close_kind": r["close_kind"], "close_line": r["market_close"] if close_real else "",
             "clv": ("%.3f" % clv) if isinstance(clv, float) else "",
             "fair": r["fair"], "entry_away_ml": away_open_ml,
+            "entry_sel_a_price": sel_a, "entry_sel_b_price": sel_b,
+            "prob_event_open_pct": r.get("prob_event_open_pct", ""),
+            "prob_dist": r.get("prob_dist", ""), "prob_mu": r.get("prob_mu", ""),
+            "prob_sigma": r.get("prob_sigma", ""),
             "entry_before_registration": "yes" if r["snapshot_utc"] < REG_TIME_UTC else "no",
             "status": status,
             "stake_units": "1" if pick else "", "pnl_units": ("%.4f" % pnl) if isinstance(pnl, float) else "",
             "result": r["result"] if r["settled"] == "1" else "",
+            "result_margin": r.get("result_margin", "") if r["settled"] == "1" else "",
+            "result_total": r.get("result_total", "") if r["settled"] == "1" else "",
             "official_game_url": urls.get((r["away"], r["home"]), ""),
             "registration": REG_COMMIT,
         })
@@ -186,42 +230,91 @@ def cluster_boot(pairs_by_cluster, stat, b=BOOT_B, seed=BOOT_SEED):
 
 
 def stage1(ledger):
-    """Brier skill per market. Moneyline is the only market with a probability output."""
+    """Brier skill per market against the de-vigged entry price.
+
+    Every market type carries a probability output since T71 (E5): the moneyline
+    reads the fair home-win probability, side and total read the stored model
+    probability of their fixed event (home_covers / over_line at the entry
+    number). A settled row without both probabilities is excluded, never filled.
+    With fewer than G4_MIN_N scored rows everything is NOT EVALUABLE - never
+    zero and never a pass.
+    """
     out = {}
-    ml = [r for r in ledger if r["market"] == "moneyline" and r["status"] in ("won", "lost")]
     n_settled = {m: sum(1 for r in ledger if r["market"] == m and r["status"] in ("won", "lost", "push"))
                  for m in MARKETS}
     out["n"] = n_settled
-    if len(ml) < G4_MIN_N:
-        out["brier"] = None
-        out["note"] = ("NOT EVALUABLE: %d settled forward moneylines; registered G4 needs n >= %d"
-                       % (len(ml), G4_MIN_N))
-        return out
-    # populated only when the forward window has enough settled moneylines (not the case today)
-    pairs = {}
-    for r in ml:
-        y = 1.0 if r["result"] == "home" else 0.0
-        p_model = parse_fair_prob(r["fair"])
-        if not r["entry_away_ml"] or not r["entry_line"]:
+    clusters = {m: {} for m in MARKETS}
+    for r in ledger:
+        if r.get("status") not in ("won", "lost"):
             continue
-        p_mkt = devig_home(r["entry_line"], r["entry_away_ml"])
-        pairs.setdefault(r["event_id"], []).append((p_model, p_mkt, y))
-    flat = [t for v in pairs.values() for t in v]
-    if len(flat) < G4_MIN_N:
-        out["brier"] = None
-        out["note"] = "NOT EVALUABLE: moneylines lack a recorded opening price for the de-vig benchmark"
-        return out
+        m = r["market"]
+        if m == "moneyline":
+            try:
+                p_model = parse_fair_prob(r.get("fair", ""))
+            except ValueError:
+                continue
+            y = 1.0 if r.get("result") == "home" else 0.0
+        else:
+            pep = str(r.get("prob_event_open_pct", "")).replace("%", "").strip()
+            try:
+                p_model = float(pep) / 100.0
+                if m == "side":
+                    lm = float(str(r.get("entry_line", "")).replace("\u2212", "-"))
+                    spread = float(r.get("result_margin", "")) + lm
+                    if abs(spread) < 1e-9:
+                        continue
+                    y = 1.0 if spread > 0 else 0.0
+                else:
+                    tl = float(r.get("entry_line", ""))
+                    rt = float(r.get("result_total", ""))
+                    if rt == tl:
+                        continue
+                    y = 1.0 if rt > tl else 0.0
+            except (TypeError, ValueError):
+                continue
+        a = r.get("entry_sel_a_price", "")
+        b = r.get("entry_sel_b_price", "")
+        if not a or not b:
+            a, b = r.get("entry_line", ""), r.get("entry_away_ml", "")
+        if not a or not b:
+            continue
+        p_mkt = devig_home(a, b)
+        clusters[m].setdefault(r.get("event_id", ""), []).append((p_model, p_mkt, y))
 
     def skill(sample):
         bm = sum((p_m - y) ** 2 for p, p_m, y in sample) / len(sample)
         bk = sum((p - y) ** 2 for p, p_m, y in sample) / len(sample)
         return 1.0 - bk / bm if bm > 0 else 0.0
 
-    lo, hi, p_one = cluster_boot(pairs, skill)
+    def summarize(cl):
+        flat = [t for v in cl.values() for t in v]
+        entry = {"n": len(flat)}
+        if flat:
+            bm = sum((p_m - y) ** 2 for p, p_m, y in flat) / len(flat)
+            bk = sum((p - y) ** 2 for p, p_m, y in flat) / len(flat)
+            entry["brier_model"] = round(bm, 4)
+            entry["brier_market"] = round(bk, 4)
+            entry["skill"] = round(1.0 - bk / bm, 4) if bm > 0 else ""
+        else:
+            entry["brier_model"] = entry["brier_market"] = entry["skill"] = ""
+        return entry
+
+    out["per_market"] = {m: summarize(clusters[m]) for m in MARKETS}
+    all_clusters = {}
+    for m in MARKETS:
+        for ev, ts in clusters[m].items():
+            all_clusters.setdefault(ev, []).extend(ts)
+    flat = [t for v in all_clusters.values() for t in v]
+    if len(flat) < G4_MIN_N:
+        out["brier"] = None
+        out["note"] = ("NOT EVALUABLE: %d settled forward bets with both probabilities; "
+                       "registered G4 needs n >= %d" % (len(flat), G4_MIN_N))
+        return out
+    lo, hi, p_one = cluster_boot(all_clusters, skill)
     bonf = min(1.0, p_one * TRIALS)
     out["brier"] = {"skill": skill(flat), "ci_low": lo, "ci_high": hi, "p_one_sided": p_one,
                     "p_bonferroni": bonf, "n": len(flat)}
-    out["note"] = "computed from settled forward moneylines only"
+    out["note"] = "computed from settled forward bets with both probabilities, all market types"
     return out
 
 
@@ -251,10 +344,18 @@ def page(ledger, s1, s2, fixtures, covered):
     for m in MARKETS:
         n = s1["n"][m]
         need = G2_MIN_PER_MARKET
-        note = "Brier not defined: no probability output" if m != "moneyline" else s1["note"]
+        pm = s1.get("per_market", {}).get(m, {"n": 0})
+        scored = pm.get("n", 0)
+        if scored:
+            note = ("%d scored: model Brier %s vs market %s (skill %s)"
+                    % (scored, pm.get("brier_model", ""), pm.get("brier_market", ""),
+                       pm.get("skill", "")))
+        else:
+            note = ("NOT EVALUABLE: %d settled forward bets carry both probabilities "
+                    "(probability output stored since T71)" % scored)
         skill = "NOT EVALUABLE"
-        if m == "moneyline" and s1["brier"]:
-            skill = "%.3f" % s1["brier"]["skill"]
+        if scored >= G4_MIN_N and pm.get("skill", "") != "":
+            skill = "%.3f" % pm["skill"]
         stage1_rows.append([m, str(n), str(need), "NOT MET" if n < need else "MET", skill, esc(note)])
     stage1_html = desk_nav_table(["Market", "Settled forward bets", "G2 needs", "G2 state", "Brier skill", "Note"], stage1_rows)
     ledger_rows = []
@@ -273,7 +374,9 @@ def page(ledger, s1, s2, fixtures, covered):
         ["G1 data integrity", "Every row has a source and UTC stamp", "PASS" if ledger and all(r["entry_source_url"] and r["entry_snapshot_utc"] for r in ledger) else "FAIL", "%d forward rows" % len(ledger)],
         ["G2 sample", ">= 100 settled bets per market", "NOT MET", "0 settled; %d more per market needed" % G2_MIN_PER_MARKET],
         ["G3 out of sample", "Forward window only: entry recorded after the rule is frozen", "FLAGGED" if n_pre else "PASS", "%d of %d entries predate registration %s (flag E7)" % (n_pre, len(ledger), REG_COMMIT[:7])],
-        ["G4 probability quality", "Brier beats market, n >= 30", "NOT EVALUABLE", "moneyline n = %d" % s1["n"]["moneyline"]],
+        ["G4 probability quality", "Brier beats market, n >= 30", "NOT EVALUABLE",
+         "probability output stored for all three markets since T71; scored forward bets: side %d, total %d, moneyline %d"
+         % tuple(s1.get("per_market", {}).get(m, {"n": 0}).get("n", 0) for m in MARKETS)],
         ["G5 one-sided p", "< 0.05", "NOT EVALUABLE", "no settled forward bets"],
         ["G6 Bonferroni p", "< 0.05 over %d trial" % TRIALS, "NOT EVALUABLE", "no settled forward bets"],
         ["G7 concentration", "no week above 50% of skill", "NOT EVALUABLE", "one forward week"],
@@ -304,7 +407,7 @@ def page(ledger, s1, s2, fixtures, covered):
 
 <section class="section" id="stage1"><div class="section-head"><div><span class="eyebrow">STAGE 1 &middot; PROPER-SCORE QUALIFICATION</span><h2>Brier skill against the de-vigged market, by market type</h2><p class="muted">Model probability against the market probability with the vig removed. Interval: game-cluster bootstrap, B = {BOOT_B:,}, seed {BOOT_SEED}. Bonferroni factor = {TRIALS} registered trial.</p></div></div>
 {stage1_html}
-<div class="note"><b>Side and total have no Brier score.</b> The model emits a margin and a total, not a probability, so a proper score cannot be computed for them. Until a probability is stored for those markets, they cannot enter Stage 1. This is the brief's rule 'store every model output as a probability plus its inputs', and it is not yet met for side or total.</div>
+<div class="note"><b>Every market now carries a probability.</b> Since T71 the model stores side and total as a probability plus its inputs (home_covers from the margin normal, over_line from the Poisson total, with mu and sigma printed per row in <code>data/ops/fair_market_difference.csv</code>), so a proper score exists for all three market types. The brief's rule 'store every model output as a probability plus its inputs' is met; what is missing is settled forward bets to score, not probabilities.</div>
 </section>
 
 <section class="section" id="gates"><div class="section-head"><div><span class="eyebrow">REGISTERED GATES</span><h2>Each gate, its rule and what it observes today</h2><p class="muted">Rules are taken unchanged from <a href="https://github.com/karagemop466-tech/X4/blob/{REG_COMMIT}/{REG_FILE}" target="_blank" rel="noreferrer">{REG_FILE} <span>&#8599;</span></a> at the registration commit.</p></div></div>
@@ -324,15 +427,16 @@ def page(ledger, s1, s2, fixtures, covered):
 {clear_html}
 </section>
 
-<section class="section" id="flags"><div class="section-head"><div><span class="eyebrow">FLAGGED FOR REVIEW</span><h2>Irregularities found while building this page</h2><p class="muted">Each entry is recorded for review and blocks nothing. E1 was fixed in its own scope (T58, 2026-11-18); the rest belong to other scopes.</p></div></div>
+<section class="section" id="flags"><div class="section-head"><div><span class="eyebrow">FLAGGED FOR REVIEW</span><h2>Irregularities found while building this page</h2><p class="muted">Each entry is recorded for review and blocks nothing. E1 was fixed in its own scope (T58, 2026-11-18); E5 and E8 were fixed in the T71 scope (2026-11-19); the rest belong to other scopes.</p></div></div>
 {desk_nav_table(["#", "Irregularity", "Where", "Source"], [
  ["E1", "RESOLVED 2026-11-18 (T58): the walk-forward (backtest) numbers for strategies S1 to S9 were ranked on the site under a 'Leaderboard and rewards' heading. The brief forbids backtest numbers on the leaderboard. The Strategy lab page now has a forward-only rewards leaderboard (empty at n = 0 forward settled markets, with the number that would open it) and the walk-forward table sits under a 'Backtest development board - never ranked for rewards' heading; the landing-page preview is relabelled the same way.", "strategies.html (forward leaderboard + backtest board); index.html preview relabelled", src("https://github.com/karagemop466-tech/X4/blob/main/data/output/leaderboard.json", "data/output/leaderboard.json")],
  ["E2", "Week 11 'close' values are current prices at capture (close_kind = current_as_close), so Week 11 has no closing number and no CLV.", "data/ops/fair_market_difference.csv", src("https://github.com/karagemop466-tech/X4/blob/main/data/ops/fair_market_difference.csv", "fair_market_difference.csv")],
  ["E3", "The origination code grades side bets against the closing line, but a closing line cannot exist before kickoff. The forward rule therefore applies the pick to the entry (opening) line. This is an interpretation of the registration, not a change to it, and is flagged for review.", "tools/origination.py vs research/preregistration/wk11-forward-v1.md", src("https://github.com/karagemop466-tech/X4/blob/%s/%s" % (REG_COMMIT, REG_FILE), "pre-registration at " + REG_COMMIT[:7])],
  ["E4", "Only %d of %d Week 11 fixtures have an originated market, so the forward window is thin." % (cov, len(fixtures)), "data/ops/event_identity.csv", src("https://www.nfl.com/schedules/2026/by-week/week-11", "NFL.com Week 11 schedule")],
- ["E5", "Side and total markets publish a line, not a probability, so no proper score exists for them. This does not meet the brief's probability rule.", "tools/origination.py", src("https://github.com/karagemop466-tech/X4/blob/main/tools/origination.py", "tools/origination.py")],
+ ["E5", "RESOLVED 2026-11-19 (T71): side and total markets published a line, not a probability, so no proper score existed for them. Every originated row now stores the model output as a probability plus its inputs (prob_dist / prob_mu / prob_sigma / prob_event / prob_event_open_pct / prob_event_close_pct in fair_market_difference.csv), gate G4 is evaluated from the per-market Brier scores in data/ops/scores_brier.csv, and Stage 1 on this page scores all three market types.", "tools/origination.py; data/ops/fair_market_difference.csv; data/ops/scores_brier.csv", src("https://github.com/karagemop466-tech/X4/blob/main/data/ops/scores_brier.csv", "scores_brier.csv")],
  ["E7", "Entry prices were captured on 2026-11-14 (19:26 UTC), four days before the registration commit (2026-11-18 03:34 UTC). The registration fixes the rule; it cannot fix the entry prices, so these rows are 'rule registered after entry capture', not a clean pre-kickoff entry. A pre-kickoff capture is needed for a clean forward entry.", "data/ops/price_snapshots.csv, data/ops/fair_market_difference.csv", src("https://github.com/karagemop466-tech/X4/blob/main/data/ops/price_snapshots.csv", "data/ops/price_snapshots.csv")],
  ["E6", "Week 11 venue naming differs between NFL.com's hotel-search strings and the Game Info field. Resolved by the official Game Info block; recorded as F-60.", "data/venues-wk11-2026.csv", src("https://www.nfl.com/games/colts-at-texans-2026-reg-11", "NFL.com game page (Game Info)")],
+ ["E8", "CORRECTED 2026-11-19 (T71): the forward ledger settled side picks against the straight-up result (the result column) instead of the entry line, and the total-row result column compared the game total against 0, so every played game read over. Side and total now settle against the entry line from the raw official result (result_margin / result_total added to fair_market_difference.csv), and the total result column resolves against the captured line. Legacy rows without raw results keep the old path and are labelled.", "tools/gen_escrow.py (settle_forward); tools/origination.py (fair_market_difference)", src("https://github.com/karagemop466-tech/X4/blob/main/tools/gen_escrow.py", "tools/gen_escrow.py")],
 ])}
 </section>
 
