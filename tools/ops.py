@@ -226,6 +226,9 @@ def load():
         "demotion": read_csv(os.path.join(OPS, "demotion_rules.csv")),
         "demotions": read_csv(os.path.join(OPS, "paper_demotions.csv")),
         "results": read_csv(os.path.join(OPS, "results.csv")),
+        "outputs": read_csv(os.path.join(OPS, "model_outputs.csv")),
+        "prob_scores": read_csv(os.path.join(OPS, "probability_scores.csv")),
+        "dispersion": read_csv(os.path.join(OPS, "dispersion_comparison.csv")),
         "games": read_csv(os.path.join(DATA, "games-2026.csv")),
         "standings": read_csv(os.path.join(DATA, "standings-wk10-2026.csv")),
         "injuries": read_csv(os.path.join(DATA, "injuries-wk10-2026.csv")),
@@ -321,6 +324,50 @@ def build_origination(d):
                  ext("%s/schedules/2026/by-week/week-%s" % (NFL, u["week"]), "official schedule")]
                 for u in d["unresolved"]]
 
+    prob_rows = []
+    for r in d["outputs"]:
+        p_model = ("%.2f%%" % float(r["probability_pct"])) if r["probability_pct"] else "blank"
+        p_mkt = ("%.2f%%" % (float(r["market_probability"]) * 100.0)) if r["market_probability"] else "blank"
+        sigma_cell = ("%s (n = %s, %s)" % (esc(r["sigma"]), esc(r["sigma_n"]),
+                                           esc(r["sigma_window"]))) if r["sigma"] else "blank"
+        prob_rows.append([
+            "<b>%s</b> at <b>%s</b>" % (esc(r["away"]), esc(r["home"])),
+            esc(r["market"]),
+            esc(r["event"]),
+            esc(r["model_line"]),
+            esc(r["reference_line"] or "—"),
+            esc(p_model),
+            esc(p_mkt),
+            sigma_cell,
+            artifact("data/ops/model_outputs.csv") +
+            (" · " + ext(r["official_url"], "official fixture") if r["official_url"] else ""),
+        ])
+
+    score_rows = []
+    for r in d["prob_scores"]:
+        score_rows.append([
+            esc(r["market"]),
+            esc(r["n"]),
+            esc(r["model_brier"] or "—"),
+            esc(r["market_brier"] or "—"),
+            esc(r["skill"] or "—"),
+            ("[%s, %s]" % (esc(r["ci_low"]), esc(r["ci_high"]))) if r["ci_low"] else "—",
+            esc(r["p_bonferroni"] or "—"),
+            pill(r["status"], "ok" if r["status"] == "pass" else "warn"),
+            esc(r["benchmark"] or "—"),
+            ((esc(r["benchmark_rows"]) + " · ") if r.get("benchmark_rows") else "")
+            + artifact("data/ops/probability_scores.csv"),
+        ])
+
+    disp_rows = []
+    for r in d["dispersion"]:
+        disp_rows.append([
+            esc(r["quantity"]), esc(r["candidate"]), esc(r["sigma"]), esc(r["coverage_95"]),
+            esc(r["brier"] or "—"), esc(r["verdict"] or "—"), esc(r["n"]), esc(r["window"]),
+            artifact("data/ops/dispersion_comparison.csv") + " · " +
+            ext(NFL_SCHED, "official results"),
+        ])
+
     he = m.get("home_edge", {})
     model_rows = [
         ["Order of origination", "side → total → moneyline",
@@ -368,6 +415,39 @@ def build_origination(d):
                   "because tuning against the market would make the difference a copy of it.",
                   "v1 · RATIO MODEL", table(
                       ["Parameter", "Value", "Note", "Source"], model_rows))
+        + section("probability", "PROBABILITY, WITH ITS INPUTS", "Every model output is a probability and the inputs behind it",
+                  "A line on its own cannot be scored and cannot be audited. Each row states "
+                  "the event the probability is about, the reference line it was computed "
+                  "against, the inputs that produced it and the dispersion with its own n. "
+                  "The store is data/ops/model_outputs.csv.",
+                  "%d ROWS" % len(d["outputs"]), table(
+                      ["Game", "Market", "The probability is about", "Our fair line",
+                       "Reference line", "Our probability", "Market probability",
+                       "sigma (n)", "Sources"],
+                      prob_rows, numeric=(3, 4, 5, 6, 7)) if prob_rows else
+                  '<div class="note">No probability was stored: no market could be originated.</div>')
+        + section("scores", "PROPER SCORES", "The probability, scored against the market",
+                  "A proper score needs a benchmark. The moneyline benchmark is the de-vigged "
+                  "captured price; the side benchmark is derived from that price and the posted "
+                  "spread, and is labelled as derived; a posted total carries no probability, "
+                  "so the total has a model Brier score and no market forecast to beat.",
+                  "%d SETTLED" % sum(int(r["n"] or 0) for r in d["prob_scores"]),
+                  table(
+                      ["Market", "n", "Model Brier", "Market Brier", "Skill",
+                       "95% game-cluster interval", "Bonferroni p", "State", "Benchmark"],
+                      score_rows, numeric=(1, 2, 3, 4, 5, 6)) if score_rows else
+                  '<div class="note">No settled market to score.</div>')
+        + section("dispersion", "TWO DISPERSIONS, KEPT VISIBLE", "Which sigma, and the walk-forward evidence",
+                  "The registered moneyline probability keeps its own sigma so the "
+                  "pre-registered Week 11 number does not move. The alternative, the model's "
+                  "own out-of-sample dispersion, is published beside it with the gap, and the "
+                  "comparison below is walk-forward: every game predicted from the information "
+                  "available before its week.",
+                  "%d PREDICTIONS" % (int(d["dispersion"][0]["n"]) if d["dispersion"] else 0),
+                  table(["Quantity", "Candidate", "sigma", "95% coverage of the outcomes",
+                          "Brier of the win probability", "Verdict", "n", "Window", "Source"],
+                         disp_rows, numeric=(2, 3, 4, 6)) if disp_rows else
+                  '<div class="note">No dispersion comparison is available.</div>')
         + section("fmd", "FAIR · MARKET · DIFFERENCE", "Every originated market, three columns",
                   "A positive difference means our number makes the quoted side more likely "
                   "than the market does. The arrow shows how far the market itself moved "
@@ -1201,6 +1281,14 @@ REQ_CLOSURE = [
     ("Player-prop signals", "blocked", "correlations.html#not",
      "No official player-stat feed is cached, so no prop can be originated without "
      "inventing an input."),
+    ("Every model output is a probability plus its inputs", "closed", "origination.html#probability",
+     "All 30 originated markets carry a probability, the event it refers to, the reference "
+     "line, mu, sigma with its n and window, and the model inputs with their official "
+     "source (data/ops/model_outputs.csv)."),
+    ("Originated lines are free of look-ahead", "closed", "origination.html#model",
+     "A week W line is priced from ratings through week W-1 and a home edge fitted on "
+     "weeks [W-5, W-2]; the pre-registered Week 11 window is unchanged and is held as a "
+     "fixed value in the test suite."),
 ]
 
 
@@ -1214,13 +1302,13 @@ def build_requirements_closure(d):
     body = (
         '<section class="hero"><div><span class="eyebrow light">CLOSURE</span>'
         '<h2>What this layer actually closed, and what it did not</h2>'
-        '<p>Twelve requirements from the brief, each with the artifact that answers it and '
+        '<p>%d requirements from the brief, each with the artifact that answers it and '
         'an honest status. A requirement marked <b>partial</b> or <b>blocked</b> has its '
         'reason printed and its gap flagged; nothing here is marked closed on the strength '
         'of a description.</p><a class="button" href="#table">See the closure table ↓</a></div>'
         '<div class="hero-stat"><div class="ring">%d</div><strong>closed</strong>'
-        '<small>of %d requirements in this layer</small></div></section>' % (closed, len(REQ_CLOSURE))
-        + section("table", "REQUIREMENT CLOSURE", "Twelve requirements, twelve verdicts",
+        '<small>of %d requirements in this layer</small></div></section>' % (len(REQ_CLOSURE), closed, len(REQ_CLOSURE))
+        + section("table", "REQUIREMENT CLOSURE", "%d requirements, %d verdicts" % (len(REQ_CLOSURE), len(REQ_CLOSURE)),
                   "The status is a claim about an artifact, and the artifact is linked, so "
                   "the claim can be checked without trusting this page.",
                   "%d OF %d CLOSED" % (closed, len(REQ_CLOSURE)),

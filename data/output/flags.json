@@ -730,22 +730,22 @@
   "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54",
   "type": "Irregularity",
   "kind": "bad",
-  "status": "open",
-  "detail": "tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in research/computed_stats.json ({n: 54, r: -0.3224, ci95: [-0.5432, -0.0598]}). The generated signals table prints 54 correctly. The executive-summary row and the correlations page attach 57 - the size of the input file - to the same r. The three neutral-site games dropped (HOU at JAX week 6, PIT at NO week 7, CIN at ATL week 9) are not named in the row label either. The value and interval are correct; the n beside them is not.",
-  "why": "The brief requires every correlation to be published with its n. Printing the file count instead of the observation count makes a result computed on 54 games look like one computed on 57, which is the exact substitution the requirement exists to prevent.",
+  "status": "resolved",
+  "detail": "The defect was real when it was found: research/computed_stats.json records the margin-vs-total correlation on n = 54 (the weeks 6-9 sample with the three neutral-site games removed), while the executive-summary row and the correlations page attached 57 - the size of the input file - to the same r. RE-VERIFIED 2026-11-19 (T71), line by line: no page publishes that substitution any more. The desk correlations page now publishes the margin-vs-total correlation as r = -0.141 on n = 150, computed from the official game log, and the legacy rows publish -0.3224 on n = 54 with the three dropped neutral-site games named in the programme page ('Margin vs game total (neutral-site removed, n=54)'). Every published correlation now carries the n it was computed on: n = 150 for the two cross-game coefficients and n = 32 for the two cross-club coefficients. tools/check_published_stats.py re-derives all of them from the committed official data - the game log, the standings and the weeks 6-9 sample - and compares the value, the interval and the n with what each page carries; it runs in the publication gate, so a stale or mislabelled n now fails the build instead of sitting on the page. The same quantity is still published on two windows (n = 150 on the full log and n = 54 on the weeks 6-9 sample); each carries its own window and n, and the difference between them is the point of the two rows.",
+  "why": "The brief requires every correlation to be published with its n, and the n is the number that decides whether a coefficient means anything. A correlation computed on 54 observations and published as 57 looks more precise than it is, which is the exact substitution the requirement exists to prevent.",
   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-6",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/published-statistics-2026-11-19.csv"
  },
  {
   "id": "F-63",
   "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist",
   "type": "Irregularity",
   "kind": "warn",
-  "status": "open",
-  "detail": "research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which re-derives exactly from research/data/games_weeks6-9_2026.csv. The executive summary publishes it as +0.1 and the line-lab model text as h = +0.07: the same quantity at two roundings. Separately, the window is weeks 6-9 only. Re-deriving on the full verified corpus (weeks 1-10, neutral-site games excluded) gives n = 67 and a mean of -1.49, the opposite sign to the +0.07 the line lab adds to every Week 11 spread.",
-  "why": "A model constant that flips sign when four more weeks of official results are included is not a measured edge yet; it is a window-dependent number. Publishing it as 'measured' without the window and the wider result is the overclaim.",
+  "status": "resolved",
+  "detail": "The defect had two parts. (a) The same measured quantity was published at two roundings - +0.1 in the executive summary and +0.07 in the line-lab model text - with no window and no n beside either. (b) The window was weeks 6-9 (n = 54) while the verified corpus holds 150 games, and re-deriving the constant on the full corpus (neutral-site games excluded, n = 146) gives -0.5 points (-0.53 before rounding), the opposite sign to the +0.07 the line lab adds to every Week 11 spread. RE-VERIFIED 2026-11-19 (T71), line by line: both parts are now published honestly and in one place. The desk executive summary prints the corpus measurement (-0.5 points, 95% CI [-2.7, +1.6], n = 146 of 150, with the four international fixtures named and excluded per the official schedule) and the weeks 6-9 measurement (+0.07, n = 54, with the window named) side by side, and says that the interval contains zero, so no home edge is assumed. The strategy lab names the window its own home-edge strategy is fitted on ('Game results Wks 6-9'). There is no second rounding of the same number left on the site, and tools/check_published_stats.py re-derives both constants from the official game log and fails the build if either published figure or its n stops matching. What remains is a model caveat, not a publication defect, and it is recorded as such: a constant that changes sign with its window is a window-dependent number, and the pages now say which window produced the one they use. The origination layer carries the same caveat in F-95, where the neutral-site games inside the registered edge window are named.",
+  "why": "A model constant that flips sign when four more weeks of official results are included is not a measured edge yet. Publishing it as 'measured' without the window, the n and the wider result is the overclaim; the number itself was always correctly computed.",
   "official_url": "https://www.nfl.com/schedules/2026/",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/published-statistics-2026-11-19.csv"
  },
  {
   "id": "F-64",
@@ -988,5 +988,49 @@
   "why": "A date-keyed join (for example a schedule feed or a kickoff timestamp) must not assume the year without a published source. Reviewer: confirm the year against the NFL.com Week 18 page once it exists.",
   "official_url": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"
+ },
+ {
+  "id": "F-93",
+  "item": "The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead",
+  "type": "Irregularity",
+  "kind": "bad",
+  "status": "resolved",
+  "detail": "tools/origination.py priced every event with the same ratings: data/standings-wk10-2026.csv, the standings after Week 10. A Week 9 line therefore carried the results of the Week 9 game it was supposed to predict, and the home edge was fitted on weeks 6-9, which includes the Week 9 games being graded. The published signal statistic (mean fair-market difference, its p-value) was measured on that contaminated corpus, and the pre-registration's own gate G3 'out-of-sample' was evaluated by counting graded weeks rather than by checking for look-ahead, so the gate passed on contaminated rows. CORRECTED 2026-11-19 (T70): every line is now originated walk-forward. A game in week W uses ratings through week W-1 and a home edge fitted on weeks [W-5, W-2], both read from the official game log; the week-10 ratings computed from that log are asserted equal to the official standings file, so the walk-forward inputs are the same numbers the official page publishes. The pre-registered Week 11 window is unchanged - the edge window [11-5, 11-2] is weeks 6-9, the registered weeks - and tools/test_origination.py holds the two registered Week 11 lines and their moneyline probabilities as fixed values. The graded corpus changes: the mean fair-market difference moves from -3.566 points (p = 0.0918) to -1.654 points (p = 0.2311) on the same 24 settled markets, and the paper staking result moves from +2.082 units (+17.351% ROI) to +6.751 units (+28.128% ROI) with a maximum drawdown of -4.359 units. The paper return is not a skill claim and neither is the difference: the strategy remains ineligible at 2 of 8 gates.",
+  "why": "A backtest that can see the game it is predicting cannot measure skill. The brief asks for lines that are originated without look-ahead and a leaderboard that refuses to reward luck, and a look-ahead in the grading corpus silently converts noise into apparent edge. The fix had to leave the registered forward window untouched, so the correction is applied to the backtest corpus and proven not to touch Week 11.",
+  "official_url": "https://www.nfl.com/schedules/2026/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/model-probabilities-2026-11-19.md"
+ },
+ {
+  "id": "F-94",
+  "item": "A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "The price store records a total as a line (for example 45.5) with an over and an under price at -110, and a moneyline as two prices. The probability store therefore has a market benchmark for the moneyline (the de-vigged captured price) and a derived one for the side (that same price converted into a cover probability at the posted spread, labelled as derived), but none for a total: a total line states the market's forecast of the total, not a probability of the over, and the -110 prices are the standard vig. The total's own Brier score is published on n = 8 settled markets (0.1734) with no skill score beside it, rather than a benchmark invented from a line.",
+  "why": "A benchmark-relative skill score needs a market forecast of the same event. Producing one for a total from the line alone would make the comparison circular - the market's forecast of a total is its line by construction - so the honest answer is that the total has no market benchmark until over/under prices are captured separately.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/data/ops/probability_scores.csv"
+ },
+ {
+  "id": "F-95",
+  "item": "The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "open",
+  "detail": "The home edge is the mean home margin over the edge window, and a neutral-site game (the 2026 International Games: HOU at JAX in week 6, PIT at NO in week 7, CIN at ATL in week 9, NE at DET in week 10) has no home field to measure. The estimator therefore mixes them in: the Week 11 window (weeks 6-9) holds 57 games of which 3 are neutral. The edge applied to a Week 11 fixture is also set to zero on a neutral fixture, which is the rule data/international-2026.csv exists to enforce. The pre-registration fixes the estimator for the Week 11 window, so it is not changed mid-window; the walk-forward windows for the graded weeks have the same property.",
+  "why": "A constant that mixes neutral-site games into a home-field measurement is a smaller error than a look-ahead but it is still a constant that is not quite what its name says. The honest fix is a versioned model (v2) that excludes neutral-site games from the edge window, registered before a window opens, with the difference against v1 published so the change can be judged rather than absorbed.",
+  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/data/international-2026.csv"
+ },
+ {
+  "id": "F-96",
+  "item": "Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "open",
+  "detail": "The price store records one row per event, market and selection, with the open numbers and the close numbers in separate fields and a close_kind that says which it is. Of the eight settled events in the graded corpus, four carry close_kind = 'close' (a true closing price) and four carry close_kind = 'current_as_close' (the last price captured before the event, standing in for the close because the capture did not run after kickoff). The probability score therefore compares the model against the market on 8 rows of which 4 use a close proxy. The row label now says so exactly: 'de-vigged captured price (a last-captured price used as the close in 4 of 8 rows, not a true close)', and data/ops/probability_scores.csv carries the composition in its own benchmark_rows column. The skill numbers are unchanged and remain not evidence of skill either way (side +0.138 with a 95% interval of [-0.096, +0.360], moneyline -0.054).",
+  "why": "A benchmark is only a benchmark if it is the number the market actually offered. A close proxy is the market's last published price, which is a fair estimate of what a bettor would have faced, but calling it a closing price would overstate what was known. The label is exact; what is missing is a capture that runs after kickoff and records the real close, which is a request on the capture task.",
+  "official_url": "https://www.nfl.com/schedules/2026/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/data/ops/price_snapshots.csv"
  }
 ]

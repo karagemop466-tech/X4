@@ -45,6 +45,7 @@ import glob
 import json
 import math
 import os
+import random
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -187,6 +188,155 @@ def team_ratings(standings, through_week):
     return out
 
 
+# ---------------------------------------------------------------------------
+# walk-forward inputs: nothing dated at or after kickoff may enter a line
+# ---------------------------------------------------------------------------
+def ratings_from_log(games, through_week):
+    """Team ratings computed from the official game log through `through_week`.
+
+    The log is the corpus tools/verify.py proves against NFL.com, so a rating
+    built from it is built from official results. For through_week = 10 this
+    reproduces data/standings-wk10-2026.csv exactly, and main() asserts it.
+    """
+    pf, pa, gp = {}, {}, {}
+    for g in games:
+        if int(g["week"]) > through_week:
+            continue
+        try:
+            hp, ap = int(g["home_pts"]), int(g["away_pts"])
+        except (ValueError, KeyError):
+            continue
+        h, a = g["home"], g["away"]
+        pf[h] = pf.get(h, 0) + hp
+        pa[h] = pa.get(h, 0) + ap
+        gp[h] = gp.get(h, 0) + 1
+        pf[a] = pf.get(a, 0) + ap
+        pa[a] = pa.get(a, 0) + hp
+        gp[a] = gp.get(a, 0) + 1
+    if not gp:
+        return {}
+    league_pf = sum(pf.values()) / sum(gp.values())
+    league_pa = sum(pa.values()) / sum(gp.values())
+    out = {}
+    for t in pf:
+        g = gp[t]
+        w = g / (g + PRIOR_GAMES) if (g + PRIOR_GAMES) else 0.0
+        diff = (pf[t] - pa[t]) / g
+        tot = ((pf[t] + pa[t]) / 2.0) / g
+        out[t] = {"gp": float(g), "diff_raw": diff, "diff": diff * w,
+                  "total_raw": tot,
+                  "total": tot * w + (1 - w) * ((league_pf + league_pa) / 2.0),
+                  "off": pf[t] / g, "def": pa[t] / g}
+    return out
+
+
+def edge_label(event_week):
+    """The edge window as a range label, e.g. "weeks 6-9"."""
+    w = edge_window(event_week)
+    if not w:
+        return "weeks 0-0"
+    return "weeks %d-%d" % (w[0], w[-1])
+
+
+def edge_window(event_week):
+    """The weeks the home edge is fitted on, for an event in `event_week`.
+
+    The registered rule (Week 11: weeks 6-9) is weeks [W-5, W-2] of the event's
+    own week. Applied to Week 11 that is exactly weeks 6, 7, 8 and 9, so the
+    pre-registered forward window is unchanged; applied walk-forward it never
+    uses a week at or after the event's own week.
+    """
+    return [w for w in range(event_week - 5, event_week - 1) if w >= 1]
+
+
+def walk_forward_rows(games, min_week=4):
+    """One prediction per official game, made only from what was known before it.
+
+    A game in week W is predicted from ratings through week W-1 and a home edge
+    fitted on weeks [W-5, W-2]. The residual of that prediction against the
+    official final score is the model's out-of-sample error.
+    """
+    rows = []
+    for g in games:
+        wk = int(g["week"])
+        if wk < min_week:
+            continue
+        rt = ratings_from_log(games, wk - 1)
+        if g["home"] not in rt or g["away"] not in rt:
+            continue
+        edge = home_edge(games, edge_window(wk))
+        hh = 0.0 if (g["away"], g["home"]) in NEUTRAL else (edge["mean"] if edge["n"] else 0.0)
+        mu_margin = (rt[g["home"]]["diff"] - rt[g["away"]]["diff"]) + hh
+        mu_total = rt[g["home"]]["total"] + rt[g["away"]]["total"]
+        try:
+            margin = int(g["home_pts"]) - int(g["away_pts"])
+            total = int(g["home_pts"]) + int(g["away_pts"])
+        except (ValueError, KeyError):
+            continue
+        rows.append({"week": wk, "away": g["away"], "home": g["home"], "url": g["url"],
+                     "edge_n": edge["n"], "edge": hh,
+                     "mu_margin": mu_margin, "mu_total": mu_total,
+                     "margin": margin, "total": total,
+                     "res_margin": margin - mu_margin, "res_total": total - mu_total})
+    return rows
+
+
+def model_dispersion(rows, games):
+    """The model's own predictive dispersion, measured out of sample.
+
+    Two dispersions are published for every market because they answer
+    different questions: the residual dispersion of the walk-forward prediction
+    (how wide the model is, given the model) and the league dispersion of the
+    same quantity (how wide the league is, given the official results). The
+    brief asks for both to stay visible with the gap between them until a
+    walk-forward comparison says which one to use.
+    """
+    res_m = [r["res_margin"] for r in rows]
+    res_t = [r["res_total"] for r in rows]
+    margins = [int(g["home_pts"]) - int(g["away_pts"]) for g in games]
+    totals = [int(g["home_pts"]) + int(g["away_pts"]) for g in games]
+    weeks = sorted({r["week"] for r in rows})
+    return {
+        "sigma_margin_model": sd(res_m),
+        "sigma_total_model": sd(res_t),
+        "n": len(rows),
+        "window": ("weeks %d-%d of the official game log" % (weeks[0], weeks[-1])) if weeks else "",
+        "sigma_margin_league": sd(margins),
+        "sigma_total_league": sd(totals),
+        "league_n": len(margins),
+        "method": ("residual standard deviation of the walk-forward prediction (ratings through W-1, "
+                   "home edge over weeks [W-5, W-2]) against the official final score"),
+    }
+
+
+def interval_coverage(rows, resid_key, sigma):
+    """Share of walk-forward outcomes inside the model's own 95% interval."""
+    if not rows or not sigma:
+        return 0.0
+    inside = sum(1 for r in rows if abs(r[resid_key]) <= 1.96 * sigma)
+    return inside / len(rows)
+
+
+def brier(probs, outcomes):
+    """Mean squared error of a probability forecast."""
+    if not probs:
+        return 0.0
+    return sum((p - y) ** 2 for p, y in zip(probs, outcomes)) / len(probs)
+
+
+def norm_ppf(p):
+    """Inverse standard normal CDF by bisection on norm_cdf (deterministic)."""
+    p = min(1.0 - 1e-9, max(1e-9, float(p)))
+    lo, hi = -12.0, 12.0
+    for _ in range(200):
+        mid = (lo + hi) / 2.0
+        if norm_cdf(mid) < p:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2.0
+
+
 def home_edge(games, weeks):
     """Measured home-field margin from the official log, with n and a 95% interval."""
     margins = []
@@ -321,6 +471,194 @@ def official_fixtures():
     return fixtures
 
 
+MODEL_OUTPUT_COLUMNS = [
+    "event_id", "week", "away", "home", "market", "selection", "event",
+    "model_line", "reference_line", "mu", "sigma", "sigma_n", "sigma_window",
+    "sigma_method", "probability", "probability_pct", "probability_alt",
+    "probability_alt_pct", "probability_gap_pts", "market_probability",
+    "market_probability_basis", "away_gp", "home_gp", "away_diff", "home_diff",
+    "away_total", "home_total", "home_edge", "edge_window", "edge_n",
+    "ratings_through_week", "prior_games", "input_source", "official_url",
+    "model", "notes",
+]
+
+
+def to_float(v):
+    if v in ("", None):
+        return None
+    try:
+        return float(str(v).replace("\u2212", "-").replace("+", ""))
+    except (TypeError, ValueError):
+        return None
+
+
+def market_home_probability(snap_index, ev_id, phase="open"):
+    """The de-vigged home probability from the captured moneyline prices.
+
+    `phase` is "open" or "close". A missing price yields None: no probability
+    is invented for a market the store never captured.
+    """
+    home = snap_index.get((ev_id, "moneyline", "home"), {})
+    away = snap_index.get((ev_id, "moneyline", "away"), {})
+    hp = to_float(home.get("%s_ml" % phase))
+    ap = to_float(away.get("%s_ml" % phase))
+    if not hp or not ap:
+        return None
+    ph = 100.0 / (hp + 100.0) if hp > 0 else (-hp) / (-hp + 100.0)
+    pa = 100.0 / (ap + 100.0) if ap > 0 else (-ap) / (-ap + 100.0)
+    if ph + pa <= 0:
+        return None
+    return ph / (ph + pa)
+
+
+def probability_rows(ev_id, wk, away, home, fair_side_home, fair_total, p_home,
+                     ra, rh, hh, sigma, edge, dispersion, snap_index, official_url,
+                     ratings_through_week):
+    """A probability and its inputs for every market we originate.
+
+    The brief's rule is that a model output is a probability plus the inputs
+    that produced it, never a bare pick. A side and a total are lines, so a
+    probability only means something against a stated reference: the reference
+    here is the market's captured opening line, and the event is spelled out on
+    the row. Where no reference exists the probability is blank and the reason
+    is recorded - it is never invented.
+    """
+    rows = []
+    sig_m = dispersion["sigma_margin_model"]
+    sig_t = dispersion["sigma_total_model"]
+    sig_m_league = dispersion["sigma_margin_league"]
+    sig_t_league = dispersion["sigma_total_league"]
+    n_disp = dispersion["n"]
+    win_disp = dispersion["window"]
+    method = dispersion["method"]
+    common = {
+        "event_id": ev_id, "week": wk, "away": away, "home": home,
+        "away_gp": "%d" % int(ra["gp"]), "home_gp": "%d" % int(rh["gp"]),
+        "away_diff": fmt(ra["diff"], 2), "home_diff": fmt(rh["diff"], 2),
+        "away_total": fmt(ra["total"], 2), "home_total": fmt(rh["total"], 2),
+        "home_edge": fmt(hh, 2),
+        "edge_window": edge_label(wk),
+        "edge_n": str(edge["n"]),
+        "ratings_through_week": str(ratings_through_week),
+        "prior_games": fmt(PRIOR_GAMES, 1),
+        "input_source": ("data/games-2026.csv (official game log, proved against NFL.com) "
+                         "+ data/standings-wk10-2026.csv (official standings)"),
+        "official_url": official_url,
+        "model": "ratio, shrunk k=%s, walk-forward" % fmt(PRIOR_GAMES, 1),
+    }
+
+    # ---- the side: P(the home team covers the captured opening spread) -----
+    side_snap = snap_index.get((ev_id, "side", "home"), {})
+    line = to_float(side_snap.get("open_line"))
+    row = dict(common)
+    row.update({"market": "side", "selection": "home",
+                "model_line": fmt(fair_side_home, 1),
+                "reference_line": fmt(line, 1) if line is not None else "",
+                "sigma": fmt(sig_m, 2), "sigma_n": str(n_disp), "sigma_window": win_disp,
+                "sigma_method": method})
+    if line is None:
+        row.update({"event": "the home team covers the captured opening spread",
+                    "mu": "", "probability": "", "probability_pct": "",
+                    "probability_alt": "", "probability_alt_pct": "", "probability_gap_pts": "",
+                    "market_probability": "",
+                    "market_probability_basis": "no captured opening spread for this event",
+                    "notes": "no market spread was captured for this event, so no cover event "
+                             "is defined and no probability is published"})
+    else:
+        mu = fair_side_home + line          # distance from the model's margin to the cover threshold
+        p = norm_cdf(mu / sig_m) if sig_m else 0.5
+        p_alt = norm_cdf(mu / sig_m_league) if sig_m_league else p
+        mkt = market_home_probability(snap_index, ev_id, "open")
+        if mkt is not None:
+            implied_margin = sig_m_league * norm_ppf(mkt)
+            p_mkt = norm_cdf((implied_margin + line) / sig_m) if sig_m else 0.5
+            basis = ("derived: the de-vigged captured opening moneyline probability (%s) converted "
+                     "to an implied margin with the league margin dispersion (%s points, n = %d), "
+                     "then to a cover probability at the captured opening spread"
+                     % (fmt(mkt * 100.0, 1) + "%", fmt(sig_m_league, 2), dispersion["league_n"]))
+        else:
+            p_mkt, basis = "", ("no captured opening moneyline for this event, so no market "
+                                "probability is derived")
+        row.update({
+            "event": "the home team covers the captured opening spread of %s" % fmt(line, 1),
+            "mu": fmt(mu, 2),
+            "probability": fmt(p, 4), "probability_pct": fmt(p * 100.0, 2),
+            "probability_alt": fmt(p_alt, 4), "probability_alt_pct": fmt(p_alt * 100.0, 2),
+            "probability_gap_pts": fmt((p - p_alt) * 100.0, 2),
+            "market_probability": fmt(p_mkt, 4) if p_mkt != "" else "",
+            "market_probability_basis": basis,
+            "notes": ("primary sigma is the model's own out-of-sample margin dispersion; the "
+                      "alternative column uses the league margin dispersion. Both are kept "
+                      "visible with the gap until a walk-forward comparison says which to use."),
+        })
+    rows.append(row)
+
+    # ---- the total: P(the game total goes over the captured opening total) --
+    total_snap = snap_index.get((ev_id, "total", "over"), {})
+    tot = to_float(total_snap.get("open_line"))
+    row = dict(common)
+    row.update({"market": "total", "selection": "over",
+                "model_line": fmt(fair_total, 1),
+                "reference_line": fmt(tot, 1) if tot is not None else "",
+                "sigma": fmt(sig_t, 2), "sigma_n": str(n_disp), "sigma_window": win_disp,
+                "sigma_method": method})
+    if tot is None:
+        row.update({"event": "the game total goes over the captured opening total",
+                    "mu": "", "probability": "", "probability_pct": "",
+                    "probability_alt": "", "probability_alt_pct": "", "probability_gap_pts": "",
+                    "market_probability": "",
+                    "market_probability_basis": "no captured opening total for this event",
+                    "notes": "no market total was captured for this event, so no over/under "
+                             "event is defined and no probability is published"})
+    else:
+        mu = fair_total - tot
+        p = norm_cdf(mu / sig_t) if sig_t else 0.5
+        p_alt = norm_cdf(mu / sig_t_league) if sig_t_league else p
+        row.update({
+            "event": "the game total goes over the captured opening total of %s" % fmt(tot, 1),
+            "mu": fmt(mu, 2),
+            "probability": fmt(p, 4), "probability_pct": fmt(p * 100.0, 2),
+            "probability_alt": fmt(p_alt, 4), "probability_alt_pct": fmt(p_alt * 100.0, 2),
+            "probability_gap_pts": fmt((p - p_alt) * 100.0, 2),
+            "market_probability": "",
+            "market_probability_basis": ("a posted total carries no probability: the market "
+                                         "states a line, not a price for the over, so no market "
+                                         "benchmark is defined for a total and none is invented"),
+            "notes": ("primary sigma is the model's own out-of-sample total dispersion; the "
+                      "alternative column uses the league total dispersion. Both are kept "
+                      "visible with the gap until a walk-forward comparison says which to use."),
+        })
+    rows.append(row)
+
+    # ---- the moneyline: P(the home team wins) -------------------------------
+    p_mkt = market_home_probability(snap_index, ev_id, "open")
+    p_alt = norm_cdf(fair_side_home / sig_m) if sig_m else p_home
+    row = dict(common)
+    row.update({
+        "market": "moneyline", "selection": "home",
+        "event": "the home team wins the game",
+        "model_line": fmt(fair_side_home, 1), "reference_line": "",
+        "mu": fmt(fair_side_home, 2),
+        "sigma": fmt(sigma, 2), "sigma_n": str(edge["n"]),
+        "sigma_window": "%s of the official game log" % edge_label(wk),
+        "sigma_method": ("standard deviation of the official home margin in the model's own edge "
+                         "window (the registered estimator)"),
+        "probability": fmt(p_home, 4), "probability_pct": fmt(p_home * 100.0, 2),
+        "probability_alt": fmt(p_alt, 4), "probability_alt_pct": fmt(p_alt * 100.0, 2),
+        "probability_gap_pts": fmt((p_home - p_alt) * 100.0, 2),
+        "market_probability": fmt(p_mkt, 4) if p_mkt is not None else "",
+        "market_probability_basis": ("de-vigged from the captured opening moneyline prices"
+                                     if p_mkt is not None else
+                                     "no captured opening moneyline for this event"),
+        "notes": ("the primary probability uses the registered sigma, so the pre-registered "
+                  "Week 11 number is unchanged; the alternative column uses the model's own "
+                  "out-of-sample margin dispersion and is the candidate for the next window, "
+                  "which would have to be registered before it opens."),
+    })
+    rows.append(row)
+    return rows
+
+
 def originate():
     games = read_csv(os.path.join(DATA, "games-2026.csv"))
     fixtures = official_fixtures()
@@ -342,10 +680,24 @@ def originate():
               ["week", "away", "home", "away_pts", "home_pts", "ot", "neutral", "status", "official_url"],
               sorted(results, key=lambda r: (int(r["week"]), r["away"])))
 
-    # ---- ratings as of the end of week 10 (the official standings date) -----
+    # ---- the ratings the forward window uses (official standings date) ------
+    # Kept for the model card and for the Week 11 forward rows; the walk-forward
+    # rows below rebuild the same ratings from the official game log.
     ratings = team_ratings(standings, 10)
-    edge = home_edge(games, range(6, 10))
-    h = edge["mean"] if USE_HOME_EDGE else 0.0
+    log_ratings_10 = ratings_from_log(games, 10)
+    for t in sorted(ratings):
+        for k in ("gp", "diff", "total", "off", "def"):
+            if abs(ratings[t][k] - log_ratings_10[t][k]) > 1e-9:
+                raise AssertionError("walk-forward ratings disagree with the official "
+                                     "standings for %s (%s)" % (t, k))
+
+    # ---- the model's own dispersion, measured out of sample ----------------
+    wf_rows = walk_forward_rows(games)
+    dispersion = model_dispersion(wf_rows, games)
+    comparison = dispersion_comparison(wf_rows, dispersion)
+
+    # the forward window's edge: weeks [11-5, 11-2] = weeks 6-9, the registered value
+    edge_forward = home_edge(games, edge_window(11))
 
     # ---- the market registry, built strictly in the mandated order -----------
     resolved, unresolved = resolve_events(events, fixtures)
@@ -356,13 +708,26 @@ def originate():
     write_csv(os.path.join(OPS, "event_identity_unresolved.csv"),
               ["event_id", "week", "reason"], unresolved)
 
-    markets, fair = [], []
+    # the snapshot index: the captured market numbers each probability refers to
+    snap_index = {}
+    for s in snapshots:
+        snap_index.setdefault((s["event_id"], s["market"], s["selection"]), s)
+
+    markets, fair, outputs = [], [], []
+    ratings_cache = {}
     for r in sorted(resolved, key=lambda x: (x["week"], x["event_id"])):
         ev_id, wk = r["event_id"], int(r["week"])
         away, home = r["away"], r["home"]
-        if away not in ratings or home not in ratings:
+        # walk-forward: a line may only use what was known before its own week
+        rt = ratings_cache.get(wk - 1)
+        if rt is None:
+            rt = ratings_from_log(games, wk - 1)
+            ratings_cache[wk - 1] = rt
+        if away not in rt or home not in rt:
             continue
-        ra, rh = ratings[away], ratings[home]
+        ra, rh = rt[away], rt[home]
+        edge = home_edge(games, edge_window(wk))
+        h = edge["mean"] if USE_HOME_EDGE else 0.0
         hh = 0.0 if (away, home) in NEUTRAL else h
         fair_side_home = (rh["diff"] - ra["diff"]) + hh
         fair_total = rh["total"] + ra["total"]
@@ -397,8 +762,18 @@ def originate():
             "home_edge": fmt(hh, 2), "sigma": fmt(sigma, 1),
             "neutral": "1" if (away, home) in NEUTRAL else "0",
             "prior_games": fmt(PRIOR_GAMES, 1),
-            "model": "ratio, shrunk k=%s, home edge %s" % (fmt(PRIOR_GAMES, 1), fmt(h, 2)),
+            "ratings_through_week": str(wk - 1),
+            "edge_window": edge_label(wk),
+            "edge_n": str(edge["n"]),
+            "model": "ratio, shrunk k=%s, home edge %s (walk-forward: ratings through week %d, edge weeks %s)"
+                     % (fmt(PRIOR_GAMES, 1), fmt(h, 2), wk - 1, edge_label(wk)),
         })
+
+        # ---- the probability for every market, with its inputs --------------
+        outputs.extend(probability_rows(
+            ev_id, wk, away, home, fair_side_home, fair_total, p_home,
+            ra, rh, hh, sigma, edge, dispersion, snap_index, r.get("official_url", ""),
+            wk - 1))
 
     markets.sort(key=lambda m: (int(m["week"]), m["event_id"], m["order"]))
     write_csv(os.path.join(OPS, "markets.csv"),
@@ -408,8 +783,15 @@ def originate():
               ["event_id", "week", "away", "home", "fair_side_home", "fair_total",
                "fair_ml_home_pct", "fair_ml_away_pct", "away_gp", "home_gp",
                "away_diff", "home_diff", "away_total", "home_total", "home_edge", "sigma",
-               "neutral", "prior_games", "model"],
+               "neutral", "prior_games", "ratings_through_week", "edge_window", "edge_n", "model"],
               sorted(fair, key=lambda r: (int(r["week"]), r["event_id"])))
+
+    # ---- the probability store: every market, a probability and its inputs --
+    write_csv(os.path.join(OPS, "model_outputs.csv"), MODEL_OUTPUT_COLUMNS,
+              sorted(outputs, key=lambda r: (int(r["week"]), r["event_id"], MARKET_ORDER[r["market"]])))
+    write_csv(os.path.join(OPS, "dispersion_comparison.csv"),
+              ["quantity", "candidate", "sigma", "coverage_95", "brier", "verdict", "n", "window"],
+              comparison)
 
     # ---- the model card -----------------------------------------------------
     card = {
@@ -417,13 +799,45 @@ def originate():
         "order": ["side", "total", "moneyline"],
         "prior_games": PRIOR_GAMES,
         "use_home_edge": USE_HOME_EDGE,
-        "home_edge": {"n": edge["n"], "mean": round(edge["mean"], 3),
-                      "sd": round(edge["sd"], 3),
-                      "ci95": [round(edge["ci"][0], 3) if edge["ci"][0] != "" else "",
-                               round(edge["ci"][1], 3) if edge["ci"][1] != "" else ""],
-                      "home_win_pct": round(edge["home_win_pct"], 2) if edge["home_win_pct"] != "" else "",
-                      "window": "weeks 6-9 2026"},
-        "sigma_margin": round(edge["sd"], 2),
+        "home_edge": {"n": edge_forward["n"], "mean": round(edge_forward["mean"], 3),
+                      "sd": round(edge_forward["sd"], 3),
+                      "ci95": [round(edge_forward["ci"][0], 3) if edge_forward["ci"][0] != "" else "",
+                               round(edge_forward["ci"][1], 3) if edge_forward["ci"][1] != "" else ""],
+                      "home_win_pct": round(edge_forward["home_win_pct"], 2) if edge_forward["home_win_pct"] != "" else "",
+                      "window": "weeks 6-9 2026 (the forward window's own edge window [W-5, W-2])"},
+        "sigma_margin": round(edge_forward["sd"], 2),
+        "walk_forward": {
+            "rule": ("a line for a game in week W uses ratings through week W-1 and a home edge "
+                     "fitted on weeks [W-5, W-2]; nothing dated at or after kickoff enters a line"),
+            "ratings_source": ("data/games-2026.csv (official game log, proved against NFL.com) "
+                               "cross-checked against data/standings-wk10-2026.csv at week 10"),
+            "edge_source": "data/games-2026.csv (official home margins)",
+            "n_predictions": dispersion["n"],
+            "window": dispersion["window"],
+        },
+        "dispersion": {
+            "sigma_margin_model": round(dispersion["sigma_margin_model"], 3),
+            "sigma_margin_league": round(dispersion["sigma_margin_league"], 3),
+            "sigma_total_model": round(dispersion["sigma_total_model"], 3),
+            "sigma_total_league": round(dispersion["sigma_total_league"], 3),
+            "n": dispersion["n"],
+            "league_n": dispersion["league_n"],
+            "window": dispersion["window"],
+            "method": dispersion["method"],
+        },
+        "dispersion_comparison": comparison,
+        "probability_rule": {
+            "side": ("P(the home team covers the captured opening spread) = Phi((fair margin + "
+                     "posted home handicap) / sigma_margin_model)"),
+            "total": ("P(the game total goes over the captured opening total) = Phi((fair total - "
+                      "posted total) / sigma_total_model)"),
+            "moneyline": ("P(the home team wins) = Phi(fair margin / sigma_margin), the registered "
+                          "sigma, so the pre-registered Week 11 number is unchanged"),
+            "market_benchmark": ("moneyline: the de-vigged captured price; side: derived from that "
+                                 "price and the posted spread, labelled as derived; total: none, "
+                                 "because a posted total carries no probability"),
+            "store": "data/ops/model_outputs.csv",
+        },
         "ratings": {t: {k: round(v, 3) for k, v in r.items()} for t, r in ratings.items()},
         "gates": [{"id": g[0], "name": g[1], "rule": g[2], "threshold": g[3]} for g in GATES],
         "n_markets": len(markets),
@@ -435,7 +849,7 @@ def originate():
     with open(os.path.join(OPS, "model_card.json"), "w", encoding="utf-8") as fh:
         json.dump(card, fh, indent=1, sort_keys=True)
         fh.write("\n")
-    return markets, fair, snapshots, events, results
+    return markets, fair, snapshots, events, results, dispersion
 
 
 # ---------------------------------------------------------------------------
@@ -544,7 +958,7 @@ def results_index(results):
 # ---------------------------------------------------------------------------
 # signal vs staking: two scores, never one
 # ---------------------------------------------------------------------------
-def grade_and_score(fmd, results_by_pair, snapshots):
+def grade_and_score(fmd, results_by_pair, snapshots, prob_scores=()):
     """Grade every originated market and split the evidence into two scores.
 
     SIGNAL  - did our number beat the market's number? Measured as the change in
@@ -685,8 +1099,16 @@ def grade_and_score(fmd, results_by_pair, snapshots):
             value = "%d weeks graded" % len(weeks)
             status = "pass" if len(weeks) >= 2 else "fail"
         elif gid == "G4":
-            value = "not computed: needs a per-market probability with n>=30"
-            status = "fail"
+            scored = [r for r in prob_scores if r.get("skill", "") != ""]
+            if not scored:
+                value = "not computed: no settled market has both a model probability and a market benchmark"
+                status = "fail"
+            else:
+                value = "; ".join(
+                    "%s: model Brier %s vs market %s, skill %s, 95%% game-cluster interval [%s, %s], n = %d"
+                    % (r["market"], r["model_brier"], r["market_brier"], r["skill"],
+                       r["ci_low"], r["ci_high"], r["n"]) for r in scored)
+                status = "pass" if all(r["status"] == "pass" for r in scored) else "fail"
         elif gid == "G5":
             value = "p = %.4f (z = %.2f)" % (p, z)
             status = "pass" if (n >= 30 and p < thr) else "fail"
@@ -730,6 +1152,239 @@ def grade_and_score(fmd, results_by_pair, snapshots):
     return settled, signal, staking, gate_rows, ci
 
 
+# ---------------------------------------------------------------------------
+# proper scores: a probability is only useful if it can be scored
+# ---------------------------------------------------------------------------
+BOOT_B = 10000
+BOOT_SEED = 20261119
+PROB_MIN_N = 30          # the registered G4 floor: a skill score needs n >= 30
+PROB_TRIALS = 3          # moneyline, side, total: the multiplicity factor
+
+
+def cluster_bootstrap(by_cluster, stat, b=BOOT_B, seed=BOOT_SEED):
+    """Resample whole games (clusters) and return the 2.5% and 97.5% quantiles."""
+    rnd = random.Random(seed)
+    keys = list(by_cluster)
+    if not keys:
+        return "", "", 1.0
+    vals = []
+    for _ in range(b):
+        sample = []
+        for _ in keys:
+            sample.extend(by_cluster[rnd.choice(keys)])
+        vals.append(stat(sample))
+    vals.sort()
+    return vals[int(0.025 * b)], vals[int(0.975 * b)], sum(1 for v in vals if v <= 0) / b
+
+
+def de_vig(home_ml, away_ml):
+    """Home probability from two American moneyline prices, with the vig removed."""
+    hp, ap = to_float(home_ml), to_float(away_ml)
+    if not hp or not ap:
+        return None
+    ph = 100.0 / (hp + 100.0) if hp > 0 else (-hp) / (-hp + 100.0)
+    pa = 100.0 / (ap + 100.0) if ap > 0 else (-ap) / (-ap + 100.0)
+    if ph + pa <= 0:
+        return None
+    return ph / (ph + pa)
+
+
+def probability_scores(fmd, results_by_pair, snapshots, dispersion):
+    """Score every settled market with a proper score, against a market benchmark.
+
+    The model's probability and the market's probability must be about the same
+    event, or the comparison is meaningless:
+      * moneyline - the de-vigged captured closing price;
+      * side      - derived from that same de-vigged price and the closing spread;
+      * total     - none. A posted total carries no probability, so the model's
+                    probability is scored on its own and no benchmark is invented.
+    """
+    sig_m = dispersion["sigma_margin_model"]
+    sig_t = dispersion["sigma_total_model"]
+    sig_league = dispersion["sigma_margin_league"]
+    snap = {}
+    for s in snapshots:
+        snap.setdefault((s["event_id"], s["market"], s["selection"]), s)
+
+    per_market = {"side": [], "total": [], "moneyline": []}
+    for r in fmd:
+        if r["settled"] != "1" or not r["fair"]:
+            continue
+        pair = results_by_pair.get((int(r["week"]), r["away"], r["home"]))
+        if not pair:
+            continue
+        m = r["market"]
+        ev = r["event_id"]
+        if m == "side":
+            line = to_float(r["market_close"])
+            if line is None:
+                continue
+            fair = to_float(r["fair"])
+            if fair is None:
+                continue
+            spread_margin = pair["margin"] + line
+            if abs(spread_margin) < 1e-9:
+                continue                      # a push is not a scored observation
+            y = 1.0 if spread_margin > 0 else 0.0
+            p_model = norm_cdf((fair + line) / sig_m) if sig_m else 0.5
+            hp_s = snap.get((ev, "moneyline", "home"), {})
+            ap_s = snap.get((ev, "moneyline", "away"), {})
+            hp, ap = hp_s.get("close_ml", ""), ap_s.get("close_ml", "")
+            p_mkt = None
+            pm = de_vig(hp, ap)
+            kind = hp_s.get("close_kind", "") or ap_s.get("close_kind", "")
+            if pm is not None and sig_league:
+                implied = sig_league * norm_ppf(pm)
+                p_mkt = norm_cdf((implied + line) / sig_m) if sig_m else 0.5
+        elif m == "total":
+            line = to_float(r["market_close"])
+            fair = to_float(r["fair"])
+            if line is None or fair is None:
+                continue
+            if abs(pair["total"] - line) < 1e-9:
+                continue
+            y = 1.0 if pair["total"] > line else 0.0
+            p_model = norm_cdf((fair - line) / sig_t) if sig_t else 0.5
+            p_mkt = None
+        else:
+            fair = to_float(str(r["fair"]).replace("%", ""))
+            if fair is None:
+                continue
+            if pair["margin"] == 0:
+                continue
+            y = 1.0 if pair["margin"] > 0 else 0.0
+            p_model = fair / 100.0 if fair > 1.0 else fair
+            hp_s = snap.get((ev, "moneyline", "home"), {})
+            ap_s = snap.get((ev, "moneyline", "away"), {})
+            hp, ap = hp_s.get("close_ml", ""), ap_s.get("close_ml", "")
+            kind = hp_s.get("close_kind", "") or ap_s.get("close_kind", "")
+            p_mkt = de_vig(hp, ap)
+        per_market[m].append({"event_id": ev, "week": r["week"], "p_model": p_model,
+                              "p_market": p_mkt, "y": y,
+                              "kind": kind if m == "side" else r.get("close_kind", "")})
+
+    rows = []
+    for m in ("side", "total", "moneyline"):
+        obs = per_market[m]
+        n = len(obs)
+        row = {"market": m, "n": n,
+               "model_brier": "", "market_brier": "", "skill": "",
+               "ci_low": "", "ci_high": "", "p_one_sided": "", "p_bonferroni": "",
+               "multiplicity": PROB_TRIALS, "benchmark": "", "benchmark_rows": "",
+               "status": "not evaluable", "note": ""}
+        if n == 0:
+            row["note"] = "no settled market of this type in the graded corpus"
+            rows.append(row)
+            continue
+        bs_model = brier([o["p_model"] for o in obs], [o["y"] for o in obs])
+        row["model_brier"] = fmt(bs_model, 4)
+        bench = [o for o in obs if o["p_market"] is not None]
+        if len(bench) < n:
+            row["benchmark"] = ("none: a posted total carries no probability, so the model's "
+                                "probability is scored on its own")
+            row["note"] = ("model Brier %s on n = %d; no market benchmark exists for a total, "
+                           "so no skill score is computed" % (fmt(bs_model, 4), n))
+            rows.append(row)
+            continue
+        bs_market = brier([o["p_market"] for o in bench], [o["y"] for o in bench])
+        row["market_brier"] = fmt(bs_market, 4)
+        # the label has to be exact: a "close" that was really the last price
+        # captured before the game is a close proxy, not a closing price
+        kinds = {}
+        for o in bench:
+            k = o.get("kind") or "unlabelled"
+            kinds[k] = kinds.get(k, 0) + 1
+        if set(kinds) == {"close"}:
+            quality = "a true closing price"
+        elif kinds.get("current_as_close"):
+            quality = ("a last-captured price used as the close in %d of %d rows, not a true close"
+                       % (kinds["current_as_close"], len(bench)))
+        else:
+            quality = ", ".join("%s in %d rows" % (k, v) for k, v in sorted(kinds.items()))
+        base = "de-vigged captured price (%s)" % quality
+        row["benchmark"] = (base if m == "moneyline" else
+                            base + ", converted to a cover probability at the captured spread")
+        row["benchmark_rows"] = "; ".join("%s: %d" % (k, v) for k, v in sorted(kinds.items()))
+        by_cluster = {}
+        for o in bench:
+            by_cluster.setdefault(o["event_id"], []).append((o["p_model"], o["p_market"], o["y"]))
+
+        def skill(sample):
+            bm = sum((pm - y) ** 2 for p, pm, y in sample) / len(sample)
+            bk = sum((p - y) ** 2 for p, pm, y in sample) / len(sample)
+            return 1.0 - bk / bm if bm > 0 else 0.0
+
+        flat = [t for v in by_cluster.values() for t in v]
+        sk = skill(flat)
+        lo, hi, p_one = cluster_bootstrap(by_cluster, skill)
+        bonf = min(1.0, p_one * PROB_TRIALS)
+        row.update({"skill": fmt(sk, 4), "ci_low": fmt(lo, 4), "ci_high": fmt(hi, 4),
+                    "p_one_sided": fmt(p_one, 4), "p_bonferroni": fmt(bonf, 4)})
+        if n < PROB_MIN_N:
+            row["status"] = "fail"
+            row["note"] = ("model Brier %s vs market Brier %s on n = %d; skill %s (95%% game-cluster "
+                           "interval [%s, %s]); the registered floor is n >= %d, so this is not "
+                           "evidence of skill"
+                           % (row["model_brier"], row["market_brier"], n, row["skill"],
+                              row["ci_low"], row["ci_high"], PROB_MIN_N))
+        elif lo > 0:
+            row["status"] = "pass"
+            row["note"] = ("model Brier %s vs market Brier %s on n = %d; skill %s with a 95%% "
+                           "game-cluster lower bound of %s above zero"
+                           % (row["model_brier"], row["market_brier"], n, row["skill"], row["ci_low"]))
+        else:
+            row["status"] = "fail"
+            row["note"] = ("model Brier %s vs market Brier %s on n = %d; skill %s with a 95%% "
+                           "game-cluster interval [%s, %s] that reaches zero"
+                           % (row["model_brier"], row["market_brier"], n, row["skill"],
+                              row["ci_low"], row["ci_high"]))
+        rows.append(row)
+    return rows
+
+
+def dispersion_comparison(rows, dispersion):
+    """Which dispersion should the model use? Both stay published until this says.
+
+    The comparison is walk-forward: every game in the log is predicted from the
+    information available before its week, and the two candidate dispersions are
+    scored on those same predictions. The moneyline is scored with a proper
+    score (the probability that the home team wins); the total is scored by
+    interval coverage, because a probability taken at the model's own median is
+    0.5 for any dispersion and cannot discriminate between them.
+    """
+    out = []
+    if not rows:
+        return out
+    sig_m, sig_ml = dispersion["sigma_margin_model"], dispersion["sigma_margin_league"]
+    sig_t, sig_tl = dispersion["sigma_total_model"], dispersion["sigma_total_league"]
+    candidates = [
+        ("margin", "model residual dispersion", sig_m, "res_margin"),
+        ("margin", "league margin dispersion", sig_ml, "res_margin"),
+        ("total", "model residual dispersion", sig_t, "res_total"),
+        ("total", "league total dispersion", sig_tl, "res_total"),
+    ]
+    for quantity, name, sigma, resid_key in candidates:
+        entry = {"quantity": quantity, "candidate": name, "sigma": fmt(sigma, 3),
+                 "coverage_95": fmt(interval_coverage(rows, resid_key, sigma), 4),
+                 "n": len(rows), "window": dispersion["window"], "brier": "", "verdict": ""}
+        if quantity == "margin":
+            probs = [norm_cdf(r["mu_margin"] / sigma) for r in rows]
+            ys = [1.0 if r["margin"] > 0 else 0.0 for r in rows]
+            entry["brier"] = fmt(brier(probs, ys), 4)
+        out.append(entry)
+    # the winner, stated: the margin candidate whose interval covers the outcomes
+    # closest to 95 percent on the same walk-forward rows
+    for quantity in ("margin", "total"):
+        cands = [e for e in out if e["quantity"] == quantity]
+        if len(cands) < 2:
+            continue
+        best = min(cands, key=lambda e: abs(float(e["coverage_95"]) - 0.95))
+        for e in cands:
+            e["verdict"] = ("closest to 95% coverage on the walk-forward corpus"
+                            if e is best else "")
+    return out
+
+
 def demotion_gate(signal):
     """The demotion rule: a live strategy goes back to paper when any of these fires.
 
@@ -751,7 +1406,7 @@ def demotion_gate(signal):
 
 
 def main():
-    markets, fair, snapshots, events, results = originate()
+    markets, fair, snapshots, events, results, dispersion = originate()
     results_by_pair = results_index(results)
     fmd = fair_market_difference(markets, snapshots, results_by_pair)
     write_csv(os.path.join(OPS, "fair_market_difference.csv"),
@@ -760,7 +1415,15 @@ def main():
                "close_kind", "snapshot_utc", "source_url", "settled", "result",
                "official_result_url"], fmd)
 
-    settled, signal, staking, gate_rows, ci = grade_and_score(fmd, results_by_pair, snapshots)
+    prob_scores = probability_scores(fmd, results_by_pair, snapshots, dispersion)
+    write_csv(os.path.join(OPS, "probability_scores.csv"),
+              ["market", "n", "model_brier", "market_brier", "skill", "ci_low", "ci_high",
+               "p_one_sided", "p_bonferroni", "multiplicity", "benchmark", "benchmark_rows",
+               "status", "note"],
+              prob_scores)
+
+    settled, signal, staking, gate_rows, ci = grade_and_score(fmd, results_by_pair, snapshots,
+                                                              prob_scores)
     write_csv(os.path.join(OPS, "graded.csv"),
               ["event_id", "week", "market", "bet", "price", "outcome", "pnl", "fair_margin"], settled)
     write_csv(os.path.join(OPS, "gates.csv"),
@@ -795,6 +1458,9 @@ def main():
              signal["gates_passed"], signal["gates_total"], signal["eligible"]))
     print("staking: pnl=%s units roi=%s%% maxDD=%s"
           % (staking["pnl_units"], staking["roi_pct"], staking["max_drawdown_units"]))
+    for r in prob_scores:
+        print("probability score %-9s n=%-3s model Brier %-8s market Brier %-8s skill %-8s %s"
+              % (r["market"], r["n"], r["model_brier"], r["market_brier"], r["skill"], r["status"]))
     return 0
 
 

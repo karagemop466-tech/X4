@@ -1,0 +1,5 @@
+quantity,candidate,sigma,coverage_95,brier,verdict,n,window
+margin,model residual dispersion,12.310,0.9608,0.2167,closest to 95% coverage on the walk-forward corpus,102,weeks 4-10 of the official game log
+margin,league margin dispersion,13.516,0.9608,0.2175,,102,weeks 4-10 of the official game log
+total,model residual dispersion,13.402,0.9510,,closest to 95% coverage on the walk-forward corpus,102,weeks 4-10 of the official game log
+total,league total dispersion,14.182,0.9608,,,102,weeks 4-10 of the official game log

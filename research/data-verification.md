@@ -148,6 +148,10 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-90 | The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie |
 | F-91 | Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17 |
 | F-92 | The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027' |
+| F-93 | The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead |
+| F-94 | A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than |
+| F-95 | The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11 |
+| F-96 | Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price |
 
 ## What is deliberately absent
 
