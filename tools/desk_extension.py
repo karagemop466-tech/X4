@@ -335,9 +335,10 @@ def teams_page():
         vrows,
         "Week 11 venues transcribed from the NFL.com game centre 'Game Info' block (fetched "
         "2026-11-15; every row re-verified against its own official game centre on 2026-11-18 - "
-        "13 of 13 match, see research/verification/week11-venues-2026-11-18.md). The Week-11 "
-        "injury report is not yet published: each game centre reads "
-        "'not available at this time', so no Week-11 status is shown.")
+        "13 of 13 match, see research/verification/week11-venues-2026-11-18.md). The official "
+        "Week-11 injury report page was verified as published on 2026-11-19, but the repository "
+        "has no fresh schema-valid Week-11 capture (F-55/F-61), so this page still shows no "
+        "Week-11 player status.")
 
     body = (
         "<section><div class=\"section-head\"><div><span class=\"eyebrow\">Per-team view</span>"
@@ -541,9 +542,10 @@ def landing_readiness_rows():
         "every club's W/L/T/PF/PA/NET matches the official page",
         "%d games (Weeks 1&ndash;%d), all 32 clubs match" % (g["games"], g["weeks"]),
         "pass", "clear", STAND, "ok")
-    row("Every score is a dated official read", "Dated capture with a hash",
-        "a stored raw capture per source, verified by SHA-256",
-        "rendered-page reads only &mdash; the capture job is failing (F-47/F-48)", "fail", "blocks an audit trail", INJ, "bad")
+    row("Every availability source is captured and fresh", "Per-source schema, hash and freshness gate",
+        "all 32 expected sources have a schema-valid capture no older than 13 hours; verify every available SHA-256, keep raw bytes only in an authorized private store",
+        "31/32 sources meet the 13-hour gate; injury source is stale (last valid Week 10 capture 27.2 hours old); latest Week 11 attempt is rejected; public manifest is hash-only",
+        "fail", "blocks a replayable availability audit", INJ, "bad")
     row("Enough settled bets to test skill", "Sample sufficiency",
         "n &ge; 100 settled bets per market type",
         "n = %d graded bets (target 300)" % g["graded"], "fail", "blocks any reward", STAND, "bad")
@@ -552,19 +554,20 @@ def landing_readiness_rows():
         "+%.2f%% on %d games; interval [%.2f, %.2f] still touches zero%s"
         % (imp, g["n_eval"], lo, hi, "" if sig_p == "" else "; p = %.4f" % sig_p),
         "fail", "blocks eligibility", STAND, "bad")
-    row("Availability is tracked, not guessed", "Official injury report",
-        "every row of the current report, cell for cell",
-        "%d rows read and cell-checked (%d Out)" % (g["inj"], g["inj_out"]),
-        "pass", "clear", INJ, "ok")
+    row("Week 10 availability data is verified", "Official report, cell-for-cell comparison",
+        "every row of the captured Week 10 report matches its official source",
+        "%d Week 10 rows cell-checked (%d Out); current Week 11 report is a separate, uncaptured read" % (g["inj"], g["inj_out"]),
+        "pass", "historical Week 10 only", INJ, "ok")
     row("Depth is measured from a club's own chart", "Club depth charts",
         "a structured chart for all 32 clubs",
         "31 of 32 (Houston publishes an image only, F-24)", "fail", "blocks team-level trust", INJ, "bad")
     row("Who actually started is known", "Game Book / inactive evidence",
         "official inactives and snap counts joined to the chart",
         "not ingested", "fail", "blocks the removal-of-luck panel", "https://www.nfl.com/scores/", "bad")
-    row("The Week 11 injury series exists", "Wed-to-kickoff capture",
-        "an official Week 11 report, read from Wednesday to kickoff",
-        "the official reg11 address still serves Week 10 (F-61)", "fail", "blocks Week 11 availability", "https://www.nfl.com/injuries/league/2026/reg11", "bad")
+    row("The Week 11 injury series is captured and fresh", "Schema-valid immutable report snapshot",
+        "a Week 11 report read with UTC time/hash, passing schema and <=13 hours old; repeated reads from Wednesday to kickoff",
+        "official Week 11 page is published, but latest Week 11 attempt was schema-invalid; last valid capture is Week 10 at 2026-11-18 03:44Z (27.2 hours old; freshness fails)",
+        "fail", "blocks Week 11 availability", "https://www.nfl.com/injuries/league/2026/reg11", "bad")
     row("Prices are real, licensed and official-sourced", "Price store",
         "open and close from a licensed book, archived verbatim",
         "60 readings from one book published by ESPN (F-01), tied to the official fixtures; no closing line yet",

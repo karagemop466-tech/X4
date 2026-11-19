@@ -19,11 +19,11 @@ Rules this module follows
 - Depth is the club's own column order, transcribed in data/depth-wk11-2026.csv
   by tools/depth.py. Nothing here re-derives a rank from jersey number,
   experience or salary (F-02).
-- Game status is the official NFL Week 10 report - the most recent official
-  report at build time; the Week 11 report was not yet published when this
-  page was built (checked 2026-11-17: the reg11 address serves the Week 10
-  report). A Week 10 designation is not a Week 11 designation and the page
-  says so.
+- Game status is the official NFL Week 10 report - the latest schema-valid
+  captured dataset. The official Week 11 report page was confirmed published
+  on 2026-11-19, but the latest Week 11 capture attempt failed schema
+  validation and the freshness gate is red (F-55/F-61). A Week 10
+  designation is not a Week 11 designation and the page says so.
 - A published chart is not proof of who started (F-27). The page measures
   listed availability only.
 - Houston publishes its chart as an image, so its cells are blank and
@@ -321,9 +321,11 @@ def body():
         "string the club prints at each position in the group, in the club's "
         "own order, with the official Week 10 game status badge on each "
         "player the report rules on. Status is the official NFL Week 10 "
-        "report - the most recent official report at build time; the Week 11 "
-        "report was not yet published (checked 2026-11-17), so a Week 10 "
-        "designation is not a Week 11 designation. All club charts were "
+        "report - the latest schema-valid captured dataset. The official Week 11 "
+        "report page was confirmed published on 2026-11-19, but the latest Week 11 "
+        "capture attempt failed schema validation and the freshness gate is red "
+        "(F-55/F-61); therefore a Week 10 designation is not a Week 11 designation. "
+        "All club charts were "
         "retrieved 2026-11-14. A published chart lists who the club lists; "
         "it is not proof of who started (F-27). Houston publishes an image, "
         "so its cells are blank and flagged (F-24), never guessed."

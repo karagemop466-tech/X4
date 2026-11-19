@@ -193,11 +193,10 @@ suggestions = [
      "A re-transcribed dataset in which a shared first cell yields two players at depth 1, and a spot check of "
      "four clubs matches the live pages cell for cell.",
      a("https://www.commanders.com/team/depth-chart", "Live WAS chart")],
-    ["Add a Week 11 injury report capture before Thursday",
-     "high", "S", "The Week 11 report does not exist yet; capturing it as it appears is the only way to have a "
-     "pre-kickoff reading for the first fixture on Nov 19.",
-     "A stored Week 11 report with a UTC stamp before the 20:15 ET kickoff.",
-     a(NFL + "/injuries/", "Official injury report")],
+    ["Repair partial-report validation and capture Week 11 daily",
+     "high", "S", "The official Week 11 report is published, but its partial two-club capture was rejected by full-week schema thresholds; the last valid capture is 27.2 hours old.",
+     "A schema-valid, hashed Week 11 snapshot before kickoff, then at least one successful dated capture each day through kickoff; freshness <=13 hours.",
+     a(NFL + "/injuries/league/2026/reg11", "Official Week 11 report")],
     ["Make the settled sample the headline, not ROI",
      "medium", "XS", "A small positive return is the most seductive number on the site; showing the sample "
      "beside it prevents the reader from mistaking it for skill.",
@@ -218,8 +217,9 @@ suggestions = [
 kv = []
 kv.append(("Where the season stands",
            "Week 10 is complete: the Monday game (Chargers at Ravens, 23&ndash;20) was the last one outstanding. "
-           "The league's injury page still publishes Week 10; no Week 11 report exists yet. "
-           + a(NFL + "/schedules/2026/by-week/week-10", "Official Week 10 schedule")))
+           "The official Week 11 injury report is now published, but the repository's latest schema-valid capture is Week 10 and fails the 13-hour freshness gate; no Week 11 player data is used. "
+           + a(NFL + "/schedules/2026/by-week/week-10", "Official Week 10 schedule") + " &middot; "
+           + a(NFL + "/injuries/league/2026/reg11", "Official Week 11 injury report")))
 kv.append(("Games verified",
            "<b>%d</b> completed games, weeks %d&ndash;%d, each with its final score and its own official game "
            "page. %d of them were added on %s after the corpus was found to stop after one Week 10 game. "
