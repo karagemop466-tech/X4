@@ -130,7 +130,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-86 | The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main) |
 | F-65 | Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError |
 | F-74 | The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it |
-| F-75 | Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data |
+| F-75 | The requested public/private data boundary is not met: row-level availability and Game Book data are public, while replayable private raw captures are not evidenced |
 | F-71 | The decision-readiness 'what would change our mind' table published hard-coded numbers that contradicted the gate table directly above it |
 | F-72 | The teams page called the Week 10 injury report a level with 'no second dated snapshot', while the second capture and its published delta exist |
 | F-73 | The venue requirement was verified for 11 of 13 Week 11 fixtures; the other two carried an open naming question (F-60) |
