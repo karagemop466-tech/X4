@@ -1676,33 +1676,131 @@ def replacement_depth_table():
 
 
 # ------------------------------------------------------ correlation with its n
-def corr_with_n_rows():
-    """Every published correlation, with the sample size and the depth behind it."""
+def corpus_meta():
+    """Games count and week list of the verified corpus, for page copy."""
     import json as _json
-    path = os.path.join(ROOT, "research", "computed_stats.json")
+    path = os.path.join(DATA, "corpus_stats.json")
+    if not os.path.exists(path):
+        return {"games": 0, "weeks": "-"}
+    with open(path, encoding="utf-8") as fh:
+        cs = _json.load(fh)
+    weeks = cs.get("corpus", {}).get("weeks", [])
+    return {"games": cs.get("corpus", {}).get("games", 0),
+            "weeks": ("%s-%s" % (weeks[0], weeks[-1])) if weeks else "-"}
+
+
+def corpus_window_table():
+    """Every corpus statistic, recomputed on the complete official corpus, per window.
+
+    Source of truth: data/output/corpus_stats.json, written by tools/corpus_stats.py
+    and re-derived by the publication gate (tools/validate.py).  n is on every value.
+    """
+    import json as _json
+    path = os.path.join(DATA, "corpus_stats.json")
     if not os.path.exists(path):
         return "", 0
     with open(path, encoding="utf-8") as fh:
-        stats = _json.load(fh)
-    labels = {
-        "away_vs_home_scores": "Away score vs home score, same game",
-        "margin_vs_total": "Winning margin vs game total (parlay-relevant)",
-        "net_points_vs_win_pct": "Team net points vs winning percentage",
-        "scoring_rate_consistency": "A team's scoring rate vs its own allowing rate",
-    }
+        cs = _json.load(fh)
+    windows = cs.get("windows", {})
+    order = ["train", "validation", "final", "full", "frozen"]
     rows = []
-    for key, c in stats.get("correlations", {}).items():
+    for key in order:
+        w = windows.get(key)
+        if not w:
+            continue
+        s = w["stats"]
+        label = w["label"]
+        hm = s["home_margin"]
+        mv = s["margin_vs_total"]
+        ah = s["away_vs_home_scores"]
+        games_n = s["games_n"]
+        non_neutral = s["games_n_non_neutral"]
+        scope = ("%d games" % games_n) if games_n == non_neutral else (
+            "%d games, %d non-neutral" % (games_n, non_neutral))
+        scope_games = "%d games &middot; official game pages" % games_n
+        scope_nn = "%s &middot; official game pages" % scope
         rows.append([
-            '<span class="mono">%s</span>' % esc(key),
-            esc(labels.get(key, key.replace("_", " "))),
-            ("%+.4f" % c["r"]),
-            "[%+.4f, %+.4f]" % tuple(c["ci95"]),
-            num(c["n"]),
-            "cross-game, official results" if c["n"] <= 57 else "cross-team, official standings",
-            src("https://www.nfl.com/standings/", "nfl.com"),
+            badge(label.split(" (")[0], "acc"),
+            "Home margin (international games excluded)",
+            ("%+.2f pts" % hm["mean"]) if hm["mean"] is not None else blank(),
+            "[%+.2f, %+.2f]" % tuple(hm["ci95"]) if hm["ci95"][0] is not None else blank(),
+            num(hm["n"]),
+            scope_nn,
+            src("https://www.nfl.com/schedules/2026/", "nfl.com schedule"),
         ])
-    n_cross = len(rows)
+        rows.append([
+            badge(label.split(" (")[0], "acc"),
+            "Winning margin vs game total (parlay-relevant)",
+            ("%+.4f" % mv["r"]) if mv["r"] is not None else blank(),
+            "[%+.4f, %+.4f]" % tuple(mv["ci95"]) if mv["ci95"][0] is not None else blank(),
+            num(mv["n"]),
+            scope_nn,
+            src("https://www.nfl.com/schedules/2026/", "nfl.com schedule"),
+        ])
+        rows.append([
+            badge(label.split(" (")[0], "acc"),
+            "Away score vs home score, same game",
+            ("%+.4f" % ah["r"]) if ah["r"] is not None else blank(),
+            "[%+.4f, %+.4f]" % tuple(ah["ci95"]) if ah["ci95"][0] is not None else blank(),
+            num(ah["n"]),
+            scope_games,
+            src("https://www.nfl.com/schedules/2026/", "nfl.com schedule"),
+        ])
+    sc = windows.get("full", {}).get("stats", {}).get("scoring", {})
+    if sc.get("mean_total") is not None:
+        rows.append([
+            badge("Full corpus", "acc"),
+            "Mean combined score (all games)",
+            "%.2f pts" % sc["mean_total"],
+            "sd %.2f" % sc["sd_total"],
+            num(sc["n"]),
+            "%d games &middot; official game pages" % sc["n"],
+            src("https://www.nfl.com/schedules/2026/", "nfl.com schedule"),
+        ])
+    scope = cs.get("standings_scope", {})
+    labels = {
+        "net_points_vs_win_pct": "Team net points vs winning percentage",
+        "pts_per_game_vs_pts_allowed_per_game": "A club's scoring rate vs its own allowing rate",
+    }
+    for key, c in scope.get("correlations", {}).items():
+        rows.append([
+            badge("Standings", "acc"),
+            labels.get(key, key.replace("_", " ")),
+            ("%+.4f" % c["r"]) if c["r"] is not None else blank(),
+            "[%+.4f, %+.4f]" % tuple(c["ci95"]) if c["ci95"][0] is not None else blank(),
+            num(c["n"]),
+            "%d clubs &middot; official standings capture %s" % (scope.get("clubs", 0), scope.get("retrieved", "")),
+            src(scope.get("official_url", "https://www.nfl.com/standings/"), "nfl.com standings"),
+        ])
+    split = cs.get("split", {})
+    lim = split.get("limitations", [])
+    note = (
+        "Every value above is recomputed from the complete verified corpus "
+        "(%s, %d games, weeks %s) and carries its n. The window is part of the "
+        "measurement: the home margin is %+.2f on the fitting window, %+.2f on the "
+        "check window and %+.2f on the most recent weeks, so the frozen %+.2f the "
+        "pre-registered Week 11 model adds to every spread is a property of its "
+        "window and not a measured league effect - every interval here contains "
+        "zero. The split was declared on %s, before any Week 11 result existed. "
+        "%s"
+        % (cs.get("corpus", {}).get("file", "data/games-2026.csv"),
+           cs.get("corpus", {}).get("games", 0),
+           ", ".join(str(w) for w in cs.get("corpus", {}).get("weeks", [])),
+           windows.get("train", {}).get("stats", {}).get("home_margin", {}).get("mean") or 0.0,
+           windows.get("validation", {}).get("stats", {}).get("home_margin", {}).get("mean") or 0.0,
+           windows.get("final", {}).get("stats", {}).get("home_margin", {}).get("mean") or 0.0,
+           windows.get("frozen", {}).get("stats", {}).get("home_margin", {}).get("mean") or 0.0,
+           split.get("declared", ""),
+           " ".join(lim)))
+    return table(
+        ["Window", "What it measures", ("Value", True), ("95% interval", True),
+         ("n", True), "Depth", "Source"],
+        rows, note=note), len(rows)
 
+
+def corr_with_n_rows():
+    """Every published model-error correlation, with the sample size behind it."""
+    import json as _json
     with open(os.path.join(DATA, "payload.json"), encoding="utf-8") as fh:
         payload = _json.load(fh)
     n_eval = payload["meta"]["eval_games"]
@@ -1712,6 +1810,7 @@ def corr_with_n_rows():
         for b in ids[i + 1:]:
             pairs.append((a, b, payload["correlation_error"][a][b]))
     pairs.sort(key=lambda x: -abs(x[2]))
+    rows = []
     for a, b, r in pairs:
         rows.append([
             '<span class="mono">%s vs %s</span>' % (esc(a), esc(b)),
@@ -1726,14 +1825,14 @@ def corr_with_n_rows():
         ["Correlation", "What it measures", ("r", True), ("95% interval", True),
          ("n", True), "Depth", "Source"],
         rows,
-        note=("Every published correlation carries its n. The %d cross-game coefficients "
-              "have a Fisher-z interval because their n is small (%d games or %d teams); the "
-              "%d model-error correlations are computed pairwise over the same %d evaluated "
-              "games and no interval is published for them, because the nine strategies are "
-              "not independent of each other or of the benchmark they are measured against. "
-              "A coefficient on eight games and a coefficient on %d are not the same "
-              "evidence, which is why n is a column here and not a footnote."
-              % (n_cross, stats["integrity"]["games_n"], 32, len(pairs), n_eval, n_eval))), len(rows)
+        note=("Every published correlation carries its n. The %d model-error "
+              "correlations are computed pairwise over the same %d evaluated games and "
+              "no interval is published for them, because the nine strategies are not "
+              "independent of each other or of the benchmark they are measured "
+              "against. A coefficient on eight games and a coefficient on %d are not "
+              "the same evidence, which is why n is a column here and not a footnote."
+              % (len(pairs), n_eval, n_eval))), len(rows)
+
 
 
 
@@ -2076,7 +2175,12 @@ PAGES.append(("gates.html", "Gates & demotion",
 </section>
 
 <section style="margin-top:26px">
-  <div class="section-head"><div><span class="eyebrow">04 &middot; Correlations</span><h2>Every coefficient with its n</h2><p class="muted">A correlation without a sample size is a rumour. The cross-game coefficients rest on a few dozen games; the model-error correlations rest on %(ne)d evaluated games. Both numbers are published, and the interval is published only where it can honestly be computed.</p></div><span class="tag acc">%(ncorr)d values</span></div>
+  <div class="section-head"><div><span class="eyebrow">04 &middot; Corpus statistics</span><h2>Every statistic with its window and its n</h2><p class="muted">A correlation without a sample size is a rumour, and a statistic without a window is a coin toss. Every corpus statistic below is recomputed from the complete verified game log - %(ncorp)d official games, weeks %(wcorp)s - and published once per declared window: the fitting window, the check window, the most recent completed weeks, the whole corpus, and the window the Week 11 pre-registration froze. The interval is published only where it can honestly be computed.</p></div><span class="tag acc">%(ncorpv)d values</span></div>
+  %(corpus)s
+</section>
+
+<section style="margin-top:26px">
+  <div class="section-head"><div><span class="eyebrow">04b &middot; Model correlations</span><h2>Every coefficient with its n</h2><p class="muted">The model-error correlations rest on %(ne)d evaluated games and are computed pairwise over the same games, so they carry the n of that window and no interval.</p></div><span class="tag acc">%(ncorr)d values</span></div>
   %(corr)s
 </section>
 """ % dict(n=len(market_store.leaderboard_split()),
@@ -2089,6 +2193,8 @@ PAGES.append(("gates.html", "Gates & demotion",
            nunc=len(market_store.unconfirmed_claims()),
            unconfirmed=unconfirmed_claims_table(),
            ncorr=corr_with_n_rows()[1], corr=corr_with_n_rows()[0],
+           ncorp=corpus_meta()["games"], wcorp=corpus_meta()["weeks"],
+           ncorpv=corpus_window_table()[1], corpus=corpus_window_table()[0],
            ne=P["correlation_n"]),
           "gates.html"))
 

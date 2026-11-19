@@ -13457,11 +13457,11 @@ window.X4 = {
   },
   {
    "id": "F-66",
-   "item": "Stale numbers survive in generated prose because prose is not on the gate",
-   "type": "Irregularity",
+   "item": "Stale numbers survive in generated prose because prose is not on the gate - the listed instances are corrected; the pattern is now closed only for the corpus statistics",
+   "type": "Limitation",
    "kind": "warn",
-   "status": "open",
-   "detail": "A line-by-line read on 2026-11-18 found numeric claims that described a corpus that no longer exists, in places the publication gate does not read: tools/workbench.json (\"results_2026.csv: 137 games\" and \"1,224\" settled bets) rendered onto workbench.html; tools/build_integrity.py's docstring (\"verified results feed (137 games)\"); research/decision-register.md and research/integrity-gates.md (\"137 games\", one of which also said \"Weeks 1-10\" while holding 137 of the 150 games in that range); and research/price-store.md (\"68 of 105 games (64.8%), exact binomial p = 0.0016\", a sign-test result on a superseded corpus, now 78 of 118 at p = 0.00030). Every one of these was correct when written and became wrong when the Week 10 finals were ingested. The pattern, not any single number, is the finding: a count typed into prose or into a checker is a future false statement, and F-59 was the same defect one level up.",
+   "status": "limitation",
+   "detail": "A line-by-line read on 2026-11-18 found numeric claims that described a corpus that no longer exists, in places the publication gate does not read: tools/workbench.json (\"results_2026.csv: 137 games\" and \"1,224\" settled bets) rendered onto workbench.html; tools/build_integrity.py's docstring (\"verified results feed (137 games)\"); research/decision-register.md and research/integrity-gates.md (\"137 games\", one of which also said \"Weeks 1-10\" while holding 137 of the 150 games in that range); and research/price-store.md (\"68 of 105 games (64.8%), exact binomial p = 0.0016\", a sign-test result on a superseded corpus, now 78 of 118 at p = 0.00030). Every one of these was correct when written and became wrong when the Week 10 finals were ingested. The pattern, not any single number, is the finding: a count typed into prose or into a checker is a future false statement, and F-59 was the same defect one level up. Since (T70, 2026-11-19): every instance named above has been corrected - the workbench, the integrity-gates note and the decision register now say 150 games, and the price-store note quotes 78 of 118. One class is now on the gate: the corpus statistics (home margin, margin vs total, away vs home, mean combined score, and the two standings correlations) are re-derived from the verified corpus by tools/corpus_stats.py, written to data/output/corpus_stats.json, and compared row by row against the rendered page by tools/corpus_stats.py --check-page, which runs inside tools/validate.py. A page that prints a number the artifact does not hold now fails the build. The general pattern - numbers typed into prose - remains unfixed for prose outside the gated statistics, and is recorded as an open limitation rather than closed.",
    "why": "The site's central claim is that every published number is reproducible from the committed data. A stale number in a JSON evidence string or a research note defeats that claim just as surely as a stale number in a table, and it is harder to notice because no checker reads prose. The workbench example is the worst of them: it told a reviewer the results feed covers 137 games while the feed on the same site held 150.",
    "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"
@@ -14150,25 +14150,25 @@ window.X4 = {
   },
   {
    "id": "F-62",
-   "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54",
+   "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T70: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on",
    "type": "Irregularity",
-   "kind": "bad",
-   "status": "open",
-   "detail": "tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in research/computed_stats.json ({n: 54, r: -0.3224, ci95: [-0.5432, -0.0598]}). The generated signals table prints 54 correctly. The executive-summary row and the correlations page attach 57 - the size of the input file - to the same r. The three neutral-site games dropped (HOU at JAX week 6, PIT at NO week 7, CIN at ATL week 9) are not named in the row label either. The value and interval are correct; the n beside them is not.",
-   "why": "The brief requires every correlation to be published with its n. Printing the file count instead of the observation count makes a result computed on 54 games look like one computed on 57, which is the exact substitution the requirement exists to prevent.",
-   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-6",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
+   "kind": "warn",
+   "status": "resolved",
+   "detail": "Found: tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in research/computed_stats.json ({n: 54, r: -0.3224, ci95: [-0.5432, -0.0598]}). The generated signals table printed 54 correctly while other pages attached 57 - the size of the input file - to the same r. The value and interval were correct; the n beside them was not, and the three neutral-site games dropped (HOU at JAX week 6, PIT at NO week 7, CIN at ATL week 9) were not named in the row label. Fixed (T70, 2026-11-19): the published correlation and home-edge table is now built by tools/corpus_stats.py, which recomputes every statistic from the complete verified corpus (data/games-2026.csv, 150 games, weeks 1-10) and prints the window beside every value: margin vs total is r = -0.3224 on n = 54 in the frozen weeks 6-9 window and r = -0.1433 on n = 146 over the whole corpus. The n is taken from the computed artifact, not typed, and tools/corpus_stats.py --check-page compares the rendered page against that artifact, so a page that prints a number the artifact does not hold now fails the publication gate.",
+   "why": "The brief requires every correlation to be published with its n. Printing the file count instead of the observation count makes a result computed on 54 games look like one computed on 57, which is the exact substitution the requirement exists to prevent. The gate that now exists is the durable part of the fix.",
+   "official_url": "https://www.nfl.com/schedules/2026/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"
   },
   {
    "id": "F-63",
-   "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist",
+   "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T70: every published home-edge figure now carries its window, its n and its interval",
    "type": "Irregularity",
    "kind": "warn",
-   "status": "open",
-   "detail": "research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which re-derives exactly from research/data/games_weeks6-9_2026.csv. The executive summary publishes it as +0.1 and the line-lab model text as h = +0.07: the same quantity at two roundings. Separately, the window is weeks 6-9 only. Re-deriving on the full verified corpus (weeks 1-10, neutral-site games excluded) gives n = 67 and a mean of -1.49, the opposite sign to the +0.07 the line lab adds to every Week 11 spread.",
+   "status": "resolved",
+   "detail": "Found: research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which re-derives exactly from research/data/games_weeks6-9_2026.csv, and the site published that one quantity at two roundings (+0.1 in one place, +0.07 in another) on a weeks 6-9 window only. Fixed (T70, 2026-11-19): tools/corpus_stats.py recomputes the statistic from the complete verified corpus and publishes it once per declared window with n and a 95% interval - -0.70 on n = 73 (weeks 3-7), +8.79 on n = 14 (week 8), -5.78 on n = 27 (weeks 9-10), -0.53 on n = 146 (weeks 1-10) and the frozen +0.07 on n = 54 (weeks 6-9). Every interval contains zero, so the site states that no home edge is assumed. The executive summary and the line-lab text now name the window and the n of the constant they quote. The separate question of whether the registered model should keep adding a constant whose interval contains zero is not part of this fix: it is recorded as F-90, and the Week 11 pre-registration freezes the model, so changing it is an owner decision for the next registration, not a quiet edit.",
    "why": "A model constant that flips sign when four more weeks of official results are included is not a measured edge yet; it is a window-dependent number. Publishing it as 'measured' without the window and the wider result is the overclaim.",
    "official_url": "https://www.nfl.com/schedules/2026/",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"
   },
   {
    "id": "F-64",
@@ -14378,6 +14378,17 @@ window.X4 = {
    "why": "The gap is what makes a daily or Wednesday-to-Friday series impossible to keep on schedule, so it bears directly on the brief's 'every Wed, Thu and Fri' and 'daily from Wednesday to kickoff' requirements. Until the watchdog has run on main, nothing alerts when the gap grows. The fix (a more frequent cron, or a retry on a missed run) would change a workflow owned by the capture task, so it is logged as a request on the board and not edited here.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-alerting-2026-11-19.md"
+  },
+  {
+   "id": "F-90",
+   "item": "The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "Found by re-deriving the corpus statistics on the complete verified game log (T70, 2026-11-19). tools/origination.py sets USE_HOME_EDGE = True and fits h on weeks 6-9 only (edge = home_edge(games, range(6, 10))), then adds that constant to every Week 11 spread it originates. The same statistic, recomputed from the same official corpus (data/games-2026.csv, 150 games, each row an official NFL.com game URL, reproducing every official standings total), is: +0.07 on n = 54 (weeks 6-9, the frozen window); -0.70 on n = 73 (weeks 3-7, the fitting window); +8.79 on n = 14 (week 8); -5.78 on n = 27 (weeks 9-10); and -0.53 on n = 146 (weeks 1-10). Every one of those 95% intervals contains zero, so the constant is not distinguishable from no home edge in any window, and its sign is a property of the window rather than a measured league effect. The value applied to the Week 11 lines is small relative to the spread uncertainty, but it is added to every spread on the slate, so it is a systematic term in the published numbers rather than noise. Nothing was changed: the Week 11 forward registration (research/preregistration/wk11-forward-v1.md) freezes the model before kickoff, and re-fitting h after seeing the outcome would break the pre-registration that the whole leaderboard depends on. The published per-window table on gates.html now shows every figure with its window, n and interval.",
+   "why": "A term that no window can distinguish from zero should not sit inside every originated line, and a term whose sign depends on which weeks were chosen is a parameter of the analyst rather than of the league. The decision belongs to the owner and belongs in the NEXT registration: registering h = 0 for the next window, with the window table published beside it, is a legitimate forward choice. Changing it inside the current registered window would be exactly the result-chasing the pre-registration exists to prevent.",
+   "official_url": "https://www.nfl.com/schedules/2026/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"
   }
  ],
  "replacement_depth": [
@@ -14761,6 +14772,12 @@ window.X4 = {
   }
  ],
  "verification": [
+  {
+   "check": "Every published corpus statistic matches a fresh derivation from the official game log (T70, 2026-11-19)",
+   "result": "pass",
+   "url": "https://www.nfl.com/schedules/2026/",
+   "how": "tools/corpus_stats.py rebuilds the home margin, the margin-vs-total and away-vs-home correlations and the scoring means from data/games-2026.csv, one official NFL.com game URL per row, and fails loudly unless the corpus reproduces the official NFL.com standings for all 32 clubs (431 checks). The result is written to data/output/corpus_stats.json, re-derived and compared by tools/corpus_stats.py --check, and compared row by row against the rendered page by tools/corpus_stats.py --check-page. Both run inside tools/validate.py, so a published statistic that the artifact does not hold fails the build."
+  },
   {
    "check": "Reconstructed game log matches the official NFL.com standings",
    "result": "pass",

@@ -123,6 +123,14 @@ wk69 = [g for g in corpus if g["week"] in ("6", "7", "8", "9") and
         (g["week"], g["away"], g["home"]) not in neutral_keys]
 wk69_home = statistics.mean(int(g["home_pts"]) - int(g["away_pts"]) for g in wk69)
 
+# The same statistic on the declared train / validation / recent windows (T70). Read from
+# the artifact the publication gate re-derives, so these cannot drift from the page.
+_corpus = json.loads(open(os.path.join(ROOT, "data", "output", "corpus_stats.json"),
+                          encoding="utf-8").read())
+_w = _corpus["windows"]
+win_home = {k: (_w[k]["stats"]["home_margin"]["mean"], _w[k]["stats"]["home_margin"]["n"])
+            for k in ("train", "validation", "final")}
+
 n_out = sum(1 for r in inj if r["game_status"] == "Out")
 n_q = sum(1 for r in inj if r["game_status"] == "Questionable")
 n_doubt = sum(1 for r in inj if r["game_status"] == "Doubtful")
@@ -233,10 +241,19 @@ kv.append(("Scoring environment",
            "Mean combined score <b>%.1f &plusmn; %.1f</b> over the verified corpus; home margin <b>%+.1f</b> points "
            "on <b>n = %d of %d</b> games (the %d international fixtures &mdash; HOU&#8209;JAX W6, PIT&#8209;NO W7, "
            "CIN&#8209;ATL W9, NE&#8209;DET W10 &mdash; excluded, per the official schedule), 95%% CI [%+.1f, %+.1f]: "
-           "the interval contains zero, so no home edge is assumed. Weeks&nbsp;6&ndash;9 alone, the window the line "
-           "lab's h is fitted on, give %+.2f on n&nbsp;=&nbsp;54 (F-63 records the window sensitivity). %s"
+           "the interval contains zero, so no home edge is assumed. The same statistic on the declared "
+           "train, validation and recent windows is <b>%+.2f</b> (n&nbsp;=&nbsp;%d), <b>%+.2f</b> (n&nbsp;=&nbsp;%d) "
+           "and <b>%+.2f</b> (n&nbsp;=&nbsp;%d), and Weeks&nbsp;6&ndash;9 alone, the window the line lab's h is "
+           "fitted on, give %+.2f on n&nbsp;=&nbsp;54: the constant is a property of its window, not a measured "
+           "league effect. %s %s"
            % (mean_total, sd_total, mean_home, len(home_m), len(corpus), n_neutral_excluded,
-              ci_lo, ci_hi, wk69_home, a(SITE_URL + "correlations.html", "Measured values"))))
+              ci_lo, ci_hi,
+              win_home["train"][0], win_home["train"][1],
+              win_home["validation"][0], win_home["validation"][1],
+              win_home["final"][0], win_home["final"][1],
+              wk69_home,
+              a(SITE_URL + "gates.html", "The per-window table"),
+              a(SITE_URL + "correlations.html", "Measured values"))))
 kv.append(("Availability",
            "<b>%d</b> official injury rows across <b>%d</b> clubs for Week 10: %d Out, %d Doubtful, %d "
            "Questionable. A blank game status is kept blank. %s"

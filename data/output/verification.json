@@ -1,5 +1,11 @@
 [
  {
+  "check": "Every published corpus statistic matches a fresh derivation from the official game log (T70, 2026-11-19)",
+  "result": "pass",
+  "url": "https://www.nfl.com/schedules/2026/",
+  "how": "tools/corpus_stats.py rebuilds the home margin, the margin-vs-total and away-vs-home correlations and the scoring means from data/games-2026.csv, one official NFL.com game URL per row, and fails loudly unless the corpus reproduces the official NFL.com standings for all 32 clubs (431 checks). The result is written to data/output/corpus_stats.json, re-derived and compared by tools/corpus_stats.py --check, and compared row by row against the rendered page by tools/corpus_stats.py --check-page. Both run inside tools/validate.py, so a published statistic that the artifact does not hold fails the build."
+ },
+ {
   "check": "Reconstructed game log matches the official NFL.com standings",
   "result": "pass",
   "url": "https://www.nfl.com/standings/",
