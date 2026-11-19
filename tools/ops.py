@@ -354,7 +354,9 @@ def build_origination(d):
             ("[%s, %s]" % (esc(r["ci_low"]), esc(r["ci_high"]))) if r["ci_low"] else "—",
             esc(r["p_bonferroni"] or "—"),
             pill(r["status"], "ok" if r["status"] == "pass" else "warn"),
-            esc(r["benchmark"] or "—") + " · " + artifact("data/ops/probability_scores.csv"),
+            esc(r["benchmark"] or "—"),
+            ((esc(r["benchmark_rows"]) + " · ") if r.get("benchmark_rows") else "")
+            + artifact("data/ops/probability_scores.csv"),
         ])
 
     disp_rows = []

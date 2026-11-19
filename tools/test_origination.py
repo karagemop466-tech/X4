@@ -150,6 +150,15 @@ class ProbabilityStoreTests(unittest.TestCase):
         self.assertAlmostEqual(float(rows["401873066"]["probability"]), 0.6487, places=4)
         self.assertAlmostEqual(float(rows["401873070"]["probability"]), 0.8159, places=4)
 
+    def test_the_market_benchmark_says_which_price_it_is(self):
+        # a close that was really the last captured price is a proxy, and the
+        # label has to say so rather than call it a closing price
+        rows = {r["market"]: r for r in self.rows if r["week"] == "11"}
+        for r in rows.values():
+            if r["market_probability"]:
+                self.assertNotIn("closing price", r["market_probability_basis"],
+                                 "the benchmark basis must name the price it used")
+
     def test_a_total_has_no_market_benchmark_and_says_so(self):
         for r in self.rows:
             if r["market"] != "total":
@@ -187,6 +196,34 @@ class ProperScoreTests(unittest.TestCase):
                  {"event_id": "e1", "market": "moneyline", "selection": "away", "close_ml": "+180"}]
         rows = probability_scores(fmd, results, snaps, self.dispersion)
         return [r for r in rows if r["market"] == "side"][0]
+
+    def test_the_benchmark_label_is_exact_about_the_price_it_used(self):
+        fmd = [{"event_id": "e1", "week": "10", "away": "CLE", "home": "NO", "market": "moneyline",
+                "fair": "60.0", "market_close": "-200", "close_kind": "current_as_close", "settled": "1"}]
+        results = {(10, "CLE", "NO"): {"margin": 10, "total": 45, "home_pts": 28, "away_pts": 18,
+                                       "url": "https://www.nfl.com/games/test"}}
+        snaps = [{"event_id": "e1", "market": "moneyline", "selection": "home",
+                  "close_ml": "-200", "close_kind": "current_as_close"},
+                 {"event_id": "e1", "market": "moneyline", "selection": "away",
+                  "close_ml": "+170", "close_kind": "current_as_close"}]
+        rows = probability_scores(fmd, results, snaps, self.dispersion)
+        ml = [r for r in rows if r["market"] == "moneyline"][0]
+        self.assertIn("not a true close", ml["benchmark"])
+        self.assertEqual(ml["benchmark_rows"], "current_as_close: 1")
+
+    def test_a_true_close_is_named_as_one(self):
+        fmd = [{"event_id": "e1", "week": "10", "away": "CLE", "home": "NO", "market": "moneyline",
+                "fair": "60.0", "market_close": "-200", "close_kind": "close", "settled": "1"}]
+        results = {(10, "CLE", "NO"): {"margin": 10, "total": 45, "home_pts": 28, "away_pts": 18,
+                                       "url": "https://www.nfl.com/games/test"}}
+        snaps = [{"event_id": "e1", "market": "moneyline", "selection": "home",
+                  "close_ml": "-200", "close_kind": "close"},
+                 {"event_id": "e1", "market": "moneyline", "selection": "away",
+                  "close_ml": "+170", "close_kind": "close"}]
+        rows = probability_scores(fmd, results, snaps, self.dispersion)
+        ml = [r for r in rows if r["market"] == "moneyline"][0]
+        self.assertIn("a true closing price", ml["benchmark"])
+        self.assertEqual(ml["benchmark_rows"], "close: 1")
 
     def test_both_forecasts_are_about_the_same_event(self):
         side = self._score(0.0, 10)

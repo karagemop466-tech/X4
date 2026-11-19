@@ -1227,10 +1227,12 @@ def probability_scores(fmd, results_by_pair, snapshots, dispersion):
                 continue                      # a push is not a scored observation
             y = 1.0 if spread_margin > 0 else 0.0
             p_model = norm_cdf((fair + line) / sig_m) if sig_m else 0.5
-            hp = snap.get((ev, "moneyline", "home"), {}).get("close_ml", "")
-            ap = snap.get((ev, "moneyline", "away"), {}).get("close_ml", "")
+            hp_s = snap.get((ev, "moneyline", "home"), {})
+            ap_s = snap.get((ev, "moneyline", "away"), {})
+            hp, ap = hp_s.get("close_ml", ""), ap_s.get("close_ml", "")
             p_mkt = None
             pm = de_vig(hp, ap)
+            kind = hp_s.get("close_kind", "") or ap_s.get("close_kind", "")
             if pm is not None and sig_league:
                 implied = sig_league * norm_ppf(pm)
                 p_mkt = norm_cdf((implied + line) / sig_m) if sig_m else 0.5
@@ -1252,11 +1254,14 @@ def probability_scores(fmd, results_by_pair, snapshots, dispersion):
                 continue
             y = 1.0 if pair["margin"] > 0 else 0.0
             p_model = fair / 100.0 if fair > 1.0 else fair
-            hp = snap.get((ev, "moneyline", "home"), {}).get("close_ml", "")
-            ap = snap.get((ev, "moneyline", "away"), {}).get("close_ml", "")
+            hp_s = snap.get((ev, "moneyline", "home"), {})
+            ap_s = snap.get((ev, "moneyline", "away"), {})
+            hp, ap = hp_s.get("close_ml", ""), ap_s.get("close_ml", "")
+            kind = hp_s.get("close_kind", "") or ap_s.get("close_kind", "")
             p_mkt = de_vig(hp, ap)
         per_market[m].append({"event_id": ev, "week": r["week"], "p_model": p_model,
-                              "p_market": p_mkt, "y": y})
+                              "p_market": p_mkt, "y": y,
+                              "kind": kind if m == "side" else r.get("close_kind", "")})
 
     rows = []
     for m in ("side", "total", "moneyline"):
@@ -1265,8 +1270,8 @@ def probability_scores(fmd, results_by_pair, snapshots, dispersion):
         row = {"market": m, "n": n,
                "model_brier": "", "market_brier": "", "skill": "",
                "ci_low": "", "ci_high": "", "p_one_sided": "", "p_bonferroni": "",
-               "multiplicity": PROB_TRIALS, "benchmark": "", "status": "not evaluable",
-               "note": ""}
+               "multiplicity": PROB_TRIALS, "benchmark": "", "benchmark_rows": "",
+               "status": "not evaluable", "note": ""}
         if n == 0:
             row["note"] = "no settled market of this type in the graded corpus"
             rows.append(row)
@@ -1283,8 +1288,23 @@ def probability_scores(fmd, results_by_pair, snapshots, dispersion):
             continue
         bs_market = brier([o["p_market"] for o in bench], [o["y"] for o in bench])
         row["market_brier"] = fmt(bs_market, 4)
-        row["benchmark"] = ("de-vigged captured closing price" if m == "moneyline" else
-                            "de-vigged captured closing price, converted to a cover probability")
+        # the label has to be exact: a "close" that was really the last price
+        # captured before the game is a close proxy, not a closing price
+        kinds = {}
+        for o in bench:
+            k = o.get("kind") or "unlabelled"
+            kinds[k] = kinds.get(k, 0) + 1
+        if set(kinds) == {"close"}:
+            quality = "a true closing price"
+        elif kinds.get("current_as_close"):
+            quality = ("a last-captured price used as the close in %d of %d rows, not a true close"
+                       % (kinds["current_as_close"], len(bench)))
+        else:
+            quality = ", ".join("%s in %d rows" % (k, v) for k, v in sorted(kinds.items()))
+        base = "de-vigged captured price (%s)" % quality
+        row["benchmark"] = (base if m == "moneyline" else
+                            base + ", converted to a cover probability at the captured spread")
+        row["benchmark_rows"] = "; ".join("%s: %d" % (k, v) for k, v in sorted(kinds.items()))
         by_cluster = {}
         for o in bench:
             by_cluster.setdefault(o["event_id"], []).append((o["p_model"], o["p_market"], o["y"]))
@@ -1398,7 +1418,8 @@ def main():
     prob_scores = probability_scores(fmd, results_by_pair, snapshots, dispersion)
     write_csv(os.path.join(OPS, "probability_scores.csv"),
               ["market", "n", "model_brier", "market_brier", "skill", "ci_low", "ci_high",
-               "p_one_sided", "p_bonferroni", "multiplicity", "benchmark", "status", "note"],
+               "p_one_sided", "p_bonferroni", "multiplicity", "benchmark", "benchmark_rows",
+               "status", "note"],
               prob_scores)
 
     settled, signal, staking, gate_rows, ci = grade_and_score(fmd, results_by_pair, snapshots,

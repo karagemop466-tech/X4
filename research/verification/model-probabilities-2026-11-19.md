@@ -127,11 +127,24 @@ probability of **the same event**, scored on the 24 settled markets:
 | total | 8 | 0.1734 | — | — | — | — | no market benchmark (F-91) |
 | moneyline | 8 | 0.2079 | 0.1973 | −0.0540 | [−0.5178, +0.2058] | 1.0000 | fail (n < 30) |
 
-The benchmark for the moneyline is the de-vigged captured closing price. The
-benchmark for the side is derived from that same price converted into a cover
-probability at the posted spread, and is labelled as derived on every row. A
-posted total carries no probability, so the total has a model Brier score and
-no market forecast to be better than; none is invented (F-91).
+The benchmark for the moneyline is the de-vigged captured price. The benchmark
+for the side is derived from that same price converted into a cover probability
+at the posted spread, and is labelled as derived on every row. A posted total
+carries no probability, so the total has a model Brier score and no market
+forecast to be better than; none is invented (F-91).
+
+**Which price the benchmark is.** Of the eight settled events in the graded
+corpus, four carry `close_kind = close` (a true closing price) and four carry
+`close_kind = current_as_close` — the last price captured before the event,
+standing in for a close because the capture did not run after kickoff. The
+label says so exactly rather than calling all eight a closing price:
+
+> de-vigged captured price (a last-captured price used as the close in 4 of 8
+> rows, not a true close)
+
+and `data/ops/probability_scores.csv` carries the composition in its own
+`benchmark_rows` column (`close: 4; current_as_close: 4`). This is flag F-93.
+The skill numbers are unchanged, and they are not evidence of skill either way.
 
 The interval is a game-cluster bootstrap: whole games are resampled, because a
 game contributes a side, a total and a moneyline that are not independent
@@ -187,5 +200,8 @@ committed files.
   games inside its window. The pre-registration fixes it for Week 11, so the
   change is a versioned model (v2) that has to be registered before a window
   opens.
+* **F-93** — half of the graded market benchmarks are a last-captured price
+  used as the close rather than a true closing price. The label is exact; what
+  is missing is a capture that runs after kickoff.
 * The forward window still has no pre-kickoff entry price and no real close
   (E2, E7), and the escrow holds nothing.

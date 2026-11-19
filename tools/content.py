@@ -1138,6 +1138,23 @@ dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, s
               "v1 published so the change can be judged rather than absorbed."),
          official_url="https://www.nfl.com/schedules/2026/by-week/week-10",
          url="https://github.com/karagemop466-tech/X4/blob/main/data/international-2026.csv"),
+    dict(id="F-93", item="Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price", type="Limitation", kind="warn", status="open",
+         detail=("The price store records one row per event, market and selection, with the open numbers and the close "
+                 "numbers in separate fields and a close_kind that says which it is. Of the eight settled events in the "
+                 "graded corpus, four carry close_kind = 'close' (a true closing price) and four carry "
+                 "close_kind = 'current_as_close' (the last price captured before the event, standing in for the close "
+                 "because the capture did not run after kickoff). The probability score therefore compares the model "
+                 "against the market on 8 rows of which 4 use a close proxy. The row label now says so exactly: "
+                 "'de-vigged captured price (a last-captured price used as the close in 4 of 8 rows, not a true close)', "
+                 "and data/ops/probability_scores.csv carries the composition in its own benchmark_rows column. The skill "
+                 "numbers are unchanged and remain not evidence of skill either way (side +0.138 with a 95% interval of "
+                 "[-0.096, +0.360], moneyline -0.054)."),
+         why=("A benchmark is only a benchmark if it is the number the market actually offered. A close proxy is the "
+              "market's last published price, which is a fair estimate of what a bettor would have faced, but calling it "
+              "a closing price would overstate what was known. The label is exact; what is missing is a capture that "
+              "runs after kickoff and records the real close, which is a request on the capture task."),
+         official_url="https://www.nfl.com/schedules/2026/",
+         url="https://github.com/karagemop466-tech/X4/blob/main/data/ops/price_snapshots.csv"),
 ]
 
 # ------------------------------------------------------------------ verification log

@@ -148,6 +148,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-90 | The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead |
 | F-91 | A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than |
 | F-92 | The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11 |
+| F-93 | Half of the graded market benchmarks are a last-captured price used as the close, not a true closing price |
 
 ## What is deliberately absent
 
