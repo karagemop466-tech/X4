@@ -24,7 +24,8 @@ file scope. Never start work on a task another session has claimed.
 | 21 | **T21 - Origination-side build (session `arena/f39958e6-x4`)**: price-snapshot store (open/close per market), origination order (side -> total -> moneyline), fair/market/difference columns, signal-vs-staking split, replacement-depth tracking, n-published correlations, paper-demotion gate, best-practice library, fundamentals-differentials research, new desk pages + publication gates | done (PR #24) | arena/f39958e6-x4 | `data/ops/**`, `data/transactions/**`, `tools/fetch.py`, `tools/origination.py`, `tools/ops.py`, `tools/check_ops.py`, `site/_template/origination.html`, `site/_template/operations*.html`, `site/_template/*.css` (new files only), `tools/check_site.py` (additive: allow `_template/` pages), `COORDINATION.md` § T21, `README.md` § T21 |
 | # | Task | Status | Owner session | File scope |
 |---|---|---|---|---|
-| T70 | **Publish the NFL's dated 2026 schedule announcement beside the current official schedule (brief requirement)**: read the NFL's dated schedule-release announcement and the live 2026 schedule, then add a schedule note that distinguishes the announcement date, scheduled release date/time, and current published fixtures. Include both source links, a dated verification record, and a deterministic check; do not infer schedule facts. | in progress | arena/f8191f1b-x4 | `tools/gen_brief_register.py`, generated `brief-register.html` + `site/brief-register.html`, `research/verification/schedule-announcement-2026-11-19.md` (new), `tests/test_schedule_announcement.py` (new), `tools/validate.py` (one additive test step), `COORDINATION.md` + `site/COORDINATION.md` (root and generated site mirror; T70 and session log) |
+| T70 | **Publish the NFL's dated 2026 schedule announcement beside the current official schedule (brief requirement)**: read the NFL's dated schedule-release announcement and the live 2026 schedule, then add a schedule note that distinguishes the announcement date, scheduled release date/time, and current published fixtures. Include both source links, a dated verification record, and a deterministic check; do not infer schedule facts. | in progress | arena/f8191f1b-x4 | `tools/gen_brief_register.py`, generated `brief-register.html` + `site/brief-register.html`, `research/verification/schedule-announcement-2026-11-19.md` (new) + generated `site/research/verification/schedule-announcement-2026-11-19.md`, `tests/test_schedule_announcement.py` (new), `tools/validate.py` (one additive test step), `COORDINATION.md` + `site/COORDINATION.md` (root and generated site mirror; T70 and session log) |
+
 | T69 | **Official-capture alerting: freshness and schema watchdog, plus the cadence evidence it rests on (brief: 'monitor freshness and alert on source/schema changes'; F-85, F-88, F-89)** (session `arena/6870a878-x4`, claimed 2026-11-19 UTC). Claimed as T67, renumbered T68 at the first merge of `origin/main` (T67 was held on `main` by `arena/9b74bcf0-x4`, T66 by `arena/f138e625-x4`), and renumbered **T69** at the second merge because `arena/bb197f45-x4` took T68 on `main` (current official-source provenance audit). No other session's row, log or file was edited. Today no workflow opens an alert: a failed run only notifies the workflow's creator (if notifications are enabled), and a run that never fires leaves no record at all. Measured from `data/captures/manifest.jsonl`: six injury reads over 27.9 hours, with gaps of 3.9 h, 13.0 h and 10.9 h against a 6-hour cron. The full run list and failure analysis are T66's record, not repeated here. This task adds a freshness and schema watchdog (`tools/capture_alert.py`, `tests/test_capture_alert.py`, `.github/workflows/capture-watchdog.yml`) that keeps one GitHub issue open on stale, missing or schema-failed captures and closes it on recovery; records the manifest-derived cadence in `research/verification/capture-alerting-2026-11-19.md`; and registers F-88 and F-89 in `tools/content.py`. No official value is transcribed or inferred, and no Week 11 injury row is added. Not verifiable from this sandbox: the watchdog cannot be dispatched here (HTTP 403 on workflow dispatch), so its first live run on `main` is the confirmation. | done: PR [#141](https://github.com/karagemop466-tech/X4/pull/141) merged 2026-11-19T19:41:29Z as merge commit `2d251c0`; post-merge `Publish NFL Decision Lab` run [44600936908](https://github.com/karagemop466-tech/X4/actions/runs/44600936908) and `pages build and deployment` run [44600935848](https://github.com/karagemop466-tech/X4/actions/runs/44600935848) succeeded; live `flags.html` shows 87 items | arena/6870a878-x4 | `tools/capture_alert.py` (new), `tests/test_capture_alert.py` (new), `.github/workflows/capture-watchdog.yml` (new), `research/verification/capture-alerting-2026-11-19.md` (new), `tools/content.py` (F-88, F-89 additive only), `tools/validate.py` (one added test step), regenerated pipeline outputs, `COORDINATION.md` (T69 row and session log) |
 | T68 | **Current official-source provenance audit and F-39 correction** (claimed 2026-11-19): audit all currently registered desk pages, not only the legacy 22-page scope, distinguishing allowlisted official-domain links, mixed official/non-official rows, third-party-only links, and no HTTPS links. Publish dated row-level inventory and limits; update F-39 so link presence is not misrepresented as official sourcing or cell-level verification. Do not invent sources or change underlying values. | done (PR [#137](https://github.com/karagemop466-tech/X4/pull/137) merged; Pages run [44600109663](https://github.com/karagemop466-tech/X4/actions/runs/44600109663) succeeded) | arena/bb197f45-x4 | `tools/audit_current_official_sources.py` (new), `research/verification/official-row-source-coverage-current-2026-11-19.csv` (new), `research/audits/official-row-source-coverage-current-2026-11-19.md` (new), `tools/content.py` (F-39 only), regenerated flag outputs (`data/output/**`, `flags.html`, `site/flags.html`, `console/**`), `COORDINATION.md` (T68 row + session log only) |
 | T63 | **Repair the failing scheduled official capture (F-47/F-48 root cause) and stop recording partial injury reports as schema failures; Week 11 report coverage recorded per capture** (session `arena/1b8815c9-x4`, claimed 2026-11-19 UTC as T60; **renumbered T63** (T62 was taken on `main` by `arena/a66163eb-x4` and `arena/f2865351-x4`) (T61 was taken on `main` by `arena/f2865351-x4`, PR #121; T60 by `arena/cd239f59-x4`) because `arena/cd239f59-x4` claimed T61 first on `main` (collision recorded in its session log and here)). Evidence from `data/captures/manifest.jsonl`: the two failing `injuries` reads of 2026-11-18 (07:37Z and 20:37Z) were the Week 11 page with 2 club tables and 26 player links, i.e. one game (Colts at Texans) published; `tools/capture_official.py` `schema_injuries` requires 28 tables and 250 links, a full Week 10 shape, so it failed a legitimate partial report. The 28-table constant also cannot be met by Week 11, which has 13 scheduled games (26 tables). The 03:39Z read (0 player links, 28 tables) is unexplained and stays a failure. Fix: structural check (one week heading, paired club tables, a link per table) plus a coverage field computed against the official schedule file for that week; freshness still requires a schema-valid capture. Also `tools/capture_delta.py` gets a week filter so a Week 11 capture is never diffed against the Week 10 dataset. | done: PR [#118](https://github.com/karagemop466-tech/X4/pull/118) merged 2026-11-19T07:08:48Z as `18de1f6`; Pages build and Publish run green; live read on branch `arena/27b5881c-x4` passes the new schema (see the T63 merge record). The first scheduled run on `main` remains the confirmation on `main` | arena/1b8815c9-x4 | `tools/capture_official.py`, `tools/capture_delta.py` (week filter only), `tests/test_capture_official.py`, `tools/content.py` (additive flag rows F-62 and status note on F-55/F-61 only), `COORDINATION.md` (T61 row and session log), regenerated pipeline outputs (`data/output/**`, `site/**`, root mirror, `console/`) |
@@ -3244,3 +3245,86 @@ documentation on delayed schedule events.
 - **Live check:** https://karagemop466-tech.github.io/X4/flags.html (page-fetch tool, after the deploy) shows the register at **87 items**, the count this PR produced.
 - **Still open, not blocking:** the watchdog has not yet run on `main`. Its first scheduled run (every three hours from 00:43 UTC) is the live confirmation of F-88.
 
+## Session log — arena/bd915599-x4 (final integration, review and publication: 2026-11-19)
+
+### Claim and scope
+- Branch `arena/bd915599-x4`, branched from `main`/`origin/main` at `6b69ee93185f35dd9da0d5c8cc74499df89c799d`; the branch is fixed for this session, so no `session-*/<task>` worktree was created. The claim (this row and log) was committed and pushed before implementation.
+- Scope: final integration over the single-commit tree `6b69ee9` (equal to `main`/`origin/main` at claim time). Review the repository line by line, verify published values against official sources, confirm the GitHub Pages live site, and close out with a PR to `main`, merge, and deploy confirmation. No other session's row, log or file was edited; this session only appends its own log to `COORDINATION.md`.
+
+### Review and verification performed (this session)
+- `python3 tools/validate.py`: **VALIDATION PASSED — repository publishable.**
+  - Site publishable: every data row has an official source link, no broken links, pages load with JavaScript enabled.
+  - Desk-page check: 29 pages, 1,138 table rows, 31 mirrored files, 2,781 links; all local links/anchors resolve; nav consistent; 0 desk-table rows without an https source link (F-39 note kept explicit, not treated as a pass).
+  - X4 Console (`docs/`): 15 pages, 657 data rows (every one with a source cell), 149 internal + 43 external links (all https + rel="noreferrer", no broken links) — console publishable.
+  - Repository-root mirror byte-identical to `site/` and `docs/`.
+  - Determinism: all published outputs reproducible (site pages, CSS, JS, market JSON, research pages).
+  - Data hygiene: no oversized artifacts, no stray files, required files present.
+- `tools/verify.py`: reconstructed game log reconciles against official NFL.com standings — 150 games (Weeks 1–10), all 32 clubs match on W/L/T/PF/PA/PCT; points for = points allowed = 6,923; 0 mismatches.
+- Determinism/reproducibility: full pipeline rebuild is byte-for-byte reproducible.
+
+### Official-source basis (committed captures and links; not re-fetched live because this sandbox cannot reach nfl.com)
+- https://www.nfl.com/standings/ — official standings; all 32 teams match the committed standings (Bills 8–1 AFC East, Bengals 7–2 AFC North, Jaguars 7–2 AFC South, Chiefs 7–2 AFC West, Giants 5–3–1 NFC East, Lions 7–2 NFC North, Panthers 4–5 NFC South, 49ers 8–1 NFC West, Chargers 1–8).
+- https://www.nfl.com/schedules/2026/by-week/week-10 — Week 10 complete (14 finals); corpus grew 137 → 150 games.
+- https://www.nfl.com/schedules/2026/by-week/week-11 — Week 11 schedule (13 games; bye: Atlanta, Cleveland, Green Bay, LA Rams, New England, Seattle).
+- https://www.nfl.com/injuries/league/2026/reg10 — official Week 10 injury report (347 rows across 28 clubs; 70 Out, 11 Doubtful, 90 Questionable).
+- Official NFL Game Books for all 14 Week 10 games — actual starters, inactive/DNP lists, venue/surface/roof register; designation reliability (Out 0/50, Doubtful 1/6, Questionable 61/78 = 78.2%, 37 unresolved).
+No value was inferred or filled in; blanks and unverified items remain flagged on the Flagged-for-Review register per the publication policy.
+
+### Deliverables confirmed present
+- Clean landing page with category-organized site directory (`index.html` + `site/index.html`), 60 pages, 15 in the X4 Console.
+- Executive summary (`executive-summary.html`): computed-not-typed figures, decisions table, suggestions table, two-sided "what would change our mind."
+- Dedicated suggestions/review section: `suggestions.html` (ranked proposals), `review.html` (Accept/Hold/Reject queue), `workbench.html` (four-part rubric, ranked).
+- Line origination (side → total → moneyline), price snapshots (fair line / market line / difference as separate columns), signal-vs-staking leaderboard (signal scored apart from staking), correlations with n, replacement depth (2nd/3rd/4th string), demotion gate, per-team view, removal-of-luck panel, Game Book actual starters/inactives, designation reliability.
+- Every table row carries an HTTPS source link; unconfirmable values left blank and flagged, never inferred.
+- Flagged irregularities published on `flags.html` / `flagged.html`, not hidden; they do not block the merge.
+
+### Live site
+- https://karagemop466-tech.github.io/X4/ — GitHub Pages served from `main` path `/`, status `built`, HTTPS enforced (confirmed via `gh api /repos/karagemop466-tech/X4/pages` before the PR).
+
+### Open flags / irregularities (pre-existing, published, not blocking)
+- F-01: market prices are non-official captures (one licensed book via ESPN), labelled as such; player-prop prices blank (F-35).
+- F-24: Houston publishes depth as an image only; resolved via Game Book playing-time indices; ordinal chain blank.
+- F-47/F-48/F-56/F-61/F-83/F-85: Week 11 injury capture is partial/schema-invalid; last valid capture is Week 10; no Week 11 player rows ingested.
+- F-69/F-70: Week 11 Game Center injury widget vs official report discrepancy; venue short names are faithful transcriptions of the official Game Info block.
+- Flag E5 (escrow): side and total have no probability output; Brier skill defined for moneyline only.
+- Weather/roof overlay: blocked — no official stadium coordinates or roof-designation source.
+All open flags are published on the Flagged-for-Review register and do not block publication or the merge.
+
+### PR and merge record (this session)
+- **PR link:** https://github.com/karagemop466-tech/X4/pull/144 (`arena/bd915599-x4` → `main`), merged 2026-11-19 as merge commit `53b0252f6202a3025bde107deb88ebe14afce90c`. The PR's `Desk validation` check passed (run 44625864109) and its mergeability was `CLEAN` at merge; the main-push `Desk validation` run 44625904441 also passed.
+- **Merge result:** MERGED — PR #144 merged to `main` without waiting for review; the merge commit `53b0252f` is on `main`.
+- **Pages deploy after merge:** success — GitHub Pages build/deployment run 44625903777 completed successfully; Pages status `built`, live at https://karagemop466-tech.github.io/X4/ (served from `main` path `/`, HTTPS enforced).
+
+
+## Session log — arena/f8191f1b-x4 (T70: dated NFL schedule announcement, 2026-11-19)
+
+### What this session did
+- Added a dated schedule-release notice immediately above the current fixture-context table in `brief-register.html` and `site/brief-register.html`.
+- The page distinguishes (1) the NFL Media announcement's publication date, May 8, 2026; (2) the release date/time the NFL announced, Thursday, May 14 at 8 p.m. ET; and (3) the current 2026 and Week 11 schedule pages. It labels the schedule pages as checked 2026-11-19 and states that current fixture facts are linked to their own official game-centre pages, not inferred from the older notice.
+- Added `research/verification/schedule-announcement-2026-11-19.md`, mirrored under `site/research/verification/`, a three-test offline regression suite, and one additive test step in `tools/validate.py` after the brief-register generator. No schedule, result, venue, market, injury, or model data row was changed.
+
+### Official sources read directly on 2026-11-19
+- NFL Media release: https://media.nfl.com/news-and-releases/2026-nfl-schedule-powered-by-aws-to-be-released-thursday--may-14 . The page displays May 08, 2026 and the dateline NEW YORK — May 8, 2026; it says the full schedule would be released Thursday, May 14 at 8 p.m. ET.
+- Current NFL schedule: https://www.nfl.com/schedules/2026/ . The page is headed SCHEDULE 2026 and displays the Week 11 slate.
+- NFL Week 11 schedule: https://www.nfl.com/schedules/2026/by-week/week-11 . The page is headed SCHEDULE 2026; its displayed fixture list includes Colts at Texans on Thursday, November 19, followed by the Sunday games.
+- The announcement is historical schedule-release metadata. The current schedule and fixture game-centre pages remain the evidence for current fixtures.
+
+### Verification performed
+- `python3 tools/gen_brief_register.py`: generated both page copies; 150 games, 160/160 standings fields reconciled, 13 fixture-context rows.
+- `python3 -m unittest discover -s tests -p 'test_schedule_announcement.py'`: 3 tests passed; checks both announcement dates, all three official links, and placement beside the current fixture table.
+- `python3 tools/validate.py`: **VALIDATION PASSED**. This includes the new test, deterministic output, the main site, desk-page checks, the X4 Console, and mirror checks.
+- Explicit checks also passed: `python3 tools/check_site.py` (29 desk pages, 1,138 table rows, local links/anchors and nav), `python3 site/check.py` (21 pages, 109 tables, 4,387 data rows and 32-team numeric consistency), and `node docs/check.js` (15 pages, 657 data rows, all links valid).
+- `git diff --check` clean. Root and `site/brief-register.html` have identical SHA-256 `6d6bda02201b2922b2d51a9c1f1f42a1fed89cd211e608ad76311d59b079d6a9`.
+
+### Irregularities and limits
+- No schedule-announcement discrepancy was observed. This card does not claim that every local schedule row was reverified on 2026-11-19; the fixture rows retain their individual source links and dated verification record.
+- The existing T68 row-source audit remains a site-wide limit: 725 of 1,138 desk rows had official-domain links only, 90 mixed official and non-official links, and 323 had only non-official HTTPS links. That audit does not verify field-level support, and this task neither closes F-39 nor claims every site value is officially sourced.
+- No new flag was warranted for this schedule notice. The source re-read and scope limit are recorded here and in the dated verification note.
+
+### Coordination rebase/conflict record
+- `origin/main` advanced from `6b69ee9` to `53b0252` (PR #144), then to `061c7f8` (PR #148) while this task was in progress. Both main updates were retained.
+- Rebasing onto `53b0252` rewrote this session's already-pushed claim commits. The normal push was rejected because the remote session branch still pointed to its earlier claim commits (`4b16f55` and `e9f6b98`); merging that remote branch caused a `COORDINATION.md` conflict on the duplicate T70 row. The resolution kept the complete expanded scope.
+- A later `git pull --rebase origin main` onto `061c7f8` replayed the duplicate claim/scope commits and produced two further T70-row conflicts. Each was resolved by retaining the superset scope, including `tools/validate.py`, the generated `site/COORDINATION.md`, and the generated site verification-note mirror. No other session row, upstream coordination record, source data, or implementation file was discarded.
+
+### PR and deploy record
+- PR link, merge result, and Pages deployment will be recorded after the final PR/check/deploy.

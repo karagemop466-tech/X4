@@ -3295,3 +3295,36 @@ All open flags are published on the Flagged-for-Review register and do not block
 - **Merge result:** MERGED — PR #144 merged to `main` without waiting for review; the merge commit `53b0252f` is on `main`.
 - **Pages deploy after merge:** success — GitHub Pages build/deployment run 44625903777 completed successfully; Pages status `built`, live at https://karagemop466-tech.github.io/X4/ (served from `main` path `/`, HTTPS enforced).
 
+
+## Session log — arena/f8191f1b-x4 (T70: dated NFL schedule announcement, 2026-11-19)
+
+### What this session did
+- Added a dated schedule-release notice immediately above the current fixture-context table in `brief-register.html` and `site/brief-register.html`.
+- The page distinguishes (1) the NFL Media announcement's publication date, May 8, 2026; (2) the release date/time the NFL announced, Thursday, May 14 at 8 p.m. ET; and (3) the current 2026 and Week 11 schedule pages. It labels the schedule pages as checked 2026-11-19 and states that current fixture facts are linked to their own official game-centre pages, not inferred from the older notice.
+- Added `research/verification/schedule-announcement-2026-11-19.md`, mirrored under `site/research/verification/`, a three-test offline regression suite, and one additive test step in `tools/validate.py` after the brief-register generator. No schedule, result, venue, market, injury, or model data row was changed.
+
+### Official sources read directly on 2026-11-19
+- NFL Media release: https://media.nfl.com/news-and-releases/2026-nfl-schedule-powered-by-aws-to-be-released-thursday--may-14 . The page displays May 08, 2026 and the dateline NEW YORK — May 8, 2026; it says the full schedule would be released Thursday, May 14 at 8 p.m. ET.
+- Current NFL schedule: https://www.nfl.com/schedules/2026/ . The page is headed SCHEDULE 2026 and displays the Week 11 slate.
+- NFL Week 11 schedule: https://www.nfl.com/schedules/2026/by-week/week-11 . The page is headed SCHEDULE 2026; its displayed fixture list includes Colts at Texans on Thursday, November 19, followed by the Sunday games.
+- The announcement is historical schedule-release metadata. The current schedule and fixture game-centre pages remain the evidence for current fixtures.
+
+### Verification performed
+- `python3 tools/gen_brief_register.py`: generated both page copies; 150 games, 160/160 standings fields reconciled, 13 fixture-context rows.
+- `python3 -m unittest discover -s tests -p 'test_schedule_announcement.py'`: 3 tests passed; checks both announcement dates, all three official links, and placement beside the current fixture table.
+- `python3 tools/validate.py`: **VALIDATION PASSED**. This includes the new test, deterministic output, the main site, desk-page checks, the X4 Console, and mirror checks.
+- Explicit checks also passed: `python3 tools/check_site.py` (29 desk pages, 1,138 table rows, local links/anchors and nav), `python3 site/check.py` (21 pages, 109 tables, 4,387 data rows and 32-team numeric consistency), and `node docs/check.js` (15 pages, 657 data rows, all links valid).
+- `git diff --check` clean. Root and `site/brief-register.html` have identical SHA-256 `6d6bda02201b2922b2d51a9c1f1f42a1fed89cd211e608ad76311d59b079d6a9`.
+
+### Irregularities and limits
+- No schedule-announcement discrepancy was observed. This card does not claim that every local schedule row was reverified on 2026-11-19; the fixture rows retain their individual source links and dated verification record.
+- The existing T68 row-source audit remains a site-wide limit: 725 of 1,138 desk rows had official-domain links only, 90 mixed official and non-official links, and 323 had only non-official HTTPS links. That audit does not verify field-level support, and this task neither closes F-39 nor claims every site value is officially sourced.
+- No new flag was warranted for this schedule notice. The source re-read and scope limit are recorded here and in the dated verification note.
+
+### Coordination rebase/conflict record
+- `origin/main` advanced from `6b69ee9` to `53b0252` (PR #144), then to `061c7f8` (PR #148) while this task was in progress. Both main updates were retained.
+- Rebasing onto `53b0252` rewrote this session's already-pushed claim commits. The normal push was rejected because the remote session branch still pointed to its earlier claim commits (`4b16f55` and `e9f6b98`); merging that remote branch caused a `COORDINATION.md` conflict on the duplicate T70 row. The resolution kept the complete expanded scope.
+- A later `git pull --rebase origin main` onto `061c7f8` replayed the duplicate claim/scope commits and produced two further T70-row conflicts. Each was resolved by retaining the superset scope, including `tools/validate.py`, the generated `site/COORDINATION.md`, and the generated site verification-note mirror. No other session row, upstream coordination record, source data, or implementation file was discarded.
+
+### PR and deploy record
+- PR link, merge result, and Pages deployment will be recorded after the final PR/check/deploy.
