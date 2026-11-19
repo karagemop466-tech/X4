@@ -3125,3 +3125,4 @@ The brief asked for one `session-<id>/<task>` branch per task and a shared integ
 - Limits: a manual count of one page read, not a script-level verification of the raw HTML. The raw page is not reachable from this sandbox (network allowlist). The Week 11 capture gate (F-83) stays open.
 - Verification run: see the next entry.
 
+- Pull request: [#134](https://github.com/karagemop466-tech/X4/pull/134) from `arena/d47a356c-x4` to `main`, opened, not merged (the integration owner merges per the board).
