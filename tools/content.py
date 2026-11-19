@@ -1093,8 +1093,8 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-alerting-2026-11-19.md"),
 
-    dict(id="F-90", item="The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows", type="Limitation", kind="warn", status="limitation",
-         detail=("Found by re-deriving the corpus statistics on the complete verified game log (T70, 2026-11-19). tools/origination.py "
+    dict(id="F-92", item="The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows", type="Limitation", kind="warn", status="limitation",
+         detail=("Found by re-deriving the corpus statistics on the complete verified game log (T72, 2026-11-19). tools/origination.py "
                  "sets USE_HOME_EDGE = True and fits h on weeks 6-9 only (edge = home_edge(games, range(6, 10))), then adds that "
                  "constant to every Week 11 spread it originates. The same statistic, recomputed from the same official corpus "
                  "(data/games-2026.csv, 150 games, each row an official NFL.com game URL, reproducing every official standings "
@@ -1115,8 +1115,8 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/schedules/2026/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"),
 
-    dict(id="F-91", item="The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent", type="Irregularity", kind="warn", status="irregularity",
-         detail=("Measured cell by cell (T71, 2026-11-19). The official page https://www.commanders.com/team/depth-chart was read on "
+    dict(id="F-93", item="The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent", type="Irregularity", kind="warn", status="irregularity",
+         detail=("Measured cell by cell (T73, 2026-11-19). The official page https://www.commanders.com/team/depth-chart was read on "
                  "2026-11-19 and compared with the rows the 2026-11-14 capture had committed: WR 1 Terry McLaurin -> Treylon Burks, WR 2 "
                  "Treylon Burks -> Van Jefferson, C 1 Nick Allegretti -> Lucas Patrick, LG 2 Tanoa Togiai -> Nick Allegretti, WR2 2 Jaylin "
                  "Lane -> Luke McCaffrey, WR3 1 Dyami Brown -> Antonio Williams, WR3 2 Antonio Williams -> printed empty, RB 1-3 Jacory "
@@ -1134,6 +1134,14 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "carries a per-club retrieval stamp for this reason, and this is the first club where the stamp was changed by a re-read."),
          official_url="https://www.commanders.com/team/depth-chart",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-cells-2026-11-19.md"),
+
+    dict(id="F-90", item="The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie", type="Irregularity", kind="warn", status="resolved",
+         detail=("Checked on 2026-11-19 against the live NFL.com injury page (title: 'Official NFL Injury Report for Players - Week 11 of the 2026 Season'; league address /injuries/league/2026/reg11) and the committed capture manifest, whose newest schema-valid injury read (2026-11-19T20:43:30Z) is Week 11 with coverage 'partial' (12 of 13 games). The panel still said 'The Week 10 report lists 347 players'. "
+                 "The panel also said 'Kansas City Chiefs 7-2 leads the AFC West', 'Detroit Lions 7-2 leads the NFC North', although the official standings show Denver 7-2 and, in the NFC North, Chicago 7-2 and Minnesota 7-2. The leader was chosen by a net-points tie-break the official table does not use. "
+                 "Corrected in tools/pages.py: the injury card now reads the newest committed capture and labels the Week 10 counts as the last complete report; ties are printed as ties. The 32 club records in the committed standings match the live NFL.com standings, and the six bye clubs (Atlanta, Cleveland, Green Bay, LA Rams, New England, Seattle) match the Week 11 schedule. No Week 11 player row was added."),
+         why=("A 'right now' panel that describes last week's report as current is the same failure the brief names most often: a stale state presented as present. A tie shown as a single leader invents an order the league has not given. Both were on the landing page, which is the first page most readers see."),
+         official_url="https://www.nfl.com/injuries/league/2026/reg11",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/landing-live-state-2026-11-19.md"),
 ]
 
 # ------------------------------------------------------------------ verification log
