@@ -1,8 +1,8 @@
 # 2026 NFL schedule announcements — combined verification record
 
-This file retains two separate official NFL publications; their dates serve different purposes. **T73** records the May 14, 2026 publication of the full schedule announcement and its fact-by-fact schedule page. **T74** records the earlier May 8, 2026 notice that announced the schedule would be released on May 14 at 8 p.m. ET, alongside the current live schedule. Do not treat the May 8 notice as the source for the fixture facts on the current schedule.
+This file retains two separate official NFL publications; their dates serve different purposes. **T73** records the May 14, 2026 publication of the full schedule announcement and its fact-by-fact schedule page. **T77** records the earlier May 8, 2026 notice that announced the schedule would be released on May 14 at 8 p.m. ET, alongside the current live schedule. Do not treat the May 8 notice as the source for the fixture facts on the current schedule.
 
-T73's F-91/F-92 limitations remain as published on the Flagged-for-Review register. In particular, the year attached to January 9/10 in T73's S06/S07 is explicitly identified there as inferred and flagged; T74 makes no such inference and does not edit the T73 schedule data.
+T73's F-91/F-92 limitations remain as published on the Flagged-for-Review register. In particular, the year attached to January 9/10 in T73's S06/S07 is explicitly identified there as inferred and flagged; T77 makes no such inference and does not edit the T73 schedule data.
 
 ---
 
@@ -75,7 +75,7 @@ Secondary coverage (Sportsnet, Yahoo Sports, WNY Papers) was read only to find t
 
 ---
 
-## T74 — advance announcement date and announced release time
+## T77 — advance announcement date and announced release time
 
 ### What was checked
 

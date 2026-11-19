@@ -129,6 +129,57 @@ def american_to_dec(a):
     return 1.0 + (x / 100.0 if x > 0 else 100.0 / abs(x))
 
 
+def american_to_prob(a):
+    """Implied probability of an American price (with vig)."""
+    d = american_to_dec(a)
+    return (1.0 / d) if d else None
+
+
+def devig_pair(p_a, p_b):
+    """De-vigged probability of selection a from the two American prices of a pair."""
+    pa, pb = american_to_prob(p_a), american_to_prob(p_b)
+    if not pa or not pb or (pa + pb) <= 0:
+        return None
+    return pa / (pa + pb)
+
+
+def event_probability(mtype, mu, sigma, line):
+    """Model probability of the row's fixed event at a given market number.
+
+    Events (fixed per market type, before the pick is chosen):
+      side       home_covers : P(home margin > -line)  = Phi((mu + line) / sigma)
+                 where `line` is the home handicap as stored (e.g. -4.5)
+      total      over_line   : P(game total > line), Poisson(mu)
+      moneyline  home_wins   : P(home margin > 0)      = Phi(mu / sigma)
+
+    Returns a float in (0, 1) or None when an input is missing.
+    """
+    if mu in ("", None):
+        return None
+    mu = float(mu)
+    if mtype == "total":
+        if line in ("", None):
+            return None
+        try:
+            p = poisson_line_prob(mu, float(line))
+        except ValueError:
+            return None
+        return p if p != "" else None
+    if sigma in ("", None) or float(sigma) <= 0:
+        return None
+    sigma = float(sigma)
+    if mtype == "side":
+        if line in ("", None):
+            return None
+        try:
+            z = (mu + float(line)) / sigma
+        except ValueError:
+            return None
+    else:
+        z = mu / sigma
+    return max(1e-6, min(1 - 1e-6, norm_cdf(z)))
+
+
 def dec_to_american(d):
     if not d or d <= 1.0:
         return ""
@@ -371,6 +422,9 @@ def originate():
         p_home = norm_cdf(fair_side_home / sigma) if sigma else 0.5
         p_home = min(1 - 1e-4, max(1e-4, p_home))
 
+        # probability form of the total output at its own fair number
+        p_over_fair = poisson_line_prob(fair_total, fair_total)
+
         # one market row per market type we originate, in the mandated order
         for mtype in ("side", "total", "moneyline"):
             m = {"event_id": ev_id, "week": wk, "away": away, "home": home,
@@ -391,6 +445,9 @@ def originate():
             "fair_total": fmt(fair_total, 1),
             "fair_ml_home_pct": fmt(p_home * 100.0, 2),
             "fair_ml_away_pct": fmt((1 - p_home) * 100.0, 2),
+            "p_over_fair_pct": fmt(p_over_fair * 100.0 if p_over_fair != "" else "", 2),
+            "prob_inputs": "side:margin~N(mu=%s,sigma=%s); total:poisson(mu=%s); moneyline:Phi(mu/sigma)"
+                           % (fmt(fair_side_home, 1), fmt(sigma, 1), fmt(fair_total, 1)),
             "away_gp": "%d" % int(ra["gp"]), "home_gp": "%d" % int(rh["gp"]),
             "away_diff": fmt(ra["diff"], 2), "home_diff": fmt(rh["diff"], 2),
             "away_total": fmt(ra["total"], 2), "home_total": fmt(rh["total"], 2),
@@ -406,7 +463,8 @@ def originate():
               markets)
     write_csv(os.path.join(OPS, "fair_lines.csv"),
               ["event_id", "week", "away", "home", "fair_side_home", "fair_total",
-               "fair_ml_home_pct", "fair_ml_away_pct", "away_gp", "home_gp",
+               "fair_ml_home_pct", "fair_ml_away_pct", "p_over_fair_pct", "prob_inputs",
+               "away_gp", "home_gp",
                "away_diff", "home_diff", "away_total", "home_total", "home_edge", "sigma",
                "neutral", "prior_games", "model"],
               sorted(fair, key=lambda r: (int(r["week"]), r["event_id"])))
@@ -415,6 +473,21 @@ def originate():
     card = {
         "generated_utc": "",  # stamped by ops.py
         "order": ["side", "total", "moneyline"],
+        "probability_outputs": {
+            "note": "every model output is stored as a probability plus its inputs (T76, E5)",
+            "side": {"event": "home_covers", "dist": "normal_margin",
+                     "formula": "P(margin > -line) = Phi((mu + line) / sigma)",
+                     "inputs": "mu = fair_side_home, sigma = measured margin sd"},
+            "total": {"event": "over_line", "dist": "poisson_total",
+                      "formula": "P(total > line) under Poisson(mu)",
+                      "inputs": "mu = fair_total"},
+            "moneyline": {"event": "home_wins", "dist": "normal_margin",
+                          "formula": "P(margin > 0) = Phi(mu / sigma)",
+                          "inputs": "mu = fair_side_home, sigma = measured margin sd"},
+            "stored_in": ["data/ops/fair_lines.csv (p_over_fair_pct, prob_inputs)",
+                          "data/ops/fair_market_difference.csv (prob_dist, prob_mu, prob_sigma, "
+                          "prob_event, prob_event_open_pct, prob_event_close_pct)"],
+        },
         "prior_games": PRIOR_GAMES,
         "use_home_edge": USE_HOME_EDGE,
         "home_edge": {"n": edge["n"], "mean": round(edge["mean"], 3),
@@ -441,8 +514,16 @@ def originate():
 # ---------------------------------------------------------------------------
 # fair / market / difference, and grading
 # ---------------------------------------------------------------------------
-def fair_market_difference(markets, snapshots, results_by_pair):
-    """One row per market with fair, market and difference in separate columns."""
+def fair_market_difference(markets, snapshots, results_by_pair, fair_by_event=None):
+    """One row per market with fair, market and difference in separate columns.
+
+    Since T76 (E5) every row also stores the model output as a probability plus
+    its inputs: prob_dist / prob_mu / prob_sigma name the distribution and its
+    parameters, prob_event names the fixed binary event (home_covers, over_line,
+    home_wins), and prob_event_open_pct / prob_event_close_pct are the model's
+    probability of that event at the open and close numbers.
+    """
+    fair_by_event = fair_by_event or {}
     snap = {}
     for s in snapshots:
         k = (s["event_id"], s["market"], s["selection"])
@@ -452,12 +533,24 @@ def fair_market_difference(markets, snapshots, results_by_pair):
     for m in markets:
         ev, wk, mtype = m["event_id"], m["week"], m["market"]
         pair = results_by_pair.get((int(wk), m["away"], m["home"]))
+        fl = fair_by_event.get(ev, {})
+        if mtype == "total":
+            prob_dist, prob_mu, prob_sigma = "poisson_total", fl.get("fair_total", m["fair_home"]), ""
+        else:
+            prob_dist = "normal_margin"
+            prob_mu = fl.get("fair_side_home", m["fair_home"] if mtype == "side" else "")
+            prob_sigma = fl.get("sigma", "")
+        prob_event = {"side": "home_covers", "total": "over_line",
+                      "moneyline": "home_wins"}[mtype]
         row = {"event_id": ev, "week": wk, "away": m["away"], "home": m["home"],
                "market": mtype, "book": m.get("book", ""),
                "fair": "", "market_open": "", "market_close": "",
                "diff_vs_open": "", "diff_vs_close": "",
                "close_kind": "", "snapshot_utc": "", "source_url": "",
-               "settled": "", "result": "", "official_result_url": ""}
+               "prob_dist": prob_dist, "prob_mu": prob_mu, "prob_sigma": prob_sigma,
+               "prob_event": prob_event, "prob_event_open_pct": "", "prob_event_close_pct": "",
+               "settled": "", "result": "", "result_margin": "", "result_total": "",
+               "official_result_url": ""}
         if mtype == "side":
             sh = snap.get((ev, "side", "home"), [])
             if sh:
@@ -481,9 +574,15 @@ def fair_market_difference(markets, snapshots, results_by_pair):
                         row["diff_vs_open"] = fmt(fv - mo, 1)
                     if mc is not None:
                         row["diff_vs_close"] = fmt(fv - mc, 1)
+                for key, col in (("open_line", "prob_event_open_pct"),
+                                 ("close_line", "prob_event_close_pct")):
+                    p = event_probability("side", prob_mu, prob_sigma, s[key])
+                    if p is not None:
+                        row[col] = fmt(p * 100.0, 2)
             if pair:
                 row.update(settled="1",
                            result="push" if pair["margin"] == 0 else "home" if pair["margin"] > 0 else "away",
+                           result_margin=str(pair["margin"]), result_total=str(pair["total"]),
                            official_result_url=pair["url"])
         elif mtype == "total":
             o = snap.get((ev, "total", "over"), [])
@@ -498,9 +597,24 @@ def fair_market_difference(markets, snapshots, results_by_pair):
                             row[col] = fmt(float(m["fair_home"]) - float(s[key]), 1)
                         except ValueError:
                             pass
+                for key, col in (("open_line", "prob_event_open_pct"),
+                                 ("close_line", "prob_event_close_pct")):
+                    p = event_probability("total", prob_mu, prob_sigma, s[key])
+                    if p is not None:
+                        row[col] = fmt(p * 100.0, 2)
             if pair:
-                row.update(settled="1",
-                           result="push" if pair["total"] == 0 else "over" if pair["total"] > 0 else "under",
+                # the total result is which side of the captured line won; the old
+                # code compared the game total against 0 and so read "over" for
+                # every played game (corrected under T76, escrow flag E8)
+                line_txt = (s.get("close_line") or s.get("open_line") or "") if o else ""
+                try:
+                    tl = float(line_txt)
+                    res = ("push" if pair["total"] == tl else
+                           "over" if pair["total"] > tl else "under")
+                except (TypeError, ValueError):
+                    res = "over" if pair["total"] > 0 else "under"
+                row.update(settled="1", result=res,
+                           result_margin=str(pair["margin"]), result_total=str(pair["total"]),
                            official_result_url=pair["url"])
         else:
             home = snap.get((ev, "moneyline", "home"), [])
@@ -518,9 +632,21 @@ def fair_market_difference(markets, snapshots, results_by_pair):
                             row[col] = fmt((1.0 / d - 1.0 / float(fv)) * 100.0, 2)
                         except (ValueError, ZeroDivisionError):
                             pass
+                # the moneyline row's fair column *is* the model probability; use
+                # it verbatim so the two never disagree in the second decimal
+                # (the rounded mu/sigma re-derivation drifts by ~0.03pp)
+                try:
+                    p = float(str(m.get("fair_home", "")).replace("%", "")) / 100.0
+                except ValueError:
+                    p = event_probability("moneyline", prob_mu, prob_sigma, None)
+                if p:
+                    row["prob_event_open_pct"] = fmt(p * 100.0, 2)
+                    row["prob_event_close_pct"] = fmt(p * 100.0, 2)
             if pair:
                 row.update(settled="1",
                            result="push" if pair["margin"] == 0 else "home" if pair["margin"] > 0 else "away",
+                           result_margin=str(pair["margin"]),
+                           result_total=str(pair["total"]),
                            official_result_url=pair["url"])
         rows.append(row)
     return rows
@@ -544,6 +670,86 @@ def results_index(results):
 # ---------------------------------------------------------------------------
 # signal vs staking: two scores, never one
 # ---------------------------------------------------------------------------
+
+
+def brier_rows(fmd, results_by_pair, snapshots):
+    """Event-space Brier inputs per settled market: model vs de-vigged market.
+
+    The event is fixed per market type (home_covers / over_line / home_wins) and
+    is scored at the same number the bet was graded against (market_close).
+    A push carries no probability outcome and is excluded. A row without both
+    probabilities is excluded, never filled in.
+    """
+    snap = {}
+    for s in snapshots:
+        snap.setdefault((s["event_id"], s["market"], s["selection"]), []).append(s)
+    rows = []
+    for r in fmd:
+        if r.get("settled") != "1":
+            continue
+        p_model = str(r.get("prob_event_close_pct", "")).replace("%", "").strip()
+        if p_model == "":
+            continue
+        pair = results_by_pair.get((int(r["week"]), r["away"], r["home"]))
+        if not pair:
+            continue
+        mtype = r["market"]
+        line = r.get("market_close", "")
+        y, pa, pb = None, "", ""
+        if mtype == "side":
+            if not line:
+                continue
+            try:
+                lm = float(str(line).replace("\u2212", "-"))
+            except ValueError:
+                continue
+            spread_margin = pair["margin"] + lm
+            if math.isclose(spread_margin, 0.0, abs_tol=1e-9):
+                continue
+            y = 1.0 if spread_margin > 0 else 0.0
+            pa = (snap.get((r["event_id"], "side", "home"), [{}]) or [{}])[0].get("close_price", "")
+            pb = (snap.get((r["event_id"], "side", "away"), [{}]) or [{}])[0].get("close_price", "")
+        elif mtype == "total":
+            if not line:
+                continue
+            try:
+                tl = float(line)
+            except ValueError:
+                continue
+            if pair["total"] == tl:
+                continue
+            y = 1.0 if pair["total"] > tl else 0.0
+            pa = (snap.get((r["event_id"], "total", "over"), [{}]) or [{}])[0].get("close_price", "")
+            pb = (snap.get((r["event_id"], "total", "under"), [{}]) or [{}])[0].get("close_price", "")
+        else:
+            if pair["margin"] == 0:
+                continue
+            y = 1.0 if pair["margin"] > 0 else 0.0
+            pa = (snap.get((r["event_id"], "moneyline", "home"), [{}]) or [{}])[0].get("close_ml", "")
+            pb = (snap.get((r["event_id"], "moneyline", "away"), [{}]) or [{}])[0].get("close_ml", "")
+        p_mkt = devig_pair(pa, pb)
+        if p_mkt is None:
+            continue
+        rows.append({"market": mtype, "p_model": float(p_model) / 100.0,
+                     "p_market": p_mkt, "y": y})
+    return rows
+
+
+def _brier_pair(sub):
+    n = len(sub)
+    if not n:
+        return {"n": 0, "brier_model": "", "brier_market": "", "skill": ""}
+    bm = sum((r["p_model"] - r["y"]) ** 2 for r in sub) / n
+    bk = sum((r["p_market"] - r["y"]) ** 2 for r in sub) / n
+    return {"n": n, "brier_model": round(bm, 4), "brier_market": round(bk, 4),
+            "skill": round(1.0 - bm / bk, 4) if bk > 0 else ""}
+
+
+def brier_summary(rows):
+    out = {m: _brier_pair([r for r in rows if r["market"] == m])
+           for m in ("side", "total", "moneyline")}
+    out["all"] = _brier_pair(rows)
+    return out
 def grade_and_score(fmd, results_by_pair, snapshots):
     """Grade every originated market and split the evidence into two scores.
 
@@ -667,6 +873,11 @@ def grade_and_score(fmd, results_by_pair, snapshots):
         dd = min(dd, bank - peak)
     roi = (100.0 * pnl / n) if n else 0.0
 
+    # ---- BRIER (probability quality): model vs de-vigged market -----------
+    # Every market type now carries a probability output (T76, E5), so a proper
+    # score exists for side and total as well as the moneyline.
+    br = brier_summary(brier_rows(fmd, results_by_pair, snapshots))
+
     # ---- GATES ------------------------------------------------------------
     # Each gate is evaluated with the numbers we have, and reports the number it
     # used, so a reader can see which gate is the binding one.
@@ -685,8 +896,21 @@ def grade_and_score(fmd, results_by_pair, snapshots):
             value = "%d weeks graded" % len(weeks)
             status = "pass" if len(weeks) >= 2 else "fail"
         elif gid == "G4":
-            value = "not computed: needs a per-market probability with n>=30"
-            status = "fail"
+            parts, ok, any_n = [], True, 0
+            for mtype in ("side", "total", "moneyline"):
+                b = br[mtype]
+                if b["n"] == 0:
+                    parts.append("%s n=0" % mtype)
+                    ok = False
+                    continue
+                any_n += b["n"]
+                better = (b["skill"] != "" and b["skill"] > 0 and b["n"] >= 30)
+                ok = ok and better
+                parts.append("%s n=%d model %.4f vs market %.4f (skill %+.4f)"
+                             % (mtype, b["n"], b["brier_model"], b["brier_market"],
+                                b["skill"] if b["skill"] != "" else 0.0))
+            value = "; ".join(parts) + " | pooled n=%d" % any_n
+            status = "pass" if (ok and any_n >= 30) else "fail"
         elif gid == "G5":
             value = "p = %.4f (z = %.2f)" % (p, z)
             status = "pass" if (n >= 30 and p < thr) else "fail"
@@ -719,6 +943,7 @@ def grade_and_score(fmd, results_by_pair, snapshots):
         "hit_rate_pct": round(100.0 * wins / max(1, wins + losses), 2),
         "gates_passed": passes, "gates_total": len(gate_rows),
         "eligible": passes == len(gate_rows),
+        "brier": br,
     }
     staking = {
         "n": n, "pnl_units": round(pnl, 3), "roi_pct": round(roi, 3),
@@ -753,11 +978,15 @@ def demotion_gate(signal):
 def main():
     markets, fair, snapshots, events, results = originate()
     results_by_pair = results_index(results)
-    fmd = fair_market_difference(markets, snapshots, results_by_pair)
+    fair_by_event = {r["event_id"]: r for r in fair}
+    fmd = fair_market_difference(markets, snapshots, results_by_pair, fair_by_event)
     write_csv(os.path.join(OPS, "fair_market_difference.csv"),
               ["event_id", "week", "away", "home", "market", "book", "fair",
                "market_open", "market_close", "diff_vs_open", "diff_vs_close",
-               "close_kind", "snapshot_utc", "source_url", "settled", "result",
+               "close_kind", "snapshot_utc", "source_url",
+               "prob_dist", "prob_mu", "prob_sigma", "prob_event",
+               "prob_event_open_pct", "prob_event_close_pct",
+               "settled", "result", "result_margin", "result_total",
                "official_result_url"], fmd)
 
     settled, signal, staking, gate_rows, ci = grade_and_score(fmd, results_by_pair, snapshots)
@@ -768,6 +997,10 @@ def main():
     write_csv(os.path.join(OPS, "scores_signal.csv"),
               ["n", "mean_diff", "se", "z", "p", "ci95_low", "ci95_high", "wins", "losses",
                "pushes", "hit_rate_pct", "gates_passed", "gates_total", "eligible"], [signal])
+    write_csv(os.path.join(OPS, "scores_brier.csv"),
+              ["market", "n", "brier_model", "brier_market", "skill"],
+              [dict(market=mm, **signal["brier"][mm])
+               for mm in ("side", "total", "moneyline", "all")])
     write_csv(os.path.join(OPS, "scores_staking.csv"),
               ["n", "pnl_units", "roi_pct", "max_drawdown_units", "best_week", "note"], [staking])
     rules = demotion_gate(signal)
