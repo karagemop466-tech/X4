@@ -877,19 +877,28 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/schedules/2026/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"),
 
-    dict(id="F-64", item="The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent",
-         type="Unverified data", kind="bad", status="open",
-         detail=("data/depth-wk11-2026.csv holds 1,558 rows across 705 club/unit/position columns, of which 76 name a single player and "
+    dict(id="F-64", item="The depth dataset could not represent a shared rank-1 cell or a printed empty cell (fixed for the model and for the two clubs the brief names; 29 clubs still carry the 2026-11-14 capture), stores no special-teams row, and 4 of 103 sampled live players are absent",
+         type="Limitation", kind="warn", status="limitation",
+         detail=("Found: data/depth-wk11-2026.csv held 1,558 rows across 705 club/unit/position columns, of which 76 name a single player and "
                  "0 cells hold more than one player. Every club chart read this session publishes at least one shared or empty cell "
-                 "(Seattle WR cell 1 lists Cooper Kupp and Rashid Shaheed together; Washington WR cell 2 is empty), and the dataset stores "
+                 "(Seattle WR cell 1 lists Cooper Kupp and Rashid Shaheed together; Washington WR cell 2 is empty), and the dataset stored "
                  "the Seattle pair at depth 1 and 2. No special-teams row (P, K, H, LS, PR, KR) exists in the dataset, although every live "
                  "chart read publishes a special-teams section. A four-club live sample of offence charts (SEA, CLE, BAL, WAS; 103 players) "
-                 "found 4 players absent from the dataset and the one shared rank-1 cell not represented."),
+                 "found 4 players absent from the dataset and the one shared rank-1 cell not represented. "
+                 "Fixed (T71, 2026-11-19): the transcription model now stores a CELL - one name, several names in one printed cell, or a "
+                 "printed but empty cell - and the file carries a slot_kind and a slot_size column. Seattle's first WR cell is stored as "
+                 "the shared cell it is (Kupp 1, Shaheed 1, Charles 2) and Washington's third WR row carries an explicitly empty second "
+                 "cell. The deficiency roll-up and the per-team view now run on cells, so a club that published co-starters is never "
+                 "reported as having lost its starter to one injury. "
+                 "Still open: 29 of the 31 transcribed clubs still carry the 2026-11-14 capture, and their shared and empty cells are not "
+                 "represented until each club is re-read live; special teams are transcribed for no club (0 rows); the sampled-player gap "
+                 "is unchanged. The depth-audit page publishes each of those three numbers and evaluates the four fidelity tests against "
+                 "the committed file instead of describing them."),
          why=("The brief's deficiency signal is 'a backup replaced a starter'. With co-starters stored as starter-plus-backup, the dataset "
               "would report a deficiency at a position where both men start, and a missing player cannot be reported absent at all. The "
               "depth-audit page quantifies this per club rather than disclaiming it in prose."),
          official_url="https://www.seahawks.com/team/depth-chart",
-         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"),
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-cells-2026-11-19.md"),
 
     dict(id="F-86", item="The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main)",
          type="Irregularity", kind="bad", status="open",
@@ -1105,6 +1114,26 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
               "exactly the result-chasing the pre-registration exists to prevent."),
          official_url="https://www.nfl.com/schedules/2026/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"),
+
+    dict(id="F-91", item="The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent", type="Irregularity", kind="warn", status="irregularity",
+         detail=("Measured cell by cell (T71, 2026-11-19). The official page https://www.commanders.com/team/depth-chart was read on "
+                 "2026-11-19 and compared with the rows the 2026-11-14 capture had committed: WR 1 Terry McLaurin -> Treylon Burks, WR 2 "
+                 "Treylon Burks -> Van Jefferson, C 1 Nick Allegretti -> Lucas Patrick, LG 2 Tanoa Togiai -> Nick Allegretti, WR2 2 Jaylin "
+                 "Lane -> Luke McCaffrey, WR3 1 Dyami Brown -> Antonio Williams, WR3 2 Antonio Williams -> printed empty, RB 1-3 Jacory "
+                 "Croskey-Merritt / Rachaad White / Austin Ekeler -> Rachaad White / Austin Ekeler / Robert Henry Jr., DL 1 Daron Payne -> "
+                 "Charles Omenihu, DL3 1-2 Javon Kinlaw / Charles Omenihu -> Deatrich Wise Jr. / Ricky Barber, CB2 1-2 Mike Sainristil / "
+                 "Fabian Moreau -> Trey Amos / Mike Sainristil, plus three printed cells that were not in the capture (CB 3 Isaac Yiadom, "
+                 "DL 2 Jer'Zhan Newton, CB2 3 Fabian Moreau) and two cells that are no longer printed (WR3 3, OLB2 3). "
+                 "17 cells differ: 15 names changed, 3 cells added, 2 cells removed. The Washington rows are now transcribed from the "
+                 "2026-11-19 page and stamped with that date; the Seattle rows carry the same stamp because that chart was re-read and "
+                 "confirmed unchanged. "
+                 "The residual risk applies to every club whose chart has not been re-read: a depth chart is true only until the next "
+                 "transaction, and the per-club retrieval stamp is the only thing that tells a reader which read a row came from."),
+         why=("The brief requires the availability graph to answer 'who was expected to start, who actually did'. A chart read is a "
+              "measurement with a date; a chart stored without one silently becomes a claim about the present. The dataset already "
+              "carries a per-club retrieval stamp for this reason, and this is the first club where the stamp was changed by a re-read."),
+         official_url="https://www.commanders.com/team/depth-chart",
+         url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-cells-2026-11-19.md"),
 ]
 
 # ------------------------------------------------------------------ verification log

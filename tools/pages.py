@@ -1186,8 +1186,19 @@ def _depth_club_sections():
         for r in by_team.get(team, []):
             status = (badge(r["game_status"], "warn") if r["game_status"]
                       else blank("available"))
+            kind = r.get("slot_kind", "single")
+            if kind == "shared":
+                cell = "cell %s &middot; %s named in one cell (co-starters)" % (
+                    r["depth"], r.get("slot_size", "2"))
+                player = esc(r["player"])
+            elif kind == "empty":
+                cell = "cell %s &middot; printed empty" % r["depth"]
+                player = '<span class="blank">no name printed in this cell</span>'
+            else:
+                cell = "cell %s" % r["depth"]
+                player = esc(r["player"])
             rows.append([esc(r["unit"]) if r["unit"] != last else "",
-                         esc(r["position_row"]), r["depth"], esc(r["player"]),
+                         esc(r["position_row"]), r["depth"], player, cell,
                          status, esc(r["injury"] or "&mdash;"),
                          src(r["source"], "Club chart")])
             last = r["unit"]
@@ -1199,6 +1210,7 @@ def _depth_club_sections():
             % (team.lower(), esc(team), len(by_team.get(team, [])), n_out,
                (" &middot; chart dated " + esc(club["chart_date"])) if club["chart_date"] else "",
                table([("Unit", 0), ("Pos", 0), ("Depth", 1), ("Player as listed", 0),
+                      ("Cell as published", 0),
                       ("Official game status", 0), ("Injury as published", 0),
                       ("Official source", 0)], rows)))
     return '<div class="depth-clubs">%s</div>' % "".join(blocks)
