@@ -298,12 +298,16 @@ def build_origination(d):
             moved = "%+.1f" % (float(r["market_close"]) - float(r["market_open"]))
         except (ValueError, TypeError):
             pass
+        pe, pc = r.get("prob_event_open_pct", ""), r.get("prob_event_close_pct", "")
+        prob = ("%s %s%% → %s%%" % (esc(r.get("prob_event", "")),
+                                    esc(pe) if pe else "—", esc(pc) if pc else "—"))
         rows.append([
             "<b>%s</b> at <b>%s</b>" % (esc(r["away"]), esc(r["home"])),
             esc(r["market"]),
             esc(fair_v),
             esc(r["market_open"] or "—") + " → " + esc(r["market_close"] or "—"),
             esc(diff or "—"),
+            prob,
             pill(r["close_kind"] or "none", "ok" if r["close_kind"] == "close" else "warn"),
             ext(r["source_url"], r["book"] or "odds") +
             (" · " + ext(r["official_result_url"], "official result") if r["official_result_url"] else ""),
@@ -345,6 +349,12 @@ def build_origination(d):
         ["Margin spread (sigma)", esc(fmt(m.get("sigma_margin"), 1)) + " pts",
          "used to turn the fair side into a fair moneyline",
          ext(NFL_SCHED, "official results")],
+        ["Probability outputs", "side · total · moneyline",
+         "every model output is stored as a probability plus its inputs (T76, E5): side = "
+         "Phi((mu + line) / sigma) for home_covers, total = Poisson(mu) over the line, "
+         "moneyline = Phi(mu / sigma) for home_wins; per-row inputs in the fair table, "
+         "Brier scores vs the de-vigged captured price in scores_brier.csv",
+         artifact("data/ops/scores_brier.csv")],
         ["Markets originated", esc(m.get("n_markets")), "one row per game per market type",
          ext(NFL_SCHED, "official fixtures")],
         ["Events seen / bound", "%s / %s" % (esc(m.get("n_events_seen")), esc(m.get("n_events_resolved"))),
@@ -371,10 +381,13 @@ def build_origination(d):
         + section("fmd", "FAIR · MARKET · DIFFERENCE", "Every originated market, three columns",
                   "A positive difference means our number makes the quoted side more likely "
                   "than the market does. The arrow shows how far the market itself moved "
-                  "between the first reading and the last one before kickoff.",
+                  "between the first reading and the last one before kickoff. Model P is the "
+                  "model's probability of the row's fixed event (home_covers / over_line / "
+                  "home_wins) at the open → close number, stored with its inputs (prob_dist, "
+                  "prob_mu, prob_sigma) in the same row (T76, E5).",
                   "%d MARKETS" % len(fmd), table(
                       ["Game", "Market", "Fair (ours)", "Market open → close", "Difference",
-                       "Close kind", "Source"], rows) if rows else
+                       "Model P (event) open → close", "Close kind", "Source"], rows) if rows else
                   '<div class="note">No market could be originated: no cached price body '
                   'exists for this build. The gap is listed below rather than filled.</div>')
         + section("coverage", "COVERAGE", "What we could and could not originate",
@@ -1304,6 +1317,13 @@ def build_verification(d):
          "pass" if all(r["r"] is None or (r["n"] > 2 and r["lo"] != "") for r in corr) else "fail",
          "a correlation without n is a rumour",
          artifact("research/data/correlation_n.csv")],
+        ["Every originated market stores a probability plus its inputs",
+         "%d / %d" % (sum(1 for r in fmd if r.get("prob_dist") and r.get("prob_mu") not in ("", None)
+                          and r.get("prob_event")), len(fmd)),
+         "pass" if fmd and all(r.get("prob_dist") and r.get("prob_mu") not in ("", None)
+                               and r.get("prob_event") for r in fmd) else "fail",
+         "the brief's rule: a model output is a probability plus its inputs, never a pick alone (T76, E5)",
+         artifact("data/ops/fair_market_difference.csv")],
         ["The event identity binding is unique per week",
          "%d bound, %d unresolved" % (len(d["identity"]), len(d["unresolved"])),
          "pass" if len({(r["week"], r["away"], r["home"]) for r in d["identity"]}) == len(d["identity"]) else "fail",
@@ -1370,8 +1390,8 @@ def build_verification(d):
                   "13 of 14 Week-10 games were missing from the log - while tools/verify.py "
                   "still passed, because it reconciles the log against that same stale snapshot. "
                   "The correction is applied (log now 150 games, verify.py 486 assertions PASS) "
-                  "and the consequences are published as post-hoc, not as results: flag F-91 "
-                  "records the self-consistent verification pair, flag F-92 records that S1's "
+                  "and the consequences are published as post-hoc, not as results: flag F-97 "
+                  "records the self-consistent verification pair, flag F-98 records that S1's "
                   "+9.49% post-hoc improvement has a borderline significance interval that flips "
                   "sign with the row ordering of the identical game set, and the leaderboard's "
                   "shadow-period gate G8 keeps every strategy ineligible until the pre-registered "
@@ -1391,7 +1411,7 @@ def build_verification(d):
                         artifact("tools/audit_score_staleness.py")],
                        ["Strategy leaderboard", "S1's post-hoc improvement reads +9.49% on the completed corpus",
                         "S1 published 6/8 and ineligible: G4 borderline (interval flips sign with row "
-                        "ordering) and G8 shadow period unopened (F-92)",
+                        "ordering) and G8 shadow period unopened (F-98)",
                         artifact("research/preregistration/wk11-forward-v1.md")]]))
     )
     return body

@@ -1,0 +1,330 @@
+{
+ "corpus": {
+  "file": "data/games-2026.csv",
+  "games": 150,
+  "official_schedule_url": "https://www.nfl.com/schedules/2026/",
+  "official_standings_url": "https://www.nfl.com/standings/",
+  "source": "Official NFL.com game pages, one URL per row; the corpus reproduces every official NFL.com standings total exactly (tools/verify.py).",
+  "standings_capture": "data/standings-wk10-2026.csv (nfl.com/standings)",
+  "weeks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ]
+ },
+ "generated": "2026-11-19",
+ "integrity": {
+  "checks": 431,
+  "failures": [],
+  "games_with_official_url": 150,
+  "international_games_scheduled_not_played": [
+   "Mexico City W11 MIN at SF (Mexico)"
+  ],
+  "neutral_games": [
+   [
+    "CIN",
+    "ATL"
+   ],
+   [
+    "HOU",
+    "JAX"
+   ],
+   [
+    "NE",
+    "DET"
+   ],
+   [
+    "PIT",
+    "NO"
+   ]
+  ],
+  "status": "all checks passed",
+  "sum_points_against": 6923,
+  "sum_points_for": 6923,
+  "total_losses": 149,
+  "total_ties": 1,
+  "total_wins": 149
+ },
+ "split": {
+  "burn_in": "weeks 1-2 (the walk-forward never evaluates them)",
+  "declared": "2026-11-19 (this tool), before any Week 11 result existed",
+  "final_holdout": "weeks 9-10 (already inside the published 118-game evaluation, therefore a reporting window and not an untouched holdout; the next untouched window is Week 11 onward)",
+  "limitations": [
+   "One season cannot give three seasons. The brief asks for train, validation and final holdout SEASONS; what is published here is the week-level analogue inside the single 2026 season.",
+   "Weeks 9-10 have already been seen by the published strategies, so they are a reporting window, not a holdout.",
+   "The pre-registered Week 11 window (research/preregistration/wk11-forward-v1.md) is the first untouched window."
+  ],
+  "train": "weeks 3-7",
+  "validation": "week 8"
+ },
+ "standings_scope": {
+  "clubs": 32,
+  "correlations": {
+   "net_points_vs_win_pct": {
+    "ci95": [
+     0.758406517,
+     0.937908667
+    ],
+    "n": 32,
+    "r": 0.875559257
+   },
+   "pts_per_game_vs_pts_allowed_per_game": {
+    "ci95": [
+     -0.580816189,
+     0.064144008
+    ],
+    "n": 32,
+    "r": -0.291066114
+   }
+  },
+  "file": "data/standings-2026-11-18.csv",
+  "official_url": "https://www.nfl.com/standings/",
+  "retrieved": "2026-11-18"
+ },
+ "windows": {
+  "final": {
+   "label": "Weeks 9-10 (most recent completed weeks)",
+   "note": "Already inside the 118-game published evaluation, so it is a reporting window and NOT an untouched holdout. The next untouched window is Week 11 onward (research/preregistration/wk11-forward-v1.md).",
+   "stats": {
+    "away_vs_home_scores": {
+     "ci95": [
+      -0.42545961,
+      0.304466989
+     ],
+     "n": 29,
+     "r": -0.069838087
+    },
+    "games_n": 29,
+    "games_n_non_neutral": 27,
+    "home_margin": {
+     "ci95": [
+      -11.015252358,
+      -0.540303197
+     ],
+     "home_win_pct": 0.296296296,
+     "mean": -5.777777778,
+     "n": 27,
+     "sd": 13.885059301,
+     "se": 2.672180908
+    },
+    "margin_vs_total": {
+     "ci95": [
+      -0.405290403,
+      0.354169812
+     ],
+     "n": 27,
+     "r": -0.029870806
+    },
+    "neutral_games": 2,
+    "scoring": {
+     "mean_total": 46.344827586,
+     "n": 29,
+     "sd_total": 13.732848685
+    }
+   },
+   "weeks": [
+    9,
+    10
+   ]
+  },
+  "frozen": {
+   "label": "Weeks 6-9 (frozen by the Week 11 pre-registration)",
+   "note": "The window the Week 11 forward pre-registration fixed before kickoff. Published unchanged so the registered model can be reproduced.",
+   "stats": {
+    "away_vs_home_scores": {
+     "ci95": [
+      -0.243484678,
+      0.277498066
+     ],
+     "n": 57,
+     "r": 0.018245114
+    },
+    "games_n": 57,
+    "games_n_non_neutral": 54,
+    "home_margin": {
+     "ci95": [
+      -3.593610983,
+      3.741759131
+     ],
+     "home_win_pct": 0.481481481,
+     "mean": 0.074074074,
+     "n": 54,
+     "sd": 13.750954481,
+     "se": 1.871267886
+    },
+    "margin_vs_total": {
+     "ci95": [
+      -0.543238518,
+      -0.059757468
+     ],
+     "n": 54,
+     "r": -0.322364557
+    },
+    "neutral_games": 3,
+    "scoring": {
+     "mean_total": 44.947368421,
+     "n": 57,
+     "sd_total": 13.831151502
+    }
+   },
+   "weeks": [
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  "full": {
+   "label": "Weeks 1-10 (whole verified corpus)",
+   "note": "All 150 official games. This is the number to quote for 'this season so far'.",
+   "stats": {
+    "away_vs_home_scores": {
+     "ci95": [
+      -0.112572327,
+      0.207219799
+     ],
+     "n": 150,
+     "r": 0.048568331
+    },
+    "games_n": 150,
+    "games_n_non_neutral": 146,
+    "home_margin": {
+     "ci95": [
+      -2.717206294,
+      1.648713143
+     ],
+     "home_win_pct": 0.479452055,
+     "mean": -0.534246575,
+     "n": 146,
+     "sd": 13.457552364,
+     "se": 1.113754958
+    },
+    "margin_vs_total": {
+     "ci95": [
+      -0.298805857,
+      0.019596484
+     ],
+     "n": 146,
+     "r": -0.14331106
+    },
+    "neutral_games": 4,
+    "scoring": {
+     "mean_total": 46.153333333,
+     "n": 150,
+     "sd_total": 14.182291949
+    }
+   },
+   "weeks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "train": {
+   "label": "Weeks 3-7 (fitting window)",
+   "note": "The window the walk-forward model is fitted on. Descriptive statistics here are what the model could legitimately have known.",
+   "stats": {
+    "away_vs_home_scores": {
+     "ci95": [
+      -0.116944444,
+      0.331483937
+     ],
+     "n": 75,
+     "r": 0.113021283
+    },
+    "games_n": 75,
+    "games_n_non_neutral": 73,
+    "home_margin": {
+     "ci95": [
+      -3.378978432,
+      1.981718158
+     ],
+     "home_win_pct": 0.479452055,
+     "mean": -0.698630137,
+     "n": 73,
+     "sd": 11.684135649,
+     "se": 1.36752464
+    },
+    "margin_vs_total": {
+     "ci95": [
+      -0.445923961,
+      -0.011070875
+     ],
+     "n": 73,
+     "r": -0.240529578
+    },
+    "neutral_games": 2,
+    "scoring": {
+     "mean_total": 46.506666667,
+     "n": 75,
+     "sd_total": 12.893926219
+    }
+   },
+   "weeks": [
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "validation": {
+   "label": "Week 8 (check window)",
+   "note": "One week. Checked, never chosen on.",
+   "stats": {
+    "away_vs_home_scores": {
+     "ci95": [
+      -0.387641077,
+      0.648614617
+     ],
+     "n": 14,
+     "r": 0.179959923
+    },
+    "games_n": 14,
+    "games_n_non_neutral": 14,
+    "home_margin": {
+     "ci95": [
+      1.486169516,
+      16.085259056
+     ],
+     "home_win_pct": 0.714285714,
+     "mean": 8.785714286,
+     "n": 14,
+     "sd": 13.934895718,
+     "se": 3.724257536
+    },
+    "margin_vs_total": {
+     "ci95": [
+      -0.754164194,
+      0.196781813
+     ],
+     "n": 14,
+     "r": -0.372721297
+    },
+    "neutral_games": 0,
+    "scoring": {
+     "mean_total": 46.642857143,
+     "n": 14,
+     "sd_total": 16.49991675
+    }
+   },
+   "weeks": [
+    8
+   ]
+  }
+ }
+}

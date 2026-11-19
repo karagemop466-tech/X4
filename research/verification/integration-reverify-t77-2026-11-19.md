@@ -1,6 +1,6 @@
-# T71 live spot re-verification against official NFL.com pages — 2026-11-19 (session `arena/c0a6d543-x4`)
+# T77 (claimed as T71) live spot re-verification against official NFL.com pages — 2026-11-19 (session `arena/c0a6d543-x4`)
 
-Dated record of the live checks run during the T71 final-integration pass. Every
+Dated record of the live checks run during the T77 final-integration pass (claimed as T71). Every
 check below was read from the official page in this session through the
 page-fetch tool (the bash sandbox cannot reach nfl.com); nothing was inferred or
 filled in. Values that could not be confirmed are left blank and flagged.
@@ -78,7 +78,7 @@ Reported" sections). Recorded as flag F-90; not resolved by inference.
   (32/32 clubs reproduce).
 - `tools/validate.py` — VALIDATION PASSED end to end (deterministic
   regeneration to a fixed point, mirrors in step, console publishable).
-- `tools/check_site.py` — 30 desk pages (escrow.html included since T71),
+- `tools/check_site.py` — 30 desk pages (escrow.html included since T77),
   1,173 table rows, nav consistent, all local links resolve.
 
 ## Limits of this record

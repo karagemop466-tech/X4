@@ -72,6 +72,31 @@
   "moneyline"
  ],
  "prior_games": 4.0,
+ "probability_outputs": {
+  "moneyline": {
+   "dist": "normal_margin",
+   "event": "home_wins",
+   "formula": "P(margin > 0) = Phi(mu / sigma)",
+   "inputs": "mu = fair_side_home, sigma = measured margin sd"
+  },
+  "note": "every model output is stored as a probability plus its inputs (T76, E5)",
+  "side": {
+   "dist": "normal_margin",
+   "event": "home_covers",
+   "formula": "P(margin > -line) = Phi((mu + line) / sigma)",
+   "inputs": "mu = fair_side_home, sigma = measured margin sd"
+  },
+  "stored_in": [
+   "data/ops/fair_lines.csv (p_over_fair_pct, prob_inputs)",
+   "data/ops/fair_market_difference.csv (prob_dist, prob_mu, prob_sigma, prob_event, prob_event_open_pct, prob_event_close_pct)"
+  ],
+  "total": {
+   "dist": "poisson_total",
+   "event": "over_line",
+   "formula": "P(total > line) under Poisson(mu)",
+   "inputs": "mu = fair_total"
+  }
+ },
  "ratings": {
   "ARI": {
    "def": 28.9,
