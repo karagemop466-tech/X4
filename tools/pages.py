@@ -1846,7 +1846,7 @@ def corpus_window_table():
         "check window and %+.2f on the most recent weeks, so the frozen %+.2f the "
         "pre-registered Week 11 model adds to every spread is a property of its "
         "window and not a measured league effect - every interval here contains "
-        "zero. The split was declared on %s, before any Week 11 result existed. "
+        "zero. The split was declared on %s. "
         "%s"
         % (cs.get("corpus", {}).get("file", "data/games-2026.csv"),
            cs.get("corpus", {}).get("games", 0),

@@ -3463,7 +3463,27 @@ All open flags are published on the Flagged-for-Review register and do not block
   sections, so the shared-cell and empty-cell representation covers every club rather than two.
 
 ### PR and merge record (T74/T75)
-- To be recorded after the pull request is opened and merged.
+- **PR #153** - `https://github.com/karagemop466-tech/X4/pull/153`, branch
+  `arena/9fc78d2e-x4` -> `main`, title "T74/T75: corpus statistics on the complete official corpus with a
+  declared split and n on every value; depth slots as groups".
+- **Merged** 2026-11-19T22:24:51Z, merge commit `1f53f333fa7fc67a29bc9a04676789ca9f3c0626`.
+- **Checks on the PR:** the `desk` workflow ran and passed. The branch was merged into `main` after
+  `origin/main` moved twice (PR #145 and PR #151 landed in between); each time the conflict was in
+  `COORDINATION.md` only and was resolved by KEEPING BOTH SIDES - main's task rows and this session's
+  rows both survive on the board. `git grep '^<<<<<<< '` is clean across all tracked files.
+- **Deployment after the merge:** `Desk validation` succeeded on `1f53f33`, `Publish NFL Decision Lab`
+  succeeded on `1f53f33`, and `pages build and deployment` succeeded on `1f53f33`. The Pages API
+  reports `status: built` for `https://karagemop466-tech.github.io/X4/`.
+- **Live checks:** `https://karagemop466-tech.github.io/X4/gates.html` publishes the corpus-statistics
+  table with 18 rows, each carrying its window, value, 95% interval and n, and the model-correlation
+  table with 36 rows, each carrying its n. `https://karagemop466-tech.github.io/X4/depth.html` publishes
+  the Seattle shared cell (Cooper Kupp and Rashid Shaheed both at depth 1, "2 named in one cell
+  (co-starters)") and the Washington printed empty cell ("no name printed in this cell", "cell 2 -
+  printed empty"). `https://karagemop466-tech.github.io/X4/flags.html` publishes F-64, F-94 and F-95 on
+  the Flagged for Review page.
+- One further commit (`ff9ad4a`, "Remove a duplicated clause in the corpus-statistics note on
+  gates.html") removes a repeated sentence in the rendered note; it is on the branch and will merge
+  with the next PR that touches this area.
 =======
 - **PR [#149](https://github.com/karagemop466-tech/X4/pull/149)** (`arena/6f3ee5ce-x4` → `main`) merged 2026-11-19T22:13:38Z as merge commit `5d8cdca9342a01c4a8373af018e9ef1ef1501033`. Desk validation passed.
 - **Deploy:** Publish NFL Decision Lab run [44626567322](https://github.com/karagemop466-tech/X4/actions/runs/44626567322) and GitHub Pages build/deployment run [44626566420](https://github.com/karagemop466-tech/X4/actions/runs/44626566420) succeeded. Pages API returned `status: built`, source `main /`, HTTPS enforced.
