@@ -1,4 +1,4 @@
-# Dated schedule announcement beside the live schedule (T71)
+# Dated schedule announcement beside the live schedule (T72)
 
 Checked: 2026-11-19 (UTC). Session `arena/cd475bd1-x4`. Brief item: *"Publish the league's dated schedule announcement beside the live schedule page."*
 
@@ -44,14 +44,14 @@ Secondary coverage (Sportsnet, Yahoo Sports, WNY Papers) was read only to find t
 ## Not verified / limits
 
 - Excerpts were compared by eye with the fetched text, not by a machine comparison against the live site (sandbox outbound limits). The links let a reviewer check each row in one click.
-- The release gives no year beside "Saturday, January 9" and "Sunday, January 10". 2027 is inferred from the calendar and from the release's "January 2, 2027". Flagged as **F-91**.
-- Week 18 matchups are not yet assigned by the league. The page says so, and no Week 18 game is listed. Flagged as **F-90**.
+- The release gives no year beside "Saturday, January 9" and "Sunday, January 10". 2027 is inferred from the calendar and from the release's "January 2, 2027". Flagged as **F-92**.
+- Week 18 matchups are not yet assigned by the league. The page says so, and no Week 18 game is listed. Flagged as **F-91**.
 - The repository holds **13 of 272** regular-season games (Week 11 only). The other 259 are on the live NFL.com schedule and are not transcribed here. This is the existing limitation **F-10**.
 
 ## Irregularities for review
 
-- **F-90** (Limitation): Week 18 matchups unassigned. Official source: https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced
-- **F-91** (Irregularity): the Week 18 dates carry no year in the release sentence. Official source: the same release.
+- **F-91** (Limitation): Week 18 matchups unassigned. Official source: https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced
+- **F-92** (Irregularity): the Week 18 dates carry no year in the release sentence. Official source: the same release.
 - **Host allowlist widened** to `media.nfl.com` in `site/check.py`. The release is on the NFL's media host, not `www.nfl.com`, and the checker had rejected it. Reviewer: confirm this is the right official host for a league release.
 
 ## Files
@@ -61,6 +61,6 @@ Secondary coverage (Sportsnet, Yahoo Sports, WNY Papers) was read only to find t
 - `tests/test_schedule_page.py` (new): offline tests
 - `site/schedule.html` and root `schedule.html` (generated)
 - `tools/pages.py` (two additive lines: directory entry and `write_pages` call)
-- `tools/content.py` (F-90 and F-91, additive)
+- `tools/content.py` (F-91 and F-92, additive)
 - `tools/render.js` (one PAGES entry), `site/check.py` (one PAGES entry; `media.nfl.com` in the official-host pattern)
 - `tools/validate.py` (one added test step)
