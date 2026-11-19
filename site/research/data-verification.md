@@ -127,7 +127,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 |
 | F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist |
 | F-64 | The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent |
-| F-83 | The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main) |
+| F-84 | The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main) |
 | F-65 | Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError |
 | F-74 | The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it |
 | F-75 | Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data |
