@@ -1030,14 +1030,6 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/injuries/league/2026/reg11",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/week11-injury-capture-2026-11-19.md"),
 
-    dict(id="F-84", item="The coordination board is inconsistent: eight task identifiers are used on more than one row, and T37 is recorded as both done and in progress", type="Irregularity", kind="warn", status="irregularity",
-         detail=("Identifiers used on two or three rows each: T21, T30, T31, T37 (three rows, one marked 'in progress' while the others say 'done'), T40, T46, T50, and the bare number 21. "
-                 "Several Requests-table rows still say 'in progress' for work whose pull request has since merged. Renumbering at each merge is recorded in the board's own notes, but the earlier rows were not reconciled."),
-         why=("This is a repository-process irregularity, not a claim about the NFL. Its only link is the board itself, which is not an official source. "
-              "A duplicate row can hide an open item behind a closed one, and a reader cannot tell which row a session meant. The rows belong to earlier sessions, so they were logged here and not rewritten. "
-              "The final integration session should give each task one identifier and one status, keeping the history as a note. No task status has been changed by this entry."),
-         official_url="https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md",
-         url="https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"),
 ]
 
 # ------------------------------------------------------------------ verification log

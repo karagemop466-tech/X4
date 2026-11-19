@@ -117,7 +117,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-52 | The depth file dates five club charts, not one: an earlier note said only the Packers' (I-5) |
 | F-53 | No full dated series of the official injury report exists yet: one full read and one partial read (I-6) |
 | F-54 | Two demotion rules have blank thresholds, so they cannot trigger (I-7) |
-| F-55 | The Week 11 injury report is not yet published, and the Week 11 link serves Week 10 content (I-8) |
+| F-55 | The Week 11 injury report was not published on 2026-11-17 and the Week 11 link then served Week 10 content (I-8); on 2026-11-19 the Week 11 report is live on NFL.com and this repository still holds only the Week 10 report |
 | F-56 | Capture-workflow code-path risks: a partial successful capture is lost and freshness is global, not per source (T40 audit) |
 | F-57 | Under the stricter official-domain criterion, 464 of 1,259 desk rows still have no official-domain link, and no row yet carries source-to-value attribution (T-INT audit, arena/0c86fc5d-x4) |
 | F-58 | The published tree was one week stale on 2026-11-18: 13 Week 10 finals were missing and every standings-derived number was a week old (T46) |
@@ -140,6 +140,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-80 | The Steelers-at-Bengals Game Book prints a referee who cannot have worked that game |
 | F-81 | 37 of 171 Week 10 designations are unresolved because the player does not appear in his own Game Book at all |
 | F-82 | 56 rows on the Game Book operations and glossary pages are exempt from the every-row-has-a-source rule |
+| F-83 | The scheduled official injury capture has failed its freshness gate on main since the Week 11 report went live: the Week 11 page does not pass the schema pinned to Week 10 |
+| F-84 | The coordination board is inconsistent: eight task identifiers are used on more than one row, and T37 is recorded as both done and in progress |
 
 ## What is deliberately absent
 

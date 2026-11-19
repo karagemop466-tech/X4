@@ -14334,17 +14334,6 @@ window.X4 = {
    "why": "The gate behaved correctly: it refused to call a partial read a valid capture, and the last valid Week 10 read is kept on record. Nothing published on the site was changed by the failure. The cause is not yet confirmed. Raw page bytes are kept in a private store that is not configured in CI, and this sandbox cannot reach nfl.com, so the page structure cannot be inspected here. The likely explanation is that the Week 11 page renders its later game days differently from the Week 10 page. That is a hypothesis, not a finding. Options for review, none applied: (1) record the count of game sections in each raw read in the manifest, so the drift can be seen without retaining raw bytes; (2) rewrite the schema for the current NFL.com layout, verified against a live raw read; (3) keep the schema and accept that the report is stale until it is fixed. The schema must not be loosened to pass.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/week11-injury-capture-2026-11-19.md"
-  },
-  {
-   "id": "F-84",
-   "item": "The coordination board is inconsistent: eight task identifiers are used on more than one row, and T37 is recorded as both done and in progress",
-   "type": "Irregularity",
-   "kind": "warn",
-   "status": "irregularity",
-   "detail": "Identifiers used on two or three rows each: T21, T30, T31, T37 (three rows, one marked 'in progress' while the others say 'done'), T40, T46, T50, and the bare number 21. Several Requests-table rows still say 'in progress' for work whose pull request has since merged. Renumbering at each merge is recorded in the board's own notes, but the earlier rows were not reconciled.",
-   "why": "This is a repository-process irregularity, not a claim about the NFL. Its only link is the board itself, which is not an official source. A duplicate row can hide an open item behind a closed one, and a reader cannot tell which row a session meant. The rows belong to earlier sessions, so they were logged here and not rewritten. The final integration session should give each task one identifier and one status, keeping the history as a note. No task status has been changed by this entry.",
-   "official_url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
   }
  ],
  "replacement_depth": [
