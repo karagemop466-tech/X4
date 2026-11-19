@@ -145,9 +145,13 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-85 | The publication gate passes while the injury capture is past its freshness limit: the Week 10 injury read is 27.2 hours old against a 13-hour limit, and the gate does not fail on it |
 | F-88 | No alert channel existed for stale, missing or schema-failed official captures: a failed run only notified the workflow's creator (if notifications were enabled), and a run that never fired left no record |
 | F-89 | The scheduled official capture did not run on its six-hour cadence: the injury reads on record are 3.9, 13.0 and 10.9 hours apart, and no read has been recorded since 2026-11-19T07:33Z |
+<<<<<<< HEAD
 | F-90 | The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie |
-| F-91 | Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17 |
-| F-92 | The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027' |
+=======
+| F-90 | The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead |
+| F-91 | A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than |
+| F-92 | The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11 |
+>>>>>>> a38afdf (T70: walk-forward origination, probability outputs, proper scores; T70 flags F-90/F-91/F-92)
 
 ## What is deliberately absent
 

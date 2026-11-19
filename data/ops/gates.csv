@@ -2,8 +2,8 @@ gate,name,rule,observed,status
 G1,Data integrity,">=1 reading per market, all with a source URL and a UTC stamp",24 settled markets,pass
 G2,Sample sufficiency,n >= 100 settled bets per market type,n = 24,fail
 G3,Out-of-sample,graded on events never used to fit the model,2 weeks graded,pass
-G4,Probability quality,Brier score better than the market's Brier score,not computed: needs a per-market probability with n>=30,fail
-G5,Significance,one-sided p < 0.05 on the skill score,p = 0.1028 (z = -1.63),fail
+G4,Probability quality,Brier score better than the market's Brier score,"side: model Brier 0.2095 vs market 0.2429, skill 0.1378, 95% game-cluster interval [-0.0956, 0.3602], n = 8; moneyline: model Brier 0.2079 vs market 0.1973, skill -0.0540, 95% game-cluster interval [-0.5178, 0.2058], n = 8",fail
+G5,Significance,one-sided p < 0.05 on the skill score,p = 0.2311 (z = -1.20),fail
 G6,Multiplicity,Bonferroni-adjusted p < 0.05 across all trials,not computed: needs the full trial log,fail
-G7,Stability,no single week contributes more than 50% of the skill,largest week = 58% of total,fail
+G7,Stability,no single week contributes more than 50% of the skill,largest week = 59% of total,fail
 G8,Shadow period,a further pre-registered segment with no gate regression,needs a pre-registered future segment,fail

@@ -14381,6 +14381,7 @@ window.X4 = {
   },
   {
    "id": "F-90",
+<<<<<<< HEAD
    "item": "The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie",
    "type": "Irregularity",
    "kind": "warn",
@@ -14389,28 +14390,38 @@ window.X4 = {
    "why": "A 'right now' panel that describes last week's report as current is the same failure the brief names most often: a stale state presented as present. A tie shown as a single leader invents an order the league has not given. Both were on the landing page, which is the first page most readers see.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/landing-live-state-2026-11-19.md"
+=======
+   "item": "The graded origination corpus was priced with end-of-week-10 ratings and a home edge fitted on weeks that include the games being graded, so the published signal statistic looked ahead",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "resolved",
+   "detail": "tools/origination.py priced every event with the same ratings: data/standings-wk10-2026.csv, the standings after Week 10. A Week 9 line therefore carried the results of the Week 9 game it was supposed to predict, and the home edge was fitted on weeks 6-9, which includes the Week 9 games being graded. The published signal statistic (mean fair-market difference, its p-value) was measured on that contaminated corpus, and the pre-registration's own gate G3 'out-of-sample' was evaluated by counting graded weeks rather than by checking for look-ahead, so the gate passed on contaminated rows. CORRECTED 2026-11-19 (T70): every line is now originated walk-forward. A game in week W uses ratings through week W-1 and a home edge fitted on weeks [W-5, W-2], both read from the official game log; the week-10 ratings computed from that log are asserted equal to the official standings file, so the walk-forward inputs are the same numbers the official page publishes. The pre-registered Week 11 window is unchanged - the edge window [11-5, 11-2] is weeks 6-9, the registered weeks - and tools/test_origination.py holds the two registered Week 11 lines and their moneyline probabilities as fixed values. The graded corpus changes: the mean fair-market difference moves from -3.566 points (p = 0.0918) to -1.654 points (p = 0.2311) on the same 24 settled markets, and the paper staking result moves from +2.082 units (+17.351% ROI) to +6.751 units (+28.128% ROI) with a maximum drawdown of -4.359 units. The paper return is not a skill claim and neither is the difference: the strategy remains ineligible at 2 of 8 gates.",
+   "why": "A backtest that can see the game it is predicting cannot measure skill. The brief asks for lines that are originated without look-ahead and a leaderboard that refuses to reward luck, and a look-ahead in the grading corpus silently converts noise into apparent edge. The fix had to leave the registered forward window untouched, so the correction is applied to the backtest corpus and proven not to touch Week 11.",
+   "official_url": "https://www.nfl.com/schedules/2026/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/model-probabilities-2026-11-19.md"
   },
   {
    "id": "F-91",
-   "item": "Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17",
+   "item": "A posted total carries no probability, so the total market has a model Brier score and no market benchmark to be better than",
    "type": "Limitation",
    "kind": "warn",
-   "status": "open",
-   "detail": "The official 2026 schedule announcement (NFL media release, 14 May 2026) says: \"Specific dates, start times and networks for Week 18 matchups will be determined and announced following the conclusion of Week 17.\" The schedule page therefore publishes Week 18 as not yet assigned (data/schedule-announcement-2026.csv, row S13). No later official Week 18 page is in the repository, so no Week 18 fixture is listed.",
-   "why": "Any fixture-context or venue feature for Week 18 has no official input yet. Week 18 must be re-checked against NFL.com after Week 17 is complete.",
-   "official_url": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"
+   "status": "limitation",
+   "detail": "The price store records a total as a line (for example 45.5) with an over and an under price at -110, and a moneyline as two prices. The probability store therefore has a market benchmark for the moneyline (the de-vigged captured price) and a derived one for the side (that same price converted into a cover probability at the posted spread, labelled as derived), but none for a total: a total line states the market's forecast of the total, not a probability of the over, and the -110 prices are the standard vig. The total's own Brier score is published on n = 8 settled markets (0.1734) with no skill score beside it, rather than a benchmark invented from a line.",
+   "why": "A benchmark-relative skill score needs a market forecast of the same event. Producing one for a total from the line alone would make the comparison circular - the market's forecast of a total is its line by construction - so the honest answer is that the total has no market benchmark until over/under prices are captured separately.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/ops/probability_scores.csv"
   },
   {
    "id": "F-92",
-   "item": "The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027'",
-   "type": "Irregularity",
+   "item": "The registered home-edge estimator counts the neutral-site games inside its window, and the pre-registration fixes it for Week 11",
+   "type": "Limitation",
    "kind": "warn",
    "status": "open",
-   "detail": "The announcement says 'The regular season will conclude with Week 18 on Saturday, January 9, and Sunday, January 10.' That sentence gives no year. The schedule page dates those games 2027-01-09 (Saturday) and 2027-01-10 (Sunday). The year is not printed beside the date. It follows from the 2026 season and from the release's own date 'Saturday, January 2, 2027'; tools/schedule_page.py checks each weekday against the calendar.",
-   "why": "A date-keyed join (for example a schedule feed or a kickoff timestamp) must not assume the year without a published source. Reviewer: confirm the year against the NFL.com Week 18 page once it exists.",
-   "official_url": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"
+   "detail": "The home edge is the mean home margin over the edge window, and a neutral-site game (the 2026 International Games: HOU at JAX in week 6, PIT at NO in week 7, CIN at ATL in week 9, NE at DET in week 10) has no home field to measure. The estimator therefore mixes them in: the Week 11 window (weeks 6-9) holds 57 games of which 3 are neutral. The edge applied to a Week 11 fixture is also set to zero on a neutral fixture, which is the rule data/international-2026.csv exists to enforce. The pre-registration fixes the estimator for the Week 11 window, so it is not changed mid-window; the walk-forward windows for the graded weeks have the same property.",
+   "why": "A constant that mixes neutral-site games into a home-field measurement is a smaller error than a look-ahead but it is still a constant that is not quite what its name says. The honest fix is a versioned model (v2) that excludes neutral-site games from the edge window, registered before a window opens, with the difference against v1 published so the change can be judged rather than absorbed.",
+   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/international-2026.csv"
+>>>>>>> a38afdf (T70: walk-forward origination, probability outputs, proper scores; T70 flags F-90/F-91/F-92)
   }
  ],
  "replacement_depth": [

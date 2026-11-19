@@ -47,8 +47,31 @@ cached bodies by `tools/origination.py`, `tools/depth.py` and `tools/ops.py`.
 
 The honest result: **the machinery works and the evidence does not exist yet.** Ten ESPN
 events are bound to official fixtures across weeks 9-11, producing 30 originated markets
+<<<<<<< HEAD
 (side -> total -> moneyline, in that fixed order), 12 of which are settled and graded.
 The current committed run has **24 settled markets**. The signal score is a mean fair-minus-market difference of **-2.415 points** (p = **0.1028**); only **2 of 8** origination gates pass, so it is **not eligible**. Staking on the same record shows **+15.414 units** and **+64.224% ROI** in this small sample. That divergence is the point of the separate signal and staking panels: realized return is not evidence of a profitable signal, and it cannot qualify a strategy. These are repository-derived paper results, not a recommendation or a live betting record; see `signal-vs-staking.html` and `requirements-closure.html`.
+=======
+(side -> total -> moneyline, in that fixed order), 24 of which are settled and graded.
+Signal score: mean difference **-1.654 points**, p = **0.2311**, **2 of 8** gates passed,
+**not eligible**. Staking score on the same markets: **+6.751 units**, **+28.128% ROI**,
+max drawdown -4.359 units. A positive paper P&L sitting on a negative edge is exactly the
+divergence the two-score split exists to expose, and in `signal-vs-staking.html` it is the
+headline rather than a footnote.
+>>>>>>> a38afdf (T70: walk-forward origination, probability outputs, proper scores; T70 flags F-90/F-91/F-92)
+
+Every line is **walk-forward** (T70): a game in week W is priced from ratings through
+week W-1 and a home edge fitted on weeks [W-5, W-2], both read from the official game log,
+so nothing dated at or after kickoff can enter a line. The pre-registered Week 11 window
+is unchanged by that correction - its edge window [11-5, 11-2] is the registered weeks 6-9
+- and `tools/test_origination.py` holds both registered lines as fixed values. The graded
+corpus did change: before the correction it was priced with end-of-week-10 ratings, so it
+contained look-ahead (flag F-90).
+
+Every model output is a **probability plus its inputs** (T70, board request E5).
+`data/ops/model_outputs.csv` holds, for each of the 30 originated markets, the probability,
+the event it refers to, the reference line it was computed against, mu, sigma with its own
+n and window, the model inputs and their official source. The dispersions are measured
+from walk-forward out-of-sample residuals on the official game log, not assumed.
 
 | Artifact | What it holds |
 |---|---|
@@ -58,6 +81,9 @@ The current committed run has **24 settled markets**. The signal score is a mean
 | `data/ops/transactions.csv` | 67 official transaction rows, every one linked to its nfl.com page |
 | `data/ops/depth.csv` | 17 replacement losses joined to their official additions; 6 read THIN, 2 UNRESOLVED - the *urgency* proxy, deliberately weaker than the transcribed charts above and labelled as such |
 | `data/ops/gates.csv` / `demotion_rules.csv` | 8 gates and 6 demotion triggers, each evaluated rather than asserted |
+| `data/ops/model_outputs.csv` | 30 rows: every originated market with its probability, its inputs, its reference line and the market benchmark (or the reason there is none) |
+| `data/ops/probability_scores.csv` | the proper scores: model Brier against the market Brier per market type, with n, a game-cluster interval and a Bonferroni factor |
+| `data/ops/dispersion_comparison.csv` | the two candidate dispersions side by side with the walk-forward evidence that compares them |
 
 `verification.html` recomputes ten structural claims from the artifacts and prints the
 measurement, so the page can contradict itself; `requirements-closure.html` gives all

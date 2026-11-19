@@ -1,4 +1,56 @@
 {
+ "dispersion": {
+  "league_n": 150,
+  "method": "residual standard deviation of the walk-forward prediction (ratings through W-1, home edge over weeks [W-5, W-2]) against the official final score",
+  "n": 102,
+  "sigma_margin_league": 13.516,
+  "sigma_margin_model": 12.31,
+  "sigma_total_league": 14.182,
+  "sigma_total_model": 13.402,
+  "window": "weeks 4-10 of the official game log"
+ },
+ "dispersion_comparison": [
+  {
+   "brier": "0.2167",
+   "candidate": "model residual dispersion",
+   "coverage_95": "0.9608",
+   "n": 102,
+   "quantity": "margin",
+   "sigma": "12.310",
+   "verdict": "closest to 95% coverage on the walk-forward corpus",
+   "window": "weeks 4-10 of the official game log"
+  },
+  {
+   "brier": "0.2175",
+   "candidate": "league margin dispersion",
+   "coverage_95": "0.9608",
+   "n": 102,
+   "quantity": "margin",
+   "sigma": "13.516",
+   "verdict": "",
+   "window": "weeks 4-10 of the official game log"
+  },
+  {
+   "brier": "",
+   "candidate": "model residual dispersion",
+   "coverage_95": "0.9510",
+   "n": 102,
+   "quantity": "total",
+   "sigma": "13.402",
+   "verdict": "closest to 95% coverage on the walk-forward corpus",
+   "window": "weeks 4-10 of the official game log"
+  },
+  {
+   "brier": "",
+   "candidate": "league total dispersion",
+   "coverage_95": "0.9608",
+   "n": 102,
+   "quantity": "total",
+   "sigma": "14.182",
+   "verdict": "",
+   "window": "weeks 4-10 of the official game log"
+  }
+ ],
  "gates": [
   {
    "id": "G1",
@@ -59,7 +111,7 @@
   "mean": -0.386,
   "n": 57,
   "sd": 13.593,
-  "window": "weeks 6-9 2026"
+  "window": "weeks 6-9 2026 (the forward window's own edge window [W-5, W-2])"
  },
  "n_events_resolved": 10,
  "n_events_seen": 42,
@@ -72,6 +124,13 @@
   "moneyline"
  ],
  "prior_games": 4.0,
+ "probability_rule": {
+  "market_benchmark": "moneyline: the de-vigged captured price; side: derived from that price and the posted spread, labelled as derived; total: none, because a posted total carries no probability",
+  "moneyline": "P(the home team wins) = Phi(fair margin / sigma_margin), the registered sigma, so the pre-registered Week 11 number is unchanged",
+  "side": "P(the home team covers the captured opening spread) = Phi((fair margin + posted home handicap) / sigma_margin_model)",
+  "store": "data/ops/model_outputs.csv",
+  "total": "P(the game total goes over the captured opening total) = Phi((fair total - posted total) / sigma_total_model)"
+ },
  "ratings": {
   "ARI": {
    "def": 28.9,
@@ -363,5 +422,12 @@
   }
  },
  "sigma_margin": 13.59,
- "use_home_edge": true
+ "use_home_edge": true,
+ "walk_forward": {
+  "edge_source": "data/games-2026.csv (official home margins)",
+  "n_predictions": 102,
+  "ratings_source": "data/games-2026.csv (official game log, proved against NFL.com) cross-checked against data/standings-wk10-2026.csv at week 10",
+  "rule": "a line for a game in week W uses ratings through week W-1 and a home edge fitted on weeks [W-5, W-2]; nothing dated at or after kickoff enters a line",
+  "window": "weeks 4-10 of the official game log"
+ }
 }
