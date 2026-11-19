@@ -58,7 +58,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 
 | ID | Irregularity |
 |---|---|
-| F-69 | The Game Center injury widget says a club is injury-free while the official report lists that club's injuries |
+| F-69 | Week 11 Game Center practice-status labels differ from the league injury report |
 | F-70 | Two Week 11 venue cells carry the venue's short name, and the dataset is a faithful transcription of the page that prints it |
 | F-68 | The multiplicity correction divided by 8 while performing 9 tests |
 | F-66 | Stale numbers survive in generated prose because prose is not on the gate |

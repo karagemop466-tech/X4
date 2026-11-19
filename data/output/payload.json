@@ -13423,14 +13423,14 @@
  "flags": [
   {
    "id": "F-69",
-   "item": "The Game Center injury widget says a club is injury-free while the official report lists that club's injuries",
+   "item": "Week 11 Game Center practice-status labels differ from the league injury report",
    "type": "Irregularity",
    "kind": "bad",
    "status": "open",
-   "detail": "On 2026-11-18 the official Game Center for Cardinals at Chiefs (Week 11) rendered the panel \"Cardinals have no active injuries at this time\" and \"Chiefs have no active injuries at this time\". The official Week 10 report at nfl.com/injuries/league/2026/reg10 lists ARI with 15 rows and 3 Out designations, and KC with 13 rows and 3 Out designations, three days earlier. The panel is therefore not a substitute for the report, and the two official league surfaces disagree for the same clubs. Note the likely explanation, published as a hypothesis and not as a finding: the widget appears to read the week that has not been played yet (Week 11 has no published report, F-61) rather than the week just completed, so it renders an empty set as 'no active injuries'.",
-   "why": "This is the failure mode the brief names most often - an absence of data presented as a clean bill of health. Any model or page that read this panel would understate a club's missing players for exactly the clubs that are most injured, and it would do so silently, with an official URL beside it. The site's policy already forbids treating 'not listed' as 'available' (see the reserve-list flag), and this is the same rule applied to a second official surface.",
-   "official_url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
-   "url": "https://www.nfl.com/injuries/league/2026/reg10"
+   "detail": "Historical observation, 2026-11-18: the Cardinals\u2013Chiefs Game Center displayed 'no active injuries' for both clubs. Re-read both official pages on 2026-11-19 at 07:10\u201307:12 UTC: the Game Center now shows player practice-status widgets, so the old injury-free wording and its Week-10 comparison are stale. In the first four visible player cards per club, the report and Game Center agree on Budda Baker (Did Not Participate), Zachary Carter (Full), Jeffrey Bassa (Full), Jadon Canady (Full) and Mansoor Delane (Full). The literal labels differ for Hjalte Froholdt and Jon Gaines II (Game Center: 'Did participate'; report: 'Limited Participation in Practice') and Nick Bolton (Game Center: 'Did participate'; report: 'Limited Participation in Practice'). These are a partial widget sample, not a complete comparison. The Week 11 report leaves Game Status blank for these rows. The source read establishes displayed text only; it does not establish injury, availability, or equivalence between the labels.",
+   "why": "The Game Center is not a substitute for the league report, and its abbreviated or differently worded practice labels must not be converted into injury or availability conclusions. Preserve the literal source wording and use the league report's explicit Game Status only when present; blank stays blank. No injury/model rows are inferred from this comparison.",
+   "official_url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11?tab=overview",
+   "url": "https://www.nfl.com/injuries/league/2026/reg11"
   },
   {
    "id": "F-70",
