@@ -3290,9 +3290,9 @@ No value was inferred or filled in; blanks and unverified items remain flagged o
 All open flags are published on the Flagged-for-Review register and do not block publication or the merge.
 
 ### PR and merge record (this session)
-- **PR link:** to be filled in when the PR is opened (`arena/bd915599-x4` → `main`).
-- **Merge result:** to be confirmed after merge.
-- **Pages deploy after merge:** to be confirmed.
+- **PR link:** https://github.com/karagemop466-tech/X4/pull/144 (`arena/bd915599-x4` → `main`), merged 2026-11-19 as merge commit `53b0252f6202a3025bde107deb88ebe14afce90c`. The PR's `Desk validation` check passed (run 44625864109) and its mergeability was `CLEAN` at merge; the main-push `Desk validation` run 44625904441 also passed.
+- **Merge result:** MERGED — PR #144 merged to `main` without waiting for review; the merge commit `53b0252f` is on `main`.
+- **Pages deploy after merge:** success — GitHub Pages build/deployment run 44625903777 completed successfully; Pages status `built`, live at https://karagemop466-tech.github.io/X4/ (served from `main` path `/`, HTTPS enforced).
 
 
 ## Session log — arena/6f3ee5ce-x4 (T70: README and executive-summary evidence reconciliation, 2026-11-19)
