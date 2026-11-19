@@ -412,24 +412,70 @@ def kpi_cards():
     ])
 
 
+def _record(r):
+    return "%d&ndash;%d%s" % (int(r["w"]), int(r["l"]),
+                              "&ndash;%d" % int(r["t"]) if int(r["t"]) else "")
+
+
+def _pct(r):
+    games = int(r["w"]) + int(r["l"]) + int(r["t"])
+    return int(r["w"]) / max(1, games)
+
+
 def leader_line():
-    """The division leaders, read from the official standings table (no typed scores)."""
+    """The division leaders, read from the official standings table (no typed scores).
+
+    A club is named as the leader only when it is the sole club with the best winning
+    percentage. When two or more clubs share it, the line says they are tied. The
+    earlier version picked one of them with a net-points tie-break that the official
+    table does not apply, so 7-2 ties (AFC West: Kansas City and Denver; NFC North:
+    Detroit, Chicago and Minnesota) were shown as a single leader.
+    """
     by_div = {}
     for r in standings:
         by_div.setdefault(r["division"], []).append(r)
     parts = []
     for div in sorted(by_div):
-        best = max(by_div[div], key=lambda r: (int(r["w"]) / max(1, int(r["w"]) + int(r["l"]) + int(r["t"])),
-                                               int(r["net_pts"])))
-        parts.append("%s %d&ndash;%d%s leads the %s"
-                     % (best["team_name"], int(best["w"]), int(best["l"]),
-                        "&ndash;%d" % int(best["t"]) if int(best["t"]) else "", div))
+        rows = by_div[div]
+        top = max(_pct(r) for r in rows)
+        leaders = sorted((r for r in rows if _pct(r) == top), key=lambda r: -int(r["net_pts"]))
+        if len(leaders) == 1:
+            parts.append("%s %s leads the %s" % (leaders[0]["team_name"], _record(leaders[0]), div))
+            continue
+        if len({_record(r) for r in leaders}) != 1:
+            raise RuntimeError("tied division leaders carry different records in %s" % div)
+        names = ", ".join(r["team_name"] for r in leaders[:-1]) + " and " + leaders[-1]["team_name"]
+        parts.append("%s are tied at %s at the top of the %s" % (names, _record(leaders[0]), div))
     worst = min(standings, key=lambda r: (int(r["w"]), int(r["net_pts"])))
     return "; ".join(parts) + "; %s are %d&ndash;%d" % (
         worst["team_name"], int(worst["w"]), int(worst["l"]))
 
 
+def latest_injury_capture():
+    """The newest schema-valid official injury read in the committed capture manifest.
+
+    Reads only committed data (no network). The manifest records what the official page
+    showed at each fetch; it does not contain any player row.
+    """
+    path = os.path.join(ROOT, "data", "captures", "manifest.jsonl")
+    reads = []
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                if line.strip():
+                    entry = json.loads(line)
+                    if entry.get("kind") == "injuries" and entry.get("schema_ok"):
+                        reads.append(entry)
+    if not reads:
+        raise RuntimeError("no schema-valid official injury read in data/captures/manifest.jsonl")
+    return max(reads, key=lambda entry: entry["fetched_utc"])
+
+
 def wk_facts():
+    cap = latest_injury_capture()
+    cap_s = cap["schema"]
+    cap_week = str(cap_s["week"])
+    cap_when = "%s %s UTC" % (cap["fetched_utc"][:10], cap["fetched_utc"][11:16])
     facts = [
         ("Week 11 schedule published",
          "NFL.com lists 13 games for Week 11 (Nov 19&ndash;23) and confirms the six teams on "
@@ -441,11 +487,16 @@ def wk_facts():
          "Through Week 10 (last game played 16 Nov 2026): %s."
          % leader_line(),
          "https://www.nfl.com/standings/"),
-        ("Official injury report",
-         "The Week 10 report lists %s players across the 28 teams playing, including %s ruled "
-         "Out, %s Doubtful and %s Questionable."
-         % (num(avail_rows), num(avail_out), num(avail_doubt), num(avail_q)),
-         "https://www.nfl.com/injuries/"),
+        ("Official injury report (current page)",
+         "The official page now carries the Week %s report. The latest schema-valid capture "
+         "(fetched %s) holds %d of %d games, coverage %s, so no Week %s player row is published "
+         "here until a complete report is captured. The last complete report held in this "
+         "repository is Week 10: %s players across the 28 teams playing, including %s ruled Out, "
+         "%s Doubtful and %s Questionable."
+         % (cap_week, cap_when, int(cap_s["games_published"]), int(cap_s["games_scheduled"]),
+            cap_s["coverage"], cap_week, num(avail_rows), num(avail_out), num(avail_doubt),
+            num(avail_q)),
+         "https://www.nfl.com/injuries/league/2026/reg%s" % cap_week.zfill(2)),
         ("Starter changes confirmed by the league",
          "Official NFL.com reporting confirms quarterback starter changes in Seattle, Cleveland, "
          "Arizona and Miami, and long-term absences for Baltimore, the LA Rams and Green Bay.",
@@ -1846,7 +1897,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
 <div class="grid g4">%(kpis)s</div>
 
 <section style="margin-top:26px">
-  <div class="section-head"><div><span class="eyebrow">What the official sources say right now</span><h2>Verified position</h2></div><span class="tag acc">NFL.com &middot; re-read 18 Nov 2026</span></div>
+  <div class="section-head"><div><span class="eyebrow">What the official sources say right now</span><h2>Verified position</h2></div><span class="tag acc">NFL.com &middot; standings, schedule and injury page re-read 19 Nov 2026</span></div>
   <div class="grid g4">%(facts)s</div>
 </section>
 
@@ -2492,7 +2543,7 @@ def main():
     # T48 personnel / availability ablation (tools/personnel_ablation.py)
     import personnel_ablation
     written += personnel_ablation.write_pages(SITE, shell)
-    # T71 dated official schedule announcement beside the live schedule (tools/schedule_page.py)
+    # T72 dated official schedule announcement beside the live schedule (tools/schedule_page.py)
     import schedule_page
     written += schedule_page.write_pages(SITE, shell)
     print("wrote %d pages: %s" % (len(written), ", ".join(written)))
