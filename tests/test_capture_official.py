@@ -118,28 +118,6 @@ class InjurySchemaTests(unittest.TestCase):
         self.assertFalse(ok)
         self.assertEqual(detail["player_links"], 0)
 
-    def test_current_week_partial_two_club_report_passes(self):
-        # The official report is published progressively. An early snapshot with
-        # one matchup (two club tables) is a valid point-in-time capture, not a
-        # malformed full-week report. Fixture markup is synthetic; no player rows
-        # or raw official page content are stored in this repository.
-        raw = (b"<h2>Injuries - WEEK 11</h2>"
-               + b"<table><th>Practice Status</th><th>Game Status</th></table>" * 2
-               + b'<a href="/players/test-player/">Player</a>' * 26)
-        ok, detail = capture.schema_injuries(raw)
-        self.assertTrue(ok, detail)
-        self.assertEqual(detail["week"], "11")
-        self.assertEqual(detail["practice_status_headers"], 2)
-        self.assertEqual(detail["game_status_headers"], 2)
-        self.assertEqual(detail["player_links"], 26)
-
-    def test_empty_or_single_table_week_shell_fails_closed(self):
-        heading = b"Injuries - WEEK 11 "
-        one_table = heading + b"Practice Status Game Status " + b'<a href="/players/test/">x</a>' * 30
-        empty = heading + b"Practice Status Game Status " * 28
-        self.assertFalse(capture.schema_injuries(one_table)[0])
-        self.assertFalse(capture.schema_injuries(empty)[0])
-
     def test_pinned_real_week10_capture_passes_the_schema(self):
         # Runs only where the owner's private raw store is configured (X4_CAPTURE_RAW_DIR).
         # Raw official bytes are never committed, so a plain checkout skips this test.

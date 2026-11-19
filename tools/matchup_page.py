@@ -22,7 +22,7 @@ Rules this module follows
 - Game status is the official NFL Week 10 report - the latest schema-valid
   captured dataset. The official Week 11 report page was confirmed published
   on 2026-11-19, but the latest Week 11 capture attempt failed schema
-  validation and the freshness gate is red (F-55/F-61). A Week 10
+  validation and the freshness gate is red (F-55/F-61/F-83). A Week 10
   designation is not a Week 11 designation and the page says so.
 - A published chart is not proof of who started (F-27). The page measures
   listed availability only.
@@ -324,7 +324,7 @@ def body():
         "report - the latest schema-valid captured dataset. The official Week 11 "
         "report page was confirmed published on 2026-11-19, but the latest Week 11 "
         "capture attempt failed schema validation and the freshness gate is red "
-        "(F-55/F-61); therefore a Week 10 designation is not a Week 11 designation. "
+        "(F-55/F-61/F-83); therefore a Week 10 designation is not a Week 11 designation. "
         "All club charts were "
         "retrieved 2026-11-14. A published chart lists who the club lists; "
         "it is not proof of who started (F-27). Houston publishes an image, "

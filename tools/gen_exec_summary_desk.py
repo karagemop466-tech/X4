@@ -182,20 +182,19 @@ decisions = [
 
 # ---------------------------------------------------------------- suggested work
 suggestions = [
-    ["Repair the capture job, then let it run a week",
-     "high", "S", "The only blocker is a code defect with a known fix; a week of clean runs produces the first "
-     "multi-day availability history this repository would have.",
-     "Publish the run list: seven consecutive successes and one stored capture per source per day.",
-     a(NFL + "/injuries/", "Official injury report")],
+    ["Verify authorized raw retention and the live report schema",
+     "high", "S", "The scheduled capture records the Week 11 response as schema-invalid, but the raw response is not retained in this public checkout; the cause cannot be confirmed from counts alone.",
+     "A complete live report captured with UTC timestamp and SHA-256, raw bytes stored only in the authorized private store, schema and coverage checks passing, then seven consecutive daily captures per source.",
+     a(NFL + "/injuries/league/2026/reg11", "Official Week 11 report")],
     ["Re-transcribe depth chart-by-chart with shared cells",
      "high", "M", "Every deficiency feature downstream inherits the current dataset's defect; nothing else can "
      "be trusted about backups until the slots are right.",
      "A re-transcribed dataset in which a shared first cell yields two players at depth 1, and a spot check of "
      "four clubs matches the live pages cell for cell.",
      a("https://www.commanders.com/team/depth-chart", "Live WAS chart")],
-    ["Repair partial-report validation and capture Week 11 daily",
-     "high", "S", "The official Week 11 report is published, but its partial two-club capture was rejected by full-week schema thresholds; the last valid capture is 27.2 hours old.",
-     "A schema-valid, hashed Week 11 snapshot before kickoff, then at least one successful dated capture each day through kickoff; freshness <=13 hours.",
+    ["Capture and retain complete Week 11 injury snapshots",
+     "high", "S", "The official Week 11 page is published, but the latest manifest entry is an incomplete, schema-invalid response and the last valid report is Week 10. Raw bytes are not retained in the public checkout.",
+     "A complete, timestamped Week 11 capture with source hash and authorized private raw retention; verify expected report coverage, then preserve daily Wednesday-to-kickoff snapshots and pass the <=13-hour freshness gate.",
      a(NFL + "/injuries/league/2026/reg11", "Official Week 11 report")],
     ["Make the settled sample the headline, not ROI",
      "medium", "XS", "A small positive return is the most seductive number on the site; showing the sample "
@@ -217,7 +216,7 @@ suggestions = [
 kv = []
 kv.append(("Where the season stands",
            "Week 10 is complete: the Monday game (Chargers at Ravens, 23&ndash;20) was the last one outstanding. "
-           "The official Week 11 injury report is now published, but the repository's latest schema-valid capture is Week 10 and fails the 13-hour freshness gate; no Week 11 player data is used. "
+           "The official Week 11 injury report is now published, but the repository's latest response is incomplete/schema-invalid and the latest schema-valid capture is Week 10; no Week 11 player data is used. "
            + a(NFL + "/schedules/2026/by-week/week-10", "Official Week 10 schedule") + " &middot; "
            + a(NFL + "/injuries/league/2026/reg11", "Official Week 11 injury report")))
 kv.append(("Games verified",

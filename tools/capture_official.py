@@ -50,14 +50,12 @@ SOURCES
 
 NOTE ON VERIFICATION
 --------------------
-The injury report is published progressively during the week: early snapshots can
-contain only the two club tables for the next fixture. The schema therefore requires
-a Week heading, both status columns in at least two club tables, and at least two
-player links; it does not demand 28 tables or a full week's roster before treating a
-partial official report as a valid point-in-time snapshot. Offline regression tests
-cover that partial shape and malformed/empty variants. A valid partial capture is not
-a claim that every future fixture has reported yet; the manifest preserves the exact
-fetch time and observed counts.
+The schema check below is written against the markers the official report page
+carries (section headings, the "Practice Status" and "Game Status" columns, and one
+player link per row). It has not yet been run against the live HTML from inside
+this sandbox, which cannot reach nfl.com; the first scheduled run on GitHub's
+runners is the test, and a schema failure stops the run rather than storing an
+unchecked page.
 
 Usage: python3 tools/capture_official.py fetch --kind all
 """
@@ -144,13 +142,7 @@ def schema_injuries(raw):
     detail = {"week": heading.group(1) if heading else None,
               "practice_status_headers": practice, "game_status_headers": game,
               "player_links": players}
-    # NFL publishes the current week's report progressively. Early in the week the
-    # official page can contain only the next fixture (two club tables, e.g. IND/HOU),
-    # so requiring 28 team tables or 250 player links rejects a valid, timestamped
-    # partial snapshot. Require both status columns on at least two tables and at least
-    # two player links, in addition to the explicit week heading. Empty report shells
-    # and a single malformed table still fail closed.
-    ok = bool(heading) and practice >= 2 and game >= 2 and players >= 2
+    ok = bool(heading) and practice >= 28 and game >= 28 and players >= 250
     return ok, detail
 
 

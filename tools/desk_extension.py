@@ -337,7 +337,7 @@ def teams_page():
         "2026-11-15; every row re-verified against its own official game centre on 2026-11-18 - "
         "13 of 13 match, see research/verification/week11-venues-2026-11-18.md). The official "
         "Week-11 injury report page was verified as published on 2026-11-19, but the repository "
-        "has no fresh schema-valid Week-11 capture (F-55/F-61), so this page still shows no "
+        "has no fresh schema-valid Week-11 capture (F-55/F-61/F-83), so this page still shows no "
         "Week-11 player status.")
 
     body = (
@@ -544,7 +544,7 @@ def landing_readiness_rows():
         "pass", "clear", STAND, "ok")
     row("Every availability source is captured and fresh", "Per-source schema, hash and freshness gate",
         "all 32 expected sources have a schema-valid capture no older than 13 hours; verify every available SHA-256, keep raw bytes only in an authorized private store",
-        "31/32 sources meet the 13-hour gate; injury source is stale (last valid Week 10 capture 27.2 hours old); latest Week 11 attempt is rejected; public manifest is hash-only",
+        "31/32 sources meet the 13-hour gate; at the 2026-11-19 06:53 UTC check the injury source was 27.2 hours stale (last valid Week 10 capture); latest Week 11 attempt is rejected; public manifest is hash-only",
         "fail", "blocks a replayable availability audit", INJ, "bad")
     row("Enough settled bets to test skill", "Sample sufficiency",
         "n &ge; 100 settled bets per market type",
@@ -566,7 +566,7 @@ def landing_readiness_rows():
         "not ingested", "fail", "blocks the removal-of-luck panel", "https://www.nfl.com/scores/", "bad")
     row("The Week 11 injury series is captured and fresh", "Schema-valid immutable report snapshot",
         "a Week 11 report read with UTC time/hash, passing schema and <=13 hours old; repeated reads from Wednesday to kickoff",
-        "official Week 11 page is published, but latest Week 11 attempt was schema-invalid; last valid capture is Week 10 at 2026-11-18 03:44Z (27.2 hours old; freshness fails)",
+        "official Week 11 page is published, but latest Week 11 attempt was schema-invalid; last valid capture is Week 10 at 2026-11-18 03:44Z (older than the 13-hour threshold)",
         "fail", "blocks Week 11 availability", "https://www.nfl.com/injuries/league/2026/reg11", "bad")
     row("Prices are real, licensed and official-sourced", "Price store",
         "open and close from a licensed book, archived verbatim",
