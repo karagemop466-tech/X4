@@ -16,10 +16,12 @@ rather than prose:
       Week 11 fixture context - date, kickoff time, network, venue, and the
       international/neutral-site designation - read from the official NFL.com
       schedule page and each fixture's official game page. Only facts NFL.com
-      publishes; no inferred rest days, travel or weather.
+      publishes; no inferred rest days, travel or weather. Beside it, a dated
+      league announcement is shown separately from the current live schedule.
 
-Nothing on this page is typed by hand: every number is read or computed from a
-committed dataset at build time, and every row carries its official source link.
+Dataset numbers are read or computed from committed files at build time. The
+schedule-announcement dates are transcribed from the official NFL release, and
+all schedule rows and announcement claims link to their supporting NFL source.
 
 Run:  python3 tools/gen_brief_register.py
 """
@@ -35,7 +37,15 @@ DATA = os.path.join(ROOT, "data")
 SITE = os.path.join(ROOT, "site")
 PAGE = "brief-register.html"
 RETRIEVED = "2026-11-18"
+SCHEDULE_SOURCE_CHECKED = "2026-11-19"
 SCHEDULE_PAGE = "https://www.nfl.com/schedules/2026/by-week/week-11"
+LIVE_SCHEDULE_PAGE = "https://www.nfl.com/schedules/2026/"
+SCHEDULE_ANNOUNCEMENT_PAGE = (
+    "https://media.nfl.com/news-and-releases/2026-nfl-schedule-powered-by-aws-"
+    "to-be-released-thursday--may-14"
+)
+ANNOUNCEMENT_DATE = "May 8, 2026"
+ANNOUNCED_RELEASE_DATETIME = "Thursday, May 14 at 8 p.m. ET"
 STANDINGS_PAGE = "https://www.nfl.com/standings/"
 WEEK10_PAGE = "https://www.nfl.com/schedules/2026/by-week/week-10"
 SITE_URL = "https://karagemop466-tech.github.io/X4/"
@@ -229,20 +239,20 @@ def section(eyebrow, title, blurb):
 
 body = []
 body.append('<main><header class="topbar"><div><span class="eyebrow">DECISION DESK</span>'
-            '<h1>Brief register</h1></div><span class="status-pill"><i></i> Retrieved %s</span></header>'
-            % RETRIEVED)
+            '<h1>Brief register</h1></div><span class="status-pill"><i></i> Standings snapshot %s · schedule sources checked %s</span></header>'
+            % (RETRIEVED, SCHEDULE_SOURCE_CHECKED))
 
 body.append(
     '<section><div class="hero"><span class="eyebrow light">What this page answers</span>'
     '<h2>Two brief requirements, closed with official numbers &mdash; and the rest of the '
     'availability list stated as blocked rather than implied.</h2>'
     '<p>The current brief asks for the 136-game log to become the pre-registered backtest corpus, '
-    'and for a fixture-context feature set built only from published schedule facts. Both are done '
-    'here, line by line, and every number below is computed from a committed dataset and linked to '
-    'the official page it came from. The availability requirements further down (inactive lists, '
-    'snap counts, designation reliability, injury ablations) cannot be closed from public pages this '
-    'repository has verified; they are listed with the exact input that is missing instead of being '
-    'given a number that does not exist.</p></div></section>')
+    'and for a fixture-context feature set built only from published schedule facts. The dataset '
+    'numbers below are computed from committed files and linked to their supporting official pages. '
+    'The dated schedule-release notice is separately transcribed from the NFL announcement and '
+    'shown beside the live schedule links. The availability requirements further down (inactive '
+    'lists, snap counts, designation reliability, injury ablations) are listed with the exact input '
+    'that is missing rather than being given a number that does not exist.</p></div></section>')
 
 body.append('<div class="cards">')
 body.append('<article class="card hero-stat"><span class="k">Games in the corpus</span>'
@@ -297,6 +307,24 @@ body.append(section(
     "game is an international/neutral-site game. This is the join key for any later feature set; it deliberately "
     "carries no rest days, travel distance or weather, because those are derived rather than published and the "
     "brief asks for published facts only."))
+body.append(
+    '<div class="card schedule-announcement" id="schedule-announcement">'
+    '<span class="eyebrow">Dated league announcement &middot; source check %s</span>'
+    '<h3>2026 NFL schedule: announcement and current schedule</h3>'
+    '<p><b>Announcement published %s.</b> The NFL media release says the full 2026 schedule would be released '
+    '<b>%s</b>. This is the original schedule-release notice, not the live fixture list. '
+    '%s</p>'
+    '<p><b>Current fixtures:</b> the live 2026 schedule is %s; the Week 11 schedule is %s. '
+    'Both pages were read on %s. Fixture facts in the table immediately below are linked to their own official '
+    'game-centre pages.</p>'
+    '<p class="note">The announcement date and planned release time come from the dated NFL Media release. '
+    'Current fixture details come from the live NFL.com schedule and game centres; they are not inferred from '
+    'the older announcement.</p></div>'
+    % (SCHEDULE_SOURCE_CHECKED, ANNOUNCEMENT_DATE, ANNOUNCED_RELEASE_DATETIME,
+       link(SCHEDULE_ANNOUNCEMENT_PAGE, "NFL Media schedule announcement"),
+       link(LIVE_SCHEDULE_PAGE, "NFL.com 2026 schedule"),
+       link(SCHEDULE_PAGE, "NFL.com Week 11 schedule"), SCHEDULE_SOURCE_CHECKED)
+)
 body.append('<div class="card">')
 body.append(table(["Date", "Kickoff (ET)", "Network", "Fixture", "Venue", "Source"], ctx_rows))
 body.append('<p class="note">%s fixtures, %s with a venue read from the official game page. Venue values are '
