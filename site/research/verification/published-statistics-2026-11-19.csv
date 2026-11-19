@@ -1,0 +1,11 @@
+quantity,value,95% interval,n,depth,published on
+away score ↔ home score,0.0486,"[-0.1126, 0.2072]",150,all 150 completed games,site/correlations.html
+home margin ↔ game total,-0.1405,"[-0.2941, 0.0202]",150,all 150 completed games,site/correlations.html
+net points ↔ win percentage,0.8755,"[0.7583, 0.9379]",32,32 clubs,site/correlations.html
+points for /g ↔ points allowed /g,-0.2911,"[-0.5808, 0.0641]",32,32 clubs,site/correlations.html
+away_vs_home_scores,0.0182,"[-0.2435, 0.2775]",57,weeks 6-9 sample,site/gates.html
+margin_vs_total,-0.3224,"[-0.5432, -0.0598]",54,"weeks 6-9 sample, neutral-site games removed",site/gates.html
+net_pts_vs_win_pct,0.8717,"[0.7513, 0.9359]",32,weeks 6-9 sample,site/gates.html
+pts_per_game_vs_pts_allowed_per_game,-0.2041,"[-0.5160, 0.1557]",32,weeks 6-9 sample,site/gates.html
+"home-field edge, official corpus (neutral-site games excluded)",-0.534,"[-2.72, +1.65]",146,weeks 1-10 of the official game log,site/executive-summary.html
+"home-field edge, weeks 6-9 (neutral-site games excluded)",+0.074,"[-3.59, +3.74]",54,"weeks 6-9 sample, the window the line lab's h is fitted on",site/executive-summary.html

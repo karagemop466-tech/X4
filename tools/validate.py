@@ -61,6 +61,8 @@ STEPS = [
     ("re-derive the personnel / availability ablation",
      [PY, os.path.join(ROOT, "tools", "personnel_ablation.py"), "--check"]),
     ("test origination settlement rules", [PY, os.path.join(ROOT, "tools", "test_origination.py")]),
+    ("re-derive every published correlation and home-edge constant (T71)",
+     [PY, os.path.join(ROOT, "tools", "check_published_stats.py")]),
     ("originate lines and grade them", [PY, os.path.join(ROOT, "tools", "origination.py")]),
     ("build the replacement-depth ledger", [PY, os.path.join(ROOT, "tools", "depth_ledger.py")]),
     ("build the origination pages", [PY, os.path.join(ROOT, "tools", "ops.py")]),
