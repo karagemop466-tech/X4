@@ -1,0 +1,69 @@
+name: Official capture watchdog
+
+# Freshness and schema alerting for the official captures (T67).
+#
+# The capture workflow ("Official capture (injury report and club depth pages)") records
+# every read in data/captures/manifest.jsonl, but before this workflow nothing turned a
+# stale or schema-failed read into an alert: a failed run only notifies the workflow's creator (if notifications are
+# enabled), and a run that never fires leaves no record. This workflow runs on its own
+# schedule, checks the committed manifest with tools/capture_alert.py, and keeps exactly
+# one open issue titled "Official capture alert" while any source is stale, missing or
+# schema-failed. It closes that issue when every source is fresh again.
+#
+# It fetches nothing from NFL.com and writes nothing to the repository. Its only
+# write permission is issues: write, used to open, comment on and close that one issue.
+
+on:
+  schedule:
+    - cron: "43 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: capture-watchdog
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ALERT_TITLE: Official capture alert
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test the watchdog offline
+        run: python3 -m unittest discover -s tests -p 'test_capture_alert.py'
+      - name: Check freshness and schema of every official capture
+        id: check
+        continue-on-error: true
+        run: python3 tools/capture_alert.py check --max-hours 13 --report "$RUNNER_TEMP/alert.md"
+      - name: Open or update the alert issue
+        if: steps.check.outcome == 'failure'
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --state open --limit 100 --json number,title \
+            --jq ".[] | select(.title == \"${ALERT_TITLE}\") | .number" | sed -n 1p)
+          if [ -n "${existing}" ]; then
+            gh issue comment "${existing}" --body-file "$RUNNER_TEMP/alert.md"
+            echo "Updated alert issue #${existing}"
+          else
+            gh issue create --title "${ALERT_TITLE}" --body-file "$RUNNER_TEMP/alert.md"
+          fi
+      - name: Close the alert issue once every source has recovered
+        if: steps.check.outcome == 'success'
+        run: |
+          set -euo pipefail
+          for number in $(gh issue list --state open --limit 100 --json number,title \
+            --jq ".[] | select(.title == \"${ALERT_TITLE}\") | .number"); do
+            gh issue close "${number}" --comment "Recovered: every official capture is fresh and schema-valid as of $(date -u +%Y-%m-%dT%H:%MZ). Closed by the capture watchdog."
+            echo "Closed alert issue #${number}"
+          done
+      - name: Fail this run when the check fails, so the failure is also visible in Actions
+        if: steps.check.outcome == 'failure'
+        run: exit 1
