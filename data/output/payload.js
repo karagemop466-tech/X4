@@ -14378,6 +14378,28 @@ window.X4 = {
    "why": "The gap is what makes a daily or Wednesday-to-Friday series impossible to keep on schedule, so it bears directly on the brief's 'every Wed, Thu and Fri' and 'daily from Wednesday to kickoff' requirements. Until the watchdog has run on main, nothing alerts when the gap grows. The fix (a more frequent cron, or a retry on a missed run) would change a workflow owned by the capture task, so it is logged as a request on the board and not edited here.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-alerting-2026-11-19.md"
+  },
+  {
+   "id": "F-90",
+   "item": "Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The official 2026 schedule announcement (NFL media release, 14 May 2026) says: \"Specific dates, start times and networks for Week 18 matchups will be determined and announced following the conclusion of Week 17.\" The schedule page therefore publishes Week 18 as not yet assigned (data/schedule-announcement-2026.csv, row S13). No later official Week 18 page is in the repository, so no Week 18 fixture is listed.",
+   "why": "Any fixture-context or venue feature for Week 18 has no official input yet. Week 18 must be re-checked against NFL.com after Week 17 is complete.",
+   "official_url": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"
+  },
+  {
+   "id": "F-91",
+   "item": "The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027'",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The announcement says 'The regular season will conclude with Week 18 on Saturday, January 9, and Sunday, January 10.' That sentence gives no year. The schedule page dates those games 2027-01-09 (Saturday) and 2027-01-10 (Sunday). The year is not printed beside the date. It follows from the 2026 season and from the release's own date 'Saturday, January 2, 2027'; tools/schedule_page.py checks each weekday against the calendar.",
+   "why": "A date-keyed join (for example a schedule feed or a kickoff timestamp) must not assume the year without a published source. Reviewer: confirm the year against the NFL.com Week 18 page once it exists.",
+   "official_url": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/schedule-announcement-2026-11-19.md"
   }
  ],
  "replacement_depth": [

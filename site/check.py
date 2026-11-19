@@ -35,7 +35,7 @@ PAGES = ["index.html", "market.html", "standings.html", "lines.html", "price-sna
          "questions.html", "suggestions.html", "flags.html", "methodology.html",
          "markets.html", "gates.html", "matchup.html", "houston-depth.html",
          "personnel-ablation.html", "gamebook.html", "gamebook-ops.html",
-         "glossary.html"]
+         "glossary.html", "schedule.html"]
 ASSETS = ["styles.css", "app.js"]
 # Matched case-insensitively as substrings EXCEPT where a real word contains the
 # marker: "Fagnano" (the Ravens' third-string QB, named by nfl.com) contains
@@ -61,7 +61,7 @@ CLUB_DOMAINS = [
     "tennesseetitans.com", "commanders.com",
 ]
 OFFICIAL = re.compile(
-    r"<a\b[^>]*href=\"https://(?:www\.)?(?:nfl\.com|operations\.nfl\.com|nflgsis\.com|ftc\.gov|"
+    r"<a\b[^>]*href=\"https://(?:www\.|media\.)?(?:nfl\.com|operations\.nfl\.com|nflgsis\.com|ftc\.gov|"
     + "|".join(re.escape(d) for d in CLUB_DOMAINS) + r")/[^\"]*\"",
     re.I)
 
