@@ -1,6 +1,6 @@
-# Capture alerting and cadence evidence (T68)
+# Capture alerting and cadence evidence (T69)
 
-Session: `arena/6870a878-x4`, 2026-11-19 UTC. Board: `COORDINATION.md` row T68. Flags: F-88 (no alert channel), F-89 (cadence gap).
+Session: `arena/6870a878-x4`, 2026-11-19 UTC. Board: `COORDINATION.md` row T69. Flags: F-88 (no alert channel), F-89 (cadence gap).
 
 ## Question
 
