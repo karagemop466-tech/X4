@@ -69,7 +69,7 @@ non-push rows only. A row missing either probability is excluded, never filled.
 ## G4 after the change (`data/ops/gates.csv`)
 
 `side n=8 model 0.1656 vs market 0.2480 (skill +0.3322); total n=8 model 0.1148 vs market
-0.2514 (skill +0.5435); moneyline n=8 model 0.1728 vs market 0.1973 (skill +0.1241) |
+0.2514 (skill +0.5435); moneyline n=8 model 0.1732 vs market 0.1973 (skill +0.1220) |
 pooled n=24` — **fail**, correctly: the registered rule needs n >= 30 per market type.
 The gate now reports the numbers it used instead of "not computed". These are backtest
 grades on the weeks 9–10 corpus and are not reward evidence; the forward board remains
