@@ -3583,6 +3583,18 @@ All open flags are published on the Flagged-for-Review register and do not block
   additively). No log content is dropped. Flagged here for the next integration pass.
 
 ### Pull request and merge record (T76)
-- PR [#146](https://github.com/karagemop466-tech/X4/pull/146) (`arena/9c4553d7-x4` → `main`).
-  Merge commit, workflow runs and the live-site check are recorded in the follow-up record
-  entry below (same protocol as T69).
+- **PR [#146](https://github.com/karagemop466-tech/X4/pull/146)** (`arena/9c4553d7-x4` → `main`),
+  merged 2026-11-19T22:33:09Z as merge commit `79c518ace38ba09d8b2c5401b651a6d6ae204afd`
+  (plain merge). The PR `desk` check passed (run [44629595761](https://github.com/karagemop466-tech/X4/actions/runs/44629595761))
+  and mergeability was CLEAN at merge.
+- **Deploy on `79c518a`:** `Desk validation` run 44629696551 (success), `Publish NFL Decision
+  Lab` run [44629696548](https://github.com/karagemop466-tech/X4/actions/runs/44629696548)
+  (success), `pages build and deployment` run [44629695454](https://github.com/karagemop466-tech/X4/actions/runs/44629695454)
+  (success).
+- **Live checks after the deploy** (page-fetch tool, 2026-11-19):
+  [escrow.html](https://karagemop466-tech.github.io/X4/escrow.html) shows Stage 1 for all
+  three market types ("Every market now carries a probability ... since T76"), the G4 row
+  "probability output stored for all three markets since T76", register rows E5 RESOLVED and
+  E8 CORRECTED with source links; [origination.html](https://karagemop466-tech.github.io/X4/origination.html)
+  shows the "Probability outputs" model row and the "Model P (event) open → close" column
+  (JAX at BAL side 9.16% → 38.15%, matching the record's hand-checks).
