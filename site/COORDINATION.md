@@ -3278,4 +3278,4 @@ documentation on delayed schedule events.
 - Integration owner: when Week 18 is announced by the league, re-check F-90 and F-91 against NFL.com.
 
 ### PR and merge record (T70)
-- PR: recorded in the line below once the pull request is opened.
+- PR: [#145](https://github.com/karagemop466-tech/X4/pull/145) (`arena/cd475bd1-x4` → `main`). `Desk validation` run [44625934446](https://github.com/karagemop466-tech/X4/actions/runs/44625934446) passed on the branch. Merge: plain merge commit, performed the same session; the merge commit hash is shown by `git log` on `main`.
