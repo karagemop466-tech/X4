@@ -3244,6 +3244,56 @@ documentation on delayed schedule events.
 - **Live check:** https://karagemop466-tech.github.io/X4/flags.html (page-fetch tool, after the deploy) shows the register at **87 items**, the count this PR produced.
 - **Still open, not blocking:** the watchdog has not yet run on `main`. Its first scheduled run (every three hours from 00:43 UTC) is the live confirmation of F-88.
 
+## Session log — arena/bd915599-x4 (final integration, review and publication: 2026-11-19)
+
+### Claim and scope
+- Branch `arena/bd915599-x4`, branched from `main`/`origin/main` at `6b69ee93185f35dd9da0d5c8cc74499df89c799d`; the branch is fixed for this session, so no `session-*/<task>` worktree was created. The claim (this row and log) was committed and pushed before implementation.
+- Scope: final integration over the single-commit tree `6b69ee9` (equal to `main`/`origin/main` at claim time). Review the repository line by line, verify published values against official sources, confirm the GitHub Pages live site, and close out with a PR to `main`, merge, and deploy confirmation. No other session's row, log or file was edited; this session only appends its own log to `COORDINATION.md`.
+
+### Review and verification performed (this session)
+- `python3 tools/validate.py`: **VALIDATION PASSED — repository publishable.**
+  - Site publishable: every data row has an official source link, no broken links, pages load with JavaScript enabled.
+  - Desk-page check: 29 pages, 1,138 table rows, 31 mirrored files, 2,781 links; all local links/anchors resolve; nav consistent; 0 desk-table rows without an https source link (F-39 note kept explicit, not treated as a pass).
+  - X4 Console (`docs/`): 15 pages, 657 data rows (every one with a source cell), 149 internal + 43 external links (all https + rel="noreferrer", no broken links) — console publishable.
+  - Repository-root mirror byte-identical to `site/` and `docs/`.
+  - Determinism: all published outputs reproducible (site pages, CSS, JS, market JSON, research pages).
+  - Data hygiene: no oversized artifacts, no stray files, required files present.
+- `tools/verify.py`: reconstructed game log reconciles against official NFL.com standings — 150 games (Weeks 1–10), all 32 clubs match on W/L/T/PF/PA/PCT; points for = points allowed = 6,923; 0 mismatches.
+- Determinism/reproducibility: full pipeline rebuild is byte-for-byte reproducible.
+
+### Official-source basis (committed captures and links; not re-fetched live because this sandbox cannot reach nfl.com)
+- https://www.nfl.com/standings/ — official standings; all 32 teams match the committed standings (Bills 8–1 AFC East, Bengals 7–2 AFC North, Jaguars 7–2 AFC South, Chiefs 7–2 AFC West, Giants 5–3–1 NFC East, Lions 7–2 NFC North, Panthers 4–5 NFC South, 49ers 8–1 NFC West, Chargers 1–8).
+- https://www.nfl.com/schedules/2026/by-week/week-10 — Week 10 complete (14 finals); corpus grew 137 → 150 games.
+- https://www.nfl.com/schedules/2026/by-week/week-11 — Week 11 schedule (13 games; bye: Atlanta, Cleveland, Green Bay, LA Rams, New England, Seattle).
+- https://www.nfl.com/injuries/league/2026/reg10 — official Week 10 injury report (347 rows across 28 clubs; 70 Out, 11 Doubtful, 90 Questionable).
+- Official NFL Game Books for all 14 Week 10 games — actual starters, inactive/DNP lists, venue/surface/roof register; designation reliability (Out 0/50, Doubtful 1/6, Questionable 61/78 = 78.2%, 37 unresolved).
+No value was inferred or filled in; blanks and unverified items remain flagged on the Flagged-for-Review register per the publication policy.
+
+### Deliverables confirmed present
+- Clean landing page with category-organized site directory (`index.html` + `site/index.html`), 60 pages, 15 in the X4 Console.
+- Executive summary (`executive-summary.html`): computed-not-typed figures, decisions table, suggestions table, two-sided "what would change our mind."
+- Dedicated suggestions/review section: `suggestions.html` (ranked proposals), `review.html` (Accept/Hold/Reject queue), `workbench.html` (four-part rubric, ranked).
+- Line origination (side → total → moneyline), price snapshots (fair line / market line / difference as separate columns), signal-vs-staking leaderboard (signal scored apart from staking), correlations with n, replacement depth (2nd/3rd/4th string), demotion gate, per-team view, removal-of-luck panel, Game Book actual starters/inactives, designation reliability.
+- Every table row carries an HTTPS source link; unconfirmable values left blank and flagged, never inferred.
+- Flagged irregularities published on `flags.html` / `flagged.html`, not hidden; they do not block the merge.
+
+### Live site
+- https://karagemop466-tech.github.io/X4/ — GitHub Pages served from `main` path `/`, status `built`, HTTPS enforced (confirmed via `gh api /repos/karagemop466-tech/X4/pages` before the PR).
+
+### Open flags / irregularities (pre-existing, published, not blocking)
+- F-01: market prices are non-official captures (one licensed book via ESPN), labelled as such; player-prop prices blank (F-35).
+- F-24: Houston publishes depth as an image only; resolved via Game Book playing-time indices; ordinal chain blank.
+- F-47/F-48/F-56/F-61/F-83/F-85: Week 11 injury capture is partial/schema-invalid; last valid capture is Week 10; no Week 11 player rows ingested.
+- F-69/F-70: Week 11 Game Center injury widget vs official report discrepancy; venue short names are faithful transcriptions of the official Game Info block.
+- Flag E5 (escrow): side and total have no probability output; Brier skill defined for moneyline only.
+- Weather/roof overlay: blocked — no official stadium coordinates or roof-designation source.
+All open flags are published on the Flagged-for-Review register and do not block publication or the merge.
+
+### PR and merge record (this session)
+- **PR link:** https://github.com/karagemop466-tech/X4/pull/144 (`arena/bd915599-x4` → `main`), merged 2026-11-19 as merge commit `53b0252f6202a3025bde107deb88ebe14afce90c`. The PR's `Desk validation` check passed (run 44625864109) and its mergeability was `CLEAN` at merge; the main-push `Desk validation` run 44625904441 also passed.
+- **Merge result:** MERGED — PR #144 merged to `main` without waiting for review; the merge commit `53b0252f` is on `main`.
+- **Pages deploy after merge:** success — GitHub Pages build/deployment run 44625903777 completed successfully; Pages status `built`, live at https://karagemop466-tech.github.io/X4/ (served from `main` path `/`, HTTPS enforced).
+
 ## Session log — arena/cd475bd1-x4 (T70: dated schedule announcement beside the live schedule, 2026-11-19)
 
 ### What this session did
