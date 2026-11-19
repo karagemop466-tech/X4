@@ -14333,6 +14333,17 @@
    "why": "The gate behaved correctly: it refused to call a partial read a valid capture, and the last valid Week 10 read is kept on record. Nothing published on the site was changed by the failure. The cause is not yet confirmed. Raw page bytes are kept in a private store that is not configured in CI, and this sandbox cannot reach nfl.com, so the page structure cannot be inspected here. The likely explanation is that the Week 11 page renders its later game days differently from the Week 10 page. That is a hypothesis, not a finding. Options for review, none applied: (1) record the count of game sections in each raw read in the manifest, so the drift can be seen without retaining raw bytes; (2) rewrite the schema for the current NFL.com layout, verified against a live raw read; (3) keep the schema and accept that the report is stale until it is fixed. The schema must not be loosened to pass.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/week11-injury-capture-2026-11-19.md"
+  },
+  {
+   "id": "F-85",
+   "item": "The publication gate passes while the injury capture is past its freshness limit: the Week 10 injury read is 27.2 hours old against a 13-hour limit, and the gate does not fail on it",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "open",
+   "detail": "Live re-read 2026-11-19 (T60): https://www.nfl.com/injuries/ carries the title 'Official Latest NFL Injury Report for Players - Week 11 of the 2026 Season', with Thursday Colts-Texans and Sunday Steelers-Eagles tables in the rendered page. The committed capture manifest (data/captures/manifest.jsonl) shows the injuries source returning HTTP 200 with schema_ok false on 2026-11-18T07:37:40Z and 2026-11-18T20:37:55Z: week 11, 2 game-status headers, 26 player links. The 2026-11-18T03:40Z capture passed (week 10, 28 headers, 347 links). The gate in tools/capture_official.py requires a 'Injuries - WEEK n' heading, at least 28 practice-status and 28 game-status headers, and at least 250 player links. The scheduled job (run 44393037693, 2026-11-18T20:37Z, and the five runs before it back to 2026-11-16) fails at its final step by design, after the injury check recorded schema_ok false. Freshness: running tools/capture_official.py freshness --kind injuries --max-hours 13 on 2026-11-19 at 06:57Z returns 2026-11-18T03:44:00Z, 27.2 hours old, and exits 1 (failed). The publication gate (tools/validate.py) still passes, because its capture steps exercise the gates on synthetic fixtures and the scheduled workflow tolerates the freshness failure (continue-on-error). That gap is itself recorded here. The raw bytes are private and not retained, and this sandbox cannot reach nfl.com over TLS from bash, so the cause (a changed layout, or a partial server render that omits most game tables) is not determined here.",
+   "why": "The cause and the schema failure are recorded in F-83 (their entry on main, T60, arena/cd239f59-x4). This entry adds the gate gap. The drift alarm is working as designed: it refuses to publish a page it cannot parse, so no Week 11 designation was published from a broken parse. The consequence is that the injury data on the site is the Week 10 capture, one report behind the official page. The fix is a parser change in tools/capture_official.py plus a test fixture from a retained raw capture. That file is outside this session's scope and is logged as a request on the board, not edited here.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/integration-live-2026-11-19.md"
   }
  ],
  "replacement_depth": [
@@ -14799,6 +14810,24 @@
    "result": "pass",
    "url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
    "how": "Both Game Info blocks were read live: Colts at Texans prints RELIANT STADIUM and Cardinals at Chiefs prints ARROWHEAD STADIUM - exactly the committed values, so no venue cell changed. This session's independent reading (research/verification/live-sync-2026-11-18.csv, B5) agrees with the resolution now published on main (F-60, resolved by PR #92 with the same reading and research/verification/venue-gameinfo-2026-11-18.md), which is kept as the flag row; the NRG/GEHA readings come from the schedule page's ticket/hotel widgets."
+  },
+  {
+   "check": "Standings: all 32 clubs re-read live and compared line by line (T62, 2026-11-19)",
+   "result": "pass",
+   "url": "https://www.nfl.com/standings/",
+   "how": "The 32 official rows (W, L, T, PF, PA, net points) were read from the live page and compared with data/standings-wk10-2026.csv: 32 of 32 match, and net points equal PF minus PA for every official row. Row-level register: research/verification/integration-live-2026-11-19.csv."
+  },
+  {
+   "check": "Week 10: all 14 final scores re-read live from the official schedule and compared with data/games-2026.csv (T62, 2026-11-19)",
+   "result": "pass",
+   "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "how": "All 14 Week 10 finals on the live official schedule match the committed log, game by game, including the Los Angeles (LA) to LAR mapping. Each row links its official game page in the register."
+  },
+  {
+   "check": "Week 11 injury report: live official page against the committed capture pipeline (T62, 2026-11-19)",
+   "result": "flag",
+   "url": "https://www.nfl.com/injuries/",
+   "how": "The live page is the Week 11 report. The scheduled capture has rejected its last two reads on the schema gate (week 11, 2 status headers, 26 player links), so the site still shows the Week 10 capture. Logged as F-83 (filed on main by arena/cd239f59-x4, T60) and extended by F-85 (the publication-gate gap); the parser fix is a request on the board."
   }
  ],
  "qb_changes": [
