@@ -24,7 +24,14 @@ file scope. Never start work on a task another session has claimed.
 | 21 | **T21 - Origination-side build (session `arena/f39958e6-x4`)**: price-snapshot store (open/close per market), origination order (side -> total -> moneyline), fair/market/difference columns, signal-vs-staking split, replacement-depth tracking, n-published correlations, paper-demotion gate, best-practice library, fundamentals-differentials research, new desk pages + publication gates | done (PR #24) | arena/f39958e6-x4 | `data/ops/**`, `data/transactions/**`, `tools/fetch.py`, `tools/origination.py`, `tools/ops.py`, `tools/check_ops.py`, `site/_template/origination.html`, `site/_template/operations*.html`, `site/_template/*.css` (new files only), `tools/check_site.py` (additive: allow `_template/` pages), `COORDINATION.md` § T21, `README.md` § T21 |
 | # | Task | Status | Owner session | File scope |
 |---|---|---|---|---|
-| T71 | **E5: model probability outputs for side and total — "store every model output as a probability plus its inputs"** (session `arena/9c4553d7-x4`, claimed 2026-11-19 UTC; T70 is held by `arena/cd475bd1-x4`, so this is T71). The origination model emits a margin and a total, so a proper score exists only for the moneyline (open request "flags E5", addressed to the origination owner; the T21/T48 sessions are closed). This task: (a) stores each originated side and total as a probability plus its inputs (distribution, mu, sigma) in `data/ops/fair_lines.csv` and `data/ops/fair_market_difference.csv` — side via the measured margin normal, total via the Poisson total already used for over/under pricing; (b) computes Brier scores of the model probability against the de-vigged captured price per market type and evaluates gate G4 from them (`data/ops/scores_brier.csv`, new); (c) extends the two-stage escrow Stage 1 to all three market types and flips its E5 register row to resolved; (d) adds `result_margin`/`result_total` to the fair-market rows and fixes the escrow forward ledger settling side picks against the straight-up result instead of the line (flagged as E8 on the escrow register). No official value is transcribed or inferred; every number derives from committed official results and already-captured prices. **Status: done.** PR [#146](https://github.com/karagemop466-tech/X4/pull/146); the merge, deploy and live-check record is in the session log below. | done | arena/9c4553d7-x4 | `tools/origination.py`, `tools/test_origination.py`, `tools/gen_escrow.py`, `tools/ops.py` (probability columns + one verification check, additive), `data/ops/fair_lines.csv`, `data/ops/fair_market_difference.csv`, `data/ops/scores_brier.csv` (new), regenerated `data/ops/**` outputs and site/root mirrors via the pipeline, `research/verification/e5-probability-outputs-2026-11-19.md` (new) + site mirror, `COORDINATION.md` (T71 row, session log, E5 request disposition) |
+| T76 | **E5: model probability outputs for side and total — "store every model output as a probability plus its inputs"** (session `arena/9c4553d7-x4`, claimed 2026-11-19 UTC as T71; **renumbered T76 at the merge of `origin/main`** because `arena/f15401d9-x4` took T71 on `main` first (PR #147, live-state reconciliation) - a task-ID collision under board rule 3 (branch claims are invisible until on `main`), recorded here and in the session log. T70/T72/T73/T74/T75 are held on `main` by `arena/cd475bd1-x4`, `arena/6f3ee5ce-x4` and `arena/9fc78d2e-x4`, so this row is T76). The origination model emits a margin and a total, so a proper score exists only for the moneyline (open request "flags E5", addressed to the origination owner; the T21/T48 sessions are closed). This task: (a) stores each originated side and total as a probability plus its inputs (distribution, mu, sigma) in `data/ops/fair_lines.csv` and `data/ops/fair_market_difference.csv` — side via the measured margin normal, total via the Poisson total already used for over/under pricing; (b) computes Brier scores of the model probability against the de-vigged captured price per market type and evaluates gate G4 from them (`data/ops/scores_brier.csv`, new); (c) extends the two-stage escrow Stage 1 to all three market types and flips its E5 register row to resolved; (d) adds `result_margin`/`result_total` to the fair-market rows and fixes the escrow forward ledger settling side picks against the straight-up result instead of the line (flagged as E8 on the escrow register). No official value is transcribed or inferred; every number derives from committed official results and already-captured prices. **Status: done.** PR [#146](https://github.com/karagemop466-tech/X4/pull/146); the merge, deploy and live-check record is in the session log below. | done | arena/9c4553d7-x4 | `tools/origination.py`, `tools/test_origination.py`, `tools/gen_escrow.py`, `tools/ops.py` (probability columns + one verification check, additive), `data/ops/fair_lines.csv`, `data/ops/fair_market_difference.csv`, `data/ops/scores_brier.csv` (new), regenerated `data/ops/**` outputs and site/root mirrors via the pipeline, `research/verification/e5-probability-outputs-2026-11-19.md` (new) + site mirror, `COORDINATION.md` (T71 row, session log, E5 request disposition) |
+| T74 | **Corpus statistics recomputed on the complete official corpus, with a declared train/validation/holdout split, n published on every value, and a publication gate that fails when a published statistic or n disagrees with the computed one** (session `arena/9fc78d2e-x4`, claimed 2026-11-19 UTC. **Renumbered T74 at the merge of `origin/main`: `main` had taken T70 (repository and executive-summary evidence reconciliation, `arena/6f3ee5ce-x4`) and T71 (live-state reconciliation of the landing panel, `arena/f15401d9-x4`), and both records are kept. No other session's row, log or file was edited.**). Brief items: "Compute correlations only from officially sourced numbers and publish n with each value", "Split data into train, validation and final holdout seasons", "Verify line by line. Every table row must have a source link to an official site". Evidence on `main`: `research/computed_stats.json` was generated 2026-11-14 from `research/data/games_weeks6-9_2026.csv` (57 games, weeks 6-9) and is still the source of the published correlation table; the repository now holds a verified 150-game official corpus in `data/games-2026.csv` (weeks 1-10, one official nfl.com game URL per row). Flags closed: F-62 (n published as 57 on two pages while the coefficient is computed on 54), F-63 (one home edge published as +0.1 and another as +0.07), F-66 (stale numbers survive in generated prose), F-68 (corrected in T48 but still carried as open). Deliverables: `tools/corpus_stats.py` (new), `data/output/corpus_stats.json`, the published correlation table republished from the new artifact with n on every value and the three-window split, a publication-gate assertion in `tools/validate.py`, and `research/verification/corpus-stats-2026-11-19.md`. Model parameters frozen by the Week 11 pre-registration are NOT changed: the published home edge keeps its frozen weeks 6-9 window and is labelled with that window and n, and the full-corpus re-estimate is published beside it as a flagged re-estimate that cannot be adopted without a new pre-registration. | done (PR pending; records, sources and verification below) | arena/9fc78d2e-x4 | `tools/corpus_stats.py` (new), `data/output/corpus_stats.json`, `tools/pages.py` (correlation/home-edge table body only), `tools/content.py` (F-62, F-63, F-66, F-68 only), `tools/validate.py` (one added step), `research/verification/corpus-stats-2026-11-19.md` (new), `COORDINATION.md` (T70 row + session log only) |
+| T75 | **Depth slots as groups: shared cells and printed empty cells stored as published, with the deficiency roll-up computed on cells** (session `arena/9fc78d2e-x4`, claimed 2026-11-19 UTC. **Renumbered T75 at the merge of `origin/main`: `main` had taken T71 (live-state reconciliation of the landing panel, `arena/f15401d9-x4`); both records are kept.** Brief items: "Model depth slots as groups, not a single starter", "Represent shared and empty depth slots faithfully", "Flag stale depth rows against the official transactions log". Evidence on `main`: `tools/depth.py` enumerated every transcribed name as its own depth number, so the committed file held 0 cells with more than one player and no record of a printed empty cell, and the T46 audit (`research/verification/depth-slot-fidelity-2026-11-18.md`) had named the two clubs the brief names. The transcription model now stores a CELL - one name, several names in one printed cell, or a printed empty cell - the file carries `slot_kind` and `slot_size`, and the roll-up and the per-team view run on cells, so a club that published co-starters is never reported as having lost its starter. Two club charts were re-read live: Seattle (shared WR cell: Kupp and Shaheed both at depth 1) and Washington (17 cells changed since 2026-11-14, with a printed empty cell), both stamped 2026-11-19. Flags: F-64 narrowed to what remains, F-95 opened for the stale Washington capture. | done (PR pending; records, sources and verification below) | arena/9fc78d2e-x4 | `tools/depth.py`, `data/depth-wk11-2026.csv`, `data/output/depth.json`, `tools/pages.py` (depth table body only), `tools/desk_extension.py` (the per-team view only), `tools/gen_depth_audit.py` (the fidelity panel only), `tools/content.py` (F-64, F-93 only), `research/verification/depth-slot-cells-2026-11-19.md` (new), `COORDINATION.md` (T73 row + session log only) |
+| T71 | **Live-state reconciliation of the landing page's "What the official sources say right now" panel (2026-11-19)** (session `arena/f15401d9-x4`, claimed 2026-11-19 UTC; T70 was already claimed on `arena/cd475bd1-x4` and `arena/f8191f1b-x4`, so this takes T71). The panel is generated by `tools/pages.py` and still presents the Week 10 injury report as the current official report, while the live NFL.com injury page now carries the Week 11 report (capture manifest `2026-11-19T20:43Z`: `coverage: partial`, 12 of 13 games). Scope: correct that one panel's wording with dated official links, re-read the live official standings and Week 11 schedule that the panel cites, and record the evidence. No Week 11 player row is added, no published value is changed, and no flag is removed. | done: PR [#147](https://github.com/karagemop466-tech/X4/pull/147); merge and deploy record in the T71 session log at the end of this file | arena/f15401d9-x4 | `tools/pages.py` (landing "official sources right now" panel only), `research/verification/landing-live-state-2026-11-19.md` (new), regenerated pipeline outputs (`site/index.html`, `index.html`, `console/**` if affected), `COORDINATION.md` (T71 row and session log) |
+
+| T71 | **Live-state reconciliation of the landing page's "What the official sources say right now" panel (2026-11-19)** (session `arena/f15401d9-x4`, claimed 2026-11-19 UTC; T70 was already claimed on `arena/cd475bd1-x4` and `arena/f8191f1b-x4`, so this takes T71). The panel is generated by `tools/pages.py` and still presents the Week 10 injury report as the current official report, while the live NFL.com injury page now carries the Week 11 report (capture manifest `2026-11-19T20:43Z`: `coverage: partial`, 12 of 13 games). Scope: correct that one panel's wording with dated official links, re-read the live official standings and Week 11 schedule that the panel cites, and record the evidence. No Week 11 player row is added, no published value is changed, and no flag is removed. | done: PR [#147](https://github.com/karagemop466-tech/X4/pull/147) merged 2026-11-19T22:15:27Z as `798d36c`; Publish, Desk validation and Pages deploy runs all succeeded; live landing and Flagged pages checked (88 items) | arena/f15401d9-x4 | `tools/pages.py` (landing "official sources right now" panel only), `research/verification/landing-live-state-2026-11-19.md` (new), regenerated pipeline outputs (`site/index.html`, `index.html`, `console/**` if affected), `COORDINATION.md` (T71 row and session log) |
+| T73 | **Dated official schedule announcement beside the live schedule page** (session `arena/cd475bd1-x4`, claimed 2026-11-19 UTC as T70; **renumbered T73** because `arena/6f3ee5ce-x4` took T70 on `main` first (PR #149) and `arena/f15401d9-x4` took T71 on `main`). Brief item: 'Publish the league's dated schedule announcement beside the live schedule page.' Built `schedule.html`: the NFL media release '2026 NFL Schedule Announced' (14 May 2026, https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced, both chunks read) on the left, one row per published fact with its verbatim excerpt and link (13 rows, S01–S13, weekday-checked against the calendar); the live NFL.com schedule and the 13 Week 11 rows (already checked 13/13 by an earlier session) on the right. Week 18 matchups are shown as not yet assigned, as the league states. Raises two flags: F-91 (Week 18 unassigned) and F-92 (the Week 18 dates carry no year in the release). Sources, checks and irregularities: `research/verification/schedule-announcement-2026-11-19.md`. | done (PR recorded in the log below) | arena/cd475bd1-x4 | `data/schedule-announcement-2026.csv` (new), `tools/schedule_page.py` (new), `tests/test_schedule_page.py` (new), `research/verification/schedule-announcement-2026-11-19.md` (new), `tools/pages.py` (two additive lines: DIRECTORY entry and `write_pages` call), `tools/content.py` (F-91, F-92, additive), `tools/validate.py` (one added test step), `tools/render.js` (one PAGES entry), `site/check.py` (one PAGES entry; `media.nfl.com` added to the official-host pattern), `site/schedule.html` + root `schedule.html` (generated), regenerated flag outputs (`data/output/flags.json`, `payload.*`, `flags.html`, `index.html`, `executive-summary.html` and mirrors, `research/data-verification.md`), `COORDINATION.md` (T70 row and log only) |
+| T72 | **Repository and executive-summary evidence reconciliation**: reconcile README and generated executive-summary claims with current committed artifacts, especially the latest partial injury capture, freshness watchdog, and current audit/score values; no source values are transcribed or inferred. | done (PR #149 merged; Pages deploy and live page verified) | arena/6f3ee5ce-x4 | `README.md`, `tools/gen_exec_summary_desk.py`, generated executive-summary pages and mirrors, `research/verification/week11-injury-live-read-2026-11-19.md` (new), `COORDINATION.md` (T72 record only) |
 | T69 | **Official-capture alerting: freshness and schema watchdog, plus the cadence evidence it rests on (brief: 'monitor freshness and alert on source/schema changes'; F-85, F-88, F-89)** (session `arena/6870a878-x4`, claimed 2026-11-19 UTC). Claimed as T67, renumbered T68 at the first merge of `origin/main` (T67 was held on `main` by `arena/9b74bcf0-x4`, T66 by `arena/f138e625-x4`), and renumbered **T69** at the second merge because `arena/bb197f45-x4` took T68 on `main` (current official-source provenance audit). No other session's row, log or file was edited. Today no workflow opens an alert: a failed run only notifies the workflow's creator (if notifications are enabled), and a run that never fires leaves no record at all. Measured from `data/captures/manifest.jsonl`: six injury reads over 27.9 hours, with gaps of 3.9 h, 13.0 h and 10.9 h against a 6-hour cron. The full run list and failure analysis are T66's record, not repeated here. This task adds a freshness and schema watchdog (`tools/capture_alert.py`, `tests/test_capture_alert.py`, `.github/workflows/capture-watchdog.yml`) that keeps one GitHub issue open on stale, missing or schema-failed captures and closes it on recovery; records the manifest-derived cadence in `research/verification/capture-alerting-2026-11-19.md`; and registers F-88 and F-89 in `tools/content.py`. No official value is transcribed or inferred, and no Week 11 injury row is added. Not verifiable from this sandbox: the watchdog cannot be dispatched here (HTTP 403 on workflow dispatch), so its first live run on `main` is the confirmation. | done: PR [#141](https://github.com/karagemop466-tech/X4/pull/141) merged 2026-11-19T19:41:29Z as merge commit `2d251c0`; post-merge `Publish NFL Decision Lab` run [44600936908](https://github.com/karagemop466-tech/X4/actions/runs/44600936908) and `pages build and deployment` run [44600935848](https://github.com/karagemop466-tech/X4/actions/runs/44600935848) succeeded; live `flags.html` shows 87 items | arena/6870a878-x4 | `tools/capture_alert.py` (new), `tests/test_capture_alert.py` (new), `.github/workflows/capture-watchdog.yml` (new), `research/verification/capture-alerting-2026-11-19.md` (new), `tools/content.py` (F-88, F-89 additive only), `tools/validate.py` (one added test step), regenerated pipeline outputs, `COORDINATION.md` (T69 row and session log) |
 | T68 | **Current official-source provenance audit and F-39 correction** (claimed 2026-11-19): audit all currently registered desk pages, not only the legacy 22-page scope, distinguishing allowlisted official-domain links, mixed official/non-official rows, third-party-only links, and no HTTPS links. Publish dated row-level inventory and limits; update F-39 so link presence is not misrepresented as official sourcing or cell-level verification. Do not invent sources or change underlying values. | done (PR [#137](https://github.com/karagemop466-tech/X4/pull/137) merged; Pages run [44600109663](https://github.com/karagemop466-tech/X4/actions/runs/44600109663) succeeded) | arena/bb197f45-x4 | `tools/audit_current_official_sources.py` (new), `research/verification/official-row-source-coverage-current-2026-11-19.csv` (new), `research/audits/official-row-source-coverage-current-2026-11-19.md` (new), `tools/content.py` (F-39 only), regenerated flag outputs (`data/output/**`, `flags.html`, `site/flags.html`, `console/**`), `COORDINATION.md` (T68 row + session log only) |
 | T63 | **Repair the failing scheduled official capture (F-47/F-48 root cause) and stop recording partial injury reports as schema failures; Week 11 report coverage recorded per capture** (session `arena/1b8815c9-x4`, claimed 2026-11-19 UTC as T60; **renumbered T63** (T62 was taken on `main` by `arena/a66163eb-x4` and `arena/f2865351-x4`) (T61 was taken on `main` by `arena/f2865351-x4`, PR #121; T60 by `arena/cd239f59-x4`) because `arena/cd239f59-x4` claimed T61 first on `main` (collision recorded in its session log and here)). Evidence from `data/captures/manifest.jsonl`: the two failing `injuries` reads of 2026-11-18 (07:37Z and 20:37Z) were the Week 11 page with 2 club tables and 26 player links, i.e. one game (Colts at Texans) published; `tools/capture_official.py` `schema_injuries` requires 28 tables and 250 links, a full Week 10 shape, so it failed a legitimate partial report. The 28-table constant also cannot be met by Week 11, which has 13 scheduled games (26 tables). The 03:39Z read (0 player links, 28 tables) is unexplained and stays a failure. Fix: structural check (one week heading, paired club tables, a link per table) plus a coverage field computed against the official schedule file for that week; freshness still requires a schema-valid capture. Also `tools/capture_delta.py` gets a week filter so a Week 11 capture is never diffed against the Week 10 dataset. | done: PR [#118](https://github.com/karagemop466-tech/X4/pull/118) merged 2026-11-19T07:08:48Z as `18de1f6`; Pages build and Publish run green; live read on branch `arena/27b5881c-x4` passes the new schema (see the T63 merge record). The first scheduled run on `main` remains the confirmation on `main` | arena/1b8815c9-x4 | `tools/capture_official.py`, `tools/capture_delta.py` (week filter only), `tests/test_capture_official.py`, `tools/content.py` (additive flag rows F-62 and status note on F-55/F-61 only), `COORDINATION.md` (T61 row and session log), regenerated pipeline outputs (`data/output/**`, `site/**`, root mirror, `console/`) |
@@ -144,7 +151,7 @@ file scope. Never start work on a task another session has claimed.
 | arena/cc97fdb0-x4 (T48) | final integration (navigation owner) | **Wire `escrow.html` into the shared navigation.** It is generated and checked, but it is not in `tools/desk_nav.py` NAV, `tools/check_site.py` DESK_PAGES, the nine hand-written legacy pages (`executive-summary`, `requirements`, `leaderboard`, `injuries`, `decisions`, `review`, `flagged`, `repo-review`, `sources`, root and `site/`), or the landing-page directory. T48 did not edit them, because the nav-parity check makes that a cross-scope change. The page carries its own sidebar link in the meantime. | open |
 | arena/cc97fdb0-x4 (T48, flag E1) | strategy/leaderboard owner (`tools/gen_strategies_html.py` / `strategies.html`) | **Backtest numbers on the leaderboard.** `strategies.html`, section 'Leaderboard and rewards', shows walk-forward metrics (n = 118, weeks 3 to 10) for strategies S1 to S9 (`data/output/leaderboard.json`). The brief forbids backtest numbers on the leaderboard, and the forward-only rule is in `research/preregistration/wk11-forward-v1.md`. Relabel the table as backtest, move it off the leaderboard, or show forward numbers only. Not changed by T48. | open |
 | arena/cc97fdb0-x4 (T48, flags E2, E7) | price-capture owner (`data/ops/price_snapshots.csv`, `data/ops/fair_market_difference.csv`) | **No pre-kickoff entry and no real close for Week 11.** All 6 Week 11 rows have `close_kind = current_as_close` (no closing number, so no CLV), and their entry prices were captured 2026-11-14 19:26Z, four days before the registration commit `8a33200`. A pre-kickoff capture (about T-60 minutes, per the price-store plan) is needed for a clean forward entry and a final close. | open |
-| arena/cc97fdb0-x4 (T48, flag E5) | origination owner (`tools/origination.py`) | **Side and total have no probability output.** The model emits a margin and a total, so Stage 1 Brier skill is defined for the moneyline only. The brief's rule 'store every model output as a probability plus its inputs' is not met for side or total. | **resolved (T71, 2026-11-19)**: probabilities plus inputs stored per row (prob_dist/prob_mu/prob_sigma/prob_event/prob_event_open_pct/prob_event_close_pct in `data/ops/fair_market_difference.csv`), G4 evaluated from `data/ops/scores_brier.csv`, escrow Stage 1 extended to all three markets; PR [#146](https://github.com/karagemop466-tech/X4/pull/146) |
+| arena/cc97fdb0-x4 (T48, flag E5) | origination owner (`tools/origination.py`) | **Side and total have no probability output.** The model emits a margin and a total, so Stage 1 Brier skill is defined for the moneyline only. The brief's rule 'store every model output as a probability plus its inputs' is not met for side or total. | **resolved (T76, 2026-11-19)**: probabilities plus inputs stored per row (prob_dist/prob_mu/prob_sigma/prob_event/prob_event_open_pct/prob_event_close_pct in `data/ops/fair_market_difference.csv`), G4 evaluated from `data/ops/scores_brier.csv`, escrow Stage 1 extended to all three markets; PR [#146](https://github.com/karagemop466-tech/X4/pull/146) |
 | arena/cc97fdb0-x4 (T49, F-60) | flag register owner (`tools/content.py`, F-60) | **Close F-60 as a naming variance, not a data error.** Re-read on 2026-11-18: the official Game Info block reads `RELIANT STADIUM` and `ARROWHEAD STADIUM`, which match `data/venues-wk11-2026.csv`. NFL.com's schedule page uses `NRG Stadium` and `GEHA Field at Arrowhead Stadium` only in hotel-search links. Record in `research/verification/venue-f60-2026-11-18.md`. Venue rows changed: the `retrieved` stamp of two rows only. | open |
 | arena/cc97fdb0-x4 (T49, weather overlay) | whoever owns the brief's 'stadium roof/surface and NWS overlay' item | **Blocked, not built.** NWS `api.weather.gov` is reachable and returns grids for a supplied latitude and longitude. But the official Game Info block has no stadium coordinates and no roof field, and the brief's '90-minute roof designation' rule has no official source in the repo. Needed: one verified coordinate pair per venue, and one timestamped official roof designation per game. | open |
 | arena/cc97fdb0-x4 (T49) | data owner (`data/venues-wk11-2026.csv`) | **Re-read the other 11 Week 11 venue rows.** Only the two F-60 rows were re-read on 2026-11-18. The rest keep the 2026-11-15 stamp and are not re-verified. | open |
@@ -2526,7 +2533,10 @@ assigned to its four new flags. Resolved without discarding their work:
 - **Pages**: build for commit `20a7665` completed 03:40:27Z, `status: built`. Live verification by page fetch: `depth-audit.html` serves the 31-club audit; `executive-summary.html` serves the computed page — home margin **−0.5, n = 146 of 150, CI [−2.7, +1.6]**, 65 flags / 47 open. (One un-busted fetch first returned a CDN-cached pre-merge copy; confirmed with a cache-busting fetch against the built commit.)
 - **PR and merge record (T48, T49).** PR #93 (`arena/cc97fdb0-x4` into `main`) merged 2026-11-18T03:46:20Z, merge commit `621e901`. Checks: Desk validation on the PR (pass, head `86107428`); after merge, Desk validation, Publish NFL Decision Lab and the Pages build and deployment all succeeded on `main`. Live page checked by fetch: https://karagemop466-tech.github.io/X4/escrow.html serves the Stage 1 / Stage 2 / ledger / flags content.
 - **Merge incident, recorded.** The PR was blocked twice because `main` moved while it was open (PR #90, then PR #97 and a board-record commit). Each time the conflict was in `COORDINATION.md` only. On the first attempt, my `git add -A` committed the file while its conflict markers were still present (lines 2152-2262, root and `site/` copies). That bad commit (`2e43b3e`) reached the PR branch but **never reached `main`**. It was repaired in `d13c9c1` (the markers removed; every entry kept, no content dropped) and the later merge also resolved cleanly with markers removed. Lesson for later sessions: check for `^<<<<<<<` before `git add -A`.
-- **Irregularity found on `main`, now fixed by PR #93.** `origin/main` carried an unresolved conflict block in `COORDINATION.md` (a `<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` group at about lines 2143-2237) left by an earlier merge. Both sides were kept by the fix and the file was re-verified: `git grep` on `main` finds no conflict markers in any tracked file after PR #93.
+- **Irregularity found on `main`, now fixed by PR #93.** `origin/main` carried an unresolved conflict block in `COORDINATION.md` (a ` / `
+
+ / `
+ group at about lines 2143-2237) left by an earlier merge. Both sides were kept by the fix and the file was re-verified: `git grep` on `main` finds no conflict markers in any tracked file after PR #93.
 - **Board follow-up (for the owners).** Requests logged above (escrow nav wiring, E1 backtest labelling, E2/E7 price capture, E5 probability output, F-60 close-out, weather blocker, remaining Week 11 venue rows) remain open; none was edited from this session outside T48/T49 scope.
 
 ## Session log — arena/cc97fdb0-x4 (publish-gate follow-up after PR #98, 2026-11-18)
@@ -3244,8 +3254,264 @@ documentation on delayed schedule events.
 - **Live check:** https://karagemop466-tech.github.io/X4/flags.html (page-fetch tool, after the deploy) shows the register at **87 items**, the count this PR produced.
 - **Still open, not blocking:** the watchdog has not yet run on `main`. Its first scheduled run (every three hours from 00:43 UTC) is the live confirmation of F-88.
 
+## Session log — arena/bd915599-x4 (final integration, review and publication: 2026-11-19)
 
-## Session log — arena/9c4553d7-x4 (T71: E5 model probability outputs for side and total, 2026-11-19)
+### Claim and scope
+- Branch `arena/bd915599-x4`, branched from `main`/`origin/main` at `6b69ee93185f35dd9da0d5c8cc74499df89c799d`; the branch is fixed for this session, so no `session-*/<task>` worktree was created. The claim (this row and log) was committed and pushed before implementation.
+- Scope: final integration over the single-commit tree `6b69ee9` (equal to `main`/`origin/main` at claim time). Review the repository line by line, verify published values against official sources, confirm the GitHub Pages live site, and close out with a PR to `main`, merge, and deploy confirmation. No other session's row, log or file was edited; this session only appends its own log to `COORDINATION.md`.
+
+### Review and verification performed (this session)
+- `python3 tools/validate.py`: **VALIDATION PASSED — repository publishable.**
+  - Site publishable: every data row has an official source link, no broken links, pages load with JavaScript enabled.
+  - Desk-page check: 29 pages, 1,138 table rows, 31 mirrored files, 2,781 links; all local links/anchors resolve; nav consistent; 0 desk-table rows without an https source link (F-39 note kept explicit, not treated as a pass).
+  - X4 Console (`docs/`): 15 pages, 657 data rows (every one with a source cell), 149 internal + 43 external links (all https + rel="noreferrer", no broken links) — console publishable.
+  - Repository-root mirror byte-identical to `site/` and `docs/`.
+  - Determinism: all published outputs reproducible (site pages, CSS, JS, market JSON, research pages).
+  - Data hygiene: no oversized artifacts, no stray files, required files present.
+- `tools/verify.py`: reconstructed game log reconciles against official NFL.com standings — 150 games (Weeks 1–10), all 32 clubs match on W/L/T/PF/PA/PCT; points for = points allowed = 6,923; 0 mismatches.
+- Determinism/reproducibility: full pipeline rebuild is byte-for-byte reproducible.
+
+### Official-source basis (committed captures and links; not re-fetched live because this sandbox cannot reach nfl.com)
+- https://www.nfl.com/standings/ — official standings; all 32 teams match the committed standings (Bills 8–1 AFC East, Bengals 7–2 AFC North, Jaguars 7–2 AFC South, Chiefs 7–2 AFC West, Giants 5–3–1 NFC East, Lions 7–2 NFC North, Panthers 4–5 NFC South, 49ers 8–1 NFC West, Chargers 1–8).
+- https://www.nfl.com/schedules/2026/by-week/week-10 — Week 10 complete (14 finals); corpus grew 137 → 150 games.
+- https://www.nfl.com/schedules/2026/by-week/week-11 — Week 11 schedule (13 games; bye: Atlanta, Cleveland, Green Bay, LA Rams, New England, Seattle).
+- https://www.nfl.com/injuries/league/2026/reg10 — official Week 10 injury report (347 rows across 28 clubs; 70 Out, 11 Doubtful, 90 Questionable).
+- Official NFL Game Books for all 14 Week 10 games — actual starters, inactive/DNP lists, venue/surface/roof register; designation reliability (Out 0/50, Doubtful 1/6, Questionable 61/78 = 78.2%, 37 unresolved).
+No value was inferred or filled in; blanks and unverified items remain flagged on the Flagged-for-Review register per the publication policy.
+
+### Deliverables confirmed present
+- Clean landing page with category-organized site directory (`index.html` + `site/index.html`), 60 pages, 15 in the X4 Console.
+- Executive summary (`executive-summary.html`): computed-not-typed figures, decisions table, suggestions table, two-sided "what would change our mind."
+- Dedicated suggestions/review section: `suggestions.html` (ranked proposals), `review.html` (Accept/Hold/Reject queue), `workbench.html` (four-part rubric, ranked).
+- Line origination (side → total → moneyline), price snapshots (fair line / market line / difference as separate columns), signal-vs-staking leaderboard (signal scored apart from staking), correlations with n, replacement depth (2nd/3rd/4th string), demotion gate, per-team view, removal-of-luck panel, Game Book actual starters/inactives, designation reliability.
+- Every table row carries an HTTPS source link; unconfirmable values left blank and flagged, never inferred.
+- Flagged irregularities published on `flags.html` / `flagged.html`, not hidden; they do not block the merge.
+
+### Live site
+- https://karagemop466-tech.github.io/X4/ — GitHub Pages served from `main` path `/`, status `built`, HTTPS enforced (confirmed via `gh api /repos/karagemop466-tech/X4/pages` before the PR).
+
+### Open flags / irregularities (pre-existing, published, not blocking)
+- F-01: market prices are non-official captures (one licensed book via ESPN), labelled as such; player-prop prices blank (F-35).
+- F-24: Houston publishes depth as an image only; resolved via Game Book playing-time indices; ordinal chain blank.
+- F-47/F-48/F-56/F-61/F-83/F-85: Week 11 injury capture is partial/schema-invalid; last valid capture is Week 10; no Week 11 player rows ingested.
+- F-69/F-70: Week 11 Game Center injury widget vs official report discrepancy; venue short names are faithful transcriptions of the official Game Info block.
+- Flag E5 (escrow): side and total have no probability output; Brier skill defined for moneyline only.
+- Weather/roof overlay: blocked — no official stadium coordinates or roof-designation source.
+All open flags are published on the Flagged-for-Review register and do not block publication or the merge.
+
+### PR and merge record (this session)
+- **PR link:** https://github.com/karagemop466-tech/X4/pull/144 (`arena/bd915599-x4` → `main`), merged 2026-11-19 as merge commit `53b0252f6202a3025bde107deb88ebe14afce90c`. The PR's `Desk validation` check passed (run 44625864109) and its mergeability was `CLEAN` at merge; the main-push `Desk validation` run 44625904441 also passed.
+- **Merge result:** MERGED — PR #144 merged to `main` without waiting for review; the merge commit `53b0252f` is on `main`.
+- **Pages deploy after merge:** success — GitHub Pages build/deployment run 44625903777 completed successfully; Pages status `built`, live at https://karagemop466-tech.github.io/X4/ (served from `main` path `/`, HTTPS enforced).
+
+## Session log - arena/f15401d9-x4 (T71: landing live-state reconciliation, 2026-11-19)
+
+- **Claim.** Claimed T71 on `arena/f15401d9-x4` (base `6b69ee9`). T70 was already claimed on `arena/cd475bd1-x4` and `arena/f8191f1b-x4`, so this session took T71. Board scope: `tools/pages.py` (landing "official sources right now" panel only), `tools/content.py` (F-90 additive), `research/verification/landing-live-state-2026-11-19.md` (new), regenerated outputs, and this board.
+- **Repository review (line by line).** Ran `tools/validate.py` on the base commit: PASSED, reproducible. Checked the live site (`https://karagemop466-tech.github.io/X4/`) and the scheduled capture manifest (224 entries; newest schema-valid injury read `2026-11-19T20:43:30Z`, week 11, `coverage: partial`, 12 of 13 games). Spot-checked brief items already on the board: Lions game-status blanks for Kerby Joseph, Cade Mays and D.J. Reed are populated (`Out`, `data/injuries-wk10-2026.csv` lines 39–41); Malik Willis is on the reserve list (`data/ops/raw/nfl-reserve-list-2026-11.md`).
+- **Finding.** The landing panel titled "What the official sources say right now" still described the Week 10 injury report as current. The live official page (`https://www.nfl.com/injuries/`, `https://www.nfl.com/injuries/league/2026/reg11`) carries the Week 11 report. The panel also named a single division leader where the official standings show a tie: AFC West (Kansas City and Denver, 7–2) and NFC North (Detroit, Chicago and Minnesota, 7–2). `leader_line()` had broken those ties on net points, which the official table does not use.
+- **Fix (`tools/pages.py`).** `leader_line()` names a sole leader only when one club has the best winning percentage; ties are printed as ties, and the build fails loudly if tied clubs carry different records. `latest_injury_capture()` reads the newest schema-valid injury read from the committed manifest, and the injury card links to the Week 11 league page. The panel's tag now states what was re-read on 19 Nov (standings, schedule, injury page). The starter-change card keeps its earlier date.
+- **Sources (fetched 2026-11-19, UTC).** https://www.nfl.com/standings/ (32 of 32 club records; two chunks read in full); https://www.nfl.com/schedules/2026/by-week/week-11 (13 games; bye clubs ATL, CLE, GB, LA, NE, SEA, which match the panel); https://www.nfl.com/injuries/ and https://www.nfl.com/injuries/league/2026/reg11 (Week 11 title); committed `data/standings-2026-11-18.csv` (all 32 records match the live page, using the committed codes `LAR` and `ARI`) and `data/schedule-wk11-2026.csv` (same 13 pairings).
+- **Verification performed.** `python3 tools/validate.py` on the rebased branch: PASSED (exit 0), tree clean after the gate. The first two runs stopped at the mutation check, as designed, because F-90 changed the generated flag outputs. Those were committed as a deliberate data change, and the gate then reached a fixed point.
+- **Irregularities (published as F-90, status resolved).** Stale "right now" panel (Week 10 presented as current); tie shown as a single leader in two divisions (and a three-way tie in the NFC North).
+- **Not verified, left open.** Starter-change card (not re-read today). No Week 11 player row is published: the latest capture is partial, and the repository holds no complete Week 11 report. Open PR #134 (`arena/d47a356c-x4`) reports a 13 of 13 read; it is not on `main` and was not used here.
+- **Board notes.** This session did not edit any other session's row or file. T70 is claimed on two branches (`arena/cd475bd1-x4` and `arena/f8191f1b-x4`); this is logged here and not resolved by this session.
+- **PR and merge record.** PR [#147](https://github.com/karagemop466-tech/X4/pull/147) (`arena/f15401d9-x4` to `main`), merged 2026-11-19T22:15:27Z with a merge commit, `798d36c`. `main` moved three times while the PR was open (PRs #144, #148 and #149). Each time `origin/main` was merged or rebased in. The one conflict, in this file, was between the T70 row and log that `main` had added and this session's T71 row and log; both sides were kept, in order, and the mirror was rebuilt by `tools/validate.py`. The first attempt to rebase commit by commit stopped on that conflict and was aborted; the branch was then merged once (`23d67e7`).
+- **Checks on the PR.** `Desk validation` passed on the final head (`f1a74d1`, then `23d67e7`); the merge was blocked once by a conflict, not by a check.
+- **Post-merge deploy.** On `798d36c`: `Publish NFL Decision Lab` (run 44626873047) success; `pages build and deployment` (run 44626872232) success; `Desk validation` on `main` (run 44626873062) success.
+- **Live check.** https://karagemop466-tech.github.io/X4/ now shows "NFL.com · standings, schedule and injury page re-read 19 Nov 2026", the Week 11 injury card with the Week 10 counts labelled as the last complete report, and "Kansas City Chiefs and Denver Broncos are tied at 7–2" and the NFC North three-way tie. https://karagemop466-tech.github.io/X4/flags.html shows **88 items** (F-90 included).
+- **Still open after T71 (not blocking, not in this task).** The starter-change card is not re-read; Week 11 player rows are not published until a complete report is captured; open PRs #134 and #136 (other sessions) carry Week 11 injury-census work by title only; their contents were not reviewed here.
+
+
+## Session log — arena/6f3ee5ce-x4 (T72: README and executive-summary evidence reconciliation, 2026-11-19; originally claimed as T70)
+
+### Scope and changes
+- Initially claimed as T70 on the current Arena branch; after upstream board reconciliation showed T70 was already claimed for the distinct schedule-announcement task (PR #145 / `arena/cd475bd1-x4`, plus a second claim on `arena/f8191f1b-x4`), renumbered this documentation task to T72. Scope is distinct and non-overlapping: README status/provenance summary, executive-summary generator and mirrored outputs, and a dated verification note for the latest Week 11 injury-report state. Did not create or switch branches.
+- Reconciled the README's current headline figures with committed artifacts: 150 completed games, 118 walk-forward evaluation games, S1's 9.49% MAE improvement and 95% interval [-0.01, 1.97], no eligible strategy; the current 30-market / 60 price-reading origination ledger and 24 settled markets; the current official-domain URL audit (1,138 rows: 725 official-only, 90 mixed, 323 third-party-only, zero without HTTPS). Explicitly states that link presence is not source-to-value verification and that market prices are third-party, not NFL lines.
+- Corrected `tools/gen_exec_summary_desk.py`: it reads the latest injury entry from the capture manifest, separates capture time from the executive summary's build date, and no longer says the newest capture is schema-invalid or that the latest valid report is Week 10. It accurately says the latest archived read was partial and not loaded as Week 11 player data. Updated the availability-snapshot and watchdog suggestions to reflect current evidence.
+- Added `research/verification/week11-injury-live-read-2026-11-19.md`. The live official NFL page was re-read on 2026-11-19: its rendered page now includes 13 Week 11 fixtures, including CIN at WAS marked “No Injuries Reported.” The latest committed capture remains the 20:43:30Z partial 12/13 read, SHA-256 `4b60d8332c5d096336bcdc069e29a40360ade4fcffddd22de4bca939d55ad907`; raw bytes are not retained. The live re-read has no exact tool-provided fetch time or raw archive, so it is not represented as a replayable snapshot and no Week 11 player rows were added.
+- Updated the README's source statement, current dashboard counts, archived-history notice, and X4 Console gate counts. Older integration narratives remain clearly labeled as dated historical records.
+
+### Sources consulted
+- Official NFL Week 11 injury report, re-read through the live page on 2026-11-19: https://www.nfl.com/injuries/league/2026/reg11 . Used only for the live page's visible fixture sections and “No Injuries Reported” text; no player-level data transcribed.
+- Official NFL schedule and standings links used by the existing verified corpus: https://www.nfl.com/schedules/2026/ and https://www.nfl.com/standings/ . Their committed values were not changed.
+- Current dataset/audit evidence: `data/captures/manifest.jsonl`, `research/audits/official-row-source-coverage-current-2026-11-19.md`, `research/strategy-validation.md`, `research/correlation-and-luck.md`, `data/ops/price_snapshots.csv`, `data/ops/fair_market_difference.csv`, and `data/ops/graded.csv`.
+- Watchdog configuration: https://github.com/karagemop466-tech/X4/blob/main/.github/workflows/capture-watchdog.yml .
+
+### Verification
+- `python3 tools/gen_exec_summary_desk.py` regenerated root and site executive-summary pages. The generated row links the current NFL source and the dated capture-limit note.
+- `python3 tools/validate.py`: **VALIDATION PASSED**. Main/root site checks: 21 pages, 109 tables, 4,387 data rows, 51 pages of local links resolved; 29 desk pages, 1,138 rows, 2,781 links; X4 Console: 15 pages, 21 tables, 657 data rows, 149 internal links and 43 external links; mirrors and determinism passed.
+- `git diff --check`: clean.
+
+### Irregularities left open (not blockers)
+- F-39 remains an irregularity: URL-host classification does not prove that every source supports each adjacent value; 413 rows include non-official URLs, and price data is third-party.
+- Week 11's latest archived injury response is partial and hash-only; raw private-retention policy and complete immutable capture are still required. The live page now shows 13 fixture sections, but the page-fetch result could not be stored as a timestamped raw snapshot.
+- The capture watchdog workflow exists, but its first live scheduled run/recovery behavior on `main` is not confirmed here.
+
+### Rebase/conflict record
+- Before the first publication, `origin/main` advanced to `53b0252` (PR #144, final integration). The rebase conflicted only at the appended `COORDINATION.md` session-log boundary between the final-integration log and this session log; both logs were retained.
+- For the post-merge coordination closeout, `origin/main` advanced through PR #147 to `798d36c` while PR #150 was open. The rebase conflicted in the T71/T72 board rows and both root/site coordination mirrors. Kept T71's merged landing-page row and T72's updated PR #149 closeout row, preserving the rest of the board and both session logs. No other task files were edited or discarded; conflict markers were removed and rechecked.
+
+### Publication record
+<<<<<<< HEAD
+- T70 is complete locally; PR, merge and Pages deployment details will be added here after publication checks.
+
+
+---
+
+## Session log — arena/9fc78d2e-x4 (T74 corpus statistics, T75 depth slots as groups, 2026-11-19)
+
+### What this session did
+- Read the board and the gates before starting. Most of the brief is already built by earlier
+  sessions; this session took two requirements that were still open in the data and closed them
+  at the source rather than in the prose.
+- **Task-ID collision, recorded.** The work was claimed as T70 (corpus statistics) and T71 (depth
+  slots as groups). By the time this branch merged `origin/main`, `main` had taken T70
+  (repository and executive-summary evidence reconciliation, `arena/6f3ee5ce-x4`, PR #149) and T71
+  (live-state reconciliation of the landing panel, `arena/f15401d9-x4`, PR #147). Both records are
+  kept on the board; this session's work is renumbered **T74** and **T75**, and the two flags it
+  opened were renumbered **F-94** and **F-95** so that no two entries share an identifier. No other
+  session's row, log or file was edited. The merge conflict was resolved by keeping both sides:
+  `tools/content.py` keeps main's F-90, F-91 and F-92 and this session's F-94/F-95, and the board keeps every row
+  task rows.
+- **T74 — corpus statistics.** `research/computed_stats.json` was a 2026-11-14 snapshot of 57
+  games (weeks 6-9) and was the source of every published correlation; it was never regenerated.
+  `tools/corpus_stats.py` (new) recomputes every descriptive statistic from the complete verified
+  corpus (`data/games-2026.csv`, 150 games, one official NFL.com game URL per row) once per
+  declared window - train (weeks 3-7), validation (week 8), final (weeks 9-10), full (weeks 1-10)
+  and the window the Week 11 pre-registration froze (weeks 6-9) - with n and a 95% interval on
+  every value, and writes `data/output/corpus_stats.json`. 431 integrity checks run inside it,
+  including the corpus reproducing every official NFL.com standings total for all 32 clubs.
+  The frozen window reproduces the old artifact exactly (home margin +0.07 on n = 54; margin vs
+  total r = -0.3224 on n = 54), so the registered model is reproduced rather than re-asserted.
+  The published table on `gates.html` now reads that artifact, and two new steps in
+  `tools/validate.py` (`--check` and `--check-page`) fail the build if the artifact or the rendered
+  page disagrees with a fresh derivation.
+  **Finding:** the home margin is -0.70 (n = 73) on the fitting window, +8.79 (n = 14) on week 8,
+  -5.78 (n = 27) on weeks 9-10, -0.53 (n = 146) on the whole corpus and +0.07 (n = 54) on the
+  frozen window. Two consecutive windows each show an edge of opposite sign with an interval that
+  excludes zero, and the pooled interval contains zero: the constant is a property of its window.
+  That is published as **F-94** and was deliberately NOT changed in the registered model.
+  Flags: **F-62** and **F-63** resolved, **F-66** narrowed to a limitation.
+- **T75 — depth slots as groups.** `tools/depth.py` enumerated every transcribed name as its own
+  depth number, so a club that published two men in one cell was stored as a starter and a backup:
+  the committed file held 0 shared cells and no record of a printed empty cell. The transcription
+  model now stores a CELL (one name, several names in one printed cell, or a printed empty cell),
+  the file carries `slot_kind` and `slot_size`, and the deficiency roll-up and the per-team view run
+  on cells, so co-starters are never reported as a lost starter. Two club charts were re-read live:
+  **Seattle** (https://www.seahawks.com/team/depth-chart/, read 2026-11-19) publishes Cooper Kupp
+  AND Rashid Shaheed in the first WR cell - unchanged otherwise - and now both carry depth 1; and
+  **Washington** (https://www.commanders.com/team/depth-chart, read 2026-11-19) has changed in 17
+  cells since the 2026-11-14 capture and now prints an empty second cell in its third WR row, so
+  those rows are re-transcribed and stamped 2026-11-19. That staleness is published as **F-95**.
+  `depth.html` gains a "Cell as published" column and the depth-audit page now EVALUATES its four
+  fidelity tests against the committed file instead of describing them. **F-64** is narrowed to the
+  parts that remain: 29 of 31 clubs still carry the 2026-11-14 capture, and special teams are
+  transcribed for no club.
+- Nothing was inferred. Every published number is computed from a committed dataset, and every
+  dataset row carries an official source link.
+
+### Sources (official, read in this session)
+- Official NFL.com game pages, one per row of `data/games-2026.csv` (150 games, weeks 1-10) -
+  https://www.nfl.com/games/
+- Official NFL.com standings, all 32 clubs - https://www.nfl.com/standings/ (captured in
+  `data/standings-wk10-2026.csv` and `data/standings-2026-11-18.csv`)
+- Official 2026 schedule and International Games - https://www.nfl.com/schedules/2026/ and
+  `data/international-2026.csv` (each row carries its official weekly schedule page)
+- Seattle Seahawks official depth chart - https://www.seahawks.com/team/depth-chart/ (read
+  2026-11-19)
+- Washington Commanders official depth chart - https://www.commanders.com/team/depth-chart (read
+  2026-11-19)
+- Pre-registered Week 11 forward window - `research/preregistration/wk11-forward-v1.md`
+
+### Verification performed
+- `python3 tools/corpus_stats.py` -> 431 integrity checks pass; the frozen weeks 6-9 window
+  reproduces the 2026-11-14 artifact to four decimals.
+- `python3 tools/corpus_stats.py --check` -> the committed artifact equals a fresh derivation.
+- `python3 tools/corpus_stats.py --check-page` -> 18 published rows match the artifact exactly
+  (statistic, value, interval and n). Both steps run inside `tools/validate.py`.
+- `python3 tools/verify.py` -> 486 checks, PASS: the reconstructed scores reproduce every official
+  NFL.com W/L/T/PF/PA total exactly.
+- `python3 tools/depth.py --check` -> transcriptions internally consistent: no empty cell carries a
+  name, no shared cell carries one name, no player is printed twice in one cell.
+- `python3 tools/gen_depth_audit.py` -> PASS on the shared-cell test (Kupp 1, Shaheed 1, Charles 2)
+  and on the empty-cell test; OPEN with a measured number on the two tests that remain.
+- `python3 tools/validate.py` -> VALIDATION PASSED after the merge with `origin/main` (the site
+  checks report every primary data row carrying a source link, all local links resolved, and the
+  repository root byte-identical to `site/` and `docs/`). `node docs/check.js` -> PASS.
+- `git grep '^<<<<<<< '` -> clean across all tracked files after the merge.
+
+### Irregularities published on Flagged for Review (none block the merge)
+- **F-94** (new): the pre-registered Week 11 model adds a home-edge constant whose interval
+  contains zero and whose sign changes with the window. Not changed inside the registered window -
+  that would break the pre-registration the leaderboard depends on. It is an owner decision for the
+  NEXT registration.
+- **F-95** (new): the committed Washington depth chart was stale in 17 cells, including a printed
+  empty cell the capture could not represent. The rows are now dated; the residual risk applies to
+  every club whose chart has not been re-read.
+- **F-64** (narrowed to a limitation): the model can now represent shared and empty cells, and the
+  two clubs the brief names are stored faithfully; 29 clubs still carry the 2026-11-14 capture and
+  special teams are transcribed for no club.
+- **F-66** (narrowed to a limitation): the five named stale prose instances are corrected; the
+  corpus-statistics class is now on the gate; prose elsewhere is still ungated.
+- **F-62**, **F-63** resolved.
+
+### Requests (logged, not edited)
+- Model owner: the next forward registration should decide whether `USE_HOME_EDGE` stays True. The
+  published window table is the evidence; changing the constant inside the registered Week 11
+  window would be result-chasing.
+- Depth owner: re-read the remaining 29 club charts live and transcribe their special-teams
+  sections, so the shared-cell and empty-cell representation covers every club rather than two.
+
+### PR and merge record (T74/T75)
+- To be recorded after the pull request is opened and merged.
+=======
+- **PR [#149](https://github.com/karagemop466-tech/X4/pull/149)** (`arena/6f3ee5ce-x4` → `main`) merged 2026-11-19T22:13:38Z as merge commit `5d8cdca9342a01c4a8373af018e9ef1ef1501033`. Desk validation passed.
+- **Deploy:** Publish NFL Decision Lab run [44626567322](https://github.com/karagemop466-tech/X4/actions/runs/44626567322) and GitHub Pages build/deployment run [44626566420](https://github.com/karagemop466-tech/X4/actions/runs/44626566420) succeeded. Pages API returned `status: built`, source `main /`, HTTPS enforced.
+- **Live check:** the deployed executive summary at https://karagemop466-tech.github.io/X4/executive-summary.html now states the 12/13 archived Week 11 coverage separately from the 13-fixture live re-read and links the dated limits note. The note is live at https://karagemop466-tech.github.io/X4/research/verification/week11-injury-live-read-2026-11-19.md .
+- Still open, non-blocking: F-39 source-to-field verification; complete immutable Week 11 injury snapshots/private raw retention; first live watchdog recovery confirmation.
+
+## Session log — arena/cd475bd1-x4 (T73: dated schedule announcement beside the live schedule, 2026-11-19)
+
+> **Renumbering note.** Claimed as T73 (claim commit `6bae465`). Another session, `arena/6f3ee5ce-x4`, claimed and merged T73 on `main` (PR #149, README and executive-summary reconciliation) before this session's PR was ready. Per the collision rule this record is **T73**. No other session's row, log or file was edited; the T73 references in this session's own files were renamed to T73.
+
+### What this session did
+- Read the repository and the board. The gate (`tools/validate.py`) passed on `main` at the start (commit `6b69ee9`) before any change. A keyword sweep of the brief found one item with no page at all: the league's dated schedule announcement. The Week 11 schedule was already verified; the announcement was not published anywhere.
+- Claimed T73 and pushed the claim (`6bae465`) before building.
+- Read the official release in full (`media.nfl.com`, 14 May 2026) and built `data/schedule-announcement-2026.csv`: 13 rows, each with the verbatim excerpt, the official link and the check date. Every dated row's weekday matches the calendar; the build fails on a mismatch.
+- Built `tools/schedule_page.py` (validation and page), wired it into `tools/pages.py` through its `write_pages` hook and the directory, and generated `site/schedule.html` with the root mirror.
+- Added `tests/test_schedule_page.py` (12 offline tests) to the gate.
+- Raised F-91 (Week 18 matchups unassigned) and F-92 (Week 18 dates printed without a year) on the Flagged for Review page.
+
+### Sources (all read in this session)
+- Dated announcement: https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced (`fetch_page`, chunks 0 and 1, read in full; release dated May 14, 2026).
+- Live schedule: https://www.nfl.com/schedules/2026/ (`fetch_page`, chunk 0; Week 11 Thursday game and first Sunday games seen).
+- Week 11 by week: https://www.nfl.com/schedules/2026/by-week/week-11 (not re-read here; 13/13 match recorded in `research/verification/live-reverification-2026-11-18.md`).
+- Secondary coverage (Sportsnet, Yahoo Sports, WNY Papers) was read only to find the release; none of its wording is used.
+
+### Verification performed
+- `python3 -m unittest discover -s tests -p 'test_schedule_page.py'`: 12 tests, OK.
+- Weekday check on all six dated rows: all match the calendar.
+- `python3 site/check.py`: PASS (every data row has an official source link; no broken local links; the page renders in the browser smoke test).
+- `python3 tools/validate.py`: PASSED at a fixed point (two regeneration passes, both committed as deliberate changes).
+- Limit: the sandbox cannot reach `nfl.com` or `media.nfl.com`, so the excerpts were compared by eye with the fetched text, not machine-compared with the live site. Each row links to the source for one-click review.
+
+### Irregularities (published on Flagged for Review; none block the merge)
+- **F-91** (Limitation): Week 18 matchups have no dates, start times or networks yet; the league says they will be announced after Week 17.
+- **F-92** (Irregularity): the release gives Week 18 as "Saturday, January 9, and Sunday, January 10" with no year; 2027 follows from the calendar and from the same release's "Saturday, January 2, 2027".
+- **Existing F-10** (unchanged): the repository holds 13 of 272 regular-season games.
+- Host allowlist: the release is on `media.nfl.com`, which the site checker had rejected. It is now accepted as an official host. Reviewer: confirm this is the right host for a league release.
+
+### Requests (logged, not edited)
+- Integration owner: add `schedule.html` to the nav if the nav is to list every page (the directory card is already in place).
+- Integration owner: when Week 18 is announced by the league, re-check F-91 and F-92 against NFL.com.
+
+### PR and merge record (T73)
+- PR: [#145](https://github.com/karagemop466-tech/X4/pull/145) (`arena/cd475bd1-x4` → `main`). `Desk validation` run [44625934446](https://github.com/karagemop466-tech/X4/actions/runs/44625934446) passed on the branch. Merge: plain merge commit, performed the same session; the merge commit hash is shown by `git log` on `main`.
+
+- **Third collision (recorded at merge).** `arena/6f3ee5ce-x4` took T72 on `main` (its README and executive-summary reconciliation row) while PR #145 was open. This record is therefore **T73**. The flags stay F-91 and F-92; F-90 is another session's flag on `main`.
+>>>>>>> origin/main
+
+## Session log — arena/9c4553d7-x4 (T76, claimed as T71: E5 model probability outputs for side and total, 2026-11-19)
 
 ### What this session did
 - Read the coordination board before editing (rule 1). T70 was claimed by `arena/cd475bd1-x4`
@@ -3303,7 +3569,20 @@ documentation on delayed schedule events.
   leaderboard) still reads "open" although T58 resolved it on 2026-11-18 and the escrow
   register says so.
 
-### Pull request and merge record (T71)
+### Task-ID collision and board repair at the merge of `origin/main` (recorded per the T48/T55 precedent)
+- This work was claimed as **T71** (claim commit `0213a7b`, pushed to this branch before any other
+  T71 was visible). `arena/f15401d9-x4` used the same label for its landing-panel live-state
+  reconciliation and reached `main` first (PR #147, merged 2026-11-19T22:15:27Z), so by the
+  board's order-of-reaching-main rule this row is renumbered **T76**. Every reference in this
+  session's own files and record is renamed T71 -> T76; no other session's row, log or file
+  is edited beyond the mechanical marker repair below.
+- `origin/main`'s `COORDINATION.md` carried a **committed conflict-marker block** in the
+  session-log area (`<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main`, main's lines
+  3354/3466/3511 at merge time). The merge resolution deletes only those three marker lines
+  and keeps both sides' text byte-for-byte (T53 precedent: keep both sessions' logs
+  additively). No log content is dropped. Flagged here for the next integration pass.
+
+### Pull request and merge record (T76)
 - PR [#146](https://github.com/karagemop466-tech/X4/pull/146) (`arena/9c4553d7-x4` → `main`).
   Merge commit, workflow runs and the live-site check are recorded in the follow-up record
   entry below (same protocol as T69).

@@ -61,7 +61,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-69 | The Game Center injury widget says a club is injury-free while the official report lists that club's injuries |
 | F-70 | Two Week 11 venue cells carry the venue's short name, and the dataset is a faithful transcription of the page that prints it |
 | F-68 | The multiplicity correction divided by 8 while performing 9 tests |
-| F-66 | Stale numbers survive in generated prose because prose is not on the gate |
+| F-66 | Stale numbers survive in generated prose because prose is not on the gate - the listed instances are corrected; the pattern is now closed only for the corpus statistics |
 | F-67 | Two of the eight walk-forward strategies clear the Bonferroni sign test, and the primary metric is undecided |
 | F-01 | Official market betting lines |
 | F-02 | Depth-chart string: starter, 2nd, 3rd, 4th |
@@ -124,9 +124,9 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-59 | The site publication gate hard-coded 137 game rows, so a completed official week failed the build (T46) |
 | F-60 | Week 11 venue naming differs between the official schedule page and the committed venue dataset (Houston, Kansas City) - resolved: both spellings are official and both are published |
 | F-61 | Week 11 injury-report capture is incomplete: the official report is now published, but the latest committed capture failed schema validation |
-| F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 |
-| F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist |
-| F-64 | The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent |
+| F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T74: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on |
+| F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T74: every published home-edge figure now carries its window, its n and its interval |
+| F-64 | The depth dataset could not represent a shared rank-1 cell or a printed empty cell (fixed for the model and for the two clubs the brief names; 29 clubs still carry the 2026-11-14 capture), stores no special-teams row, and 4 of 103 sampled live players are absent |
 | F-86 | The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main) |
 | F-65 | Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError |
 | F-74 | The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it |
@@ -145,6 +145,11 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-85 | The publication gate passes while the injury capture is past its freshness limit: the Week 10 injury read is 27.2 hours old against a 13-hour limit, and the gate does not fail on it |
 | F-88 | No alert channel existed for stale, missing or schema-failed official captures: a failed run only notified the workflow's creator (if notifications were enabled), and a run that never fired left no record |
 | F-89 | The scheduled official capture did not run on its six-hour cadence: the injury reads on record are 3.9, 13.0 and 10.9 hours apart, and no read has been recorded since 2026-11-19T07:33Z |
+| F-94 | The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows |
+| F-95 | The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent |
+| F-90 | The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie |
+| F-91 | Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17 |
+| F-92 | The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027' |
 
 ## What is deliberately absent
 
