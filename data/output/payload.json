@@ -14181,7 +14181,7 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"
   },
   {
-   "id": "F-85",
+   "id": "F-86",
    "item": "The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main)",
    "type": "Irregularity",
    "kind": "bad",

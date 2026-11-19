@@ -881,7 +881,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.seahawks.com/team/depth-chart",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"),
 
-    dict(id="F-85", item="The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main)",
+    dict(id="F-86", item="The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main)",
          type="Irregularity", kind="bad", status="open",
          detail=("Evidence is the manifest, data/captures/manifest.jsonl, which records the schema counts of every read. The two injuries reads that failed the workflow were 2026-11-18 07:37:40Z and 20:37:55Z (HTTP 200, about 319 kB each): week 11, 2 'Practice Status' headers, 2 'Game Status' headers, 26 player links. "
                  "That is exactly one game (Colts at Texans: 11 Colts rows and 15 Texans rows). tools/capture_official.py schema_injuries required at least 28 headers and 250 links, which is the full Week 10 shape (14 games). "
