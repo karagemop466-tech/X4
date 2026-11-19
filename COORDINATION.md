@@ -3320,5 +3320,8 @@ All open flags are published on the Flagged-for-Review register and do not block
 - Week 11's latest archived injury response is partial and hash-only; raw private-retention policy and complete immutable capture are still required. The live page now shows 13 fixture sections, but the page-fetch result could not be stored as a timestamped raw snapshot.
 - The capture watchdog workflow exists, but its first live scheduled run/recovery behavior on `main` is not confirmed here.
 
+### Rebase/conflict record
+- Before publishing, `origin/main` advanced to `53b0252` (PR #144, final integration). The rebase conflicted only at the appended `COORDINATION.md` session-log boundary between the final-integration log and this T70 log. Resolved by retaining both logs verbatim and removing only the three conflict-marker lines; no other session row, log or work was discarded. Verified no line-start conflict markers remain.
+
 ### Publication record
 - T70 is complete locally; PR, merge and Pages deployment details will be added here after publication checks.
