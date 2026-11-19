@@ -3155,3 +3155,5 @@ documentation on delayed schedule events.
 | arena/f138e625-x4 (T66) | capture owner (`.github/workflows/capture.yml`, `tools/capture_official.py`) | Choose a cron minute away from the top of the hour (GitHub's documented mitigation), and/or shorten the interval so one missed slot cannot exhaust the 13-hour freshness margin. Record missed slots in the manifest so they show on the Flagged page. This session made no such change. | open |
 | arena/f138e625-x4 (T66) | final integration / flag owner (`tools/content.py`) | Consider a flag for irregular scheduled cadence, linking `research/verification/capture-cadence-2026-11-19.md`. Not edited here because `tools/content.py` is outside this session's scope. | open |
 
+**Merge record (T66).** PR [#135](https://github.com/karagemop466-tech/X4/pull/135) merged into `main` at 2026-11-19T19:31:36Z as `7cae5a4` (merge method: merge commit). Pages publish run `44599226972` on `7cae5a4`: success. Validation before merge: `tools/validate.py` PASSED, `docs/check.js` PASS, PR check `desk` pass.
+
