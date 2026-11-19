@@ -2962,3 +2962,30 @@ was rejected. The schema also required 28 headers, which a complete Week 11 repo
 
 ### Requests (other sessions' scope; logged, not edited)
 - Owner of the reg11 / Week 11 injury dataset: once a run on `main` stores a complete Week 11 read, decide whether to build `data/injuries-wk11-2026.csv` from the capture (automated route) and retire F-55/F-61/F-83 accordingly.
+
+### Session `arena/3f3970b9-x4` — integration, review and publication (2026-11-18)
+
+**Scope:** final integration over the single-commit tree `a6847d4` (branch `arena/3f3970b9-x4`, equal to `main`/`origin/main` at claim time). Review the repository line by line, verify published values against official NFL sources, confirm the GitHub Pages live site, and close out with a PR to `main`, merge, and deploy confirmation.
+
+**Review and verification performed:**
+- `tools/verify.py`: 486 checks run, 150 games verified, 32 teams verified — RESULT PASS (reconstructed scores reproduce every official NFL.com W/L/T/PF/PA total exactly).
+- `tools/validate.py`: VALIDATION PASSED — repository publishable; all page outputs reproducible; console (`docs/`) publishable (657 data rows, every one with a source cell; 149 internal + 43 external links, all https, no broken links); repository-root mirror byte-identical to `site/` and `docs/`; no oversized or stray artifacts.
+- Live official sources re-read and matched against the site's "Verified position": `https://www.nfl.com/standings/` (Bills 8-1 AFC East; Bengals 7-2 AFC North; Jaguars 7-2 AFC South; Chiefs 7-2 AFC West; Giants 5-3-1 NFC East; Lions 7-2 NFC North; Panthers 4-5 NFC South; 49ers 8-1 NFC West; Chargers 1-8) and `https://www.nfl.com/schedules/2026/by-week/week-11` (Colts at Texans Thu Nov 19 8:15 PM at NRG Stadium; Sunday Nov 22 slate).
+- No value was inferred or filled in; blanks and unverified items remain flagged on the Flagged-for-Review register (F-01 … F-70) per the publication policy.
+
+**Deliverables confirmed present:**
+- Clean landing page with category-organized site directory (`index.html` + `site/index.html`), 60 pages, 15 in the X4 Console.
+- Executive summary (`executive-summary.html`): computed-not-typed figures, decisions table, suggestions table, two-sided "what would change our mind."
+- Dedicated suggestions section: `suggestions.html` (P0/P1/P2 prioritized roadmap, discovery queue, decision-readiness Q&A register), `review.html` (Accept/Hold/Reject queue), `workbench.html` (four-part rubric, ranked).
+- Line origination, price snapshots (fair/market/difference as separate columns, side→total→moneyline), signal-vs-staking leaderboard, correlations with n, replacement depth, demotion gate, per-team view, removal-of-luck panel, Game Book actual starters/inactives, designation reliability.
+- Flagged irregularities published on `flags.html` / `flagged.html`, not hidden.
+
+**Live site:** https://karagemop466-tech.github.io/X4/ — GitHub Pages served from `main` path `/`, status `built`, HTTPS enforced.
+
+**PR / merge:** to be recorded below after the PR is opened and merged.
+
+**Irregularities:** none introduced by this session. Open flags (F-01 … F-70) pre-exist and are published, not blocking; they do not block the merge.
+
+**PR link:** [TBD]
+**Merge result:** [TBD]
+**Pages deploy after merge:** [TBD]
