@@ -126,7 +126,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-61 | Week 11 injury-report capture is incomplete: the official report is now published, but the latest committed capture failed schema validation |
 | F-62 | The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T70: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on |
 | F-63 | One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T70: every published home-edge figure now carries its window, its n and its interval |
-| F-64 | The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent |
+| F-64 | The depth dataset could not represent a shared rank-1 cell or a printed empty cell (fixed for the model and for the two clubs the brief names; 29 clubs still carry the 2026-11-14 capture), stores no special-teams row, and 4 of 103 sampled live players are absent |
 | F-86 | The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main) |
 | F-65 | Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError |
 | F-74 | The price-snapshot 'opening' record is recomputed every build: the first published model line is not pinned, and the 2026-11-18 ingest silently rewrote it |
@@ -146,6 +146,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-88 | No alert channel existed for stale, missing or schema-failed official captures: a failed run only notified the workflow's creator (if notifications were enabled), and a run that never fired left no record |
 | F-89 | The scheduled official capture did not run on its six-hour cadence: the injury reads on record are 3.9, 13.0 and 10.9 hours apart, and no read has been recorded since 2026-11-19T07:33Z |
 | F-90 | The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows |
+| F-91 | The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent |
 
 ## What is deliberately absent
 
