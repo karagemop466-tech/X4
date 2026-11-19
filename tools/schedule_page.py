@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Render `schedule.html` - the dated official schedule announcement, placed beside the
-live schedule (T70, session arena/cd475bd1-x4).
+live schedule (T71, session arena/cd475bd1-x4).
 
 What the page shows
 -------------------
