@@ -141,7 +141,6 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-81 | 37 of 171 Week 10 designations are unresolved because the player does not appear in his own Game Book at all |
 | F-82 | 56 rows on the Game Book operations and glossary pages are exempt from the every-row-has-a-source rule |
 | F-83 | The scheduled official injury capture has failed its freshness gate on main since the Week 11 report went live: the Week 11 page does not pass the schema pinned to Week 10 |
-| F-84 | The coordination board is inconsistent: eight task identifiers are used on more than one row, and T37 is recorded as both done and in progress |
 
 ## What is deliberately absent
 

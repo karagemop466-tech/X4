@@ -65,7 +65,7 @@ A plausible explanation is that the Week 11 page renders some game days only aft
 
 - F-55 corrected (the Week 11 report is now published on NFL.com; the repository is behind).
 - F-83 added: the capture failure described in section 2.
-- F-84 added: the coordination board has eight identifiers used on more than one row, and T37 is recorded as both done and in progress. Logged, not edited.
+- Board integrity logged on COORDINATION.md only (not on the public register, which requires an official source link on every row): eight identifiers used on more than one row, and T37 recorded as both done and in progress. Not edited, because the rows belong to earlier sessions.
 
 ## 7. Links for manual review
 
