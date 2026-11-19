@@ -69,7 +69,7 @@ class SpreadSettlementTests(unittest.TestCase):
 
 
 class ProbabilityOutputTests(unittest.TestCase):
-    """T71 (E5): every model output is a probability plus its inputs."""
+    """T76 (E5): every model output is a probability plus its inputs."""
 
     def test_side_probability_is_half_at_the_fair_line(self):
         # P(home covers its own fair line) must be exactly 0.5

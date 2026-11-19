@@ -474,7 +474,7 @@ def originate():
         "generated_utc": "",  # stamped by ops.py
         "order": ["side", "total", "moneyline"],
         "probability_outputs": {
-            "note": "every model output is stored as a probability plus its inputs (T71, E5)",
+            "note": "every model output is stored as a probability plus its inputs (T76, E5)",
             "side": {"event": "home_covers", "dist": "normal_margin",
                      "formula": "P(margin > -line) = Phi((mu + line) / sigma)",
                      "inputs": "mu = fair_side_home, sigma = measured margin sd"},
@@ -517,7 +517,7 @@ def originate():
 def fair_market_difference(markets, snapshots, results_by_pair, fair_by_event=None):
     """One row per market with fair, market and difference in separate columns.
 
-    Since T71 (E5) every row also stores the model output as a probability plus
+    Since T76 (E5) every row also stores the model output as a probability plus
     its inputs: prob_dist / prob_mu / prob_sigma name the distribution and its
     parameters, prob_event names the fixed binary event (home_covers, over_line,
     home_wins), and prob_event_open_pct / prob_event_close_pct are the model's
@@ -605,7 +605,7 @@ def fair_market_difference(markets, snapshots, results_by_pair, fair_by_event=No
             if pair:
                 # the total result is which side of the captured line won; the old
                 # code compared the game total against 0 and so read "over" for
-                # every played game (corrected under T71, escrow flag E8)
+                # every played game (corrected under T76, escrow flag E8)
                 line_txt = (s.get("close_line") or s.get("open_line") or "") if o else ""
                 try:
                     tl = float(line_txt)
@@ -874,7 +874,7 @@ def grade_and_score(fmd, results_by_pair, snapshots):
     roi = (100.0 * pnl / n) if n else 0.0
 
     # ---- BRIER (probability quality): model vs de-vigged market -----------
-    # Every market type now carries a probability output (T71, E5), so a proper
+    # Every market type now carries a probability output (T76, E5), so a proper
     # score exists for side and total as well as the moneyline.
     br = brier_summary(brier_rows(fmd, results_by_pair, snapshots))
 

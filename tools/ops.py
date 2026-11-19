@@ -350,7 +350,7 @@ def build_origination(d):
          "used to turn the fair side into a fair moneyline",
          ext(NFL_SCHED, "official results")],
         ["Probability outputs", "side · total · moneyline",
-         "every model output is stored as a probability plus its inputs (T71, E5): side = "
+         "every model output is stored as a probability plus its inputs (T76, E5): side = "
          "Phi((mu + line) / sigma) for home_covers, total = Poisson(mu) over the line, "
          "moneyline = Phi(mu / sigma) for home_wins; per-row inputs in the fair table, "
          "Brier scores vs the de-vigged captured price in scores_brier.csv",
@@ -384,7 +384,7 @@ def build_origination(d):
                   "between the first reading and the last one before kickoff. Model P is the "
                   "model's probability of the row's fixed event (home_covers / over_line / "
                   "home_wins) at the open → close number, stored with its inputs (prob_dist, "
-                  "prob_mu, prob_sigma) in the same row (T71, E5).",
+                  "prob_mu, prob_sigma) in the same row (T76, E5).",
                   "%d MARKETS" % len(fmd), table(
                       ["Game", "Market", "Fair (ours)", "Market open → close", "Difference",
                        "Model P (event) open → close", "Close kind", "Source"], rows) if rows else
@@ -1322,7 +1322,7 @@ def build_verification(d):
                           and r.get("prob_event")), len(fmd)),
          "pass" if fmd and all(r.get("prob_dist") and r.get("prob_mu") not in ("", None)
                                and r.get("prob_event") for r in fmd) else "fail",
-         "the brief's rule: a model output is a probability plus its inputs, never a pick alone (T71, E5)",
+         "the brief's rule: a model output is a probability plus its inputs, never a pick alone (T76, E5)",
          artifact("data/ops/fair_market_difference.csv")],
         ["The event identity binding is unique per week",
          "%d bound, %d unresolved" % (len(d["identity"]), len(d["unresolved"])),

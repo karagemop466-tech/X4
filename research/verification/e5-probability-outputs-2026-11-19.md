@@ -1,6 +1,6 @@
-# E5: model probability outputs for side and total (T71)
+# E5: model probability outputs for side and total (T76)
 
-Session: `arena/9c4553d7-x4`, 2026-11-19 UTC. Board: `COORDINATION.md` row T71.
+Session: `arena/9c4553d7-x4`, 2026-11-19 UTC. Board: `COORDINATION.md` row T76.
 Closes the open request "flags E5" (addressed to the origination owner) on the escrow
 register at `escrow.html#flags`. Escrow register rows changed: **E5** flipped to
 RESOLVED, **E8** added (settlement defect found and corrected in the same scope).

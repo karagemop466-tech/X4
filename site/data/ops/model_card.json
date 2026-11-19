@@ -79,7 +79,7 @@
    "formula": "P(margin > 0) = Phi(mu / sigma)",
    "inputs": "mu = fair_side_home, sigma = measured margin sd"
   },
-  "note": "every model output is stored as a probability plus its inputs (T71, E5)",
+  "note": "every model output is stored as a probability plus its inputs (T76, E5)",
   "side": {
    "dist": "normal_margin",
    "event": "home_covers",

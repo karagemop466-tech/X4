@@ -7,7 +7,7 @@ registration are backtests and are never counted as forward evidence.
 
 Stage 1 - proper-score qualification (registered gates G1-G6):
   Brier skill of the model's probability against the de-vigged market probability, per market
-  type. Since T71 (E5) side and total also carry a probability output (home_covers / over_line
+  type. Since T76 (E5) side and total also carry a probability output (home_covers / over_line
   from the stored distribution and its inputs), so a proper score exists for all three markets;
   rows without both probabilities are excluded, never filled.
   Game-cluster bootstrap (resampling by game, fixed seed) gives the 95% interval; a one-sided p
@@ -100,9 +100,9 @@ def load():
 def settle_forward(row, pick, price_row):
     """Outcome of one forward bet from the official result recorded on the row (never inferred).
 
-    T71 (E8): side and total settle against the entry line from the raw official
+    T76 (E8): side and total settle against the entry line from the raw official
     result (result_margin / result_total) when it is recorded. The legacy path,
-    kept for synthetic and pre-T71 rows, settles on the `result` column, which
+    kept for synthetic and pre-T76 rows, settles on the `result` column, which
     cannot see the line; that limitation is flagged on the register.
     """
     if row["settled"] != "1" or not row["result"]:
@@ -232,7 +232,7 @@ def cluster_boot(pairs_by_cluster, stat, b=BOOT_B, seed=BOOT_SEED):
 def stage1(ledger):
     """Brier skill per market against the de-vigged entry price.
 
-    Every market type carries a probability output since T71 (E5): the moneyline
+    Every market type carries a probability output since T76 (E5): the moneyline
     reads the fair home-win probability, side and total read the stored model
     probability of their fixed event (home_covers / over_line at the entry
     number). A settled row without both probabilities is excluded, never filled.
@@ -352,7 +352,7 @@ def page(ledger, s1, s2, fixtures, covered):
                        pm.get("skill", "")))
         else:
             note = ("NOT EVALUABLE: %d settled forward bets carry both probabilities "
-                    "(probability output stored since T71)" % scored)
+                    "(probability output stored since T76)" % scored)
         skill = "NOT EVALUABLE"
         if scored >= G4_MIN_N and pm.get("skill", "") != "":
             skill = "%.3f" % pm["skill"]
@@ -375,7 +375,7 @@ def page(ledger, s1, s2, fixtures, covered):
         ["G2 sample", ">= 100 settled bets per market", "NOT MET", "0 settled; %d more per market needed" % G2_MIN_PER_MARKET],
         ["G3 out of sample", "Forward window only: entry recorded after the rule is frozen", "FLAGGED" if n_pre else "PASS", "%d of %d entries predate registration %s (flag E7)" % (n_pre, len(ledger), REG_COMMIT[:7])],
         ["G4 probability quality", "Brier beats market, n >= 30", "NOT EVALUABLE",
-         "probability output stored for all three markets since T71; scored forward bets: side %d, total %d, moneyline %d"
+         "probability output stored for all three markets since T76; scored forward bets: side %d, total %d, moneyline %d"
          % tuple(s1.get("per_market", {}).get(m, {"n": 0}).get("n", 0) for m in MARKETS)],
         ["G5 one-sided p", "< 0.05", "NOT EVALUABLE", "no settled forward bets"],
         ["G6 Bonferroni p", "< 0.05 over %d trial" % TRIALS, "NOT EVALUABLE", "no settled forward bets"],
@@ -407,7 +407,7 @@ def page(ledger, s1, s2, fixtures, covered):
 
 <section class="section" id="stage1"><div class="section-head"><div><span class="eyebrow">STAGE 1 &middot; PROPER-SCORE QUALIFICATION</span><h2>Brier skill against the de-vigged market, by market type</h2><p class="muted">Model probability against the market probability with the vig removed. Interval: game-cluster bootstrap, B = {BOOT_B:,}, seed {BOOT_SEED}. Bonferroni factor = {TRIALS} registered trial.</p></div></div>
 {stage1_html}
-<div class="note"><b>Every market now carries a probability.</b> Since T71 the model stores side and total as a probability plus its inputs (home_covers from the margin normal, over_line from the Poisson total, with mu and sigma printed per row in <code>data/ops/fair_market_difference.csv</code>), so a proper score exists for all three market types. The brief's rule 'store every model output as a probability plus its inputs' is met; what is missing is settled forward bets to score, not probabilities.</div>
+<div class="note"><b>Every market now carries a probability.</b> Since T76 the model stores side and total as a probability plus its inputs (home_covers from the margin normal, over_line from the Poisson total, with mu and sigma printed per row in <code>data/ops/fair_market_difference.csv</code>), so a proper score exists for all three market types. The brief's rule 'store every model output as a probability plus its inputs' is met; what is missing is settled forward bets to score, not probabilities.</div>
 </section>
 
 <section class="section" id="gates"><div class="section-head"><div><span class="eyebrow">REGISTERED GATES</span><h2>Each gate, its rule and what it observes today</h2><p class="muted">Rules are taken unchanged from <a href="https://github.com/karagemop466-tech/X4/blob/{REG_COMMIT}/{REG_FILE}" target="_blank" rel="noreferrer">{REG_FILE} <span>&#8599;</span></a> at the registration commit.</p></div></div>
@@ -427,16 +427,16 @@ def page(ledger, s1, s2, fixtures, covered):
 {clear_html}
 </section>
 
-<section class="section" id="flags"><div class="section-head"><div><span class="eyebrow">FLAGGED FOR REVIEW</span><h2>Irregularities found while building this page</h2><p class="muted">Each entry is recorded for review and blocks nothing. E1 was fixed in its own scope (T58, 2026-11-18); E5 and E8 were fixed in the T71 scope (2026-11-19); the rest belong to other scopes.</p></div></div>
+<section class="section" id="flags"><div class="section-head"><div><span class="eyebrow">FLAGGED FOR REVIEW</span><h2>Irregularities found while building this page</h2><p class="muted">Each entry is recorded for review and blocks nothing. E1 was fixed in its own scope (T58, 2026-11-18); E5 and E8 were fixed in the T76 scope (2026-11-19); the rest belong to other scopes.</p></div></div>
 {desk_nav_table(["#", "Irregularity", "Where", "Source"], [
  ["E1", "RESOLVED 2026-11-18 (T58): the walk-forward (backtest) numbers for strategies S1 to S9 were ranked on the site under a 'Leaderboard and rewards' heading. The brief forbids backtest numbers on the leaderboard. The Strategy lab page now has a forward-only rewards leaderboard (empty at n = 0 forward settled markets, with the number that would open it) and the walk-forward table sits under a 'Backtest development board - never ranked for rewards' heading; the landing-page preview is relabelled the same way.", "strategies.html (forward leaderboard + backtest board); index.html preview relabelled", src("https://github.com/karagemop466-tech/X4/blob/main/data/output/leaderboard.json", "data/output/leaderboard.json")],
  ["E2", "Week 11 'close' values are current prices at capture (close_kind = current_as_close), so Week 11 has no closing number and no CLV.", "data/ops/fair_market_difference.csv", src("https://github.com/karagemop466-tech/X4/blob/main/data/ops/fair_market_difference.csv", "fair_market_difference.csv")],
  ["E3", "The origination code grades side bets against the closing line, but a closing line cannot exist before kickoff. The forward rule therefore applies the pick to the entry (opening) line. This is an interpretation of the registration, not a change to it, and is flagged for review.", "tools/origination.py vs research/preregistration/wk11-forward-v1.md", src("https://github.com/karagemop466-tech/X4/blob/%s/%s" % (REG_COMMIT, REG_FILE), "pre-registration at " + REG_COMMIT[:7])],
  ["E4", "Only %d of %d Week 11 fixtures have an originated market, so the forward window is thin." % (cov, len(fixtures)), "data/ops/event_identity.csv", src("https://www.nfl.com/schedules/2026/by-week/week-11", "NFL.com Week 11 schedule")],
- ["E5", "RESOLVED 2026-11-19 (T71): side and total markets published a line, not a probability, so no proper score existed for them. Every originated row now stores the model output as a probability plus its inputs (prob_dist / prob_mu / prob_sigma / prob_event / prob_event_open_pct / prob_event_close_pct in fair_market_difference.csv), gate G4 is evaluated from the per-market Brier scores in data/ops/scores_brier.csv, and Stage 1 on this page scores all three market types.", "tools/origination.py; data/ops/fair_market_difference.csv; data/ops/scores_brier.csv", src("https://github.com/karagemop466-tech/X4/blob/main/data/ops/scores_brier.csv", "scores_brier.csv")],
+ ["E5", "RESOLVED 2026-11-19 (T76): side and total markets published a line, not a probability, so no proper score existed for them. Every originated row now stores the model output as a probability plus its inputs (prob_dist / prob_mu / prob_sigma / prob_event / prob_event_open_pct / prob_event_close_pct in fair_market_difference.csv), gate G4 is evaluated from the per-market Brier scores in data/ops/scores_brier.csv, and Stage 1 on this page scores all three market types.", "tools/origination.py; data/ops/fair_market_difference.csv; data/ops/scores_brier.csv", src("https://github.com/karagemop466-tech/X4/blob/main/data/ops/scores_brier.csv", "scores_brier.csv")],
  ["E7", "Entry prices were captured on 2026-11-14 (19:26 UTC), four days before the registration commit (2026-11-18 03:34 UTC). The registration fixes the rule; it cannot fix the entry prices, so these rows are 'rule registered after entry capture', not a clean pre-kickoff entry. A pre-kickoff capture is needed for a clean forward entry.", "data/ops/price_snapshots.csv, data/ops/fair_market_difference.csv", src("https://github.com/karagemop466-tech/X4/blob/main/data/ops/price_snapshots.csv", "data/ops/price_snapshots.csv")],
  ["E6", "Week 11 venue naming differs between NFL.com's hotel-search strings and the Game Info field. Resolved by the official Game Info block; recorded as F-60.", "data/venues-wk11-2026.csv", src("https://www.nfl.com/games/colts-at-texans-2026-reg-11", "NFL.com game page (Game Info)")],
- ["E8", "CORRECTED 2026-11-19 (T71): the forward ledger settled side picks against the straight-up result (the result column) instead of the entry line, and the total-row result column compared the game total against 0, so every played game read over. Side and total now settle against the entry line from the raw official result (result_margin / result_total added to fair_market_difference.csv), and the total result column resolves against the captured line. Legacy rows without raw results keep the old path and are labelled.", "tools/gen_escrow.py (settle_forward); tools/origination.py (fair_market_difference)", src("https://github.com/karagemop466-tech/X4/blob/main/tools/gen_escrow.py", "tools/gen_escrow.py")],
+ ["E8", "CORRECTED 2026-11-19 (T76): the forward ledger settled side picks against the straight-up result (the result column) instead of the entry line, and the total-row result column compared the game total against 0, so every played game read over. Side and total now settle against the entry line from the raw official result (result_margin / result_total added to fair_market_difference.csv), and the total result column resolves against the captured line. Legacy rows without raw results keep the old path and are labelled.", "tools/gen_escrow.py (settle_forward); tools/origination.py (fair_market_difference)", src("https://github.com/karagemop466-tech/X4/blob/main/tools/gen_escrow.py", "tools/gen_escrow.py")],
 ])}
 </section>
 
