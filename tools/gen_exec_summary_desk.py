@@ -32,7 +32,8 @@ DATA = os.path.join(ROOT, "data")
 OPS = os.path.join(DATA, "ops")
 OUT = os.path.join(DATA, "output")
 SITE = os.path.join(ROOT, "site")
-RETRIEVED = "2026-11-18"
+RETRIEVED = "2026-11-18"  # official standings re-read date
+GENERATED = "2026-11-19"  # executive summary regeneration date
 NFL = "https://www.nfl.com"
 SITE_URL = "https://karagemop466-tech.github.io/X4/"
 
@@ -74,6 +75,44 @@ snaps = read(os.path.join(OPS, "price_snapshots.csv"))
 graded = read(os.path.join(OPS, "graded.csv"))
 flows = read(os.path.join(DATA, "transactions", "transactions-2026.csv"))
 flags = json.load(open(os.path.join(OUT, "flags.json"), encoding="utf-8"))
+# Use the latest captured report read, not a stale hand-written status claim.  A partial
+# report is explicitly not promoted into the committed player-level Week 11 dataset.
+injury_reads = []
+manifest_path = os.path.join(DATA, "captures", "manifest.jsonl")
+if os.path.exists(manifest_path):
+    with open(manifest_path, encoding="utf-8") as fh:
+        for line in fh:
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if entry.get("kind") == "injuries":
+                injury_reads.append(entry)
+latest_injury = injury_reads[-1] if injury_reads else None
+if latest_injury:
+    latest_schema = latest_injury.get("schema", {})
+    captured_at = latest_injury.get("fetched_utc", "")
+    games_published = latest_schema.get("games_published")
+    games_scheduled = latest_schema.get("games_scheduled")
+    if latest_schema.get("coverage") == "partial" and games_published and games_scheduled:
+        injury_capture_status = (
+            "The latest archived official Week 11 capture was at %s and covered %s of %s scheduled games; "
+            "it is partial, so no Week 11 player rows are included in the model dataset. A live re-read on 2026-11-19 shows all 13 fixtures on the NFL page, but no exact fetch clock or raw bytes were retained, so it is not a replayable snapshot. "
+            % (esc(captured_at), esc(games_published), esc(games_scheduled))
+            + a(SITE_URL + "research/verification/week11-injury-live-read-2026-11-19.md", "Live re-read limits") + " "
+        )
+    elif latest_injury.get("schema_ok"):
+        injury_capture_status = (
+            "The latest schema-valid official injury capture is dated %s; no newer complete Week 11 player dataset is committed. "
+            % esc(captured_at)
+        )
+    else:
+        injury_capture_status = (
+            "The latest official injury response at %s failed the schema gate; no Week 11 player rows are included. "
+            % esc(captured_at)
+        )
+else:
+    injury_capture_status = "No official injury capture is recorded in the manifest. "
 
 # ---------------------------------------------------------------- computations
 tally = {r["abbr"]: dict(w=0, l=0, t=0, pf=0, pa=0) for r in standings}
@@ -170,20 +209,17 @@ decisions = [
      "Prices are labelled non-official on every page and never presented as an NFL fact; the rights decision "
      "is the owner's and is listed as an open flag.",
      a(SITE_URL + "flags.html", "Flagged for review"), a(NFL + "/", "NFL.com")],
-    ["Is the repaired capture workflow running green again?",
-     "Multi-day availability history is impossible while the scheduled capture fails.",
-     "The cause was published (an empty Houston depth-chart URL raising an uncaught ValueError) and the repair is "
-     "committed on 2026-11-18: a blank or invalid URL is now skipped loudly (stderr note, manifest line, non-zero exit) "
-     "instead of aborting the run. What closes it is evidence, not code: four consecutive scheduled runs with a stored "
-     "capture per source per day.",
-     a("https://github.com/karagemop466-tech/X4/actions/runs/44175196682", "Failing run"),
-     a(SITE_URL + "research/verification/capture-workflow-logs-2026-11-18.md", "Diagnosis")],
+    ["Are official availability captures complete and sustained?",
+     "The live official page was re-read and lists all 13 fixtures, but the latest archived capture covers only 12 of 13, and the new read has no exact fetch clock or retained raw bytes; this does not establish a replayable daily series.",
+     "Seven consecutive daily captures for each required source, each with timestamp and hash, complete schedule coverage, conflict flags, and raw bytes retained only in an authorized private store.",
+     a(NFL + "/injuries/league/2026/reg11", "Official Week 11 report"),
+     a(SITE_URL + "flags.html", "Capture flags")],
 ]
 
 # ---------------------------------------------------------------- suggested work
 suggestions = [
     ["Verify authorized raw retention and the live report schema",
-     "high", "S", "The scheduled capture records the Week 11 response as schema-invalid, but the raw response is not retained in this public checkout; the cause cannot be confirmed from counts alone.",
+     "high", "S", "The latest archived Week 11 capture is partial (12 of 13 games). The current live page re-read lists all 13 fixtures, but the omitted fixture in the archived response and the reason for its absence cannot be recovered from the retained hash-only record; raw bytes are not retained publicly.",
      "A complete live report captured with UTC timestamp and SHA-256, raw bytes stored only in the authorized private store, schema and coverage checks passing, then seven consecutive daily captures per source.",
      a(NFL + "/injuries/league/2026/reg11", "Official Week 11 report")],
     ["Re-transcribe depth chart-by-chart with shared cells",
@@ -193,7 +229,7 @@ suggestions = [
      "four clubs matches the live pages cell for cell.",
      a("https://www.commanders.com/team/depth-chart", "Live WAS chart")],
     ["Capture and retain complete Week 11 injury snapshots",
-     "high", "S", "The official Week 11 page is published, but the latest manifest entry is an incomplete, schema-invalid response and the last valid report is Week 10. Raw bytes are not retained in the public checkout.",
+     "high", "S", "The live official Week 11 page currently renders all 13 scheduled fixtures, but the latest archived capture is schema-valid and partial (12 of 13); raw bytes are not retained publicly, so the live view cannot be replayed as the capture.",
      "A complete, timestamped Week 11 capture with source hash and authorized private raw retention; verify expected report coverage, then preserve daily Wednesday-to-kickoff snapshots and pass the <=13-hour freshness gate.",
      a(NFL + "/injuries/league/2026/reg11", "Official Week 11 report")],
     ["Make the settled sample the headline, not ROI",
@@ -206,17 +242,17 @@ suggestions = [
      "recorded reversal is the strongest evidence the process is honest.",
      "One entry per decision, with the date it was taken and a link to whatever replaced it.",
      a(SITE_URL + "programme.html", "Integrity programme")],
-    ["Wire a freshness alarm into the publication gate",
-     "medium", "S", "The site currently cannot tell a reader that its newest capture is a week old.",
-     "The build fails, or the page banners, when the newest capture of any source is older than its threshold.",
-     a(SITE_URL + "brief-register.html", "Brief register")],
+    ["Confirm the official-capture freshness watchdog on main",
+     "medium", "S", "A watchdog workflow now tracks stale, missing and schema-failed captures and opens a GitHub issue; its first live run on main has not yet been confirmed in the published evidence.",
+     "A successful scheduled watchdog run on main, with one recovery test showing the alert closes when captures become fresh.",
+     a("https://github.com/karagemop466-tech/X4/actions/workflows/capture-watchdog.yml", "Capture watchdog workflow")],
 ]
 
 # ---------------------------------------------------------------- html
 kv = []
 kv.append(("Where the season stands",
            "Week 10 is complete: the Monday game (Chargers at Ravens, 23&ndash;20) was the last one outstanding. "
-           "The official Week 11 injury report is now published, but the repository's latest response is incomplete/schema-invalid and the latest schema-valid capture is Week 10; no Week 11 player data is used. "
+           + injury_capture_status
            + a(NFL + "/schedules/2026/by-week/week-10", "Official Week 10 schedule") + " &middot; "
            + a(NFL + "/injuries/league/2026/reg11", "Official Week 11 injury report")))
 kv.append(("Games verified",
@@ -285,7 +321,7 @@ html = """<!doctype html>
 <body data-page="executive-summary">
 <aside class="sidebar">%(nav)s</aside>
 <main><header class="topbar"><div><span class="eyebrow">01 &middot; SUMMARY</span><h1>Executive summary</h1></div>
-<span class="status-pill"><i></i> Generated %(retrieved)s</span></header>
+<span class="status-pill"><i></i> Generated %(generated)s</span></header>
 
 <section class="section" aria-label="How to read this page"><div class="note">
 <b>Every figure on this page is computed at build time from a committed dataset</b>, and every row carries the
@@ -348,7 +384,7 @@ The build recomputes each one; a reviewer can check any row by following its lin
 <a href="flagged.html">Flags</a> &middot; <a href="sources.html">Sources</a></span></footer></main>
 <script src="nav.js"></script></body>
 </html>
-""" % dict(nav=desk_nav.side(), retrieved=RETRIEVED, kv=kv_html, dec_rows=dec_rows, sug_rows=sug_rows,
+""" % dict(nav=desk_nav.side(), generated=GENERATED, kv=kv_html, dec_rows=dec_rows, sug_rows=sug_rows,
            tag_green=tag("COMPUTED, NOT TYPED"), tag_amber=tag("DEFAULTS UNTIL CHALLENGED", "amber"),
            graded=len(graded))
 
