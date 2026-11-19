@@ -23,7 +23,7 @@ Neither of those pages backs a published value. Instead, every reconstructed sco
 
 ## What the verification checks
 
-`tools/verify.py` - 460 assertions, exit code 1 on any failure:
+`tools/verify.py` - 486 assertions, exit code 1 on any failure:
 
 - every game row's URL matches the official `/games/<away>-at-<home>-2026-reg-<week>` pattern
 - every team's wins, losses and ties match the official standings
@@ -58,7 +58,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 
 | ID | Irregularity |
 |---|---|
-| F-69 | The Game Center injury widget says a club is injury-free while the official report lists that club's injuries |
+| F-69 | Week 11 Game Center practice-status labels differ from the league injury report |
 | F-70 | Two Week 11 venue cells carry the venue's short name, and the dataset is a faithful transcription of the page that prints it |
 | F-68 | The multiplicity correction divided by 8 while performing 9 tests |
 | F-66 | Stale numbers survive in generated prose because prose is not on the gate |
@@ -145,6 +145,10 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-85 | The publication gate passes while the injury capture is past its freshness limit: the Week 10 injury read is 27.2 hours old against a 13-hour limit, and the gate does not fail on it |
 | F-88 | No alert channel existed for stale, missing or schema-failed official captures: a failed run only notified the workflow's creator (if notifications were enabled), and a run that never fired left no record |
 | F-89 | The scheduled official capture did not run on its six-hour cadence: the injury reads on record are 3.9, 13.0 and 10.9 hours apart, and no read has been recorded since 2026-11-19T07:33Z |
+| F-87 | Scheduled official captures have not run on their six-hourly schedule: the 13-hour freshness limit can fail between irregular runs (integrated from PR #122, arena/27b5881c-x4) |
+| F-90 | The official NFL.com Week 11 injury report lists all 13 game sections and 253 player rows by hand census; the automated capture records 12 of 13 games and the repository still holds only the Week 10 normalized injury data (integrated from PR #136, arena/6c1f9b60-x4) |
+| F-91 | The game log and the standings snapshot are a self-verification pair: tools/verify.py cannot detect them going stale together (T46 structural finding, arena/2d57231a-x4; integrated from PR #96 as F-76, renumbered by T71 to avoid colliding with main's F-76) |
+| F-92 | The post-corpus-completion strategy result is post-hoc and its significance verdict is not order-robust; G8 keeps every strategy ineligible until the Week-11 forward window is graded (T46, arena/2d57231a-x4; integrated from PR #96 as F-77, renumbered by T71 to avoid colliding with main's F-77) |
 
 ## What is deliberately absent
 

@@ -1,0 +1,33 @@
+abbr,pre_w,pre_l,pre_t,pre_pf,pre_pa,official_w,official_l,official_t,official_pf,official_pa,games_added,result_reproduced,post_repair,official_url
+BUF,7,1,0,256,187,8,1,0,287,199,BUF@NYJ,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+NE,5,4,0,211,207,5,5,0,221,242,NE@DET,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+NYJ,2,7,0,182,223,2,8,0,194,254,BUF@NYJ,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+MIA,1,7,0,126,200,1,8,0,148,224,MIA@IND,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+CIN,6,2,0,240,175,7,2,0,278,193,PIT@CIN,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+PIT,6,2,0,180,144,6,3,0,198,182,PIT@CIN,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+CLE,5,4,0,161,196,6,4,0,188,220,HOU@CLE,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+BAL,4,5,0,189,236,4,6,0,209,259,LAC@BAL,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+JAX,6,2,0,229,121,7,2,0,269,144,JAX@TEN,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+HOU,3,5,0,209,192,3,6,0,233,219,HOU@CLE,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+IND,2,7,0,184,249,3,7,0,208,271,MIA@IND,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+TEN,1,7,0,144,199,1,8,0,167,239,JAX@TEN,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+KC,6,2,0,202,143,7,2,0,237,156,KC@ATL,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+DEN,7,2,0,198,186,7,2,0,198,186,(bye week),yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+LV,4,5,0,238,268,4,6,0,251,289,SEA@LV,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+LAC,0,8,0,121,219,1,8,0,144,239,LAC@BAL,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+NYG,5,3,1,203,196,5,3,1,203,196,(TNF WAS@NYG already in log),yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+DAL,4,5,0,246,236,4,6,0,286,282,SF@DAL,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+WAS,3,5,1,196,223,3,5,1,196,223,(TNF WAS@NYG already in log),yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+PHI,2,7,0,148,221,2,7,0,148,221,(bye week),yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+DET,6,2,0,222,189,7,2,0,257,199,NE@DET,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+MIN,6,2,0,146,116,7,2,0,176,126,MIN@GB,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+CHI,7,2,0,241,184,7,2,0,241,184,(bye week),yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+GB,6,3,0,216,191,6,4,0,226,221,MIN@GB,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+CAR,3,5,0,199,219,4,5,0,219,236,CAR@NO,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+TB,3,6,0,202,178,3,6,0,202,178,(bye week),yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+NO,3,5,0,185,216,3,6,0,202,236,CAR@NO,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+ATL,3,6,0,188,223,3,7,0,201,258,KC@ATL,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+SF,7,1,0,235,156,8,1,0,281,196,SF@DAL,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+SEA,5,4,0,202,162,6,4,0,223,175,SEA@LV,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+LAR,5,4,0,214,181,6,4,0,248,187,LAR@ARI,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/
+ARI,3,6,0,178,255,3,7,0,184,289,LAR@ARI,yes,data/games-2026.csv now 150 rows; tools/verify.py 486 checks PASS,https://www.nfl.com/standings/

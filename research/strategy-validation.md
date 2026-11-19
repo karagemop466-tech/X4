@@ -61,15 +61,15 @@ Four reasons, and the first is the one that matters most:
 
 | Strategy | Gates passed | Failing gates |
 |---|---|---|
-| S1 | 6/7 | G4 significance |
-| S8 | 6/7 | G4 significance |
-| S2 | 6/7 | G4 significance |
-| S5 | 6/7 | G4 significance |
-| S3 | 6/7 | G4 significance |
-| S4 | 6/7 | G4 significance |
-| S7 | 6/7 | G4 significance |
-| S6 | 6/7 | G4 significance |
-| S0 | 4/7 | G4 significance, G5 stability, G7 not the benchmark |
+| S1 | 6/7 | G4 significance, G8 shadow period |
+| S8 | 6/7 | G4 significance, G8 shadow period |
+| S2 | 6/7 | G4 significance, G8 shadow period |
+| S5 | 6/7 | G4 significance, G8 shadow period |
+| S3 | 6/7 | G4 significance, G8 shadow period |
+| S4 | 6/7 | G4 significance, G8 shadow period |
+| S7 | 6/7 | G4 significance, G8 shadow period |
+| S6 | 6/7 | G4 significance, G8 shadow period |
+| S0 | 4/7 | G4 significance, G5 stability, G7 not the benchmark, G8 shadow period |
 
 ## Weekly stability
 
