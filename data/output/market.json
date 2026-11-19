@@ -24658,7 +24658,7 @@
     -0.2941,
     0.0202
    ],
-   "source": "data/games-2026.csv (137 official NFL.com game pages, proved by tools/verify.py)",
+   "source": "data/games-2026.csv (150 official NFL.com game pages, proved by tools/verify.py)",
    "source_tier": "T4 this repository, computed from T1 results"
   },
   {
@@ -24671,7 +24671,7 @@
     -0.1126,
     0.2072
    ],
-   "source": "data/games-2026.csv (137 official NFL.com game pages, proved by tools/verify.py)",
+   "source": "data/games-2026.csv (150 official NFL.com game pages, proved by tools/verify.py)",
    "source_tier": "T4 this repository, computed from T1 results"
   },
   {
@@ -24684,7 +24684,7 @@
     -0.3101,
     0.0027
    ],
-   "source": "data/games-2026.csv (137 official NFL.com game pages, proved by tools/verify.py)",
+   "source": "data/games-2026.csv (150 official NFL.com game pages, proved by tools/verify.py)",
    "source_tier": "T4 this repository, computed from T1 results"
   },
   {
@@ -24697,7 +24697,7 @@
     -0.2941,
     0.0202
    ],
-   "source": "data/games-2026.csv (137 official NFL.com game pages, proved by tools/verify.py)",
+   "source": "data/games-2026.csv (150 official NFL.com game pages, proved by tools/verify.py)",
    "source_tier": "T4 this repository, computed from T1 results"
   },
   {

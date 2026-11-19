@@ -244,9 +244,10 @@ def write_ledger(ledger):
 
 
 def page(ledger, s1, s2, fixtures, covered):
-    # The shared nav list (tools/desk_nav.py) is owned by the integration session and is checked
-    # against the hand-written legacy pages, so this page adds its own link rather than editing it.
-    side = desk_nav.side().replace("</nav>", '<a href="escrow.html">&#9878; &nbsp;Two-stage escrow</a></nav>', 1)
+    # T71 integration: escrow.html is now a first-class entry in the shared nav
+    # (tools/desk_nav.py NAV + tools/check_site.py DESK_PAGES), so the page no
+    # longer injects its own link; desk_nav.side() carries it like every page.
+    side = desk_nav.side()
     stage1_rows = []
     for m in MARKETS:
         n = s1["n"][m]

@@ -3822,6 +3822,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
@@ -3887,6 +3891,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
@@ -3952,6 +3960,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
@@ -4017,6 +4029,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
@@ -4082,6 +4098,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
@@ -4147,6 +4167,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
@@ -4211,6 +4235,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
@@ -4276,6 +4304,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": true,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 6,
@@ -4338,6 +4370,10 @@ window.X4 = {
     "G7 not the benchmark": {
      "pass_": false,
      "note": "The league-constant benchmark is excluded from rewards by definition."
+    },
+    "G8 shadow period": {
+     "pass_": false,
+     "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
     }
    },
    "gates_passed": 4,
@@ -13424,14 +13460,14 @@ window.X4 = {
  "flags": [
   {
    "id": "F-69",
-   "item": "The Game Center injury widget says a club is injury-free while the official report lists that club's injuries",
+   "item": "Week 11 Game Center practice-status labels differ from the league injury report",
    "type": "Irregularity",
    "kind": "bad",
    "status": "open",
-   "detail": "On 2026-11-18 the official Game Center for Cardinals at Chiefs (Week 11) rendered the panel \"Cardinals have no active injuries at this time\" and \"Chiefs have no active injuries at this time\". The official Week 10 report at nfl.com/injuries/league/2026/reg10 lists ARI with 15 rows and 3 Out designations, and KC with 13 rows and 3 Out designations, three days earlier. The panel is therefore not a substitute for the report, and the two official league surfaces disagree for the same clubs. Note the likely explanation, published as a hypothesis and not as a finding: the widget appears to read the week that has not been played yet (Week 11 has no published report, F-61) rather than the week just completed, so it renders an empty set as 'no active injuries'.",
-   "why": "This is the failure mode the brief names most often - an absence of data presented as a clean bill of health. Any model or page that read this panel would understate a club's missing players for exactly the clubs that are most injured, and it would do so silently, with an official URL beside it. The site's policy already forbids treating 'not listed' as 'available' (see the reserve-list flag), and this is the same rule applied to a second official surface.",
-   "official_url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
-   "url": "https://www.nfl.com/injuries/league/2026/reg10"
+   "detail": "Historical observation, 2026-11-18: the Cardinals\u2013Chiefs Game Center displayed 'no active injuries' for both clubs. Re-read both official pages on 2026-11-19 at 07:10\u201307:12 UTC: the Game Center now shows player practice-status widgets, so the old injury-free wording and its Week-10 comparison are stale. In the first four visible player cards per club, the report and Game Center agree on Budda Baker (Did Not Participate), Zachary Carter (Full), Jeffrey Bassa (Full), Jadon Canady (Full) and Mansoor Delane (Full). The literal labels differ for Hjalte Froholdt and Jon Gaines II (Game Center: 'Did participate'; report: 'Limited Participation in Practice') and Nick Bolton (Game Center: 'Did participate'; report: 'Limited Participation in Practice'). These are a partial widget sample, not a complete comparison. The Week 11 report leaves Game Status blank for these rows. The source read establishes displayed text only; it does not establish injury, availability, or equivalence between the labels.",
+   "why": "The Game Center is not a substitute for the league report, and its abbreviated or differently worded practice labels must not be converted into injury or availability conclusions. Preserve the literal source wording and use the league report's explicit Game Status only when present; blank stays blank. No injury/model rows are inferred from this comparison.",
+   "official_url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11?tab=overview",
+   "url": "https://www.nfl.com/injuries/league/2026/reg11"
   },
   {
    "id": "F-70",
@@ -13659,7 +13695,7 @@ window.X4 = {
    "type": "Irregularity",
    "kind": "warn",
    "status": "resolved",
-   "detail": "The Strategy Lab on this site scores seven gates (G1 data integrity, G2 out-of-sample, G3 minimum sample, G4 significance, G5 stability, G6 calibration, G7 not the benchmark). The decision-desk layer specifies eight (adding probability quality, economic performance, multiplicity control, parlay and prop integrity, and a shadow period). The X4 Console specifies nine (G0 to G8). No two layers use the same inventory.",
+   "detail": "The Strategy Lab scored seven gates (G1 data integrity, G2 out-of-sample, G3 minimum sample, G4 significance, G5 stability, G6 calibration, G7 not the benchmark) until the 2026-11-19 T71 integration landed the G8 shadow-period evaluation in tools/build.py, so the lab now scores eight and the decision-desk layer's eight and the lab's eight still differ from the Console's nine. The decision-desk layer specifies eight (adding probability quality, economic performance, multiplicity control, parlay and prop integrity, and a shadow period). The X4 Console specifies nine (G0 to G8). No two layers use the same inventory.",
    "why": "The main site's seven are the gates that can actually be scored from the official data that exists; the other two are written as designs for gates that cannot yet be evaluated. A reader comparing the layers would reasonably ask which inventory is authoritative, so each layer states its own count on its own page and the difference is recorded here rather than left to be discovered.",
    "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/COORDINATION.md"
@@ -14375,9 +14411,53 @@ window.X4 = {
    "kind": "warn",
    "status": "open",
    "detail": "Measured from data/captures/manifest.jsonl, the injuries source has six reads: 2026-11-18T03:39:04Z (failed schema), 03:40:10Z (valid, Week 10), 03:44:00Z (unchanged re-read), 07:37:40Z (failed schema, Week 11), 20:37:55Z (failed schema, Week 11) and 2026-11-19T07:33:33Z (valid, Week 11, coverage partial, 12 of 13 games). The gaps are 3.9 h, 13.0 h and 10.9 h. The workflow cron is '17 */6 * * *', which implies a read about every six hours. The workflow's own run list shows the same pattern: scheduled runs 44393037693 (2026-11-18T20:37Z) and 44480508108 (2026-11-19T07:33Z) on main. The six reads span 27.9 hours (2026-11-18T03:39Z to 2026-11-19T07:33Z), a mean of 5.6 hours per interval. GitHub's events documentation says the schedule event \"can be delayed during periods of high loads of GitHub Actions workflow runs\" and that during high load \"some queued jobs may be dropped\" (https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule). That quotation was confirmed through a public community discussion that quotes the page (https://github.com/orgs/community/discussions/210361); the schedule section itself was not in the chunk fetched here. The cause of this gap is not determined: the run log does not show why a scheduled run was not created, so the delay is consistent with the documented behaviour but not proven to be it. At the time of measurement (2026-11-19 19:40Z), the newest injury read was 12.1 hours old, and the 13-hour limit would have been crossed at about 20:33Z if no read had landed. Workflow dispatch from the build sandbox returns HTTP 403, so the cadence could not be forced here.",
-   "why": "The gap is what makes a daily or Wednesday-to-Friday series impossible to keep on schedule, so it bears directly on the brief's 'every Wed, Thu and Fri' and 'daily from Wednesday to kickoff' requirements. Until the watchdog has run on main, nothing alerts when the gap grows. The fix (a more frequent cron, or a retry on a missed run) would change a workflow owned by the capture task, so it is logged as a request on the board and not edited here.",
+   "why": "The gap is what makes a daily or Wednesday-to-Friday series impossible to keep on schedule, so it bears directly on the brief's 'every Wed, Thu and Fri' and 'daily from Wednesday to kickoff' requirements. Until the watchdog has run on main, nothing alerts when the gap grows. The fix (a more frequent cron, or a retry on a missed run) would change a workflow owned by the capture task, so it is logged as a request on the board and not edited here. UPDATE 2026-11-19 (T71): a read landed at 2026-11-19T20:43:30Z (the flat-main capture commit), so the 'no read since 07:33Z' statement above is historical as written; the cadence irregularity stands. F-87 (integrated from PR #122) carries the full scheduled-run list, the freshness-limit mismatch and the owner decision this needs; F-88 is the alerting channel.",
    "official_url": "https://www.nfl.com/injuries/",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-alerting-2026-11-19.md"
+  },
+  {
+   "id": "F-87",
+   "item": "Scheduled official captures have not run on their six-hourly schedule: the 13-hour freshness limit can fail between irregular runs (integrated from PR #122, arena/27b5881c-x4)",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "open",
+   "detail": "The capture workflow (.github/workflows/capture.yml) is scheduled at 17 minutes past every sixth hour. The scheduled runs recorded on main are 2026-11-16 06:40Z, 2026-11-16 22:13Z, 2026-11-17 08:00Z, 2026-11-17 21:00Z, 2026-11-18 07:37Z and 2026-11-18 20:37Z. No scheduled run started between 2026-11-18 20:37Z and 2026-11-19 07:33Z although the 00:17Z and 06:17Z slots had passed; reads then landed at 07:33Z and 20:43Z on 2026-11-19 (T71 note). The GitHub Actions scheduler is not guaranteed to fire on time. The workflow_dispatch trigger is not available from the sandbox token (HTTP 403), so no run was started manually from the repository tooling. The live run of 2026-11-19 07:11Z (run 44477705766, on the branch arena/27b5881c-x4) shows the gate passes when it runs; the scheduler gap is separate from that result. Its 32 manifest rows are integrated into data/captures/manifest.jsonl byte-for-byte by T71, with the proof note in research/verification/capture-live-proof-2026-11-19.md.",
+   "why": "A freshness limit of 13 hours with a schedule that can skip a slot means a valid read can age out and fail the gate with no code fault. A capture is stored only if its scheduled run starts. Gaps between the recorded runs were 1.3 h, 13 h, 1.2 h, 9.4 h and 13 h, against a planned six-hour interval. Clears when the owner chooses a cadence and a freshness limit that match the scheduler (for example, a limit of two slots, or a cadence the scheduler reliably honours), and scheduled runs are observed to fire on time across a full week. Companion flags: F-89 (manifest-measured cadence), F-88 (alerting channel).",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/actions/workflows/capture.yml"
+  },
+  {
+   "id": "F-90",
+   "item": "The official NFL.com Week 11 injury report lists all 13 game sections and 253 player rows by hand census; the automated capture records 12 of 13 games and the repository still holds only the Week 10 normalized injury data (integrated from PR #136, arena/6c1f9b60-x4)",
+   "type": "Limitation",
+   "kind": "warn",
+   "status": "limitation",
+   "detail": "Census of the live official page read on 2026-11-19 UTC (all 7 text chunks), recorded in research/verification/week11-official-report-census-2026-11-19.md and independently in research/verification/week11-live-read-2026-11-19.md (PR #134, arena/d47a356c-x4). Per game: IND@HOU 26, PIT@PHI 25, ARI@KC 27, BAL@CAR 19, TB@DET 14, MIA@BUF 26, TEN@DAL 23, NO@CHI 15, NYJ@LAC 19, JAX@NYG 19, LV@DEN 15, MIN@SF 25, CIN@WAS 0 (both 'No Injuries Reported'). Total 253 rows. The row counts are hand tallies, not parser output. Irregularities: the Bills table shows 'Dee Alford' while its profile link is deaundre-ford; the Texans table shows 'Jacob Hummel' while its link is jake-hummel. Both need identity confirmation before any name-based join. Blank game-status cells on the Wednesday-Thursday practice rows are expected and must never read as available. T71 integration note: the manifest capture at 2026-11-19T20:43:30Z records 24 club tables, 253 player links, week 11, schema_ok true, coverage partial with games_published=12 against 13 scheduled - the parser sees 12 games where the two hand censuses see 13 game sections (the 13th carries the two no-injury sections). The discrepancy is flagged here, not resolved by inference. F-55's 'unpublished' wording is superseded for publication status only. The normalized Week 11 injury dataset is still not built and remains gated (T65).",
+   "why": "A 13-game page cannot be matched by the Week 10 pin, and a partial capture must never be modelled as complete. The censuses give the reviewer and the capture pipeline the expected shape (13 game sections, 24 player tables, 2 no-injury sections, about 253 rows). Clears when the parser's coverage count agrees with the official page section count, a complete Week 11 capture is stored with raw retention decided (F-75), and the Week 11 dataset is built from it row by row.",
+   "official_url": "https://www.nfl.com/injuries/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/week11-official-report-census-2026-11-19.md"
+  },
+  {
+   "id": "F-91",
+   "item": "The game log and the standings snapshot are a self-verification pair: tools/verify.py cannot detect them going stale together (T46 structural finding, arena/2d57231a-x4; integrated from PR #96 as F-76, renumbered by T71 to avoid colliding with main's F-76)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "The 2026-11-18 staleness event (flag F-58, resolved) survived every earlier check for a structural reason worth separating from the event itself: tools/verify.py reconciles data/games-2026.csv against data/standings-wk10-2026.csv, so when both drift together both checks pass. A self-consistent pair is not a verified pair. The exact reconciliation that proved the drift (official W/L/T/PF/PA = pre-repair log + exactly the 13 missing Week-10 games, 32 of 32 clubs, one W/L flip per club that played) is published row by row in research/audits/official-score-staleness-2026-11-18.csv and written up in research/audits/official-score-staleness-2026-11-18.md. tools/audit_score_staleness.py now cross-checks the log against an independent dated capture (research/verification/standings-live-2026-11-18.csv) and is proven to fail loudly on a stale log.",
+   "why": "Clears when the official standings page is pinned (retrieval timestamp + hash, or a scheduled re-fetch) independently of the game log inside the normal verification run, so a jointly stale pair can no longer pass. Until then, a green verify.py proves internal consistency only.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/audit_score_staleness.py"
+  },
+  {
+   "id": "F-92",
+   "item": "The post-corpus-completion strategy result is post-hoc and its significance verdict is not order-robust; G8 keeps every strategy ineligible until the Week-11 forward window is graded (T46, arena/2d57231a-x4; integrated from PR #96 as F-77, renumbered by T71 to avoid colliding with main's F-77)",
+   "type": "Irregularity",
+   "kind": "warn",
+   "status": "irregularity",
+   "detail": "Rebuilt on the completed 150-game corpus (walk-forward Weeks 3-10, n=118), S1's spread-MAE improvement over the S0 benchmark reads +9.49%, and the Bonferroni-adjusted 95% bootstrap interval for it nearly touches zero and flips sign with the row ordering of the identical game set: [-0.00, +1.94] points on the published (sorted) log order, where G4 reads fail, versus [+0.03, +1.97] on the transcription order, where G4 reads pass. A verdict that changes with the arbitrary ordering of identical rows is not a verdict. Independently, the result is post-hoc: the 13 Week-10 games it rests on were ingested on 2026-11-18, after research/preregistration/wk11-forward-v1.md froze the corpus and window. The leaderboard therefore now evaluates an explicit G8 shadow-period gate (a further pre-registered segment, actually graded - the same gate data/ops/gates.csv G8 names), which no historical backtest can satisfy: every strategy is published ineligible and paper, with provisional reward only.",
+   "why": "Published so the +9.49% cannot be quoted as pre-registered skill. Clears when the registered Week-11 forward window is played and graded with no gate regression and the significance is re-evaluated on that untouched sample (a stable interval computed under a pre-registered row ordering), or the owner explicitly re-registers a revised protocol before that window opens.",
+   "official_url": "https://www.nfl.com/standings/",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/preregistration/wk11-forward-v1.md"
   }
  ],
  "replacement_depth": [

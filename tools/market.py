@@ -750,7 +750,7 @@ def add_corr(label, xs, ys, definition, why, tier="T4 this repository, computed 
         "label": label, "definition": definition, "why": why,
         "n": res["n"] if res else len(xs), "r": res["r"] if res else None,
         "ci95": res["ci95"] if res else None,
-        "source": "data/games-2026.csv (137 official NFL.com game pages, proved by tools/verify.py)",
+        "source": "data/games-2026.csv (150 official NFL.com game pages, proved by tools/verify.py)",
         "source_tier": tier,
     })
 

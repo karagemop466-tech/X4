@@ -1362,6 +1362,37 @@ def build_verification(d):
                   'originates and grades; <code>python3 tools/depth.py</code> builds the depth '
                   'ledger; <code>python3 tools/ops.py</code> renders these pages; '
                   '<code>python3 tools/check_site.py</code> is the gate.</div>')
+        + section("staleness-audit", "AUDIT · 2026-11-18", "What the checks above structurally cannot see",
+                  "The ten checks re-derive claims from artifacts inside this repository. "
+                  "That has a blind spot the T46/T48 audits found: a stale artifact can agree with "
+                  "a stale artifact. On 2026-11-18 the game log and the standings snapshot were "
+                  "re-read against the live official pages and both were one week behind - "
+                  "13 of 14 Week-10 games were missing from the log - while tools/verify.py "
+                  "still passed, because it reconciles the log against that same stale snapshot. "
+                  "The correction is applied (log now 150 games, verify.py 486 assertions PASS) "
+                  "and the consequences are published as post-hoc, not as results: flag F-91 "
+                  "records the self-consistent verification pair, flag F-92 records that S1's "
+                  "+9.49% post-hoc improvement has a borderline significance interval that flips "
+                  "sign with the row ordering of the identical game set, and the leaderboard's "
+                  "shadow-period gate G8 keeps every strategy ineligible until the pre-registered "
+                  "Week-11 forward window is played and graded.",
+                  "32 / 32", table(
+                      ["Artifact", "What the audit found", "State now", "Evidence"],
+                      [["data/games-2026.csv", "137 rows - 13 completed Week-10 games absent",
+                        "150 rows; every club's W/L/T/PF/PA reproduces the official table exactly",
+                        artifact("research/audits/official-score-staleness-2026-11-18.csv")
+                        + " " + ext("https://www.nfl.com/schedules/2026/by-week/week-10", "official Week-10 schedule")],
+                       ["data/standings-wk10-2026.csv", "pre-Week-10 snapshot, not the live table",
+                        "rewritten to the 2026-11-18 official capture",
+                        artifact("research/verification/standings-live-2026-11-18.csv")],
+                       ["tools/verify.py self-proof", "passed while the pair was jointly stale",
+                        "486 assertions PASS on the repaired corpus; tools/audit_score_staleness.py "
+                        "now cross-checks the log against an independent dated capture",
+                        artifact("tools/audit_score_staleness.py")],
+                       ["Strategy leaderboard", "S1's post-hoc improvement reads +9.49% on the completed corpus",
+                        "S1 published 6/8 and ineligible: G4 borderline (interval flips sign with row "
+                        "ordering) and G8 shadow period unopened (F-92)",
+                        artifact("research/preregistration/wk11-forward-v1.md")]]))
     )
     return body
 

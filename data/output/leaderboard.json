@@ -50,6 +50,10 @@
    "G7 not the benchmark": {
     "pass_": true,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 6,
@@ -115,6 +119,10 @@
    "G7 not the benchmark": {
     "pass_": true,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 6,
@@ -180,6 +188,10 @@
    "G7 not the benchmark": {
     "pass_": true,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 6,
@@ -245,6 +257,10 @@
    "G7 not the benchmark": {
     "pass_": true,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 6,
@@ -310,6 +326,10 @@
    "G7 not the benchmark": {
     "pass_": true,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 6,
@@ -375,6 +395,10 @@
    "G7 not the benchmark": {
     "pass_": true,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 6,
@@ -439,6 +463,10 @@
    "G7 not the benchmark": {
     "pass_": true,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 6,
@@ -504,6 +532,10 @@
    "G7 not the benchmark": {
     "pass_": true,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 6,
@@ -566,6 +598,10 @@
    "G7 not the benchmark": {
     "pass_": false,
     "note": "The league-constant benchmark is excluded from rewards by definition."
+   },
+   "G8 shadow period": {
+    "pass_": false,
+    "note": "0 of the pre-registered Week 11 forward bets are graded. A historical walk-forward backtest cannot open the shadow period; it stays closed until the registered forward window is played and graded."
    }
   },
   "gates_passed": 4,

@@ -45,6 +45,34 @@ SITE = os.path.join(ROOT, "site")
 SEED = 20261114
 BOOTSTRAP = 10000
 
+
+def graded_forward_bets():
+    """How many bets of the pre-registered forward window have been graded.
+
+    Gate G8 ("shadow period") requires a further pre-registered segment that has
+    been graded after it was registered. The registration lives in
+    research/preregistration/; the grading lives in data/ops/graded.csv. Until a
+    Week 11 game has been played, graded and recorded there, the count is 0 and
+    G8 cannot pass for any strategy. Nothing is inferred: the number is the count
+    of graded rows whose event is one of the registered forward fixtures.
+    """
+    reg = os.path.join(ROOT, "research", "preregistration", "wk11-forward-v1.md")
+    graded = os.path.join(ROOT, "data", "ops", "graded.csv")
+    if not (os.path.exists(reg) and os.path.exists(graded)):
+        return 0
+    with open(graded, newline="", encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    n = 0
+    for r in rows:
+        outcome = (r.get("outcome") or "").strip().lower()
+        if outcome in ("", "pending"):
+            continue
+        # The registered forward window is Week 11 (research/preregistration/
+        # wk11-forward-v1.md). Earlier weeks are backtest, not the shadow period.
+        if (r.get("week") or "").strip() == "11":
+            n += 1
+    return n
+
 PARAMS = OrderedDict([
     ("ew_lambda_slow", 0.65),
     ("ew_lambda_fast", 0.80),
@@ -552,6 +580,14 @@ for key, s in STRATEGIES.items():
     ci_hi = percentile(boot[key], 1 - alpha_adj / 2)
     imp_abs = metrics[baseline]["spread_mae"] - m["spread_mae"]
     imp_pct = imp_abs / metrics[baseline]["spread_mae"] if metrics[baseline]["spread_mae"] else 0.0
+    # G8 shadow period. Gate G8 in data/ops/gates.csv ("a further pre-registered
+    # segment with no gate regression") is a documented gate that no historical
+    # evaluation can satisfy: the segment must be registered before it is played
+    # and graded afterwards. It is therefore evaluated from the committed
+    # pre-registration record, and it is False until that record carries a graded
+    # forward sample. Without this gate a backtest score alone would mark a
+    # strategy "eligible", which is exactly what the reward policy forbids.
+    forward_graded = graded_forward_bets()
     gates = {
         "G1 data integrity": dict(pass_=True, note="Inputs are official NFL.com pages; each prediction uses only games played before the forecast week (no look-ahead)."),
         "G2 out-of-sample": dict(pass_=True, note="Walk-forward evaluation over weeks %d-%d; no random row splits." % (PARAMS["eval_first_week"], max(weeks))),
@@ -560,6 +596,11 @@ for key, s in STRATEGIES.items():
         "G5 stability": dict(pass_=weekly[key]["positive_share"] >= PARAMS["min_weekly_improvement_share"], note="Improvement positive in %.0f%% of evaluated weeks (minimum %.0f%%)." % (100 * weekly[key]["positive_share"], 100 * PARAMS["min_weekly_improvement_share"])),
         "G6 calibration": dict(pass_=calib[key]["max_gap"] <= PARAMS["calibration_max_gap"], note="Largest gap between predicted and observed cover rate: %.3f (tolerance %.2f)." % (calib[key]["max_gap"], PARAMS["calibration_max_gap"])),
         "G7 not the benchmark": dict(pass_=(key != baseline), note="The league-constant benchmark is excluded from rewards by definition."),
+        "G8 shadow period": dict(pass_=(key != baseline and forward_graded > 0),
+                                 note="%d of the pre-registered Week 11 forward bets are graded. "
+                                      "A historical walk-forward backtest cannot open the shadow period; "
+                                      "it stays closed until the registered forward window is played and graded."
+                                      % forward_graded),
     }
     passed = sum(1 for g in gates.values() if g["pass_"])
     eligible = all(g["pass_"] for g in gates.values())
@@ -928,8 +969,8 @@ for name, obj in (("standings", payload["standings"]), ("power", power),
 print("evaluation games: %d (weeks %d-%d)" % (len(eval_games), min(weeks), max(weeks)))
 print("%-4s %-34s %8s %8s %8s %8s %7s %7s" % ("id", "strategy", "spdMAE", "totMAE", "dirAcc", "imp%", "gates", "reward"))
 for r in leaderboard:
-    print("%-4s %-34s %8.3f %8.3f %7.1f%% %7.2f%% %5d/7 %7.1f%s"
+    print("%-4s %-34s %8.3f %8.3f %7.1f%% %7.2f%% %5d/%d %7.1f%s"
           % (r["id"], r["name"][:34], r["metrics"]["spread_mae"], r["metrics"]["total_mae"],
              100 * r["metrics"]["direction_accuracy"], 100 * r["improvement_pct"],
-             r["gates_passed"], r["reward"], "" if r["eligible"] else "  (ineligible)"))
+             r["gates_passed"], len(r["gates"]), r["reward"], "" if r["eligible"] else "  (ineligible)"))
 print("\nwrote data/output/payload.json, data/output/payload.js and data/output/*.json")
