@@ -3504,7 +3504,27 @@ All open flags are published on the Flagged-for-Review register and do not block
   sections, so the shared-cell and empty-cell representation covers every club rather than two.
 
 ### PR and merge record (T74/T75)
-- To be recorded after the pull request is opened and merged.
+- **PR #153** - `https://github.com/karagemop466-tech/X4/pull/153`, branch
+  `arena/9fc78d2e-x4` -> `main`, title "T74/T75: corpus statistics on the complete official corpus with a
+  declared split and n on every value; depth slots as groups".
+- **Merged** 2026-11-19T22:24:51Z, merge commit `1f53f333fa7fc67a29bc9a04676789ca9f3c0626`.
+- **Checks on the PR:** the `desk` workflow ran and passed. The branch was merged into `main` after
+  `origin/main` moved twice (PR #145 and PR #151 landed in between); each time the conflict was in
+  `COORDINATION.md` only and was resolved by KEEPING BOTH SIDES - main's task rows and this session's
+  rows both survive on the board. `git grep '^<<<<<<< '` is clean across all tracked files.
+- **Deployment after the merge:** `Desk validation` succeeded on `1f53f33`, `Publish NFL Decision Lab`
+  succeeded on `1f53f33`, and `pages build and deployment` succeeded on `1f53f33`. The Pages API
+  reports `status: built` for `https://karagemop466-tech.github.io/X4/`.
+- **Live checks:** `https://karagemop466-tech.github.io/X4/gates.html` publishes the corpus-statistics
+  table with 18 rows, each carrying its window, value, 95% interval and n, and the model-correlation
+  table with 36 rows, each carrying its n. `https://karagemop466-tech.github.io/X4/depth.html` publishes
+  the Seattle shared cell (Cooper Kupp and Rashid Shaheed both at depth 1, "2 named in one cell
+  (co-starters)") and the Washington printed empty cell ("no name printed in this cell", "cell 2 -
+  printed empty"). `https://karagemop466-tech.github.io/X4/flags.html` publishes F-64, F-94 and F-95 on
+  the Flagged for Review page.
+- One further commit (`ff9ad4a`, "Remove a duplicated clause in the corpus-statistics note on
+  gates.html") removes a repeated sentence in the rendered note; it is on the branch and will merge
+  with the next PR that touches this area.
 
 ## Session log — arena/f8191f1b-x4 (T76: dated NFL schedule announcement; originally claimed as T70, renumbered three times, 2026-11-19)
 
@@ -3547,6 +3567,13 @@ All open flags are published on the Flagged-for-Review register and do not block
 - The full gate is not a claim that every site row was independently fetched live during T76. The T73 Week 18 year inference remains flagged as F-92 and the cross-scope link-per-row request is recorded below.
 - The inherited PR #153 depth CSVs use CRLF line endings, so the default `git diff --cached --check` reports those carriage returns as trailing whitespace. `git -c core.whitespace=cr-at-eol diff --cached --check` passes; T76's coordination edits pass the default check, and no upstream line endings were changed.
 
+### Final integration verification after PR #155 merged to main (2fc4fee)
+- `python3 tools/validate.py`: **VALIDATION PASSED** at a fixed point after PR #155. Both schedule regression suites passed (12 `test_schedule_page.py` tests and 3 `test_schedule_announcement.py` tests); the corpus-statistics and depth-cell publication gates also passed.
+- Site: 22 pages, 112 tables and 4,433 data rows with official source links; all 32-team numeric checks pass and local links resolve across 52 pages. Desk pages: 29 pages, 1,139 table rows and 2,727 links; navigation and anchors pass. X4 Console: 15 pages, 657 data rows, 149 internal and 43 external links, all valid. Determinism, mirror equality and data hygiene passed.
+- `python3 tools/verify.py`: 486 checks, 150 games and 32 teams; reconstructed W/L/T/PF/PA totals match official NFL.com standings exactly.
+- Explicit checks passed: `python3 tools/check_site.py`, `python3 site/check.py`, and `node docs/check.js`. T76's brief-register, schedule-page, verification-note and coordination mirrors are byte-identical.
+- The inherited PR #153 depth CSVs use CRLF. The full staged merge check passes with `git -c core.whitespace=cr-at-eol diff --cached --check`; the T76 coordination diff passes the default whitespace check. No line-ending conversion was made to the T75 files.
+
 ### Irregularities and limits
 - No schedule-announcement discrepancy was observed. This card does not claim that every local schedule row was reverified on 2026-11-19; the fixture rows retain their individual source links and dated verification record.
 - The existing T68 row-source audit remains a site-wide limit: 725 of 1,138 desk rows had official-domain links only, 90 mixed official and non-official links, and 323 had only non-official HTTPS links. That audit does not verify field-level support, and this task neither closes F-39 nor claims every site value is officially sourced.
@@ -3561,8 +3588,9 @@ All open flags are published on the Flagged-for-Review register and do not block
 - `main` merged PR #149 (`5d8cdca`), which took T70 for README/executive-summary evidence reconciliation, and PR #147 (`798d36c`), which took T71 for landing-panel reconciliation. This schedule task temporarily became T72.
 - `main` then merged PR #150 (`66ecbbf`), recording the README reconciliation as T72, and PR #145 (`3fc24a9`), which added T73's detailed `schedule.html`, official release-fact table, Week 11 links, and F-91/F-92. This schedule task was renumbered T74.
 - PR #153 (`1f53f33`) added separate T74 corpus-statistics and T75 depth-slot tasks. This schedule task is now T76. The T73 schedule page is complementary: this task's brief-register card records the May 8 announcement date and announced May 14, 8 p.m. ET release, distinct from the May 14 publication of the full schedule. Both implementations are retained.
+- PR #155 (`2fc4fee`) added the post-merge PR #153 closeout and the gates-page wording cleanup; it took no task ID, so T76 remains the next available row.
 - The two claim/scope commits (`4b16f55`, `e9f6b98`) on `origin/arena/f8191f1b-x4` are preserved in the branch merge ancestry (`b689241`); their duplicate earlier T70 row is superseded by the single expanded T76 row.
-- Merging `origin/main` at `798d36c` conflicted only in the root/site board; the merge at `3fc24a9` also conflicted in the shared verification note; the latest pull to `1f53f33` conflicted only in the root/site board. Each resolution retained the upstream rows, code, published outputs and session logs, inserted this task under the next free ID, and regenerated the mirrors. The `brief-register.html` changes from PR #153 were auto-merged and retained.
+- Merging `origin/main` at `798d36c` conflicted only in the root/site board; the merge at `3fc24a9` also conflicted in the shared verification note; pulls to `1f53f33` and `2fc4fee` conflicted only in the root/site board. Each resolution retained upstream rows, code, published outputs and session logs, inserted this task under the next free ID, and regenerated the mirrors. The `brief-register.html` changes from PR #153, plus PR #155's `gates.html`/`tools/pages.py` edits, were retained.
 - The inherited main coordination file itself contained conflict markers around the PR #149 closeout and T74/T75 session log. This resolution kept the actual PR #149 record, the complete T73 log, and the T74/T75 log; the superseded pre-publication placeholder was removed. No other task implementation file was changed.
 - **Cross-scope review request (logged, not edited):** T73's source record flags F-92 because its S06/S07 values attach year 2027 to January 9/10 although that release sentence gives no year. The brief prohibits inferring schedule facts. Please keep the year blank/unassigned unless an official source states it; T76 does not change T73's CSV/page or its flag and retains the issue visibly documented for review. T73's verification-note summary table (S01–S13) also has no URL column per row, although the underlying CSV and published `schedule.html` rows carry the official release link; add the row-level links or keep that table out of the published evidence register to satisfy the project's per-row source rule.
 - **Board closeout request (logged, not edited):** PR #153 is merged, but the T74/T75 board row still says PR pending and the main board contains two T71 rows (one pre-closeout and one with the merged result). Update those shared status records and reconcile the duplicate T71 entry using the verified PR/deploy details; T76 did not change them.
