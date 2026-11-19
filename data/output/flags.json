@@ -34,11 +34,11 @@
  },
  {
   "id": "F-66",
-  "item": "Stale numbers survive in generated prose because prose is not on the gate",
-  "type": "Irregularity",
+  "item": "Stale numbers survive in generated prose because prose is not on the gate - the listed instances are corrected; the pattern is now closed only for the corpus statistics",
+  "type": "Limitation",
   "kind": "warn",
-  "status": "open",
-  "detail": "A line-by-line read on 2026-11-18 found numeric claims that described a corpus that no longer exists, in places the publication gate does not read: tools/workbench.json (\"results_2026.csv: 137 games\" and \"1,224\" settled bets) rendered onto workbench.html; tools/build_integrity.py's docstring (\"verified results feed (137 games)\"); research/decision-register.md and research/integrity-gates.md (\"137 games\", one of which also said \"Weeks 1-10\" while holding 137 of the 150 games in that range); and research/price-store.md (\"68 of 105 games (64.8%), exact binomial p = 0.0016\", a sign-test result on a superseded corpus, now 78 of 118 at p = 0.00030). Every one of these was correct when written and became wrong when the Week 10 finals were ingested. The pattern, not any single number, is the finding: a count typed into prose or into a checker is a future false statement, and F-59 was the same defect one level up.",
+  "status": "limitation",
+  "detail": "A line-by-line read on 2026-11-18 found numeric claims that described a corpus that no longer exists, in places the publication gate does not read: tools/workbench.json (\"results_2026.csv: 137 games\" and \"1,224\" settled bets) rendered onto workbench.html; tools/build_integrity.py's docstring (\"verified results feed (137 games)\"); research/decision-register.md and research/integrity-gates.md (\"137 games\", one of which also said \"Weeks 1-10\" while holding 137 of the 150 games in that range); and research/price-store.md (\"68 of 105 games (64.8%), exact binomial p = 0.0016\", a sign-test result on a superseded corpus, now 78 of 118 at p = 0.00030). Every one of these was correct when written and became wrong when the Week 10 finals were ingested. The pattern, not any single number, is the finding: a count typed into prose or into a checker is a future false statement, and F-59 was the same defect one level up. Since (T74, 2026-11-19): every instance named above has been corrected - the workbench, the integrity-gates note and the decision register now say 150 games, and the price-store note quotes 78 of 118. One class is now on the gate: the corpus statistics (home margin, margin vs total, away vs home, mean combined score, and the two standings correlations) are re-derived from the verified corpus by tools/corpus_stats.py, written to data/output/corpus_stats.json, and compared row by row against the rendered page by tools/corpus_stats.py --check-page, which runs inside tools/validate.py. A page that prints a number the artifact does not hold now fails the build. The general pattern - numbers typed into prose - remains unfixed for prose outside the gated statistics, and is recorded as an open limitation rather than closed.",
   "why": "The site's central claim is that every published number is reproducible from the committed data. A stale number in a JSON evidence string or a research note defeats that claim just as surely as a stale number in a table, and it is harder to notice because no checker reads prose. The workbench example is the worst of them: it told a reviewer the results feed covers 137 games while the feed on the same site held 150.",
   "official_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/games-2026.csv"
@@ -727,36 +727,36 @@
  },
  {
   "id": "F-62",
-  "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54",
+  "item": "The margin-vs-total correlation is published with n = 57 on two pages while it is computed on n = 54 - resolved by T74: every published statistic is now re-derived from the complete corpus and carries the n of the window it was measured on",
   "type": "Irregularity",
-  "kind": "bad",
-  "status": "open",
-  "detail": "tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in research/computed_stats.json ({n: 54, r: -0.3224, ci95: [-0.5432, -0.0598]}). The generated signals table prints 54 correctly. The executive-summary row and the correlations page attach 57 - the size of the input file - to the same r. The three neutral-site games dropped (HOU at JAX week 6, PIT at NO week 7, CIN at ATL week 9) are not named in the row label either. The value and interval are correct; the n beside them is not.",
-  "why": "The brief requires every correlation to be published with its n. Printing the file count instead of the observation count makes a result computed on 54 games look like one computed on 57, which is the exact substitution the requirement exists to prevent.",
-  "official_url": "https://www.nfl.com/schedules/2026/by-week/week-6",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
+  "kind": "warn",
+  "status": "resolved",
+  "detail": "Found: tools/compute_stats.py computes the margin series and the total series from games with neutral_site == '0', which is 54 of the 57 games in research/data/games_weeks6-9_2026.csv, and records n = 54 in research/computed_stats.json ({n: 54, r: -0.3224, ci95: [-0.5432, -0.0598]}). The generated signals table printed 54 correctly while other pages attached 57 - the size of the input file - to the same r. The value and interval were correct; the n beside them was not, and the three neutral-site games dropped (HOU at JAX week 6, PIT at NO week 7, CIN at ATL week 9) were not named in the row label. Fixed (T74, 2026-11-19): the published correlation and home-edge table is now built by tools/corpus_stats.py, which recomputes every statistic from the complete verified corpus (data/games-2026.csv, 150 games, weeks 1-10) and prints the window beside every value: margin vs total is r = -0.3224 on n = 54 in the frozen weeks 6-9 window and r = -0.1433 on n = 146 over the whole corpus. The n is taken from the computed artifact, not typed, and tools/corpus_stats.py --check-page compares the rendered page against that artifact, so a page that prints a number the artifact does not hold now fails the publication gate.",
+  "why": "The brief requires every correlation to be published with its n. Printing the file count instead of the observation count makes a result computed on 54 games look like one computed on 57, which is the exact substitution the requirement exists to prevent. The gate that now exists is the durable part of the fix.",
+  "official_url": "https://www.nfl.com/schedules/2026/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"
  },
  {
   "id": "F-63",
-  "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist",
+  "item": "One home-edge measurement is published at +0.1 and at +0.07, and is measured on weeks 6-9 while 150 games exist - resolved by T74: every published home-edge figure now carries its window, its n and its interval",
   "type": "Irregularity",
   "kind": "warn",
-  "status": "open",
-  "detail": "research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which re-derives exactly from research/data/games_weeks6-9_2026.csv. The executive summary publishes it as +0.1 and the line-lab model text as h = +0.07: the same quantity at two roundings. Separately, the window is weeks 6-9 only. Re-deriving on the full verified corpus (weeks 1-10, neutral-site games excluded) gives n = 67 and a mean of -1.49, the opposite sign to the +0.07 the line lab adds to every Week 11 spread.",
+  "status": "resolved",
+  "detail": "Found: research/computed_stats.json holds home_edge = {n: 54, mean_home_margin: 0.074, ci95: [-3.59, 3.74]}, which re-derives exactly from research/data/games_weeks6-9_2026.csv, and the site published that one quantity at two roundings (+0.1 in one place, +0.07 in another) on a weeks 6-9 window only. Fixed (T74, 2026-11-19): tools/corpus_stats.py recomputes the statistic from the complete verified corpus and publishes it once per declared window with n and a 95% interval - -0.70 on n = 73 (weeks 3-7), +8.79 on n = 14 (week 8), -5.78 on n = 27 (weeks 9-10), -0.53 on n = 146 (weeks 1-10) and the frozen +0.07 on n = 54 (weeks 6-9). Every interval contains zero, so the site states that no home edge is assumed. The executive summary and the line-lab text now name the window and the n of the constant they quote. The separate question of whether the registered model should keep adding a constant whose interval contains zero is not part of this fix: it is recorded as F-90, and the Week 11 pre-registration freezes the model, so changing it is an owner decision for the next registration, not a quiet edit.",
   "why": "A model constant that flips sign when four more weeks of official results are included is not a measured edge yet; it is a window-dependent number. Publishing it as 'measured' without the window and the wider result is the overclaim.",
   "official_url": "https://www.nfl.com/schedules/2026/",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/repo-inconsistencies-2026-11-18.md"
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"
  },
  {
   "id": "F-64",
-  "item": "The depth dataset cannot represent a shared rank-1 cell, stores no special-teams row, and 4 of 103 sampled live players are absent",
-  "type": "Unverified data",
-  "kind": "bad",
-  "status": "open",
-  "detail": "data/depth-wk11-2026.csv holds 1,558 rows across 705 club/unit/position columns, of which 76 name a single player and 0 cells hold more than one player. Every club chart read this session publishes at least one shared or empty cell (Seattle WR cell 1 lists Cooper Kupp and Rashid Shaheed together; Washington WR cell 2 is empty), and the dataset stores the Seattle pair at depth 1 and 2. No special-teams row (P, K, H, LS, PR, KR) exists in the dataset, although every live chart read publishes a special-teams section. A four-club live sample of offence charts (SEA, CLE, BAL, WAS; 103 players) found 4 players absent from the dataset and the one shared rank-1 cell not represented.",
+  "item": "The depth dataset could not represent a shared rank-1 cell or a printed empty cell (fixed for the model and for the two clubs the brief names; 29 clubs still carry the 2026-11-14 capture), stores no special-teams row, and 4 of 103 sampled live players are absent",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "Found: data/depth-wk11-2026.csv held 1,558 rows across 705 club/unit/position columns, of which 76 name a single player and 0 cells hold more than one player. Every club chart read this session publishes at least one shared or empty cell (Seattle WR cell 1 lists Cooper Kupp and Rashid Shaheed together; Washington WR cell 2 is empty), and the dataset stored the Seattle pair at depth 1 and 2. No special-teams row (P, K, H, LS, PR, KR) exists in the dataset, although every live chart read publishes a special-teams section. A four-club live sample of offence charts (SEA, CLE, BAL, WAS; 103 players) found 4 players absent from the dataset and the one shared rank-1 cell not represented. Fixed (T75, 2026-11-19): the transcription model now stores a CELL - one name, several names in one printed cell, or a printed but empty cell - and the file carries a slot_kind and a slot_size column. Seattle's first WR cell is stored as the shared cell it is (Kupp 1, Shaheed 1, Charles 2) and Washington's third WR row carries an explicitly empty second cell. The deficiency roll-up and the per-team view now run on cells, so a club that published co-starters is never reported as having lost its starter to one injury. Still open: 29 of the 31 transcribed clubs still carry the 2026-11-14 capture, and their shared and empty cells are not represented until each club is re-read live; special teams are transcribed for no club (0 rows); the sampled-player gap is unchanged. The depth-audit page publishes each of those three numbers and evaluates the four fidelity tests against the committed file instead of describing them.",
   "why": "The brief's deficiency signal is 'a backup replaced a starter'. With co-starters stored as starter-plus-backup, the dataset would report a deficiency at a position where both men start, and a missing player cannot be reported absent at all. The depth-audit page quantifies this per club rather than disclaiming it in prose.",
   "official_url": "https://www.seahawks.com/team/depth-chart",
-  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-cells-2026-11-19.md"
  },
  {
   "id": "F-86",
@@ -955,6 +955,28 @@
   "why": "The gap is what makes a daily or Wednesday-to-Friday series impossible to keep on schedule, so it bears directly on the brief's 'every Wed, Thu and Fri' and 'daily from Wednesday to kickoff' requirements. Until the watchdog has run on main, nothing alerts when the gap grows. The fix (a more frequent cron, or a retry on a missed run) would change a workflow owned by the capture task, so it is logged as a request on the board and not edited here.",
   "official_url": "https://www.nfl.com/injuries/",
   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-alerting-2026-11-19.md"
+ },
+ {
+  "id": "F-94",
+  "item": "The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "Found by re-deriving the corpus statistics on the complete verified game log (T74, 2026-11-19). tools/origination.py sets USE_HOME_EDGE = True and fits h on weeks 6-9 only (edge = home_edge(games, range(6, 10))), then adds that constant to every Week 11 spread it originates. The same statistic, recomputed from the same official corpus (data/games-2026.csv, 150 games, each row an official NFL.com game URL, reproducing every official standings total), is: +0.07 on n = 54 (weeks 6-9, the frozen window); -0.70 on n = 73 (weeks 3-7, the fitting window); +8.79 on n = 14 (week 8); -5.78 on n = 27 (weeks 9-10); and -0.53 on n = 146 (weeks 1-10). Every one of those 95% intervals contains zero, so the constant is not distinguishable from no home edge in any window, and its sign is a property of the window rather than a measured league effect. The value applied to the Week 11 lines is small relative to the spread uncertainty, but it is added to every spread on the slate, so it is a systematic term in the published numbers rather than noise. Nothing was changed: the Week 11 forward registration (research/preregistration/wk11-forward-v1.md) freezes the model before kickoff, and re-fitting h after seeing the outcome would break the pre-registration that the whole leaderboard depends on. The published per-window table on gates.html now shows every figure with its window, n and interval.",
+  "why": "A term that no window can distinguish from zero should not sit inside every originated line, and a term whose sign depends on which weeks were chosen is a parameter of the analyst rather than of the league. The decision belongs to the owner and belongs in the NEXT registration: registering h = 0 for the next window, with the window table published beside it, is a legitimate forward choice. Changing it inside the current registered window would be exactly the result-chasing the pre-registration exists to prevent.",
+  "official_url": "https://www.nfl.com/schedules/2026/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"
+ },
+ {
+  "id": "F-95",
+  "item": "The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent",
+  "type": "Irregularity",
+  "kind": "warn",
+  "status": "irregularity",
+  "detail": "Measured cell by cell (T73, 2026-11-19). The official page https://www.commanders.com/team/depth-chart was read on 2026-11-19 and compared with the rows the 2026-11-14 capture had committed: WR 1 Terry McLaurin -> Treylon Burks, WR 2 Treylon Burks -> Van Jefferson, C 1 Nick Allegretti -> Lucas Patrick, LG 2 Tanoa Togiai -> Nick Allegretti, WR2 2 Jaylin Lane -> Luke McCaffrey, WR3 1 Dyami Brown -> Antonio Williams, WR3 2 Antonio Williams -> printed empty, RB 1-3 Jacory Croskey-Merritt / Rachaad White / Austin Ekeler -> Rachaad White / Austin Ekeler / Robert Henry Jr., DL 1 Daron Payne -> Charles Omenihu, DL3 1-2 Javon Kinlaw / Charles Omenihu -> Deatrich Wise Jr. / Ricky Barber, CB2 1-2 Mike Sainristil / Fabian Moreau -> Trey Amos / Mike Sainristil, plus three printed cells that were not in the capture (CB 3 Isaac Yiadom, DL 2 Jer'Zhan Newton, CB2 3 Fabian Moreau) and two cells that are no longer printed (WR3 3, OLB2 3). 17 cells differ: 15 names changed, 3 cells added, 2 cells removed. The Washington rows are now transcribed from the 2026-11-19 page and stamped with that date; the Seattle rows carry the same stamp because that chart was re-read and confirmed unchanged. The residual risk applies to every club whose chart has not been re-read: a depth chart is true only until the next transaction, and the per-club retrieval stamp is the only thing that tells a reader which read a row came from.",
+  "why": "The brief requires the availability graph to answer 'who was expected to start, who actually did'. A chart read is a measurement with a date; a chart stored without one silently becomes a claim about the present. The dataset already carries a per-club retrieval stamp for this reason, and this is the first club where the stamp was changed by a re-read.",
+  "official_url": "https://www.commanders.com/team/depth-chart",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-cells-2026-11-19.md"
  },
  {
   "id": "F-90",

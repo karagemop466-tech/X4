@@ -70,12 +70,30 @@ def build_teams():
         counts = {k: sum(1 for r in ti if r["game_status"] == k) for k in ("Out", "Doubtful", "Questionable")}
         starters_out = []
         replacements = []
+        # Cells, not rows: a cell that publishes two names is a pair of
+        # co-starters, so one absence inside it does not cost the club its
+        # starter. Only a cell whose every published name is out counts.
+        cells = {}
         for r in td:
-            if r["depth"] == "1" and r["game_status"] in ("Out", "Doubtful"):
-                starters_out.append("%s %s (%s)" % (r["position_row"], r["player"], r["game_status"]))
-                rep = [x for x in td if x["unit"] == r["unit"] and x["position_row"] == r["position_row"]
-                       and x["depth"] == "2"]
-                replacements.append(rep[0]["player"] if rep else "")
+            key = (r["unit"], r["position_row"], r["depth"])
+            cells.setdefault(key, []).append(r)
+        first_cells = {}
+        for (unit, pos, depth), grp in cells.items():
+            if depth == "1":
+                first_cells[(unit, pos)] = grp
+        for (unit, pos), grp in sorted(first_cells.items()):
+            named = [r for r in grp if r["player"]]
+            if not named:
+                continue
+            out = [r for r in named if r["game_status"] in ("Out", "Doubtful")]
+            if not out or len(out) < len(named):
+                continue
+            starters_out.append("%s %s (%s)" % (
+                pos, " and ".join(r["player"] for r in named),
+                out[0]["game_status"]))
+            second = cells.get((unit, pos, "2"), [])
+            names = [r["player"] for r in second if r["player"]]
+            replacements.append(" and ".join(names) if names else "")
         joined = {_norm(x["player"]) for x in td}
         unmatched = [r["player"] + " (" + r["game_status"] + ")" for r in ti
                      if r["game_status"] == "Out" and _norm(r["player"]) not in joined]

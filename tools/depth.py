@@ -15,14 +15,22 @@ That is an official, source-linkable statement of depth order, so it can be
 captured without inference. This tool does exactly three things:
 
   1. TRANSCRIBE  (below, in CHARTS) each club's chart exactly as published.
+                 A depth CHART CELL may hold one name, several names (the club
+                 published co-starters in one cell) or no name at all (the club
+                 published an empty cell). The transcription keeps that
+                 distinction: a cell is a string (one name), a tuple (names in
+                 one printed cell) or "" (a printed but empty cell).
   2. VALIDATE    every transcription against the committed, already-verified
                  official data: the club must exist in the standings file, every
                  injured player we pair it with must appear in the official Week
                  10 injury report with the same club, and the positional order
                  must be internally consistent (no player listed twice in one
-                 column of one position row).
-  3. BUILD       data/depth-wk11-2026.csv - one row per (club, position row,
-                 depth position) - and the starter-out deficiency roll-up.
+                 cell, no empty cell carrying a name).
+  3. BUILD       data/depth-wk11-2026.csv - one row per name in a printed
+                 cell, plus one row per printed empty cell - and the
+                 starter-out deficiency roll-up, which is computed on CELLS, so
+                 a club that published two co-starters is never reported as
+                 having lost its starter to one injury.
 
 WHAT THIS TOOL DELIBERATELY DOES NOT DO
 ---------------------------------------
@@ -50,6 +58,19 @@ OUT_CSV = os.path.join(DATA, "depth-wk11-2026.csv")
 INJ_CSV = os.path.join(DATA, "injuries-wk10-2026.csv")
 STAND_CSV = os.path.join(DATA, "standings-wk10-2026.csv")
 RETRIEVED = "2026-11-14"
+# Clubs whose chart was read again, live, in a later session. The retrieval stamp
+# is per club so a re-read row is never dated with the original capture.
+RETRIEVED_BY_CLUB = {
+    # Seattle Seahawks, https://www.seahawks.com/team/depth-chart/ - read 2026-11-19.
+    # The chart is unchanged from the 2026-11-14 transcription; the only correction
+    # is that the first WR cell publishes Cooper Kupp AND Rashid Shaheed together.
+    "SEA": "2026-11-19",
+    # Washington Commanders, https://www.commanders.com/team/depth-chart - read
+    # 2026-11-19. The chart has changed since 2026-11-14 and now publishes an
+    # empty cell (the third WR row names Antonio Williams and leaves cell 2
+    # blank), so the rows below are the 2026-11-19 chart, not the 2026-11-14 one.
+    "WAS": "2026-11-19",
+}
 
 # ---------------------------------------------------------------------------
 # Official club depth-chart pages. Every URL below was fetched from the club's
@@ -889,7 +910,12 @@ CHARTS["PIT"] = {
 CHARTS["SEA"] = {
     "unit": "OFF",
     "rows": [
-        ("WR", ["Cooper Kupp", "Rashid Shaheed", "Irvin Charles"]),
+        # The club's own chart (read live 2026-11-19,
+        # https://www.seahawks.com/team/depth-chart/) prints Cooper Kupp AND
+        # Rashid Shaheed in the FIRST wide-receiver cell. They are co-starters,
+        # not first and second string, so the cell is stored as one cell with
+        # two names and both carry depth 1.
+        ("WR", [("Cooper Kupp", "Rashid Shaheed"), "Irvin Charles"]),
         ("LT", ["Charles Cross", "Josh Jones"]),
         ("LG", ["Quenton Nelson", "Anthony Bradford"]),
         ("C", ["Jalen Sundell", "Olu Oluwatimi"]),
@@ -1010,30 +1036,35 @@ CHARTS["TEN"] = {
 }
 CHARTS["WAS"] = {
     "unit": "OFF",
+    # Read live on 2026-11-19 from https://www.commanders.com/team/depth-chart.
+    # The chart has CHANGED since the 2026-11-14 capture: the third wide
+    # receiver row now names Antonio Williams in the first cell and prints an
+    # EMPTY second cell, which is stored as an empty cell (not dropped, and not
+    # silently read as "there is no second receiver").
     "rows": [
-        ("WR", ["Terry McLaurin", "Treylon Burks"]),
+        ("WR", ["Treylon Burks", "Van Jefferson"]),
         ("LT", ["Brandon Coleman", "Andrew Wylie"]),
-        ("LG", ["Chris Paul", "Tanoa Togiai"]),
-        ("C", ["Nick Allegretti", "Matt Gulbin"]),
+        ("LG", ["Chris Paul", "Nick Allegretti"]),
+        ("C", ["Lucas Patrick", "Matt Gulbin"]),
         ("RG", ["Sam Cosmi", "Tanoa Togiai"]),
         ("RT", ["Josh Conerly Jr.", "Andrew Wylie"]),
         ("TE", ["Chig Okonkwo", "Ben Sinnott"]),
         ("TE2", ["John Bates", "Colson Yankoff"]),
-        ("WR2", ["Stefon Diggs", "Jaylin Lane"]),
-        ("WR3", ["Dyami Brown", "Antonio Williams", "Luke McCaffrey"]),
+        ("WR2", ["Stefon Diggs", "Luke McCaffrey"]),
+        ("WR3", ["Antonio Williams", ""]),
         ("QB", ["Jayden Daniels", "Marcus Mariota", "Athan Kaliakmanis"]),
-        ("RB", ["Jacory Croskey-Merritt", "Rachaad White", "Austin Ekeler"]),
+        ("RB", ["Rachaad White", "Austin Ekeler", "Robert Henry Jr."]),
     ],
     "def": [
-        ("DL", ["Daron Payne"]),
+        ("DL", ["Charles Omenihu", "Jer'Zhan Newton"]),
         ("DL2", ["Tim Settle", "Shy Tuttle"]),
-        ("DL3", ["Javon Kinlaw", "Charles Omenihu"]),
+        ("DL3", ["Deatrich Wise Jr.", "Ricky Barber"]),
         ("OLB", ["Odafe Oweh", "Joshua Josephs"]),
         ("LB", ["Sonny Styles", "Kain Medrano"]),
-        ("LB2", ["Frankie Luvu", "Kain Medrano"]),
-        ("OLB2", ["K'Lavon Chaisson", "Dorance Armstrong", "Javontae Jean-Baptiste"]),
-        ("CB", ["Amik Robertson", "Rasul Douglas"]),
-        ("CB2", ["Mike Sainristil", "Fabian Moreau"]),
+        ("LB2", ["Frankie Luvu", "Jordan Magee"]),
+        ("OLB2", ["K'Lavon Chaisson", "Dorance Armstrong"]),
+        ("CB", ["Amik Robertson", "Rasul Douglas", "Isaac Yiadom"]),
+        ("CB2", ["Trey Amos", "Mike Sainristil", "Fabian Moreau"]),
         ("SS", ["Nick Cross", "Tyler Owens"]),
         ("FS", ["Jeremy Reaves", "Quan Martin", "Percy Butler"]),
     ],
@@ -1064,6 +1095,29 @@ def load_teams():
         return {r["abbr"] for r in csv.DictReader(fh)}
 
 
+def cell_names(cell):
+    """The names printed in one depth-chart cell.
+
+    A cell is one of:
+      "Name"          - one name in the cell
+      ("A", "B")      - several names printed in the SAME cell (co-starters)
+      ""              - a printed cell with no name in it
+    """
+    if isinstance(cell, (tuple, list)):
+        return [str(x) for x in cell]
+    text = str(cell).strip()
+    return [text] if text else []
+
+
+def cell_kind(cell):
+    names = cell_names(cell)
+    if not names:
+        return "empty"
+    if len(names) > 1:
+        return "shared"
+    return "single"
+
+
 def build():
     teams = load_teams()
     injuries = load_injuries()
@@ -1076,25 +1130,35 @@ def build():
         if club != "HOU" and not url.startswith("https://"):
             errors.append("%s: depth-chart source is not an https official URL" % club)
 
-    # 2. internal consistency of every transcription: no duplicate within a column
+    # 2. internal consistency of every transcription: a cell is well formed and
+    #    no player is printed twice in the same cell.
     for club, chart in CHARTS.items():
         for unit_key in ("rows", "def"):
             seen = {}
             for pos, order in chart[unit_key]:
                 if len(order) > 6:
                     errors.append("%s %s %s: implausibly deep (%d)" % (club, unit_key, pos, len(order)))
-                for depth, player in enumerate(order, start=1):
-                    key = normalize(player)
-                    if key in seen:
-                        # A player may legitimately appear at two positions
-                        # (e.g. a tackle listed at RT and RG). Flag same-position
-                        # duplicates only, which is a transcription error.
-                        if seen[key] == (pos, depth):
-                            errors.append("%s %s: %s listed twice at the same depth" % (club, pos, player))
+                for depth, cell in enumerate(order, start=1):
+                    names = cell_names(cell)
+                    kind = cell_kind(cell)
+                    if kind == "empty" and names:
+                        errors.append("%s %s: empty cell carries a name" % (club, pos))
+                    if kind == "shared" and len(names) < 2:
+                        errors.append("%s %s: shared cell carries one name" % (club, pos))
+                    if len(set(normalize(n) for n in names)) != len(names):
+                        errors.append("%s %s: %s printed twice in one cell" % (club, pos, names))
+                    for player in names:
+                        key = normalize(player)
+                        if key in seen:
+                            # A player may legitimately appear at two positions
+                            # (e.g. a tackle listed at RT and RG). Flag same-position
+                            # duplicates only, which is a transcription error.
+                            if seen[key] == (pos, depth):
+                                errors.append("%s %s: %s listed twice at the same depth" % (club, pos, player))
+                            else:
+                                seen[key] = (pos, depth)
                         else:
                             seen[key] = (pos, depth)
-                    else:
-                        seen[key] = (pos, depth)
 
     # 3. every injured player we score must be a real row in the official report
     injured = {}
@@ -1105,26 +1169,49 @@ def build():
     for club in sorted(CHARTS):
         chart = CHARTS[club]
         url = CHART_URL.get(club, "")
+        retrieved = RETRIEVED_BY_CLUB.get(club, RETRIEVED)
         for unit_key, unit_label in (("rows", "Offense"), ("def", "Defense")):
             for pos, order in chart[unit_key]:
-                for depth, player in enumerate(order, start=1):
-                    inj = injured.get(club, {}).get(normalize(player), {})
-                    rows.append(OrderedDict([
-                        ("team", club),
-                        ("unit", unit_label),
-                        ("position_row", pos),
-                        ("depth", depth),
-                        ("player", player),
-                        ("game_status", inj.get("game_status", "")),
-                        ("injury", inj.get("injuries", "")),
-                        ("chart_date", CHART_DATE.get(club, "")),
-                        ("source", url),
-                        ("retrieved", RETRIEVED),
-                    ]))
+                for depth, cell in enumerate(order, start=1):
+                    names = cell_names(cell)
+                    kind = cell_kind(cell)
+                    if not names:
+                        # a printed cell with nobody in it: recorded, not dropped
+                        rows.append(OrderedDict([
+                            ("team", club),
+                            ("unit", unit_label),
+                            ("position_row", pos),
+                            ("depth", depth),
+                            ("player", ""),
+                            ("game_status", ""),
+                            ("injury", ""),
+                            ("chart_date", CHART_DATE.get(club, "")),
+                            ("source", url),
+                            ("retrieved", retrieved),
+                            ("slot_kind", "empty"),
+                            ("slot_size", 0),
+                        ]))
+                        continue
+                    for player in names:
+                        inj = injured.get(club, {}).get(normalize(player), {})
+                        rows.append(OrderedDict([
+                            ("team", club),
+                            ("unit", unit_label),
+                            ("position_row", pos),
+                            ("depth", depth),
+                            ("player", player),
+                            ("game_status", inj.get("game_status", "")),
+                            ("injury", inj.get("injuries", "")),
+                            ("chart_date", CHART_DATE.get(club, "")),
+                            ("source", url),
+                            ("retrieved", retrieved),
+                            ("slot_kind", kind),
+                            ("slot_size", len(names)),
+                        ]))
 
     # 4. coverage: every Out/Doubtful player must be either matched to a depth
     #    position or explicitly recorded as unmatched (not silently dropped).
-    matched = {(r["team"], normalize(r["player"])) for r in rows}
+    matched = {(r["team"], normalize(r["player"])) for r in rows if r["player"]}
     unmatched = []
     for r in injuries:
         if r["game_status"] not in ("Out", "Doubtful"):
@@ -1136,11 +1223,21 @@ def build():
 
 def write_csv(rows):
     cols = ["team", "unit", "position_row", "depth", "player", "game_status",
-            "injury", "chart_date", "source", "retrieved"]
+            "injury", "chart_date", "source", "retrieved", "slot_kind", "slot_size"]
     with open(OUT_CSV, "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=cols)
         w.writeheader()
         w.writerows(rows)
+
+
+def _cells_of(rows):
+    """Every printed depth cell, keyed by (club, unit, position row, depth)."""
+    cells = OrderedDict()
+    for r in rows:
+        if r.get("slot_kind") == "empty":
+            continue
+        cells.setdefault((r["team"], r["unit"], r["position_row"], int(r["depth"])), []).append(r)
+    return cells
 
 
 def rollup(rows, unmatched):
@@ -1186,25 +1283,58 @@ def rollup(rows, unmatched):
                 c["starter_out_names"].append(entry)
 
     # position rows where the club publishes no replacement, and rows where the
-    # starter and the listed backup are both ruled out
+    # starter and the listed backup are both ruled out.
+    #
+    # This runs on CELLS, not on rows. A club that publishes two names in one
+    # cell has named co-starters: if one of them is out, the position still has
+    # a starter and the club has NOT lost depth, so it is counted as a shared
+    # slot with one absence - never as a hole and never as a cascade.
     groups = OrderedDict()
     for r in rows:
         groups.setdefault((r["team"], r["unit"], r["position_row"]), []).append(r)
-    holes, cascades = [], []
+    holes, cascades, shared_slots, empty_slots = [], [], [], []
     for (club, unit, pos), grp in groups.items():
         grp.sort(key=lambda r: int(r["depth"]))
-        if grp[0]["game_status"] not in ("Out", "Doubtful"):
+        cells = OrderedDict()
+        for r in grp:
+            cells.setdefault(int(r["depth"]), []).append(r)
+        first = cells.get(1, [])
+        if not first:
             continue
-        if len(grp) == 1:
+        kind = first[0].get("slot_kind", "single")
+        out_first = [r for r in first if r["game_status"] in ("Out", "Doubtful")]
+        if kind == "shared":
+            if out_first and len(out_first) < len(first):
+                shared_slots.append({
+                    "team": club, "unit": unit, "position": pos,
+                    "names": [r["player"] for r in first],
+                    "out": [r["player"] for r in out_first],
+                    "source": first[0]["source"]})
+            continue
+        if kind == "empty":
+            empty_slots.append({"team": club, "unit": unit, "position": pos,
+                                 "source": first[0]["source"]})
+            continue
+        if not out_first:
+            continue
+        second = cells.get(2, [])
+        if not second:
             holes.append({"team": club, "unit": unit, "position": pos,
-                          "player": grp[0]["player"],
-                          "status": grp[0]["game_status"],
-                          "source": grp[0]["source"]})
-        elif grp[1]["game_status"] in ("Out", "Doubtful"):
-            cascades.append({"team": club, "unit": unit, "position": pos,
-                             "starter": grp[0]["player"],
-                             "backup": grp[1]["player"],
-                             "source": grp[0]["source"]})
+                          "player": first[0]["player"],
+                          "status": first[0]["game_status"],
+                          "source": first[0]["source"]})
+        else:
+            second_out = [r for r in second if r["game_status"] in ("Out", "Doubtful")]
+            if len(second_out) == len(second):
+                cascades.append({"team": club, "unit": unit, "position": pos,
+                                 "starter": first[0]["player"],
+                                 "backup": ", ".join(r["player"] for r in second),
+                                 "source": first[0]["source"]})
+    for r in rows:
+        if r.get("slot_kind") == "empty":
+            empty_slots.append({"team": r["team"], "unit": r["unit"],
+                                 "position": "%s (cell %s)" % (r["position_row"], r["depth"]),
+                                 "source": r["source"]})
 
     payload = {
         "retrieved": RETRIEVED,
@@ -1215,10 +1345,16 @@ def rollup(rows, unmatched):
         "out_rows": sum(1 for r in rows if r["game_status"] in ("Out", "Doubtful")),
         "starter_out_rows": sum(1 for r in rows
                                 if int(r["depth"]) == 1
-                                and r["game_status"] in ("Out", "Doubtful")),
+                                and r["game_status"] in ("Out", "Doubtful")
+                                and r.get("slot_kind") != "shared"),
+        "shared_cells": sum(1 for _k, grp in _cells_of(rows).items() if len(grp) > 1),
+        "empty_cells": sum(1 for r in rows if r.get("slot_kind") == "empty"),
+        "shared_slots_one_out": sorted(shared_slots,
+                                        key=lambda h: (h["team"], h["unit"], h["position"])),
         "clubs": list(by_club.values()),
         "holes": sorted(holes, key=lambda h: (h["team"], h["unit"], h["position"])),
         "cascades": sorted(cascades, key=lambda h: (h["team"], h["unit"], h["position"])),
+        "empty_slots": sorted(empty_slots, key=lambda h: (h["team"], h["unit"], h["position"])),
         "unmatched": [{"team": r["team"], "player": r["player"], "pos": r["pos"],
                        "status": r["game_status"], "injury": r["injuries"],
                        "url": r["player_url"]} for r in unmatched],
