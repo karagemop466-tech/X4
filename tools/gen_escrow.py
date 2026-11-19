@@ -337,7 +337,7 @@ def write_ledger(ledger):
 
 
 def page(ledger, s1, s2, fixtures, covered):
-    # T77 integration: escrow.html is now a first-class entry in the shared nav
+    # T78 integration: escrow.html is now a first-class entry in the shared nav
     # (tools/desk_nav.py NAV + tools/check_site.py DESK_PAGES), so the page no
     # longer injects its own link; desk_nav.side() carries it like every page.
     side = desk_nav.side()

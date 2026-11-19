@@ -37,7 +37,7 @@ DESK_PAGES = [
     "depth-audit.html",
     # T48 open-question register (session arena/dee8092e-x4)
     "open-questions.html",
-    # T48 two-stage escrow page (wired into the shared nav by T77 (claimed as T71), 2026-11-19)
+    # T48 two-stage escrow page (wired into the shared nav by T78 (claimed as T71, first renumbered T77), 2026-11-19)
     "escrow.html",
 ]
 NAV_HREFS = {"index.html", *DESK_PAGES}          # brand links to the main landing page
