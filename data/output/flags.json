@@ -792,6 +792,17 @@
   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
  },
  {
+  "id": "F-87",
+  "item": "The official NFL.com Week 11 injury report now lists all 13 games; the repository still holds only a partial Week 11 read (Colts at Texans, schema_ok=false). A hand census of the full page gives 24 player tables, 2 no-injury sections and 253 player rows; no player rows are published here",
+  "type": "Limitation",
+  "kind": "warn",
+  "status": "limitation",
+  "detail": "Census of the live official page read on 2026-11-19 UTC (all 7 text chunks), recorded in research/verification/week11-official-report-census-2026-11-19.md. Per game: IND@HOU 26, PIT@PHI 25, ARI@KC 27, BAL@CAR 19, TB@DET 14, MIA@BUF 26, TEN@DAL 23, NO@CHI 15, NYJ@LAC 19, JAX@NYG 19, LV@DEN 15, MIN@SF 25, CIN@WAS 0 (both 'No Injuries Reported'). Total 253 rows. The row counts are hand tallies, not parser output. Irregularities: the Bills table shows 'Dee Alford' while its profile link is deaundre-ford; the Texans table shows 'Jacob Hummel' while its link is jake-hummel. Both need identity confirmation before any name-based join. Blank game-status cells on the Wednesday-Thursday practice rows are expected and must never read as available. F-55 said the Week 11 report was unpublished; that is superseded for publication status only. The repository's Week 11 injury data is still the partial read and remains gated by T65.",
+  "why": "A 13-game page cannot be matched by the Week 10 pin (28 tables, 250+ links), and a Week 11 capture that is partial must never be modelled. This census gives the reviewer and the capture pipeline the expected shape: 13 games, 24 player tables, 2 no-injury sections, about 253 rows to be confirmed by the parser.",
+  "official_url": "https://www.nfl.com/injuries/",
+  "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/week11-official-report-census-2026-11-19.md"
+ },
+ {
   "id": "F-75",
   "item": "The requested public/private data boundary is not met: row-level availability and Game Book data are public, while replayable private raw captures are not evidenced",
   "type": "Limitation",
