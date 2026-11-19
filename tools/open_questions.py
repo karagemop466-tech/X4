@@ -157,14 +157,12 @@ def register(c):
          "F-61 / the capture pipeline (F-47, F-48, F-65)",
          "multiple seasons of designations joined to official inactive lists, with play rate and CI per label",
          NFL_INJ, "Official Week 10 injury report"),
-        ("OQ-06", "Is a completed Week 11 report available to model the current slate?",
-         "The Week 11 address was read on 2026-11-18 and still serves Week 10 content; the "
-         "13 Week 11 fixtures and kickoff times are transcribed and verified.",
-         "The official Week 11 injury report. Until it publishes, no Week 11 availability "
-         "claim can be made from an official source.",
-         "F-61",
-         "the reg11 address serving a Week 11 header with Week 11 player rows",
-         NFL_INJ11, "Week 11 report address"),
+        ("OQ-06", "Is a schema-valid, point-in-time Week 11 report available for modeling?",
+         "The official reg11 page now shows Week 11 and Thursday, November 19. The manifest has a Week 11 attempt (26 player links) but marks it schema-invalid; the last valid injury capture is Week 10, timestamped 2026-11-18T03:44:00Z and older than the 13-hour gate.",
+         "A complete, successfully validated and timestamped Week 11 capture, daily history through kickoff, and authorized private retention of the raw response. The public live page and a partial response are not a complete/replayable dataset, and no Week 11 player rows are used yet.",
+         "F-55/F-61/F-83; capture completeness/schema, hash verification, private-retention policy and <=13-hour per-source freshness gate",
+         "complete expected report coverage in a stored hash-verified capture <=13 hours old, with its raw bytes retained in the authorized private store; then a dated read on each scheduled day through kickoff",
+         NFL_INJ11, "Official Week 11 report page"),
         ("OQ-07", "Can results, ratings and ROI be computed on the full season?",
          "%d games in the log across %d weeks; the results feed holds %d rows and reconciles "
          "to the official standings." % (c["games"], c["weeks"], c["feed_rows"]),
