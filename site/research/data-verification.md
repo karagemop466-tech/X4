@@ -148,6 +148,8 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-92 | The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows |
 | F-93 | The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent |
 | F-90 | The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie |
+| F-91 | Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17 |
+| F-92 | The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027' |
 
 ## What is deliberately absent
 
