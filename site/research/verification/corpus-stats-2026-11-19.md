@@ -3,7 +3,7 @@
 **Session:** `arena/9fc78d2e-x4` (task T74) · **Date:** 2026-11-19 UTC
 **Scope:** `tools/corpus_stats.py` (new), `data/output/corpus_stats.json` (new),
 `tools/pages.py` (correlation and home-edge table body), `tools/gen_exec_summary_desk.py`
-(the scoring-environment sentence), `tools/content.py` (F-62, F-63, F-66, F-90 and one
+(the scoring-environment sentence), `tools/content.py` (F-62, F-63, F-66, F-94 and one
 verification row), `tools/validate.py` (two gate steps).
 
 ---
@@ -158,7 +158,7 @@ Two new steps in `tools/validate.py`:
 | **F-63** | `open` → **resolved** for the publication half: the two roundings are gone, every published home-edge figure carries its window, its n and its interval, and the per-window table is live. The *modelling* half — whether the registered model should keep adding a constant whose interval contains zero — is **not** closed here; it is recorded as F-90, because the Week 11 pre-registration freezes the model. |
 | **F-66** | `open` → **limitation**, narrowed. The five named stale instances are corrected (150 games in the workbench, the integrity gates and the decision register; 78 of 118 in the price store). One class is now gated (the corpus statistics). Numbers typed into prose elsewhere remain ungated, and that is recorded rather than claimed as closed. |
 | **F-68** | Already `resolved` (T48). Re-read and confirmed: `tools/build.py` computes `alpha_adj = alpha / max(1, n_tests)` with `n_tests = len(STRATEGIES)` = 9, i.e. 0.00556, and the published text quotes 0.05 / 9. Not re-opened. |
-| **F-90** | **New**: the pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window. Recorded, not silently changed — the fix is an owner decision for the next registration. |
+| **F-94** | **New**: the pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window. Recorded, not silently changed — the fix is an owner decision for the next registration. |
 
 ## 3. Sources (official)
 
@@ -191,7 +191,7 @@ against the official standings.
 
 ## 5. Left open (published, not blocking)
 
-- **F-90** — the owner decision on the home-edge constant in the next
+- **F-94** — the owner decision on the home-edge constant in the next
   registration. Not changed inside the registered window.
 - **F-66** — prose outside the gated statistics is still ungated.
 - **The multi-season split** — the brief asks for three *seasons*; one season

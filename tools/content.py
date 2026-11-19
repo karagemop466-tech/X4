@@ -1093,7 +1093,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/injuries/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-alerting-2026-11-19.md"),
 
-    dict(id="F-92", item="The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows", type="Limitation", kind="warn", status="limitation",
+    dict(id="F-94", item="The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows", type="Limitation", kind="warn", status="limitation",
          detail=("Found by re-deriving the corpus statistics on the complete verified game log (T74, 2026-11-19). tools/origination.py "
                  "sets USE_HOME_EDGE = True and fits h on weeks 6-9 only (edge = home_edge(games, range(6, 10))), then adds that "
                  "constant to every Week 11 spread it originates. The same statistic, recomputed from the same official corpus "
@@ -1115,7 +1115,7 @@ dict(id="F-40", item="Ten further injury practice-status cells differ from the o
          official_url="https://www.nfl.com/schedules/2026/",
          url="https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"),
 
-    dict(id="F-93", item="The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent", type="Irregularity", kind="warn", status="irregularity",
+    dict(id="F-95", item="The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent", type="Irregularity", kind="warn", status="irregularity",
          detail=("Measured cell by cell (T73, 2026-11-19). The official page https://www.commanders.com/team/depth-chart was read on "
                  "2026-11-19 and compared with the rows the 2026-11-14 capture had committed: WR 1 Terry McLaurin -> Treylon Burks, WR 2 "
                  "Treylon Burks -> Van Jefferson, C 1 Nick Allegretti -> Lucas Patrick, LG 2 Tanoa Togiai -> Nick Allegretti, WR2 2 Jaylin "

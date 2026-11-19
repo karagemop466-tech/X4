@@ -14379,7 +14379,7 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-alerting-2026-11-19.md"
   },
   {
-   "id": "F-92",
+   "id": "F-94",
    "item": "The pre-registered Week 11 model adds a home-edge constant whose interval contains zero and whose sign changes with the window: +0.07 (weeks 6-9) against -0.70, +8.79 and -5.78 on the declared windows",
    "type": "Limitation",
    "kind": "warn",
@@ -14390,7 +14390,7 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/corpus-stats-2026-11-19.md"
   },
   {
-   "id": "F-93",
+   "id": "F-95",
    "item": "The committed Washington depth chart was stale: 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell the capture could not represent",
    "type": "Irregularity",
    "kind": "warn",

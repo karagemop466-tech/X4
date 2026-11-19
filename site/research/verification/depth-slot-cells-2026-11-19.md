@@ -4,7 +4,7 @@
 **Scope:** `tools/depth.py` (transcription model, CSV, roll-up),
 `tools/pages.py` (the depth table body), `tools/desk_extension.py` (the per-team
 view), `tools/gen_depth_audit.py` (the fidelity panel), `data/depth-wk11-2026.csv`,
-`data/output/depth.json`, `tools/content.py` (F-64, F-91).
+`data/output/depth.json`, `tools/content.py` (F-64, F-95).
 
 ---
 
@@ -172,7 +172,7 @@ per-club retrieval stamp is what tells a reader which rows are from which read.
 | Flag | New state |
 |---|---|
 | **F-64** | Narrowed. The three elements are separated: (a) *shared cells* — the model now represents them and the two clubs the brief names are stored faithfully, with the other 29 clubs still to be re-read; (b) *special teams* — still zero for every club; (c) *sampled players absent* — unchanged. The audit page publishes each element's current number. |
-| **F-91** | **New**: the committed Washington depth chart was stale — 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell that the capture could not represent. The rows are now dated, and the general risk (a chart is true only until the next transaction) is recorded against every club whose chart has not been re-read. |
+| **F-95** | **New**: the committed Washington depth chart was stale — 17 cells differ between the 2026-11-14 capture and the 2026-11-19 live read, including a printed empty cell that the capture could not represent. The rows are now dated, and the general risk (a chart is true only until the next transaction) is recorded against every club whose chart has not been re-read. |
 
 ## 6. Sources (official, read this session)
 
