@@ -23,6 +23,7 @@ const PAGES = [
   ["depth.html", "depth"],
   ["markets.html", "markets"], ["gates.html", "gates"],
   ["luck.html", "luck"], ["readiness.html", "readiness"], ["teams.html", "teams"],
+  ["schedule.html", "schedule"],
   ["delta.html", "delta"], ["matchup.html", "matchup"],
   ["houston-depth.html", "houston-depth"],
   ["gamebook.html", "gamebook"],

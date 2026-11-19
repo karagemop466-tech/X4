@@ -94,6 +94,8 @@ DIRECTORY = [
          "One row per requirement with the gate that blocks it and the number that would clear it, plus the two-sided 'what would change our mind' field."),
     ]),
     ("Verified data", [
+        ("schedule.html", "Schedule announcement",
+         "The league's dated 2026 schedule announcement (14 May 2026), each fact quoted from the official release, beside the live NFL.com schedule."),
         ("standings.html", "Standings &amp; results",
          "Official standings for all {n_teams} teams, power ratings, and every completed game with its official link."),
         ("data.html", "Verified data",
@@ -2541,6 +2543,9 @@ def main():
     # T48 personnel / availability ablation (tools/personnel_ablation.py)
     import personnel_ablation
     written += personnel_ablation.write_pages(SITE, shell)
+    # T73 dated official schedule announcement beside the live schedule (tools/schedule_page.py)
+    import schedule_page
+    written += schedule_page.write_pages(SITE, shell)
     print("wrote %d pages: %s" % (len(written), ", ".join(written)))
 
 
