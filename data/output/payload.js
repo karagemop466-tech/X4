@@ -14139,14 +14139,14 @@ window.X4 = {
   },
   {
    "id": "F-61",
-   "item": "The Week 11 official injury report still does not exist on 2026-11-18; the reg11 address serves Week 10 content (confirms F-55)",
+   "item": "Week 11 injury-report capture is incomplete: the official report is now published, but the latest committed capture failed schema validation",
    "type": "Limitation",
    "kind": "warn",
    "status": "limitation",
-   "detail": "Read 2026-11-18: https://www.nfl.com/injuries/league/2026/reg11 renders Week 10 (title and heading both say Week 10 of the 2026 season), and https://www.nfl.com/injuries/ presents the Week 10 report as the latest published one. Re-read ~04:10 UTC 2026-11-18 (T54 sweep): the league reg11 page still serves Week 10, and the official game-centre page for Colts at Texans now carries Week 11 practice designations for both clubs in its injury module (e.g. J. Carlies and S. Gardner 'Did not participate' for IND; A. Al-Shaair DNP, R. Blankenship/T. Dell/B. Fisher 'Full participation' for HOU), while Cardinals at Chiefs shows 'no active injuries at this time' for both clubs. The league-level Week 11 page is still the gate for publishing a full dataset; game-centre-only practice statuses are not captured as data here.",
-   "why": "The brief asks for designations to be captured Wednesday to kickoff. For Week 11 that cannot yet be done from an official source, and importing a secondary feed would break the single rule this repository holds to. Nothing is published for Week 11. This does not contradict F-55; it re-confirms it on a later date, which is the point of a dated series. Update 2026-11-19 (T61, see F-84): this statement is superseded. The reg11 page now serves the Week 11 report (title 'Official NFL Injury Report for Players - Week 11 of the 2026 Season'), so the Week 11 report is published.",
+   "detail": "Historical observation: on 2026-11-18 at ~04:10 UTC the official reg11 page still served Week 10 (T54); that statement was accurate at that time. Re-read the official Week 11 report on 2026-11-19: it now serves Week 11 rows, including the Thursday Colts-Texans report. The latest committed capture manifest entry remains 2026-11-18T20:37:55Z for https://www.nfl.com/injuries/ with week=11, 2 game-status headers, 2 practice-status headers, 26 player links, schema_ok=false, SHA-256 d005e2859a480ce0a96273f815ffc5a5eaa1cc49a039445c763378c606221010. The checked-in injury CSV remains Week 10; a partial/schema-invalid read is not a complete Week 11 dataset and is not published as one.",
+   "why": "The source-availability gap changed into a capture-completeness gap. Do not fall back to secondary data or treat missing rows as healthy. The staged publication cadence must be represented by an explicit schema/completeness rule, and raw evidence must be retained in the approved private store before a complete Week 11 snapshot is published.",
    "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/official-reverify-2026-11-18.md"
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/data/captures/manifest.jsonl"
   },
   {
    "id": "F-62",
@@ -14180,17 +14180,6 @@ window.X4 = {
    "why": "The brief's deficiency signal is 'a backup replaced a starter'. With co-starters stored as starter-plus-backup, the dataset would report a deficiency at a position where both men start, and a missing player cannot be reported absent at all. The depth-audit page quantifies this per club rather than disclaiming it in prose.",
    "official_url": "https://www.seahawks.com/team/depth-chart",
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"
-  },
-  {
-   "id": "F-84",
-   "item": "The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main)",
-   "type": "Irregularity",
-   "kind": "bad",
-   "status": "open",
-   "detail": "Evidence is the manifest, data/captures/manifest.jsonl, which records the schema counts of every read. The two injuries reads that failed the workflow were 2026-11-18 07:37:40Z and 20:37:55Z (HTTP 200, about 319 kB each): week 11, 2 'Practice Status' headers, 2 'Game Status' headers, 26 player links. That is exactly one game (Colts at Texans: 11 Colts rows and 15 Texans rows). tools/capture_official.py schema_injuries required at least 28 headers and 250 links, which is the full Week 10 shape (14 games). Week 11 has 13 scheduled games (data/schedule-wk11-2026.csv), so the 28-header constant could not pass even a complete Week 11 report. The other failing read, 2026-11-18 03:39:04Z (week 10, 28 headers, 0 player links), is NOT explained by partial coverage and remains a failure; the read at 03:40:10Z of the same week had 347 links and identical bytes to 03:44:00Z. Consequence: the injuries source had no valid capture after 03:44Z on 18 Nov, so the freshness gate failed and the workflow reported failure on both scheduled runs that followed (07:37Z and 20:37Z), although the depth-chart and injury-report reads were still written to the manifest (32 lines per run). F-47 and F-48 describe the state before the T50 capture repair; the manifest now holds 160 lines, and this flag is the current gate that fails. FIX ON THIS BRANCH (T60): the schema is now structural (one week heading, paired club tables, at least one player row per table) and records coverage (complete / partial / over / unknown) against the official schedule file for that week. Partial reads are stored; over-count (more club tables than scheduled games) and zero-row pages fail. tools/capture_delta.py diffs only Week 10 captures against the Week 10 dataset. 20 offline unit tests pass, including the manifest-observed shapes. The official report at the time of this read (2026-11-19) lists the Thursday Colts at Texans game (IND 11 rows, HOU 15 rows, the 26 rows recorded by the 07:37Z capture) and Sunday games after it; the total number of games listed was not counted in full here, and the capture records the count it sees.",
-   "why": "Until this check passes on main, no injury read can be stored as fresh, so every Week 11 designation captured Wednesday to kickoff depends on this repair. The repair changes no published value and no committed dataset. Clears when a capture run on main concludes success, the new manifest line carries the coverage field, and the freshness gate passes. Scheduled runs also fire late and irregularly (runs at 07:37Z and 20:37Z on 18 Nov; no run recorded for the 00:17Z or 06:17Z slots at the time of this check, 2026-11-19 06:55Z), so the 13-hour freshness window is met only if the schedule keeps firing.",
-   "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/capture_official.py"
   },
   {
    "id": "F-65",
