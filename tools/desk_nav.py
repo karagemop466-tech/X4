@@ -21,6 +21,7 @@ NAV = [
     ("origination.html", "⊞ &nbsp;Line origination"),
     ("price-store.html", "◈ &nbsp;Price store"),
     ("signal-vs-staking.html", "⚖ &nbsp;Signal vs staking"),
+    ("escrow.html", "&#9878; &nbsp;Two-stage escrow"),
     ("correlations.html", "∿ &nbsp;Correlations"),
     ("replacements.html", "＋ &nbsp;Availability &amp; depth"),
     ("luck.html", "⚈ &nbsp;Removal of luck"),

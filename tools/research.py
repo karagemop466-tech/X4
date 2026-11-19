@@ -490,7 +490,7 @@ out = [
     "",
     "## What the verification checks",
     "",
-    "`tools/verify.py` - 460 assertions, exit code 1 on any failure:",
+    "`tools/verify.py` - 486 assertions, exit code 1 on any failure:",
     "",
     "- every game row's URL matches the official `/games/<away>-at-<home>-2026-reg-<week>` pattern",
     "- every team's wins, losses and ties match the official standings",

@@ -23,7 +23,7 @@ Neither of those pages backs a published value. Instead, every reconstructed sco
 
 ## What the verification checks
 
-`tools/verify.py` - 460 assertions, exit code 1 on any failure:
+`tools/verify.py` - 486 assertions, exit code 1 on any failure:
 
 - every game row's URL matches the official `/games/<away>-at-<home>-2026-reg-<week>` pattern
 - every team's wins, losses and ties match the official standings
@@ -58,7 +58,7 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 
 | ID | Irregularity |
 |---|---|
-| F-69 | The Game Center injury widget says a club is injury-free while the official report lists that club's injuries |
+| F-69 | Week 11 Game Center practice-status labels differ from the league injury report |
 | F-70 | Two Week 11 venue cells carry the venue's short name, and the dataset is a faithful transcription of the page that prints it |
 | F-68 | The multiplicity correction divided by 8 while performing 9 tests |
 | F-66 | Stale numbers survive in generated prose because prose is not on the gate - the listed instances are corrected; the pattern is now closed only for the corpus statistics |
@@ -150,6 +150,10 @@ Recorded in full on the site's *Flagged for review* page and summarised here.
 | F-90 | The landing page's 'official sources right now' panel presented the Week 10 injury report as current, after the official page had moved to Week 11, and it named one division leader in three divisions where the official standings show a tie |
 | F-91 | Week 18 matchups have no dates, start times or networks yet: the league says they will be announced after Week 17 |
 | F-92 | The release prints Week 18's Saturday and Sunday as 9 and 10 January with no year; 2027 follows from the calendar and from the same release's 'Saturday, January 2, 2027' |
+| F-87 | Scheduled official captures have not run on their six-hourly schedule: the 13-hour freshness limit can fail between irregular runs (integrated from PR #122, arena/27b5881c-x4) |
+| F-96 | The official NFL.com Week 11 injury report lists all 13 game sections and 253 player rows by hand census; the automated capture records 12 of 13 games and the repository still holds only the Week 10 normalized injury data (integrated from PR #136, arena/6c1f9b60-x4; first numbered F-90 on the T71/T77-claimed branch, renumbered F-96 at the second merge when the parallel sessions had taken F-90..F-92) |
+| F-97 | The game log and the standings snapshot are a self-verification pair: tools/verify.py cannot detect them going stale together (T46 structural finding, arena/2d57231a-x4; integrated from PR #96 as F-76, renumbered by T78 to avoid colliding with main's F-76; first numbered F-91 on the T71/T77-claimed branch, renumbered F-97 at the second merge) |
+| F-98 | The post-corpus-completion strategy result is post-hoc and its significance verdict is not order-robust; G8 keeps every strategy ineligible until the Week-11 forward window is graded (T46, arena/2d57231a-x4; integrated from PR #96 as F-77, renumbered by T78 to avoid colliding with main's F-77; first numbered F-92 on the T71/T77-claimed branch, renumbered F-98 at the second merge) |
 
 ## What is deliberately absent
 

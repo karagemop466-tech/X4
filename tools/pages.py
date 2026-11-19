@@ -63,6 +63,7 @@ NAV = [
     ("brief-register.html", "Brief register"),
     ("questions.html", "Decision checklist"),
     ("gates.html", "Gates & demotion"),
+    ("escrow.html", "Two-stage escrow"),
     ("suggestions.html", "Suggestions"),
     ("flags.html", "Flagged for review"),
     ("methodology.html", "Methodology"),
@@ -138,6 +139,8 @@ DIRECTORY = [
          "The leaderboard, the {spell_n_gates} validation gates, the error-correlation matrix, calibration and stability."),
         ("gates.html", "Gates &amp; demotion",
          "Signal scored separately from staking, the demotion gate that sends a live strategy back to paper, and replacement depth with its own measurement rule."),
+        ("escrow.html", "Two-stage escrow",
+         "Two-stage skill leaderboard: Brier-skill qualification on settled forward bets first; prospective units held in escrow until Stage 1 passes and the registered shadow segment is graded."),
         ("luck.html", "Removal of luck",
          "Controls for the staking record, a game-cluster interval and the settlement check against official scores, so a lucky run cannot be mistaken for skill."),
         ("signals.html", "Line lab &amp; signals",
@@ -641,7 +644,7 @@ def leaderboard_table():
             num(r["metrics"]["spread_mae"], 2),
             sig,
             stk,
-            badge("%d/7" % r["gates_passed"], "ok" if r["gates_passed"] == 7 else "warn"),
+            badge("%d/%d" % (r["gates_passed"], len(r["gates"])), "ok" if r["eligible"] else "warn"),
             badge("yes", "ok") if r["eligible"] else badge("no", "no"),
             num(r["reward"], 1),
             src(SRC_SEASON, "NFL.com results"),
@@ -657,8 +660,9 @@ def leaderboard_table():
         "Signal is the strategy's prediction skill: out-of-sample spread-MAE improvement "
         "against the S0 league-constant benchmark. Staking is bankroll / position sizing "
         "and is blank because it needs a licensed odds feed - a lucky staking run cannot "
-        "mask a bad signal here (Flag F-19). Points are provisional development figures "
-        "and cannot be banked. Full gate-by-gate evidence is in the Gate results section "
+        "mask a bad signal here (Flag F-19). Points are provisional: bankable only by a "
+        "strategy that passes every gate, including the shadow-period gate G8 that a "
+        "backtest alone cannot open. Full gate-by-gate evidence is in the Gate results "
         "below." % meta["eval_games"]))
 
 
@@ -698,7 +702,7 @@ def leaderboard_preview_table():
             "<b>%s</b> %s" % (esc(r["id"]), esc(r["name"])),
             num(r["metrics"]["spread_mae"], 2),
             badge("benchmark", "mute") if r["id"] == "S0" else pct(r["improvement_pct"], 1),
-            "%d / 7" % r["gates_passed"],
+            "%d / %d" % (r["gates_passed"], len(r["gates"])),
             badge("eligible", "ok") if r["eligible"] else badge("ineligible", "no"),
             src(SRC_SEASON, "NFL.com results"),
         ])
@@ -2002,7 +2006,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
   <span class="eyebrow light">Executive summary</span>
   <h2>Official NFL facts are linked where verified. Model lines are labelled as estimates. Evidence gaps are visible.</h2>
   <p>This desk uses official NFL sources for facts that have been verified. Every rendered data row on the desk pages now carries an HTTPS source link — the 2026-11-18 checker run tests <b>every row on all 26 desk pages and reports 0 rows without a link</b>, which closes flag F-39 (fixed line by line, not by weakening the gate). Two honest limits remain: the checker verifies link presence, not that each link supports the exact value beside it, and rows produced by this project's own computation cite the committed artifact that produced them rather than an official page — treat those as artifacts, not NFL facts. Unsupported values remain blank and flagged on the <a href="flags.html">Flagged for review</a> page. Separately, the reconstructed game log was checked against official standings: %(ngames)d games, and every team's wins, losses, ties, points for, points allowed and winning percentage match. Market prices are non-official captures, not NFL facts.</p>
-  <p>What the work actually shows: the model has signal over a league-average benchmark, but the improvement is <b>not yet statistically separable from luck</b>, so the leaderboard marks every strategy ineligible for reward. That is the validation gate working, not a gap in the analysis.</p>
+  <p>What the work actually shows: on the completed 150-game log the model's lead over the league-average benchmark is <b>+9.5%% spread-MAE improvement</b> (S1, 118 walk-forward games), but the Bonferroni-adjusted 95%% bootstrap interval for it <b>almost touches zero and flips sign with the row ordering of the identical game set</b> ([&minus;0.00, +1.94] on the published order; [+0.03, +1.97] on the transcription order), so it is <b>not robustly separable from luck</b>. The result is also a <b>post-hoc integrity repair, not a performance claim</b>: the 13 Week-10 games it rests on were added on 2026-11-18, after the pre-registration froze the corpus (Flags F-58, F-97, F-98). Under the pre-registration discipline the leaderboard marks <b>every strategy ineligible for reward</b> &mdash; the shadow-period gate G8 needs the registered Week-11 forward window played and graded before anything can go Live. That is the validation gate working, not a gap in the analysis.</p>
 </div>
 
 <div class="grid g4">%(kpis)s</div>
@@ -2045,7 +2049,7 @@ PAGES.append(("index.html", "NFL Decision Desk",
   <div class="grid g3">
     <article class="card"><span class="eyebrow">Data</span><h3><a href="standings.html">Standings &amp; results</a></h3><p class="muted">Official standings for all 32 teams, opponent-adjusted power ratings, and all %(ngames)d completed games with a link to each official game page.</p></article>
     <article class="card"><span class="eyebrow">Model</span><h3><a href="lines.html">Model lines</a></h3><p class="muted">Week 11 model spreads and totals for all 13 official games, with the full range across strategies, the captured market line beside it and the difference published as its own column.</p></article>
-    <article class="card"><span class="eyebrow">Validation</span><h3><a href="strategies.html">Strategy lab</a></h3><p class="muted">The leaderboard, the seven gates, the error-correlation matrix, the calibration check and the week-by-week stability table.</p></article>
+    <article class="card"><span class="eyebrow">Validation</span><h3><a href="strategies.html">Strategy lab</a></h3><p class="muted">The leaderboard, the eight gates, the error-correlation matrix, the calibration check and the week-by-week stability table.</p></article>
     <article class="card"><span class="eyebrow">Availability</span><h3><a href="availability.html">Injuries &amp; depth</a></h3><p class="muted">The full official Week 10 injury report, a unit-level roll-up of absences, and the starter changes the league confirmed in its own news.</p></article>
     <article class="card"><span class="eyebrow">Decisions</span><h3><a href="questions.html">Decision checklist</a></h3><p class="muted">%(n_questions)s questions that must be answered before a decision here is reasonable: what we know, what is missing, what it blocks and how to close it.</p></article>
     <article class="card"><span class="eyebrow">Review</span><h3><a href="suggestions.html">Suggestions</a></h3><p class="muted">Eight proposals, ranked, with the decision each one needs and the evidence that would show it worked. Review before building.</p></article>
@@ -2083,7 +2087,7 @@ PAGES.append(("standings.html", "Standings & results",
 </section>
 
 <section style="margin-top:26px">
-  <div class="note ok"><b>How this was verified.</b> The game log was reconstructed and then checked, automatically, against the official standings: <span class="mono">tools/verify.py</span> rebuilds every team's record and point totals from the %(ngames)d games and compares them to the NFL's own figures. All 32 teams matched exactly on all six measures, which also proves every individual score. The check runs 460 assertions and is part of the build.</div>
+  <div class="note ok"><b>How this was verified.</b> The game log was reconstructed and then checked, automatically, against the official standings: <span class="mono">tools/verify.py</span> rebuilds every team's record and point totals from the %(ngames)d games and compares them to the NFL's own figures. All 32 teams matched exactly on all six measures, which also proves every individual score. The check runs 486 assertions and is part of the build.</div>
 </section>
 """ % dict(standings=standings_table(), power=power_table(), games=games_table(),
            ngames=len(games),
@@ -2278,7 +2282,7 @@ PAGES.append(("strategies.html", "Strategy lab",
 </section>
 
 <section style="margin-top:26px">
-  <div class="section-head"><div><span class="eyebrow">Gate results</span><h2>Why each strategy is or is not eligible</h2><p class="muted">Seven gates, every strategy, with the evidence for each verdict.</p></div></div>
+  <div class="section-head"><div><span class="eyebrow">Gate results</span><h2>Why each strategy is or is not eligible</h2><p class="muted">Eight gates, every strategy, with the evidence for each verdict.</p></div></div>
 %(gates)s
 </section>
 
@@ -2461,7 +2465,7 @@ PAGES.append(("methodology.html", "Methodology",
   <article class="card">
     <span class="eyebrow">Step 2 &middot; Verify</span>
     <h3><span class="mono">tools/verify.py</span></h3>
-    <p class="muted">460 assertions covering: every game row's official URL pattern, every team's wins, losses, ties, points for, points allowed, net points and winning percentage, games played per team, the Week 11 schedule's pairing and URL structure, and duplicate rows. It exits non-zero on any failure and runs as part of the build.</p>
+    <p class="muted">486 assertions covering: every game row's official URL pattern, every team's wins, losses, ties, points for, points allowed, net points and winning percentage, games played per team, the Week 11 schedule's pairing and URL structure, and duplicate rows. It exits non-zero on any failure and runs as part of the build.</p>
   </article>
   <article class="card">
     <span class="eyebrow">Step 3 &middot; Model</span>
@@ -2470,8 +2474,8 @@ PAGES.append(("methodology.html", "Methodology",
   </article>
   <article class="card">
     <span class="eyebrow">Step 4 &middot; Validate</span>
-    <h3>Walk-forward, seven gates</h3>
-    <p class="muted">Strategies are evaluated only on games that had not been played at forecast time - no random row splits. Each strategy must clear data integrity, out-of-sample discipline, minimum sample size, statistical significance, weekly stability, calibration, and exclusion of the league-constant benchmark, before it can earn reward points.</p>
+    <h3>Walk-forward, eight gates</h3>
+    <p class="muted">Strategies are evaluated only on games that had not been played at forecast time - no random row splits. Each strategy must clear data integrity, out-of-sample discipline, minimum sample size, statistical significance, weekly stability, calibration, exclusion of the league-constant benchmark, and the shadow-period gate G8 (a pre-registered forward window that has actually been graded), before it can earn reward points. A historical backtest alone cannot open G8.</p>
   </article>
 </div>
 
@@ -2484,7 +2488,7 @@ PAGES.append(("methodology.html", "Methodology",
   <div class="section-head"><div><span class="eyebrow">Frozen policies</span><h2>Two decisions fixed before any backtest is published</h2><p class="muted">Both policies below were frozen on 2026-11-17, before any backtest on the reconstructed game log has been published. A policy frozen after results are seen is not a policy; these two are registered here, in the build that publishes the numbers they govern.</p></div><span class="tag acc">Frozen 2026-11-17</span></div>
   <div class="table-wrap"><table class="data"><thead><tr><th>Policy</th><th>Decision</th><th>What it fixes</th><th>Source</th></tr></thead><tbody>
     <tr><td><b>Price-data policy</b></td><td>Every captured price is third-party (DraftKings as syndicated by the public ESPN odds endpoint), labelled T3, and never presented as an official NFL line. Prices may feed exploratory residual and difference analysis; they may never back a CLV, execution or ROI claim. CLV and any staking claim stay blocked until a licensed, timestamped operator feed with a documented backfill and settlement policy is selected. A price row without a direct source URL and a retrieval time is not publishable. Official NFL pages verify game identity, schedule and results only &mdash; the league publishes no betting lines.</td><td>Which source may support a market number; what a market number may be used for; what stays blocked</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official schedule (game identity)</a> &middot; <a href="https://www.espn.com/nfl/schedule/_/week/11/year/2026/seasontype/2" target="_blank" rel="noreferrer">third-party price surface (T3)</a></td></tr>
-    <tr><td><b>Data split</b></td><td>On the reconstructed %(ng)d-game official log: <b>train</b> = Weeks 1&ndash;6; <b>validation</b> (rule and hyperparameter selection) = Weeks 7&ndash;9; <b>final holdout</b> = Week 10 onward, including the registered Week 11 forward window, never opened to selection. The published walk-forward expansion on Weeks 3&ndash;10 stands as recorded at registration. Any new backtest on this corpus must be committed (the commit hash is the registration) before its holdout opens. When a second season of official results is ingested, the same week-order proportions apply and the final holdout remains whatever has not yet been opened.</td><td>Which games may select a rule; which games may only grade one</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official 2026 schedule and results</a> &middot; <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">Official standings (score reconciliation)</a></td></tr>
+    <tr><td><b>Data split</b></td><td>On the reconstructed %(ng)d-game official log: <b>train</b> = Weeks 1&ndash;6; <b>validation</b> (rule and hyperparameter selection) = Weeks 7&ndash;9; <b>final holdout</b> = Week 10 onward, including the registered Week 11 forward window, never opened to selection. The Week-10 completion of this corpus landed after that registration (2026-11-18) and is recorded as a post-hoc integrity repair, not a new registration: flags F-58 (staleness), F-97 (the self-consistent verification pair) and F-98 (the post-hoc strategy-evaluation transition, including the row-order sensitivity of the adjusted interval). The published walk-forward expansion on Weeks 3&ndash;10 was recomputed on the completed corpus and is labelled post-hoc everywhere it appears. Any new backtest on this corpus must be committed (the commit hash is the registration) before its holdout opens. When a second season of official results is ingested, the same week-order proportions apply and the final holdout remains whatever has not yet been opened.</td><td>Which games may select a rule; which games may only grade one</td><td><a href="https://www.nfl.com/schedules/2026/" target="_blank" rel="noreferrer">Official 2026 schedule and results</a> &middot; <a href="https://www.nfl.com/standings/" target="_blank" rel="noreferrer">Official standings (score reconciliation)</a></td></tr>
   </tbody></table></div>
 </section>
 
