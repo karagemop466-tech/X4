@@ -1,6 +1,6 @@
-# T61 live official re-verification and integration pass (2026-11-19)
+# T62 live official re-verification and integration pass (2026-11-19)
 
-Session `arena/a66163eb-x4`. Claimed as T60 and renumbered T61 at merge, because `arena/cd239f59-x4` also took T60 on `main`. Row-level data: `integration-live-2026-11-19.csv` (same folder).
+Session `arena/a66163eb-x4`. Claimed as T60, renumbered T61 at the first merge (`arena/cd239f59-x4` also took T60), and renumbered T62 at the second merge (`arena/f2865351-x4` also took T61). Row-level data: `integration-live-2026-11-19.csv` (same folder).
 
 ## What was read live, and the result
 
