@@ -262,7 +262,7 @@ def stage1(ledger):
     """
     out = {"n": {}, "markets": {}}
     for m in MARKETS:
-        rows = [r for r in ledger if r["market"] == m and r["scored_y"] in ("0", "1")]
+        rows = [r for r in ledger if r["market"] == m and r.get("scored_y") in ("0", "1")]
         n_settled = sum(1 for r in ledger if r["market"] == m
                         and r["status"] in ("won", "lost", "push"))
         out["n"][m] = n_settled
@@ -275,11 +275,11 @@ def stage1(ledger):
             continue
         pairs = {}
         for r in rows:
-            p_model = parse_fair_prob(r["model_probability"]) if r["model_probability"] else None
-            p_mkt = parse_fair_prob(r["market_probability"]) if r["market_probability"] else None
+            p_model = parse_fair_prob(r["model_probability"]) if r.get("model_probability") else None
+            p_mkt = parse_fair_prob(r["market_probability"]) if r.get("market_probability") else None
             if p_model is None:
                 continue
-            y = float(r["scored_y"])
+            y = float(r.get("scored_y"))
             if p_mkt is None:
                 # no market probability for this event: the model's own score only
                 pairs.setdefault(r["event_id"], []).append((p_model, y))

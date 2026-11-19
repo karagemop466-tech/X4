@@ -87,19 +87,42 @@ s2 = E.stage2(L)
 check("stage 2 holds nothing and releases nothing without settled bets", s2["held_units"] == 0.0 and s2["released_units"] == 0.0)
 
 # --- Brier skill on a synthetic sample: model better than market must score > 0 ------------------
+def scored_row(event, market, y, p_model, p_market):
+    """A settled forward row carrying the probability and the scored outcome."""
+    return {"event_id": event, "market": market, "status": "won" if y == "1" else "lost",
+            "result": "home" if y == "1" else "away", "week": "11",
+            "model_probability": p_model, "market_probability": p_market,
+            "scored_y": y, "scored_outcome": "home" if y == "1" else "away",
+            "reference_line": "-3", "probability_event": "synthetic",
+            "entry_line": "-150", "entry_away_ml": "+130", "fair": "0.6"}
+
+
 ledger = []
 for i in range(40):
-    y = "home" if i % 2 == 0 else "away"
-    # model 0.80 on the home side, market 0.60: when home wins the model is closer; when away wins it is worse,
-    # so build the sample so that the model is systematically better: home wins 60% of the time.
-    ledger.append({"event_id": "B%d" % i, "market": "moneyline", "status": "won" if y == "home" else "lost",
-                   "result": y, "fair": "0.7" if y == "home" else "0.7", "entry_line": "-150",
-                   "entry_away_ml": "+130", "week": "11"})
+    y = "1" if i % 5 != 0 else "0"      # the home side wins 80% of the time
+    ledger.append(scored_row("B%d" % i, "moneyline", y, "0.80", "0.50"))
 s1 = E.stage1(ledger)
 check("stage 1 computes a Brier skill once n >= 30 settled moneylines",
       s1["brier"] is not None and s1["brier"]["n"] == 40)
 check("stage 1 interval is ordered and finite",
       s1["brier"] is not None and s1["brier"]["ci_low"] <= s1["brier"]["ci_high"])
+check("stage 1 skill is positive when the model is the better forecast",
+      s1["brier"] is not None and s1["brier"]["skill"] > 0)
+
+# the side is scored on the same terms: the model's probability against the market's
+side_rows = [scored_row("S%d" % i, "side", "1" if i % 5 else "0", "0.70", "0.60")
+             for i in range(40)]
+s1 = E.stage1(side_rows)
+check("stage 1 scores the side as well as the moneyline",
+      s1["markets"]["side"]["brier"] is not None and s1["markets"]["side"]["brier"]["n"] == 40)
+
+# a total has no market probability, so it is scored on its own and says so
+total_rows = [scored_row("T%d" % i, "total", "1" if i % 5 else "0", "0.55", "")
+              for i in range(40)]
+s1 = E.stage1(total_rows)
+check("a total with no market benchmark reports the model's own Brier and no skill",
+      s1["markets"]["total"]["brier"] is None and s1["markets"]["total"]["model_brier"] is not None
+      and "no market benchmark" in s1["markets"]["total"]["note"])
 
 print("")
 if FAILS:
