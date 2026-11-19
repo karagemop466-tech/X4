@@ -14181,6 +14181,17 @@
    "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/depth-slot-fidelity-2026-11-18.md"
   },
   {
+   "id": "F-86",
+   "item": "The scheduled official-capture run fails because the injury-report check rejects a legitimately partial Week 11 report; the cause is a schema constant, not the page or the network (fixed on this branch, confirmation pending on main)",
+   "type": "Irregularity",
+   "kind": "bad",
+   "status": "open",
+   "detail": "Evidence is the manifest, data/captures/manifest.jsonl, which records the schema counts of every read. The two injuries reads that failed the workflow were 2026-11-18 07:37:40Z and 20:37:55Z (HTTP 200, about 319 kB each): week 11, 2 'Practice Status' headers, 2 'Game Status' headers, 26 player links. That is exactly one game (Colts at Texans: 11 Colts rows and 15 Texans rows). tools/capture_official.py schema_injuries required at least 28 headers and 250 links, which is the full Week 10 shape (14 games). Week 11 has 13 scheduled games (data/schedule-wk11-2026.csv), so the 28-header constant could not pass even a complete Week 11 report. The other failing read, 2026-11-18 03:39:04Z (week 10, 28 headers, 0 player links), is NOT explained by partial coverage and remains a failure; the read at 03:40:10Z of the same week had 347 links and identical bytes to 03:44:00Z. Consequence: the injuries source had no valid capture after 03:44Z on 18 Nov, so the freshness gate failed and the workflow reported failure on both scheduled runs that followed (07:37Z and 20:37Z), although the depth-chart and injury-report reads were still written to the manifest (32 lines per run). F-47 and F-48 describe the state before the T50 capture repair; the manifest now holds 160 lines, and this flag is the current gate that fails. FIX ON THIS BRANCH (T60): the schema is now structural (one week heading, paired club tables, at least one player row per table) and records coverage (complete / partial / over / unknown) against the official schedule file for that week. Partial reads are stored; over-count (more club tables than scheduled games) and zero-row pages fail. tools/capture_delta.py diffs only Week 10 captures against the Week 10 dataset. 20 offline unit tests pass, including the manifest-observed shapes. The official report at the time of this read (2026-11-19) lists the Thursday Colts at Texans game (IND 11 rows, HOU 15 rows, the 26 rows recorded by the 07:37Z capture) and Sunday games after it; the total number of games listed was not counted in full here, and the capture records the count it sees.",
+   "why": "Until this check passes on main, no injury read can be stored as fresh, so every Week 11 designation captured Wednesday to kickoff depends on this repair. The repair changes no published value and no committed dataset. Clears when a capture run on main concludes success, the new manifest line carries the coverage field, and the freshness gate passes. Scheduled runs also fire late and irregularly (runs at 07:37Z and 20:37Z on 18 Nov; no run recorded for the 00:17Z or 06:17Z slots at the time of this check, 2026-11-19 06:55Z), so the 13-hour freshness window is met only if the schedule keeps firing.",
+   "official_url": "https://www.nfl.com/injuries/league/2026/reg11",
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/tools/capture_official.py"
+  },
+  {
    "id": "F-65",
    "item": "Every scheduled official-capture run has failed, and the cause is a code defect: an empty depth-chart URL raises an uncaught ValueError",
    "type": "Irregularity",
@@ -14204,14 +14215,14 @@
   },
   {
    "id": "F-75",
-   "item": "Raw availability captures are committed to a public repository while the brief requires a private data layer for raw row-level data",
+   "item": "The requested public/private data boundary is not met: row-level availability and Game Book data are public, while replayable private raw captures are not evidenced",
    "type": "Limitation",
    "kind": "warn",
    "status": "open",
-   "detail": "The capture pipeline (tools/capture_official.py, .github/workflows/capture.yml) stores raw injury-report and club depth-page bytes under data/captures/ in this repository. GitHub reports the repository public, so those raw pages are public repository content, while the brief's data-layer split requires raw row-level data to sit in a private store until the terms are read. The published site is not affected: the Pages artifact is site/ only and never serves data/. Raised as a privacy request by the capture-hardening session (arena/7db594d1-x4) and surfaced here for the owner's decision.",
-   "why": "No private store exists in this environment, and the brief also requires immutable multi-day raw captures with retained hashes, so both requirements cannot be met at once today. The repo's own register treats missing captures as the irregularity (F-47), so captures run while the question stays visible. Clears when the owner chooses: keep the repository public and accept raw pages as repository content, or make the repository private, or move data/captures to an authorized external store with a terms/retention decision recorded.",
+   "detail": "Correcting the prior wording: raw compressed injury/depth page bodies are not in the current public main tree. The 2026-11-18 privacy-policy commit tree and current capture tree contain only the manifest; .gitignore excludes data/captures/**/*.gz. tools/capture_official.py writes bytes only when X4_CAPTURE_RAW_DIR names an outside directory, and .github/workflows/capture.yml does not set it. The 2026-11-19 manifest audit found 160 hash-bearing HTTP-200 reads across 32 source kinds (157 schema-valid, 3 invalid), zero raw_retained=true and zero raw_store=private records; verify reports 90 hash-only reads and 70 file references absent from this checkout (38 distinct paths). The privacy gap remains: the public repository contains normalized player-level injury, depth, starter, inactive and designation rows, plus tracked verbatim Game Book text, and the public Pages site renders player-level rows. Pages uploads site/ only, but those rows are embedded in its generated HTML. The official NFL injury page now identifies Week 11 while the normalized injury CSV remains a Week 10 snapshot; no Week 11 values were transcribed here. Source terms were not assessed.",
+   "why": "The brief requires the public layer to contain derived analysis and links, with row-level evidence held privately until source terms are read. Hashes without accessible bodies cannot replay a point-in-time snapshot, and public CSVs/HTML are not a private data layer. Keep the availability feature and replay claim gated. The conservative path is to keep raw bytes out of the public repo, document a terms/retention decision, configure and test durable private storage with hashes and timestamps, and publish only aggregate/derived outputs plus official-source links. Until then, this item remains open; this audit makes no legal or source-terms conclusion.",
    "official_url": "https://www.nfl.com/injuries/",
-   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/live-reverification-2026-11-18.md"
+   "url": "https://github.com/karagemop466-tech/X4/blob/main/research/verification/capture-retention-2026-11-19.md"
   },
   {
    "id": "F-71",
